@@ -1,0 +1,97 @@
+.employId span{
+    width: 114px;
+    height: 37px;
+    border-radius: 4px;
+    padding: 10px;
+    border: 1px solid #008ECC;
+
+}
+
+.creteEmpWrap{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+
+}
+
+.hrDSPAwRAP{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.inObPerAd{
+    display: flex;
+    align-items: center;
+    gap: 13px;
+}
+
+.joLetNOC{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    
+}
+
+.joLetNOC select{
+   height: 40px;
+   border-radius: 5px;
+   border: 0.5px solid #E6E6E6;
+   padding: 10px 15px;
+
+}
+
+.inObPerAd img{
+   cursor: pointer;
+}
+
+.PDwRAP{
+    display: flex;
+    flex-direction: column;
+ padding: 20px 40px;
+
+ background-color: white;
+ border-radius: 5px;
+ gap: 10px;
+}
+.PDwRAP h2{
+    font-family: Gilroy-Medium;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 19px;
+    letter-spacing: 0em;
+    text-align: left;
+color: #060606;    
+}
+.persDetaWrap{
+    display: grid;
+    grid-template-columns: repeat(2 , 1fr);
+    gap: 20px;
+}
+.persDetaWrap .singPD{
+   display: flex;
+   align-items: center;
+   gap: 10px;
+
+}
+.persDetaWrap .singPD p{
+    font-family: Gilroy-Medium;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 17px;
+    letter-spacing: 0em;
+    text-align: left;
+color: #293240;    
+
+}
+.persDetaWrap .singPD span{
+    font-family: Gilroy-Regular;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 17px;
+    letter-spacing: 0em;
+    text-align: left;
+color: #293240;    
+
+}

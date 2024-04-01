@@ -1,0 +1,140 @@
+.emWraping{
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.marSecond{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 24px 24px;
+    background-color: white;
+    border-radius: 5px;
+}
+.marSecond .mAdSlE{
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  
+}
+.daate_mate_btn{
+    border: 1px solid;
+    padding: 6px;
+    border-radius: 12px;
+}
+.marSecond .mAdSlE .tText{
+    font-family: Gilroy-Medium;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 19px;
+    letter-spacing: 0em;
+    text-align: left;
+color: #060606;    
+
+}
+.marSecond .mAdSlE label{
+   display: flex;
+   align-items: center;
+   gap: 3px;
+}
+.marSecond .mAdSlE label span{
+    font-family: Gilroy-Medium;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 17px;
+    letter-spacing: 0px;
+    text-align: left;
+color: #293240;    
+}
+.marSecond .maDSrIGH{
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.marSecond .maDSrIGH select{
+    width: 200px;
+    height: 44px;
+    border-radius: 5px;
+    opacity: 0.7px;
+    border: 1px solid #9499A0;
+    font-family: Gilroy-Medium;
+font-size: 12px;
+font-weight: 400;
+line-height: 15px;
+letter-spacing: 0px;
+text-align: left;
+color: #293240;
+    
+}
+
+.resSeBtn{
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.itemANs{
+    font-family: Gilroy-Medium;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 17px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #293240;
+    }
+
+    .marknav{
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 20px;
+        background-color: white;
+
+    }
+
+    .marNavLef{
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .marNavLef select{
+        width: 70px;
+        height: 34px;
+        border: 0.75px solid #CED4DA;
+        border-radius: 5px;
+        
+    }
+
+    .MarkAtMain{
+        background-color: white;
+    }
+
+    .currentText{
+        font-family: Gilroy-Medium;
+font-size: 14px;
+font-weight: 400;
+line-height: 17px;
+letter-spacing: 0em;
+text-align: left;
+color: #101010;
+    }
+
+    .marNavLef span{
+        font-family: Gilroy-Medium;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 17px;
+        letter-spacing: 0em;
+        text-align: left;
+color: #293240;        
+    }
+
+    .marNavRight{
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }

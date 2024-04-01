@@ -1,0 +1,353 @@
+.hrmDasTxtFir{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-width: 1440px;
+    width: 100%;
+    margin: 0 auto;
+
+}
+
+/* for play of leave request hrms admin  */
+.showPlay{
+    display: flex;
+    
+}
+.hidenPlay{
+    display: none;
+
+}
+
+
+.hrmDasTxtFir .hrmHed{
+    font-family: Gilroy-Medium;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #060606;
+}
+.hrmDasTxtFir .hrDsPa{
+display: flex;
+align-items: center;
+gap: 10px;
+}
+.hrmDasTxtFir .hrFirDs{
+    font-family: Gilroy-Regular;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 19px;
+    letter-spacing: 0em;
+    text-align: left;
+color: #1567FF;    
+}
+.hrmDasTxtFir .hrFirDs .html{
+    font-family: Gilroy-Regular;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 19px;
+    letter-spacing: 0em;
+    text-align: left;
+color: #293240;    
+}
+
+.attend-ctiveWrap{
+    display:flex ;
+    gap: 20px;
+    justify-content: space-between;
+    max-width: 1440px;
+    margin: 0 auto;
+    margin-top: 30px;
+}
+
+.hrmActLeft{
+    max-width: 663px;
+    width:100%;
+   
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+} 
+.hrmActLeft .hrLefFir{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  align-items: center;
+  justify-content: center;
+}
+.hrmActLeft .sinActDat{
+    width: 150px;
+    height: 176px;
+    top: 233px;
+    left: 315px;
+    border-radius: 5px;
+    border: 1px;
+    box-shadow: 2px 5px 15px 0px #0000001A;
+padding: 16px 20px;
+display: flex;
+flex-direction: column;
+gap: 15px;
+background-color: white;
+cursor: pointer;
+    
+}
+.hrmActLeft .titWrap{
+   display: flex;
+   flex-direction: column;
+   
+}
+.hrmActLeft .firImg{
+   max-width: 40px;
+   max-height: 40px;
+}
+.hrmActLeft .titWrap .t1{
+    font-family: Gilroy-Regular;
+    font-size: 16px;
+    font-weight: 400;
+    letter-spacing: 0em;
+    text-align: left;
+color: #293240;    
+
+}
+.hrmActLeft .titWrap .t2{
+    font-family: Gilroy-Medium;
+    font-size: 18px;
+    font-weight: 400;
+    letter-spacing: 0em;
+    text-align: left;
+color: #060606;    
+}
+.hrmActLeft .hrmlRNu{
+    font-family: Manrope;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 0em;
+    text-align: left;
+color: #293240;    
+}
+
+.attend-ctiveWrap .hrmActRight{
+ display: flex;
+ flex-direction: column;
+ gap: 20px;
+max-width: 435px;
+width: 100%;
+}
+.attend-ctiveWrap .markAttWrap{
+background-color: white;
+/* width: 435px; */
+width: 100%;
+height: 361px;
+border-radius: 5px;
+display: flex;
+flex-direction: column;
+gap: 20px;
+padding: 25px 0px;
+
+}
+.attend-ctiveWrap .markAttWrap .markAtt{
+display: flex;
+padding: 0px 20px ;
+justify-content: space-between;
+align-items: center;
+
+}
+.attend-ctiveWrap .markAttWrap .markAtt p{
+    font-family: Gilroy-Medium;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 22px;
+    letter-spacing: 0em;
+    text-align: left;
+color: #060606;    
+
+}
+.attend-ctiveWrap .myOficeWrap{
+ padding: 0px 20px;
+ display: flex;
+ flex-direction: column;
+ gap: 24px;
+
+}
+.attend-ctiveWrap .myOficeWrap .myOfText{
+    font-family: Gilroy-Medium;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 19px;
+    letter-spacing: 0em;
+    text-align: left;
+color: #293240;    
+
+}
+.attend-ctiveWrap .oficTime{
+    display: flex;
+    flex-wrap: wrap;
+ max-width: 350px;
+ width: 100%;
+ justify-content: space-between;
+ align-items: center;
+ margin: 0 auto;
+}
+.attend-ctiveWrap .ofSin{
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   gap: 10px;
+}
+.attend-ctiveWrap .ofSin .day{
+    font-family: Gilroy-Medium;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 26px;
+    letter-spacing: 0px;
+    text-align: left;
+color: #293240;    
+}
+.attend-ctiveWrap .oficTime .singlTime{
+    box-shadow: 2px 5px 15px 0px #0000001A; 
+    background-color: #F8F9FD;
+    width: 90px;
+height: 90px;
+top: 373px;
+left: 996px;
+border-radius: 6px;
+display: flex;
+align-items: center;
+/* margin: 0 auto; */
+justify-content: center;
+
+}
+.attend-ctiveWrap .oficTime .singlTime p{
+    font-family: Gilroy-Bold;
+    font-size: 34px;
+    font-weight: 400;
+    line-height: 44px;
+    letter-spacing: 0px;
+    text-align: left;
+color: #293240;    
+
+
+}
+.attend-ctiveWrap .clockINOUTBtn{
+display: flex;
+justify-content: center;
+gap: 30px;
+align-items: center;
+
+}
+.attend-ctiveWrap .clockIN{
+    width: 100px;
+    height:41px;
+    top: 523px;
+    left: 1058px;
+    padding: 12px, 30px, 12px, 30px;
+    border-radius: 4px;
+    gap: 10px;
+    background-color: #6FD943;
+    
+}
+.attend-ctiveWrap .clockIN span{
+    font-family: Gilroy-SemiBold;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 17px;
+    letter-spacing: 0em;
+    text-align: left;
+  color: white;   
+}
+.attend-ctiveWrap .clockOUT{
+    width: 100px;
+    height:41px;
+    top: 523px;
+    left: 1058px;
+    padding: 12px, 30px, 12px, 30px;
+    border-radius: 4px;
+    gap: 10px;
+    background-color: #E9002A;
+}
+.attend-ctiveWrap .clockOUT span{
+    font-family: Gilroy-SemiBold;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 17px;
+    letter-spacing: 0em;
+    text-align: left;
+  color: white;   
+}
+
+.timeSheetWrap{
+    display: flex;
+    flex-direction: column;
+    
+}
+.timeSheetWrap .tScONT{
+    width: 435px;
+    height: 64px;
+    top: 614px;
+    left: 955px;
+    border-radius: 5px, 5px, 0px, 0px;
+    background-color: white;
+    display:flex ;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 20px;
+    
+}
+.timeSheetWrap .time{
+    font-family: Gilroy-Medium;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 22px;
+    letter-spacing: 0em;
+    text-align: left;
+color: #060606;
+
+    
+}
+.timeSheetWrap .caleMagnify{
+  display: flex;
+  /* justify-content: space-between; */
+  gap: 10px;
+  align-items: center;
+    
+}
+
+.taskTitl{
+    font-family: Gilroy-Medium;
+font-size: 16px;
+font-weight: 400;
+line-height: 19px;
+letter-spacing: 0em;
+text-align: left;
+color: #060606;
+}
+
+.taskAns{
+    font-family: Gilroy-Medium;
+font-size: 14px;
+font-weight: 400;
+line-height: 17px;
+letter-spacing: 0em;
+text-align: left;
+color: #293240;
+}
+.textALLtITL{
+    background-color: #F8F9FD;
+}
+
+.hrLefThi{
+    background-color: #FFFFFF;
+    width: 100%;
+    border-radius: 5px;
+}
+.hrLefThi h2{
+   padding: 20px 20px;
+   font-family: Gilroy-Medium;
+font-size: 18px;
+font-weight: 400;
+line-height: 22px;
+letter-spacing: 0em;
+text-align: left;
+color: #060606;
+}
