@@ -15,7 +15,7 @@ import { useState } from 'react';
 
 // const baseUrl = "https://hrms-backend-g3wt.onrender.com";
 
-const baseUrl = "https://hr-backend-ncrd.onrender.com/"
+const baseUrl = "https://hr-backend-ncrd.onrender.com"
 
 const MainState = (props) => {
    const [user, setUser] = useState({});
