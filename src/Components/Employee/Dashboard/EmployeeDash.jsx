@@ -358,8 +358,11 @@ const EmployeeDash = ({ setAlert, pop1, setPop1 }) => {
 
   const [leaveType , setLeaveType] = useState([]);
 
+  console.log("le",leaveType);
+
    const fetchLeaveType = async()=>{
       const resp = await getLeaveTypes();
+      console.log("resp ",resp);
       if(resp.success){
         setLeaveType(resp?.data);
       }
@@ -403,17 +406,20 @@ const EmployeeDash = ({ setAlert, pop1, setPop1 }) => {
                         <p>See all</p>
                       </div>
                       <div className="cel-card">
+                        
                         <div className="cel-box">
                           <div className="cel-boxing">
                             <div className="cel-boxing1">
                               <img src={punjabi} alt="" />
                             </div>
+
                             <div className="cel-boxing2 ml-4 mt-4">
                               <h2>Steve wills</h2>
                               <p>Assistant manager</p>
                               <button>Wish Birthday</button>
                             </div>
                           </div>
+
                         </div>
                         <div className="cel-box ml-5">
                           <div className="cel-boxing">
@@ -427,18 +433,7 @@ const EmployeeDash = ({ setAlert, pop1, setPop1 }) => {
                             </div>
                           </div>
                         </div>
-                        {/* <div className="cel-box ml-5">
-                        <div className="cel-boxing">
-                          <div className="cel-boxing1">
-                            <img src={punjabi} alt="" />
-                          </div>
-                          <div className="cel-boxing2 ml-4 mt-4">
-                            <h2>Steve wills</h2>
-                            <p>Assistant manager</p>
-                            <button>Wish Birthday</button>
-                          </div>
-                        </div>
-                      </div> */}
+                    
                       </div>
                     </div>
 
@@ -518,45 +513,7 @@ const EmployeeDash = ({ setAlert, pop1, setPop1 }) => {
                     </div>
                   </div>
 
-                  {/* <div className="new-joiner">
-                    <h3>
-                      Welcome Onboard
-                      <span className="ml-2">(May 12, 2023)</span>
-                    </h3>
-                    <div className="hr">
-                      <hr className="hr1" />
-                    </div>
-                    <div className="joiners flex items-center justify-between">
-                      <div className="joiners1">
-                        <img src={nancy} alt="" />
-                        <h2>Nancy wills</h2>
-                        <p>Assistant manager</p>
-                        <div className="cheers mt-5">
-                          <div className="cheers1 flex">
-                            <i className="fa-solid fa-champagne-glasses"></i>
-                            <p className="ml-1">Cheer22</p>
-                          </div>
-                          <div className="cheer2 flex">
-                            <i className="fa-solid fa-comment"></i>
-                            <p className="ml-1">Comment</p>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="joiners2">
-                        <p>
-                          Lorem Ipsum is simply dummy text of the printing and
-                          typesetting industry. Lorem Ipsum has been the
-                          industry's standard dummy text ever since the 1500s,
-                          when an unknown printer took a galley of type and
-                          scrambled it to make a type specimen book. It has
-                          survived not only five centuries, but also the leap
-                          into electronic typesetting, remaining essentially
-                          unchanged. It was popularised in the 1960s with the
-                          release of Letraset sheets containing.
-                        </p>
-                      </div>
-                    </div>
-                  </div> */}
+                
                   <div className="metting_div_surbhi">
                     <div className="second-bedge w-full ">
                       <div className="calend falend">
@@ -571,29 +528,7 @@ const EmployeeDash = ({ setAlert, pop1, setPop1 }) => {
                           </NavLink>
                           <Calendar onChange={onChange} value={value} />
                         </div>
-                        {/* <div className="distinguish-fard">
-                          <div className="distinguish-box">
-                            <img src={akash} alt="akash" />
-                            <div className='akash'>
-                              <h3>Interview with Akash Negi</h3>
-                              <p>Lorem Ipsum is simply dummy text of the printing and typesetting.</p>
-                              <h4>12:30  June 12,2022</h4>
-                            </div>
-                          </div>
-                          <div className="distinguish-box">
-                            <img src={akash} alt="akash" />
-                            <div className='akash'>
-                              <h3>Interview with Akash Negi</h3>
-                              <p>Lorem Ipsum is simply dummy text of the printing and typesetting.</p>
-                              <h4>12:30  June 12,2022</h4>
-                            </div>
-                          </div>
-
-                        </div>
-
-                        <div className="show-all">
-                          <p className="text-center">Show all meetings and Interviews</p>
-                        </div> */}
+                       
                       </div>
                     </div>
 
@@ -703,6 +638,7 @@ const EmployeeDash = ({ setAlert, pop1, setPop1 }) => {
                         </div> */}
                       </a>
                     </div>
+
                   </div>
 
                   <div className="hrLefThi22">
@@ -1234,44 +1170,7 @@ const EmployeeDash = ({ setAlert, pop1, setPop1 }) => {
                   </div>
                 </>
 
-                {/* <div className="second-bedge w-full ">
-                  <div className="calend falend">
-                    <div className="calend-head">
-                      <h2>Meetings & more</h2>
-                      <img src={goals} alt="goals" />
-                    </div>
-                    <hr />
-                    <div className="cals-dent relative">
-                      <NavLink to="/employeeDash/atten">
-                        <img width={12} src={arrow} alt="arrow" />
-                      </NavLink>
-                      <Calendar onChange={onChange} value={value} />
-                    </div>
-                    <div className="distinguish-fard">
-                      <div className="distinguish-box">
-                        <img src={akash} alt="akash" />
-                        <div className='akash'>
-                          <h3>Interview with Akash Negi</h3>
-                          <p>Lorem Ipsum is simply dummy text of the printing and typesetting.</p>
-                          <h4>12:30  June 12,2022</h4>
-                        </div>
-                      </div>
-                      <div className="distinguish-box">
-                        <img src={akash} alt="akash" />
-                        <div className='akash'>
-                          <h3>Interview with Akash Negi</h3>
-                          <p>Lorem Ipsum is simply dummy text of the printing and typesetting.</p>
-                          <h4>12:30  June 12,2022</h4>
-                        </div>
-                      </div>
-
-                    </div>
-
-                    <div className="show-all">
-                      <p className="text-center">Show all meetings and Interviews</p>
-                    </div>
-                  </div>
-                </div> */}
+            
               </div>
             </div>
           </div>
