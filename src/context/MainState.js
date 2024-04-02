@@ -169,11 +169,11 @@ const MainState = (props) => {
 
       const { _id } = data?.data?.adminUser;
 
-      if(formData){
+      if (formData) {
 
-         console.log("reujjn ",formData); 
+         console.log("reujjn ", formData);
          const resp = await postDocuments(`${baseUrl}/user/uploadDocument/${_id}`, formData);
-          
+
       }
 
       return data;
@@ -746,15 +746,15 @@ const MainState = (props) => {
    };
 
    // ================================announcement===========================
-   const createAnnouncement = async ({title, Branch, Department, Employee, startDate,endDate , description}) => {
-      const data = await post(`${baseUrl}/admin/postAnnouncement`, {title, Branch, Department, Employee, startDate,endDate , description}, true);
-      return data; 
+   const createAnnouncement = async ({ title, Branch, Department, Employee, startDate, endDate, description }) => {
+      const data = await post(`${baseUrl}/admin/postAnnouncement`, { title, Branch, Department, Employee, startDate, endDate, description }, true);
+      return data;
    }
 
 
 
-   const updateAnnouncements = async ({ id, title, Branch, Department, Employee, startDate,endDate,description}) => {
-      const data = await put(`${baseUrl}/admin/updateAnnouncement/${id}`, {title, Branch, Department, Employee, startDate,endDate,description}, true);
+   const updateAnnouncements = async ({ id, title, Branch, Department, Employee, startDate, endDate, description }) => {
+      const data = await put(`${baseUrl}/admin/updateAnnouncement/${id}`, { title, Branch, Department, Employee, startDate, endDate, description }, true);
       return data;
    };
 
@@ -768,7 +768,7 @@ const MainState = (props) => {
       return data;
    };
 
-   const notificationGet = async()=>{
+   const notificationGet = async () => {
       let user = localStorage.getItem("hrms_user");
       const userDetail = JSON.parse(user);
 
@@ -778,45 +778,45 @@ const MainState = (props) => {
       return data;
    }
 
-   
-   const acceptLeave = async(formdata)=>{
-      
-      const {user , days} = formdata;
+
+   const acceptLeave = async (formdata) => {
+
+      const { user, days } = formdata;
 
       let fullName = user.fullName;
 
-     const data = await post(`${baseUrl}/leave/acceptLeave`,{fullName , days}, true);
-     return data;
+      const data = await post(`${baseUrl}/leave/acceptLeave`, { fullName, days }, true);
+      return data;
    }
-    const rejectLeave = async(formdata)=>{
-     const {user } = formdata;
-     let fullName = user.fullName;
+   const rejectLeave = async (formdata) => {
+      const { user } = formdata;
+      let fullName = user.fullName;
 
-     const data = await post(`${baseUrl}/leave/rejectLeave`, {fullName}, true);
+      const data = await post(`${baseUrl}/leave/rejectLeave`, { fullName }, true);
 
-     return data;
-    }
-  
-
-    const postNotification = async(daysGap ,name)=>{
- 
-     const data = await post(`${baseUrl}/notification/createNotification`, {title: `Leave Application from ${name} ` , description:`Leave of ${daysGap} days` , users:["shubham gupta"]}, true);
+      return data;
+   }
 
 
-     return data;
+   const postNotification = async (daysGap, name) => {
 
-    }
-    const postNotifyLeavereq = async(name , title)=>{
- 
-     const data = await post(`${baseUrl}/notification/createNotification`, {title: `${title} Leave Application` , description:`Leave Application ${title} By Admin ` , users:[`${name}`]}, true);
+      const data = await post(`${baseUrl}/notification/createNotification`, { title: `Leave Application from ${name} `, description: `Leave of ${daysGap} days`, users: ["shubham gupta"] }, true);
 
 
-     return data;
+      return data;
 
-    }
-  
+   }
+   const postNotifyLeavereq = async (name, title) => {
 
-     const fetchUserNotify = async()=>{
+      const data = await post(`${baseUrl}/notification/createNotification`, { title: `${title} Leave Application`, description: `Leave Application ${title} By Admin `, users: [`${name}`] }, true);
+
+
+      return data;
+
+   }
+
+
+   const fetchUserNotify = async () => {
       let user = localStorage.getItem("hrms_user");
       const userDetail = JSON.parse(user);
 
@@ -824,8 +824,8 @@ const MainState = (props) => {
 
       const data = await get(`${baseUrl}/notification/getNotification/${id}`, true);
       return data;
-     }
-     const deleteNotification = async(notId)=>{
+   }
+   const deleteNotification = async (notId) => {
       let user = localStorage.getItem("hrms_user");
       const userDetail = JSON.parse(user);
 
@@ -833,7 +833,93 @@ const MainState = (props) => {
 
       const data = await deleteReq(`${baseUrl}/notification/deleteNotification/${id}/${notId}`, true);
       return data;
-     }
+   }
+
+   const createTermination = async ({ Employee,
+      type,
+      noticeDate,
+      terminationDate,
+      description }) => {
+      const data = await post(`${baseUrl}/admin/postTermination`, {
+         Employee,
+         type,
+         noticeDate,
+         terminationDate,
+         description
+      }, true);
+
+      console.log("resp ", data);
+      return data;
+   }
+
+   const getTermination = async () => {
+      const data = await get(`${baseUrl}/admin/getTermination`, true);
+      return data;
+   };
+
+   const deleteTermination = async (id) => {
+      const data = await deleteReq(`${baseUrl}/admin/deleteTermination/${id}`, true);
+      return data;
+   };
+
+   const updateTermination = async ({ id, Employee,
+      type,
+      noticeDate,
+      terminationDate,
+      description }) => {
+      const data = await put(`${baseUrl}/admin/updateTermination/${id}`, {
+         Employee,
+         type,
+         noticeDate,
+         terminationDate,
+         description
+      }, true);
+      return data;
+   };
+
+   // ================warning================
+
+   const createWarning = async ({warningBy,
+      warningTo,
+      subject,
+      warningDate,
+      description}) => {
+      const data = await post(`${baseUrl}/admin/postWarning`, {
+         warningBy,
+         warningTo,
+         subject,
+         warningDate,
+         description
+      }, true);
+
+      console.log("resp ", data);
+      return data;
+   }
+
+   const getWarning = async () => {
+      const data = await get(`${baseUrl}/admin/getWarning`, true);
+      return data;
+   };
+
+   const deleteWarning = async (id) => {
+      const data = await deleteReq(`${baseUrl}/admin/deleteWarning/${id}`, true);
+      return data;
+   };
+
+   const updateWarning = async ({ id, warningBy,
+      warningTo,
+      subject,
+      warningDate,
+      description }) => {
+      const data = await put(`${baseUrl}/admin/updateWarning/${id}`, {
+         warningBy,
+         warningTo,
+         subject,
+         warningDate,
+         description
+      }, true);
+      return data;
+   };
 
 
 
@@ -841,11 +927,13 @@ const MainState = (props) => {
       <MainContext.Provider value={{
          login, employeeLogin, employeeResetPassword, hrLogin, createHr, getHrs, deleteHr, createEmployee, getEmployees, getUsers, getActiveUsers, getActiveUsersCount, getAdminEmployees, postActivity, postActivityHr, getActivitiesByUser, getStatisticsByUser, postLeave, updateLeave, getUserLeaves, getUserLeaveById, deleteLeave, getTotalLeaves, postTotalLeaves, verifyEmployee, verifyHr, verifyAdmin, setUser, user, getProjects, postProject, getHolidays, postHoliday, updateProject, getProjectsByEmployee, getTasks, postTask, updateTask, deleteTask, setFlag, flag, changePassword, updateProfile, deleteHoliday, updateHoliday, deleteProject, getChats, createNewChat, postMessage, deleteChat, adminLogin, getChat, getChatByUser, setChatUser, chatUser, getEmployeesByEmployee, topDash, postAnnouncement, updateAnnouncement, getAnnouncements, getAnnouncementDates, deleteAnnouncement, getAttendance, getAttendanceByUser, createEmployee1, updateAdminProfile, changePassword1, verify, updateUser, forgetPassword, forgetPassword1, forgetPassword2, getBranchs, postBranch, updateBranch, deleteBranch, getDepartments, postDepartment, updateDepartment, deleteDepartment, getDesingation, postDesignation, updateDesignation, deleteDesignation, getAllActivities, postLeaveType, updateLeaveType, getLeaveTypes, deleteLeaveType,
          createIndicator, getIndicator, deleteIndicator, getDesignations, updateIndicator, getAppraisal, createAppraisal, allEmployee, deleteApprisal, updateApprisal, createAssets, getAssets, deleteAssets, updateAssets, deleteUser, createTracks, getTracks, deleteTracks, updateTracks,
-         getTotalLeavesCount, uploadDocuments,createAnnouncement,deleteAnnouncement,updateAnnouncements,fetchAnnoucement,deleteAnnouncements,getEmp , allEmployeebyDep , notificationGet , 
-         acceptLeave ,rejectLeave , 
-         postNotification , fetchUserNotify , 
-         deleteNotification , 
-         postNotifyLeavereq
+         getTotalLeavesCount, uploadDocuments, createAnnouncement, deleteAnnouncement, updateAnnouncements, fetchAnnoucement, deleteAnnouncements, getEmp, allEmployeebyDep, notificationGet,
+         acceptLeave, rejectLeave,
+         postNotification, fetchUserNotify,
+         deleteNotification,
+         postNotifyLeavereq,
+         createTermination, getTermination, deleteTermination, updateTermination,
+         createWarning,getWarning,deleteWarning, updateWarning
       }}>
          {props.children}
       </MainContext.Provider>
