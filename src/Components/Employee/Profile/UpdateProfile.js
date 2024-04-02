@@ -5,16 +5,32 @@ import { useMain } from "../../../hooks/useMain";
 import { useNavigate } from "react-router-dom";
 
 const UpdateProfile = ({ setAlert, pop1, setPop1 }) => {
-  const { user, updateProfile, postActivity, getStatisticsByUser } = useMain();
+  const { user, updateProfile, postActivity, getStatisticsByUser,getBranchs, getDepartments, getDesignations } = useMain();
   const [value, setValue] = useState(user);
 
 
   const navigate = useNavigate();
 
+  const [branches, setBranches] = useState([]);
+  const [departments, setDepartments] = useState([]);
+  const [designations, setDesignations] = useState([]);
+
+  const getData = async () => {
+    let ans = await getBranchs();
+    let ans1 = await getDepartments();
+    let ans2 = await getDesignations();
+    console.log(ans?.data);
+    setBranches(ans?.data);
+    setDepartments(ans1?.data);
+    setDesignations(ans2?.data);
+  };
+
+
   useEffect(() => {
     // setValue(user);
     let user1 = JSON.parse(localStorage.getItem("hrms_user"));
     setValue(user1);
+    getData();
   }, []);
 
   const handleChange = (e) => {
@@ -24,6 +40,8 @@ const UpdateProfile = ({ setAlert, pop1, setPop1 }) => {
       setValue({ ...value, [e.target.name]: e.target.value });
     }
   };
+
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -162,23 +180,13 @@ const UpdateProfile = ({ setAlert, pop1, setPop1 }) => {
                     className="block w-full"
                     onChange={() => null}
                     name="department"
-                    value={value.department}
+                    value={value?.department}
                     id="department"
                   >
-                    <option value={`Intern`}>
-                      Intern
-                    </option>
-                    <option value={`UI/UX Designer`}>
-                      UI/UX Designer
-                    </option>
-                    <option value={`Developer`}>
-                      Developer
-                    </option>
-                    <option value={`Manager`}>
-                      Manager/Project manager
-                    </option>
                     {
-                      user.role === "ADMIN" && <option value={`Hr`}>Hr</option>
+                      departments?.map((val,index)=>{
+                        return <option key={index} value={val?.name}>{val?.name}</option>
+                      })
                     }
                   </select>
                 </div>
@@ -193,11 +201,16 @@ const UpdateProfile = ({ setAlert, pop1, setPop1 }) => {
                     value={value.designation}
                     id="designation"
                   >
-                    <option>Designation</option>
+                    {/* <option>Designation</option>
                     <option value="Developer">Developer</option>
                     <option value="Designer">Designer</option>
                     <option value="Hr">Hr</option>
-                    <option value="Manager">Manager/Project manager</option>
+                    <option value="Manager">Manager/Project manager</option> */}
+                    {
+                      designations?.map((val,index)=>{
+                        return <option key={index} value={val?.name}>{val?.name}</option>
+                      })
+                    }
                   </select>
                 </div>
                 <div className="mb-6">

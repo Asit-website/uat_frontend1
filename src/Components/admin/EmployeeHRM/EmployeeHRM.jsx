@@ -27,7 +27,7 @@ const EmployeeHRM = ({
   setAlert,
   isHr = false,
 }) => {
-  const { user, getUsers, getActiveUsersCount, postActivity , getTotalLeavesCount } = useMain();
+  const { user, getUsers, getActiveUsersCount, postActivity, getTotalLeavesCount, fetchAnnoucement } = useMain();
 
   const [counts, setCounts] = useState({
     activeEmployees: 0,
@@ -37,7 +37,9 @@ const EmployeeHRM = ({
   });
   const [loadFlag, setLoadFlag] = useState(true);
 
-  const [totalLeave , setTotalLeave] = useState(0);
+  const [totalLeave, setTotalLeave] = useState(0);
+
+  const [announce, setAnnounce] = useState([]);
 
 
   const getData = async () => {
@@ -45,8 +47,8 @@ const EmployeeHRM = ({
     const ans = await getUsers();
     const ans1 = await getActiveUsersCount();
 
-     const ans2 = await getTotalLeavesCount();
-     setTotalLeave(ans2.totalLeave);
+    const ans2 = await getTotalLeavesCount();
+    setTotalLeave(ans2.totalLeave);
 
     // console.log(ans1);
     setCounts({
@@ -117,10 +119,10 @@ const EmployeeHRM = ({
     let t = localStorage.getItem('clock-status');
     // console.log(t);
 
-    
+
 
     if (!t) {
-      let ans = await postActivity({ clockIn: localStorage.getItem('clock-in')?localStorage.getItem("clock-in"):new Date().getTime() , clockOut: 0, late: 0, date1: new Date().toLocaleDateString('en-GB'), overtime: 0, total: 0, message: '' });
+      let ans = await postActivity({ clockIn: localStorage.getItem('clock-in') ? localStorage.getItem("clock-in") : new Date().getTime(), clockOut: 0, late: 0, date1: new Date().toLocaleDateString('en-GB'), overtime: 0, total: 0, message: '' });
 
       localStorage.setItem('clock-in', new Date().getTime());
       localStorage.setItem('clock-status', 'break');
@@ -194,8 +196,19 @@ const EmployeeHRM = ({
 
   useEffect(() => {
     getData();
-  
+
   }, []);
+
+  const getAnnoucement = async () => {
+    const ans = await fetchAnnoucement();
+    setAnnounce(ans?.data);
+  }
+
+  useEffect(() => {
+    getAnnoucement();
+  }, []);
+
+
 
   return (
     <>
@@ -287,7 +300,7 @@ const EmployeeHRM = ({
                   </div>
 
                   {/* second  */}
-                  <div className="hrLefThi">
+                 <NavLink to="/adminDash/announcement"><div className="hrLefThi">
 
                     <h2>Announcement Lists</h2>
 
@@ -312,61 +325,34 @@ const EmployeeHRM = ({
                           </tr>
                         </thead>
                         <tbody>
-                          <tr className="bg-white border-b  ">
-                            <th scope="row" className="px-6 py-4 font-medium  whitespace-nowrap taskAns ">
-                              WORK FROM HOME
-                            </th>
-                            <td className="px-2 py-4 taskAns">
-                              JAN 22,2024
-                            </td>
-                            <td className="px-6 py-4 taskAns">
-                              JAN 22,2024
-                            </td>
-                            <td className="px-6 py-4 taskAns">
-                              AYODHYA RAM MANDIR
-                            </td>
+                          {
+                            announce?.map((val, index) => {
+                              return (
+                                <tr key={index} className="bg-white border-b  ">
+                                  <th scope="row" className="px-6 py-4 font-medium  whitespace-nowrap taskAns ">
+                                    {val?.title}
+                                  </th>
+                                  <td className="px-2 py-4 taskAns">
+                                    {val?.startDate}
+                                  </td>
+                                  <td className="px-6 py-4 taskAns">
+                                    {val?.endDate}
+                                  </td>
+                                  <td className="px-6 py-4 taskAns">
+                                    {val?.description}
+                                  </td>
 
-                          </tr>
-
-                          <tr className="bg-white border-b  ">
-                            <th scope="row" className="px-6 py-4 font-medium  whitespace-nowrap taskAns ">
-                              WORK FROM HOME
-                            </th>
-                            <td className="px-2 py-4 taskAns">
-                              JAN 22,2024
-                            </td>
-                            <td className="px-6 py-4 taskAns">
-                              JAN 22,2024
-                            </td>
-                            <td className="px-6 py-4 taskAns">
-                              AYODHYA RAM MANDIR
-                            </td>
-
-                          </tr>
-
-                          <tr className="bg-white border-b  ">
-                            <th scope="row" className="px-6 py-4 font-medium  whitespace-nowrap taskAns ">
-                              WORK FROM HOME
-                            </th>
-                            <td className="px-2 py-4 taskAns">
-                              JAN 22,2024
-                            </td>
-                            <td className="px-6 py-4 taskAns">
-                              JAN 22,2024
-                            </td>
-                            <td className="px-6 py-4 taskAns">
-                              AYODHYA RAM MANDIR
-                            </td>
-
-                          </tr>
-
+                                </tr>
+                              )
+                            })
+                          }
 
                         </tbody>
                       </table>
                     </div>
 
 
-                  </div>
+                  </div></NavLink>
                 </div>
 
                 {/* right side */}

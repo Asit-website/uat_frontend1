@@ -24,11 +24,11 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
   const [data, setData] = useState([]);
 
   const [formdata, setFormdata] = useState({
-    warningBy:"",
-    warningTo:"",
-    subject:"",
-    warningDate:"",
-    description:""
+    warningBy: "",
+    warningTo: "",
+    subject: "",
+    warningDate: "",
+    description: ""
   })
 
   const fetchEmployee = async () => {
@@ -55,17 +55,37 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
 
 
   const submitHandler = async (e) => {
-    e.preventDefault();
     try {
-      const ans = await createWarning({ ...formdata });
-      console.log(ans);
-      alert("Successfuly Created");
-      setRefreshFlag(!refreshFlag);
+      if (onEdit) {
+        e.preventDefault();
+        await updateWarning({ ...formdata });
+        alert("update successfully");
+        setRefreshFlag(!refreshFlag);
+      }
+      else {
+        e.preventDefault();
+        await createWarning({ ...formdata });
+        alert("Successfuly Created");
+        setRefreshFlag(!refreshFlag);
+      }
       setPopup1(false);
     } catch (error) {
       console.log(error);
     }
   }
+
+  useEffect(() => {
+    if (onEdit) {
+      setFormdata({
+        id: editData._id,
+        warningBy: editData.warningBy,
+        warningTo: editData.warningTo,
+        subject: editData.subject,
+        warningDate: editData.warningDate,
+        description: editData.description
+      })
+    }
+  }, [editData])
 
   const deleteProject = async (id) => {
 
@@ -137,7 +157,7 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
 
                 <div>
                   <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-                  <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                    <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                       <thead class="text-xs text-black uppercase  dark:text-black">
                         <tr>
                           <th scope="col" class="px-6 py-3">
@@ -150,7 +170,7 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
                             SUBJECT
                           </th>
                           <th scope="col" class="px-6 py-3">
-                             WARNING DATE
+                            WARNING DATE
                           </th>
                           <th scope="col" class="px-6 py-3">
                             DESCRIPTION
@@ -186,10 +206,14 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
                                 </td>
                                 <td class="px-6 py-4">
                                   <div className='flex items-center sk'>
-                                    <i  className="fa-solid fa-pen-to-square"></i>
-                                    <i onClick={()=>{
+                                    <i onClick={() => {
+                                      setOnEdit(true);
+                                      setEditData(item);
+                                      setPopup1(true)
+                                    }} className="fa-solid fa-pen-to-square"></i>
+                                    <i onClick={() => {
                                       deleteProject(item?._id);
-                                    }}  className="fa-solid fa-trash"></i>
+                                    }} className="fa-solid fa-trash"></i>
                                   </div>
                                 </td>
 
@@ -229,80 +253,102 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
           <div className="allPopupWrap">
             <div className="popup1 awardpopup">
               <h2>Create New Warning</h2>
-              <label className="cross-icon"></label>
+              <label onClick={() => {
+                setPopup1(false);
+                setOnEdit(false);
+                setEditData({});
+                setFormdata({
+                  warningBy: "",
+                  warningTo: "",
+                  subject: "",
+                  warningDate: "",
+                  description: ""
+                })
+              }} className="cross-icon"></label>
 
               <hr />
 
               {/* <div className="award-popup-label"> */}
               <form onSubmit={submitHandler}>
-              <div className="award-popup-label">
-                <label htmlFor="">
-                  <p>Warning By</p>
-                   <select name="warningBy" value={formdata.warningBy} id="warningBy" onChange={changeHandler} >
-                       {
-                        employee?.map((val,index)=>{
+                <div className="award-popup-label">
+                  <label htmlFor="">
+                    <p>Warning By</p>
+                    <select name="warningBy" value={formdata.warningBy} id="warningBy" onChange={changeHandler} >
+                      {
+                        employee?.map((val, index) => {
+                          return <option key={index} value={val?.fullName}>{val?.fullName}</option>
+                        })
+                      }
+                    </select>
+                  </label>
+                  <label htmlFor="">
+                    <p>Warning To</p>
+                    <select name="warningTo" value={formdata.warningTo} id="warningTo" onChange={changeHandler} >
+                      {
+                        employee?.map((val, index) => {
                           return <option value={val?.fullName}>{val?.fullName}</option>
                         })
-                       }
-                   </select>
-                </label>
-                <label htmlFor="">
-                  <p>Warning To</p>
-                  <select name="warningTo" value={formdata.warningTo} id="warningTo" onChange={changeHandler} >
-                       {
-                        employee?.map((val,index)=>{
-                          return <option value={val?.fullName}>{val?.fullName}</option>
-                        })
-                       }
-                   </select>
-                </label>
-              </div>
-              <div className="award-popup-label">
-                <label htmlFor="warningTo">
-                  <p>Subject</p>
-                  <input
-                    type="text"
-                    name="subject"
-                    value={formdata?.subject}
-                    onChange={changeHandler}
-                    id="warningTo"
-                    // onChange={(e) => {
-                    //   setBranch(e.target.value);
-                    // }}
-                    // value={branch}
-                    placeholder=""
-                  />
-                </label>
-                <label htmlFor="warningDate">
-                  <p>Warning Date</p>
-                  <input
-                    type="date"
-                    name="warningDate"
-                    value={formdata?.warningDate}
-                    onChange={changeHandler}
-                    id="warningDate"
-                  />
-                </label>
-              </div>
-              <div className="award-popup-label award-popup-textarea">
-                <label htmlFor="description">
-                  <p>Description</p>
-                  <textarea onChange={changeHandler} value={formdata?.description} id="description" name="description" rows="8" cols="50" placeholder="Enter Description"></textarea>
-                </label>
-              </div>
-              {/* <div/> */}
+                      }
+                    </select>
+                  </label>
+                </div>
+                <div className="award-popup-label">
+                  <label htmlFor="warningTo">
+                    <p>Subject</p>
+                    <input
+                      type="text"
+                      name="subject"
+                      value={formdata?.subject}
+                      onChange={changeHandler}
+                      id="warningTo"
+                      // onChange={(e) => {
+                      //   setBranch(e.target.value);
+                      // }}
+                      // value={branch}
+                      placeholder=""
+                    />
+                  </label>
+                  <label htmlFor="warningDate">
+                    <p>Warning Date</p>
+                    <input
+                      type="date"
+                      name="warningDate"
+                      value={formdata?.warningDate}
+                      onChange={changeHandler}
+                      id="warningDate"
+                    />
+                  </label>
+                </div>
+                <div className="award-popup-label award-popup-textarea">
+                  <label htmlFor="description">
+                    <p>Description</p>
+                    <textarea onChange={changeHandler} value={formdata?.description} id="description" name="description" rows="8" cols="50" placeholder="Enter Description"></textarea>
+                  </label>
+                </div>
+                {/* <div/> */}
 
-              <hr />
+                <hr />
 
-              <div className="btnWrap Award-popup-btn">
-                <button type="button" className="cencel awd-cancel" onClick={() => setPopup1(false)}>
-                  <span>Cancel</span>
-                </button>
+                <div className="btnWrap Award-popup-btn mt-5">
+                  <button onClick={() => {
+                    setPopup1(false);
+                    setOnEdit(false);
+                    setEditData({});
+                    setFormdata({
+                      warningBy: "",
+                      warningTo: "",
+                      subject: "",
+                      warningDate: "",
+                      description: ""
+                    })
+                  }} type="button" className="cencel awd-cancel" >
+                    <span>Cancel</span>
+                  </button>
 
-                <button type="submit" className="create awd-create" >
-                  <span>Create</span>
-                </button>
-              </div>
+                  <button type="submit" className="create awd-create" >
+                    <span>{onEdit ? "Update" : "Create"}</span>
+                  </button>
+                </div>
               </form>
             </div>
           </div>

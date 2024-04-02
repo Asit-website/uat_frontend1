@@ -879,11 +879,11 @@ const MainState = (props) => {
 
    // ================warning================
 
-   const createWarning = async ({warningBy,
+   const createWarning = async ({ warningBy,
       warningTo,
       subject,
       warningDate,
-      description}) => {
+      description }) => {
       const data = await post(`${baseUrl}/admin/postWarning`, {
          warningBy,
          warningTo,
@@ -921,6 +921,50 @@ const MainState = (props) => {
       return data;
    };
 
+   // =================complains================
+
+   const createComplain = async ({ complainFrom,
+      complainAgain,
+      title,
+      complainDate,
+      description }) => {
+      const data = await post(`${baseUrl}/admin/postComplain`, {
+         complainFrom,
+         complainAgain,
+         title,
+         complainDate,
+         description
+      }, true);
+
+      console.log("resp ", data);
+      return data;
+   }
+
+   const getComplain = async () => {
+      const data = await get(`${baseUrl}/admin/getComplain`, true);
+      return data;
+   };
+
+   const deleteComplain = async (id) => {
+      const data = await deleteReq(`${baseUrl}/admin/deleteComplain/${id}`, true);
+      return data;
+   };
+
+   const updateComplain = async ({ id, complainFrom,
+      complainAgain,
+      title,
+      complainDate,
+      description }) => {
+      const data = await put(`${baseUrl}/admin/updateComplain/${id}`, {
+         complainFrom,
+         complainAgain,
+         title,
+         complainDate,
+         description
+      }, true);
+      return data;
+   };
+
 
 
    return (
@@ -933,7 +977,8 @@ const MainState = (props) => {
          deleteNotification,
          postNotifyLeavereq,
          createTermination, getTermination, deleteTermination, updateTermination,
-         createWarning,getWarning,deleteWarning, updateWarning
+         createWarning, getWarning, deleteWarning, updateWarning,
+         createComplain, getComplain, updateComplain, deleteComplain
       }}>
          {props.children}
       </MainContext.Provider>
