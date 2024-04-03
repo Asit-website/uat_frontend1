@@ -3,7 +3,7 @@ import MainContext from './MainContext';
 import { deleteReq, get, post, put, postDocuments } from '../Api/api'
 import { useState } from 'react';
 
-// const baseUrl = "http://localhost:5000";
+const baseUrl = "http://localhost:5000";
 
 // const baseUrl = "https://hrms-backend-code.onrender.com"
 
@@ -15,7 +15,7 @@ import { useState } from 'react';
 
 // const baseUrl = "https://hrms-backend-g3wt.onrender.com";
 
-const baseUrl = "https://hr-backend-ncrd.onrender.com"
+// const baseUrl = "https://hr-backend-ncrd.onrender.com"
 
 
 const MainState = (props) => {
@@ -937,7 +937,6 @@ const MainState = (props) => {
          description
       }, true);
 
-      console.log("resp ", data);
       return data;
    }
 
@@ -966,6 +965,29 @@ const MainState = (props) => {
       return data;
    };
 
+   
+   const postAttendence = async ({ clockInDetail , clockOutDetail , id }) => {
+
+      const today = new Date();
+      const date = `${today.getDate()} : ${today.getMonth() + 1} : ${today.getFullYear()}`;
+
+      const data = await post(`${baseUrl}/clock/createClock/${id}`, {
+      clockInDetail , clockOutDetail , date
+      }, true);
+
+      return data;
+   }
+
+
+   const getAttendence = async ({ id , date }) => {
+
+      const data = await post(`${baseUrl}/clock/getClock/${id}`, {
+      date
+      }, true);
+
+      return data;
+   }
+
 
 
    return (
@@ -979,7 +1001,9 @@ const MainState = (props) => {
          postNotifyLeavereq,
          createTermination, getTermination, deleteTermination, updateTermination,
          createWarning, getWarning, deleteWarning, updateWarning,
-         createComplain, getComplain, updateComplain, deleteComplain
+         createComplain, getComplain, updateComplain, deleteComplain , 
+         postAttendence , 
+         getAttendence
       }}>
          {props.children}
       </MainContext.Provider>

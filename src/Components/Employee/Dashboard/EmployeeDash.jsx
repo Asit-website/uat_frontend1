@@ -21,7 +21,7 @@ var tc4;
 
 const EmployeeDash = ({ setAlert, pop1, setPop1 }) => {
   // =================punch in punch out concept==========
-  const { user, postActivity, getStatisticsByUser , postLeave , getLeaveTypes , postNotification } = useMain();
+  const { user, postActivity, getStatisticsByUser , postLeave , getLeaveTypes , postNotification , postAttendence } = useMain();
 
   const [startTs, setStartTs] = useState("");
   var [percentageDone, setPercentageDone] = useState(0);
@@ -216,7 +216,8 @@ const EmployeeDash = ({ setAlert, pop1, setPop1 }) => {
 
   const clockIn = async () => {
     let t = localStorage.getItem("clock-status");
-    // console.log(t);
+    localStorage.setItem('clockInTime', new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', second: '2-digit', hour12: true }));
+
 
     if (!t) {
       let ans = await postActivity({
@@ -292,6 +293,8 @@ const EmployeeDash = ({ setAlert, pop1, setPop1 }) => {
   const clockOut = async () => {
     localStorage.setItem("clock-status", "out");
     localStorage.setItem("clock-out-time", new Date().getTime());
+    localStorage.setItem('clockOutTime', new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', second: '2-digit', hour12: true }));
+
     clearInterval(tc3);
     clearInterval(tc4);
     setMount(!mount);
@@ -306,9 +309,22 @@ const EmployeeDash = ({ setAlert, pop1, setPop1 }) => {
       total: clock,
       message: "",
     });
+
+    let user = localStorage.getItem("hrms_user");
+    const userDetail = JSON.parse(user);
+
+    const id = userDetail?._id;
+
+    const attendence = await postAttendence({clockInDetail:localStorage.getItem("clockInTime") , clockOutDetail:localStorage.getItem("clockOutTime") , id});
+
+    console.log("attende ce",attendence);
+
+
      localStorage.removeItem("clock-in");
      localStorage.removeItem("clock-status");
      localStorage.removeItem("clock-out-time");
+     localStorage.removeItem("clockOutTime");
+     localStorage.removeItem("clockInTime");
   };
 
   const [star1, setStar1] = useState(false);
@@ -358,8 +374,6 @@ const EmployeeDash = ({ setAlert, pop1, setPop1 }) => {
 
   const [leaveType , setLeaveType] = useState([]);
 
-  console.log("le",leaveType);
-
    const fetchLeaveType = async()=>{
       const resp = await getLeaveTypes();
       console.log("resp ",resp);
@@ -390,15 +404,7 @@ const EmployeeDash = ({ setAlert, pop1, setPop1 }) => {
             <div className="flex-col">
               <div className="bedge">
                 <div className="first-bedge w-full ">
-                  {/* <div className="bret">
-                    <div className="give flex items-center">
-                      <img className="btr" src={bret} alt="" />
-                      <p className="ml-3">Give a Badge</p>
-                    </div>
-                    <div className="give1">
-                      <img className="plus" src={plus} alt="" />
-                    </div>
-                  </div> */}
+                
                   <div className="attend-ctiveWrapempp">
                     <div className="celeberation w-full">
                       <div className="cel-head">
@@ -516,6 +522,7 @@ const EmployeeDash = ({ setAlert, pop1, setPop1 }) => {
                 
                   <div className="metting_div_surbhi">
                     <div className="second-bedge w-full ">
+
                       <div className="calend falend">
                         <div className="calend-head">
                           <h2>Meetings & more</h2>
@@ -530,6 +537,7 @@ const EmployeeDash = ({ setAlert, pop1, setPop1 }) => {
                         </div>
                        
                       </div>
+
                     </div>
 
                     <div>
@@ -540,11 +548,13 @@ const EmployeeDash = ({ setAlert, pop1, setPop1 }) => {
                         <h5 className="mb-3 text-xl  tracking-tight text-gray-900 dark:text-white">
                           Time Log
                         </h5>
+
                         <hr />
                         <h5 className="mb-3 mt-3 text-xl  tracking-tight text-gray-900 dark:text-white">
                           Today
                         </h5>
                         <hr />
+
                         <div className="time_emp_desh_flex">
                           <div className="time_emp_desh">
                             <h5 className="mb-1 mt-3 text-xl  tracking-tight text-gray-900 dark:text-white">{`${Math.floor(
@@ -598,10 +608,13 @@ const EmployeeDash = ({ setAlert, pop1, setPop1 }) => {
                             <p>balance</p>
                           </div>
                         </div>
+
                         <h5 className="mb-3 mt-3 text-xl  tracking-tight text-gray-900 dark:text-white">
                           This month
                         </h5>
+
                         <hr />
+
                         <div className="time_emp_desh_flex2">
                           <div className="time_emp_desh">
                             <div className="mt-5">
@@ -628,14 +641,8 @@ const EmployeeDash = ({ setAlert, pop1, setPop1 }) => {
                             <p>Total schedule time</p>
                           </div>
                         </div>
-                        {/* <div className="mb-1 text-lg font-medium dark:text-white">Worked time - 116 h</div>
-                        <div className="w-full h-4 mb-4 bg-gray-200 rounded-full dark:bg-gray-700">
-                          <div className="h-4 bg-blue-600 rounded-full dark:bg-blue-500" style="width: 45%"></div>
-                        </div>
-                        <div className="mb-1 text-lg font-medium dark:text-white">Over time - 116 h</div>
-                        <div className="w-full h-4 mb-4 bg-gray-200 rounded-full dark:bg-gray-700">
-                          <div className="h-4 bg-blue-600 rounded-full dark:bg-blue-500" style="width: 45%"></div>
-                        </div> */}
+
+                       
                       </a>
                     </div>
 
