@@ -153,7 +153,7 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
 
                 <div>
                   <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-                  <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                    <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                       <thead class="text-xs text-black uppercase  dark:text-black">
                         <tr>
                           <th scope="col" class="px-6 py-3">
@@ -207,7 +207,7 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
                                       setEditData(item);
                                       setPopup1(true)
                                     }} className="fa-solid fa-pen-to-square"></i>
-                                    <i onClick={()=>{
+                                    <i onClick={() => {
                                       deleteProject(item?._id)
                                     }} className="fa-solid fa-trash"></i>
                                   </div>
@@ -269,82 +269,82 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
                 submitHandler();
                 setPopup1(false);
               }}>
-              <div className="award-popup-label">
-                <label htmlFor="complainFrom">
-                  <p>Complaint Form</p>
-                  <select onChange={changeHandler} value={formdata?.complainFrom} name="complainFrom" id="complainFrom">
+                <div className="award-popup-label">
+                  <label htmlFor="complainFrom">
+                    <p>Complaint Form</p>
+                    <select onChange={changeHandler} value={formdata?.complainFrom} name="complainFrom" id="complainFrom">
                       {
-                        employee?.map((val,index)=>{
+                        employee?.map((val, index) => {
                           return <option key={index} value={val?.fullName}>{val?.fullName}</option>
                         })
                       }
-                  </select>
-                </label>
-                <label htmlFor="complainAgain">
-                  <p>Complaint Against</p>
-                   <select onChange={changeHandler} name="complainAgain" value={formdata?.complainAgain} id="complainAgain">
+                    </select>
+                  </label>
+                  <label htmlFor="complainAgain">
+                    <p>Complaint Against</p>
+                    <select onChange={changeHandler} name="complainAgain" value={formdata?.complainAgain} id="complainAgain">
                       {
-                        employee?.map((val,index)=>{
+                        employee?.map((val, index) => {
                           return <option key={index} value={val?.fullName}>{val?.fullName}</option>
                         })
                       }
-                   </select>
-                </label>
-              </div>
-              <div className="award-popup-label">
-                <label htmlFor="title">
-                  <p>Title</p>
-                  <input
-                    type="text"
-                    id="title"
-                    name="title"
-                    onChange={changeHandler}
-                    value={formdata?.title}
-                    placeholder=""
-                  />
-                </label>
-                <label htmlFor="complainDate">
-                  <p>Complaint Date</p>
-                  <input
-                    type="date"
-                    value={formdata?.complainDate}
-                    name="complainDate"
-                    id="complainDate"
-                    onChange={changeHandler}
+                    </select>
+                  </label>
+                </div>
+                <div className="award-popup-label">
+                  <label htmlFor="title">
+                    <p>Title</p>
+                    <input
+                      type="text"
+                      id="title"
+                      name="title"
+                      onChange={changeHandler}
+                      value={formdata?.title}
+                      placeholder=""
+                    />
+                  </label>
+                  <label htmlFor="complainDate">
+                    <p>Complaint Date</p>
+                    <input
+                      type="date"
+                      value={formdata?.complainDate}
+                      name="complainDate"
+                      id="complainDate"
+                      onChange={changeHandler}
                     // placeholder="dd-mm-yyyy"
-                  />
-                </label>
-              </div>
-              <div className="award-popup-label award-popup-textarea">
-                <label htmlFor="description">
-                  <p>Description</p>
-                  <textarea onChange={changeHandler} value={formdata?.description} id="description" name="description" rows="8" cols="50" placeholder="Enter Description"></textarea>
-                </label>
-              </div>
-              {/* <div/> */}
+                    />
+                  </label>
+                </div>
+                <div className="award-popup-label award-popup-textarea">
+                  <label htmlFor="description">
+                    <p>Description</p>
+                    <textarea onChange={changeHandler} value={formdata?.description} id="description" name="description" rows="8" cols="50" placeholder="Enter Description"></textarea>
+                  </label>
+                </div>
+                {/* <div/> */}
 
-              <hr />
+                <hr />
 
-              <div className="btnWrap Award-popup-btn">
-                <button type="button" className="cencel awd-cancel" onClick={() => {
-                setPopup1(false);
-                setOnEdit(false);
-                setEditData({});
-                setFormdata({
-                  complainFrom: "",
-                  complainAgain: "",
-                  title: "",
-                  complainDate: "",
-                  description: ""
-                })
-              }}>
-                  <span>Cancel</span>
-                </button>
+                <div className="btnWrap Award-popup-btn mt-5">
+                  <button type="button" className="cencel awd-cancel" onClick={() => {
+                    setPopup1(false);
+                    setOnEdit(false);
+                    setEditData({});
+                    setFormdata({
+                      complainFrom: "",
+                      complainAgain: "",
+                      title: "",
+                      complainDate: "",
+                      description: ""
+                    })
+                  }}>
+                    <span>Cancel</span>
+                  </button>
 
-                <button type="submit" className="create awd-create">
-                  <span>Create</span>
-                </button>
-              </div>
+                  <button type="submit" className="create awd-create">
+                    <span>Create</span>
+                  </button>
+                </div>
               </form>
             </div>
           </div>

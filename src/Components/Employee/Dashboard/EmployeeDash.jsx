@@ -21,12 +21,14 @@ var tc4;
 
 const EmployeeDash = ({ setAlert, pop1, setPop1 }) => {
   // =================punch in punch out concept==========
-  const { user, postActivity, getStatisticsByUser , postLeave , getLeaveTypes , postNotification , postAttendence } = useMain();
+  const { user, postActivity, getStatisticsByUser, postLeave, getLeaveTypes, postNotification, postAttendence } = useMain();
 
   const [startTs, setStartTs] = useState("");
   var [percentageDone, setPercentageDone] = useState(0);
 
   var [timer, setTimer] = useState(0);
+
+  var [month, setMonth] = useState(0);
 
   var [progressTimer, setProgressTimer] = useState(0);
 
@@ -78,9 +80,8 @@ const EmployeeDash = ({ setAlert, pop1, setPop1 }) => {
       // }, 5 * 1000);
 
       let status = "ONLINE";
-      let date = `${new Date().getDate()}/${
-        new Date().getMonth() + 1
-      }/${new Date().getFullYear()}`;
+      let date = `${new Date().getDate()}/${new Date().getMonth() + 1
+        }/${new Date().getFullYear()}`;
       // console.log(date);
       let activity = {
         type: "PUNCH_IN",
@@ -122,9 +123,8 @@ const EmployeeDash = ({ setAlert, pop1, setPop1 }) => {
       }, 60 * 1000);
 
       let status = "OFFLINE";
-      let date = `${new Date().getDate()}/${
-        new Date().getMonth() + 1
-      }/${new Date().getFullYear()}`;
+      let date = `${new Date().getDate()}/${new Date().getMonth() + 1
+        }/${new Date().getFullYear()}`;
       let activity = {
         type: "PUNCH_OUT",
         ts: new Date().getTime(),
@@ -221,7 +221,7 @@ const EmployeeDash = ({ setAlert, pop1, setPop1 }) => {
 
     if (!t) {
       let ans = await postActivity({
-        clockIn: localStorage.getItem("clock-in") ? localStorage.getItem("clock-in"): new Date().getTime() ,
+        clockIn: localStorage.getItem("clock-in") ? localStorage.getItem("clock-in") : new Date().getTime(),
         clockOut: 0,
         late: 0,
         date1: new Date().toLocaleDateString("en-GB"),
@@ -284,7 +284,7 @@ const EmployeeDash = ({ setAlert, pop1, setPop1 }) => {
         tc4 = setInterval(() => {
           setClock(++t8);
         }, 1000);
- 
+
       }
     }
     setMount(!mount);
@@ -298,7 +298,7 @@ const EmployeeDash = ({ setAlert, pop1, setPop1 }) => {
     clearInterval(tc3);
     clearInterval(tc4);
     setMount(!mount);
-  setClock(0);
+    setClock(0);
 
     let ans = await postActivity({
       clockIn: localStorage.getItem("clock-in"),
@@ -315,16 +315,16 @@ const EmployeeDash = ({ setAlert, pop1, setPop1 }) => {
 
     const id = userDetail?._id;
 
-    const attendence = await postAttendence({clockInDetail:localStorage.getItem("clockInTime") , clockOutDetail:localStorage.getItem("clockOutTime") , id});
+    const attendence = await postAttendence({ clockInDetail: localStorage.getItem("clockInTime"), clockOutDetail: localStorage.getItem("clockOutTime"), id });
 
-    console.log("attende ce",attendence);
+    console.log("attende ce", attendence);
 
 
-     localStorage.removeItem("clock-in");
-     localStorage.removeItem("clock-status");
-     localStorage.removeItem("clock-out-time");
-     localStorage.removeItem("clockOutTime");
-     localStorage.removeItem("clockInTime");
+    localStorage.removeItem("clock-in");
+    localStorage.removeItem("clock-status");
+    localStorage.removeItem("clock-out-time");
+    localStorage.removeItem("clockOutTime");
+    localStorage.removeItem("clockInTime");
   };
 
   const [star1, setStar1] = useState(false);
@@ -333,21 +333,21 @@ const EmployeeDash = ({ setAlert, pop1, setPop1 }) => {
     display: star1 ? "block" : "none",
   };
 
-  const [formdata , setFormdata] = useState({
-    employeeName:"" , leaveType:"" , start:"" , end:"" , reason:""
+  const [formdata, setFormdata] = useState({
+    employeeName: "", leaveType: "", start: "", end: "", reason: ""
   })
 
-  const changeHandler = (e)=>{
-    const {name ,value} = e.target;
+  const changeHandler = (e) => {
+    const { name, value } = e.target;
 
-    setFormdata((prev)=>({
-      ...prev ,
-      [name]:value
+    setFormdata((prev) => ({
+      ...prev,
+      [name]: value
     }))
   }
 
 
-  const submitHandler = async(e)=>{
+  const submitHandler = async (e) => {
     e.preventDefault();
 
     const startDate = new Date(formdata.start);
@@ -355,36 +355,36 @@ const EmployeeDash = ({ setAlert, pop1, setPop1 }) => {
     const timeDifference = Math.abs(endDate - startDate);
     const daysGap = Math.ceil(timeDifference / (1000 * 60 * 60 * 24));
 
-     const ans = await postLeave({ type: formdata.leaveType, from: formdata.start, to: formdata.end, days: daysGap, reason: formdata.reason});
+    const ans = await postLeave({ type: formdata.leaveType, from: formdata.start, to: formdata.end, days: daysGap, reason: formdata.reason });
 
-      const notify = await postNotification(daysGap ,formdata.employeeName );
+    const notify = await postNotification(daysGap, formdata.employeeName);
 
-      if(ans.success){
-        alert("Successfuly applied");
-        setStar1(false);
-      }
-     setFormdata({
-      employeeName:"" ,
-       leaveType:"" ,
-        start:"" ,
-         end:"" ,
-          reason:""
+    if (ans.success) {
+      alert("Successfuly applied");
+      setStar1(false);
+    }
+    setFormdata({
+      employeeName: "",
+      leaveType: "",
+      start: "",
+      end: "",
+      reason: ""
     })
   }
 
-  const [leaveType , setLeaveType] = useState([]);
+  const [leaveType, setLeaveType] = useState([]);
 
-   const fetchLeaveType = async()=>{
-      const resp = await getLeaveTypes();
-      console.log("resp ",resp);
-      if(resp.success){
-        setLeaveType(resp?.data);
-      }
-   }
+  const fetchLeaveType = async () => {
+    const resp = await getLeaveTypes();
+    console.log("resp ", resp);
+    if (resp.success) {
+      setLeaveType(resp?.data);
+    }
+  }
 
-    useEffect(()=>{
-      fetchLeaveType();
-    },[])
+  useEffect(() => {
+    fetchLeaveType();
+  }, [])
 
   return (
     <>
@@ -404,7 +404,7 @@ const EmployeeDash = ({ setAlert, pop1, setPop1 }) => {
             <div className="flex-col">
               <div className="bedge">
                 <div className="first-bedge w-full ">
-                
+
                   <div className="attend-ctiveWrapempp">
                     <div className="celeberation w-full">
                       <div className="cel-head">
@@ -412,7 +412,7 @@ const EmployeeDash = ({ setAlert, pop1, setPop1 }) => {
                         <p>See all</p>
                       </div>
                       <div className="cel-card">
-                        
+
                         <div className="cel-box">
                           <div className="cel-boxing">
                             <div className="cel-boxing1">
@@ -439,7 +439,7 @@ const EmployeeDash = ({ setAlert, pop1, setPop1 }) => {
                             </div>
                           </div>
                         </div>
-                    
+
                       </div>
                     </div>
 
@@ -489,14 +489,14 @@ const EmployeeDash = ({ setAlert, pop1, setPop1 }) => {
                                     ? "Clock In"
                                     : localStorage.getItem("clock-status") ===
                                       "break"
-                                    ? "Break"
-                                    : localStorage.getItem("clock-status") ===
-                                      "resume"
-                                    ? "Resume"
-                                    : localStorage.getItem("clock-status") ===
-                                      "out"
-                                    ? "Clock In"
-                                    : null}
+                                      ? "Break"
+                                      : localStorage.getItem("clock-status") ===
+                                        "resume"
+                                        ? "Resume"
+                                        : localStorage.getItem("clock-status") ===
+                                          "out"
+                                          ? "Clock In"
+                                          : null}
                                 </span>
                               </button>
                             )}
@@ -519,7 +519,7 @@ const EmployeeDash = ({ setAlert, pop1, setPop1 }) => {
                     </div>
                   </div>
 
-                
+
                   <div className="metting_div_surbhi">
                     <div className="second-bedge w-full ">
 
@@ -535,7 +535,7 @@ const EmployeeDash = ({ setAlert, pop1, setPop1 }) => {
                           </NavLink>
                           <Calendar onChange={onChange} value={value} />
                         </div>
-                       
+
                       </div>
 
                     </div>
@@ -562,11 +562,12 @@ const EmployeeDash = ({ setAlert, pop1, setPop1 }) => {
                             )
                               .toString()
                               .padStart(2, "0")}:${Math.floor(
-                              (clock % 3600) / 60
-                            )
-                              .toString()
-                              .padStart(2, "0")}`}</h5>
+                                (clock % 3600) / 60
+                              )
+                                .toString()
+                                .padStart(2, "0")}`}</h5>
                             <p>Scheduled</p>
+
                           </div>
 
                           <div className="time_emp_desh">
@@ -575,10 +576,10 @@ const EmployeeDash = ({ setAlert, pop1, setPop1 }) => {
                             )
                               .toString()
                               .padStart(2, "0")}:${Math.floor(
-                              ((clock - breakClock) % 3600) / 60
-                            )
-                              .toString()
-                              .padStart(2, "0")}`}</h5>
+                                ((clock - breakClock) % 3600) / 60
+                              )
+                                .toString()
+                                .padStart(2, "0")}`}</h5>
                             <p>Worked</p>
                           </div>
 
@@ -588,10 +589,10 @@ const EmployeeDash = ({ setAlert, pop1, setPop1 }) => {
                             )
                               .toString()
                               .padStart(2, "0")}:${Math.floor(
-                              (breakClock % 3600) / 60
-                            )
-                              .toString()
-                              .padStart(2, "0")}`}</h5>
+                                (breakClock % 3600) / 60
+                              )
+                                .toString()
+                                .padStart(2, "0")}`}</h5>
                             <p>Break</p>
                           </div>
 
@@ -601,10 +602,10 @@ const EmployeeDash = ({ setAlert, pop1, setPop1 }) => {
                             )
                               .toString()
                               .padStart(2, "0")}:${Math.floor(
-                              ((32400 - clock) % 3600) / 60
-                            )
-                              .toString()
-                              .padStart(2, "0")}`}</h5>
+                                ((32400 - clock) % 3600) / 60
+                              )
+                                .toString()
+                                .padStart(2, "0")}`}</h5>
                             <p>balance</p>
                           </div>
                         </div>
@@ -638,11 +639,19 @@ const EmployeeDash = ({ setAlert, pop1, setPop1 }) => {
                             <h5 className=" mt-5 text-xl font-bold  tracking-tight text-gray-900 dark:text-white">
                               168 h
                             </h5>
-                            <p>Total schedule time</p>
+                            <p>{`${Math.floor(
+                              (32400 - clock) / 3600
+                            )
+                              .toString()
+                              .padStart(2, "0")}:${Math.floor(
+                                ((32400 - clock) % 3600) / 60
+                              )
+                                .toString()
+                                .padStart(2, "0")}`}</p>
                           </div>
                         </div>
 
-                       
+
                       </a>
                     </div>
 
@@ -1048,21 +1057,21 @@ const EmployeeDash = ({ setAlert, pop1, setPop1 }) => {
                         {/* <!-- Modal body --> */}
                         <div class="p-4 md:p-5">
 
-                          <form  className="space-y-4" action="#">
+                          <form className="space-y-4" action="#">
 
                             <div class="mt-2 user_class_input">
                               <label
                                 for="name"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                               >
-                                
+
                                 Employee Name
 
                               </label>
 
                               <input
-                   value={formdata.employeeName}
-                   onChange={changeHandler}
+                                value={formdata.employeeName}
+                                onChange={changeHandler}
 
                                 type="text"
                                 name="employeeName"
@@ -1080,11 +1089,11 @@ const EmployeeDash = ({ setAlert, pop1, setPop1 }) => {
                               >
                                 Leave type
                               </label>
-                            
+
 
                               <select name="leaveType" onChange={changeHandler} value={formdata.leaveType} required>
                                 {
-                                  leaveType.map((item ,index)=>(
+                                  leaveType.map((item, index) => (
                                     <option value={item?.name} key={index}>{item?.name}</option>
                                   ))
                                 }
@@ -1100,8 +1109,8 @@ const EmployeeDash = ({ setAlert, pop1, setPop1 }) => {
                                   Start
                                 </label>
                                 <input
-                                 value={formdata.start}
-                                 onChange={changeHandler}
+                                  value={formdata.start}
+                                  onChange={changeHandler}
                                   type="date"
                                   name="start"
                                   id="text"
@@ -1117,7 +1126,7 @@ const EmployeeDash = ({ setAlert, pop1, setPop1 }) => {
                                   End
                                 </label>
                                 <input
-                                 value={formdata.end}
+                                  value={formdata.end}
                                   onChange={changeHandler}
                                   type="date"
                                   name="end"
@@ -1126,44 +1135,44 @@ const EmployeeDash = ({ setAlert, pop1, setPop1 }) => {
                                   required
                                 />
                               </div>
-                              
+
                             </div>
 
                             <div class="user_class_input">
-                                <label
-                                  for="message"
-                                  class="block mb-2 mt-2 text-sm font-medium text-gray-900 dark:text-white"
-                                >
-                                  Reason
-                                </label>
-                                <textarea
+                              <label
+                                for="message"
+                                class="block mb-2 mt-2 text-sm font-medium text-gray-900 dark:text-white"
+                              >
+                                Reason
+                              </label>
+                              <textarea
                                 required
                                 name="reason"
                                 onChange={changeHandler}
                                 value={formdata.reason}
-                                  id="message"
-                                  rows="4"
-                                  class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                  placeholder="Enter your reason..."
-                                ></textarea>
-                              </div>
+                                id="message"
+                                rows="4"
+                                class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                placeholder="Enter your reason..."
+                              ></textarea>
+                            </div>
 
                             <button
-                              onClick={(e) =>{
-                                
+                              onClick={(e) => {
+
                                 e.preventDefault();
-                               
-                               submitHandler(e);
+
+                                submitHandler(e);
                               }}
-                              type="button" 
+                              type="button"
                               class="w-full mt-5 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                             >
                               send
                             </button>
 
                             <button
-                              onClick={()=>setStar1(false)}
-                              type="button" 
+                              onClick={() => setStar1(false)}
+                              type="button"
                               class="w-full mt-5 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                             >
                               Cancel
@@ -1177,7 +1186,7 @@ const EmployeeDash = ({ setAlert, pop1, setPop1 }) => {
                   </div>
                 </>
 
-            
+
               </div>
             </div>
           </div>

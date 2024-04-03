@@ -3,7 +3,7 @@ import MainContext from './MainContext';
 import { deleteReq, get, post, put, postDocuments } from '../Api/api'
 import { useState } from 'react';
 
-const baseUrl = "http://localhost:5000";
+// const baseUrl = "http://localhost:5000";
 
 // const baseUrl = "https://hrms-backend-code.onrender.com"
 
@@ -15,7 +15,7 @@ const baseUrl = "http://localhost:5000";
 
 // const baseUrl = "https://hrms-backend-g3wt.onrender.com";
 
-// const baseUrl = "https://hr-backend-ncrd.onrender.com"
+const baseUrl = "https://hr-backend-ncrd.onrender.com"
 
 
 const MainState = (props) => {
@@ -965,29 +965,78 @@ const MainState = (props) => {
       return data;
    };
 
-   
-   const postAttendence = async ({ clockInDetail , clockOutDetail , id }) => {
+
+   const postAttendence = async ({ clockInDetail, clockOutDetail, id }) => {
 
       const today = new Date();
       const date = `${today.getDate()} : ${today.getMonth() + 1} : ${today.getFullYear()}`;
 
       const data = await post(`${baseUrl}/clock/createClock/${id}`, {
-      clockInDetail , clockOutDetail , date
+         clockInDetail, clockOutDetail, date
       }, true);
 
       return data;
    }
 
 
-   const getAttendence = async ({ id , date }) => {
+   const getAttendence = async ({ id, date }) => {
 
       const data = await post(`${baseUrl}/clock/getClock/${id}`, {
-      date
+         date
       }, true);
 
       return data;
    }
 
+   const createResignation = async ({ Employee,
+      noticeDate,
+      resignationDate,
+      description }) => {
+      const data = await post(`${baseUrl}/admin/postResignation`, {
+         Employee,
+         noticeDate,
+         resignationDate,
+         description
+      }, true);
+
+      return data;
+   }
+
+   const getResignation = async () => {
+      const data = await get(`${baseUrl}/admin/getResignation`, true);
+      return data;
+   };
+
+   const deleteResignation = async (id) => {
+      const data = await deleteReq(`${baseUrl}/admin/deleteResignation/${id}`, true);
+      return data;
+   };
+
+   const updateResignation = async ({ id, Employee,
+      noticeDate,
+      resignationDate,
+      description }) => {
+      const data = await put(`${baseUrl}/admin/updateResignation/${id}`, {
+         Employee,
+         noticeDate,
+         resignationDate,
+         description
+      }, true);
+      return data;
+   };
+
+   const createPromotion = async ({ Employee, Designation, title, promotionDate, description }) => {
+      const data = await post(`${baseUrl}/admin/postPromotion`, {
+         Employee, Designation, title, promotionDate, description
+      }, true);
+
+      return data;
+   }
+
+   const getPromotion = async () => {
+      const data = await get(`${baseUrl}/admin/getPromotion`, true);
+      return data;
+   };
 
 
    return (
@@ -1001,9 +1050,10 @@ const MainState = (props) => {
          postNotifyLeavereq,
          createTermination, getTermination, deleteTermination, updateTermination,
          createWarning, getWarning, deleteWarning, updateWarning,
-         createComplain, getComplain, updateComplain, deleteComplain , 
-         postAttendence , 
-         getAttendence
+         createComplain, getComplain, updateComplain, deleteComplain,
+         postAttendence,
+         getAttendence, createResignation, getResignation, deleteResignation, updateResignation,
+         createPromotion,getPromotion
       }}>
          {props.children}
       </MainContext.Provider>
