@@ -473,6 +473,9 @@ const MarkAttendance = ({
                             Employee
                           </th>
                           <th scope="col" className="px-6 py-3 currentText">
+                            Department
+                          </th>
+                          <th scope="col" className="px-6 py-3 currentText">
                             Date
                           </th>
                           <th scope="col" className="px-6 py-3 currentText">
@@ -503,11 +506,14 @@ const MarkAttendance = ({
                               {item?.user?.fullName}
                             </td>
                             <td className="px-6 py-4 itemANs">
+                              {item?.user?.department}
+                            </td>
+                            <td className="px-6 py-4 itemANs">
                               {new Date(Number(item?.date)).toLocaleDateString(
                                 "en-GB"
                               )}
                             </td>
-                            <td className="px-6 py-4 itemANs">{Number(item.total) === 0 ? "Absent" : Number(item.total) > 21600 ? 'Present' : 'Half Day'}</td>
+                            <td className="px-6 py-4 itemANs">{Number(item.clockIn) === 0 ? "Absent" : Number(item.clockIn) > 21600 ? 'Present' : 'Half Day'}</td>
                             <td className="px-6 py-4 itemANs">
                               {Number(item.clockIn) === 0 ? ' - ' : new Date(
                                 Number(item.clockIn)
@@ -619,7 +625,7 @@ const MarkAttendance = ({
                               )}
                             </td>
 
-                            <td className="px-6 py-4 itemANs">{Number(item.total) === 0 ? "Absent" : Number(item.total) > 21600 ? 'Present' : 'Half Day'}</td>
+                            <td className="px-6 py-4 itemANs">{Number(item.clockIn) === 0 ? "Absent" : Number(item.clockIn) > 21600 ? 'Present' : 'Half Day'}</td>
                             <td className="px-6 py-4 itemANs">
                             {Number(item.clockIn) === 0 ? ' - ' : new Date(
                                 Number(item.clockIn)

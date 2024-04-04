@@ -3,7 +3,7 @@ import MainContext from './MainContext';
 import { deleteReq, get, post, put, postDocuments } from '../Api/api'
 import { useState } from 'react';
 
-const baseUrl = "http://localhost:5000";
+// const baseUrl = "http://localhost:5000";
 
 // const baseUrl = "https://hrms-backend-code.onrender.com"
 
@@ -15,7 +15,7 @@ const baseUrl = "http://localhost:5000";
 
 // const baseUrl = "https://hrms-backend-g3wt.onrender.com";
 
-// const baseUrl = "https://hr-backend-ncrd.onrender.com"
+const baseUrl = "https://hr-backend-ncrd.onrender.com"
 
 
 const MainState = (props) => {
@@ -403,9 +403,95 @@ const MainState = (props) => {
       return data;
    };
 
-   const updateProfile = async ({ fullName, mobile, email, image, email1, password, gmail, department, designation, pan, adhar, father, currentAddress, currentState, currentPin, residence, perState, perCity, perPin, Martial, nationality, Mother, _id }) => {
+   const updateProfile = async ({  fullName,
+      mobile,
+      email,
+      email1,
+      password,
+      gmail,
+      department,
+      designation,
+      joiningDate,
+      pan,
+      adhar,
+      father,
+      currentAddress,
+      currentState,
+      currentCity,
+      qualification,
+      currentPin,
+      residence,
+      perState,
+      perCity,
+      perPin,
+      Martial,
+      nationality,
+      Mother,
+      specialization,
+      qualificationType,
+      yearPass,
+      university,
+      college,
+      percentage,
+      previousCompany,
+      previousDesignation,
+      toDate,
+      fromDate,
+      numberOfMonth,
+      Jobdescription,
+      SalaryPay,
+      SalaryBankName,
+      BeneficiaryName,
+      BankIfsc,
+      AccountNumber,
+      confirmAccount,
+      Branch,
+      image, _id }) => {
 
-      const data = await put(`${baseUrl}/user/updateProfile`, { fullName, mobile, email, email1, password, gmail, department, designation, pan, adhar, father, currentAddress, currentState, currentPin, residence, perState, perCity, perPin, Martial, nationality, Mother }, true);
+      const data = await put(`${baseUrl}/user/updateProfile`, {  fullName,
+         mobile,
+         email,
+         email1,
+         password,
+         gmail,
+         department,
+         designation,
+         joiningDate,
+         pan,
+         adhar,
+         father,
+         currentAddress,
+         currentState,
+         currentCity,
+         qualification,
+         currentPin,
+         residence,
+         perState,
+         perCity,
+         perPin,
+         Martial,
+         nationality,
+         Mother,
+         specialization,
+         qualificationType,
+         yearPass,
+         university,
+         college,
+         percentage,
+         previousCompany,
+         previousDesignation,
+         toDate,
+         fromDate,
+         numberOfMonth,
+         Jobdescription,
+         SalaryPay,
+         SalaryBankName,
+         BeneficiaryName,
+         BankIfsc,
+         AccountNumber,
+         confirmAccount,
+         Branch,
+         image }, true);
 
       if (image) {
          const formdata = new FormData();
@@ -1052,6 +1138,18 @@ const MainState = (props) => {
       return data;
    }
 
+   const deleteAward = async (id) => {
+      const data = await deleteReq(`${baseUrl}/award/deleteAward/${id}`, true);
+      return data;
+   };
+
+   const updateAward = async ({ id,employee, awardType, date,gift, description, rating}) => {
+      const data = await put(`${baseUrl}/award/updateAward/${id}`, {
+         employee, awardType, date,gift, description, rating
+      }, true);
+      return data;
+   };
+
    const fetchClock = async({date , Employee })=>{
       const data = await post(`${baseUrl}/clock/getClockByUser`, {
          date , Employee
@@ -1075,7 +1173,7 @@ const MainState = (props) => {
          postAttendence,
          getAttendence, createResignation, getResignation, deleteResignation, updateResignation,
          createPromotion,getPromotion, postAward , 
-         getAward , fetchClock
+         getAward , fetchClock, deleteAward, updateAward
       }}>
          {props.children}
       </MainContext.Provider>

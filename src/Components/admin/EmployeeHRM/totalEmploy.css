@@ -48,7 +48,7 @@ color: #293240;
 }
 
 .singl_Emply .empEmail_phn {
-    max-width: 215px;
+    max-width: 100%;
     width: 100%;
   display: flex;
   flex-direction: column;
@@ -64,7 +64,7 @@ color: #293240;
 }
 
 .singl_Emply .empDep_join{
- max-width: 215px;
+ max-width: 100%;
  width: 100%;
     left: 20px;
     padding: 10px 13px 10px 13px;

@@ -74,7 +74,7 @@ const AdminNavbar = ({ setAlert }) => {
               <div className="relative cursor-pointer" onClick={updateUser}>
             
             <div className="sixth-logo flex items-center relative ">
-              <img className="john" src={lok} alt="lok" />
+              <img className="john" src={user?.profileImage ? user?.profileImage : lok} alt="lok" />
               <p className="ml-2.5">{user?.fullName}</p>
               <img className="ml-2.5 bottom" src={bottom} alt="bottom" />
             </div>
@@ -83,6 +83,9 @@ const AdminNavbar = ({ setAlert }) => {
               <p onClick={handleLogout} className=" text-center">
                 Logout
               </p>
+             <NavLink to="/adminDash/profile"><p  className=" text-center">
+                Edit Profile
+              </p></NavLink>
               {/* <NavLink to="/employeeDash/update">
                 <p className=" text-center">Edit Profile</p>
               </NavLink> */}

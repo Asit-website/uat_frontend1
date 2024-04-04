@@ -7,7 +7,8 @@ import { useMain } from "../../../hooks/useMain";
 
 import "./award.css";
 import ReactStars from "react-rating-stars-component";
-
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 
 import plusIcon from "../../images/plusIcon.png";
 
@@ -69,7 +70,7 @@ const sidebarItem = [
 
 const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
 
-  const { user, getBranchs, postBranch, updateBranch, deleteBranch, getDepartments, postDepartment, updateDepartment, deleteDepartment, getDesignations, postDesignation, updateDesignation, deleteDesignation, postLeaveType, updateLeaveType, getLeaveTypes, deleteLeaveType , postAward , getAward , allEmployee } = useMain();
+  const { user, getBranchs, postBranch, updateBranch, deleteBranch, getDepartments, postDepartment, updateDepartment, deleteDepartment, getDesignations, postDesignation, updateDesignation, deleteDesignation, postLeaveType, updateLeaveType, getLeaveTypes, deleteLeaveType, postAward, getAward, allEmployee, deleteAward, updateAward } = useMain();
 
   const [value, onChange] = useState(new Date());
   const [gen, setGen] = useState([]);
@@ -78,6 +79,9 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
   const [open, setOpen] = useState(0);
 
   const [popup, setPopup] = useState(false);
+
+  const [onEdit, setOnEdit] = useState(false);
+  const [editData, setEditData] = useState({});
 
   const styleing = {
     display: popup ? "block" : "none",
@@ -320,74 +324,117 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
     }
   };
 
-  const [allAward , setAllAward] = useState([]);
+  const [allAward, setAllAward] = useState([]);
 
-  const [formdata , setFormdata] = useState({
-    employee:"",
-    awardType:"",
-    date:"",
-    gift:"",
-    description:"",
-    rating:""
+  const [formdata, setFormdata] = useState({
+    employee: "",
+    awardType: "",
+    date: "",
+    gift: "",
+    description: "",
+    rating: ""
   })
 
   const ratingChanged = (newRating) => {
-    setFormdata((prev)=>({
-      ...prev ,
+    setFormdata((prev) => ({
+      ...prev,
       rating: newRating
     }))
   };
 
-  const changeHandler = (e)=>{
-    const { name , value} = e.target;
+  const changeHandler = (e) => {
+    const { name, value } = e.target;
 
-     setFormdata((prev)=>({
-      ...prev ,
-      [name]:value
-     }))
+    setFormdata((prev) => ({
+      ...prev,
+      [name]: value
+    }))
   }
 
-  const [allEmp , setAllEmp] = useState([]);
+  const [allEmp, setAllEmp] = useState([]);
 
-  
-  const fetchAward = async()=>{
+
+  const fetchAward = async () => {
     const resp = await getAward();
-     setAllAward(resp?.data);
-      
+    setAllAward(resp?.data);
+
   }
 
-  const submitHandler = async()=>{
-    if(formdata.employee === 'Select Employee'){
-      return alert("Please select correct employee");
+  useEffect(() => {
+    if (onEdit) {
+      setFormdata({
+        id: editData._id,
+        employee: editData.employee,
+        awardType: editData.awardType,
+        date: editData.date,
+        gift: editData.gift,
+        description: editData.description,
+        rating: editData.rating
+      })
     }
-    const ans = await postAward({...formdata});
-      if(ans?.status){
-        alert("Successful created the award");
-        setFormdata({
-          employee:"Select Employee",
-          awardType:"",
-          date:"",
-          gift:"",
-          description:"",
-          rating:""
-        });
-        setPopup1(false);
-         fetchAward();
-        
+  }, [editData])
+
+  const submitHandler = async () => {
+    try {
+      if (formdata.employee === 'Select Employee') {
+        return alert("Please select correct employee");
       }
+      if (onEdit) {
+        const ans = await updateAward({ ...formdata });
+        console.log(ans.data);
+        alert("update successfully");
+        setRefreshFlag(!refreshFlag);
+      }
+      else {
+        const ans = await postAward({ ...formdata });
+        console.log("rep ans ", ans);
+        alert("Successfuly Created");
+        setRefreshFlag(!refreshFlag);
+      }
+      setPopup1(false);
+    } catch (error) {
+      console.log(error);
+    }
   }
 
-   const fetchEmplyee = async()=>{
+  const deleteProject = async (id) => {
+
+    confirmAlert({
+      title: 'Are you sure to delete this data?',
+      message: 'All related data to this will be deleted',
+      buttons: [
+        {
+          label: 'Yes, Go Ahead!',
+          style: {
+            background: "#FF5449"
+          },
+          onClick: async () => {
+            await deleteAward(id);
+            alert("delete Successfully");
+            setRefreshFlag(!refreshFlag);
+          }
+        },
+        {
+          label: 'Cancel',
+
+          onClick: () => null
+        }
+      ]
+    });
+
+  };
+
+  const fetchEmplyee = async () => {
     const ans = await allEmployee();
-    if(ans?.status){
+    if (ans?.status) {
       setAllEmp(ans?.emp);
     }
-   }
+  }
 
-useEffect(()=>{
- fetchEmplyee();
-  fetchAward();
-},[])
+  useEffect(() => {
+    fetchEmplyee();
+    fetchAward();
+  }, [refreshFlag])
 
   return (
     <>
@@ -414,15 +461,7 @@ useEffect(()=>{
 
                   <img
                     onClick={() => {
-                      if (open === 0) {
-                        setPopup1(true);
-                      } else if (open === 1) {
-                        setPopup2(true);
-                      } else if (open === 2) {
-                        setPopup3(true);
-                      } else if (open === 3) {
-                        setPopup4(true);
-                      }
+                      setPopup1(true)
                     }}
                     className="plusiCON"
                     src={plusIcon}
@@ -431,160 +470,172 @@ useEffect(()=>{
                 </div>
 
                 <div>
-                <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-               <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                  <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+                    <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
 
-                 <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                   <tr>
-                     <th scope="col" className="px-6 py-3">
-                       EMPLOYEE
-                     </th>
-                     <th scope="col" className="px-6 py-3">
-                       <div className="flex items-center">
-                         AWARD TYPE
-                         <a href="#">
-                           <svg
-                             className="w-3 h-3 ms-1.5"
-                             aria-hidden="true"
-                             xmlns="http://www.w3.org/2000/svg"
-                             fill="currentColor"
-                             viewBox="0 0 24 24"
-                           >
-                             <path d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z" />
-                           </svg>
-                         </a>
-                       </div>
-                     </th>
-                     <th scope="col" className="px-6 py-3">
-                       <div className="flex items-center">
-                         DATE
-                         <a href="#">
-                           <svg
-                             className="w-3 h-3 ms-1.5"
-                             aria-hidden="true"
-                             xmlns="http://www.w3.org/2000/svg"
-                             fill="currentColor"
-                             viewBox="0 0 24 24"
-                           >
-                             <path d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z" />
-                           </svg>
-                         </a>
-                       </div>
-                     </th>
-                     <th scope="col" className="px-6 py-3">
-                       <div className="flex items-center">
-                         GIFT
-                         <a href="#">
-                           <svg
-                             className="w-3 h-3 ms-1.5"
-                             aria-hidden="true"
-                             xmlns="http://www.w3.org/2000/svg"
-                             fill="currentColor"
-                             viewBox="0 0 24 24"
-                           >
-                             <path d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z" />
-                           </svg>
-                         </a>
-                       </div>
-                     </th>
-                     <th scope="col" className="px-6 py-3">
-                       <div className="flex items-center">
-                         Rating
-                         <a href="#">
-                           <svg
-                             className="w-3 h-3 ms-1.5"
-                             aria-hidden="true"
-                             xmlns="http://www.w3.org/2000/svg"
-                             fill="currentColor"
-                             viewBox="0 0 24 24"
-                           >
-                             <path d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z" />
-                           </svg>
-                         </a>
-                       </div>
-                     </th>
-                     <th scope="col" className="px-6 py-3">
-                     <div className="flex items-center">
-                         DESCRIPTION
-                         <a href="#">
-                           <svg
-                             className="w-3 h-3 ms-1.5"
-                             aria-hidden="true"
-                             xmlns="http://www.w3.org/2000/svg"
-                             fill="currentColor"
-                             viewBox="0 0 24 24"
-                           >
-                             <path d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z" />
-                           </svg>
-                         </a>
-                       </div>
-                     </th>
-                     <th scope="col" className="px-6 py-3">
-                     <div className="flex items-center">
-                         ACTION
-                         <a href="#">
-                           <svg
-                             className="w-3 h-3 ms-1.5"
-                             aria-hidden="true"
-                             xmlns="http://www.w3.org/2000/svg"
-                             fill="currentColor"
-                             viewBox="0 0 24 24"
-                           >
-                             <path d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z" />
-                           </svg>
-                         </a>
-                       </div>
-                     </th>
-                   </tr>
-                 </thead>
+                      <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                        <tr>
+                          <th scope="col" className="px-6 py-3">
+                            EMPLOYEE
+                          </th>
+                          <th scope="col" className="px-6 py-3">
+                            <div className="flex items-center">
+                              AWARD TYPE
+                              <a href="#">
+                                <svg
+                                  className="w-3 h-3 ms-1.5"
+                                  aria-hidden="true"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  fill="currentColor"
+                                  viewBox="0 0 24 24"
+                                >
+                                  <path d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z" />
+                                </svg>
+                              </a>
+                            </div>
+                          </th>
+                          <th scope="col" className="px-6 py-3">
+                            <div className="flex items-center">
+                              DATE
+                              <a href="#">
+                                <svg
+                                  className="w-3 h-3 ms-1.5"
+                                  aria-hidden="true"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  fill="currentColor"
+                                  viewBox="0 0 24 24"
+                                >
+                                  <path d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z" />
+                                </svg>
+                              </a>
+                            </div>
+                          </th>
+                          <th scope="col" className="px-6 py-3">
+                            <div className="flex items-center">
+                              GIFT
+                              <a href="#">
+                                <svg
+                                  className="w-3 h-3 ms-1.5"
+                                  aria-hidden="true"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  fill="currentColor"
+                                  viewBox="0 0 24 24"
+                                >
+                                  <path d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z" />
+                                </svg>
+                              </a>
+                            </div>
+                          </th>
+                          <th scope="col" className="px-6 py-3">
+                            <div className="flex items-center">
+                              Rating
+                              <a href="#">
+                                <svg
+                                  className="w-3 h-3 ms-1.5"
+                                  aria-hidden="true"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  fill="currentColor"
+                                  viewBox="0 0 24 24"
+                                >
+                                  <path d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z" />
+                                </svg>
+                              </a>
+                            </div>
+                          </th>
+                          <th scope="col" className="px-6 py-3">
+                            <div className="flex items-center">
+                              DESCRIPTION
+                              <a href="#">
+                                <svg
+                                  className="w-3 h-3 ms-1.5"
+                                  aria-hidden="true"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  fill="currentColor"
+                                  viewBox="0 0 24 24"
+                                >
+                                  <path d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z" />
+                                </svg>
+                              </a>
+                            </div>
+                          </th>
+                          <th scope="col" className="px-6 py-3">
+                            <div className="flex items-center">
+                              ACTION
+                              <a href="#">
+                                <svg
+                                  className="w-3 h-3 ms-1.5"
+                                  aria-hidden="true"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  fill="currentColor"
+                                  viewBox="0 0 24 24"
+                                >
+                                  <path d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z" />
+                                </svg>
+                              </a>
+                            </div>
+                          </th>
+                        </tr>
+                      </thead>
 
-                 <tbody>
-         
-         {
-          allAward?.map((item ,index)=>(
-            <tr key={index} class="bg-white dark:bg-gray-800">
-            <th class="px-6 py-4">
-               {item.employee}
-            </th>
-            <td class="px-6 py-4">
-                {item?.awardType}
-            </td>
-            <td class="px-6 py-4">
-            {new Date(item.date).toLocaleDateString('en-US', {
-          year: 'numeric',
-          month: 'short',
-          day: 'numeric'
-        })}            </td>
-            <td class="px-6 py-4">
-                {item.gift}
-            </td>
-            <td class="px-6 py-4">
-                {item.rating}
-            </td>
-            <td class="px-6 py-4">
-                {item.description}
-            </td>
-            <td class="px-6 py-4">
-              Action
-            </td>
-        </tr>
-          ))
-         }
-      
-          
-        </tbody>
+                      <tbody>
 
-               </table>
-              </div>
+                        {
+                          allAward?.map((item, index) => (
+                            <tr key={index} class="bg-white dark:bg-gray-800">
+                              <th class="px-6 py-4">
+                                {item.employee}
+                              </th>
+                              <td class="px-6 py-4">
+                                {item?.awardType}
+                              </td>
+                              <td class="px-6 py-4">
+                                {/* {new Date(item.date).toLocaleDateString('en-US', {
+                                  year: 'numeric',
+                                  month: 'short',
+                                  day: 'numeric'
+                                })} */}
+                                {item?.date}
+                              </td>
+                              <td class="px-6 py-4">
+                                {item.gift}
+                              </td>
+                              <td class="px-6 py-4">
+                                {item.rating}
+                              </td>
+                              <td class="px-6 py-4">
+                                {item.description}
+                              </td>
+                              <td class="px-6 py-4">
+                                <div className='flex items-center sk'>
+                                  <i onClick={() => {
+                                    setOnEdit(true);
+                                    setEditData(item);
+                                    setPopup1(true)
+                                  }} className="fa-solid fa-pen-to-square"></i>
+                                  <i onClick={(e) => {
+                                    e.preventDefault();
+                                    deleteProject(item?._id);
+                                  }} className="fa-solid fa-trash"></i>
+                                </div>
+                              </td>
+                            </tr>
+                          ))
+                        }
+
+
+                      </tbody>
+
+                    </table>
+                  </div>
 
                 </div>
 
 
                 <>
                   {/* Main modal */}
-                 
+
                 </>
-               
+
               </div>
             </div>
           </div>
@@ -594,88 +645,101 @@ useEffect(()=>{
           <div className="allPopupWrap">
             <div className="popup1 awardpopup">
               <h2>Create New Award</h2>
-              <label className="cross-icon"></label>
+              <label onClick={() => {
+                setPopup1(false);
+                setOnEdit(false);
+                setEditData({});
+                setFormdata({
+                  employee: "",
+                  awardType: "",
+                  date: "",
+                  gift: "",
+                  description: "",
+                  rating: ""
+                })
+              }} className="cross-icon"></label>
 
               <hr />
 
               {/* <div className="award-popup-label"> */}
               <div className="award-popup-label">
 
-              <label htmlFor="">
-                <p>Employee</p>
-                <select name="employee"  onChange={changeHandler}  id="">
-                  <option value="Select Employee"> Select Employee</option>
-                  {
-                    allEmp.map((item ,index)=>( 
-                      <option value={item?.fullName} key={index}>{item?.fullName}</option>
-                    ))
-                  }
-                </select>
-        
-              </label>
+                <label htmlFor="">
+                  <p>Employee</p>
+                  <select name="employee" value={formdata?.employee} onChange={changeHandler} id="">
+                    <option value="Select Employee"> Select Employee</option>
+                    {
+                      allEmp.map((item, index) => (
+                        <option value={item?.fullName} key={index}>{item?.fullName}</option>
+                      ))
+                    }
+                  </select>
 
-              <label htmlFor="">
-                <p>Award Type</p>
-                <input
-                  type="text"
-                  name="awardType"
-                  onChange={changeHandler}
-                 value={formdata.awardType}
-                  placeholder="Certificate"
-                />
-              </label>
+                </label>
+
+                <label htmlFor="">
+                  <p>Award Type</p>
+                  <input
+                    type="text"
+                    name="awardType"
+                    onChange={changeHandler}
+                    value={formdata.awardType}
+                    placeholder="Certificate"
+                  />
+                </label>
 
               </div>
               <div className="award-popup-label">
 
-              <label htmlFor="">
-                <p>Date</p>
-                <input
-                  type="date"
-                  name="date"
-                  onChange={changeHandler}
-                 value={formdata.date}
-                  placeholder="dd-mm-yyyy"
-                />
-              </label>
+                <label htmlFor="">
+                  <p>Date</p>
+                  <input
+                    type="date"
+                    name="date"
+                    onChange={changeHandler}
+                    value={formdata.date}
+                    placeholder="dd-mm-yyyy"
+                  />
+                </label>
 
-              <label htmlFor="">
-                <p>Gift</p>
-                <input
-                  type="text"
-                  name="gift"
-                  onChange={changeHandler}
-                 value={formdata.gift}
-                  placeholder="Enter Gift"
-                />
-              </label>
-
-              </div>
-
-        
-
-              <div className="award-popup-label award-popup-textarea">
-
-              <label htmlFor="">
-                <p>Description</p>
-                <textarea id="w3review"  name="description"
-                  onChange={changeHandler}
-                 value={formdata.description} rows="8" cols="50" placeholder="Enter Description"></textarea>
-              </label>
+                <label htmlFor="">
+                  <p>Gift</p>
+                  <input
+                    type="text"
+                    name="gift"
+                    onChange={changeHandler}
+                    value={formdata.gift}
+                    placeholder="Enter Gift"
+                  />
+                </label>
 
               </div>
 
+
+
               <div className="award-popup-label award-popup-textarea">
 
-              <label htmlFor="">
-                <p>Rating</p>
-                <ReactStars
-    count={5}
-    onChange={ratingChanged}
-    size={24}
-    activeColor="#ffd700"
-  />,
-              </label>
+                <label htmlFor="">
+                  <p>Description</p>
+                  <textarea id="w3review" name="description"
+                    onChange={changeHandler}
+                    value={formdata.description} rows="8" cols="50" placeholder="Enter Description"></textarea>
+                </label>
+
+              </div>
+
+              <div className="award-popup-label award-popup-textarea">
+
+                <label htmlFor="">
+                  <p>Rating</p>
+                  <ReactStars
+                    count={5}
+                    onChange={ratingChanged}
+                    size={24}
+                    value={formdata?.rating}
+                    activeColor="#ffd700"
+                  />,
+                </label>
 
               </div>
               {/* <div/> */}
@@ -683,18 +747,33 @@ useEffect(()=>{
               <hr />
 
               <div className="btnWrap Award-popup-btn">
-                <button className="cencel awd-cancel" onClick={() => setPopup1(false)}>
+                <button onClick={() => {
+                  setPopup1(false);
+                  setOnEdit(false);
+                  setEditData({});
+                  setFormdata({
+                    employee: "",
+                    awardType: "",
+                    date: "",
+                    gift: "",
+                    description: "",
+                    rating: ""
+                  })
+                }} className="cencel awd-cancel">
                   <span>Cancel</span>
                 </button>
 
-                <button  className="create awd-create" onClick={submitHandler}>
+                <button className="create awd-create" onClick={() => {
+                  submitHandler();
+                  setPopup1(false);
+                }}>
                   <span>Create</span>
                 </button>
               </div>
             </div>
           </div>
         )}
-        
+
       </div>
     </>
   );

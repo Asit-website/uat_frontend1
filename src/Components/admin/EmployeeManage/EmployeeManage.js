@@ -1968,7 +1968,7 @@ const EmployeeManage = ({ pop1, setPop1, pop, setPop, setAlert, isHr = false }) 
 
                             <div className="flex w-full mt-6">
 
-                              <div className="drag-area drag-area2 try">
+                              {/* <div className="drag-area drag-area2 try">
                                 <div className="icon">
                                   <i className="fas fa-cloud-upload-alt"></i>
                                 </div>
@@ -1982,7 +1982,7 @@ const EmployeeManage = ({ pop1, setPop1, pop, setPop, setAlert, isHr = false }) 
                                   type="file"
                                   onChange={handleFileChange}
                                 />
-                              </div>
+                              </div> */}
 
                               {/* <div className="inputs-buttons inputs-button2">
                                 <button

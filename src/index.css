@@ -312,7 +312,11 @@ width: 100%;
   text-align: center;
   margin-top: 30px;
 }
-
+.singEmp_profileL img{
+  width: 65px;
+  height: 65px;
+  border-radius: 50%;
+}
 .sign-information span {
   color: #0b60ff;
   font-family: "Montserrat", sans-serif;

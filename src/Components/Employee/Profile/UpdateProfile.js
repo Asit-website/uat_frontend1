@@ -127,6 +127,7 @@ const UpdateProfile = ({ setAlert, pop1, setPop1 }) => {
                     onChange={handleChange}
                     id="file_input"
                     type="file"
+                    
                   />
                 </div>
 
@@ -169,7 +170,7 @@ const UpdateProfile = ({ setAlert, pop1, setPop1 }) => {
                     onChange={handleChange}
                     id="gmail"
                     type="email"
-                  // required
+                  // 
                   />
                 </div>
                 <div className="mb-6">
