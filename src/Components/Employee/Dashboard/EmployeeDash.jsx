@@ -1,17 +1,13 @@
 import React, { useState, useEffect } from "react";
 import EmployeeNavbar from "../Navbar/EmployeeNavbar";
 import EmployeeSidebar from "../Sidebar/EmployeeSidebar";
-import bret from "../../images/bret.png";
-import plus from "../../images/plus.png";
 import punjabi from "../../images/punjabi.png";
-import nancy from "../../images/nancy.png";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import { useMain } from "../../../hooks/useMain";
 import goals from "../../images/goals.png";
 import arrow from "../../images/arrow.png";
 import { NavLink } from "react-router-dom";
-import akash from "../../images/akash.png";
 import timer1 from "../../images/timer.png";
 
 var tc;
@@ -232,6 +228,10 @@ const EmployeeDash = ({ setAlert, pop1, setPop1 }) => {
 
       localStorage.setItem("clock-in", new Date().getTime());
       localStorage.setItem("clock-status", "break");
+    
+      localStorage.setItem('breakInTime', new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', second: '2-digit', hour12: true }));
+
+
       tc4 = setInterval(() => {
         setClock(++clock);
       }, 1000);
@@ -239,7 +239,11 @@ const EmployeeDash = ({ setAlert, pop1, setPop1 }) => {
       if (t === "break") {
         localStorage.setItem("break-time", new Date().getTime());
         localStorage.setItem("clock-status", "resume");
-        clearInterval(tc3);
+
+        
+      localStorage.setItem('breakOutTime', new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', second: '2-digit', hour12: true }));
+
+         
         let t3 = localStorage.getItem("break-seconds");
 
         tc3 = setInterval(() => {
@@ -300,6 +304,28 @@ const EmployeeDash = ({ setAlert, pop1, setPop1 }) => {
     setMount(!mount);
     setClock(0);
 
+     const breakIn = localStorage.getItem("breakInTime");
+     const breakOut = localStorage.getItem("breakOutTime");
+
+  // Get the current year
+  const currentYear = new Date().getFullYear();
+
+  // Construct Date objects using the current year
+  const date1 = new Date(`${currentYear} 01 01 ${breakIn}`);
+  const date2 = new Date(`${currentYear} 01 01 ${breakOut}`);
+  
+   // Calculate the difference in milliseconds
+   const differenceMs = date2.getTime() - date1.getTime();
+
+   // Convert the difference to a readable format
+   const hours = Math.floor(differenceMs / (1000 * 60 * 60));
+   const minutes = Math.floor((differenceMs % (1000 * 60 * 60)) / (1000 * 60));
+   const seconds = Math.floor((differenceMs % (1000 * 60)) / 1000);
+
+   const differenceText = `${hours}:${minutes}:${seconds}`;
+
+   console.log('dire ',differenceText , localStorage.getItem("clockInTime"));
+
     let ans = await postActivity({
       clockIn: localStorage.getItem("clock-in"),
       clockOut: localStorage.getItem("clock-out-time"),
@@ -315,9 +341,9 @@ const EmployeeDash = ({ setAlert, pop1, setPop1 }) => {
 
     const id = userDetail?._id;
 
-    const attendence = await postAttendence({ clockInDetail: localStorage.getItem("clockInTime"), clockOutDetail: localStorage.getItem("clockOutTime"), id });
+    const attendence = await postAttendence({ clockInDetail: localStorage.getItem("clockInTime"), breakTime:differenceText , clockOutDetail: localStorage.getItem("clockOutTime"), id });
 
-    console.log("attende ce", attendence);
+    console.log('ate ',attendence);
 
 
     localStorage.removeItem("clock-in");
@@ -325,6 +351,10 @@ const EmployeeDash = ({ setAlert, pop1, setPop1 }) => {
     localStorage.removeItem("clock-out-time");
     localStorage.removeItem("clockOutTime");
     localStorage.removeItem("clockInTime");
+    localStorage.removeItem("breakInTime");
+    localStorage.removeItem("breakOutTime");
+   
+
   };
 
   const [star1, setStar1] = useState(false);
@@ -376,7 +406,6 @@ const EmployeeDash = ({ setAlert, pop1, setPop1 }) => {
 
   const fetchLeaveType = async () => {
     const resp = await getLeaveTypes();
-    console.log("resp ", resp);
     if (resp.success) {
       setLeaveType(resp?.data);
     }

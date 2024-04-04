@@ -90,47 +90,7 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
 
   // };
 
-  const data1 = [
-    {
-      type: "Head office",
-    },
-    {
-      type: "Head office",
-    },
-    {
-      type: "Head office",
-    },
-  ];
 
-  const data2 = [
-    {
-      branch: "Head office",
-      department: "Admin",
-    },
-    {
-      branch: "Head office",
-      department: "Admin",
-    },
-    {
-      branch: "Head office",
-      department: "Admin",
-    },
-  ];
-
-  const data3 = [
-    {
-      department: "Head office",
-      designation: "Admin",
-    },
-    {
-      department: "Head office",
-      designation: "Admin",
-    },
-    {
-      department: "Head office",
-      designation: "Admin",
-    },
-  ];
 
   const [popup1, setPopup1] = useState(false);
   const [popup11, setPopup11] = useState(false);
@@ -253,8 +213,7 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
 
     }
   }
-
-
+  
   const handleCreateDesignation = async () => {
     // console.log(designationValue);
     const ans = await postDesignation({

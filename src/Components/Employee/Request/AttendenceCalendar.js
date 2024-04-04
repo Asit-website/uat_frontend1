@@ -17,6 +17,7 @@ const AttendenceCalendar = ({ setAlert, pop1, setPop1 }) => {
 
   const [clockIn , setClockIn] = useState(null);
   const [clockOut , setClockOut] = useState(null);
+  const [totalBreak ,setTotalBreak] = useState(null);
 
   useEffect(() => {
     getData(todayDate);
@@ -43,10 +44,12 @@ const AttendenceCalendar = ({ setAlert, pop1, setPop1 }) => {
 
          setClockIn(attendece?.data?.clockIn);
          setClockOut(attendece?.data?.clockOut);
+         setTotalBreak(attendece?.data?.breakTime);
         }
         else {
           setClockIn(null);
           setClockOut(null);
+          setTotalBreak(null);
         }
         }
   }
@@ -119,6 +122,15 @@ getClock(formattedDate);
                         <div className=" clock1 flex items-center">
                           {/* <h2>{mainData && Object.keys(mainData).length > 0 && mainData.activity[mainData.activity.length - 1].message !== "" ? new Date(mainData.activity[mainData.activity.length - 1].ts).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true }) : " - : -"}</h2> */}
                           <h2>{clockOut ? clockOut: "none"}</h2>
+                          {/* <h2>07 : 35</h2>
+                          <p>Pm</p> */}
+                        </div>
+                      </div>
+                      <div className="clock clock2">
+                        <h3>Total Break</h3>
+                        <div className=" clock1 flex items-center">
+                          {/* <h2>{mainData && Object.keys(mainData).length > 0 && mainData.activity[mainData.activity.length - 1].message !== "" ? new Date(mainData.activity[mainData.activity.length - 1].ts).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true }) : " - : -"}</h2> */}
+                          <h2>{totalBreak ? totalBreak: "none"}</h2>
                           {/* <h2>07 : 35</h2>
                           <p>Pm</p> */}
                         </div>

@@ -8,6 +8,16 @@
 
 }
 
+.carding{
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    align-items: center;
+
+}
+
+
 /* for play of leave request hrms admin  */
 .showPlay{
     display: flex;

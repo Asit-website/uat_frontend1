@@ -56,10 +56,7 @@ const MarkAttendance = ({
   }, []);
 
   const handleSubmit = async () => {
-    // console.log(selectedOption);
-    // console.log(date);
-    // console.log(month);
-    // console.log(userId);
+  
     let ans = await getAllActivities(selectedOption, date, userId, month);
     if(selectedOption==='all')
     {

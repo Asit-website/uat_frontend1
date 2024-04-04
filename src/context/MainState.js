@@ -3,7 +3,7 @@ import MainContext from './MainContext';
 import { deleteReq, get, post, put, postDocuments } from '../Api/api'
 import { useState } from 'react';
 
-// const baseUrl = "http://localhost:5000";
+const baseUrl = "http://localhost:5000";
 
 // const baseUrl = "https://hrms-backend-code.onrender.com"
 
@@ -15,7 +15,7 @@ import { useState } from 'react';
 
 // const baseUrl = "https://hrms-backend-g3wt.onrender.com";
 
-const baseUrl = "https://hr-backend-ncrd.onrender.com"
+// const baseUrl = "https://hr-backend-ncrd.onrender.com"
 
 
 const MainState = (props) => {
@@ -651,7 +651,6 @@ const MainState = (props) => {
 
    const allEmployee = async () => {
       const data = await get(`${baseUrl}/admin/fetchEmployee`, true);
-      // console.log("d", data);
       return data;
 
    }
@@ -966,13 +965,13 @@ const MainState = (props) => {
    };
 
 
-   const postAttendence = async ({ clockInDetail, clockOutDetail, id }) => {
+   const postAttendence = async ({ clockInDetail, clockOutDetail, id , breakTime }) => {
 
       const today = new Date();
       const date = `${today.getDate()} : ${today.getMonth() + 1} : ${today.getFullYear()}`;
 
       const data = await post(`${baseUrl}/clock/createClock/${id}`, {
-         clockInDetail, clockOutDetail, date
+         clockInDetail, clockOutDetail, date ,breakTime
       }, true);
 
       return data;
@@ -1039,6 +1038,28 @@ const MainState = (props) => {
    };
 
 
+   const postAward = async({ employee, awardType, date,gift, description, rating})=>{
+
+      const data = await post(`${baseUrl}/award/postAward`, {
+         employee, awardType, date,gift, description, rating
+      }, true);
+
+      return data;
+   }
+
+   const getAward = async()=>{
+      const data = await get(`${baseUrl}/award/getAllAward`, true);
+      return data;
+   }
+
+   const fetchClock = async({date , Employee })=>{
+      const data = await post(`${baseUrl}/clock/getClockByUser`, {
+         date , Employee
+      }, true);
+
+      return data;
+   }
+
    return (
       <MainContext.Provider value={{
          login, employeeLogin, employeeResetPassword, hrLogin, createHr, getHrs, deleteHr, createEmployee, getEmployees, getUsers, getActiveUsers, getActiveUsersCount, getAdminEmployees, postActivity, postActivityHr, getActivitiesByUser, getStatisticsByUser, postLeave, updateLeave, getUserLeaves, getUserLeaveById, deleteLeave, getTotalLeaves, postTotalLeaves, verifyEmployee, verifyHr, verifyAdmin, setUser, user, getProjects, postProject, getHolidays, postHoliday, updateProject, getProjectsByEmployee, getTasks, postTask, updateTask, deleteTask, setFlag, flag, changePassword, updateProfile, deleteHoliday, updateHoliday, deleteProject, getChats, createNewChat, postMessage, deleteChat, adminLogin, getChat, getChatByUser, setChatUser, chatUser, getEmployeesByEmployee, topDash, postAnnouncement, updateAnnouncement, getAnnouncements, getAnnouncementDates, deleteAnnouncement, getAttendance, getAttendanceByUser, createEmployee1, updateAdminProfile, changePassword1, verify, updateUser, forgetPassword, forgetPassword1, forgetPassword2, getBranchs, postBranch, updateBranch, deleteBranch, getDepartments, postDepartment, updateDepartment, deleteDepartment, getDesingation, postDesignation, updateDesignation, deleteDesignation, getAllActivities, postLeaveType, updateLeaveType, getLeaveTypes, deleteLeaveType,
@@ -1053,7 +1074,8 @@ const MainState = (props) => {
          createComplain, getComplain, updateComplain, deleteComplain,
          postAttendence,
          getAttendence, createResignation, getResignation, deleteResignation, updateResignation,
-         createPromotion,getPromotion
+         createPromotion,getPromotion, postAward , 
+         getAward , fetchClock
       }}>
          {props.children}
       </MainContext.Provider>

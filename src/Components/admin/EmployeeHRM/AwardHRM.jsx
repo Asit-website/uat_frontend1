@@ -68,7 +68,8 @@ const sidebarItem = [
 ];
 
 const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
-  const { user, getBranchs, postBranch, updateBranch, deleteBranch, getDepartments, postDepartment, updateDepartment, deleteDepartment, getDesignations, postDesignation, updateDesignation, deleteDesignation, postLeaveType, updateLeaveType, getLeaveTypes, deleteLeaveType } = useMain();
+
+  const { user, getBranchs, postBranch, updateBranch, deleteBranch, getDepartments, postDepartment, updateDepartment, deleteDepartment, getDesignations, postDesignation, updateDesignation, deleteDesignation, postLeaveType, updateLeaveType, getLeaveTypes, deleteLeaveType , postAward , getAward , allEmployee } = useMain();
 
   const [value, onChange] = useState(new Date());
   const [gen, setGen] = useState([]);
@@ -90,47 +91,7 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
 
   // };
 
-  const data1 = [
-    {
-      type: "Head office",
-    },
-    {
-      type: "Head office",
-    },
-    {
-      type: "Head office",
-    },
-  ];
 
-  const data2 = [
-    {
-      branch: "Head office",
-      department: "Admin",
-    },
-    {
-      branch: "Head office",
-      department: "Admin",
-    },
-    {
-      branch: "Head office",
-      department: "Admin",
-    },
-  ];
-
-  const data3 = [
-    {
-      department: "Head office",
-      designation: "Admin",
-    },
-    {
-      department: "Head office",
-      designation: "Admin",
-    },
-    {
-      department: "Head office",
-      designation: "Admin",
-    },
-  ];
 
   const [popup1, setPopup1] = useState(false);
   const [popup11, setPopup11] = useState(false);
@@ -359,10 +320,74 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
     }
   };
 
+  const [allAward , setAllAward] = useState([]);
+
+  const [formdata , setFormdata] = useState({
+    employee:"",
+    awardType:"",
+    date:"",
+    gift:"",
+    description:"",
+    rating:""
+  })
+
   const ratingChanged = (newRating) => {
-    console.log(newRating);
+    setFormdata((prev)=>({
+      ...prev ,
+      rating: newRating
+    }))
   };
-   
+
+  const changeHandler = (e)=>{
+    const { name , value} = e.target;
+
+     setFormdata((prev)=>({
+      ...prev ,
+      [name]:value
+     }))
+  }
+
+  const [allEmp , setAllEmp] = useState([]);
+
+  
+  const fetchAward = async()=>{
+    const resp = await getAward();
+     setAllAward(resp?.data);
+      
+  }
+
+  const submitHandler = async()=>{
+    if(formdata.employee === 'Select Employee'){
+      return alert("Please select correct employee");
+    }
+    const ans = await postAward({...formdata});
+      if(ans?.status){
+        alert("Successful created the award");
+        setFormdata({
+          employee:"Select Employee",
+          awardType:"",
+          date:"",
+          gift:"",
+          description:"",
+          rating:""
+        });
+        setPopup1(false);
+         fetchAward();
+        
+      }
+  }
+
+   const fetchEmplyee = async()=>{
+    const ans = await allEmployee();
+    if(ans?.status){
+      setAllEmp(ans?.emp);
+    }
+   }
+
+useEffect(()=>{
+ fetchEmplyee();
+  fetchAward();
+},[])
 
   return (
     <>
@@ -408,6 +433,7 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
                 <div>
                 <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
                <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+
                  <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                    <tr>
                      <th scope="col" className="px-6 py-3">
@@ -462,6 +488,22 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
                        </div>
                      </th>
                      <th scope="col" className="px-6 py-3">
+                       <div className="flex items-center">
+                         Rating
+                         <a href="#">
+                           <svg
+                             className="w-3 h-3 ms-1.5"
+                             aria-hidden="true"
+                             xmlns="http://www.w3.org/2000/svg"
+                             fill="currentColor"
+                             viewBox="0 0 24 24"
+                           >
+                             <path d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z" />
+                           </svg>
+                         </a>
+                       </div>
+                     </th>
+                     <th scope="col" className="px-6 py-3">
                      <div className="flex items-center">
                          DESCRIPTION
                          <a href="#">
@@ -495,6 +537,43 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
                      </th>
                    </tr>
                  </thead>
+
+                 <tbody>
+         
+         {
+          allAward?.map((item ,index)=>(
+            <tr key={index} class="bg-white dark:bg-gray-800">
+            <th class="px-6 py-4">
+               {item.employee}
+            </th>
+            <td class="px-6 py-4">
+                {item?.awardType}
+            </td>
+            <td class="px-6 py-4">
+            {new Date(item.date).toLocaleDateString('en-US', {
+          year: 'numeric',
+          month: 'short',
+          day: 'numeric'
+        })}            </td>
+            <td class="px-6 py-4">
+                {item.gift}
+            </td>
+            <td class="px-6 py-4">
+                {item.rating}
+            </td>
+            <td class="px-6 py-4">
+                {item.description}
+            </td>
+            <td class="px-6 py-4">
+              Action
+            </td>
+        </tr>
+          ))
+         }
+      
+          
+        </tbody>
+
                </table>
               </div>
 
@@ -524,26 +603,24 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
 
               <label htmlFor="">
                 <p>Employee</p>
-                <input
-                  type="text"
-                  name="branch"
-                  // onChange={(e) => {
-                  //   setBranch(e.target.value);
-                  // }}
-                  // value={branch}
-                  placeholder="Enter Employee Name"
-                />
+                <select name="employee"  onChange={changeHandler}  id="">
+                  <option value="Select Employee"> Select Employee</option>
+                  {
+                    allEmp.map((item ,index)=>( 
+                      <option value={item?.fullName} key={index}>{item?.fullName}</option>
+                    ))
+                  }
+                </select>
+        
               </label>
 
               <label htmlFor="">
                 <p>Award Type</p>
                 <input
                   type="text"
-                  name="branch"
-                  // onChange={(e) => {
-                  //   setBranch(e.target.value);
-                  // }}
-                  // value={branch}
+                  name="awardType"
+                  onChange={changeHandler}
+                 value={formdata.awardType}
                   placeholder="Certificate"
                 />
               </label>
@@ -554,12 +631,10 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
               <label htmlFor="">
                 <p>Date</p>
                 <input
-                  type="number"
-                  name="branch"
-                  // onChange={(e) => {
-                  //   setBranch(e.target.value);
-                  // }}
-                  // value={branch}
+                  type="date"
+                  name="date"
+                  onChange={changeHandler}
+                 value={formdata.date}
                   placeholder="dd-mm-yyyy"
                 />
               </label>
@@ -568,11 +643,9 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
                 <p>Gift</p>
                 <input
                   type="text"
-                  name="branch"
-                  // onChange={(e) => {
-                  //   setBranch(e.target.value);
-                  // }}
-                  // value={branch}
+                  name="gift"
+                  onChange={changeHandler}
+                 value={formdata.gift}
                   placeholder="Enter Gift"
                 />
               </label>
@@ -585,7 +658,9 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
 
               <label htmlFor="">
                 <p>Description</p>
-                <textarea id="w3review" name="w3review" rows="8" cols="50" placeholder="Enter Description"></textarea>
+                <textarea id="w3review"  name="description"
+                  onChange={changeHandler}
+                 value={formdata.description} rows="8" cols="50" placeholder="Enter Description"></textarea>
               </label>
 
               </div>
@@ -612,7 +687,7 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
                   <span>Cancel</span>
                 </button>
 
-                <button className="create awd-create" onClick={handleCreateBranch}>
+                <button  className="create awd-create" onClick={submitHandler}>
                   <span>Create</span>
                 </button>
               </div>

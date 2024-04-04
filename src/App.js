@@ -52,6 +52,7 @@ import GoalTracking from "./Components/admin/Performance/GoalTracking";
 import Assets from "./Components/admin/Performance/Assets";
 import Notification from "./Components/admin/Notification/Notification";
 import Notification2 from "./Components/admin/Notification/Notification2";
+import EmployeAttendence from "./Components/admin/EmployeeHRM/EmployeAttendence";
 
 var tc;
 
@@ -203,6 +204,7 @@ function App() {
             <Route path="/adminDash/HRM/activeEmployee" element={<ActiveEmplyee pop={pop} setPop={setPop} setAlert={setAlert} />} />
             <Route path="/adminDash/HRM/leaveRequest" element={<LeaveRequest pop={pop} setPop={setPop} setAlert={setAlert} />} />
             <Route path="/adminDash/HRM/markAttendance" element={<MarkAttendance pop={pop} setPop={setPop} setAlert={setAlert} />} />
+            <Route path="/adminDash/HRM/userAttendence" element={<EmployeAttendence pop={pop} setPop={setPop} setAlert={setAlert} />} />
             
             <Route path="/adminDash/EmployeeMan/:id" element={<EmployeeManage pop={pop} setPop={setPop} setAlert={setAlert} />} />
 
