@@ -9,363 +9,73 @@ import "./award.css";
 
 import plusIcon from "../../images/plusIcon.png";
 
-const sidebarItem = [
-  {
-    title: "Branch",
-    tableData: [
-      {
-        title: "TYPE",
-      },
-      {
-        title: "ACTION",
-      },
-    ],
-  },
-  {
-    title: "Department",
-    tableData: [
-      {
-        title: "BRANCH",
-      },
-      {
-        title: "DEPARTMENT",
-      },
-      {
-        title: "ACTION",
-      },
-    ],
-  },
-  {
-    title: "Designation",
-    tableData: [
-      {
-        title: "DEPARTMENT",
-      },
-      {
-        title: "DESIGNATION",
-      },
-      {
-        title: "ACTION",
-      },
-    ],
-  },
-  {
-    title: "Leave Type",
-    tableData: [
-      {
-        title: "Leave Type",
-      },
-      {
-        title: "Days/Year",
-      },
-      {
-        title: "ACTION",
-      },
-    ],
-  },
-];
 
 const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
-  const { user, getBranchs, postBranch, updateBranch, deleteBranch, getDepartments, postDepartment, updateDepartment, deleteDepartment, getDesignations, postDesignation, updateDesignation, deleteDesignation, postLeaveType, updateLeaveType, getLeaveTypes, deleteLeaveType } = useMain();
+  const { user  , allEmployee , getDepartments , createTransfer , getTransfer , getBranchs} = useMain();
 
-  const [value, onChange] = useState(new Date());
-  const [gen, setGen] = useState([]);
-  const [flag, setFlag] = useState();
 
   const [open, setOpen] = useState(0);
-
-  const [popup, setPopup] = useState(false);
-
-  const styleing = {
-    display: popup ? "block" : "none",
-  };
-
-  useEffect(() => {
-    // getData();
-  }, []);
-  // console.log(gen.concat().toString.caller.arguments());
-  // const getData = async () => {
-
-  // };
-
-  const data1 = [
-    {
-      type: "Head office",
-    },
-    {
-      type: "Head office",
-    },
-    {
-      type: "Head office",
-    },
-  ];
-
-  const data2 = [
-    {
-      branch: "Head office",
-      department: "Admin",
-    },
-    {
-      branch: "Head office",
-      department: "Admin",
-    },
-    {
-      branch: "Head office",
-      department: "Admin",
-    },
-  ];
-
-  const data3 = [
-    {
-      department: "Head office",
-      designation: "Admin",
-    },
-    {
-      department: "Head office",
-      designation: "Admin",
-    },
-    {
-      department: "Head office",
-      designation: "Admin",
-    },
-  ];
+  const [allTransfer , setAllTransfer] = useState([]);
 
   const [popup1, setPopup1] = useState(false);
-  const [popup11, setPopup11] = useState(false);
-  const [popup2, setPopup2] = useState(false);
-  const [popup21, setPopup21] = useState(false);
-  const [popup3, setPopup3] = useState(false);
-  const [popup31, setPopup31] = useState(false);
-  const [popup4, setPopup4] = useState(false);
-  const [popup41, setPopup41] = useState(false);
 
-  const [id, setId] = useState('');
-  const [branches, setBranches] = useState([]);
-  const [branches1, setBranches1] = useState([]);
-  const [departments, setDepartments] = useState([]);
-  const [departments1, setDepartments1] = useState([]);
-  const [designations, setDesignations] = useState([]);
-  const [designations1, setDesignations1] = useState([]);
-  const [leaveTypes, setLeaveTypes] = useState([]);
-  const [leaveTypes1, setLeaveTypes1] = useState([]);
-  const [branch, setBranch] = useState("");
-  const [branch1, setBranch1] = useState("");
-  const [departmentValue, setDepartmentValue] = useState({
-    branch: "",
-    name: "",
-  });
-  const [leaveTypeValue, setLeaveTypeValue] = useState({
-    name: "",
-    days: ""
-  });
-  const [designationValue, setDesignationValue] = useState({
-    department: "",
-    name: "",
-  });
-  const [departmentValue1, setDepartmentValue1] = useState({
-    branch: "",
-    name: "",
-  });
-  const [designationValue1, setDesignationValue1] = useState({
-    department: "",
-    name: "",
-  });
-  const [leaveTypeValue1, setLeaveTypeValue1] = useState({
-    name: "",
-    days: ""
-  });
-  const [refreshFlag, setRefreshFlag] = useState(false);
+  const [allEmp , setAllEmp] = useState([]);
 
-  useEffect(() => {
-    getData();
-  }, [refreshFlag]);
+  const [allDep , setAllDep] = useState([]);
 
-  const getData = async () => {
-    const ans1 = await getBranchs();
-    const ans2 = await getDepartments();
-    const ans3 = await getDesignations();
-    const ans4 = await getLeaveTypes();
-    setBranches(ans1.data);
-    setBranches1(ans1.data);
-    setDepartments(ans2.data);
-    setDepartments1(ans2.data);
-    setDesignations(ans3.data);
-    setDesignations1(ans3.data);
-    setLeaveTypes(ans4.data);
-    setLeaveTypes1(ans4.data);
-  };
+  const [allBranch , setBranch] = useState([]);
 
-  const handleCreateBranch = async () => {
-    const ans = await postBranch({ name: branch });
-    console.log(ans);
-    if (ans.success) {
-      alert(ans.message);
-      setBranch("");
-      setRefreshFlag(!refreshFlag);
-      setPopup1(false);
-    } else {
-      alert("something went wrong");
-    }
-  };
+  const fetchAllEmp = async()=>{
+    const ans = await allEmployee();
+    setAllEmp(ans?.emp);
+  }
 
-  const handleUpdateBranch = async () => {
-    const ans = await updateBranch({ name: branch1, id });
-    console.log(ans);
-    if (ans.success) {
-      alert(ans.message);
-      setBranch1("");
-      setRefreshFlag(!refreshFlag);
-      setPopup11(false);
-    } else {
-      alert("something went wrong");
-    }
-  };
+  const fetchAllDep = async()=>{
+    const ans = await getDepartments();
+    setAllDep(ans?.data);
+  }
 
-  const handleCreateDepartment = async () => {
-    // console.log(departmentValue);
-    const ans = await postDepartment({
-      name: departmentValue.name,
-      branch: branches.find(x => x._id === departmentValue.branch),
-    });
-    console.log(ans);
-    if (ans.success) {
-      setDepartmentValue({
-        name: '',
-        branch: ''
-      });
-      alert(ans.message);
-      setRefreshFlag(!refreshFlag);
-      setPopup2(false);
-    } else {
-      alert("something went wrong");
-    }
-  };
+  const [formdata , setFormdata] = useState({
+    branch:"" , Employee:"" , Department:"" ,TransferDate:"" , Description:""
+  })
 
-  const handleCreateDesignation = async () => {
-    // console.log(designationValue);
-    const ans = await postDesignation({
-      name: designationValue.name,
-      department: departments.find(x => x._id === designationValue.department)
-    });
-    console.log(ans);
-    if (ans.success) {
-      alert(ans.message);
-      setDesignationValue({
-        name: '',
-        department: ''
-      });
-      setRefreshFlag(!refreshFlag);
-      setPopup3(false);
-    } else {
-      alert("something went wrong");
-    }
-  };
+  const changeHandler = (e)=>{
+    const {name , value} = e.target;
 
-  const handleCreateLeaveType = async () => {
-    const ans = await postLeaveType({
-      days: leaveTypeValue?.days,
-      name: leaveTypeValue?.name
-    });
-    console.log(ans);
-    if (ans.success) {
-      alert(ans.message);
-      setLeaveTypeValue({
-        name: '',
-        days: ''
-      });
-      setRefreshFlag(!refreshFlag);
-      setPopup4(false);
-    } else {
-      alert("something went wrong");
-    }
-  };
+     setFormdata((prev)=>({
+      ...prev ,
+      [name]:value
+     }))
+  }
 
-  const handleUpdateDepartment = async () => {
-    // console.log(departmentValue);
-    const ans = await updateDepartment({
-      id,
-      name: departmentValue1?.name,
-      branch: branches?.find(x => x?._id === departmentValue1?.branch),
-    });
-    console.log(ans);
-    if (ans.success) {
-      setDepartmentValue1({
-        name: '',
-        branch: ''
-      });
-      alert(ans.message);
-      setRefreshFlag(!refreshFlag);
-      setPopup21(false);
-    } else {
-      alert("something went wrong");
-    }
-  };
+  const fetchTranfer = async()=>{
+    const ans = await getTransfer();
+    console.log("tt",ans);
+    setAllTransfer(ans?.data);
+  }
 
-  const handleUpdateDesignation = async () => {
-    // console.log(designationValue);
-    const ans = await updateDesignation({
-      id,
-      name: designationValue1?.name,
-      department: departments?.find(x => x?._id === designationValue1?.department)
-    });
-    console.log(ans);
-    if (ans.success) {
-      alert(ans.message);
-      setDesignationValue1({
-        name: '',
-        department: ''
-      });
-      setRefreshFlag(!refreshFlag);
-      setPopup31(false);
-    } else {
-      alert("something went wrong");
-    }
-  };
+  const submitHandler = async()=>{
+    const ans = await createTransfer({...formdata});
+    if(ans?.status){
+      alert("Successfuly created");
+      fetchTranfer();
+ setPopup1(false);
 
-  const handleUpdateLeaveType = async () => {
-    const ans = await updateLeaveType({
-      id,
-      days: leaveTypeValue1?.days,
-      name: leaveTypeValue1?.name
-    });
-    console.log(ans);
-    if (ans.success) {
-      alert(ans.message);
-      setLeaveTypeValue1({
-        name: '',
-        days: ''
-      });
-      setRefreshFlag(!refreshFlag);
-      setPopup41(false);
-    } else {
-      alert("something went wrong");
     }
-  };
+  }
 
-  const handleDelete = async (id, type) => {
-    let ans;
-    console.log(id, type);
-    if (type === 'branch') {
-      ans = await deleteBranch(id);
-    }
-    else if (type === 'department') {
-      ans = await deleteDepartment(id);
-    }
-    else if (type === 'designation') {
-      ans = await deleteDesignation(id);
-    }
-    else if (type === 'leaveType') {
-      ans = await deleteLeaveType(id);
-    }
-    console.log(ans);
+  const fetchBranch = async()=>{
+    const ans = await getBranchs();
+    setBranch(ans?.data);
+  }
 
-    if (ans.success) {
-      alert(ans.message);
-      setRefreshFlag(!refreshFlag);
-    } else {
-      alert("something went wrong");
-    }
-  };
+
+  useEffect(()=>{
+    fetchAllEmp();
+    fetchAllDep();
+    fetchTranfer();
+    fetchBranch();
+  },[])
 
   return (
     <>
@@ -394,12 +104,6 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
                     onClick={() => {
                       if (open === 0) {
                         setPopup1(true);
-                      } else if (open === 1) {
-                        setPopup2(true);
-                      } else if (open === 2) {
-                        setPopup3(true);
-                      } else if (open === 3) {
-                        setPopup4(true);
                       }
                     }}
                     className="plusiCON"
@@ -498,6 +202,33 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
                      </th>
                    </tr>
                  </thead>
+                 <tbody>
+           
+     {
+      allTransfer?.map((item ,index)=>(
+        <tr key={index} class="bg-white dark:bg-gray-800">
+             
+        <td class="px-6 py-4">
+            {item?.Employee?.fullName}
+        </td>
+        <td class="px-6 py-4">
+            {item?.branch}
+        </td>
+        <td class="px-6 py-4">
+            {item?.Department}
+        </td>
+        <td className="px-6 py-4">{new Date(item?.TransferDate).toLocaleDateString('en-US', { day: '2-digit', month: 'long', year: 'numeric' })}</td>
+
+        <td class="px-6 py-4">
+            {item?.Description}
+        </td>
+        <td class="px-6 py-4">
+          ACTION
+        </td>
+    </tr>
+      ))
+     }
+        </tbody>
                </table>
               </div>
 
@@ -522,63 +253,62 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
 
               <hr />
 
-              {/* <div className="award-popup-label"> */}
               <div className="award-popup-label">
               <label htmlFor="">
                 <p>Employee</p>
-                <input
-                  type="text"
-                  name="branch"
-                  // onChange={(e) => {
-                  //   setBranch(e.target.value);
-                  // }}
-                  // value={branch}
-                  placeholder="Enter Employee Name"
-                />
+                <select name="Employee" onChange={changeHandler} id="">
+                  <option value="select Employee">select Employee</option>
+                  {
+                    allEmp?.map((item ,index)=>(
+                      <option value={item?.fullName} key={index}>{item?.fullName}</option>
+                    ))
+                  }
+                </select>
+              
               </label>
               <label htmlFor="">
                 <p>Branch</p>
-                <input
-                  type="text"
-                  name="branch"
-                  // onChange={(e) => {
-                  //   setBranch(e.target.value);
-                  // }}
-                  // value={branch}
-                  placeholder="Head office"
-                />
+                <select name="branch" onChange={changeHandler} id="">
+                  <option value="select Branch">select Branch</option>
+                  {
+                    allBranch?.map((item ,index)=>(
+                      <option value={item?.name} key={index}>{item?.name}</option>
+                    ))
+                  }
+                </select>
+                
               </label>
               </div>
               <div className="award-popup-label">
               <label htmlFor="">
                 <p>Department</p>
-                <input
-                  type="text"
-                  name="branch"
-                  // onChange={(e) => {
-                  //   setBranch(e.target.value);
-                  // }}
-                  // value={branch}
-                  placeholder="Admin"
-                />
+                <select   name="Department" onChange={changeHandler} id="">
+                  <option value="select Department">select Department</option>
+                  {
+                    allDep.map((item ,index)=>(
+                      <option value={item?.name} key={index}>{item.name}</option>
+                    ))
+                  }
+                </select>
+               
               </label>
               <label htmlFor="">
                 <p>Transfer Date</p>
                 <input
-                  type="number"
-                  name="branch"
-                  // onChange={(e) => {
-                  //   setBranch(e.target.value);
-                  // }}
-                  // value={branch}
+                  type="date"
+                value={formdata.TransferDate}
+                onChange={changeHandler}                 
+                name="TransferDate"
                   placeholder="dd-mm-yyyy"
                 />
               </label>
               </div>
+
               <div className="award-popup-label award-popup-textarea">
               <label htmlFor="">
                 <p>Description</p>
-                <textarea id="w3review" name="w3review" rows="8" cols="50" placeholder="Enter Description"></textarea>
+                <textarea onChange={changeHandler}
+                 value={formdata.Description} id="w3review" name="Description" rows="8" cols="50" placeholder="Enter Description"></textarea>
               </label>
               </div>
               {/* <div/> */}
@@ -590,7 +320,7 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
                   <span>Cancel</span>
                 </button>
 
-                <button className="create awd-create" onClick={handleCreateBranch}>
+                <button onClick={submitHandler} className="create awd-create" >
                   <span>Create</span>
                 </button>
               </div>

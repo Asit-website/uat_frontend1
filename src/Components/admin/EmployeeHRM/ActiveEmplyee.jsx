@@ -145,6 +145,7 @@ const AdminEmplyee = ({
 
   const getData = async () => {
     const ans = await getActiveUsers();
+    console.log("ans ",ans);
     setData1(ans.data);
   };
 
@@ -152,12 +153,11 @@ const AdminEmplyee = ({
     getData();
   }, []);
 
-   console.log("dat ",data1);
-
 
   return (
     <>
       <div className="employee-dash h-full">
+
         {isHr ? <HrSidebar /> : <AdminSidebar pop={pop} setPop={setPop} />}
 
         <div className="tm">

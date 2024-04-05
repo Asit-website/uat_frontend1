@@ -71,6 +71,7 @@ const submitHandler = async()=>{
         return alert("Please select the Employee");
      }
 
+      console.log("formd id ",formdata.id);
       const ans = await getAttendence({...formdata });
       console.log("ans ",ans);
       setUserData(ans?.data);
