@@ -3,7 +3,7 @@ import MainContext from './MainContext';
 import { deleteReq, get, post, put, postDocuments } from '../Api/api'
 import { useState } from 'react';
 
-// const baseUrl = "http://localhost:5000";
+const baseUrl = "http://localhost:5000";
 
 // const baseUrl = "https://hrms-backend-code.onrender.com"
 
@@ -15,7 +15,7 @@ import { useState } from 'react';
 
 // const baseUrl = "https://hrms-backend-g3wt.onrender.com";
 
-const baseUrl = "https://hr-backend-ncrd.onrender.com"
+// const baseUrl = "https://hr-backend-ncrd.onrender.com"
 
 
 const MainState = (props) => {
@@ -214,12 +214,12 @@ const MainState = (props) => {
    };
 
    const getAllActivities = async (type, date, userId, month) => {
+      console.log("type ",type ,"date",date ,"userid", userId ,"month" ,month  );
       const data = await get(`${baseUrl}/activity/getAllActivities?type=${type}&date=${date}&userId=${userId}&month=${month}`, true);
       return data;
    };
 
    const postActivity = async ({ clockIn, clockOut, late, overtime, total, message = '', date1 }) => {
-      console.log("a ", clockIn, clockOut, date1, late, overtime, total);
       const data = await post(`${baseUrl}/activity/postActivity`, { clockIn, clockOut, date1, late, overtime, total, message }, true);
       return data;
    };
