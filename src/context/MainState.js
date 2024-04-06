@@ -3,7 +3,7 @@ import MainContext from './MainContext';
 import { deleteReq, get, post, put, postDocuments } from '../Api/api'
 import { useState } from 'react';
 
-const baseUrl = "http://localhost:5000";
+// const baseUrl = "http://localhost:5000";
 
 // const baseUrl = "https://hrms-backend-code.onrender.com"
 
@@ -15,7 +15,7 @@ const baseUrl = "http://localhost:5000";
 
 // const baseUrl = "https://hrms-backend-g3wt.onrender.com";
 
-// const baseUrl = "https://hr-backend-ncrd.onrender.com"
+const baseUrl = "https://hr-backend-ncrd.onrender.com"
 
 
 const MainState = (props) => {
@@ -1171,6 +1171,42 @@ const MainState = (props) => {
       return data;
    }
 
+   const deleteTransfer = async (id) => {
+      const data = await deleteReq(`${baseUrl}/tranfer/deleteTransfer/${id}`, true);
+      return data;
+   };
+
+   const updateTransfer = async ({ id,branch , Employee , Department ,TransferDate , Description}) => {
+      const data = await put(`${baseUrl}/tranfer/updateTransfer/${id}`, {
+         branch , Employee , Department ,TransferDate , Description
+      }, true);
+      return data;
+   };
+
+   const createTrainer = async({Branch, firstName, lastName, contact, email,expertise,address})=>{
+      const data = await post(`${baseUrl}/admin/postTrainer`, {
+         Branch, firstName, lastName, contact, email,expertise,address
+      }, true);  
+   
+    return data;
+   }
+
+   const getTrainer = async()=>{
+      const data = await get(`${baseUrl}/admin/getTrainer`, true);
+      return data;
+   }
+
+   const deleteTrainer = async (id) => {
+      const data = await deleteReq(`${baseUrl}/admin/deleteTrainer/${id}`, true);
+      return data;
+   };
+
+   const updateTrainer = async ({ id,Branch, firstName, lastName, contact, email,expertise,address}) => {
+      const data = await put(`${baseUrl}/admin/updateTrainer/${id}`, {
+         Branch, firstName, lastName, contact, email,expertise,address
+      }, true);
+      return data;
+   };
 
    return (
       <MainContext.Provider value={{
@@ -1188,7 +1224,9 @@ const MainState = (props) => {
          getAttendence, createResignation, getResignation, deleteResignation, updateResignation,
          createPromotion,getPromotion, postAward , 
          getAward , fetchClock, deleteAward, updateAward , 
-         createTransfer , getTransfer
+         createTransfer , getTransfer,
+         deleteTransfer, updateTransfer,
+         createTrainer,getTrainer,deleteTrainer,updateTrainer
       }}>
          {props.children}
       </MainContext.Provider>

@@ -36,6 +36,10 @@ const dashboardItem = [
   {
     title: "Projects",
   },
+  {
+    title:"Announcement",
+    link:"/adminDash/announcement"
+  }
 ];
 
 const HRMSItem = [

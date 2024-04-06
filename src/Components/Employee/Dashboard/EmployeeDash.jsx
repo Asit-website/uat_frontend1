@@ -569,10 +569,10 @@ const EmployeeDash = ({ setAlert, pop1, setPop1 }) => {
 
                     </div>
 
-                    <div>
+                    <div >
                       <a
                         href="#"
-                        className="block max-w-2xl p-5 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700"
+                        className="block serad max-w-2xl p-5 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700"
                       >
                         <h5 className="mb-3 text-xl  tracking-tight text-gray-900 dark:text-white">
                           Time Log

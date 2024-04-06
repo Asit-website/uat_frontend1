@@ -38,41 +38,41 @@ const AdminNavbar = ({ setAlert }) => {
       <div className="Employee-nav w-full">
 
 
-          <div className="logo-namewrap">
+        <div className="logo-namewrap">
 
-        <div className="logo ">
-          <img src={kushel1} alt="" />
+          <div className="logo ">
+            <img src={kushel1} alt="" />
+          </div>
+
+          <NavLink to="/adminDash">
+
+            <div className="second-logo flex items-center">
+
+              {/* <img src={thir} alt="" /> */}
+
+
+              <p className="">Hi, {user?.fullName == null ? ("Shubham Gupta") : user?.fullName}!</p>
+
+              <span><img src={arrowDown} alt="" /></span>
+
+            </div>
+
+          </NavLink>
+
         </div>
 
-        <NavLink to="/adminDash">
 
-           <div className="second-logo flex items-center">
+        <div className="navProfiIcons">
 
-           {/* <img src={thir} alt="" /> */}
-
-          
-          <p className="">Hi, {user?.fullName ==null ?("Shubham Gupta"):user?.fullName}!</p>
-
-            <span><img src={arrowDown} alt="" /></span>
-
-        </div>
-        
-        </NavLink>
-
-        </div>
+          <img src={notification} alt="" />
+          <img onClick={() => navigate("/adminDash/notification")} src={chatbot} alt="" />
 
 
-         <div className="navProfiIcons">
+          {/* <img src={profile} alt="" /> */}
 
-              <img src={notification} alt="" />
-              <img onClick={()=>navigate("/adminDash/notification")} src={chatbot} alt="" />
+          {/* navitem  */}
+          <div className="relative cursor-pointer" onClick={updateUser}>
 
-
-              {/* <img src={profile} alt="" /> */}
-
-              {/* navitem  */}
-              <div className="relative cursor-pointer" onClick={updateUser}>
-            
             <div className="sixth-logo flex items-center relative ">
               <img className="john" src={user?.profileImage ? user?.profileImage : lok} alt="lok" />
               <p className="ml-2.5">{user?.fullName}</p>
@@ -83,7 +83,7 @@ const AdminNavbar = ({ setAlert }) => {
               <p onClick={handleLogout} className=" text-center">
                 Logout
               </p>
-             <NavLink to="/adminDash/profile"><p  className=" text-center">
+              <NavLink to="/adminDash/profile"><p className=" text-center">
                 Edit Profile
               </p></NavLink>
               {/* <NavLink to="/employeeDash/update">
@@ -93,10 +93,10 @@ const AdminNavbar = ({ setAlert }) => {
 
           </div>
 
-         </div>
+        </div>
 
-      
-      
+
+
 
       </div>
     </>

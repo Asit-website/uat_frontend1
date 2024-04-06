@@ -323,7 +323,9 @@ width: 100%;
   font-weight: 500;
   font-size: 17px;
 }
-
+.serad{
+  padding: 20px;
+}
 .forget {
   color: #0b60ff !important;
   font-family: gilroy !important;
