@@ -26,6 +26,7 @@ const UpdateProfile = ({ setAlert, pop1, setPop1 }) => {
   };
 
 
+  
   useEffect(() => {
     // setValue(user);
     let user1 = JSON.parse(localStorage.getItem("hrms_user"));

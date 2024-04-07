@@ -6,14 +6,17 @@ import chatbot from "../../images/chat_bubble_outline.png"
 import profile from "../../images/adProfile.png"
 import lok from "../../images/lok.png";
 import bottom from "../../images/bottom.png";
-
+// import { useMain } from "../../../hooks/useMain";
 
 import { NavLink, useNavigate } from "react-router-dom";
 const AdminNavbar = ({ setAlert }) => {
-  let user = JSON.parse(localStorage.getItem("hrms_user"));
+  
+  let user = JSON?.parse(localStorage.getItem("hrms_user"));
   const updateUser = () => {
     document.getElementById("ty").classList.toggle("tys");
   };
+
+  // const {user} = useMain()
   const handleLogout = () => {
     localStorage.removeItem("hrms_token");
     localStorage.removeItem("hrms_user");

@@ -323,6 +323,15 @@ width: 100%;
   font-weight: 500;
   font-size: 17px;
 }
+/* .okij{
+  width: 100% !important;
+}
+.okij input{
+  width: 100% !important;
+} */
+.okij{
+  margin: 10px 0px !important;
+}
 .serad{
   padding: 20px;
 }
@@ -337,7 +346,10 @@ width: 100%;
   border: 1px solid;
   padding: 50px;
 }
-
+.popup110{
+  height: 420px !important;
+  max-height: 420px !important;
+}
 .indexest {
   position: relative;
   z-index: 100000000;

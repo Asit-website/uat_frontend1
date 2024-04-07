@@ -3,7 +3,7 @@ import MainContext from './MainContext';
 import { deleteReq, get, post, put, postDocuments } from '../Api/api'
 import { useState } from 'react';
 
-const baseUrl = "http://localhost:5000";
+// const baseUrl = "http://localhost:5000";
 
 // const baseUrl = "https://hrms-backend-code.onrender.com"
 
@@ -11,7 +11,7 @@ const baseUrl = "http://localhost:5000";
 
 // const baseUrl = "https://hrms-backend-q2ta.onrender.com";
 
-// const baseUrl = "https://hmsbackend.kusheldigi.com";
+const baseUrl = "https://hmsbackend.kusheldigi.com";
 
 // const baseUrl = "https://hrms-backend-g3wt.onrender.com";
 
@@ -24,7 +24,7 @@ const MainState = (props) => {
    const [chatUser, setChatUser] = useState({});
 
    const login = async ({ email, employeeCode, password }) => {
-      const data = await post(`${baseUrl}/auth/login`, { email, employeeCode, password, role: "Admin" }, false);
+      const data = await post(`${baseUrl}/auth/login`, { email, employeeCode, password}, false);
 
       console.log("data", data);
       return data;
@@ -1208,6 +1208,32 @@ const MainState = (props) => {
       return data;
    };
 
+   // =================training list api======================
+   const createTrainingList = async({Branch, trainerOption, trainingType, trainer, trainingCost,Employee,startDate,endDate,description})=>{
+      const data = await post(`${baseUrl}/admin/postList`, {
+         Branch, trainerOption, trainingType, trainer, trainingCost,Employee,startDate,endDate,description
+      }, true);  
+   
+    return data;
+   }
+
+   const getTrainingList = async()=>{
+      const data = await get(`${baseUrl}/admin/getList`, true);
+      return data;
+   }
+
+   const deleteTrainingList = async (id) => {
+      const data = await deleteReq(`${baseUrl}/admin/deleteList/${id}`, true);
+      return data;
+   };
+
+   const updateTrainingList = async ({ id,Branch, trainerOption, trainingType, trainer, trainingCost,Employee,startDate,endDate,description,status,performance,remarks}) => {
+      const data = await put(`${baseUrl}/admin/updateList/${id}`, {
+         Branch, trainerOption, trainingType, trainer, trainingCost,Employee,startDate,endDate,description,status,performance,remarks
+      }, true);
+      return data;
+   };
+
    return (
       <MainContext.Provider value={{
          login, employeeLogin, employeeResetPassword, hrLogin, createHr, getHrs, deleteHr, createEmployee, getEmployees, getUsers, getActiveUsers, getActiveUsersCount, getAdminEmployees, postActivity, postActivityHr, getActivitiesByUser, getStatisticsByUser, postLeave, updateLeave, getUserLeaves, getUserLeaveById, deleteLeave, getTotalLeaves, postTotalLeaves, verifyEmployee, verifyHr, verifyAdmin, setUser, user, getProjects, postProject, getHolidays, postHoliday, updateProject, getProjectsByEmployee, getTasks, postTask, updateTask, deleteTask, setFlag, flag, changePassword, updateProfile, deleteHoliday, updateHoliday, deleteProject, getChats, createNewChat, postMessage, deleteChat, adminLogin, getChat, getChatByUser, setChatUser, chatUser, getEmployeesByEmployee, topDash, postAnnouncement, updateAnnouncement, getAnnouncements, getAnnouncementDates, deleteAnnouncement, getAttendance, getAttendanceByUser, createEmployee1, updateAdminProfile, changePassword1, verify, updateUser, forgetPassword, forgetPassword1, forgetPassword2, getBranchs, postBranch, updateBranch, deleteBranch, getDepartments, postDepartment, updateDepartment, deleteDepartment, getDesingation, postDesignation, updateDesignation, deleteDesignation, getAllActivities, postLeaveType, updateLeaveType, getLeaveTypes, deleteLeaveType,
@@ -1226,7 +1252,7 @@ const MainState = (props) => {
          getAward , fetchClock, deleteAward, updateAward , 
          createTransfer , getTransfer,
          deleteTransfer, updateTransfer,
-         createTrainer,getTrainer,deleteTrainer,updateTrainer
+         createTrainer,getTrainer,deleteTrainer,updateTrainer,createTrainingList,getTrainingList,updateTrainingList,deleteTrainingList
       }}>
          {props.children}
       </MainContext.Provider>

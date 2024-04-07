@@ -26,7 +26,7 @@ const AdminProfile = ({ pop, setPop, setAlert }) => {
 
   useEffect(() => {
     // setValue(user);
-    let user1 = JSON.parse(localStorage.getItem("hrms_user"));
+    let user1 = JSON?.parse(localStorage.getItem("hrms_user"));
     setValue(user1);
     getData();
   }, []);
@@ -46,7 +46,7 @@ const AdminProfile = ({ pop, setPop, setAlert }) => {
     console.log(ans);
     if (ans.success) {
       setAlert("success", ans.message);
-      setValue(ans.data);
+      setValue(ans?.data);
       navigate("/adminDash");
 
     } else {
@@ -116,6 +116,23 @@ const AdminProfile = ({ pop, setPop, setAlert }) => {
           <div className="em">
             <div className="flex-col">
               <form className="updateUser" onSubmit={handleSubmit}>
+                {
+                  user?.designation === "CEO" ? 
+                  <div className="mb-6">
+                  <label htmlFor="fullName" className="block mb-1 ">
+                    Full Name
+                  </label>
+                  <input
+                    type="text"
+                    name="fullName"
+                    onChange={handleChange}
+                    value={value?.fullName}
+                    id="fullName"
+                    className=" block w-full"
+                  // required
+                  />
+                </div>
+                :
                 <div className="mb-6">
                   <label htmlFor="fullName" className="block mb-1 ">
                     Full Name
@@ -124,12 +141,31 @@ const AdminProfile = ({ pop, setPop, setAlert }) => {
                     type="text"
                     name="fullName"
                     onChange={() => null}
-                    value={value.fullName}
+                    value={value?.fullName}
                     id="fullName"
                     className=" block w-full"
                   // required
                   />
                 </div>
+                }
+
+
+                {
+                  user?.designation === "CEO" ? <div className="mb-6">
+                  <label htmlFor="email" className="block mb-1 ">
+                    Company Email
+                  </label>
+                  <input
+                    type="email"
+                    name="email"
+                    onChange={handleChange}
+                    value={value.email}
+                    id="email"
+                    className=" block w-full"
+                  // required
+                  />
+                </div>
+                :
                 <div className="mb-6">
                   <label htmlFor="email" className="block mb-1 ">
                     Company Email
@@ -144,6 +180,9 @@ const AdminProfile = ({ pop, setPop, setAlert }) => {
                   // required
                   />
                 </div>
+                }
+                
+
                 <div className="mb-6">
                   <label htmlFor="mobile" className="block mb-1">
                     Mobile Number

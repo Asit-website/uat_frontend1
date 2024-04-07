@@ -46,6 +46,7 @@ const Auth = (props) => {
         "hrms_token",
         JSON.stringify({
           token: ans.token,
+          role: ans.role
           // rememberMe: document.getElementById('remember').checked,
           // expiry: new Date().getTime() + 24 * 60 * 60 * 1000
         })
