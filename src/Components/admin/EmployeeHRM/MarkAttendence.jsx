@@ -20,39 +20,39 @@ const MarkAttendance = ({
   setAlert,
   isHr = false,
 }) => {
-  const { user, getAllActivities, getUsers, getDepartments , allEmployee } = useMain();
+  const { user, getAllActivities, getUsers, getDepartments, allEmployee } = useMain();
   const [data, setData] = useState([]);
   const [data1, setData1] = useState({});
   const [users, setUsers] = useState([]);
   const [departments, setDepartments] = useState([]);
 
-  
+
   const getData = async () => {
     const ans1 = await allEmployee();
     setUsers(ans1.emp);
     let ans = await getAllActivities();
-    console.log("ans 2 ",ans);
+    console.log("ans 2 ", ans);
     setData(ans.data);
     const ans2 = await getDepartments();
-    
+
     setDepartments(ans2.data);
   };
-  
+
   var [selectedOption, setSelectedOption] = useState("daily");
   const [date, setDate] = useState('');
   const [month, setMonth] = useState('');
   const [userId, setuserId] = useState('');
   const [department, setDepartment] = useState('');
-  
+
   const handleOptionChange = (event) => {
     setSelectedOption(event.target.value);
-    selectedOption=event.target.value;
+    selectedOption = event.target.value;
     handleSubmit();
   };
 
   const handleSubmit = async () => {
-    
-    let ans = await getAllActivities(selectedOption, date, month ,userId);
+
+    let ans = await getAllActivities(selectedOption, date, month, userId);
     // console.log("ans ",ans);
     // if(selectedOption==='all')
     // {
@@ -63,22 +63,22 @@ const MarkAttendance = ({
     //   setData(ans.data);
     // }
   };
-  
+
   const handleDownload = async () => {
-    
+
   };
 
   const handleShare = async () => {
 
-  };  
+  };
 
-   useEffect(() => {
+  useEffect(() => {
     getData();
   }, []);
 
   return (
     <>
-    <h1>Hello Dinesh</h1>
+      <h1>Hello Dinesh</h1>
       <div className="employee-dash h-full">
         {isHr ? <HrSidebar /> : <AdminSidebar pop={pop} setPop={setPop} />}
         <div className="tm">
@@ -114,7 +114,7 @@ const MarkAttendance = ({
                 </div>
               </div>
 
-      
+
               <div className="marSecond">
                 <div className="mAdSlE">
                   <p className="tText">Type</p>
@@ -443,10 +443,10 @@ const MarkAttendance = ({
 
                     <span>entries per page</span>
                   </div>
-             
+
                 </div>
 
-{/* this is do shwo all empplye  */}
+                {/* this is do shwo all empplye  */}
                 {selectedOption === "daily" && (
                   <div className="relative overflow-x-auto">
                     <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -492,16 +492,16 @@ const MarkAttendance = ({
                               {item?.user?.department}
                             </td>
                             <td className="px-6 py-4 itemANs">
-                             {
-new Date(item.Date).toLocaleDateString('en-US', { day: '2-digit', month: '2-digit', year: 'numeric' })                             }
+                              {
+                                new Date(item.Date).toLocaleDateString('en-US', { day: '2-digit', month: '2-digit', year: 'numeric' })}
                             </td>
                             <td className="px-6 py-4 itemANs">{Number(item.clockIn) === 0 ? "Absent" : Number(item.clockIn) > 21600 ? 'Present' : 'Half Day'}</td>
 
                             <td className="px-6 py-4 itemANs">
-                             {item?.clockIn}
+                              {item?.clockIn}
                             </td>
                             <td className="px-6 py-4 itemANs">
-                            {item?.clockOut}
+                              {item?.clockOut}
                             </td>
                             <td className="px-6 py-4 itemANs">
                               {/* {Number(item.clockOut) !== 0
@@ -517,7 +517,7 @@ new Date(item.Date).toLocaleDateString('en-US', { day: '2-digit', month: '2-digi
                                       .toString()
                                       .padStart(2, "0")}`
                                 : " - "} */}
-                                {item?.breakTime ? item?.breakTime : "No break"}
+                              {item?.breakTime ? item?.breakTime : "No break"}
                             </td>
                             <td className="px-6 py-4 itemANs">
                               {Number(item.clockOut) !== 0
@@ -574,9 +574,9 @@ new Date(item.Date).toLocaleDateString('en-US', { day: '2-digit', month: '2-digi
                           <th scope="col" className="px-6 py-3 currentText">
                             Break
                           </th>
-                          <th scope="col" className="px-6 py-3 currentText">
+                          {/* <th scope="col" className="px-6 py-3 currentText">
                             Total Time
-                          </th>
+                          </th> */}
                           <th scope="col" className="px-6 py-3 currentText">
                             OverTime
                           </th>
@@ -598,26 +598,32 @@ new Date(item.Date).toLocaleDateString('en-US', { day: '2-digit', month: '2-digi
                             </td>
 
                             <td className="px-6 py-4 itemANs">
-                              {new Date(Number(item?.date)).toLocaleDateString(
+                              {/* {new Date(Number(item?.date)).toLocaleDateString(
                                 "en-GB"
-                              )}
+                              )} */}
+                              {
+                                new Date(item.Date).toLocaleDateString('en-US', { day: '2-digit', month: '2-digit', year: 'numeric' })}
                             </td>
 
-                            <td className="px-6 py-4 itemANs">{Number(item.clockIn) === 0 ? "Absent" : Number(item.clockIn) > 21600 ? 'Present' : 'Half Day'}</td>
                             <td className="px-6 py-4 itemANs">
-                            {Number(item.clockIn) === 0 ? ' - ' : new Date(
-                                Number(item.clockIn)
-                              ).toLocaleTimeString("en-GB")}
+                              {Number(item.clockIn) === 0 ? "Absent" : Number(item.clockIn) > 21600 ? 'Present' : 'Half Day'}
                             </td>
                             <td className="px-6 py-4 itemANs">
-                              {Number(item.clockOut) !== 0
+                              {/* {Number(item.clockIn) === 0 ? ' - ' : new Date(
+                                Number(item.clockIn)
+                              ).toLocaleTimeString("en-GB")} */}
+                              {item?.clockIn}
+                            </td>
+                            <td className="px-6 py-4 itemANs">
+                              {/* {Number(item.clockOut) !== 0
                                 ? new Date(
                                   Number(item.clockOut)
                                 ).toLocaleTimeString("en-GB")
-                                : " - "}
+                                : " - "} */}
+                              {item?.clockOut}
                             </td>
                             <td className="px-6 py-4 itemANs">
-                              {Number(item.clockOut) !== 0
+                              {/* {Number(item.clockOut) !== 0
                                 ? `${Math.floor(item.late / 3600)
                                   .toString()
                                   .padStart(2, "0")}:${Math.floor(
@@ -629,9 +635,11 @@ new Date(item.Date).toLocaleDateString('en-US', { day: '2-digit', month: '2-digi
                                     )
                                       .toString()
                                       .padStart(2, "0")}`
-                                : " - "}
+                                : " - "} */}
+                                 {item?.breakTime ? item?.breakTime : "No break"}
+                            
                             </td>
-                            <td className="px-6 py-4 itemANs">
+                            {/* <td className="px-6 py-4 itemANs">
                               {Number(item.total) !== 0
                                 ? `${Math.floor(item.total / 3600)
                                   .toString()
@@ -645,7 +653,8 @@ new Date(item.Date).toLocaleDateString('en-US', { day: '2-digit', month: '2-digi
                                       .toString()
                                       .padStart(2, "0")}`
                                 : " - "}
-                            </td>
+                                
+                            </td> */}
                             <td className="px-6 py-4 itemANs">
                               {Number(item.clockOut) !== 0
                                 ? `${Math.floor(item.overtime / 3600)
@@ -705,7 +714,7 @@ new Date(item.Date).toLocaleDateString('en-US', { day: '2-digit', month: '2-digi
                       </thead>
 
                       <tbody>
-                        {data1 && Object.keys(data1).length>0 && Object.keys(data1).map((item, index) => (
+                        {data1 && Object.keys(data1).length > 0 && Object.keys(data1).map((item, index) => (
                           <tr key={index} className="bg-white ">
                             <td className="px-6 py-4 itemANs">
                               {data1[item]?.user?.fullName}

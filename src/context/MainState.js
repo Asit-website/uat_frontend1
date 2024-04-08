@@ -3,7 +3,7 @@ import MainContext from './MainContext';
 import { deleteReq, get, post, put, postDocuments } from '../Api/api'
 import { useState } from 'react';
 
-const baseUrl = "http://localhost:5000";
+// const baseUrl = "http://localhost:5000";
 
 // const baseUrl = "https://hrms-backend-code.onrender.com"
 
@@ -11,7 +11,7 @@ const baseUrl = "http://localhost:5000";
 
 // const baseUrl = "https://hrms-backend-q2ta.onrender.com";
 
-// const baseUrl = "https://hmsbackend.kusheldigi.com";
+const baseUrl = "https://hmsbackend.kusheldigi.com";
 
 // const baseUrl = "https://hrms-backend-g3wt.onrender.com";
 
@@ -24,7 +24,7 @@ const MainState = (props) => {
    const [chatUser, setChatUser] = useState({});
 
    const login = async ({ email, employeeCode, password }) => {
-      const data = await post(`${baseUrl}/auth/login`, { email, employeeCode, password}, false);
+      const data = await post(`${baseUrl}/auth/login`, { email, employeeCode, password }, false);
 
       console.log("data", data);
       return data;
@@ -215,8 +215,8 @@ const MainState = (props) => {
 
    const getAllActivities = async () => {
 
-      const data = await get(`${baseUrl}/clock/allAttendence`,true);
-      console.log("data ",data);
+      const data = await get(`${baseUrl}/clock/allAttendence`, true);
+      console.log("data ", data);
 
       return data;
 
@@ -418,7 +418,7 @@ const MainState = (props) => {
       return data;
    };
 
-   const updateProfile = async ({  fullName,
+   const updateProfile = async ({ fullName,
       mobile,
       email,
       email1,
@@ -463,7 +463,8 @@ const MainState = (props) => {
       Branch,
       image, _id }) => {
 
-      const data = await put(`${baseUrl}/user/updateProfile`, {  fullName,
+      const data = await put(`${baseUrl}/user/updateProfile`, {
+         fullName,
          mobile,
          email,
          email1,
@@ -506,7 +507,8 @@ const MainState = (props) => {
          AccountNumber,
          confirmAccount,
          Branch,
-         image }, true);
+         image
+      }, true);
 
       if (image) {
          const formdata = new FormData();
@@ -772,18 +774,20 @@ const MainState = (props) => {
    };
 
    const createAssets = async ({ Employee,
-      Name,
-      amount,
+      designation,
+      department,
+      product,
       purchaseDate,
-      supportedDate,
+      additonal,
       description
    }) => {
       const data = await post(`${baseUrl}/admin/postAsset`, {
          Employee,
-         Name,
-         amount,
+         designation,
+         department,
+         product,
          purchaseDate,
-         supportedDate,
+         additonal,
          description
       }, true);
 
@@ -802,17 +806,19 @@ const MainState = (props) => {
    };
 
    const updateAssets = async ({ id, Employee,
-      Name,
-      amount,
+      designation,
+      department,
+      product,
       purchaseDate,
-      supportedDate,
+      additonal,
       description }) => {
       const data = await put(`${baseUrl}/admin/updateAsset/${id}`, {
          Employee,
-         Name,
-         amount,
+         designation,
+         department,
+         product,
          purchaseDate,
-         supportedDate,
+         additonal,
          description
       }, true);
       return data;
@@ -1066,14 +1072,14 @@ const MainState = (props) => {
    };
 
 
-   const postAttendence = async ({ clockInDetail, clockOutDetail, id , breakTime ,clockInDate}) => {
+   const postAttendence = async ({ clockInDetail, clockOutDetail, id, breakTime, clockInDate }) => {
 
-   //    const today = new Date();
-   //  const currentDate = `${today.getDate()}-${today.getMonth() + 1}-${today.getFullYear()}`;
+      //    const today = new Date();
+      //  const currentDate = `${today.getDate()}-${today.getMonth() + 1}-${today.getFullYear()}`;
 
 
       const data = await post(`${baseUrl}/clock/createClock/${id}`, {
-         clockInDetail, clockOutDetail, date:clockInDate ,breakTime
+         clockInDetail, clockOutDetail, date: clockInDate, breakTime
       }, true);
 
       return data;
@@ -1140,16 +1146,16 @@ const MainState = (props) => {
    };
 
 
-   const postAward = async({ employee, awardType, date,gift, description, rating})=>{
+   const postAward = async ({ employee, awardType, date, gift, description, rating }) => {
 
       const data = await post(`${baseUrl}/award/postAward`, {
-         employee, awardType, date,gift, description, rating
+         employee, awardType, date, gift, description, rating
       }, true);
 
       return data;
    }
 
-   const getAward = async()=>{
+   const getAward = async () => {
       const data = await get(`${baseUrl}/award/getAllAward`, true);
       return data;
    }
@@ -1159,30 +1165,30 @@ const MainState = (props) => {
       return data;
    };
 
-   const updateAward = async ({ id,employee, awardType, date,gift, description, rating}) => {
+   const updateAward = async ({ id, employee, awardType, date, gift, description, rating }) => {
       const data = await put(`${baseUrl}/award/updateAward/${id}`, {
-         employee, awardType, date,gift, description, rating
+         employee, awardType, date, gift, description, rating
       }, true);
       return data;
    };
 
-   const fetchClock = async({date , Employee })=>{
+   const fetchClock = async ({ date, Employee }) => {
       const data = await post(`${baseUrl}/clock/getClockByUser`, {
-         date , Employee
+         date, Employee
       }, true);
 
       return data;
    }
 
-   const createTransfer = async({branch , Employee , Department ,TransferDate , Description})=>{
+   const createTransfer = async ({ branch, Employee, Department, TransferDate, Description }) => {
       const data = await post(`${baseUrl}/tranfer/createTransfer`, {
-         branch , Employee , Department ,TransferDate , Description
-      }, true);  
-   
-    return data;
+         branch, Employee, Department, TransferDate, Description
+      }, true);
+
+      return data;
    }
 
-   const getTransfer = async()=>{
+   const getTransfer = async () => {
       const data = await get(`${baseUrl}/tranfer/getTransfer`, true);
       return data;
    }
@@ -1192,22 +1198,22 @@ const MainState = (props) => {
       return data;
    };
 
-   const updateTransfer = async ({ id,branch , Employee , Department ,TransferDate , Description}) => {
+   const updateTransfer = async ({ id, branch, Employee, Department, TransferDate, Description }) => {
       const data = await put(`${baseUrl}/tranfer/updateTransfer/${id}`, {
-         branch , Employee , Department ,TransferDate , Description
+         branch, Employee, Department, TransferDate, Description
       }, true);
       return data;
    };
 
-   const createTrainer = async({Branch, firstName, lastName, contact, email,expertise,address})=>{
+   const createTrainer = async ({ Branch, firstName, lastName, contact, email, expertise, address }) => {
       const data = await post(`${baseUrl}/admin/postTrainer`, {
-         Branch, firstName, lastName, contact, email,expertise,address
-      }, true);  
-   
-    return data;
+         Branch, firstName, lastName, contact, email, expertise, address
+      }, true);
+
+      return data;
    }
 
-   const getTrainer = async()=>{
+   const getTrainer = async () => {
       const data = await get(`${baseUrl}/admin/getTrainer`, true);
       return data;
    }
@@ -1217,23 +1223,23 @@ const MainState = (props) => {
       return data;
    };
 
-   const updateTrainer = async ({ id,Branch, firstName, lastName, contact, email,expertise,address}) => {
+   const updateTrainer = async ({ id, Branch, firstName, lastName, contact, email, expertise, address }) => {
       const data = await put(`${baseUrl}/admin/updateTrainer/${id}`, {
-         Branch, firstName, lastName, contact, email,expertise,address
+         Branch, firstName, lastName, contact, email, expertise, address
       }, true);
       return data;
    };
 
    // =================training list api======================
-   const createTrainingList = async({Branch, trainerOption, trainingType, trainer, trainingCost,Employee,startDate,endDate,description})=>{
+   const createTrainingList = async ({ Branch, trainerOption, trainingType, trainer, trainingCost, Employee, startDate, endDate, description }) => {
       const data = await post(`${baseUrl}/admin/postList`, {
-         Branch, trainerOption, trainingType, trainer, trainingCost,Employee,startDate,endDate,description
-      }, true);  
-   
-    return data;
+         Branch, trainerOption, trainingType, trainer, trainingCost, Employee, startDate, endDate, description
+      }, true);
+
+      return data;
    }
 
-   const getTrainingList = async()=>{
+   const getTrainingList = async () => {
       const data = await get(`${baseUrl}/admin/getList`, true);
       return data;
    }
@@ -1243,12 +1249,41 @@ const MainState = (props) => {
       return data;
    };
 
-   const updateTrainingList = async ({ id,Branch, trainerOption, trainingType, trainer, trainingCost,Employee,startDate,endDate,description,status,performance,remarks}) => {
+   const updateTrainingList = async ({ id, Branch, trainerOption, trainingType, trainer, trainingCost, Employee, startDate, endDate, description, status, performance, remarks }) => {
       const data = await put(`${baseUrl}/admin/updateList/${id}`, {
-         Branch, trainerOption, trainingType, trainer, trainingCost,Employee,startDate,endDate,description,status,performance,remarks
+         Branch, trainerOption, trainingType, trainer, trainingCost, Employee, startDate, endDate, description, status, performance, remarks
       }, true);
       return data;
    };
+
+   // ==============================Holiday api=====================
+
+   const createHoliday = async ({ holidayName, startDate, endDate }) => {
+      const data = await post(`${baseUrl}/admin/createHoliday`, {
+         holidayName, startDate, endDate
+      }, true);
+
+      return data;
+   }
+
+   const getHoliday = async () => {
+      const data = await get(`${baseUrl}/admin/getHoliday`, true);
+      return data;
+   }
+
+   const deleteHolidays = async (id) => {
+      const data = await deleteReq(`${baseUrl}/admin/deleteHoliday/${id}`, true);
+      return data;
+   };
+
+   const updateHolidays = async ({ id, holidayName, startDate, endDate }) => {
+      const data = await put(`${baseUrl}/admin/updateHoliday/${id}`, {
+         holidayName, startDate, endDate
+      }, true);
+      return data;
+   };
+
+
 
    return (
       <MainContext.Provider value={{
@@ -1264,11 +1299,11 @@ const MainState = (props) => {
          createComplain, getComplain, updateComplain, deleteComplain,
          postAttendence,
          getAttendence, createResignation, getResignation, deleteResignation, updateResignation,
-         createPromotion,getPromotion, postAward , 
-         getAward , fetchClock, deleteAward, updateAward , 
-         createTransfer , getTransfer,
+         createPromotion, getPromotion, postAward,
+         getAward, fetchClock, deleteAward, updateAward,
+         createTransfer, getTransfer,
          deleteTransfer, updateTransfer,
-         createTrainer,getTrainer,deleteTrainer,updateTrainer,createTrainingList,getTrainingList,updateTrainingList,deleteTrainingList
+         createTrainer, getTrainer, deleteTrainer, updateTrainer, createTrainingList, getTrainingList, updateTrainingList, deleteTrainingList, createHoliday, getHoliday, deleteHolidays, updateHolidays
       }}>
          {props.children}
       </MainContext.Provider>

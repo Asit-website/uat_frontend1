@@ -24,13 +24,13 @@ const Assets = ({ pop, setPop, setAlert }) => {
   const [editData, setEditData] = useState({});
 
   const [formdata, setFormdata] = useState({
-    Employee: "",
-    designation: "",
-    department: "",
-    additionProduct: "",
-    toDate: "",
-    product: "",
-    description: ""
+    Employee:"",
+    designation:"",
+    department:"",
+    product:"",
+    purchaseDate:"",
+    additonal:"",
+    description:""
   })
 
   const changeHandler = (e) => {
@@ -49,10 +49,11 @@ const Assets = ({ pop, setPop, setAlert }) => {
       setFormdata({
         id: editData._id,
         Employee: editData.Employee,
-        Name: editData.Name,
-        amount: editData.amount,
+        designation: editData.designation,
+        department: editData.department,
+        product: editData.product,
         purchaseDate: editData.purchaseDate,
-        supportedDate: editData.supportedDate,
+        additonal: editData.additonal,
         description: editData.description
       })
     }
@@ -203,22 +204,26 @@ const Assets = ({ pop, setPop, setAlert }) => {
                   <thead class="text-xs text-black uppercase  dark:text-black">
                     <tr>
                       <th scope="col" class="px-6 py-3">
-                        NAME
+                        EMPLOYEE
                       </th>
                       <th scope="col" class="px-6 py-3">
-                        USERS
+                        DESIGNATION
                       </th>
                       <th scope="col" class="px-6 py-3">
-                        PURCHASE DATE
+                        DEPARTMENT
+                      </th>
+                      <th scope="col" class="px-6 py-3">
+                        PRODUCT
                       </th>
                       <th scope="col" class="px-6 py-3">
                         SUPPORTED DATE
                       </th>
                       <th scope="col" class="px-6 py-3">
-                        AMOUNT
+                         ADDTIONAL PRODUCT
                       </th>
+
                       <th scope="col" class="px-6 py-3">
-                        DESCRIPTION
+                         DESCRIPTION
                       </th>
 
                       <th scope="col" class="px-6 py-3">
@@ -235,21 +240,25 @@ const Assets = ({ pop, setPop, setAlert }) => {
                           <tr key={index} class="bg-white">
 
                             <td class="px-6 py-4">
-                              {item?.Name}
-                            </td>
-                            <td class="px-6 py-4">
                               {item?.Employee}
                             </td>
+                            <td class="px-6 py-4">
+                              {item?.designation}
+                            </td>
+                            <td class="px-6 py-4">
+                              {item?.department}
+                            </td>
+                            <td class="px-6 py-4">
+                              {item?.product}
+                            </td>
+
                             <td class="px-6 py-4">
                               {item?.purchaseDate}
                             </td>
                             <td class="px-6 py-4">
-                              {item?.supportedDate}
+                              {item?.additonal}
                             </td>
 
-                            <td class="px-6 py-4">
-                              {item?.amount}
-                            </td>
                             <td class="px-6 py-4">
                               {item?.description}
                             </td>
@@ -315,12 +324,13 @@ const Assets = ({ pop, setPop, setAlert }) => {
                   setOnEdit(false);
                   setEditData({});
                   setFormdata({
-                    Employee: "",
-                    Name: "",
-                    amount: "",
-                    purchaseDate: "",
-                    supportedDate: "",
-                    description: ""
+                    Employee:"",
+                    designation:"",
+                    department:"",
+                    product:"",
+                    purchaseDate:"",
+                    additonal:"",
+                    description:""
                   })
                 }} className='cursor-pointer' src={cross} alt="" />
               </nav>
@@ -372,12 +382,12 @@ const Assets = ({ pop, setPop, setAlert }) => {
 
                 <label className='halfLabel' >
                   <p>To Date</p>
-                  <input name='supportedDate' value={formdata?.toDate} onChange={changeHandler} type="date" />
+                  <input name='purchaseDate' value={formdata?.purchaseDate} onChange={changeHandler} type="date" />
                 </label>
 
                 <label className='fullLabel' >
                   <p>Additional Product</p>
-                  <input name="additionProduct" id="description" onChange={changeHandler} cols="20" rows="3" value={formdata?.additionProduct} />
+                  <input name="additonal" id="additonal" onChange={changeHandler} cols="20" rows="3" value={formdata?.additonal} />
                 </label>
 
                 <label className='fullLabel' >
@@ -395,12 +405,13 @@ const Assets = ({ pop, setPop, setAlert }) => {
                   setOnEdit(false);
                   setEditData({});
                   setFormdata({
-                    Employee: "",
-                    Name: "",
-                    amount: "",
-                    purchaseDate: "",
-                    supportedDate: "",
-                    description: ""
+                    Employee:"",
+                    designation:"",
+                    department:"",
+                    product:"",
+                    purchaseDate:"",
+                    additonal:"",
+                    description:""
                   })
                 }} className='cancelBtn'>Cancel</button>
                 <button type='submit' className='creteBtn'>{onEdit ? "Update" : "Create"}</button>

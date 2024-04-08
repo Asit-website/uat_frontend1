@@ -35,10 +35,6 @@ const dashboardItem = [
   },
   {
     title: "Projects",
-  },
-  {
-    title:"Announcement",
-    link:"/adminDash/announcement"
   }
 ];
 
@@ -145,6 +141,14 @@ const hrAdminItem = [
     title: "Termination",
     link: "/adminDash/HRM/TerminationHRM"
   },
+  {
+    title: "Holiday",
+    link: "/adminDash/HRM/holiday" 
+  },
+  {
+    title:"Announcement",
+    link:"/adminDash/announcement"
+  }
 ]
 
 const AdminSidebar = ({ pop, setPop }) => {

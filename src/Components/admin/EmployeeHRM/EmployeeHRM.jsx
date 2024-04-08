@@ -27,7 +27,7 @@ const EmployeeHRM = ({
   setAlert,
   isHr = false,
 }) => {
-  const { user, getUsers, getActiveUsersCount, postActivity, getTotalLeavesCount, fetchAnnoucement } = useMain();
+  const { user, getUsers, getActiveUsersCount, postActivity, getTotalLeavesCount, fetchAnnoucement, getHoliday } = useMain();
 
   const [counts, setCounts] = useState({
     activeEmployees: 0,
@@ -40,6 +40,8 @@ const EmployeeHRM = ({
   const [totalLeave, setTotalLeave] = useState(0);
 
   const [announce, setAnnounce] = useState([]);
+
+  const [holiday, setHoliday] = useState([]);
 
 
   const getData = async () => {
@@ -55,6 +57,7 @@ const EmployeeHRM = ({
       ...counts, totalEmployees: ans.data.length, activeEmployees: ans1.data
     });
     setLoadFlag(false);
+    console.log(counts)
     // console.log(counts);
     // console.log(ans1);
   };
@@ -204,8 +207,14 @@ const EmployeeHRM = ({
     setAnnounce(ans?.data);
   }
 
+  const getHolidays = async () => {
+    const ans = await getHoliday();
+    setHoliday(ans?.data);
+  }
+
   useEffect(() => {
     getAnnoucement();
+    getHolidays();
   }, []);
 
 
@@ -300,7 +309,7 @@ const EmployeeHRM = ({
                   </div>
 
                   {/* second  */}
-                 <NavLink to="/adminDash/announcement"><div className="hrLefThi">
+                  <NavLink to="/adminDash/announcement"><div className="hrLefThi">
 
                     <h2>Announcement Lists</h2>
 
@@ -342,6 +351,51 @@ const EmployeeHRM = ({
                                     {val?.description}
                                   </td>
 
+                                </tr>
+                              )
+                            })
+                          }
+
+                        </tbody>
+                      </table>
+                    </div>
+
+
+                  </div></NavLink>
+
+                  <NavLink to="/adminDash/HRM/holiday"><div className="hrLefThi">
+
+                    <h2>Holiday Lists</h2>
+
+                    <div className="relative overflow-x-auto">
+                      <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                        <thead className="text-xs uppercase textALLtITL ">
+                          <tr  >
+                            <th scope="col" className="px-6 py-3 taskTitl">
+                              OCCASION
+                            </th>
+                            <th scope="col" className="px-2 py-3 taskTitl">
+                              START DATE
+                            </th>
+                            <th scope="col" className="px-6 py-3 taskTitl">
+                              END DATE
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {
+                            holiday?.map((val, index) => {
+                              return (
+                                <tr key={index} className="bg-white border-b  ">
+                                  <th scope="row" className="px-6 py-4 font-medium  whitespace-nowrap taskAns ">
+                                    {val?.holidayName}
+                                  </th>
+                                  <td className="px-2 py-4 taskAns">
+                                    {val?.startDate}
+                                  </td>
+                                  <td className="px-6 py-4 taskAns">
+                                    {val?.endDate}
+                                  </td>
                                 </tr>
                               )
                             })

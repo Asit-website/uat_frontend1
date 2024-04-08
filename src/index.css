@@ -350,6 +350,9 @@ width: 100%;
   height: 420px !important;
   max-height: 420px !important;
 }
+.popingson{
+  height: 397px !important;
+}
 .indexest {
   position: relative;
   z-index: 100000000;

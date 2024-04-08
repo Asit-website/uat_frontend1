@@ -25,6 +25,7 @@ import AttendenceCalendar from "./Components/Employee/Request/AttendenceCalendar
 import Payroll from "./Components/Hr/Payroll/Payroll";
 import ProfileManagement from "./Components/admin/ProfileManagement/ProfileManagement";
 import HrAttendence from "./Components/Hr/HrAttendence/HrAttendence";
+import HolidayHRM from "./Components/admin/EmployeeHRM/HolidayHRM";
 import EmployeeHRM from "./Components/admin/EmployeeHRM/EmployeeHRM";
 import TotalEmployee from "./Components/admin/EmployeeHRM/TotalEmployee";
 import LeaveEmployee from "./Components/admin/EmployeeHRM/LeaveEmployee";
@@ -197,6 +198,7 @@ function App() {
             <Route path="/adminDash/HRM/ComplaintsHRM" element={<ComplaintsHRM/>}/>
             <Route path="/adminDash/HRM/WarningHRM" element={<WarningHRM/>}/> 
             <Route path="/adminDash/HRM/TerminationHRM" element={<TerminationHRM/>}/> 
+            <Route path="/adminDash/HRM/holiday" element={<HolidayHRM/>}/>
            
            
            <Route path="/adminDash/HRM/totalEmployee" element={<TotalEmployee pop={pop} setPop={setPop} setAlert={setAlert} />} />
