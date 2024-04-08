@@ -211,6 +211,7 @@ const EmployeeDash = ({ setAlert, pop1, setPop1 }) => {
   };
 
   const clockIn = async () => {
+
     let t = localStorage.getItem("clock-status");
     localStorage.setItem('clockInTime', new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', second: '2-digit', hour12: true }));
 
@@ -228,6 +229,11 @@ const EmployeeDash = ({ setAlert, pop1, setPop1 }) => {
 
       localStorage.setItem("clock-in", new Date().getTime());
       localStorage.setItem("clock-status", "break");
+
+      // for setting todat date 
+      const today = new Date();
+    const currentDate = `${today.getDate()}-${today.getMonth() + 1}-${today.getFullYear()}`;
+    localStorage.setItem("clock-in-date" , currentDate);
     
       localStorage.setItem('breakInTime', new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', second: '2-digit', hour12: true }));
 
@@ -240,10 +246,8 @@ const EmployeeDash = ({ setAlert, pop1, setPop1 }) => {
         localStorage.setItem("break-time", new Date().getTime());
         localStorage.setItem("clock-status", "resume");
 
-        
       localStorage.setItem('breakOutTime', new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', second: '2-digit', hour12: true }));
 
-         
         let t3 = localStorage.getItem("break-seconds");
 
         tc3 = setInterval(() => {
@@ -295,6 +299,7 @@ const EmployeeDash = ({ setAlert, pop1, setPop1 }) => {
   };
 
   const clockOut = async () => {
+    
     localStorage.setItem("clock-status", "out");
     localStorage.setItem("clock-out-time", new Date().getTime());
     localStorage.setItem('clockOutTime', new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', second: '2-digit', hour12: true }));
@@ -324,8 +329,6 @@ const EmployeeDash = ({ setAlert, pop1, setPop1 }) => {
 
    const differenceText = `${hours}:${minutes}:${seconds}`;
 
-   console.log('dire ',differenceText , localStorage.getItem("clockInTime"));
-
     let ans = await postActivity({
       clockIn: localStorage.getItem("clock-in"),
       clockOut: localStorage.getItem("clock-out-time"),
@@ -341,10 +344,42 @@ const EmployeeDash = ({ setAlert, pop1, setPop1 }) => {
 
     const id = userDetail?._id;
 
-    const attendence = await postAttendence({ clockInDetail: localStorage.getItem("clockInTime"), breakTime:differenceText , clockOutDetail: localStorage.getItem("clockOutTime"), id });
+   const clockInDate =  localStorage.getItem('clock-in-date');
 
-    console.log('ate ',attendence);
+     // for setting todat date 
+     const today = new Date();
+     const currentDate = `${today.getDate()}-${today.getMonth() + 1}-${today.getFullYear()}`;
 
+     // Check if the current date is the same as the clock-in date
+if (clockInDate === currentDate) {
+  const attendence = await postAttendence({ clockInDetail: localStorage.getItem("clockInTime"), breakTime:differenceText , clockOutDetail: localStorage.getItem("clockOutTime"), id , clockInDate:currentDate });
+} else {
+  const today = new Date();
+  const yesterday = new Date(today);
+  yesterday.setDate(today.getDate() - 1);
+  
+  let yesterdayDate, yesterdayMonth, yesterdayYear;
+  
+  // Check if today is the 1st day of the month
+  if (today.getDate() === 1) {
+      // If today is the 1st, yesterday should be the last day of the previous month
+      yesterday.setDate(0); // Set to the last day of the previous month
+      yesterdayDate = yesterday.getDate();
+      yesterdayMonth = yesterday.getMonth() + 1; // Adding 1 because getMonth() returns 0-based index
+      yesterdayYear = yesterday.getFullYear();
+  } else {
+      // If today is not the 1st, simply get yesterday's date, month, and year
+      yesterdayDate = yesterday.getDate();
+      yesterdayMonth = yesterday.getMonth() + 1; // Adding 1 because getMonth() returns 0-based index
+      yesterdayYear = yesterday.getFullYear();
+  }
+  
+  const yesterdayFormatted = `${yesterdayDate}-${yesterdayMonth}-${yesterdayYear}`;
+  console.log("Yesterday's date:", yesterdayFormatted);
+
+
+  const attendence = await postAttendence({ clockInDetail: localStorage.getItem("clockInTime"), breakTime:differenceText , clockOutDetail: localStorage.getItem("clockOutTime"), id , clockInDate:yesterdayFormatted });
+}
 
     localStorage.removeItem("clock-in");
     localStorage.removeItem("clock-status");
@@ -353,8 +388,8 @@ const EmployeeDash = ({ setAlert, pop1, setPop1 }) => {
     localStorage.removeItem("clockInTime");
     localStorage.removeItem("breakInTime");
     localStorage.removeItem("breakOutTime");
+    localStorage.removeItem("clock-in-date");
    
-
   };
 
   const [star1, setStar1] = useState(false);

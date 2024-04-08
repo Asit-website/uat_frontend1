@@ -9,9 +9,6 @@ import "./hrm.css";
 import "./leaveReq.css";
 import "./markAttendance.css";
 import { NavLink } from "react-router-dom";
-import search22 from "../../images/search22.png";
-import restart from "../../images/restart_alt.png";
-import srch2 from "../../images/srch2.png";
 import moreVert from "../../images/more_vert.png";
 import { useEffect, useState } from "react";
 
@@ -23,58 +20,61 @@ const MarkAttendance = ({
   setAlert,
   isHr = false,
 }) => {
-  const { user, getAllActivities, getUsers, getDepartments } = useMain();
+  const { user, getAllActivities, getUsers, getDepartments , allEmployee } = useMain();
   const [data, setData] = useState([]);
   const [data1, setData1] = useState({});
   const [users, setUsers] = useState([]);
   const [departments, setDepartments] = useState([]);
 
+  
   const getData = async () => {
+    const ans1 = await allEmployee();
+    setUsers(ans1.emp);
     let ans = await getAllActivities();
-    const ans1 = await getUsers();
-    const ans2 = await getDepartments();
-    // console.log(ans2);
+    console.log("ans 2 ",ans);
     setData(ans.data);
-    setUsers(ans1.data);
+    const ans2 = await getDepartments();
+    
     setDepartments(ans2.data);
   };
-
+  
   var [selectedOption, setSelectedOption] = useState("daily");
   const [date, setDate] = useState('');
   const [month, setMonth] = useState('');
   const [userId, setuserId] = useState('');
   const [department, setDepartment] = useState('');
-
+  
   const handleOptionChange = (event) => {
     setSelectedOption(event.target.value);
     selectedOption=event.target.value;
     handleSubmit();
   };
 
-  useEffect(() => {
-    getData();
-  }, []);
-
   const handleSubmit = async () => {
-  
-    let ans = await getAllActivities(selectedOption, date, userId, month);
-    if(selectedOption==='all')
-    {
-      setData1(ans.data);
-    }
-    else
-    {
-      setData(ans.data);
-    }
+    
+    let ans = await getAllActivities(selectedOption, date, month ,userId);
+    // console.log("ans ",ans);
+    // if(selectedOption==='all')
+    // {
+    //   setData1(ans.data);
+    // }
+    // else
+    // {
+    //   setData(ans.data);
+    // }
   };
-
+  
   const handleDownload = async () => {
-
+    
   };
 
   const handleShare = async () => {
 
-  };
+  };  
+
+   useEffect(() => {
+    getData();
+  }, []);
 
   return (
     <>
@@ -114,19 +114,7 @@ const MarkAttendance = ({
                 </div>
               </div>
 
-              {/* <div className="marSecond">
-                <div className="mAdSlE">
-                  <p className="tText">Type</p>
-                  <label htmlFor="">
-                    <input type="radio" />
-                    <span>Monthly</span>
-                  </label>
-                  <label htmlFor="">
-                    <input type="radio" />
-                    <span>Daily</span>
-                  </label>
-                </div> */}
-
+      
               <div className="marSecond">
                 <div className="mAdSlE">
                   <p className="tText">Type</p>
@@ -166,10 +154,6 @@ const MarkAttendance = ({
                           className="daate_mate_btn"
                         />
                       </div>
-
-                      {/* <select name="" id="">
-                        <option value="Select Branch">Select Branch</option>
-                      </select> */}
 
                       <select onChange={(e) => { setDepartment(e.target.value); }}>
                         <option value="">Select Department</option>
@@ -266,7 +250,7 @@ const MarkAttendance = ({
                       </select> */}
 
                       <select value={userId} onChange={(e) => { setuserId(e.target.value); }}>
-                        <option value=""> Select Employee </option>
+                        <option value="Select Employee"> Select Employee </option>
                         {users?.map((e, index) => {
                           return (
                             <option key={index} value={e._id}> {e?.fullName} </option>
@@ -450,6 +434,7 @@ const MarkAttendance = ({
               </div>
 
               <main className="MarkAtMain">
+
                 <div className="marknav">
                   <div className="marNavLef">
                     <select name="" id="">
@@ -458,12 +443,10 @@ const MarkAttendance = ({
 
                     <span>entries per page</span>
                   </div>
-                  {/* <div className="marNavRight">
-                    <img src={srch2} alt="" />
-                    <input type="text" placeholder="search..." />
-                  </div> */}
+             
                 </div>
 
+{/* this is do shwo all empplye  */}
                 {selectedOption === "daily" && (
                   <div className="relative overflow-x-auto">
                     <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -509,25 +492,19 @@ const MarkAttendance = ({
                               {item?.user?.department}
                             </td>
                             <td className="px-6 py-4 itemANs">
-                              {new Date(Number(item?.date)).toLocaleDateString(
-                                "en-GB"
-                              )}
+                             {
+new Date(item.Date).toLocaleDateString('en-US', { day: '2-digit', month: '2-digit', year: 'numeric' })                             }
                             </td>
                             <td className="px-6 py-4 itemANs">{Number(item.clockIn) === 0 ? "Absent" : Number(item.clockIn) > 21600 ? 'Present' : 'Half Day'}</td>
+
                             <td className="px-6 py-4 itemANs">
-                              {Number(item.clockIn) === 0 ? ' - ' : new Date(
-                                Number(item.clockIn)
-                              ).toLocaleTimeString("en-GB")}
+                             {item?.clockIn}
                             </td>
                             <td className="px-6 py-4 itemANs">
-                              {Number(item.clockOut) !== 0
-                                ? new Date(
-                                  Number(item.clockOut)
-                                ).toLocaleTimeString("en-GB")
-                                : " - "}
+                            {item?.clockOut}
                             </td>
                             <td className="px-6 py-4 itemANs">
-                              {Number(item.clockOut) !== 0
+                              {/* {Number(item.clockOut) !== 0
                                 ? `${Math.floor(item.late / 3600)
                                   .toString()
                                   .padStart(2, "0")}:${Math.floor(
@@ -539,7 +516,8 @@ const MarkAttendance = ({
                                     )
                                       .toString()
                                       .padStart(2, "0")}`
-                                : " - "}
+                                : " - "} */}
+                                {item?.breakTime ? item?.breakTime : "No break"}
                             </td>
                             <td className="px-6 py-4 itemANs">
                               {Number(item.clockOut) !== 0
@@ -757,9 +735,11 @@ const MarkAttendance = ({
                           </tr>
                         ))}
                       </tbody>
+
                     </table>
                   </div>
                 )}
+
               </main>
             </div>
           </div>

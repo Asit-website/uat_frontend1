@@ -3,7 +3,7 @@ import MainContext from './MainContext';
 import { deleteReq, get, post, put, postDocuments } from '../Api/api'
 import { useState } from 'react';
 
-// const baseUrl = "http://localhost:5000";
+const baseUrl = "http://localhost:5000";
 
 // const baseUrl = "https://hrms-backend-code.onrender.com"
 
@@ -15,7 +15,7 @@ import { useState } from 'react';
 
 // const baseUrl = "https://hrms-backend-g3wt.onrender.com";
 
-const baseUrl = "https://hr-backend-ncrd.onrender.com"
+// const baseUrl = "https://hr-backend-ncrd.onrender.com"
 
 
 const MainState = (props) => {
@@ -213,11 +213,26 @@ const MainState = (props) => {
       return data;
    };
 
-   const getAllActivities = async (type, date, userId, month) => {
-      console.log("type ",type ,"date",date ,"userid", userId ,"month" ,month  );
-      const data = await get(`${baseUrl}/activity/getAllActivities?type=${type}&date=${date}&userId=${userId}&month=${month}`, true);
+   const getAllActivities = async () => {
+
+      const data = await get(`${baseUrl}/clock/allAttendence`,true);
+      console.log("data ",data);
+
       return data;
+
+
+
    };
+   // const getAllActivities = async (type, date, month , userId) => {
+
+   //    const data = await post(`${baseUrl}/clock/attendencedetail` ,{type ,date , month,userId},true);
+   //    console.log("data ",data);
+
+   //    return data;
+
+
+
+   // };
 
    const postActivity = async ({ clockIn, clockOut, late, overtime, total, message = '', date1 }) => {
       const data = await post(`${baseUrl}/activity/postActivity`, { clockIn, clockOut, date1, late, overtime, total, message }, true);
@@ -1051,13 +1066,14 @@ const MainState = (props) => {
    };
 
 
-   const postAttendence = async ({ clockInDetail, clockOutDetail, id , breakTime }) => {
+   const postAttendence = async ({ clockInDetail, clockOutDetail, id , breakTime ,clockInDate}) => {
 
-      const today = new Date();
-      const date = `${today.getDate()} : ${today.getMonth() + 1} : ${today.getFullYear()}`;
+   //    const today = new Date();
+   //  const currentDate = `${today.getDate()}-${today.getMonth() + 1}-${today.getFullYear()}`;
+
 
       const data = await post(`${baseUrl}/clock/createClock/${id}`, {
-         clockInDetail, clockOutDetail, date ,breakTime
+         clockInDetail, clockOutDetail, date:clockInDate ,breakTime
       }, true);
 
       return data;
