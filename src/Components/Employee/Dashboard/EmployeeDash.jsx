@@ -231,8 +231,9 @@ const EmployeeDash = ({ setAlert, pop1, setPop1 }) => {
       localStorage.setItem("clock-status", "break");
 
       // for setting todat date 
-      const today = new Date();
-    const currentDate = `${today.getDate()}-${today.getMonth() + 1}-${today.getFullYear()}`;
+    //   const today = new Date();
+    // const currentDate = `${today.getDate()}-${today.getMonth() + 1}-${today.getFullYear()}`;
+   let currentDate =  new Date().toLocaleDateString("en-GB")
     localStorage.setItem("clock-in-date" , currentDate);
     
       localStorage.setItem('breakInTime', new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', second: '2-digit', hour12: true }));
@@ -328,7 +329,7 @@ const EmployeeDash = ({ setAlert, pop1, setPop1 }) => {
    const seconds = Math.floor((differenceMs % (1000 * 60)) / 1000);
 
    const differenceText = `${hours}:${minutes}:${seconds}`;
-
+   
     let ans = await postActivity({
       clockIn: localStorage.getItem("clock-in"),
       clockOut: localStorage.getItem("clock-out-time"),
@@ -346,40 +347,7 @@ const EmployeeDash = ({ setAlert, pop1, setPop1 }) => {
 
    const clockInDate =  localStorage.getItem('clock-in-date');
 
-     // for setting todat date 
-     const today = new Date();
-     const currentDate = `${today.getDate()}-${today.getMonth() + 1}-${today.getFullYear()}`;
-
-     // Check if the current date is the same as the clock-in date
-if (clockInDate === currentDate) {
-  const attendence = await postAttendence({ clockInDetail: localStorage.getItem("clockInTime"), breakTime:differenceText , clockOutDetail: localStorage.getItem("clockOutTime"), id , clockInDate:currentDate });
-} else {
-  const today = new Date();
-  const yesterday = new Date(today);
-  yesterday.setDate(today.getDate() - 1);
-  
-  let yesterdayDate, yesterdayMonth, yesterdayYear;
-  
-  // Check if today is the 1st day of the month
-  if (today.getDate() === 1) {
-      // If today is the 1st, yesterday should be the last day of the previous month
-      yesterday.setDate(0); // Set to the last day of the previous month
-      yesterdayDate = yesterday.getDate();
-      yesterdayMonth = yesterday.getMonth() + 1; // Adding 1 because getMonth() returns 0-based index
-      yesterdayYear = yesterday.getFullYear();
-  } else {
-      // If today is not the 1st, simply get yesterday's date, month, and year
-      yesterdayDate = yesterday.getDate();
-      yesterdayMonth = yesterday.getMonth() + 1; // Adding 1 because getMonth() returns 0-based index
-      yesterdayYear = yesterday.getFullYear();
-  }
-  
-  const yesterdayFormatted = `${yesterdayDate}-${yesterdayMonth}-${yesterdayYear}`;
-  console.log("Yesterday's date:", yesterdayFormatted);
-
-
-  const attendence = await postAttendence({ clockInDetail: localStorage.getItem("clockInTime"), breakTime:differenceText , clockOutDetail: localStorage.getItem("clockOutTime"), id , clockInDate:yesterdayFormatted });
-}
+  const attendence = await postAttendence({ clockInDetail: localStorage.getItem("clockInTime"), breakTime:differenceText , clockOutDetail: localStorage.getItem("clockOutTime"), id , clockInDate:clockInDate });
 
     localStorage.removeItem("clock-in");
     localStorage.removeItem("clock-status");
@@ -410,7 +378,6 @@ if (clockInDate === currentDate) {
       [name]: value
     }))
   }
-
 
   const submitHandler = async (e) => {
     e.preventDefault();

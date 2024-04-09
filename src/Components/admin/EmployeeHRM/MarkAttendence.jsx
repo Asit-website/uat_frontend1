@@ -20,7 +20,7 @@ const MarkAttendance = ({
   setAlert,
   isHr = false,
 }) => {
-  const { user, getAllActivities, getUsers, getDepartments, allEmployee } = useMain();
+  const { user, getAllActivities, getUsers, getDepartments, allEmployee , getAllActivities2 } = useMain();
   const [data, setData] = useState([]);
   const [data1, setData1] = useState({});
   const [users, setUsers] = useState([]);
@@ -52,16 +52,20 @@ const MarkAttendance = ({
 
   const handleSubmit = async () => {
 
-    let ans = await getAllActivities(selectedOption, date, month, userId);
-    // console.log("ans ",ans);
-    // if(selectedOption==='all')
-    // {
-    //   setData1(ans.data);
-    // }
-    // else
-    // {
-    //   setData(ans.data);
-    // }
+     let monthUpdate ;
+
+    if(month){
+       const regex = /-(\d+)/;
+       const match = month.match(regex);
+
+       if (match) {
+         monthUpdate = match[1];
+       }
+    }
+
+    let ans = await getAllActivities2(selectedOption, date, monthUpdate, userId);
+    console.log('ans ',ans);
+  
   };
 
   const handleDownload = async () => {

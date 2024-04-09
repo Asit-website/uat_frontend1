@@ -19,25 +19,29 @@ const AttendenceCalendar = ({ setAlert, pop1, setPop1 }) => {
   const [clockOut , setClockOut] = useState(null);
   const [totalBreak ,setTotalBreak] = useState(null);
 
-  useEffect(() => {
-    getData(todayDate);
-  }, []);
 
   const getData = async (date) => {
     setLoadFlag(true);
     const data = await getActivitiesByUser(date, '', '', 0, 10, '');
+    console.log("data ",data);
   
     setMainData(data.data[0]);
     setLoadFlag(false);
   };
 
+  useEffect(() => {
+    getData(todayDate);
+  }, []);
+
   const getClock = async(date)=>{
+    console.log('date ',date);
     let user = localStorage.getItem("hrms_user");
     const userDetail = JSON.parse(user);
 
     const id = userDetail?._id;
 
      const attendece = await getAttendence({id , date});
+     console.log("att ",attendece);
 
      if(attendece.status){
        if(attendece?.data?.clockIn && attendece?.data?.clockOut){

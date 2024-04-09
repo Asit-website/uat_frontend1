@@ -27,7 +27,7 @@ const EmployeeHRM = ({
   setAlert,
   isHr = false,
 }) => {
-  const { user, getUsers, getActiveUsersCount, postActivity, getTotalLeavesCount, fetchAnnoucement, getHoliday } = useMain();
+  const { user, getUsers, getActiveUsersCount, postActivity, getTotalLeavesCount, fetchAnnoucement, getHoliday , postAttendence } = useMain();
 
   const [counts, setCounts] = useState({
     activeEmployees: 0,
@@ -52,14 +52,11 @@ const EmployeeHRM = ({
     const ans2 = await getTotalLeavesCount();
     setTotalLeave(ans2.totalLeave);
 
-    // console.log(ans1);
     setCounts({
       ...counts, totalEmployees: ans.data.length, activeEmployees: ans1.data
     });
     setLoadFlag(false);
-    console.log(counts)
-    // console.log(counts);
-    // console.log(ans1);
+   
   };
 
   var [clock, setClock] = useState(0);
@@ -119,83 +116,156 @@ const EmployeeHRM = ({
   };
 
   const clockIn = async () => {
-    let t = localStorage.getItem('clock-status');
-    // console.log(t);
 
+    let t = localStorage.getItem("clock-status");
+    localStorage.setItem('clockInTime', new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', second: '2-digit', hour12: true }));
 
 
     if (!t) {
-      let ans = await postActivity({ clockIn: localStorage.getItem('clock-in') ? localStorage.getItem("clock-in") : new Date().getTime(), clockOut: 0, late: 0, date1: new Date().toLocaleDateString('en-GB'), overtime: 0, total: 0, message: '' });
+      let ans = await postActivity({
+        clockIn: localStorage.getItem("clock-in") ? localStorage.getItem("clock-in") : new Date().getTime(),
+        clockOut: 0,
+        late: 0,
+        date1: new Date().toLocaleDateString("en-GB"),
+        overtime: 0,
+        total: 0,
+        message: "",
+      });
 
-      localStorage.setItem('clock-in', new Date().getTime());
-      localStorage.setItem('clock-status', 'break');
+      localStorage.setItem("clock-in", new Date().getTime());
+      localStorage.setItem("clock-status", "break");
+
+      // for setting todat date 
+    //   const today = new Date();
+    // const currentDate = `${today.getDate()}-${today.getMonth() + 1}-${today.getFullYear()}`;
+   let currentDate =  new Date().toLocaleDateString("en-GB")
+    localStorage.setItem("clock-in-date" , currentDate);
+    
+      localStorage.setItem('breakInTime', new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', second: '2-digit', hour12: true }));
+
+
       tc4 = setInterval(() => {
         setClock(++clock);
       }, 1000);
-    }
-    else {
-      if (t === 'break') {
-        localStorage.setItem('break-time', new Date().getTime());
-        localStorage.setItem('clock-status', 'resume');
-        clearInterval(tc3);
-        let t3 = localStorage.getItem('break-seconds');
+    } else {
+      if (t === "break") {
+        localStorage.setItem("break-time", new Date().getTime());
+        localStorage.setItem("clock-status", "resume");
+
+      localStorage.setItem('breakOutTime', new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', second: '2-digit', hour12: true }));
+
+        let t3 = localStorage.getItem("break-seconds");
 
         tc3 = setInterval(() => {
           setBreakClock(++t3);
         }, 1000);
-      }
-      else if (t === 'resume') {
-        let t1 = localStorage.getItem('break-time');
+      } else if (t === "resume") {
+        let t1 = localStorage.getItem("break-time");
         if (t1) {
-          let t2 = localStorage.getItem('break-seconds');
+          let t2 = localStorage.getItem("break-seconds");
           if (t2) {
-            localStorage.setItem('break-seconds', Math.floor((new Date() - t1) / 1000) + Number(t2));
-          }
-          else {
-            localStorage.setItem('break-seconds', Math.floor((new Date() - t1) / 1000));
+            localStorage.setItem(
+              "break-seconds",
+              Math.floor((new Date() - t1) / 1000) + Number(t2)
+            );
+          } else {
+            localStorage.setItem(
+              "break-seconds",
+              Math.floor((new Date() - t1) / 1000)
+            );
           }
         }
-        localStorage.setItem('clock-status', 'break');
+        localStorage.setItem("clock-status", "break");
         clearInterval(tc3);
-      }
-      else if (t === "out") {
-        let ans = await postActivity({ clockIn: localStorage.getItem('clock-in'), clockOut: 0, late: 0, date1: new Date().toLocaleDateString('en-GB'), overtime: 0, total: 0, message: '' });
+      } else if (t === "out") {
+        let ans = await postActivity({
+          clockIn: localStorage.getItem("clock-in"),
+          clockOut: 0,
+          late: 0,
+          date1: new Date().toLocaleDateString("en-GB"),
+          overtime: 0,
+          total: 0,
+          message: "",
+        });
 
-        localStorage.setItem('clock-in', new Date().getTime());
-        localStorage.setItem('clock-status', 'break');
-        localStorage.removeItem('clock-out-time');
-        localStorage.removeItem('break-seconds');
-        localStorage.removeItem('break-time');
+        localStorage.setItem("clock-in", new Date().getTime());
+        localStorage.setItem("clock-status", "break");
+        localStorage.removeItem("clock-out-time");
+        localStorage.removeItem("break-seconds");
+        localStorage.removeItem("break-time");
 
         let t8 = 0;
         tc4 = setInterval(() => {
           setClock(++t8);
         }, 1000);
-        // clearInterval(tc3);
-        // clearInterval(tc4);
+
       }
     }
     setMount(!mount);
-    getData();
-
   };
 
+
   const clockOut = async () => {
-    localStorage.setItem('clock-status', 'out');
-    localStorage.setItem('clock-out-time', new Date().getTime());
+    
+    localStorage.setItem("clock-status", "out");
+    localStorage.setItem("clock-out-time", new Date().getTime());
+    localStorage.setItem('clockOutTime', new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', second: '2-digit', hour12: true }));
+
     clearInterval(tc3);
     clearInterval(tc4);
     setMount(!mount);
+    setClock(0);
 
-    let ans = await postActivity({ clockIn: localStorage.getItem('clock-in'), clockOut: localStorage.getItem('clock-out-time'), late: breakClock, date1: new Date().toLocaleDateString('en-GB'), overtime: (((clock) - (32400)) > 0 ? ((clock) - 32400) : 0), total: clock, message: '' });
+     const breakIn = localStorage.getItem("breakInTime");
+     const breakOut = localStorage.getItem("breakOutTime");
+
+  // Get the current year
+  const currentYear = new Date().getFullYear();
+
+  // Construct Date objects using the current year
+  const date1 = new Date(`${currentYear} 01 01 ${breakIn}`);
+  const date2 = new Date(`${currentYear} 01 01 ${breakOut}`);
+  
+   // Calculate the difference in milliseconds
+   const differenceMs = date2.getTime() - date1.getTime();
+
+   // Convert the difference to a readable format
+   const hours = Math.floor(differenceMs / (1000 * 60 * 60));
+   const minutes = Math.floor((differenceMs % (1000 * 60 * 60)) / (1000 * 60));
+   const seconds = Math.floor((differenceMs % (1000 * 60)) / 1000);
+
+   const differenceText = `${hours}:${minutes}:${seconds}`;
+   
+    let ans = await postActivity({
+      clockIn: localStorage.getItem("clock-in"),
+      clockOut: localStorage.getItem("clock-out-time"),
+      late: breakClock,
+      date1: new Date().toLocaleDateString("en-GB"),
+      overtime: clock - 32400 > 0 ? clock - 32400 : 0,
+      total: clock,
+      message: "",
+    });
+
+    let user = localStorage.getItem("hrms_user");
+    const userDetail = JSON.parse(user);
+
+    const id = userDetail?._id;
+
+   const clockInDate =  localStorage.getItem('clock-in-date');
+
+  const attendence = await postAttendence({ clockInDetail: localStorage.getItem("clockInTime"), breakTime:differenceText , clockOutDetail: localStorage.getItem("clockOutTime"), id , clockInDate:clockInDate });
 
     localStorage.removeItem("clock-in");
     localStorage.removeItem("clock-status");
     localStorage.removeItem("clock-out-time");
-    setClock(0);
-
-    getData();
+    localStorage.removeItem("clockOutTime");
+    localStorage.removeItem("clockInTime");
+    localStorage.removeItem("breakInTime");
+    localStorage.removeItem("breakOutTime");
+    localStorage.removeItem("clock-in-date");
+   
   };
+
 
   useEffect(() => {
     getData();
