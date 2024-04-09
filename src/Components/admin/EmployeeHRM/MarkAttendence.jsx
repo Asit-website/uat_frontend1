@@ -31,8 +31,9 @@ const MarkAttendance = ({
     const ans1 = await allEmployee();
     setUsers(ans1.emp);
     let ans = await getAllActivities();
-    console.log("ans 2 ", ans);
-    setData(ans.data);
+    console.log("asss ",ans);
+    setData(ans?.data);
+    setData1(ans?.data);
     const ans2 = await getDepartments();
 
     setDepartments(ans2.data);
@@ -42,13 +43,23 @@ const MarkAttendance = ({
   const [date, setDate] = useState('');
   const [month, setMonth] = useState('');
   const [userId, setuserId] = useState('');
-  const [department, setDepartment] = useState('');
+  const [department, setDepartment] = useState('Select Department');
 
   const handleOptionChange = (event) => {
     setSelectedOption(event.target.value);
     selectedOption = event.target.value;
     handleSubmit();
   };
+
+
+  const formatDate = (inputDate) => {
+    const dateObj = new Date(inputDate);
+    const year = dateObj.getFullYear();
+    const month = ('0' + (dateObj.getMonth() + 1)).slice(-2);
+    const day = ('0' + dateObj.getDate()).slice(-2);
+    return `${day}/${month}/${year}`;
+  };
+
 
   const handleSubmit = async () => {
 
@@ -63,8 +74,41 @@ const MarkAttendance = ({
        }
     }
 
-    let ans = await getAllActivities2(selectedOption, date, monthUpdate, userId);
-    console.log('ans ',ans);
+    if(selectedOption === "daily"){
+
+      if(department !== "Select Department"){
+        if(date === ""){
+          alert("Please select the date ");
+        }
+        else {
+
+
+        const date1 =   formatDate(date);
+        console.log("date 2",date1);
+
+          let ans = await getAllActivities2(selectedOption, date1, monthUpdate, userId , department );
+          console.log("ans ",ans);
+          setData(ans?.data);
+
+        }
+
+      }
+      else {
+        alert("Please select the department")
+      }
+
+    }
+    else if(selectedOption ==="all"){
+
+
+      getData();
+    }
+    else {
+      let ans = await getAllActivities2(selectedOption, date, monthUpdate, userId , department);
+      if(ans?.status){
+        setData(ans?.data);
+      }
+    }
   
   };
 
@@ -160,17 +204,18 @@ const MarkAttendance = ({
                       </div>
 
                       <select onChange={(e) => { setDepartment(e.target.value); }}>
-                        <option value="">Select Department</option>
-                        <option value="">All</option>
+                        <option value="Select Department">Select Department</option>
+                        <option value="All">All</option>
                         {departments?.map((e, index) => {
                           return (
-                            <option value={e?._id} key={index}>{e?.name}</option>
+                            <option value={e?.name} key={index}>{e?.name}</option>
                           );
                         })}
                       </select>
 
                       <div className="resSeBtn">
                         <svg
+                        style={{cursor:"pointer"}}
                           xmlns="http://www.w3.org/2000/svg"
                           fill="none"
                           viewBox="0 0 24 24"
@@ -457,7 +502,7 @@ const MarkAttendance = ({
                       <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                         <tr>
                           <th scope="col" className="px-6 py-3 currentText">
-                            Employee
+                            Employee 
                           </th>
                           <th scope="col" className="px-6 py-3 currentText">
                             Department
@@ -724,10 +769,10 @@ const MarkAttendance = ({
                               {data1[item]?.user?.fullName}
                             </td>
                             <td className="px-6 py-4 itemANs">
-                              {''}
+                            {data1[item]?.user?.Branch}
                             </td>
                             <td className="px-6 py-4 itemANs">
-                              {data1[item]?.user?.department}
+                            {data1[item]?.user?.department}
                             </td>
                             <td className="px-6 py-4 itemANs">
                               {data1[item]?.user?.designation}

@@ -223,9 +223,9 @@ const MainState = (props) => {
 
 
    };
-   const getAllActivities2 = async (type, date, month , userId) => {
+   const getAllActivities2 = async (type, date, month , userId , department) => {
 
-      const data = await post(`${baseUrl}/clock/attendencedetail` ,{type ,date , month,userId},true);
+      const data = await post(`${baseUrl}/clock/attendencedetail` ,{type ,date , month,userId , department},true);
       console.log("data ",data);
 
       return data;
