@@ -25,8 +25,21 @@ body {
 .login-page {
   display: flex;
   align-items: center;
-  justify-content: center;
+  min-height: 100vh;
+  max-width: 1200px;
+  width: 100%;
+  justify-content: space-between;
+  padding: 0px 40px;
+  margin: 0 auto;
 }
+
+.singWrap{
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
 
 .login-page2 h2 {
   font-family: "Bold" !important;
@@ -273,23 +286,18 @@ width: 100%;
 
 }
 
-.login-page1 .kushel-logo {
-  position: absolute;
-  width: 210px;
-  left: 25px;
-  top: 15px;
+ .kushel-logo2 {
+  max-width: 174px ;
+  width: 100%;
+ 
 }
 
-.login-page1 .path6 {
-  position: absolute;
-  top: -330px;
-  left: -140px;
-}
+
 
 .login-page2 {
-  width: 63em;
-  max-width: 100%;
-  padding: 0 155px;
+  max-width: 520px;
+  width: 100%;
+
 }
 
 .login-page2 button {
@@ -343,7 +351,6 @@ width: 100%;
 
 }
 .login_new_div{
-  border: 1px solid;
   padding: 50px;
 }
 .popup110{
@@ -2308,6 +2315,8 @@ abbr:where([title]) {
 .delete {
   padding: 7px 0px;
 }
+
+
 
 .login-buttons button {
   max-width: 150px;
