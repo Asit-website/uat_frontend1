@@ -31,13 +31,14 @@ const MarkAttendance = ({
     const ans1 = await allEmployee();
     setUsers(ans1.emp);
     let ans = await getAllActivities();
-    console.log("asss ",ans);
-    setData(ans?.data);
+    // setData(ans?.data);
     setData1(ans?.data);
     const ans2 = await getDepartments();
 
     setDepartments(ans2.data);
   };
+
+ 
 
   var [selectedOption, setSelectedOption] = useState("daily");
   const [date, setDate] = useState('');
@@ -120,6 +121,33 @@ const MarkAttendance = ({
 
   };
 
+  const  calculateTime = (clockIn , clockOut) => {
+
+    let clockInDetail = parseInt(clockIn.charAt(0));
+    let clockOutDetail = parseInt(clockOut.charAt(0));
+
+    let count = 0;
+
+    while(clockInDetail !== clockOutDetail){
+
+      if(clockInDetail === 12){
+        clockInDetail = 1;
+      }
+      clockInDetail++;
+      count++;
+    }
+
+    if(count >= 9){
+      return true;
+    }
+    else {
+      return false;
+    }
+
+    
+   
+  }
+
   useEffect(() => {
     getData();
   }, []);
@@ -142,7 +170,9 @@ const MarkAttendance = ({
           )}
 
           <div className="em">
+            
             <div className="flex-col emWraping">
+
               {/* first  */}
               <div className="hrmDasTxtFir">
                 <p className="hrmHed">Dashboard</p>
@@ -496,7 +526,7 @@ const MarkAttendance = ({
                 </div>
 
                 {/* this is do shwo all empplye  */}
-                {selectedOption === "daily" && (
+                {(selectedOption === "daily" && date !== "" ) ? (
                   <div className="relative overflow-x-auto">
                     <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                       <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -522,9 +552,9 @@ const MarkAttendance = ({
                           <th scope="col" className="px-6 py-3 currentText">
                             Break
                           </th>
-                          <th scope="col" className="px-6 py-3 currentText">
+                          {/* <th scope="col" className="px-6 py-3 currentText">
                             Overtime
-                          </th>
+                          </th> */}
                           <th scope="col" className="px-6 py-3 currentText">
                             action
                           </th>
@@ -544,7 +574,11 @@ const MarkAttendance = ({
                               {
                                 new Date(item.Date).toLocaleDateString()}
                             </td>
-                            <td className="px-6 py-4 itemANs">{Number(item.clockIn) === 0 ? "Absent" : Number(item.clockIn) > 21600 ? 'Present' : 'Half Day'}</td>
+                            <td className="px-6 py-4 itemANs">
+                              {/* {Number(item.clockIn) === 0 ? "Absent" : Number(item.clockIn) > 21600 ? 'Present' : 'Half Day'} */}
+                              
+                              {calculateTime(item.clockIn , item.clockOut) ?"Full Day":"Half Day"}
+                              </td>
 
                             <td className="px-6 py-4 itemANs">
                               {item?.clockIn}
@@ -568,7 +602,7 @@ const MarkAttendance = ({
                                 : " - "} */}
                               {item?.breakTime ? item?.breakTime : "No break"}
                             </td>
-                            <td className="px-6 py-4 itemANs">
+                            {/* <td className="px-6 py-4 itemANs">
                               {Number(item.clockOut) !== 0
                                 ? `${Math.floor(item.overtime / 3600)
                                   .toString()
@@ -582,7 +616,7 @@ const MarkAttendance = ({
                                       .toString()
                                       .padStart(2, "0")}`
                                 : " - "}
-                            </td>
+                            </td> */}
                             <td className="px-6 py-4 ">
                               <img src={moreVert} alt="" />
                             </td>
@@ -590,6 +624,17 @@ const MarkAttendance = ({
                         ))}
                       </tbody>
                     </table>
+                  </div>
+
+                ):
+                (
+                  <div>
+                    {
+                      date === "" ?
+                      <span>Please select the date </span>
+                      :
+                      <span>No data found</span>
+                    }
                   </div>
                 )}
 
@@ -626,9 +671,9 @@ const MarkAttendance = ({
                           {/* <th scope="col" className="px-6 py-3 currentText">
                             Total Time
                           </th> */}
-                          <th scope="col" className="px-6 py-3 currentText">
+                          {/* <th scope="col" className="px-6 py-3 currentText">
                             OverTime
-                          </th>
+                          </th> */}
                           <th scope="col" className="px-6 py-3 currentText">
                             action
                           </th>
@@ -706,7 +751,7 @@ const MarkAttendance = ({
                                 : " - "}
                                 
                             </td> */}
-                            <td className="px-6 py-4 itemANs">
+                            {/* <td className="px-6 py-4 itemANs">
                               {Number(item.clockOut) !== 0
                                 ? `${Math.floor(item.overtime / 3600)
                                   .toString()
@@ -720,7 +765,7 @@ const MarkAttendance = ({
                                       .toString()
                                       .padStart(2, "0")}`
                                 : " - "}
-                            </td>
+                            </td> */}
                             <td className="px-6 py-4 ">
                               <img src={moreVert} alt="" />
                             </td>
