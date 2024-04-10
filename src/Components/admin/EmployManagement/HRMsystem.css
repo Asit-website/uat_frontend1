@@ -35,6 +35,11 @@ color: #3F4254;
 color: #1063FF;    
 
 }
+.pono{
+    height: 400px !important;
+    max-width: 500px !important;
+    width: 100% !important;
+}
 .admin-main .hrmDoHe span{
     font-family: Gilroy-Medium;
     font-size: 16px;

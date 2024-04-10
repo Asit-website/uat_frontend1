@@ -12,7 +12,7 @@ import plusIcon from "../../images/plusIcon.png";
 
 
 const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
-  const { user, createPromotion, allEmployee, getDesignations,getPromotion} = useMain();
+  const { user, createPromotion, allEmployee, getDesignations,getPromotion,deletePromotion,updatePromotion} = useMain();
 
   const [popup1, setPopup1] = useState(false);
 
@@ -59,20 +59,40 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
     fetchEmployee();
     designationCollect();
     getData();
-  }, [refreshFlag])
+  }, [refreshFlag]);
+
+  useEffect(() => {
+    if (onEdit) {
+      setFormdata({
+        id: editData._id,
+        Employee: editData.Employee,
+        Designation: editData.Designation,
+        title: editData.title,
+        promotionDate: editData.promotionDate,
+        description: editData.description
+      })
+    }
+  }, [editData])
 
   const submitHandler = async (e) => {
     try {
-      e.preventDefault();
-      const ans = await createPromotion({ ...formdata });
-      console.log(ans);
-      alert("Successfuly Created");
-      setRefreshFlag(!refreshFlag);
+      if (onEdit) {
+        await updatePromotion({ ...formdata });
+        alert("update successfully");
+        setRefreshFlag(!refreshFlag);
+      }
+      else {
+        await createPromotion({ ...formdata });
+        alert("Successfuly Created");
+        setRefreshFlag(!refreshFlag);
+      }
       setPopup1(false);
     } catch (error) {
       console.log(error);
     }
   }
+
+ 
 
 
   // const getData = async () => {
@@ -169,7 +189,9 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
                                       setEditData(item);
                                       setPopup1(true)
                                     }} className="fa-solid fa-pen-to-square"></i>
-                                    <i className="fa-solid fa-trash"></i>
+                                    <i onClick={()=>{
+                                      deletePromotion(item._id);
+                                    }} className="fa-solid fa-trash"></i>
                                   </div>
                                 </td>
 
@@ -209,7 +231,10 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
               <hr />
 
               {/* <div className="award-popup-label"> */}
-              <form onSubmit={submitHandler}>
+              <form onSubmit={()=>{
+                submitHandler();
+                setPopup1(false);
+              }}>
                 <div className="award-popup-label">
                   <label htmlFor="Employee">
                     <p>Employee</p>
@@ -272,7 +297,7 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
                   </button>
 
                   <button type="submit" className="create awd-create">
-                    <span>Create</span>
+                    <span>{onEdit ? "Update" : "Create"}</span>
                   </button>
                 </div>
               </form>

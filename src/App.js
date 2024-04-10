@@ -54,6 +54,7 @@ import Assets from "./Components/admin/Performance/Assets";
 import Notification from "./Components/admin/Notification/Notification";
 import Notification2 from "./Components/admin/Notification/Notification2";
 import EmployeAttendence from "./Components/admin/EmployeeHRM/EmployeAttendence";
+import Trip from "./Components/admin/EmployeeHRM/Trip";
 
 var tc;
 
@@ -178,7 +179,7 @@ function App() {
             </Route>
 
             {/* ================admin routing===================== */}
-            {/* <Route element={<PrivateRoute role={[ROLES.ADMIN]} />}> */}
+            <Route element={<PrivateRoute role={[ROLES.ADMIN]} />}>
             <Route
               path="/adminDash"
               element={<AdminDash pop={pop} setPop={setPop} setAlert={setAlert} />}
@@ -192,6 +193,7 @@ function App() {
             {/* dinesh  */}
             <Route path="/adminDash/HRM/HRMsystemSetup" element={<HRMsystemSetup   />} />
             <Route path="/adminDash/HRM/AwardHRM" element={<AwardHRM/>}/>
+            <Route path="/adminDash/HRM/trip" element={<Trip/>}/>
             <Route path="/adminDash/HRM/TransferHRM" element={<TransferHRM/>}/>  
             <Route path="/adminDash/HRM/ResignationHRM" element={<ResignationHRM/>}/>
             <Route path="/adminDash/HRM/PromotionHRM" element={<PromotionHRM/>}/>  
@@ -229,8 +231,10 @@ function App() {
                 pop1={pop1}
                 setPop1={setPop1}
                 isHr={true} />}  />
+                </Route>
 
           </Routes>
+          
         </BrowserRouter>
       </MainState>
       {/* <Auth/> */}

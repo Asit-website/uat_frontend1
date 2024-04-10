@@ -11,11 +11,11 @@ import { useState } from 'react';
 
 // const baseUrl = "https://hrms-backend-q2ta.onrender.com";
 
-// const baseUrl = "https://hmsbackend.kusheldigi.com";
+const baseUrl = "https://hmsbackend.kusheldigi.com";
 
 // const baseUrl = "https://hrms-backend-g3wt.onrender.com";
 
-const baseUrl = "https://hr-backend-ncrd.onrender.com"
+// const baseUrl = "https://hr-backend-ncrd.onrender.com"
 
 
 const MainState = (props) => {
@@ -1141,6 +1141,18 @@ const MainState = (props) => {
       return data;
    };
 
+   const deletePromotion = async (id) => {
+      const data = await deleteReq(`${baseUrl}/admin/deletePromotion/${id}`, true);
+      return data;
+   };
+
+   const updatePromotion = async ({ id,Employee, Designation, title, promotionDate, description }) => {
+      const data = await put(`${baseUrl}/admin/updatePromotion/${id}`, {
+         Employee, Designation, title, promotionDate, description
+      }, true);
+      return data;
+   };
+
 
    const postAward = async ({ employee, awardType, date, gift, description, rating }) => {
 
@@ -1279,6 +1291,33 @@ const MainState = (props) => {
       return data;
    };
 
+   // ======================holiday api end================
+
+   // ===========================trip===========
+   const createTrip = async ({ Employee, startDate, endDate, purpose, country, description }) => {
+      const data = await post(`${baseUrl}/admin/createTrip`, {
+         Employee, startDate, endDate, purpose, country, description
+      }, true);
+
+      return data;
+   }
+
+   const getTrip = async () => {
+      const data = await get(`${baseUrl}/admin/getTrip`, true);
+      return data;
+   }
+
+   const deleteTrip = async (id) => {
+      const data = await deleteReq(`${baseUrl}/admin/deleteTrip/${id}`, true);
+      return data;
+   };
+
+   const updateTrip = async ({ id, Employee, startDate, endDate, purpose, country, description }) => {
+      const data = await put(`${baseUrl}/admin/updateTrip/${id}`, {
+         Employee, startDate, endDate, purpose, country, description
+      }, true);
+      return data;
+   };
 
 
    return (
@@ -1300,7 +1339,8 @@ const MainState = (props) => {
          createTransfer, getTransfer,
          deleteTransfer, updateTransfer,
          createTrainer, getTrainer, deleteTrainer, updateTrainer, createTrainingList, getTrainingList, updateTrainingList, deleteTrainingList, createHoliday, getHoliday, deleteHolidays, updateHolidays , 
-         getAllActivities2
+         getAllActivities2,
+         createTrip,getTrip,deleteTrip,updateTrip,deletePromotion,updatePromotion
       }}>
          {props.children}
       </MainContext.Provider>

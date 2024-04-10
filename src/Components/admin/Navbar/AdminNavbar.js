@@ -9,9 +9,9 @@ import bottom from "../../images/bottom.png";
 // import { useMain } from "../../../hooks/useMain";
 
 import { NavLink, useNavigate } from "react-router-dom";
-const AdminNavbar = ({ setAlert }) => {
+const AdminNavbar = ({ setAlert,user }) => {
   
-  let user = JSON?.parse(localStorage.getItem("hrms_user"));
+  // let user = JSON?.parse(localStorage.getItem("hrms_user"));
   const updateUser = () => {
     document.getElementById("ty").classList.toggle("tys");
   };
@@ -78,7 +78,7 @@ const AdminNavbar = ({ setAlert }) => {
 
             <div className="sixth-logo flex items-center relative ">
               <img className="john" src={user?.profileImage ? user?.profileImage : lok} alt="lok" />
-              <p className="ml-2.5">{user?.fullName}</p>
+              <p className="ml-2.5">{user?.fullName ? user?.fullName : null}</p>
               <img className="ml-2.5 bottom" src={bottom} alt="bottom" />
             </div>
 

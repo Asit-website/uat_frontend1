@@ -980,7 +980,7 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
 
         {popup1 && (
           <div className="allPopupWrap">
-            <div className="popup1">
+            <div className="popup1 pono">
               <h2>Create New Branch</h2>
 
               <hr />
@@ -1015,7 +1015,7 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
 
         {popup11 && (
           <div className="allPopupWrap">
-            <div className="popup1">
+            <div className="popup1 pono">
               <h2>Edit Branch</h2>
 
               <hr />
@@ -1050,7 +1050,7 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
 
         {popup2 && (
           <div className="allPopupWrap">
-            <div className="popup1">
+            <div className="popup1 pono">
               <h2>Create New Department</h2>
               <hr />
               <select className="selectBRANCH" value={departmentValue.branch} onChange={(e) => { setDepartmentValue({ ...departmentValue, branch: e.target.value }); }} name="branch1" id="branch1">
@@ -1087,7 +1087,7 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
 
         {popup21 && (
           <div className="allPopupWrap">
-            <div className="popup1">
+            <div className="popup1 pono">
               <h2>Edit Department</h2>
               <hr />
               <select className="selectBRANCH" value={departmentValue1.branch} onChange={(e) => { setDepartmentValue1({ ...departmentValue1, branch: e.target.value }); }} name="branch1" id="branch1">
@@ -1124,7 +1124,7 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
 
         {popup3 && (
           <div className="allPopupWrap">
-            <div className="popup1">
+            <div className="popup1 pono">
               <h2>Create New Designation</h2>
               <hr />
               <label htmlFor>
@@ -1164,7 +1164,7 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
 
         {popup31 && (
           <div className="allPopupWrap">
-            <div className="popup1">
+            <div className="popup1 pono">
               <h2>Edit Designation</h2>
               <hr />
               <label htmlFor>
@@ -1204,7 +1204,7 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
 
         {popup4 && (
           <div className="allPopupWrap">
-            <div className="popup1">
+            <div className="popup1 pono">
               <h2>Create New Leave Type </h2>
               <hr />
               <label htmlFor>
@@ -1241,7 +1241,7 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
 
         {popup41 && (
           <div className="allPopupWrap">
-            <div className="popup1">
+            <div className="popup1 pono">
               <h2>Edit Leave Type </h2>
               <hr />
               <label htmlFor>
