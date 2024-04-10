@@ -542,7 +542,7 @@ const MarkAttendance = ({
                             </td>
                             <td className="px-6 py-4 itemANs">
                               {
-                                new Date(item.Date).toLocaleDateString('en-US', { day: '2-digit', month: '2-digit', year: 'numeric' })}
+                                new Date(item.Date).toLocaleDateString()}
                             </td>
                             <td className="px-6 py-4 itemANs">{Number(item.clockIn) === 0 ? "Absent" : Number(item.clockIn) > 21600 ? 'Present' : 'Half Day'}</td>
 
@@ -650,8 +650,10 @@ const MarkAttendance = ({
                               {/* {new Date(Number(item?.date)).toLocaleDateString(
                                 "en-GB"
                               )} */}
-                              {
-                                new Date(item.Date).toLocaleDateString('en-US', { day: '2-digit', month: '2-digit', year: 'numeric' })}
+                              {/* {
+                                new Date(item.Date).toLocaleDateString('en-US', { day: '2-digit', month: '2-digit', year: 'numeric' })} */}
+                                 {
+                                new Date(item.Date).toLocaleDateString()}
                             </td>
 
                             <td className="px-6 py-4 itemANs">
