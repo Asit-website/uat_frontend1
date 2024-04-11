@@ -72,7 +72,7 @@ const Auth = (props) => {
     <div className="auth">
 
       <div className="login-page">
-
+        
         <div className="login-page2">
 
 
@@ -131,6 +131,11 @@ const Auth = (props) => {
           </div>
           
         </div>
+        
+        <div className="login-page3">
+          
+        </div>
+        
 
         <div className="login-page1">
           <img src={photo} alt="photo" />

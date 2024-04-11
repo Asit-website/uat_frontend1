@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "./App.css";
-import Auth from "./Components/auth/Auth";
+import Auth from "./Components/auth/Auth.jsx";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import ForgetPassword from "./Components/auth/ForgetPassword";
 import ForgetPassword1 from "./Components/auth/ForgetPassword1";
@@ -55,6 +55,7 @@ import Notification from "./Components/admin/Notification/Notification";
 import Notification2 from "./Components/admin/Notification/Notification2";
 import EmployeAttendence from "./Components/admin/EmployeeHRM/EmployeAttendence";
 import Trip from "./Components/admin/EmployeeHRM/Trip";
+import LeadDash from "./Components/admin/LeadManagement/LeadDash.jsx";
 
 var tc;
 
@@ -174,67 +175,68 @@ function App() {
               <Route path="/hrDash/payroll" element={<Payroll setAlert={setAlert} pop1={pop1}
                 setPop1={setPop1} />} />
 
-                <Route path="/hrDash/atten" element={<HrAttendence pop1={pop1}
-                setPop1={setPop1} setAlert={setAlert}/>}/>
+              <Route path="/hrDash/atten" element={<HrAttendence pop1={pop1}
+                setPop1={setPop1} setAlert={setAlert} />} />
             </Route>
 
             {/* ================admin routing===================== */}
             <Route element={<PrivateRoute role={[ROLES.ADMIN]} />}>
-            <Route
-              path="/adminDash"
-              element={<AdminDash pop={pop} setPop={setPop} setAlert={setAlert} />}
-            />
-            <Route path="/adminDash/EmployeeMan" element={<EmployeeManage pop={pop} setPop={setPop} setAlert={setAlert} />} />
-            <Route path="/adminDash/HRM" element={<EmployeeHRM pop={pop} setPop={setPop} setAlert={setAlert} />} />
+              <Route
+                path="/adminDash"
+                element={<AdminDash pop={pop} setPop={setPop} setAlert={setAlert} />}
+              />
+              <Route path="/adminDash/EmployeeMan" element={<EmployeeManage pop={pop} setPop={setPop} setAlert={setAlert} />} />
+              <Route path="/adminDash/HRM" element={<EmployeeHRM pop={pop} setPop={setPop} setAlert={setAlert} />} />
 
-            <Route path="/adminDash/HRM/createEmployee" element={<CreateEmployee pop={pop} setPop={setPop} setAlert={setAlert} />} />
-            <Route path="/adminDash/HRM/EmployeeManagement" element={<EmployeeManagement pop={pop} setPop={setPop} setAlert={setAlert} />} />
-            <Route path="/adminDash/HRM/EmployeeManagement/:id" element={<EmployeeManagementID pop={pop} setPop={setPop} setAlert={setAlert} />} />
-            {/* dinesh  */}
-            <Route path="/adminDash/HRM/HRMsystemSetup" element={<HRMsystemSetup   />} />
-            <Route path="/adminDash/HRM/AwardHRM" element={<AwardHRM/>}/>
-            <Route path="/adminDash/HRM/trip" element={<Trip/>}/>
-            <Route path="/adminDash/HRM/TransferHRM" element={<TransferHRM/>}/>  
-            <Route path="/adminDash/HRM/ResignationHRM" element={<ResignationHRM/>}/>
-            <Route path="/adminDash/HRM/PromotionHRM" element={<PromotionHRM/>}/>  
-            <Route path="/adminDash/HRM/ComplaintsHRM" element={<ComplaintsHRM/>}/>
-            <Route path="/adminDash/HRM/WarningHRM" element={<WarningHRM/>}/> 
-            <Route path="/adminDash/HRM/TerminationHRM" element={<TerminationHRM/>}/> 
-            <Route path="/adminDash/HRM/holiday" element={<HolidayHRM/>}/>
-           
-           
-           <Route path="/adminDash/HRM/totalEmployee" element={<TotalEmployee pop={pop} setPop={setPop} setAlert={setAlert} />} />
-            <Route path="/adminDash/HRM/LeaveEmployee" element={<LeaveEmployee pop={pop} setPop={setPop} setAlert={setAlert} />} />
-            <Route path="/adminDash/HRM/activeEmployee" element={<ActiveEmplyee pop={pop} setPop={setPop} setAlert={setAlert} />} />
-            <Route path="/adminDash/HRM/leaveRequest" element={<LeaveRequest pop={pop} setPop={setPop} setAlert={setAlert} />} />
-            <Route path="/adminDash/HRM/markAttendance" element={<MarkAttendance pop={pop} setPop={setPop} setAlert={setAlert} />} />
-            <Route path="/adminDash/HRM/userAttendence" element={<EmployeAttendence pop={pop} setPop={setPop} setAlert={setAlert} />} />
-            
-            <Route path="/adminDash/EmployeeMan/:id" element={<EmployeeManage pop={pop} setPop={setPop} setAlert={setAlert} />} />
+              <Route path="/adminDash/HRM/createEmployee" element={<CreateEmployee pop={pop} setPop={setPop} setAlert={setAlert} />} />
+              <Route path="/adminDash/HRM/EmployeeManagement" element={<EmployeeManagement pop={pop} setPop={setPop} setAlert={setAlert} />} />
+              <Route path="/adminDash/HRM/EmployeeManagement/:id" element={<EmployeeManagementID pop={pop} setPop={setPop} setAlert={setAlert} />} />
+              {/* dinesh  */}
+              <Route path="/adminDash/HRM/HRMsystemSetup" element={<HRMsystemSetup />} />
+              <Route path="/adminDash/HRM/AwardHRM" element={<AwardHRM />} />
+              <Route path="/adminDash/HRM/trip" element={<Trip />} />
+              <Route path="/adminDash/HRM/TransferHRM" element={<TransferHRM />} />
+              <Route path="/adminDash/HRM/ResignationHRM" element={<ResignationHRM />} />
+              <Route path="/adminDash/HRM/PromotionHRM" element={<PromotionHRM />} />
+              <Route path="/adminDash/HRM/ComplaintsHRM" element={<ComplaintsHRM />} />
+              <Route path="/adminDash/HRM/WarningHRM" element={<WarningHRM />} />
+              <Route path="/adminDash/HRM/TerminationHRM" element={<TerminationHRM />} />
+              <Route path="/adminDash/HRM/holiday" element={<HolidayHRM />} />
 
-            <Route path="/adminDash/profile-management" element={<ProfileManagement pop={pop} setPop={setPop} setAlert={setAlert} />} />
-            
-            <Route path="/adminDash/HrManage" element={<HrManage pop={pop} setAlert={setAlert} setPop={setPop} />} />
-            <Route path="/adminDash/profile" element={<AdminProfile pop={pop} setPop={setPop} setAlert={setAlert} />} />
-            <Route path="/adminDash/announcement" element={<AdminAnnoncement pop={pop} setPop={setPop} setAlert={setAlert} />} />
-            <Route path="/performance/indicator" element={<Indicator pop={pop} setPop={setPop} setAlert={setAlert} />} />
-            <Route path="/performance/appraisal" element={<Appraisal pop={pop} setPop={setPop} setAlert={setAlert} />} />
-            <Route path="/performance/goalTracking" element={<GoalTracking pop={pop} setPop={setPop} setAlert={setAlert} />} />
-            <Route path="/performance/Assets" element={<Assets pop={pop} setPop={setPop} setAlert={setAlert} />} />
-            <Route path="/training/TrainingList" element={<TrainingList/>}/> 
-            <Route path="/training/TrainerHRM" element={<TrainerHRM/>}/>
-            <Route path="/training/DocumentSetup" element={<DocumentSetup/>}/>
-            <Route path="/adminDash/notification" element={<Notification />}  />
-            <Route path="/hrDash/notification" element={<Notification2    setAlert={setAlert}
+
+              <Route path="/adminDash/HRM/totalEmployee" element={<TotalEmployee pop={pop} setPop={setPop} setAlert={setAlert} />} />
+              <Route path="/adminDash/HRM/LeaveEmployee" element={<LeaveEmployee pop={pop} setPop={setPop} setAlert={setAlert} />} />
+              <Route path="/adminDash/HRM/activeEmployee" element={<ActiveEmplyee pop={pop} setPop={setPop} setAlert={setAlert} />} />
+              <Route path="/adminDash/HRM/leaveRequest" element={<LeaveRequest pop={pop} setPop={setPop} setAlert={setAlert} />} />
+              <Route path="/adminDash/HRM/markAttendance" element={<MarkAttendance pop={pop} setPop={setPop} setAlert={setAlert} />} />
+              <Route path="/adminDash/HRM/userAttendence" element={<EmployeAttendence pop={pop} setPop={setPop} setAlert={setAlert} />} />
+
+              <Route path="/adminDash/EmployeeMan/:id" element={<EmployeeManage pop={pop} setPop={setPop} setAlert={setAlert} />} />
+
+              <Route path="/adminDash/profile-management" element={<ProfileManagement pop={pop} setPop={setPop} setAlert={setAlert} />} />
+
+              <Route path="/adminDash/HrManage" element={<HrManage pop={pop} setAlert={setAlert} setPop={setPop} />} />
+              <Route path="/adminDash/profile" element={<AdminProfile pop={pop} setPop={setPop} setAlert={setAlert} />} />
+              <Route path="/adminDash/announcement" element={<AdminAnnoncement pop={pop} setPop={setPop} setAlert={setAlert} />} />
+              <Route path="/performance/indicator" element={<Indicator pop={pop} setPop={setPop} setAlert={setAlert} />} />
+              <Route path="/performance/appraisal" element={<Appraisal pop={pop} setPop={setPop} setAlert={setAlert} />} />
+              <Route path="/performance/goalTracking" element={<GoalTracking pop={pop} setPop={setPop} setAlert={setAlert} />} />
+              <Route path="/performance/Assets" element={<Assets pop={pop} setPop={setPop} setAlert={setAlert} />} />
+              <Route path="/training/TrainingList" element={<TrainingList />} />
+              <Route path="/training/TrainerHRM" element={<TrainerHRM />} />
+              <Route path="/training/DocumentSetup" element={<DocumentSetup />} />
+              <Route path="/adminDash/notification" element={<Notification />} />
+              <Route path="/hrDash/notification" element={<Notification2 setAlert={setAlert}
                 pop={pop}
                 setPop={setPop}
                 pop1={pop1}
                 setPop1={setPop1}
-                isHr={true} />}  />
-                </Route>
+                isHr={true} />} />
+                <Route path="/adminDash/leadDash" element={<LeadDash/>}/>
+            </Route>
 
           </Routes>
-          
+
         </BrowserRouter>
       </MainState>
       {/* <Auth/> */}

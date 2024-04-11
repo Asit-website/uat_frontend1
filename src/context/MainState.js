@@ -3,7 +3,7 @@ import MainContext from './MainContext';
 import { deleteReq, get, post, put, postDocuments } from '../Api/api'
 import { useState } from 'react';
 
-const baseUrl = "http://localhost:5000";
+// const baseUrl = "http://localhost:5000";
 
 // const baseUrl = "https://hrms-backend-code.onrender.com"
 
@@ -15,7 +15,7 @@ const baseUrl = "http://localhost:5000";
 
 // const baseUrl = "https://hrms-backend-g3wt.onrender.com";
 
-// const baseUrl = "https://hr-backend-ncrd.onrender.com"
+const baseUrl = "https://hr-backend-ncrd.onrender.com"
 
 
 const MainState = (props) => {
@@ -1189,7 +1189,7 @@ const MainState = (props) => {
    }
 
    const createTransfer = async ({ branch, Employee, Department, TransferDate, Description }) => {
-      const data = await post(`${baseUrl}/tranfer/createTransfer`, {
+      const data = await post(`${baseUrl}/admin/createTransfer`, {
          branch, Employee, Department, TransferDate, Description
       }, true);
 
@@ -1197,17 +1197,17 @@ const MainState = (props) => {
    }
 
    const getTransfer = async () => {
-      const data = await get(`${baseUrl}/tranfer/getTransfer`, true);
+      const data = await get(`${baseUrl}/admin/getTransfer`, true);
       return data;
    }
 
    const deleteTransfer = async (id) => {
-      const data = await deleteReq(`${baseUrl}/tranfer/deleteTransfer/${id}`, true);
+      const data = await deleteReq(`${baseUrl}/admin/deleteTransfer/${id}`, true);
       return data;
    };
 
    const updateTransfer = async ({ id, branch, Employee, Department, TransferDate, Description }) => {
-      const data = await put(`${baseUrl}/tranfer/updateTransfer/${id}`, {
+      const data = await put(`${baseUrl}/admin/updateTransfer/${id}`, {
          branch, Employee, Department, TransferDate, Description
       }, true);
       return data;

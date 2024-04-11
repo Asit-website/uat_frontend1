@@ -3,7 +3,7 @@ import kushel1 from "../../images/kushel1.png";
 import arrowDown from "../../images/keyboard_arrow_down.png"
 import notification from "../../images/notifications.png"
 import chatbot from "../../images/chat_bubble_outline.png"
-import profile from "../../images/adProfile.png"
+// import profile from "../../images/adProfile.png"
 import lok from "../../images/lok.png";
 import bottom from "../../images/bottom.png";
 // import { useMain } from "../../../hooks/useMain";
