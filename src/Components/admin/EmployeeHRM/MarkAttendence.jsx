@@ -25,13 +25,14 @@ const MarkAttendance = ({
   const [data1, setData1] = useState({});
   const [users, setUsers] = useState([]);
   const [departments, setDepartments] = useState([]);
+  const [allDash , setAllDash] = useState([]);
 
 
   const getData = async () => {
+    let ans = await getAllActivities();
+    setAllDash(ans?.data);
     const ans1 = await allEmployee();
     setUsers(ans1.emp);
-    let ans = await getAllActivities();
-    // setData(ans?.data);
     setData1(ans?.data);
     const ans2 = await getDepartments();
 
@@ -39,7 +40,6 @@ const MarkAttendance = ({
   };
 
  
-
   var [selectedOption, setSelectedOption] = useState("daily");
   const [date, setDate] = useState('');
   const [month, setMonth] = useState('');
@@ -52,7 +52,6 @@ const MarkAttendance = ({
     handleSubmit();
   };
 
-
   const formatDate = (inputDate) => {
     const dateObj = new Date(inputDate);
     const year = dateObj.getFullYear();
@@ -60,7 +59,6 @@ const MarkAttendance = ({
     const day = ('0' + dateObj.getDate()).slice(-2);
     return `${day}/${month}/${year}`;
   };
-
 
   const handleSubmit = async () => {
 
@@ -79,29 +77,23 @@ const MarkAttendance = ({
 
       if(department !== "Select Department"){
         if(date === ""){
-          alert("Please select the date ");
+          // alert("Please select the date ");
         }
         else {
-
-
         const date1 =   formatDate(date);
-        console.log("date 2",date1);
 
           let ans = await getAllActivities2(selectedOption, date1, monthUpdate, userId , department );
-          console.log("ans ",ans);
           setData(ans?.data);
 
         }
 
       }
       else {
-        alert("Please select the department")
+        // alert("Please select the department")
       }
 
     }
     else if(selectedOption ==="all"){
-
-
       getData();
     }
     else {
@@ -526,7 +518,9 @@ const MarkAttendance = ({
                 </div>
 
                 {/* this is do shwo all empplye  */}
-                {(selectedOption === "daily" && date !== "" ) ? (
+                {
+                (selectedOption === "daily" && date !== "" ) ? (
+
                   <div className="relative overflow-x-auto">
                     <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                       <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -628,14 +622,75 @@ const MarkAttendance = ({
 
                 ):
                 (
-                  <div>
-                    {
-                      date === "" ?
-                      <span>Please select the date </span>
-                      :
-                      <span>No data found</span>
-                    }
-                  </div>
+                  <div className="relative overflow-x-auto">
+                  <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                    <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                      <tr>
+                        <th scope="col" className="px-6 py-3 currentText">
+                          Employee 
+                        </th>
+                        <th scope="col" className="px-6 py-3 currentText">
+                          Department
+                        </th>
+                        <th scope="col" className="px-6 py-3 currentText">
+                          Date
+                        </th>
+                        <th scope="col" className="px-6 py-3 currentText">
+                          Status
+                        </th>
+                        <th scope="col" className="px-6 py-3 currentText">
+                          clock In
+                        </th>
+                        <th scope="col" className="px-6 py-3 currentText">
+                          clock out
+                        </th>
+                        <th scope="col" className="px-6 py-3 currentText">
+                          Break
+                        </th>
+                     
+                        <th scope="col" className="px-6 py-3 currentText">
+                          action
+                        </th>
+                      </tr>
+                    </thead>
+
+                    <tbody>
+                      {allDash.map((item, index) => (
+                        <tr key={index} className="bg-white ">
+                          <td className="px-6 py-4 itemANs">
+                            {item?.user?.fullName}
+                          </td>
+                          <td className="px-6 py-4 itemANs">
+                            {item?.user?.department}
+                          </td>
+                          <td className="px-6 py-4 itemANs">
+                            {
+                              new Date(item.Date).toLocaleDateString()}
+                          </td>
+                          <td className="px-6 py-4 itemANs">
+                            
+                            {calculateTime(item.clockIn , item.clockOut) ?"Full Day":"Half Day"}
+                            </td>
+
+                          <td className="px-6 py-4 itemANs">
+                            {item?.clockIn}
+                          </td>
+                          <td className="px-6 py-4 itemANs">
+                            {item?.clockOut}
+                          </td>
+                          <td className="px-6 py-4 itemANs">
+                          
+                            {item?.breakTime ? item?.breakTime : "No break"}
+                          </td>
+                         
+                          <td className="px-6 py-4 ">
+                            <img src={moreVert} alt="" />
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
                 )}
 
                 {selectedOption === "monthly" && (

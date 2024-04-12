@@ -11,11 +11,11 @@ import { useState } from 'react';
 
 // const baseUrl = "https://hrms-backend-q2ta.onrender.com";
 
-// const baseUrl = "https://hmsbackend.kusheldigi.com";
+const baseUrl = "https://hmsbackend.kusheldigi.com";
 
 // const baseUrl = "https://hrms-backend-g3wt.onrender.com";
 
-const baseUrl = "https://hr-backend-ncrd.onrender.com"
+// const baseUrl = "https://hr-backend-ncrd.onrender.com"
 
 
 const MainState = (props) => {
@@ -216,13 +216,13 @@ const MainState = (props) => {
    const getAllActivities = async () => {
 
       const data = await get(`${baseUrl}/clock/allAttendence`, true);
-      console.log("data ", data);
 
       return data;
 
 
 
    };
+   
    const getAllActivities2 = async (type, date, month , userId , department) => {
 
       const data = await post(`${baseUrl}/clock/attendencedetail` ,{type ,date , month,userId , department},true);

@@ -56,6 +56,7 @@ import Notification2 from "./Components/admin/Notification/Notification2";
 import EmployeAttendence from "./Components/admin/EmployeeHRM/EmployeAttendence";
 import Trip from "./Components/admin/EmployeeHRM/Trip";
 import LeadDash from "./Components/admin/LeadManagement/LeadDash.jsx";
+import MyLead from "./Components/admin/LeadManagement/MyLead.jsx";
 
 var tc;
 
@@ -180,7 +181,7 @@ function App() {
             </Route>
 
             {/* ================admin routing===================== */}
-            <Route element={<PrivateRoute role={[ROLES.ADMIN]} />}>
+            <Route >
               <Route
                 path="/adminDash"
                 element={<AdminDash pop={pop} setPop={setPop} setAlert={setAlert} />}
@@ -233,6 +234,7 @@ function App() {
                 setPop1={setPop1}
                 isHr={true} />} />
                 <Route path="/adminDash/leadDash" element={<LeadDash/>}/>
+                <Route path="/adminDash/myLead" element={<MyLead />}/>
             </Route>
 
           </Routes>
