@@ -12,7 +12,7 @@ const PrivateRoute = ({ role }) => {
     }, [location]);
 
     const getData = async () => {
-        if (!localStorage.getItem('hrms_token') || !localStorage.getItem('hrms_user')) {
+        if (!localStorage.getItem('hrms_token') || !JSON.parse(localStorage.getItem('hrms_user'))) {
             authFlag = false;
         }
         else {

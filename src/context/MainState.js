@@ -3,7 +3,7 @@ import MainContext from './MainContext';
 import { deleteReq, get, post, put, postDocuments } from '../Api/api'
 import { useState } from 'react';
 
-// const baseUrl = "http://localhost:5000";
+const baseUrl = "http://localhost:5000";
 
 // const baseUrl = "https://hrms-backend-code.onrender.com"
 
@@ -11,7 +11,7 @@ import { useState } from 'react';
 
 // const baseUrl = "https://hrms-backend-q2ta.onrender.com";
 
-const baseUrl = "https://hmsbackend.kusheldigi.com";
+// const baseUrl = "https://hmsbackend.kusheldigi.com";
 
 // const baseUrl = "https://hrms-backend-g3wt.onrender.com";
 
@@ -513,9 +513,8 @@ const MainState = (props) => {
       if (image) {
          const formdata = new FormData();
          formdata.append("image", image);
-
-
          const resp = await postDocuments(`${baseUrl}/user/updateProfile/${_id}`, formdata);
+         console.log("inage ",resp);
 
       }
       return data;
@@ -876,7 +875,7 @@ const MainState = (props) => {
    };
 
    const notificationGet = async () => {
-      let user = localStorage.getItem("hrms_user");
+      let user = JSON.parse(localStorage.getItem("hrms_user"));
       const userDetail = JSON.parse(user);
 
       const id = userDetail?._id;
@@ -924,7 +923,7 @@ const MainState = (props) => {
 
 
    const fetchUserNotify = async () => {
-      let user = localStorage.getItem("hrms_user");
+      let user = JSON.parse(localStorage.getItem("hrms_user"));
       const userDetail = JSON.parse(user);
 
       const id = userDetail?._id;
@@ -933,7 +932,7 @@ const MainState = (props) => {
       return data;
    }
    const deleteNotification = async (notId) => {
-      let user = localStorage.getItem("hrms_user");
+      let user = JSON.parse(localStorage.getItem("hrms_user"));
       const userDetail = JSON.parse(user);
 
       const id = userDetail?._id;

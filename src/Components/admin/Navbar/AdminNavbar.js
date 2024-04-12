@@ -3,20 +3,21 @@ import kushel1 from "../../images/kushel1.png";
 import arrowDown from "../../images/keyboard_arrow_down.png"
 import notification from "../../images/notifications.png"
 import chatbot from "../../images/chat_bubble_outline.png"
-// import profile from "../../images/adProfile.png"
 import lok from "../../images/lok.png";
 import bottom from "../../images/bottom.png";
-// import { useMain } from "../../../hooks/useMain";
 
 import { NavLink, useNavigate } from "react-router-dom";
-const AdminNavbar = ({ setAlert,user }) => {
+import { useMain } from "../../../hooks/useMain";
+const AdminNavbar = ({ setAlert }) => {
   
-  // let user = JSON?.parse(localStorage.getItem("hrms_user"));
+  let user = JSON?.parse(localStorage.getItem("hrms_user"));
+  console.log("userss ",user);
   const updateUser = () => {
     document.getElementById("ty").classList.toggle("tys");
   };
 
-  // const {user} = useMain()
+  // const {user} = useMain();
+  console.log('userss ',user);
   const handleLogout = () => {
     localStorage.removeItem("hrms_token");
     localStorage.removeItem("hrms_user");
@@ -68,10 +69,8 @@ const AdminNavbar = ({ setAlert,user }) => {
         <div className="navProfiIcons">
 
           <img src={notification} alt="" />
+
           <img onClick={() => navigate("/adminDash/notification")} src={chatbot} alt="" />
-
-
-          {/* <img src={profile} alt="" /> */}
 
           {/* navitem  */}
           <div className="relative cursor-pointer" onClick={updateUser}>

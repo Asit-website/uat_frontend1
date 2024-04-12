@@ -5,7 +5,8 @@ const Home = () => {
 
   useEffect(() => {
     let token = localStorage.getItem("hrms_token");
-    let user = localStorage.getItem("hrms_user");
+    let user = JSON.parse(localStorage.getItem("hrms_user"));
+    
     if (token && user) {
       if (JSON.parse(user).role === "EMPLOYEE") {
         navigate("/employeeDash");
