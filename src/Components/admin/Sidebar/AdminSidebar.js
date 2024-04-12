@@ -38,6 +38,18 @@ const dashboardItem = [
   }
 ];
 
+const leadItem = [
+  {
+    title:"Lead Dashboard" , 
+    link:"/adminDash/leadDash",
+  },
+  {
+    title:"My Lead" , 
+    link:"/adminDash/myLead",
+  },
+
+]
+
 const HRMSItem = [
   {
     title: "Employee Management",
@@ -61,6 +73,10 @@ const HRMSItem = [
   },
   {
     title: "HR Admin Setup",
+   
+  },
+  {
+    title: "Lead Management",
    
   },
   {
@@ -166,6 +182,7 @@ const AdminSidebar = ({ pop, setPop }) => {
   const [openLeaveMan, setOpenLeaveMan] = useState(false);
   const [openHrAdmin, setOpenHrAdmin] = useState(false);
 
+  const [openLead , setOpenLead] = useState(false);
 
 
   return (
@@ -395,8 +412,6 @@ const AdminSidebar = ({ pop, setPop }) => {
 
                     :
                     
-
-
                    item.title === "Training Setup" ? 
                    (
 
@@ -524,6 +539,69 @@ const AdminSidebar = ({ pop, setPop }) => {
                     </div>
                    )
                     :
+
+                    item.title === "Lead Management"?
+                   (
+
+                    <div className="performaceSetup ">
+    
+                    <div key={index} onClick={()=>setOpenLead((prev)=>!prev)}  className="sinADDasItem relative">
+ 
+            {dashItem == index ? (
+                       <img src={chooseDash} alt="" />
+                     ) : (
+                       <img src={unchosedash} alt="" />
+                     )}
+                     <p
+                       className={` ${
+                         HRMS === index ? "dashItemp" : "dITitl"
+                       }`}
+                     >
+                       {item?.title}
+                     </p>
+ 
+                    
+                          <p><IoIosArrowDown className="text-white absolute right-6 top-[30%] " /></p>
+        
+                    </div>
+ 
+                    {
+                     openLead && 
+                     <div>
+ 
+ {
+   leadItem?.map((item ,index)=>(
+     <div
+                   
+     onClick={()=>{
+       setHRMS(index)
+       navigate(item?.link)
+     }}
+     className="sinADDasItem"
+     key={index}
+   >
+     {dashItem == index ? (
+       <img src={chooseDash} alt="" />
+     ) : (
+       <img src={unchosedash} alt="" />
+     )}
+     <p
+       className={` ${
+         HRMS === index ? "dashItemp" : "dITitl"
+       }`}
+     >
+       {item?.title}
+     </p>
+   </div>
+   ))
+ }
+                  
+                     </div>
+                    }
+                   
+ 
+                    </div>
+                   ):
 
                   <div
                   
