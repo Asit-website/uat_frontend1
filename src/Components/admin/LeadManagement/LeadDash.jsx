@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import AdminNavbar from "../../admin/Navbar/AdminNavbar";
 import AdminSidebar from "../../admin/Sidebar/AdminSidebar";
 import "react-calendar/dist/Calendar.css";
@@ -6,6 +6,22 @@ import { useMain } from "../../../hooks/useMain";
 import siy from '../../images/siy.png';
 const LeadDash = ({ setAlert, pop, setPop }) => {
     const { user } = useMain();
+    const [start, setStart] = useState(false);
+    const [start1, setStart1] = useState(false);
+    const [start2, setStart2] = useState(false);
+    const [start3, setStart3] = useState(false);
+    const stylePeer1 = {
+        display: start ? "block" : "none"
+    }
+    const stylePeer2 = {
+        display: start1 ? "block" : "none"
+    }
+    const stylePeer3 = {
+        display: start2 ? "block" : "none"
+    }
+    const stylePeer4 = {
+        display: start3 ? "block" : "none"
+    }
     return (
         <>
             <div className="employee-dash h-full">
@@ -119,11 +135,71 @@ const LeadDash = ({ setAlert, pop, setPop }) => {
                             <div className="table11">
                                 <div className="my_open">
                                     <h3>My Open Tasks</h3>
-                                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    {/* <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M0.5 4C0.5 2.067 2.067 0.5 4 0.5H28C29.933 0.5 31.5 2.067 31.5 4V28C31.5 29.933 29.933 31.5 28 31.5H4C2.067 31.5 0.5 29.933 0.5 28V4Z" fill="#F5F9FF" />
                                         <path d="M0.5 4C0.5 2.067 2.067 0.5 4 0.5H28C29.933 0.5 31.5 2.067 31.5 4V28C31.5 29.933 29.933 31.5 28 31.5H4C2.067 31.5 0.5 29.933 0.5 28V4Z" stroke="#B3CBF7" />
                                         <path d="M16 14C14.9 14 14 14.9 14 16C14 17.1 14.9 18 16 18C17.1 18 18 17.1 18 16C18 14.9 17.1 14 16 14ZM16 8C14.9 8 14 8.9 14 10C14 11.1 14.9 12 16 12C17.1 12 18 11.1 18 10C18 8.9 17.1 8 16 8ZM16 20C14.9 20 14 20.9 14 22C14 23.1 14.9 24 16 24C17.1 24 18 23.1 18 22C18 20.9 17.1 20 16 20Z" fill="#49515C" />
-                                    </svg>
+                                    </svg> */}
+
+                                    <div>
+                                        <svg className="floyu" onClick={() => setStart(!start)} width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M0.5 4C0.5 2.067 2.067 0.5 4 0.5H28C29.933 0.5 31.5 2.067 31.5 4V28C31.5 29.933 29.933 31.5 28 31.5H4C2.067 31.5 0.5 29.933 0.5 28V4Z" fill="#F5F9FF" />
+                                            <path d="M0.5 4C0.5 2.067 2.067 0.5 4 0.5H28C29.933 0.5 31.5 2.067 31.5 4V28C31.5 29.933 29.933 31.5 28 31.5H4C2.067 31.5 0.5 29.933 0.5 28V4Z" stroke="#B3CBF7" />
+                                            <path d="M16 14C14.9 14 14 14.9 14 16C14 17.1 14.9 18 16 18C17.1 18 18 17.1 18 16C18 14.9 17.1 14 16 14ZM16 8C14.9 8 14 8.9 14 10C14 11.1 14.9 12 16 12C17.1 12 18 11.1 18 10C18 8.9 17.1 8 16 8ZM16 20C14.9 20 14 20.9 14 22C14 23.1 14.9 24 16 24C17.1 24 18 23.1 18 22C18 20.9 17.1 20 16 20Z" fill="#49515C" />
+                                        </svg>
+
+                                        {/* Dropdown menu */}
+                                        <div
+                                            id="dropdownAction"
+
+                                            style={stylePeer1}
+                                            className="z-10 taning hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600"
+                                        >
+                                            <ul
+                                                className="py-1 text-sm text-gray-700 dark:text-gray-200"
+                                                aria-labelledby="dropdownActionButton"
+                                            >
+                                                <li className="sysok">
+
+                                                    <a
+                                                        href="#"
+                                                        className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                                                    >
+                                                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                            <path d="M9.71569 5.51667L10.4824 6.28333L2.93236 13.8333H2.16569V13.0667L9.71569 5.51667ZM12.7157 0.5C12.5074 0.5 12.2907 0.583333 12.1324 0.741667L10.6074 2.26667L13.7324 5.39167L15.2574 3.86667C15.5824 3.54167 15.5824 3.01667 15.2574 2.69167L13.3074 0.741667C13.1407 0.575 12.9324 0.5 12.7157 0.5ZM9.71569 3.15833L0.499023 12.375V15.5H3.62402L12.8407 6.28333L9.71569 3.15833Z" fill="#383838" />
+                                                        </svg>
+
+                                                        <span>Edit</span>
+                                                    </a>
+                                                </li>
+                                                <li className="sysok">
+                                                    <a
+                                                        href="#"
+                                                        className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                                                    >
+                                                        <svg width="20" height="14" viewBox="0 0 20 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                            <path d="M10.0002 2.41667C13.1585 2.41667 15.9752 4.19167 17.3502 7C15.9752 9.80833 13.1585 11.5833 10.0002 11.5833C6.84183 11.5833 4.02516 9.80833 2.65016 7C4.02516 4.19167 6.84183 2.41667 10.0002 2.41667ZM10.0002 0.75C5.8335 0.75 2.27516 3.34167 0.833496 7C2.27516 10.6583 5.8335 13.25 10.0002 13.25C14.1668 13.25 17.7252 10.6583 19.1668 7C17.7252 3.34167 14.1668 0.75 10.0002 0.75ZM10.0002 4.91667C11.1502 4.91667 12.0835 5.85 12.0835 7C12.0835 8.15 11.1502 9.08333 10.0002 9.08333C8.85016 9.08333 7.91683 8.15 7.91683 7C7.91683 5.85 8.85016 4.91667 10.0002 4.91667ZM10.0002 3.25C7.9335 3.25 6.25016 4.93333 6.25016 7C6.25016 9.06667 7.9335 10.75 10.0002 10.75C12.0668 10.75 13.7502 9.06667 13.7502 7C13.7502 4.93333 12.0668 3.25 10.0002 3.25Z" fill="#383838" />
+                                                        </svg>
+
+                                                        <span>View</span>
+                                                    </a>
+                                                </li>
+                                                <li className="sysok">
+                                                    <a
+                                                        href="#"
+                                                        className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                                                    >
+                                                        <svg width="12" height="16" viewBox="0 0 12 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                            <path d="M9.33317 5.5V13.8333H2.6665V5.5H9.33317ZM8.08317 0.5H3.9165L3.08317 1.33333H0.166504V3H11.8332V1.33333H8.9165L8.08317 0.5ZM10.9998 3.83333H0.999837V13.8333C0.999837 14.75 1.74984 15.5 2.6665 15.5H9.33317C10.2498 15.5 10.9998 14.75 10.9998 13.8333V3.83333Z" fill="#DE3730" />
+                                                        </svg>
+
+                                                        <span>Delete</span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+
+                                        </div>
+                                    </div>
 
                                 </div>
                                 <div className="relative overflow-x-auto lonj">
@@ -207,33 +283,93 @@ const LeadDash = ({ setAlert, pop, setPop }) => {
                                             </tr>
                                         </tbody>
                                     </table>
-                                   
+
                                 </div>
 
                                 <div className="prev_next">
-                                        <div className="on1">
-                                            <p>1</p>
-                                        </div>
-                                        <div className="on1">
-                                            <p>1</p>
-                                        </div>
-                                        <div className="next">
-                                            <button><span>Next</span><svg width="8" height="10" viewBox="0 0 8 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M2.08748 0L0.912476 1.175L4.72914 5L0.912476 8.825L2.08748 10L7.08748 5L2.08748 0Z" fill="#666D76" />
-                                            </svg>
-                                            </button>
-                                        </div>
+                                    <div className="on1">
+                                        <p>1</p>
                                     </div>
+                                    <div className="on1">
+                                        <p>2</p>
+                                    </div>
+                                    <div className="next">
+                                        <button><span>Next</span><svg width="8" height="10" viewBox="0 0 8 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M2.08748 0L0.912476 1.175L4.72914 5L0.912476 8.825L2.08748 10L7.08748 5L2.08748 0Z" fill="#666D76" />
+                                        </svg>
+                                        </button>
+                                    </div>
+                                </div>
 
                             </div>
                             <div className="table22">
                                 <div className="my_open">
                                     <h3>My  Meetings</h3>
-                                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    {/* <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M0.5 4C0.5 2.067 2.067 0.5 4 0.5H28C29.933 0.5 31.5 2.067 31.5 4V28C31.5 29.933 29.933 31.5 28 31.5H4C2.067 31.5 0.5 29.933 0.5 28V4Z" fill="#F5F9FF" />
                                         <path d="M0.5 4C0.5 2.067 2.067 0.5 4 0.5H28C29.933 0.5 31.5 2.067 31.5 4V28C31.5 29.933 29.933 31.5 28 31.5H4C2.067 31.5 0.5 29.933 0.5 28V4Z" stroke="#B3CBF7" />
                                         <path d="M16 14C14.9 14 14 14.9 14 16C14 17.1 14.9 18 16 18C17.1 18 18 17.1 18 16C18 14.9 17.1 14 16 14ZM16 8C14.9 8 14 8.9 14 10C14 11.1 14.9 12 16 12C17.1 12 18 11.1 18 10C18 8.9 17.1 8 16 8ZM16 20C14.9 20 14 20.9 14 22C14 23.1 14.9 24 16 24C17.1 24 18 23.1 18 22C18 20.9 17.1 20 16 20Z" fill="#49515C" />
-                                    </svg>
+                                    </svg> */}
+
+                                    <div>
+                                        <svg className="floyu" onClick={() => setStart1(!start1)} width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M0.5 4C0.5 2.067 2.067 0.5 4 0.5H28C29.933 0.5 31.5 2.067 31.5 4V28C31.5 29.933 29.933 31.5 28 31.5H4C2.067 31.5 0.5 29.933 0.5 28V4Z" fill="#F5F9FF" />
+                                            <path d="M0.5 4C0.5 2.067 2.067 0.5 4 0.5H28C29.933 0.5 31.5 2.067 31.5 4V28C31.5 29.933 29.933 31.5 28 31.5H4C2.067 31.5 0.5 29.933 0.5 28V4Z" stroke="#B3CBF7" />
+                                            <path d="M16 14C14.9 14 14 14.9 14 16C14 17.1 14.9 18 16 18C17.1 18 18 17.1 18 16C18 14.9 17.1 14 16 14ZM16 8C14.9 8 14 8.9 14 10C14 11.1 14.9 12 16 12C17.1 12 18 11.1 18 10C18 8.9 17.1 8 16 8ZM16 20C14.9 20 14 20.9 14 22C14 23.1 14.9 24 16 24C17.1 24 18 23.1 18 22C18 20.9 17.1 20 16 20Z" fill="#49515C" />
+                                        </svg>
+
+                                        {/* Dropdown menu */}
+                                        <div
+                                            id="dropdownAction"
+
+                                            style={stylePeer2}
+                                            className="z-10 taning hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600"
+                                        >
+                                            <ul
+                                                className="py-1 text-sm text-gray-700 dark:text-gray-200"
+                                                aria-labelledby="dropdownActionButton"
+                                            >
+                                                <li className="sysok">
+
+                                                    <a
+                                                        href="#"
+                                                        className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                                                    >
+                                                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                            <path d="M9.71569 5.51667L10.4824 6.28333L2.93236 13.8333H2.16569V13.0667L9.71569 5.51667ZM12.7157 0.5C12.5074 0.5 12.2907 0.583333 12.1324 0.741667L10.6074 2.26667L13.7324 5.39167L15.2574 3.86667C15.5824 3.54167 15.5824 3.01667 15.2574 2.69167L13.3074 0.741667C13.1407 0.575 12.9324 0.5 12.7157 0.5ZM9.71569 3.15833L0.499023 12.375V15.5H3.62402L12.8407 6.28333L9.71569 3.15833Z" fill="#383838" />
+                                                        </svg>
+
+                                                        <span>Edit</span>
+                                                    </a>
+                                                </li>
+                                                <li className="sysok">
+                                                    <a
+                                                        href="#"
+                                                        className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                                                    >
+                                                        <svg width="20" height="14" viewBox="0 0 20 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                            <path d="M10.0002 2.41667C13.1585 2.41667 15.9752 4.19167 17.3502 7C15.9752 9.80833 13.1585 11.5833 10.0002 11.5833C6.84183 11.5833 4.02516 9.80833 2.65016 7C4.02516 4.19167 6.84183 2.41667 10.0002 2.41667ZM10.0002 0.75C5.8335 0.75 2.27516 3.34167 0.833496 7C2.27516 10.6583 5.8335 13.25 10.0002 13.25C14.1668 13.25 17.7252 10.6583 19.1668 7C17.7252 3.34167 14.1668 0.75 10.0002 0.75ZM10.0002 4.91667C11.1502 4.91667 12.0835 5.85 12.0835 7C12.0835 8.15 11.1502 9.08333 10.0002 9.08333C8.85016 9.08333 7.91683 8.15 7.91683 7C7.91683 5.85 8.85016 4.91667 10.0002 4.91667ZM10.0002 3.25C7.9335 3.25 6.25016 4.93333 6.25016 7C6.25016 9.06667 7.9335 10.75 10.0002 10.75C12.0668 10.75 13.7502 9.06667 13.7502 7C13.7502 4.93333 12.0668 3.25 10.0002 3.25Z" fill="#383838" />
+                                                        </svg>
+
+                                                        <span>View</span>
+                                                    </a>
+                                                </li>
+                                                <li className="sysok">
+                                                    <a
+                                                        href="#"
+                                                        className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                                                    >
+                                                        <svg width="12" height="16" viewBox="0 0 12 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                            <path d="M9.33317 5.5V13.8333H2.6665V5.5H9.33317ZM8.08317 0.5H3.9165L3.08317 1.33333H0.166504V3H11.8332V1.33333H8.9165L8.08317 0.5ZM10.9998 3.83333H0.999837V13.8333C0.999837 14.75 1.74984 15.5 2.6665 15.5H9.33317C10.2498 15.5 10.9998 14.75 10.9998 13.8333V3.83333Z" fill="#DE3730" />
+                                                        </svg>
+
+                                                        <span>Delete</span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+
+                                        </div>
+                                    </div>
 
                                 </div>
                                 <div className="relative overflow-x-auto lonj">
@@ -317,26 +453,370 @@ const LeadDash = ({ setAlert, pop, setPop }) => {
                                             </tr>
                                         </tbody>
                                     </table>
-                                   
+
                                 </div>
 
                                 <div className="prev_next">
-                                        <div className="on1">
-                                            <p>1</p>
-                                        </div>
-                                        <div className="on1">
-                                            <p>1</p>
-                                        </div>
-                                        <div className="next">
-                                            <button><span>Next</span><svg width="8" height="10" viewBox="0 0 8 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M2.08748 0L0.912476 1.175L4.72914 5L0.912476 8.825L2.08748 10L7.08748 5L2.08748 0Z" fill="#666D76" />
-                                            </svg>
-                                            </button>
-                                        </div>
+                                    <div className="on1">
+                                        <p>1</p>
                                     </div>
+                                    <div className="on1">
+                                        <p>2</p>
+                                    </div>
+                                    <div className="next">
+                                        <button><span>Next</span><svg width="8" height="10" viewBox="0 0 8 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M2.08748 0L0.912476 1.175L4.72914 5L0.912476 8.825L2.08748 10L7.08748 5L2.08748 0Z" fill="#666D76" />
+                                        </svg>
+                                        </button>
+                                    </div>
+                                </div>
 
                             </div>
                         </div>
+
+                        <div className="my_things">
+                            <div className="table11">
+                                <div className="my_open">
+                                    <h3>Today's Leads</h3>
+                                    {/* <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M0.5 4C0.5 2.067 2.067 0.5 4 0.5H28C29.933 0.5 31.5 2.067 31.5 4V28C31.5 29.933 29.933 31.5 28 31.5H4C2.067 31.5 0.5 29.933 0.5 28V4Z" fill="#F5F9FF" />
+                                        <path d="M0.5 4C0.5 2.067 2.067 0.5 4 0.5H28C29.933 0.5 31.5 2.067 31.5 4V28C31.5 29.933 29.933 31.5 28 31.5H4C2.067 31.5 0.5 29.933 0.5 28V4Z" stroke="#B3CBF7" />
+                                        <path d="M16 14C14.9 14 14 14.9 14 16C14 17.1 14.9 18 16 18C17.1 18 18 17.1 18 16C18 14.9 17.1 14 16 14ZM16 8C14.9 8 14 8.9 14 10C14 11.1 14.9 12 16 12C17.1 12 18 11.1 18 10C18 8.9 17.1 8 16 8ZM16 20C14.9 20 14 20.9 14 22C14 23.1 14.9 24 16 24C17.1 24 18 23.1 18 22C18 20.9 17.1 20 16 20Z" fill="#49515C" />
+                                    </svg> */}
+
+                                    <div>
+                                        <svg className="floyu" onClick={() => setStart2(!start2)} width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M0.5 4C0.5 2.067 2.067 0.5 4 0.5H28C29.933 0.5 31.5 2.067 31.5 4V28C31.5 29.933 29.933 31.5 28 31.5H4C2.067 31.5 0.5 29.933 0.5 28V4Z" fill="#F5F9FF" />
+                                            <path d="M0.5 4C0.5 2.067 2.067 0.5 4 0.5H28C29.933 0.5 31.5 2.067 31.5 4V28C31.5 29.933 29.933 31.5 28 31.5H4C2.067 31.5 0.5 29.933 0.5 28V4Z" stroke="#B3CBF7" />
+                                            <path d="M16 14C14.9 14 14 14.9 14 16C14 17.1 14.9 18 16 18C17.1 18 18 17.1 18 16C18 14.9 17.1 14 16 14ZM16 8C14.9 8 14 8.9 14 10C14 11.1 14.9 12 16 12C17.1 12 18 11.1 18 10C18 8.9 17.1 8 16 8ZM16 20C14.9 20 14 20.9 14 22C14 23.1 14.9 24 16 24C17.1 24 18 23.1 18 22C18 20.9 17.1 20 16 20Z" fill="#49515C" />
+                                        </svg>
+
+                                        {/* Dropdown menu */}
+                                        <div
+                                            id="dropdownAction"
+
+                                            style={stylePeer3}
+                                            className="z-10 taning hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600"
+                                        >
+                                            <ul
+                                                className="py-1 text-sm text-gray-700 dark:text-gray-200"
+                                                aria-labelledby="dropdownActionButton"
+                                            >
+                                                <li className="sysok">
+
+                                                    <a
+                                                        href="#"
+                                                        className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                                                    >
+                                                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                            <path d="M9.71569 5.51667L10.4824 6.28333L2.93236 13.8333H2.16569V13.0667L9.71569 5.51667ZM12.7157 0.5C12.5074 0.5 12.2907 0.583333 12.1324 0.741667L10.6074 2.26667L13.7324 5.39167L15.2574 3.86667C15.5824 3.54167 15.5824 3.01667 15.2574 2.69167L13.3074 0.741667C13.1407 0.575 12.9324 0.5 12.7157 0.5ZM9.71569 3.15833L0.499023 12.375V15.5H3.62402L12.8407 6.28333L9.71569 3.15833Z" fill="#383838" />
+                                                        </svg>
+
+                                                        <span>Edit</span>
+                                                    </a>
+                                                </li>
+                                                <li className="sysok">
+                                                    <a
+                                                        href="#"
+                                                        className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                                                    >
+                                                        <svg width="20" height="14" viewBox="0 0 20 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                            <path d="M10.0002 2.41667C13.1585 2.41667 15.9752 4.19167 17.3502 7C15.9752 9.80833 13.1585 11.5833 10.0002 11.5833C6.84183 11.5833 4.02516 9.80833 2.65016 7C4.02516 4.19167 6.84183 2.41667 10.0002 2.41667ZM10.0002 0.75C5.8335 0.75 2.27516 3.34167 0.833496 7C2.27516 10.6583 5.8335 13.25 10.0002 13.25C14.1668 13.25 17.7252 10.6583 19.1668 7C17.7252 3.34167 14.1668 0.75 10.0002 0.75ZM10.0002 4.91667C11.1502 4.91667 12.0835 5.85 12.0835 7C12.0835 8.15 11.1502 9.08333 10.0002 9.08333C8.85016 9.08333 7.91683 8.15 7.91683 7C7.91683 5.85 8.85016 4.91667 10.0002 4.91667ZM10.0002 3.25C7.9335 3.25 6.25016 4.93333 6.25016 7C6.25016 9.06667 7.9335 10.75 10.0002 10.75C12.0668 10.75 13.7502 9.06667 13.7502 7C13.7502 4.93333 12.0668 3.25 10.0002 3.25Z" fill="#383838" />
+                                                        </svg>
+
+                                                        <span>View</span>
+                                                    </a>
+                                                </li>
+                                                <li className="sysok">
+                                                    <a
+                                                        href="#"
+                                                        className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                                                    >
+                                                        <svg width="12" height="16" viewBox="0 0 12 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                            <path d="M9.33317 5.5V13.8333H2.6665V5.5H9.33317ZM8.08317 0.5H3.9165L3.08317 1.33333H0.166504V3H11.8332V1.33333H8.9165L8.08317 0.5ZM10.9998 3.83333H0.999837V13.8333C0.999837 14.75 1.74984 15.5 2.6665 15.5H9.33317C10.2498 15.5 10.9998 14.75 10.9998 13.8333V3.83333Z" fill="#DE3730" />
+                                                        </svg>
+
+                                                        <span>Delete</span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div className="relative overflow-x-auto lonj">
+                                    <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                                        <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                                            <tr className="thol">
+                                                <th scope="col" className="px-4 py-3">
+                                                    Subject
+                                                </th>
+                                                <th scope="col" className="px-4 py-3">
+                                                    Due Date
+                                                </th>
+                                                <th scope="col" className="px-4 py-3">
+                                                    Status
+                                                </th>
+                                                <th scope="col" className="px-4 py-3">
+                                                    Priority
+                                                </th>
+                                                <th scope="col" className="px-4 py-3">
+                                                    Related To
+                                                </th>
+                                                <th scope="col" className="px-4 py-3">
+                                                    Contact Name
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                                <th
+                                                    scope="row"
+                                                    className="px-4 aka py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white aka"
+                                                >
+                                                    Follow up WhatsApp Message
+                                                </th>
+                                                <td className="px-4 py-4">31/05/2023</td>
+                                                <td className="px-4 py-4">Not Started</td>
+                                                <td className="px-4 py-4">High</td>
+                                                <td className="px-4 py-4 relt">Machi Gulinski</td>
+                                                <td className="px-4 py-4">
+                                                    <div className="contactk">
+                                                        <img src={siy} alt="siy" />
+                                                        <p>Kris Marrier</p>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                                <th
+                                                    scope="row"
+                                                    className="px-4 aka py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white aka"
+                                                >
+                                                    Follow up WhatsApp Message
+                                                </th>
+                                                <td className="px-4 py-4">31/05/2023</td>
+                                                <td className="px-4 py-4">Not Started</td>
+                                                <td className="px-4 py-4">High</td>
+                                                <td className="px-4 py-4 relt">Machi Gulinski</td>
+                                                <td className="px-4 py-4">
+                                                    <div className="contactk">
+                                                        <img src={siy} alt="siy" />
+                                                        <p>Kris Marrier</p>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                                <th
+                                                    scope="row"
+                                                    className="px-4 aka py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white aka"
+                                                >
+                                                    Follow up WhatsApp Message
+                                                </th>
+                                                <td className="px-4 py-4">31/05/2023</td>
+                                                <td className="px-4 py-4">Not Started</td>
+                                                <td className="px-4 py-4">High</td>
+                                                <td className="px-4 py-4 relt">Machi Gulinski</td>
+                                                <td className="px-4 py-4">
+                                                    <div className="contactk">
+                                                        <img src={siy} alt="siy" />
+                                                        <p>Kris Marrier</p>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+
+                                </div>
+
+                                <div className="prev_next">
+                                    <div className="on1">
+                                        <p>1</p>
+                                    </div>
+                                    <div className="on1">
+                                        <p>2</p>
+                                    </div>
+                                    <div className="next">
+                                        <button><span>Next</span><svg width="8" height="10" viewBox="0 0 8 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M2.08748 0L0.912476 1.175L4.72914 5L0.912476 8.825L2.08748 10L7.08748 5L2.08748 0Z" fill="#666D76" />
+                                        </svg>
+                                        </button>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div className="table22">
+                                <div className="my_open">
+                                    <h3>My Deals Closing This Month</h3>
+                                    {/* <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M0.5 4C0.5 2.067 2.067 0.5 4 0.5H28C29.933 0.5 31.5 2.067 31.5 4V28C31.5 29.933 29.933 31.5 28 31.5H4C2.067 31.5 0.5 29.933 0.5 28V4Z" fill="#F5F9FF" />
+                                        <path d="M0.5 4C0.5 2.067 2.067 0.5 4 0.5H28C29.933 0.5 31.5 2.067 31.5 4V28C31.5 29.933 29.933 31.5 28 31.5H4C2.067 31.5 0.5 29.933 0.5 28V4Z" stroke="#B3CBF7" />
+                                        <path d="M16 14C14.9 14 14 14.9 14 16C14 17.1 14.9 18 16 18C17.1 18 18 17.1 18 16C18 14.9 17.1 14 16 14ZM16 8C14.9 8 14 8.9 14 10C14 11.1 14.9 12 16 12C17.1 12 18 11.1 18 10C18 8.9 17.1 8 16 8ZM16 20C14.9 20 14 20.9 14 22C14 23.1 14.9 24 16 24C17.1 24 18 23.1 18 22C18 20.9 17.1 20 16 20Z" fill="#49515C" />
+                                    </svg> */}
+
+                                    <div>
+                                        <svg className="floyu" onClick={() => setStart3(!start3)} width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M0.5 4C0.5 2.067 2.067 0.5 4 0.5H28C29.933 0.5 31.5 2.067 31.5 4V28C31.5 29.933 29.933 31.5 28 31.5H4C2.067 31.5 0.5 29.933 0.5 28V4Z" fill="#F5F9FF" />
+                                            <path d="M0.5 4C0.5 2.067 2.067 0.5 4 0.5H28C29.933 0.5 31.5 2.067 31.5 4V28C31.5 29.933 29.933 31.5 28 31.5H4C2.067 31.5 0.5 29.933 0.5 28V4Z" stroke="#B3CBF7" />
+                                            <path d="M16 14C14.9 14 14 14.9 14 16C14 17.1 14.9 18 16 18C17.1 18 18 17.1 18 16C18 14.9 17.1 14 16 14ZM16 8C14.9 8 14 8.9 14 10C14 11.1 14.9 12 16 12C17.1 12 18 11.1 18 10C18 8.9 17.1 8 16 8ZM16 20C14.9 20 14 20.9 14 22C14 23.1 14.9 24 16 24C17.1 24 18 23.1 18 22C18 20.9 17.1 20 16 20Z" fill="#49515C" />
+                                        </svg>
+
+                                        {/* Dropdown menu */}
+                                        <div
+                                            id="dropdownAction"
+
+                                            style={stylePeer4}
+                                            className="z-10 taning hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600"
+                                        >
+                                            <ul
+                                                className="py-1 text-sm text-gray-700 dark:text-gray-200"
+                                                aria-labelledby="dropdownActionButton"
+                                            >
+                                                <li className="sysok">
+
+                                                    <a
+                                                        href="#"
+                                                        className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                                                    >
+                                                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                            <path d="M9.71569 5.51667L10.4824 6.28333L2.93236 13.8333H2.16569V13.0667L9.71569 5.51667ZM12.7157 0.5C12.5074 0.5 12.2907 0.583333 12.1324 0.741667L10.6074 2.26667L13.7324 5.39167L15.2574 3.86667C15.5824 3.54167 15.5824 3.01667 15.2574 2.69167L13.3074 0.741667C13.1407 0.575 12.9324 0.5 12.7157 0.5ZM9.71569 3.15833L0.499023 12.375V15.5H3.62402L12.8407 6.28333L9.71569 3.15833Z" fill="#383838" />
+                                                        </svg>
+
+                                                        <span>Edit</span>
+                                                    </a>
+                                                </li>
+                                                <li className="sysok">
+                                                    <a
+                                                        href="#"
+                                                        className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                                                    >
+                                                        <svg width="20" height="14" viewBox="0 0 20 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                            <path d="M10.0002 2.41667C13.1585 2.41667 15.9752 4.19167 17.3502 7C15.9752 9.80833 13.1585 11.5833 10.0002 11.5833C6.84183 11.5833 4.02516 9.80833 2.65016 7C4.02516 4.19167 6.84183 2.41667 10.0002 2.41667ZM10.0002 0.75C5.8335 0.75 2.27516 3.34167 0.833496 7C2.27516 10.6583 5.8335 13.25 10.0002 13.25C14.1668 13.25 17.7252 10.6583 19.1668 7C17.7252 3.34167 14.1668 0.75 10.0002 0.75ZM10.0002 4.91667C11.1502 4.91667 12.0835 5.85 12.0835 7C12.0835 8.15 11.1502 9.08333 10.0002 9.08333C8.85016 9.08333 7.91683 8.15 7.91683 7C7.91683 5.85 8.85016 4.91667 10.0002 4.91667ZM10.0002 3.25C7.9335 3.25 6.25016 4.93333 6.25016 7C6.25016 9.06667 7.9335 10.75 10.0002 10.75C12.0668 10.75 13.7502 9.06667 13.7502 7C13.7502 4.93333 12.0668 3.25 10.0002 3.25Z" fill="#383838" />
+                                                        </svg>
+
+                                                        <span>View</span>
+                                                    </a>
+                                                </li>
+                                                <li className="sysok">
+                                                    <a
+                                                        href="#"
+                                                        className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                                                    >
+                                                        <svg width="12" height="16" viewBox="0 0 12 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                            <path d="M9.33317 5.5V13.8333H2.6665V5.5H9.33317ZM8.08317 0.5H3.9165L3.08317 1.33333H0.166504V3H11.8332V1.33333H8.9165L8.08317 0.5ZM10.9998 3.83333H0.999837V13.8333C0.999837 14.75 1.74984 15.5 2.6665 15.5H9.33317C10.2498 15.5 10.9998 14.75 10.9998 13.8333V3.83333Z" fill="#DE3730" />
+                                                        </svg>
+
+                                                        <span>Delete</span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div className="relative overflow-x-auto lonj">
+                                    <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                                        <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                                            <tr className="thol">
+                                                <th scope="col" className="px-4 py-3">
+                                                    Subject
+                                                </th>
+                                                <th scope="col" className="px-4 py-3">
+                                                    Due Date
+                                                </th>
+                                                <th scope="col" className="px-4 py-3">
+                                                    Status
+                                                </th>
+                                                <th scope="col" className="px-4 py-3">
+                                                    Priority
+                                                </th>
+                                                <th scope="col" className="px-4 py-3">
+                                                    Related To
+                                                </th>
+                                                <th scope="col" className="px-4 py-3">
+                                                    Contact Name
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                                <th
+                                                    scope="row"
+                                                    className="px-4 aka py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white aka"
+                                                >
+                                                    Follow up WhatsApp Message
+                                                </th>
+                                                <td className="px-4 py-4">31/05/2023</td>
+                                                <td className="px-4 py-4">Not Started</td>
+                                                <td className="px-4 py-4">High</td>
+                                                <td className="px-4 py-4 relt">Machi Gulinski</td>
+                                                <td className="px-4 py-4">
+                                                    <div className="contactk">
+                                                        <img src={siy} alt="siy" />
+                                                        <p>Kris Marrier</p>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                                <th
+                                                    scope="row"
+                                                    className="px-4 aka py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white aka"
+                                                >
+                                                    Follow up WhatsApp Message
+                                                </th>
+                                                <td className="px-4 py-4">31/05/2023</td>
+                                                <td className="px-4 py-4">Not Started</td>
+                                                <td className="px-4 py-4">High</td>
+                                                <td className="px-4 py-4 relt">Machi Gulinski</td>
+                                                <td className="px-4 py-4">
+                                                    <div className="contactk">
+                                                        <img src={siy} alt="siy" />
+                                                        <p>Kris Marrier</p>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                                <th
+                                                    scope="row"
+                                                    className="px-4 aka py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white aka"
+                                                >
+                                                    Follow up WhatsApp Message
+                                                </th>
+                                                <td className="px-4 py-4">31/05/2023</td>
+                                                <td className="px-4 py-4">Not Started</td>
+                                                <td className="px-4 py-4">High</td>
+                                                <td className="px-4 py-4 relt">Machi Gulinski</td>
+                                                <td className="px-4 py-4">
+                                                    <div className="contactk">
+                                                        <img src={siy} alt="siy" />
+                                                        <p>Kris Marrier</p>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+
+                                </div>
+
+                                <div className="prev_next">
+                                    <div className="on1">
+                                        <p>1</p>
+                                    </div>
+                                    <div className="on1">
+                                        <p>2</p>
+                                    </div>
+                                    <div className="next">
+                                        <button><span>Next</span><svg width="8" height="10" viewBox="0 0 8 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M2.08748 0L0.912476 1.175L4.72914 5L0.912476 8.825L2.08748 10L7.08748 5L2.08748 0Z" fill="#666D76" />
+                                        </svg>
+                                        </button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>

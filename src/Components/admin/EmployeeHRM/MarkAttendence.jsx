@@ -106,11 +106,11 @@ const MarkAttendance = ({
   };
 
   const handleDownload = async () => {
-
+   console.log("handleDownload");
   };
 
   const handleShare = async () => {
-
+     console.log("share");
   };
 
   const  calculateTime = (clockIn , clockOut) => {
@@ -753,8 +753,7 @@ const MarkAttendance = ({
                               )} */}
                               {/* {
                                 new Date(item.Date).toLocaleDateString('en-US', { day: '2-digit', month: '2-digit', year: 'numeric' })} */}
-                                 {
-                                new Date(item.Date).toLocaleDateString()}
+                                 {new Date(item.Date).toLocaleDateString()}
                             </td>
 
                             <td className="px-6 py-4 itemANs">

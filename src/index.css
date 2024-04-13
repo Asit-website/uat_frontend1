@@ -3272,7 +3272,38 @@ input::-webkit-inner-spin-button {
   border-left: 0px;
   border-right: 0px;
   white-space: pre-wrap !important;
+  font-family: "Inter", sans-serif !important;
   line-height: 16px !important;
+  font-size: 11px !important;
+}
+.my_open1{
+  padding: 0px 20px !important;
+}
+.salay th,
+.salay td{
+  color: #545962 !important ;
+}
+.taning{
+ width: 180px;
+ background-color: white;
+ box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+ margin: 32px 0px;
+}
+.floyu{
+  float: right !important;
+  cursor: pointer !important;
+}
+.sysok a{
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  /* margin: 0px 5px; */
+}
+.sysok span{
+  margin-left: 10px;
+  color: #2B2B2B;
+  font-family: "Inter", sans-serif !important;
+  font-weight: 500;
 }
 .prev_next{
   display: flex;
@@ -3295,6 +3326,12 @@ input::-webkit-inner-spin-button {
   border-radius: 5px;
   margin: 0px 5px;
 }
+.on1:hover{
+  border: 1px solid #0B56E4 !important;
+  transition: .5s;
+  cursor: pointer !important;
+  background-color: #D1E8FD !important ;
+}
 .next button{
   border: 1px solid #D8D8D8;
   border-radius: 5px;
@@ -3305,6 +3342,18 @@ input::-webkit-inner-spin-button {
   justify-content: space-evenly;
   margin: 0px 5px;
 }
+.next-button:hover{
+  border: 1px solid #0B56E4 !important;
+  transition: .5s;
+  cursor: pointer !important;
+  background-color: #D1E8FD !important ;
+}
+.next button:hover{
+  border: 1px solid #0B56E4 !important;
+  transition: .5s;
+  cursor: pointer !important;
+  background-color: #D1E8FD !important ;
+}
 .table11{
   width: 100%;
   background-color: white;
@@ -3312,6 +3361,9 @@ input::-webkit-inner-spin-button {
   box-shadow: 0px 8px 32px -2px #1B25330F;
   padding: 15px 0px;
   border-radius: 10px;
+}
+.saka th{
+  
 }
 .table22{
   width: 100%;
