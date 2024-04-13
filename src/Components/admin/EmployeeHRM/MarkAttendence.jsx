@@ -20,13 +20,14 @@ const MarkAttendance = ({
   setAlert,
   isHr = false,
 }) => {
-  const { user, getAllActivities, getUsers, getDepartments, allEmployee , getAllActivities2 } = useMain();
+  const { user, getAllActivities, getDepartments, allEmployee , getAllActivities2 } = useMain();
   const [data, setData] = useState([]);
   const [data1, setData1] = useState({});
   const [users, setUsers] = useState([]);
   const [departments, setDepartments] = useState([]);
   const [allDash , setAllDash] = useState([]);
 
+  console.log("all datah ",allDash);
 
   const getData = async () => {
     let ans = await getAllActivities();
@@ -35,7 +36,6 @@ const MarkAttendance = ({
     setUsers(ans1.emp);
     setData1(ans?.data);
     const ans2 = await getDepartments();
-
     setDepartments(ans2.data);
   };
 
@@ -113,36 +113,53 @@ const MarkAttendance = ({
      console.log("share");
   };
 
-  const  calculateTime = (clockIn , clockOut) => {
-
-    let clockInDetail = parseInt(clockIn.charAt(0));
-    let clockOutDetail = parseInt(clockOut.charAt(0));
-
-    let count = 0;
-
-    while(clockInDetail !== clockOutDetail){
-
-      if(clockInDetail === 12){
-        clockInDetail = 1;
-      }
-      clockInDetail++;
-      count++;
-    }
-
-    if(count >= 9){
-      return true;
-    }
-    else {
-      return false;
-    }
-
+  const calculateTime = (clockIn, clockOut) => {
     
-   
-  }
+    // Check if clockIn and clockOut are not null
+    if (clockIn && clockOut) {
+        // Extract the hour part from the time strings
+        const getHour = (time) => {
+            const hourStr = time.split(':')[0];
+            const hour = parseInt(hourStr);
+            if (hour === 12) {
+                return 12; // If hour is 12, return 12
+            } else {
+                return hour % 12; // Otherwise, return hour % 12 (to convert 13-23 to 1-11)
+            }
+        };
+
+        let clockInDetail = getHour(clockIn);
+        let clockOutDetail = getHour(clockOut);
+        console.log("clock in  dd", clockInDetail, clockOutDetail);
+
+        let count = 0;
+
+        while(clockInDetail !== clockOutDetail){
+            if(clockInDetail === 12){
+                clockInDetail = 1;
+            } else {
+                clockInDetail++;
+            }
+            count++;
+        }
+
+        if(count >= 9){
+            return true;
+        } else {
+            return false;
+        }
+    } else {
+        // Handle the case where either clockIn or clockOut is null
+        console.error("Error: clockIn or clockOut is null.");
+        return false; // or handle it accordingly
+    }
+}
+
 
   useEffect(() => {
     getData();
   }, []);
+
 
   return (
     <>
@@ -235,7 +252,7 @@ const MarkAttendance = ({
                         })}
                       </select>
 
-                      <div className="resSeBtn">
+                      <div style={{cursor:"pointer"}} className="resSeBtn">
                         <svg
                         style={{cursor:"pointer"}}
                           xmlns="http://www.w3.org/2000/svg"
@@ -254,6 +271,7 @@ const MarkAttendance = ({
                         </svg>
 
                         <svg
+                        style={{cursor:"pointer"}}
                           xmlns="http://www.w3.org/2000/svg"
                           fill="none"
                           viewBox="0 0 24 24"
@@ -546,9 +564,7 @@ const MarkAttendance = ({
                           <th scope="col" className="px-6 py-3 currentText">
                             Break
                           </th>
-                          {/* <th scope="col" className="px-6 py-3 currentText">
-                            Overtime
-                          </th> */}
+                        
                           <th scope="col" className="px-6 py-3 currentText">
                             action
                           </th>
@@ -569,7 +585,6 @@ const MarkAttendance = ({
                                 new Date(item.Date).toLocaleDateString()}
                             </td>
                             <td className="px-6 py-4 itemANs">
-                              {/* {Number(item.clockIn) === 0 ? "Absent" : Number(item.clockIn) > 21600 ? 'Present' : 'Half Day'} */}
                               
                               {calculateTime(item.clockIn , item.clockOut) ?"Full Day":"Half Day"}
                               </td>
@@ -581,36 +596,10 @@ const MarkAttendance = ({
                               {item?.clockOut}
                             </td>
                             <td className="px-6 py-4 itemANs">
-                              {/* {Number(item.clockOut) !== 0
-                                ? `${Math.floor(item.late / 3600)
-                                  .toString()
-                                  .padStart(2, "0")}:${Math.floor(
-                                    (item.late % 3600) / 60
-                                  )
-                                    .toString()
-                                    .padStart(2, "0")}:${Math.floor(
-                                      item.late % 60
-                                    )
-                                      .toString()
-                                      .padStart(2, "0")}`
-                                : " - "} */}
+                             
                               {item?.breakTime ? item?.breakTime : "No break"}
                             </td>
-                            {/* <td className="px-6 py-4 itemANs">
-                              {Number(item.clockOut) !== 0
-                                ? `${Math.floor(item.overtime / 3600)
-                                  .toString()
-                                  .padStart(2, "0")}:${Math.floor(
-                                    (item.overtime % 3600) / 60
-                                  )
-                                    .toString()
-                                    .padStart(2, "0")}:${Math.floor(
-                                      item.overtime % 60
-                                    )
-                                      .toString()
-                                      .padStart(2, "0")}`
-                                : " - "}
-                            </td> */}
+                           
                             <td className="px-6 py-4 ">
                               <img src={moreVert} alt="" />
                             </td>
@@ -665,8 +654,8 @@ const MarkAttendance = ({
                             {item?.user?.department}
                           </td>
                           <td className="px-6 py-4 itemANs">
-                            {
-                              new Date(item.Date).toLocaleDateString()}
+                            { item?.Date
+}
                           </td>
                           <td className="px-6 py-4 itemANs">
                             
@@ -697,14 +686,13 @@ const MarkAttendance = ({
                 {selectedOption === "monthly" && (
                   <div className="relative overflow-x-auto">
                     <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                  
                       <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                         <tr>
                           <th scope="col" className="px-6 py-3 currentText">
                             Employee Name
                           </th>
-                          {/* <th scope="col" className="px-6 py-3 currentText">
-                           Branch
-                          </th> */}
+             
                           <th scope="col" className="px-6 py-3 currentText">
                             Department
                           </th>
@@ -724,12 +712,7 @@ const MarkAttendance = ({
                           <th scope="col" className="px-6 py-3 currentText">
                             Break
                           </th>
-                          {/* <th scope="col" className="px-6 py-3 currentText">
-                            Total Time
-                          </th> */}
-                          {/* <th scope="col" className="px-6 py-3 currentText">
-                            OverTime
-                          </th> */}
+                          
                           <th scope="col" className="px-6 py-3 currentText">
                             action
                           </th>
@@ -748,79 +731,27 @@ const MarkAttendance = ({
                             </td>
 
                             <td className="px-6 py-4 itemANs">
-                              {/* {new Date(Number(item?.date)).toLocaleDateString(
-                                "en-GB"
-                              )} */}
-                              {/* {
-                                new Date(item.Date).toLocaleDateString('en-US', { day: '2-digit', month: '2-digit', year: 'numeric' })} */}
-                                 {new Date(item.Date).toLocaleDateString()}
+                                                             {item?.Date}
                             </td>
 
                             <td className="px-6 py-4 itemANs">
-                              {Number(item.clockIn) === 0 ? "Absent" : Number(item.clockIn) > 21600 ? 'Present' : 'Half Day'}
+                            {calculateTime(item.clockIn , item.clockOut) ?"Full Day":"Half Day"}
                             </td>
                             <td className="px-6 py-4 itemANs">
-                              {/* {Number(item.clockIn) === 0 ? ' - ' : new Date(
-                                Number(item.clockIn)
-                              ).toLocaleTimeString("en-GB")} */}
+                            
                               {item?.clockIn}
                             </td>
                             <td className="px-6 py-4 itemANs">
-                              {/* {Number(item.clockOut) !== 0
-                                ? new Date(
-                                  Number(item.clockOut)
-                                ).toLocaleTimeString("en-GB")
-                                : " - "} */}
+                             
                               {item?.clockOut}
                             </td>
                             <td className="px-6 py-4 itemANs">
-                              {/* {Number(item.clockOut) !== 0
-                                ? `${Math.floor(item.late / 3600)
-                                  .toString()
-                                  .padStart(2, "0")}:${Math.floor(
-                                    (item.late % 3600) / 60
-                                  )
-                                    .toString()
-                                    .padStart(2, "0")}:${Math.floor(
-                                      item.late % 60
-                                    )
-                                      .toString()
-                                      .padStart(2, "0")}`
-                                : " - "} */}
+                             
                                  {item?.breakTime ? item?.breakTime : "No break"}
                             
                             </td>
-                            {/* <td className="px-6 py-4 itemANs">
-                              {Number(item.total) !== 0
-                                ? `${Math.floor(item.total / 3600)
-                                  .toString()
-                                  .padStart(2, "0")}:${Math.floor(
-                                    (item.total % 3600) / 60
-                                  )
-                                    .toString()
-                                    .padStart(2, "0")}:${Math.floor(
-                                      item.total % 60
-                                    )
-                                      .toString()
-                                      .padStart(2, "0")}`
-                                : " - "}
-                                
-                            </td> */}
-                            {/* <td className="px-6 py-4 itemANs">
-                              {Number(item.clockOut) !== 0
-                                ? `${Math.floor(item.overtime / 3600)
-                                  .toString()
-                                  .padStart(2, "0")}:${Math.floor(
-                                    (item.overtime % 3600) / 60
-                                  )
-                                    .toString()
-                                    .padStart(2, "0")}:${Math.floor(
-                                      item.overtime % 60
-                                    )
-                                      .toString()
-                                      .padStart(2, "0")}`
-                                : " - "}
-                            </td> */}
+                           
+                          
                             <td className="px-6 py-4 ">
                               <img src={moreVert} alt="" />
                             </td>

@@ -4,13 +4,13 @@ const Home = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    let token = localStorage.getItem("hrms_token");
+    let token = JSON.parse(localStorage.getItem("hrms_token"));
     let user = JSON.parse(localStorage.getItem("hrms_user"));
     
     if (token && user) {
-      if (JSON.parse(user).role === "EMPLOYEE") {
+      if (user.role === "EMPLOYEE") {
         navigate("/employeeDash");
-      } else if (JSON.parse(user).role === "HR") {
+      } else if (user.role === "HR") {
         navigate("/hrDash");
       } else {
         navigate("/adminDash");

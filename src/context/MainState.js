@@ -3,7 +3,7 @@ import MainContext from './MainContext';
 import { deleteReq, get, post, put, postDocuments } from '../Api/api'
 import { useState } from 'react';
 
-// const baseUrl = "http://localhost:5000";
+const baseUrl = "http://localhost:5000";
 
 // const baseUrl = "https://hrms-backend-code.onrender.com"
 
@@ -15,7 +15,7 @@ import { useState } from 'react';
 
 // const baseUrl = "https://hrms-backend-g3wt.onrender.com";
 
-const baseUrl = "https://hr-backend-ncrd.onrender.com"
+// const baseUrl = "https://hr-backend-ncrd.onrender.com"
 
 
 const MainState = (props) => {
@@ -235,6 +235,7 @@ const MainState = (props) => {
    };
 
    const postActivity = async ({ clockIn, clockOut, late, overtime, total, message = '', date1 }) => {
+      
       const data = await post(`${baseUrl}/activity/postActivity`, { clockIn, clockOut, date1, late, overtime, total, message }, true);
       return data;
    };
@@ -876,7 +877,7 @@ const MainState = (props) => {
 
    const notificationGet = async () => {
       let user = JSON.parse(localStorage.getItem("hrms_user"));
-      const userDetail = JSON.parse(user);
+      const userDetail = user;
 
       const id = userDetail?._id;
 
@@ -924,7 +925,7 @@ const MainState = (props) => {
 
    const fetchUserNotify = async () => {
       let user = JSON.parse(localStorage.getItem("hrms_user"));
-      const userDetail = JSON.parse(user);
+      const userDetail = user;
 
       const id = userDetail?._id;
 
@@ -933,7 +934,7 @@ const MainState = (props) => {
    }
    const deleteNotification = async (notId) => {
       let user = JSON.parse(localStorage.getItem("hrms_user"));
-      const userDetail = JSON.parse(user);
+      const userDetail = user;
 
       const id = userDetail?._id;
 

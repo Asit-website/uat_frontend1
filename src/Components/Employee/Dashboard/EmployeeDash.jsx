@@ -215,13 +215,15 @@ const EmployeeDash = ({ setAlert, pop1, setPop1 }) => {
     let t = localStorage.getItem("clock-status");
     localStorage.setItem('clockInTime', new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', second: '2-digit', hour12: true }));
 
+    localStorage.setItem("date1"  ,new Date().toLocaleDateString("en-GB"));
+
 
     if (!t) {
       let ans = await postActivity({
         clockIn: localStorage.getItem("clock-in") ? localStorage.getItem("clock-in") : new Date().getTime(),
         clockOut: 0,
         late: 0,
-        date1: new Date().toLocaleDateString("en-GB"),
+        date1: localStorage.getItem("date1"),
         overtime: 0,
         total: 0,
         message: "",
@@ -334,20 +336,20 @@ const EmployeeDash = ({ setAlert, pop1, setPop1 }) => {
       clockIn: localStorage.getItem("clock-in"),
       clockOut: localStorage.getItem("clock-out-time"),
       late: breakClock,
-      date1: new Date().toLocaleDateString("en-GB"),
+      date1: localStorage.getItem("date1"),
       overtime: clock - 32400 > 0 ? clock - 32400 : 0,
       total: clock,
       message: "",
     });
 
-    let user = localStorage.getItem("hrms_user");
-    const userDetail = JSON.parse(user);
 
-    const id = userDetail?._id;
+    const userDataString = localStorage.getItem("hrms_user");
+
+const userData = JSON.parse(userDataString);
 
    const clockInDate =  localStorage.getItem('clock-in-date');
 
-  const attendence = await postAttendence({ clockInDetail: localStorage.getItem("clockInTime"), breakTime:differenceText , clockOutDetail: localStorage.getItem("clockOutTime"), id , clockInDate:clockInDate });
+  const attendence = await postAttendence({ clockInDetail: localStorage.getItem("clockInTime"), breakTime:differenceText , clockOutDetail: localStorage.getItem("clockOutTime"), id:userData?._id , clockInDate:clockInDate });
 
     localStorage.removeItem("clock-in");
     localStorage.removeItem("clock-status");

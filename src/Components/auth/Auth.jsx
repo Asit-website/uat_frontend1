@@ -40,7 +40,8 @@ const Auth = (props) => {
 
     if (ans.success) {
       setUser(ans.user);
-      localStorage.setItem("hrms_user", JSON.stringify(ans.user));
+       console.log("afsdfdfsdfs" , ans);
+      localStorage.setItem("hrms_user", JSON.stringify(ans?.user));
       localStorage.setItem(
         "hrms_token",
         JSON.stringify({

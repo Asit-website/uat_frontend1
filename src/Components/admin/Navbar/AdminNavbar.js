@@ -11,16 +11,26 @@ import { useMain } from "../../../hooks/useMain";
 const AdminNavbar = ({ setAlert }) => {
   
   let user = JSON?.parse(localStorage.getItem("hrms_user"));
-  console.log("userss ",user);
   const updateUser = () => {
     document.getElementById("ty").classList.toggle("tys");
   };
 
   // const {user} = useMain();
-  console.log('userss ',user);
   const handleLogout = () => {
     localStorage.removeItem("hrms_token");
     localStorage.removeItem("hrms_user");
+    localStorage.removeItem("clock-in");
+    localStorage.removeItem("clock-status");
+    localStorage.removeItem("clock-out-time");
+    localStorage.removeItem("clockOutTime");
+    localStorage.removeItem("clockInTime");
+    localStorage.removeItem("breakInTime");
+    localStorage.removeItem("breakOutTime");
+    localStorage.removeItem("clock-in-date");
+    localStorage.removeItem("break-seconds");
+    localStorage.removeItem("break-time");
+   
+
     window.location.href = "/login";
     setAlert("success", "logout successfully");
   };
