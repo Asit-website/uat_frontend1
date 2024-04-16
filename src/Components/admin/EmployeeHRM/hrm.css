@@ -324,7 +324,7 @@ color: #060606;
 }
 
 .taskTitl{
-    font-family: Gilroy-Medium;
+font-family: Inter;
 font-size: 16px;
 font-weight: 400;
 line-height: 19px;
@@ -334,7 +334,7 @@ color: #060606;
 }
 
 .taskAns{
-    font-family: Gilroy-Medium;
+    font-family: Inter;
 font-size: 14px;
 font-weight: 400;
 line-height: 17px;

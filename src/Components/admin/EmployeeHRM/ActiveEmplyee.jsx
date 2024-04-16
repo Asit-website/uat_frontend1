@@ -190,10 +190,6 @@ const AdminEmplyee = ({
                     <img src={chevron} alt="" />
                   </span>{" "}
                   <span className="thml">Active Employee</span>
-
-
-
-
                 </div>
               </div>
 

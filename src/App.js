@@ -57,6 +57,7 @@ import EmployeAttendence from "./Components/admin/EmployeeHRM/EmployeAttendence"
 import Trip from "./Components/admin/EmployeeHRM/Trip";
 import LeadDash from "./Components/admin/LeadManagement/LeadDash.jsx";
 import MyLead from "./Components/admin/LeadManagement/MyLead.jsx";
+import CreateLead from "./Components/admin/LeadManagement/CreateLead.jsx";
 
 var tc;
 
@@ -235,6 +236,7 @@ function App() {
                 isHr={true} />} />
                 <Route path="/adminDash/leadDash" element={<LeadDash/>}/>
                 <Route path="/adminDash/myLead" element={<MyLead />}/>
+                <Route path="/adminDash/createLead" element={<CreateLead/>}/>
             </Route>
 
           </Routes>

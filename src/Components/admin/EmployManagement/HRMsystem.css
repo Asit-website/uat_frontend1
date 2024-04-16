@@ -11,7 +11,8 @@
     background-color: transparent;
 }
 .admin-main .hrmShed{
-    font-family: Gilroy-Medium;
+    /* font-family: Gilroy-Medium; */
+    font-family: inter !important;
     font-size: 20px;
     font-weight: 400;
     line-height: 24px;
@@ -26,22 +27,24 @@ color: #3F4254;
    
 }
 .admin-main .hrmDoHe p{
-    font-family: Gilroy-Regular;
+    /* font-family: Gilroy-Regular; */
+    font-family: inter !important;
     font-size: 16px;
     font-weight: 400;
     line-height: 19px;
     letter-spacing: 0em;
     text-align: left;
 color: #1063FF;    
-
 }
+
 .pono{
     height: 400px !important;
     max-width: 500px !important;
     width: 100% !important;
 }
 .admin-main .hrmDoHe span{
-    font-family: Gilroy-Medium;
+    /* font-family: Gilroy-Medium; */
+    font-family: inter !important;
     font-size: 16px;
     font-weight: 400;
     line-height: 19px;
@@ -73,7 +76,8 @@ color: #3F4254;
 }
 
 .hrmsystemsetup-subrightmenu span {
-    font-family: Gilroy-Medium;
+    /* font-family: Gilroy-Medium; */
+    font-family: inter !important;
     font-size: 16px;
     font-weight: 400;
     line-height: 19px;

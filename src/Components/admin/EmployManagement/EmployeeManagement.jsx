@@ -244,13 +244,13 @@ const EmployeeManagement = ({
                           DESIGNATION
                         </th>
                         <th scope="col" className="px-6 py-3 taskTitl ">
-                          date of joining
+                          DATE OF JOIN
                         </th>
-                        <th scope="col" className="px-6 py-3 taskTitl ">
+                        {/* <th scope="col" className="px-6 py-3 taskTitl ">
                           Last login
-                        </th>
+                        </th> */}
                         <th scope="col" className="px-6 py-3 taskTitl ">
-                          action
+                          ACTION
                         </th>
                       </tr>
                     </thead>
@@ -268,12 +268,12 @@ const EmployeeManagement = ({
                             <td className="px-6 py-4 taskAns">{item?.department}</td>
                             <td className="px-6 py-4 taskAns">{item?.designation}</td>
                             <td className="px-6 py-4 taskAns">{item?.joiningDate}</td>
-                            {
+                            {/* {
 
                               !loadFlag ? <> <td id={item._id} className="px-6 py-4 taskAns">{mainData && Object.keys(mainData).length > 0 && mainData.activity[mainData.activity.length - 1].message !== "" ? new Date(mainData.activity[mainData.activity.length - 1].ts).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true }) : " - : -"}</td>
                                 </> : null
 
-                            }
+                            } */}
                              
                              <td className="px-6 py-4 taskAns">
                              <div className='flex items-center sk'>

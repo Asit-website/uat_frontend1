@@ -14,7 +14,7 @@ import expand_more from "../../images/expand_more.png";
 
 import chooseDash from "../../images/choosedash.png";
 import unchosedash from "../../images/unchosedash.png";
-
+import dasg from '../../images/dasg.svg'
 import adminSetting from "../../images/adminSetting.png"
 import { IoIosArrowDown } from "react-icons/io";
 
@@ -232,7 +232,7 @@ const AdminSidebar = ({ pop, setPop }) => {
                 className="side-dash-box"
               >
                 <div className="dash-wrap">
-                  <img src={dashboard} alt="" />
+                  <img src={dasg} alt="dasg" />
                   <p>Dashboard</p>
                 </div>
 

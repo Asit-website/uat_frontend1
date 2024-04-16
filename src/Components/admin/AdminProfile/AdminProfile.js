@@ -66,7 +66,7 @@ const AdminProfile = ({ pop, setPop, setAlert }) => {
                 {
                   user?.designation === "CEO" ? 
                   <div className="mb-6">
-                  <label htmlFor="fullName" className="block mb-1 ">
+                  <label htmlFor="fullName" className="block samat mb-1 ">
                     Full Name
                   </label>
                   <input
@@ -80,7 +80,7 @@ const AdminProfile = ({ pop, setPop, setAlert }) => {
                 </div>
                 :
                 <div className="mb-6">
-                  <label htmlFor="fullName" className="block mb-1 ">
+                  <label htmlFor="fullName" className="block samat mb-1 ">
                     Full Name
                   </label>
                   <input
