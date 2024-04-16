@@ -4,6 +4,9 @@ import AdminSidebar from "../../admin/Sidebar/AdminSidebar";
 import "react-calendar/dist/Calendar.css";
 import { useMain } from "../../../hooks/useMain";
 import uint from '../../images/uing.png';
+import { useNavigate } from "react-router-dom";
+import upload from '../../images/upload.svg';
+import OutsideClickHandler from "react-outside-click-handler";
 const CreateLead = ({ setAlert, pop, setPop }) => {
     const { user , createLead , getEmployees } = useMain();
     const [pop1,setPop1] = useState(false);
@@ -43,6 +46,8 @@ const CreateLead = ({ setAlert, pop, setPop }) => {
          DescriptionInfo:""
      });
 
+     const navigate = useNavigate();
+
 
      const handleImageChange = (event) => {
         const imageFile = event.target.files[0];
@@ -68,9 +73,10 @@ const CreateLead = ({ setAlert, pop, setPop }) => {
 
      const submitHandler = async()=>{
          const ans = await createLead({...formdata});
-
+         console.log(ans)
           if(ans?.status){
             alert("Successful created");
+            navigate("/adminDash/myLead")
             setFormdata({
                 LeadOwner:"Select Owner",
                 Company:"",
@@ -104,6 +110,7 @@ const CreateLead = ({ setAlert, pop, setPop }) => {
 
      const getOwner = async()=>{
          const ans = await getEmployees();
+         console.log(ans?.data);
          setEmp(ans?.data);
 
      }
@@ -130,6 +137,11 @@ const CreateLead = ({ setAlert, pop, setPop }) => {
                             <>
                                 
                                 {/* Main modal */}
+                                <OutsideClickHandler
+                                  onOutsideClick={()=>{
+                                    setPop1(false);
+                                  }}
+                                >
                                 <div
                                     id="default-modal"
                                     
@@ -171,14 +183,26 @@ const CreateLead = ({ setAlert, pop, setPop }) => {
                                             </div>
                                             {/* Modal body */}
                                              <div className="selct_div">
+                                                   <div className="upload_io">
+                                                       <img src={upload} alt="" />
+                                                   </div>
+                                                   <div className="upload_an mt-4">
+                                                       <p>Upload an image here</p>
+                                                   </div>
+                                                   <div className="opd mt-4">
+                                                    <div className="browse">
+                                                         <h3>Browse Local Files</h3>
+                                                    </div>
                                                    <input type="file" onChange={(e)=>{
                                                     handleImageChange(e);
                                                     setPop1(false);
                                                    }} />
+                                                   </div>
+                                                   
                                              </div>
                                             {/* Modal footer */}
                                             <div className="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
-                                                <button onClick={()=>
+                                                {/* <button onClick={()=>
                                                 {
                                                      setFormdata((prev)=>({
                                                         ...prev ,
@@ -199,11 +223,12 @@ const CreateLead = ({ setAlert, pop, setPop }) => {
                                                     className="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
                                                 >
                                                     Decline
-                                                </button>
+                                                </button> */}
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                                </OutsideClickHandler>
                             </>
 
                             <div className="lead_information mt-6">
@@ -218,7 +243,7 @@ const CreateLead = ({ setAlert, pop, setPop }) => {
                                                 <option selected disabled value="info">Select Owner</option>
                                                 {
                                                     emp?.map((item ,index)=>(
-                                                        <option value={item?._id} key={index}>{item?.fullName}</option>
+                                                        <option value={item?._id} key={index}>{item?.email}</option>
                                                     ))
                                                 }
                                             </select>
@@ -283,7 +308,9 @@ const CreateLead = ({ setAlert, pop, setPop }) => {
                                         <div className="lead_inp1">
                                             <label htmlFor="">Lead Source</label>
                                             <select  name="LeadSource" onChange={changeHandler} id="">
-                                                <option value="Cold Call">Cold Call</option>
+                                                <option disabled>Select lead source</option>
+                                                <option>Cold Call</option>
+                                                <option>Cold Email</option>
                                             </select>
                                         </div>
                                         <div className="lead_inp1">
@@ -294,15 +321,19 @@ const CreateLead = ({ setAlert, pop, setPop }) => {
 
                                     <div className="lead_inp">
                                         <div className="lead_inp1">
-                                            <label htmlFor="">Industry</label>
-                                            <select  name="Industry" onChange={changeHandler} id="">
-                                                <option value="info">IT_B2B</option>
+                                            <label htmlFor="Industry">Industry</label>
+                                            <select  value={formdata?.Industry}  name="Industry" onChange={changeHandler} id="Industry">
+                                                 <option disabled>Select Industry</option>
+                                                <option>IT_B2B</option>
+                                                <option>IT_B2C</option>
                                             </select>
                                         </div>
                                         <div className="lead_inp1">
                                             <label htmlFor="">Lead Status</label>
-                                            <select  name="LeadStatus" onChange={changeHandler}  id="">
-                                                <option value="info">IT_B2B</option>
+                                            <select value={formdata?.LeadStatus}  name="LeadStatus" onChange={changeHandler}  id="">
+                                                <option disabled>Select Status</option>
+                                                <option>Active</option>
+                                                <option>Inactive</option>
                                             </select>
                                         </div>
                                     </div>
@@ -315,7 +346,11 @@ const CreateLead = ({ setAlert, pop, setPop }) => {
                                         <div className="lead_inp1">
                                             <label htmlFor="">Rating</label>
                                             <select name="Rating" onChange={changeHandler}  id="">
-                                                <option value="info">Cold Email</option>
+                                                <option>1</option>
+                                                <option>2</option>
+                                                <option>3</option>
+                                                <option>4</option>
+                                                <option>5</option>
                                             </select>
                                         </div>
 
@@ -328,9 +363,7 @@ const CreateLead = ({ setAlert, pop, setPop }) => {
                                         </div>
                                         <div className="lead_inp1">
                                             <label htmlFor="">Skype ID</label>
-                                            <select  name="SkypeID" onChange={changeHandler}  id="">
-                                                <option value="info">IT_B2B</option>
-                                            </select>
+                                             <input value={formdata?.SkypeID} name="SkypeID" type="text" onChange={changeHandler} />
                                         </div>
                                     </div>
 

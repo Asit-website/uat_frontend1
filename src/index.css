@@ -17,6 +17,32 @@ body {
   overflow-x: hidden;
   font-family: "Inter", sans-serif !important;
 }
+.action_box{
+  position: absolute;
+  box-shadow: 0px 0px 9px rgba(0, 0, 0, 0.114);
+  border-radius: 5px;
+  background-color: white;
+  z-index: 1000;
+  right: 35px;
+}
+.such_thing{
+  display: flex;
+  align-items: center;
+}
+.colp{
+  font-size: 16px;
+  font-weight: 500;
+  color: #ffffff;
+  font-family: "Inter", sans-serif !important;
+}
+.yik{
+  font-weight: 500;
+  font-size: 16px;
+  color: #fff;
+}
+/* .hidden{
+  display: block !important;
+} */
 .img_sing{
   width: 65px;
   height: 65px;
@@ -219,7 +245,7 @@ text-align: left;
 }
 .lead_btn2{
   background-color: #0B56E4;
-  width: 153px;
+  width: 186px;
   height: 40px;
   border-radius: 10px;
   color: #FFFFFF;
@@ -231,6 +257,7 @@ text-align: left;
   align-items: center;
   padding: 0px 2px 0px 10px;
   gap: 3px;
+
 }
 .singWrap{
   display: flex;
@@ -3624,9 +3651,50 @@ input::-webkit-inner-spin-button {
   display: block;
   margin: auto;
   border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #F8F9FB;
+}
+.browse{
+  width: 175px;
+  height: 40px;
+  background-color: #0B56E4;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.browse h3{
+  font-size: 16px;
+  color: #ffffff;
+  font-family: inter !important;
+  font-weight: 500 !important;
+}
+.opd{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  position: relative;
+}
+.opd input{
+  position: absolute;
+  opacity: 0;
+}
+.upload_an p{
+  color: #1B2533;
+  font-size: 16px;
+  font-weight: 500;
+  font-family: inter !important;
 }
 .sini{
   text-align: center !important;
+  color: #2B2B2B;
+  font-weight: 500;
+  font-size: 24px;
+  font-family: inter !important;
 }
 .semik{
   font-weight: 600;
