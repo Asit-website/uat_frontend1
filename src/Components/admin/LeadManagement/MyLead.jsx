@@ -79,7 +79,7 @@ const MyLead = ({ setAlert, pop, setPop }) => {
                                 <div className="leads_btn2">
 
                                     <button className="lead_btn2">
-                                      <a href="/adminDash/createLead" style={{display:"flex"}}>  <img src={pluss} alt="" /> <span> Create New Lead </span> </a>
+                                      <a href="/adminDash/createLead" >  <img src={pluss} alt="" /> <span> Create New Lead </span> </a>
                                     </button>
 
                                     <button className="refresh">

@@ -3,7 +3,6 @@ import AdminNavbar from "../../admin/Navbar/AdminNavbar";
 import AdminSidebar from "../../admin/Sidebar/AdminSidebar";
 import "react-calendar/dist/Calendar.css";
 import { useMain } from "../../../hooks/useMain";
-import siy from '../../images/siy.png';
 import uint from '../../images/uing.png';
 const CreateLead = ({ setAlert, pop, setPop }) => {
     const { user , createLead , getEmployees } = useMain();
