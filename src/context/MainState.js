@@ -3,7 +3,7 @@ import MainContext from './MainContext';
 import { deleteReq, get, post, put, postDocuments } from '../Api/api'
 import { useState } from 'react';
 
-// const baseUrl = "http://localhost:5000";
+const baseUrl = "http://localhost:5000";
 
 // const baseUrl = "https://hrms-backend-code.onrender.com"
 
@@ -15,7 +15,7 @@ import { useState } from 'react';
 
 // const baseUrl = "https://hrms-backend-g3wt.onrender.com";
 
-const baseUrl = "https://hr-backend-ncrd.onrender.com"
+// const baseUrl = "https://hr-backend-ncrd.onrender.com"
 
 
 const MainState = (props) => {
@@ -1319,6 +1319,115 @@ const MainState = (props) => {
       return data;
    };
 
+   const createLead = async(
+      { LeadOwner,
+      Company,
+      FirstName,
+      LastName,
+      Title,
+      Email,
+      Phone,
+      Fax,
+      Mobile,
+      Website,
+      LeadSource,
+      NoOfEmployee,
+      Industry,
+      LeadStatus,
+      AnnualRevenue,
+      Rating,
+      EmailOptOut,
+      SkypeID,
+      SecondaryEmail,
+      Twitter,
+       Street ,
+       City ,
+       State ,
+       ZipCode ,
+       Country ,
+       DescriptionInfo , 
+      image })=>{
+
+         let data;
+
+          if(image){
+
+             const formdata = new FormData();
+         formdata.append("image" ,image);
+         
+         const imageUrl = await postDocuments(`${baseUrl}/lead/postImage`,formdata, true);
+      
+   
+       data = await post(`${baseUrl}/lead/createLead`, {
+         LeadOwner,
+         Company,
+         FirstName,
+         LastName,
+         Title,
+         Email,
+         Phone,
+         Fax,
+         Mobile,
+         Website,
+         LeadSource,
+         NoOfEmployee,
+         Industry,
+         LeadStatus,
+         AnnualRevenue,
+         Rating,
+         EmailOptOut,
+         SkypeID,
+         SecondaryEmail,
+         Twitter,
+          Street ,
+          City ,
+          State ,
+          ZipCode ,
+          Country ,
+          DescriptionInfo  , 
+          image: imageUrl?.data
+      }, true);
+
+   }
+   else {
+      data = await post(`${baseUrl}/lead/createLead`, {
+         LeadOwner,
+         Company,
+         FirstName,
+         LastName,
+         Title,
+         Email,
+         Phone,
+         Fax,
+         Mobile,
+         Website,
+         LeadSource,
+         NoOfEmployee,
+         Industry,
+         LeadStatus,
+         AnnualRevenue,
+         Rating,
+         EmailOptOut,
+         SkypeID,
+         SecondaryEmail,
+         Twitter,
+          Street ,
+          City ,
+          State ,
+          ZipCode ,
+          Country ,
+          DescriptionInfo  , 
+          
+      }, true);
+   }
+   
+    return data;
+   }
+
+   const getLead = async()=>{
+      const data = await get(`${baseUrl}/lead/getAllLead`, true);
+      return data;
+   }
 
    return (
       <MainContext.Provider value={{
@@ -1340,7 +1449,9 @@ const MainState = (props) => {
          deleteTransfer, updateTransfer,
          createTrainer, getTrainer, deleteTrainer, updateTrainer, createTrainingList, getTrainingList, updateTrainingList, deleteTrainingList, createHoliday, getHoliday, deleteHolidays, updateHolidays , 
          getAllActivities2,
-         createTrip,getTrip,deleteTrip,updateTrip,deletePromotion,updatePromotion
+         createTrip,getTrip,deleteTrip,updateTrip,deletePromotion,updatePromotion , 
+         createLead  ,
+         getLead
       }}>
          {props.children}
       </MainContext.Provider>

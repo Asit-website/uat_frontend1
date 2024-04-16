@@ -47,10 +47,10 @@ const EmployeeSidebar = () => {
             <NavLink to="/employeeDash"><li className="most">
               <a
                 href="#"
-                className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white"
+                className="flex items-center p-2 text-gray-900 rounded-lg "
               >
                 <img width={16} src={dots} alt="dots" />
-                <span className="ml-3">Dashboard</span>
+                <span style={{color:"black"}} className="ml-3 ">Dashboard</span>
               </a>
             </li></NavLink>
            <li className="most">
@@ -85,7 +85,7 @@ const EmployeeSidebar = () => {
                 <li>
                   <a
                     href="#"
-                    className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                    className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100  dark:hover:bg-gray-700"
                   >
                     Products
                   </a>
@@ -93,7 +93,7 @@ const EmployeeSidebar = () => {
                 <li>
                   <a
                     href="#"
-                    className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                    className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100  dark:hover:bg-gray-700"
                   >
                     Billing
                   </a>
@@ -101,7 +101,7 @@ const EmployeeSidebar = () => {
                 <li>
                   <a
                     href="#"
-                    className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                    className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100  dark:hover:bg-gray-700"
                   >
                     Invoice
                   </a>
@@ -140,7 +140,7 @@ const EmployeeSidebar = () => {
                 <li>
                   <a
                     href="#"
-                    className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                    className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100  dark:hover:bg-gray-700"
                   >
                     Products
                   </a>
@@ -148,7 +148,7 @@ const EmployeeSidebar = () => {
                 <li>
                   <a
                     href="#"
-                    className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                    className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100  dark:hover:bg-gray-700"
                   >
                     Billing
                   </a>
@@ -156,7 +156,7 @@ const EmployeeSidebar = () => {
                 <li>
                   <a
                     href="#"
-                    className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                    className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100  dark:hover:bg-gray-700"
                   >
                     Invoice
                   </a>

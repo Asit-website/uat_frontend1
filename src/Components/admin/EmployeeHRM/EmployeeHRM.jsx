@@ -248,9 +248,6 @@ const EmployeeHRM = ({
       message: "",
     });
 
-
-
-
     const userDataString = localStorage.getItem("hrms_user");
 
 const userData = JSON.parse(userDataString);

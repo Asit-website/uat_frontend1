@@ -710,9 +710,9 @@ gap: 90px;
 } */
 .sidebars {
   /* background-color: #000f2b !important; */
-  background-color: #ffffff !important;
+  background-color: #ffffff ;
   padding: 24px 0px;
-  border-right: 1px solid #e8e6e6 !important;
+  border-right: 1px solid #e8e6e6;
   /* margin-top: 69px; */
 }
 
@@ -730,7 +730,7 @@ gap: 90px;
   font-family: "Semi Bold" !important;
   opacity: 80% !important;
   letter-spacing: 0.5px !important;
-  color: #ffffff !important;
+  /* color: #ffffff !important; */
 }
 
 .most svg {

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import AdminNavbar from "../../admin/Navbar/AdminNavbar";
 import AdminSidebar from "../../admin/Sidebar/AdminSidebar";
 import "react-calendar/dist/Calendar.css";
@@ -7,6 +7,7 @@ import pluss from "../../images/pluss.png"
 import search from "../../images/bx-search.png"
 import fff from "../../images/fff.png"
 import siy from '../../images/siy.png';
+import { useNavigate } from "react-router-dom";
 
 const data = [
     {
@@ -24,7 +25,10 @@ const data = [
 
 
 const MyLead = ({ setAlert, pop, setPop }) => {
-    const { user } = useMain();
+
+     const navigate =useNavigate();
+
+    const { user , getLead } = useMain();
     const [start, setStart] = useState(false);
 
     const stylePeer1 = {
@@ -42,6 +46,20 @@ const MyLead = ({ setAlert, pop, setPop }) => {
     const stylePeer3 = {
         display: filter ? "block" : "none"
     }
+
+    const [allLead , setAllLead] = useState([]);
+ 
+    const fetchLead = async()=>{
+        const ans = await getLead();
+        console.log("ff",ans);
+        setAllLead(ans?.data);
+    }
+
+    useEffect(()=>{
+        fetchLead();
+    },[])
+
+
     return (
         <>
             <div className="employee-dash h-full">
@@ -61,18 +79,13 @@ const MyLead = ({ setAlert, pop, setPop }) => {
                                 <div className="leads_btn2">
 
                                     <button className="lead_btn2">
-                                        <img src={pluss} alt="" /> <span> Create New Lead </span>
+                                      <a href="/adminDash/createLead" style={{display:"flex"}}>  <img src={pluss} alt="" /> <span> Create New Lead </span> </a>
                                     </button>
 
                                     <button className="refresh">
                                         <span className="ref1">Import Leads</span>
 
                                     </button>
-
-                                    {/* <select name="" className="actions" id="">
-                                        <option value="Action">Actions</option>
-                                    </select> */}
-
                                     <button
                                         id="dropdownDefaultButton"
                                         data-dropdown-toggle="dropdown"
@@ -413,54 +426,27 @@ const MyLead = ({ setAlert, pop, setPop }) => {
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr className="bg-white salay border-b dark:bg-gray-800 dark:border-gray-700">
+                                           {
+                                            allLead?.map((item ,index)=>(
+                                                <tr key={index} className="bg-white salay border-b dark:bg-gray-800 dark:border-gray-700">
                                                 <th
                                                     scope="row"
                                                     className="px-6 aka py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white aka"
                                                 >
                                                     <input type="checkbox" />
                                                 </th>
-                                                <td className="px-6 py-4">Adrian Kirk</td>
-                                                <td className="px-6 py-4">Design Pro Web Solutions, LLC</td>
-                                                <td className="px-6 py-4">sales@designprowebsolutions.com</td>
-                                                <td className="px-6 py-4 relt">1 901-275-2749</td>
-                                                <td className="px-6 py-4">Gulinski</td>
-                                                <td className="px-6 py-4">Adrian Kirk</td>
-                                                <td className="px-6 py-4">Adrian Kirk</td>
-                                                <td className="px-6 py-4">Adrian Kirk</td>
+                                                <td className="px-6 py-4">{item?.LeadOwner?.fullName}</td>
+                                                <td className="px-6 py-4">{item?.Company}</td>
+                                                <td className="px-6 py-4">{item?.Email}</td>
+                                                <td className="px-6 py-4 relt">{item?.Phone}</td>
+                                                <td className="px-6 py-4">{item?.FirstName}</td>
+                                                <td className="px-6 py-4">{item?.LastName}</td>
+                                                <td className="px-6 py-4">{item?.LeadStatus}</td>
+                                                <td className="px-6 py-4">{item?.LeadStatus}</td>
                                             </tr>
-                                            <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                                <th
-                                                    scope="row"
-                                                    className="px-6 aka py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white aka"
-                                                >
-                                                    <input type="checkbox" />
-                                                </th>
-                                                <td className="px-6 py-4">Adrian Kirk</td>
-                                                <td className="px-6 py-4">Design Pro Web Solutions, LLC</td>
-                                                <td className="px-6 py-4">sales@designprowebsolutions.com</td>
-                                                <td className="px-6 py-4">1 901-275-2749</td>
-                                                <td className="px-6 py-4">Gulinski</td>
-                                                <td className="px-6 py-4">Adrian Kirk</td>
-                                                <td className="px-6 py-4">Adrian Kirk</td>
-                                                <td className="px-6 py-4">Adrian Kirk</td>
-                                            </tr>
-                                            <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                                <th
-                                                    scope="row"
-                                                    className="px-6 aka py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white aka"
-                                                >
-                                                    <input type="checkbox" />
-                                                </th>
-                                                <td className="px-6 py-4">Adrian Kirk</td>
-                                                <td className="px-6 py-4">Design Pro Web Solutions, LLC</td>
-                                                <td className="px-6 py-4">sales@designprowebsolutions.com</td>
-                                                <td className="px-6 py-4">1 901-275-2749</td>
-                                                <td className="px-6 py-4">Gulinski</td>
-                                                <td className="px-6 py-4">Adrian Kirk</td>
-                                                <td className="px-6 py-4">Adrian Kirk</td>
-                                                <td className="px-6 py-4">Adrian Kirk</td>
-                                            </tr>
+                                            ))
+                                           }
+                                         
                                         </tbody>
                                     </table>
 

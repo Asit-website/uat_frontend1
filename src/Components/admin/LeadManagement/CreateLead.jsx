@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import AdminNavbar from "../../admin/Navbar/AdminNavbar";
 import AdminSidebar from "../../admin/Sidebar/AdminSidebar";
 import "react-calendar/dist/Calendar.css";
@@ -6,11 +6,113 @@ import { useMain } from "../../../hooks/useMain";
 import siy from '../../images/siy.png';
 import uint from '../../images/uing.png';
 const CreateLead = ({ setAlert, pop, setPop }) => {
-    const { user } = useMain();
+    const { user , createLead , getEmployees } = useMain();
     const [pop1,setPop1] = useState(false);
     const stylePeer = {
         display:pop1 ? "block" : "none"
     }
+
+    const [emp , setEmp] = useState([]);
+
+     const [formdata , setFormdata] = useState({
+        image:"",
+        LeadOwner:"",
+        Company:"",
+        FirstName:"",
+        LastName:"",
+        Title:"",
+        Email:"",
+        Phone:"",
+        Fax:"",
+        Mobile:"",
+        Website:"",
+        LeadSource:"",
+        NoOfEmployee:"",
+        Industry:"",
+        LeadStatus:"",
+        AnnualRevenue:"",
+        Rating:"",
+        EmailOptOut:"",
+        SkypeID:"",
+        SecondaryEmail:"",
+        Twitter:"",
+         Street:"" ,
+         City :"",
+         State :"",
+         ZipCode :"",
+         Country:"" ,
+         DescriptionInfo:""
+     });
+
+
+     const handleImageChange = (event) => {
+        const imageFile = event.target.files[0];
+    
+        if (!imageFile || !imageFile.type.match('image/*')) {
+          return alert('Please select a valid image file.');
+        }
+    
+        setFormdata((prev)=>({
+            ...prev ,
+            image: imageFile
+        }))
+      };
+
+     const changeHandler = async(e)=>{
+        const {name ,value} = e.target;
+
+        setFormdata((prev)=>({
+            ...prev ,
+            [name]:value
+        }))
+     }
+
+     const submitHandler = async()=>{
+         const ans = await createLead({...formdata});
+
+          if(ans?.status){
+            alert("Successful created");
+            setFormdata({
+                LeadOwner:"Select Owner",
+                Company:"",
+                FirstName:"",
+                LastName:"",
+                Title:"",
+                Email:"",
+                Phone:"",
+                Fax:"",
+                Mobile:"",
+                Website:"",
+                LeadSource:"",
+                NoOfEmployee:"",
+                Industry:"",
+                LeadStatus:"",
+                AnnualRevenue:"",
+                Rating:"",
+                EmailOptOut:"",
+                SkypeID:"",
+                SecondaryEmail:"",
+                Twitter:"",
+                 Street:"" ,
+                 City :"",
+                 State :"",
+                 ZipCode :"",
+                 Country:"" ,
+                 DescriptionInfo:""
+            })
+          }
+     }
+
+     const getOwner = async()=>{
+         const ans = await getEmployees();
+         setEmp(ans?.data);
+
+     }
+
+     useEffect(()=>{
+        getOwner();
+     },[])
+
     return (
         <>
             <div className="employee-dash h-full">
@@ -70,18 +172,29 @@ const CreateLead = ({ setAlert, pop, setPop }) => {
                                             </div>
                                             {/* Modal body */}
                                              <div className="selct_div">
-                                                  
+                                                   <input type="file" onChange={(e)=>{
+                                                    handleImageChange(e);
+                                                    setPop1(false);
+                                                   }} />
                                              </div>
                                             {/* Modal footer */}
                                             <div className="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
-                                                <button
+                                                <button onClick={()=>
+                                                {
+                                                     setFormdata((prev)=>({
+                                                        ...prev ,
+                                                        image:""
+                                                     }))
+                                                    setPop1(false);
+
+                                                }}
                                                     data-modal-hide="default-modal"
                                                     type="button"
                                                     className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                                                 >
                                                     I accept
                                                 </button>
-                                                <button
+                                                <button onClick={()=>setPop1(false)}
                                                     data-modal-hide="default-modal"
                                                     type="button"
                                                     className="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
@@ -96,19 +209,27 @@ const CreateLead = ({ setAlert, pop, setPop }) => {
 
                             <div className="lead_information mt-6">
                                 <h2>Lead Information</h2>
+
                                 <div className="lead_input mt-5">
+                                    
                                     <div className="lead_inp">
                                         <div className="lead_inp1">
                                             <label htmlFor="">Lead Owner</label>
-                                            <select name="" id="">
-                                                <option value="info">Info</option>
+                                            <select name="LeadOwner"  onChange={changeHandler} id="">
+                                                <option selected disabled value="info">Select Owner</option>
+                                                {
+                                                    emp?.map((item ,index)=>(
+                                                        <option value={item?._id} key={index}>{item?.fullName}</option>
+                                                    ))
+                                                }
                                             </select>
                                         </div>
                                         <div className="lead_inp1">
                                             <label htmlFor="">Company</label>
-                                            <input type="text" />
+                                            <input type="text" value={formdata.Company} name="Company" onChange={changeHandler} />
                                         </div>
                                     </div>
+
                                     <div className="lead_inp">
                                         <div className="lead_inp1 lead_inp11">
                                             <label htmlFor="">First Name</label>
@@ -118,141 +239,156 @@ const CreateLead = ({ setAlert, pop, setPop }) => {
                                         </div>
                                         <div className="lead_inp1">
                                             <label style={{ visibility: "hidden" }} htmlFor="">Company</label>
-                                            <input type="text" />
+                                            <input value={formdata.FirstName} name="FirstName" onChange={changeHandler}  type="text" />
                                         </div>
                                         <div className="lead_inp1">
                                             <label htmlFor="">Last Name</label>
-                                            <input type="text" />
+                                            <input value={formdata.LastName} name="LastName" onChange={changeHandler}  type="text" />
                                         </div>
                                     </div>
+
                                     <div className="lead_inp">
                                         <div className="lead_inp1">
                                             <label htmlFor="">Title</label>
-                                            <input type="text" />
+                                            <input value={formdata.Title} name="Title" onChange={changeHandler}  type="text" />
                                         </div>
                                         <div className="lead_inp1">
                                             <label htmlFor="">Email</label>
-                                            <input type="email" />
+                                            <input value={formdata.Email} name="Email" onChange={changeHandler} type="email" />
                                         </div>
                                     </div>
+
                                     <div className="lead_inp">
                                         <div className="lead_inp1">
                                             <label htmlFor="">Phone</label>
-                                            <input type="number" />
+                                            <input value={formdata.Phone} name="Phone" onChange={changeHandler} type="number" />
                                         </div>
                                         <div className="lead_inp1">
                                             <label htmlFor="">Fax</label>
-                                            <input type="text" />
+                                            <input value={formdata.Fax} name="Fax" onChange={changeHandler} type="text" />
                                         </div>
                                     </div>
+
                                     <div className="lead_inp">
                                         <div className="lead_inp1">
                                             <label htmlFor="">Mobile</label>
-                                            <input type="text" />
+                                            <input value={formdata.Mobile} name="Mobile" onChange={changeHandler} type="text" />
                                         </div>
                                         <div className="lead_inp1">
                                             <label htmlFor="">Website</label>
-                                            <input type="text" />
+                                            <input value={formdata.Website} name="Website" onChange={changeHandler}  type="text" />
                                         </div>
                                     </div>
+
                                     <div className="lead_inp">
                                         <div className="lead_inp1">
                                             <label htmlFor="">Lead Source</label>
-                                            <select name="" id="">
-                                                <option value="info">Cold Call</option>
+                                            <select  name="LeadSource" onChange={changeHandler} id="">
+                                                <option value="Cold Call">Cold Call</option>
                                             </select>
                                         </div>
                                         <div className="lead_inp1">
                                             <label htmlFor="">No. of Employees</label>
-                                            <input type="number" />
+                                            <input value={formdata.NoOfEmployee} name="NoOfEmployee" onChange={changeHandler} type="number" />
                                         </div>
                                     </div>
+
                                     <div className="lead_inp">
                                         <div className="lead_inp1">
                                             <label htmlFor="">Industry</label>
-                                            <select name="" id="">
+                                            <select  name="Industry" onChange={changeHandler} id="">
                                                 <option value="info">IT_B2B</option>
                                             </select>
                                         </div>
                                         <div className="lead_inp1">
                                             <label htmlFor="">Lead Status</label>
-                                            <select name="" id="">
+                                            <select  name="LeadStatus" onChange={changeHandler}  id="">
                                                 <option value="info">IT_B2B</option>
                                             </select>
                                         </div>
                                     </div>
+
                                     <div className="lead_inp">
                                         <div className="lead_inp1">
                                             <label htmlFor="">Annual Revenue</label>
-                                            <input placeholder="$" type="number" />
+                                            <input value={formdata.AnnualRevenue} name="AnnualRevenue" onChange={changeHandler} placeholder="$" type="number" />
                                         </div>
                                         <div className="lead_inp1">
                                             <label htmlFor="">Rating</label>
-                                            <select name="" id="">
+                                            <select name="Rating" onChange={changeHandler}  id="">
                                                 <option value="info">Cold Email</option>
                                             </select>
                                         </div>
 
                                     </div>
+
                                     <div className="lead_inp">
                                         <div className="lead_inp1 lead_inp111">
                                             <label className="jpo" htmlFor="">Email Opt Out</label>
-                                            <input className="seng" type="checkbox" />
+                                            <input value={formdata.EmailOptOut} name="EmailOptOut" onChange={changeHandler}  className="seng" type="checkbox" />
                                         </div>
                                         <div className="lead_inp1">
-                                            <label htmlFor="">Lead Status</label>
-                                            <select name="" id="">
+                                            <label htmlFor="">Skype ID</label>
+                                            <select  name="SkypeID" onChange={changeHandler}  id="">
                                                 <option value="info">IT_B2B</option>
                                             </select>
                                         </div>
                                     </div>
+
                                     <div className="lead_inp">
                                         <div className="lead_inp1">
                                             <label htmlFor="">Secondary Email</label>
-                                            <input type="email" />
+                                            <input value={formdata.SecondaryEmail} name="SecondaryEmail" onChange={changeHandler}  type="email" />
                                         </div>
                                         <div className="lead_inp1">
                                             <label htmlFor="">Twitter</label>
-                                            <input type="text" />
+                                            <input value={formdata.Twitter} name="Twitter" onChange={changeHandler} type="text" />
                                         </div>
 
                                     </div>
                                 </div>
+
                             </div>
+
                             <div className="lead_information mt-6">
                                 <h2>Address Information</h2>
                                 <div className="lead_input mt-5">
+
                                     <div className="lead_inp">
                                         <div className="lead_inp1">
                                             <label htmlFor="">Street</label>
-                                            <input type="text" />
+                                            <input value={formdata.Street} name="Street" onChange={changeHandler}  type="text" />
                                         </div>
                                         <div className="lead_inp1">
                                             <label htmlFor="">City</label>
-                                            <input type="text" />
+                                            <input value={formdata.City} name="City" onChange={changeHandler} type="text" />
                                         </div>
                                     </div>
+
                                     <div className="lead_inp">
                                         <div className="lead_inp1">
                                             <label htmlFor="">State</label>
-                                            <input type="text" />
+                                            <input  value={formdata.State} name="State" onChange={changeHandler} type="text" />
                                         </div>
                                         <div className="lead_inp1">
                                             <label htmlFor="">Zip Code</label>
-                                            <input type="Number" />
+                                            <input  value={formdata.ZipCode} name="ZipCode" onChange={changeHandler} type="Number" />
                                         </div>
                                     </div>
+
                                     <div className="lead_inp">
                                         <div className="lead_inp1">
                                             <label htmlFor="">Country</label>
-                                            <input type="text" />
+                                            <input  value={formdata.Country} name="Country" onChange={changeHandler} type="text" />
                                         </div>
                                         <div style={{ visibility: "hidden" }} className="lead_inp1">
                                             <label htmlFor="">Zip Code</label>
-                                            <input type="Number" />
+                                            <input value={formdata.ZipCode} name="ZipCode" onChange={changeHandler} type="Number" />
                                         </div>
                                     </div>
+
                                 </div>
+
                             </div>
 
                             <div className="lead_information mt-6">
@@ -261,12 +397,18 @@ const CreateLead = ({ setAlert, pop, setPop }) => {
                                     <div className="lead_inp">
                                         <div className="lead_inp1">
                                             <label htmlFor="">Description</label>
-                                            <input type="text" />
+                                            <input value={formdata.DescriptionInfo} name="DescriptionInfo" onChange={changeHandler} type="text" />
                                         </div>
                                     </div>
 
                                 </div>
                             </div>
+                            
+                             <div>
+                             <button type="button" onClick={submitHandler} class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Submit</button>
+
+                             </div>
+
                         </form>
                     </div>
                 </div>
