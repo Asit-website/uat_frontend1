@@ -1424,13 +1424,13 @@ const MainState = (props) => {
     return data;
    }
 
-   const getLead = async()=>{
-      const data = await get(`${baseUrl}/lead/getAllLead`, true);
+   const getLead = async(id,query,page,perPage)=>{
+      const data = await get(`${baseUrl}/lead/getAllLead/?id=${id}&query=${query}&page=${page}&perPage=${perPage}`, true);
       return data;
    }
 
    const deleteLeads = async (id) => {
-      const data = await delete(`${baseUrl}/lead/deleteLead/${id}`, true);
+      const data = await deleteReq(`${baseUrl}/admin/deleteLead/${id}`, true);
       return data;
    };
 

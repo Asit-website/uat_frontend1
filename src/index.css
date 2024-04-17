@@ -3657,6 +3657,21 @@ input::-webkit-inner-spin-button {
   justify-content: center;
   background-color: #F8F9FB;
 }
+.selis{
+  max-width: 478px;
+  width: 100%;
+  height: 296px;
+  border: 1px dashed #8FB1F3;
+  display: block;
+  margin: auto;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #F8F9FB;
+  margin-top: 15px;
+}
 .browse{
   width: 175px;
   height: 40px;
@@ -3733,4 +3748,67 @@ input::-webkit-inner-spin-button {
 }
 .jpo{
   margin: 0px 5px;
+}
+.importB{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.importB h2{
+  color: #101820;
+  font-size: 24px;
+  font-weight: 600;
+  font-family: inter !important;
+}
+.canlo{
+  width: 86px !important;
+  height: 40px !important;
+}
+.import_vhasa{
+  background-color: #ffffff;
+  margin-top: 30px;
+  border-radius: 10px;
+  padding: 40px 0px;
+}
+.form_filel{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.form_filel h3{
+  color: #2B2B2B;
+  font-weight: 500;
+  font-size: 24px;
+  font-family: inter !important;
+  margin-left: 10px;
+}
+.download_gfg{
+  margin-top: 25px;
+}
+.download_gfg h2{
+  font-size: 16px;
+  font-weight: 500;
+  color: #49515C;
+  font-family: inter !important;
+  letter-spacing: 1px;
+  /* letter-spacing: 2px; */
+}
+.download_gfg span{
+  font-size: 16px;
+  font-weight: 500;
+  font-family: inter !important;
+  color: #0B56E4;
+}
+.srop{
+  color: #666D76;
+  font-size: 16px;
+  font-weight: 400;
+  font-family: inter !important;
+  text-align: center;
+}
+.leadLe .sio{
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
 }

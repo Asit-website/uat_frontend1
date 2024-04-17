@@ -54,7 +54,7 @@ const MyLead = ({ setAlert, pop, setPop }) => {
     const [allLead, setAllLead] = useState([]);
 
     const fetchLead = async () => {
-        const ans = await getLead();
+        const ans = await getLead("","","","");
         console.log("ff", ans);
         setAllLead(ans?.data);
     }
@@ -113,10 +113,9 @@ const MyLead = ({ setAlert, pop, setPop }) => {
                                         <NavLink className="such_thing" to="/adminDash/createLead" >  <img src={pluss} alt="" /> <span className="colp"> Create New Lead </span> </NavLink>
                                     </button>
 
-                                    <button className="refresh">
+                                  <NavLink to="/adminDash/leadFile"><button className="refresh">
                                         <span className="ref1">Import Leads</span>
-
-                                    </button>
+                                    </button></NavLink>
                                     <button
                                         id="dropdownDefaultButton"
                                         data-dropdown-toggle="dropdown"
@@ -519,6 +518,9 @@ const MyLead = ({ setAlert, pop, setPop }) => {
                                                                         </li>
                                                                         <li  className="sysok">
                                                                             <a
+                                                                               onClick={()=>{
+                                                                                navigate(`/adminDash/importLead/${item._id}`);
+                                                                               }}
                                                                                 href="#"
                                                                                 className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                                                                             >
