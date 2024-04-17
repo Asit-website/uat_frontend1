@@ -7,8 +7,10 @@ import leadProfile from "../../images/leadProfile.png"
 import bx from "../../images/bx-purchase-tag.png"
 import "./lead.css"
 import { NavLink, useNavigate, useParams } from "react-router-dom";
+import EmployeeNavbar from "../../Employee/Navbar/EmployeeNavbar";
+import EmployeeSidebar from "../../Employee/Sidebar/EmployeeSidebar";
 
-const ImportLead = ({ setAlert, pop, setPop }) => {
+const ImportLead2 = ({ setAlert, pop, setPop }) => {
     const { user, getLead2 } = useMain();
 
     const { id } = useParams();
@@ -28,10 +30,10 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
     return (
         <>
             <div className="employee-dash h-full">
-                <AdminSidebar pop={pop} setPop={setPop} />
+                <EmployeeSidebar pop={pop} setPop={setPop} />
 
                 <div className="tm">
-                    <AdminNavbar user={user} setAlert={setAlert} />
+                    <EmployeeNavbar user={user} setAlert={setAlert} />
 
                     <div className="em">
 
@@ -55,7 +57,7 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
 
                                 <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2  dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 sendBtn">Send Email</button>
 
-                              <button onClick={()=>navigate("/adminDash/editLead",{state:data})} className="refresh1"><span className="ref1">Edit</span>
+                              <button onClick={()=>navigate("/employeeDash/editLead",{state:data})} className="refresh1"><span className="ref1">Edit</span>
                                 </button>
 
                                 <button
@@ -247,6 +249,7 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
 
                             </div>
                             {/* fourth  */}
+                            
                             <div className="leadFirs">
                                 <div className="attachment">
                                     <h2 className="ehading">Description Information</h2>
@@ -274,4 +277,4 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
     );
 };
 
-export default ImportLead;
+export default ImportLead2;

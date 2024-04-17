@@ -65,6 +65,8 @@ import LeadDash2 from "./Components/admin/LeadManagement/LeadDash2.jsx";
 import MyLead2 from "./Components/admin/LeadManagement/MyLead2.jsx";
 import CreateLead2 from "./Components/admin/LeadManagement/CreateLead2.jsx";
 import EditLead2 from "./Components/admin/LeadManagement/EditLead2.jsx";
+import ImportLead2 from "./Components/admin/LeadManagement/ImportLead2.jsx";
+import LeadFile2 from "./Components/admin/LeadManagement/LeadFile2.jsx";
 
 var tc;
 
@@ -150,6 +152,12 @@ function App() {
                 setPop1={setPop1} setAlert={setAlert} />} />
               <Route path="/employeeDash/atten" element={<AttendenceCalendar pop1={pop1}
                 setPop1={setPop1} setAlert={setAlert} />} />
+                <Route path="/employeeDash/editLead" element={<EditLead2 />}/>
+                <Route path="/employeeDash/createLead" element={<CreateLead2 />}/>
+                <Route path="/employeeDash/myLead" element={<MyLead2 />}/>
+                <Route path="/employeeDash/leadDash" element={<LeadDash2 />}/>
+                <Route path="/employeeDash/importLead/:id" element={<ImportLead2/>}/>
+                <Route path="/employeeDash/leadFile" element={<LeadFile2/>}/>
             </Route>
 
             {/* ====================hr routing============== */}
@@ -248,10 +256,7 @@ function App() {
                 <Route path="/adminDash/importLead/:id" element={<ImportLead />}/>
                 <Route path="/adminDash/leadFile" element={<LeadFile/>}/>
 
-                <Route path="/employeeDash/editLead" element={<EditLead2 />}/>
-                <Route path="/employeeDash/createLead" element={<CreateLead2 />}/>
-                <Route path="/employeeDash/myLead" element={<MyLead2 />}/>
-                <Route path="/employeeDash/leadDash" element={<LeadDash2 />}/>
+                
             </Route>
 
           </Routes>

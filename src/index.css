@@ -268,12 +268,18 @@ text-align: left;
 
 
 .login-page2 h2 {
-  font-family: "Bold" !important;
-  font-size: 36px;
+   font-weight: 600;
+   font-family: inter !important;
+  font-size: 24px;
   color: #000000;
   text-align: center;
+  margin-top: 15px;
 }
-
+.access{
+  font-size: 14px;
+  font-family: inter !important;
+  font-weight: 400;
+}
 .login-page2 p {
   color: #64686d;
   font-size: 17px;
@@ -305,6 +311,8 @@ text-align: left;
   border-radius: 6px;
   height: 70px;
   max-height: 100%;
+  font-family: inter !important;
+  color: #666D76 !important;
 }
 
 .custom-field .placeholder {
@@ -319,6 +327,8 @@ text-align: left;
   transform: translateY(-50%);
   /* color: #aaa; */
   transition: top 0.3s ease, color 0.3s ease, font-size 0.3s ease;
+  font-family: inter !important;
+  color: #666D76 !important;
 }
 
 .custom-field input.dirty+.placeholder,
@@ -327,6 +337,8 @@ text-align: left;
   top: -5px;
   font-size: 15px;
   color: #0b60ff;
+  font-family: inter !important;
+  color: #666D76 !important;
 }
 
 /* ONE */
@@ -339,6 +351,8 @@ text-align: left;
   width: 100%;
   background-color: #E8E9EB !important;
   border: 1px solid #D0D4DC;
+  font-family: inter !important;
+  color: #666D76 !important;
 }
 
 
@@ -369,6 +383,7 @@ text-align: left;
   align-items: center;
   gap: 12px;
 }
+
 .HRMS-wrap p{
   font-family: Inter;
   font-size: 14px;
@@ -524,10 +539,10 @@ width: 100%;
 
 .login-page2 button {
   width: 100%;
-  background-color: #0b60ff;
+ 
   height: 70px;
   border-radius: 6px;
-  color: #ffffff;
+ 
   font-family: "Rubik", sans-serif;
   font-weight: 400;
   font-size: 19.5px;
@@ -3812,3 +3827,49 @@ input::-webkit-inner-spin-button {
   border-radius: 50%;
   object-fit: cover;
 }
+.attachment{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.saya{
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  border: 1px solid #0B56E4 !important;
+  background: linear-gradient(131.78deg, #D1E8FD 6.87%, #EDEFFF 91.67%);
+  width: 147px;
+  border-radius: 8px;
+  height: 40px;
+}
+.saya p{
+  font-size: 16px;
+  font-weight: 500;
+  color: #0B56E4;
+  font-family: inter !important;
+}
+.user_login{
+  border: 1px solid #B3CBF7 ;
+  background: none ;
+  color: #49515C ;
+}
+.admin_login{
+  background:#0b60ff;
+  color: #ffffff;
+  border: none;
+}
+.yui{
+  background:#0b60ff;
+  color: #ffffff;
+  border: none;
+}
+.lion{
+  justify-content: center !important;
+}
+.toyotoyo{
+  text-align: center !important;
+  color: #1B2533;
+  font-size: 14px;
+  font-family: inter !important;
+}
+

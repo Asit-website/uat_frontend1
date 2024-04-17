@@ -22,11 +22,25 @@ const Auth = (props) => {
   const adminLogin = (e) => {
     e.preventDefault();
     setTab(1);
+    document.getElementById("btn1").style.border="1px solid #B3CBF7";
+    document.getElementById("btn1").style.background="none";
+    document.getElementById("btn1").style.color="#49515C";
+
+    document.getElementById("btn2").style.border="none";
+    document.getElementById("btn2").style.background="#0b60ff";
+    document.getElementById("btn2").style.color="white"
   }
 
   const userLogin = (e) => {
     e.preventDefault();
     setTab(2);
+    document.getElementById("btn2").style.border="1px solid #B3CBF7";
+    document.getElementById("btn2").style.background="none";
+    document.getElementById("btn2").style.color="#49515C"
+
+    document.getElementById("btn1").style.border="none";
+    document.getElementById("btn1").style.background="#0b60ff";
+    document.getElementById("btn1").style.color="white"
   }
 
   const handleChange = (e) => {
@@ -85,12 +99,12 @@ const Auth = (props) => {
 
                          <div className="singWrap">
           <h2 className="singin">Sign in </h2>
-          <p>to access HRMS Dashboard</p>
+          <p className="access">to access HRMS Dashboard</p>
                          </div>
           
           <div className="login-buttons flex">
-            <button onClick={adminLogin} className="mr-3">Admin Login</button>
-            <button onClick={userLogin} className="ml-3">User Login</button>
+            <button id="btn1" onClick={adminLogin} className="admin_login">Admin Login</button>
+            <button  id="btn2" onClick={userLogin} className="user_login">User Login</button>
           </div>
 
           <div className="login-form">
@@ -123,7 +137,7 @@ const Auth = (props) => {
                 </NavLink>
               </div>
 
-              <button>Log in</button>
+              <button className="yui">Log in</button>
 
              
             </form>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import AdminNavbar from "../../admin/Navbar/AdminNavbar";
-import AdminSidebar from "../../admin/Sidebar/AdminSidebar";
+import AdminNavbar from "../Navbar/AdminNavbar";
+import AdminSidebar from "../Sidebar/AdminSidebar";
 import "react-calendar/dist/Calendar.css";
 import { useMain } from "../../../hooks/useMain";
 import ladki from "../../images/ladki.png";
@@ -18,7 +18,19 @@ const EmployeeManage = ({ pop1, setPop1, pop, setPop, setAlert, isHr = false }) 
 
   const navigate = useNavigate();
 
-  const { user, createEmployee1, getUsers, updateUser, getBranchs, getDepartments, getDesignations , uploadDocuments } = useMain();
+  const { user, createEmployee1, getUsers, updateUser, getBranchs, getDepartments, getDesignations , uploadDocuments,allEmployee} = useMain();
+
+  const [employee, setEmployee] = useState([]);
+
+  const getEmployee = async () =>{
+    const ans = await allEmployee();
+    setEmployee(ans?.emp);
+    console.log(ans?.emp);
+  }
+
+  useEffect(()=>{
+     getEmployee();
+  },[])
 
   const [value, setValue] = useState({
     branch: '',
@@ -775,7 +787,13 @@ const EmployeeManage = ({ pop1, setPop1, pop, setPop, setAlert, isHr = false }) 
                               className="department_test"
                             >
                               <option>Reporting Manager</option>
-                              <option value="Chirag">Chirag Negi</option>
+                              {
+                                  employee?.map((val,index)=>{
+                                    return <option key={index} value={val?.fullName}>{val?.fullName}</option>
+                                  })
+                              }
+                              {/* <option value="Chirag">Chirag Negi</option> */}
+
                             </select>
                             <select
                               onChange={(e) => {
@@ -1223,7 +1241,42 @@ const EmployeeManage = ({ pop1, setPop1, pop, setPop, setAlert, isHr = false }) 
                                   disabled={value3.status}
                                 >
                                   <option>Permanent State</option>
+                                  <option>Andhra Pradesh</option>
+                                  <option>Arunachal Pradesh</option>
+                                  <option>Assam</option>
+                                  <option>Bihar</option>
+                                  <option>Chhattisgarh</option>
+                                  <option>Goa</option>
+                                  <option>Gujarat</option>
+                                  <option>Haryana</option>
+                                  <option>Himachal Pradesh</option>
                                   <option>Jharkhand</option>
+                                  <option>Karnataka</option>
+                                  <option>Kerala</option>
+                                  <option>Maharashtra</option>
+                                  <option>Madhya Pradesh</option>
+                                  <option>Manipur</option>
+                                  <option>Meghalaya</option>
+                                  <option>Mizoram</option>
+                                  <option>Nagaland</option>
+                                  <option>Odisha</option>
+                                  <option>Punjab</option>
+                                  <option>Rajasthan</option>
+                                  <option>Sikkim</option>
+                                  <option>Tamil Nadu</option>
+                                  <option>Tripura</option>
+                                  <option>Telangana</option>
+                                  <option>Uttar Pradesh</option>
+                                  <option>Uttarakhand</option>
+                                  <option>West Bengal</option>
+                                  <option>Andaman & Nicobar (UT)</option>
+                                  <option>Chandigarh (UT)</option>
+                                  <option>Dadra & Nagar Haveli and Daman & Diu (UT)</option>
+                                  <option>Delhi [National Capital Territory (NCT)]</option>
+                                  <option>Jammu & Kashmir (UT)</option>
+                                  <option>Ladakh (UT)</option>
+                                  <option>Lakshadweep (UT)</option>
+                                  <option>Puducherry (UT)</option>
                                 </select>
                               </div>
                               <div className="mb-6 w-full try">
@@ -1429,7 +1482,12 @@ const EmployeeManage = ({ pop1, setPop1, pop, setPop, setAlert, isHr = false }) 
                                   <option>B.sc</option>
                                   <option>10th</option>
                                   <option>12th</option>
-
+                                  <option>BBA</option>
+                                  <option>BCA</option>
+                                  <option>B.tech</option>
+                                  <option>M.tech</option>
+                                  <option>MBA</option>
+                                  <option>BCom</option>
                                 </select>
                               </div>
                             </div>
@@ -1442,7 +1500,7 @@ const EmployeeManage = ({ pop1, setPop1, pop, setPop, setAlert, isHr = false }) 
                                 >
                                   Year of passing •
                                 </label>
-                                <select
+                                {/* <select
                                   className="rounded-lg  w-full"
                                   name="yearPass"
                                   id="yearPass"
@@ -1475,7 +1533,14 @@ const EmployeeManage = ({ pop1, setPop1, pop, setPop, setAlert, isHr = false }) 
                                   <option>2019</option>
                                   <option>2020</option>
                                   <option>2021</option>
-                                </select>
+                                </select> */}
+                                <input type="date" className="w-full"  name="yearPass"
+                                  id="yearPass"
+                                  value={value4?.yearPass}
+                                  onChange={(e) => {
+                                    handleChange(e, "form4");
+                                  }}
+                                  disabled={value4.status} />
                               </div>
                               <div className="mb-6 w-full try">
                                 <label

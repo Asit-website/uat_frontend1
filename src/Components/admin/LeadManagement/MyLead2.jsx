@@ -4,16 +4,12 @@ import { useMain } from "../../../hooks/useMain";
 import pluss from "../../images/pluss.png"
 import search from "../../images/bx-search.png"
 import fff from "../../images/fff.png"
-import siy from '../../images/siy.png';
 import { NavLink, useNavigate } from "react-router-dom";
 import OutsideClickHandler from 'react-outside-click-handler';
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 import EmployeeNavbar from "../../Employee/Navbar/EmployeeNavbar";
 import EmployeeSidebar from "../../Employee/Sidebar/EmployeeSidebar";
-
-
-
 const MyLead2 = ({ setAlert, pop, setPop }) => {
 
 
@@ -102,7 +98,7 @@ const MyLead2 = ({ setAlert, pop, setPop }) => {
                                         <NavLink className="such_thing" to="/employeeDash/createLead" >  <img src={pluss} alt="" /> <span className="colp"> Create New Lead </span> </NavLink>
                                     </button>
 
-                                  <NavLink to="/adminDash/leadFile"><button className="refresh">
+                                  <NavLink to="/employeeDash/leadFile"><button className="refresh">
                                         <span className="ref1">Import Leads</span>
                                     </button></NavLink>
                                     <button
@@ -118,7 +114,11 @@ const MyLead2 = ({ setAlert, pop, setPop }) => {
                                         </svg>
 
                                     </button>
-
+                                    <OutsideClickHandler
+                                       onOutsideClick={()=>{
+                                          setCard(false);
+                                       }}
+                                    >
                                     <div
                                         id="dropdown"
                                         className="z-10 solaring hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700"
@@ -162,6 +162,7 @@ const MyLead2 = ({ setAlert, pop, setPop }) => {
                                             </li>
                                         </ul>
                                     </div>
+                                    </OutsideClickHandler>
                                 </div>
                             </div>
                         </div>
@@ -507,7 +508,7 @@ const MyLead2 = ({ setAlert, pop, setPop }) => {
                                                                         <li  className="sysok">
                                                                             <a
                                                                                onClick={()=>{
-                                                                                navigate(`/adminDash/importLead/${item._id}`);
+                                                                                navigate(`/employeeDash/importLead/${item._id}`);
                                                                                }}
                                                                                 href="#"
                                                                                 className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"

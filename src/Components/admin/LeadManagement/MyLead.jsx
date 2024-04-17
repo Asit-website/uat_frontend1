@@ -132,6 +132,11 @@ const MyLead = ({ setAlert, pop, setPop }) => {
 
                                     </button>
 
+                                    <OutsideClickHandler
+                                       onOutsideClick={()=>{
+                                        setCard(false);
+                                       }}
+                                    >
                                     <div
                                         id="dropdown"
                                         className="z-10 solaring hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700"
@@ -175,6 +180,7 @@ const MyLead = ({ setAlert, pop, setPop }) => {
                                             </li>
                                         </ul>
                                     </div>
+                                    </OutsideClickHandler>
                                 </div>
                             </div>
                         </div>

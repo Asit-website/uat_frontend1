@@ -5,7 +5,7 @@ import { useMain } from "../../../hooks/useMain";
 import { useNavigate } from "react-router-dom";
 
 const UpdateProfile = ({ setAlert, pop1, setPop1 }) => {
-  const { user, updateProfile, postActivity, getStatisticsByUser,getBranchs, getDepartments, getDesignations } = useMain();
+  const { user, updateProfile, postActivity, getStatisticsByUser, getBranchs, getDepartments, getDesignations } = useMain();
   const [value, setValue] = useState(user);
 
 
@@ -26,7 +26,7 @@ const UpdateProfile = ({ setAlert, pop1, setPop1 }) => {
   };
 
 
-  
+
   useEffect(() => {
     // setValue(user);
     let user1 = JSON.parse(localStorage.getItem("hrms_user"));
@@ -42,7 +42,7 @@ const UpdateProfile = ({ setAlert, pop1, setPop1 }) => {
     }
   };
 
-  
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -63,7 +63,7 @@ const UpdateProfile = ({ setAlert, pop1, setPop1 }) => {
     <>
       <div className="employee-dash h-full">
         <EmployeeSidebar />
-        
+
         <div className="tm">
           <EmployeeNavbar
             user={user}
@@ -128,7 +128,7 @@ const UpdateProfile = ({ setAlert, pop1, setPop1 }) => {
                     onChange={handleChange}
                     id="file_input"
                     type="file"
-                    
+
                   />
                 </div>
 
@@ -186,7 +186,7 @@ const UpdateProfile = ({ setAlert, pop1, setPop1 }) => {
                     id="department"
                   >
                     {
-                      departments?.map((val,index)=>{
+                      departments?.map((val, index) => {
                         return <option key={index} value={val?.name}>{val?.name}</option>
                       })
                     }
@@ -209,7 +209,7 @@ const UpdateProfile = ({ setAlert, pop1, setPop1 }) => {
                     <option value="Hr">Hr</option>
                     <option value="Manager">Manager/Project manager</option> */}
                     {
-                      designations?.map((val,index)=>{
+                      designations?.map((val, index) => {
                         return <option key={index} value={val?.name}>{val?.name}</option>
                       })
                     }
@@ -349,7 +349,42 @@ const UpdateProfile = ({ setAlert, pop1, setPop1 }) => {
                     onChange={handleChange}
                   >
                     <option>Permanent State</option>
+                    <option>Andhra Pradesh</option>
+                    <option>Arunachal Pradesh</option>
+                    <option>Assam</option>
+                    <option>Bihar</option>
+                    <option>Chhattisgarh</option>
+                    <option>Goa</option>
+                    <option>Gujarat</option>
+                    <option>Haryana</option>
+                    <option>Himachal Pradesh</option>
                     <option>Jharkhand</option>
+                    <option>Karnataka</option>
+                    <option>Kerala</option>
+                    <option>Maharashtra</option>
+                    <option>Madhya Pradesh</option>
+                    <option>Manipur</option>
+                    <option>Meghalaya</option>
+                    <option>Mizoram</option>
+                    <option>Nagaland</option>
+                    <option>Odisha</option>
+                    <option>Punjab</option>
+                    <option>Rajasthan</option>
+                    <option>Sikkim</option>
+                    <option>Tamil Nadu</option>
+                    <option>Tripura</option>
+                    <option>Telangana</option>
+                    <option>Uttar Pradesh</option>
+                    <option>Uttarakhand</option>
+                    <option>West Bengal</option>
+                    <option>Andaman & Nicobar (UT)</option>
+                    <option>Chandigarh (UT)</option>
+                    <option>Dadra & Nagar Haveli and Daman & Diu (UT)</option>
+                    <option>Delhi [National Capital Territory (NCT)]</option>
+                    <option>Jammu & Kashmir (UT)</option>
+                    <option>Ladakh (UT)</option>
+                    <option>Lakshadweep (UT)</option>
+                    <option>Puducherry (UT)</option>
                   </select>
                 </div>
                 <div className="mb-6">
@@ -469,13 +504,19 @@ const UpdateProfile = ({ setAlert, pop1, setPop1 }) => {
                     <option>B.sc</option>
                     <option>10th</option>
                     <option>12th</option>
+                    <option>BBA</option>
+                    <option>BCA</option>
+                    <option>B.tech</option>
+                    <option>M.tech</option>
+                    <option>MBA</option>
+                    <option>BCom</option>
                   </select>
                 </div>
                 <div className="mb-6">
                   <label htmlFor="yearPass" className="block mb-1">
                     Year of passing •
                   </label>
-                  <select
+                  {/* <select
                     className="rounded-lg  w-full"
                     name="yearPass"
                     id="yearPass"
@@ -505,7 +546,11 @@ const UpdateProfile = ({ setAlert, pop1, setPop1 }) => {
                     <option>2019</option>
                     <option>2020</option>
                     <option>2021</option>
-                  </select>
+                  </select> */}
+                   <input  name="yearPass"
+                    id="yearPass"
+                    value={value.yearPass}
+                    onChange={handleChange} className="w-full rounded-lg" type="date" />
                 </div>
                 <div className="mb-6">
                   <label htmlFor="university" className="block mb-1">
@@ -739,12 +784,12 @@ const UpdateProfile = ({ setAlert, pop1, setPop1 }) => {
                   <label htmlFor="Branch" className="block mb-1">
                     Documents
                   </label>
-                  <div style={{display:"flex" , gap:"10px",flexWrap:"wrap"}}>
+                  <div style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
                     {
-                      value?.document?.map((item ,index)=>(
-                        <div key={index} style={{display:"flex",flexDirection:"column",gap:"5px" , alignItems:"center" , maxWidth:"200px"}}>
+                      value?.document?.map((item, index) => (
+                        <div key={index} style={{ display: "flex", flexDirection: "column", gap: "5px", alignItems: "center", maxWidth: "200px" }}>
                           <img src={item.url} alt="" />
-                          <p style={{margin:"4px auto" , fontWeight:"600"}}>{item.name}</p>
+                          <p style={{ margin: "4px auto", fontWeight: "600" }}>{item.name}</p>
                         </div>
                       ))
                     }
