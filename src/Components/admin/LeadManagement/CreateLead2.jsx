@@ -1,27 +1,27 @@
 import React, { useEffect, useState } from "react";
-import AdminNavbar from "../../admin/Navbar/AdminNavbar";
-import AdminSidebar from "../../admin/Sidebar/AdminSidebar";
 import "react-calendar/dist/Calendar.css";
 import { useMain } from "../../../hooks/useMain";
 import uint from '../../images/uing.png';
 import { useNavigate } from "react-router-dom";
 import upload from '../../images/upload.svg';
 import OutsideClickHandler from "react-outside-click-handler";
-const CreateLead = ({ setAlert, pop, setPop }) => {
+import EmployeeSidebar from "../../Employee/Sidebar/EmployeeSidebar";
+import EmployeeNavbar from "../../Employee/Navbar/EmployeeNavbar";
+
+const CreateLead2 = ({ setAlert, pop, setPop }) => {
     const { user , createLead , getEmployees } = useMain();
     const [pop1,setPop1] = useState(false);
     const stylePeer = {
         display:pop1 ? "block" : "none"
     }
 
-    const [emp , setEmp] = useState([]);
-
     let userDetail = JSON.parse(localStorage.getItem("hrms_user"));
 
+    const [emp , setEmp] = useState([]);
 
      const [formdata , setFormdata] = useState({
         image:"",
-        LeadOwner:userDetail?._id,
+        LeadOwner: userDetail?._id,
         Company:"",
         FirstName:"",
         LastName:"",
@@ -79,7 +79,7 @@ const CreateLead = ({ setAlert, pop, setPop }) => {
          console.log(ans)
           if(ans?.status){
             alert("Successful created");
-            navigate("/adminDash/myLead")
+            navigate("/employeeDash/myLead")
             setFormdata({
                 LeadOwner:userDetail?._id,
                 Company:"",
@@ -125,10 +125,10 @@ const CreateLead = ({ setAlert, pop, setPop }) => {
     return (
         <>
             <div className="employee-dash h-full">
-                <AdminSidebar pop={pop} setPop={setPop} />
+                <EmployeeSidebar pop={pop} setPop={setPop} />
 
                 <div className="tm">
-                    <AdminNavbar user={user} setAlert={setAlert} />
+                    <EmployeeNavbar user={user} setAlert={setAlert} />
 
                     <div className="em">
                         <h2 className="semik">Create Lead</h2>
@@ -243,7 +243,7 @@ const CreateLead = ({ setAlert, pop, setPop }) => {
                                         <div className="lead_inp1">
                                             <label htmlFor="">Lead Owner</label>
                                             <input type="LeadOwner" value={userDetail?.fullName} disabled onChange={changeHandler}  />
-
+                                          
                                         </div>
                                         <div className="lead_inp1">
                                             <label htmlFor="">Company</label>
@@ -446,4 +446,4 @@ const CreateLead = ({ setAlert, pop, setPop }) => {
     );
 };
 
-export default CreateLead;
+export default CreateLead2;

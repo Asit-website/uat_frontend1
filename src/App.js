@@ -60,6 +60,11 @@ import MyLead from "./Components/admin/LeadManagement/MyLead.jsx";
 import CreateLead from "./Components/admin/LeadManagement/CreateLead.jsx";
 import ImportLead from "./Components/admin/LeadManagement/ImportLead.jsx";
 import LeadFile from "./Components/admin/LeadManagement/LeadFile.jsx";
+import EditLead from "./Components/admin/LeadManagement/EditLead.jsx";
+import LeadDash2 from "./Components/admin/LeadManagement/LeadDash2.jsx";
+import MyLead2 from "./Components/admin/LeadManagement/MyLead2.jsx";
+import CreateLead2 from "./Components/admin/LeadManagement/CreateLead2.jsx";
+import EditLead2 from "./Components/admin/LeadManagement/EditLead2.jsx";
 
 var tc;
 
@@ -239,8 +244,14 @@ function App() {
                 <Route path="/adminDash/leadDash" element={<LeadDash/>}/>
                 <Route path="/adminDash/myLead" element={<MyLead />}/>
                 <Route path="/adminDash/createLead" element={<CreateLead/>}/>
+                <Route path="/adminDash/editLead" element={<EditLead />}/>
                 <Route path="/adminDash/importLead/:id" element={<ImportLead />}/>
                 <Route path="/adminDash/leadFile" element={<LeadFile/>}/>
+
+                <Route path="/employeeDash/editLead" element={<EditLead2 />}/>
+                <Route path="/employeeDash/createLead" element={<CreateLead2 />}/>
+                <Route path="/employeeDash/myLead" element={<MyLead2 />}/>
+                <Route path="/employeeDash/leadDash" element={<LeadDash2 />}/>
             </Route>
 
           </Routes>

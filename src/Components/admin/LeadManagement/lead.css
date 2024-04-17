@@ -145,3 +145,24 @@ text-align: right;
          margin-left: 20px;
 
     }
+
+    .leadHead{
+font-family: Inter;
+font-size: 12px;
+margin: 0px 0px 0px 30px;
+font-weight: 400;
+cursor: pointer;
+line-height: 20px;
+letter-spacing: 0.0025em;
+text-align: left;
+
+/* color: blue; */
+
+    }
+
+    .leadWrapp{
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 20px;
+    }

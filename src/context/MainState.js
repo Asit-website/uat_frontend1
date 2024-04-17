@@ -3,7 +3,7 @@ import MainContext from './MainContext';
 import { deleteReq, get, post, put, postDocuments } from '../Api/api'
 import { useState } from 'react';
 
-// const baseUrl = "http://localhost:5000";
+const baseUrl = "http://localhost:5000";
 
 // const baseUrl = "https://hrms-backend-code.onrender.com"
 
@@ -15,7 +15,7 @@ import { useState } from 'react';
 
 // const baseUrl = "https://hrms-backend-g3wt.onrender.com";
 
-const baseUrl = "https://hr-backend-ncrd.onrender.com"
+// const baseUrl = "https://hr-backend-ncrd.onrender.com"
 
 
 const MainState = (props) => {
@@ -1423,8 +1423,83 @@ const MainState = (props) => {
    
     return data;
    }
+   const updateLead = async(
+      { LeadOwner,
+      Company,
+      FirstName,
+      LastName,
+      Title,
+      Email,
+      Phone,
+      Fax,
+      Mobile,
+      Website,
+      LeadSource,
+      NoOfEmployee,
+      Industry,
+      LeadStatus,
+      AnnualRevenue,
+      Rating,
+      EmailOptOut,
+      SkypeID,
+      SecondaryEmail,
+      Twitter,
+       Street ,
+       City ,
+       State ,
+       ZipCode ,
+       Country ,
+       DescriptionInfo  , id}
+
+   )=>{
+
+         let data;
+         
+      data = await post(`${baseUrl}/lead/editLead/${id}`,
+       {
+         LeadOwner,
+         Company,
+         FirstName,
+         LastName,
+         Title,
+         Email,
+         Phone,
+         Fax,
+         Mobile,
+         Website,
+         LeadSource,
+         NoOfEmployee,
+         Industry,
+         LeadStatus,
+         AnnualRevenue,
+         Rating,
+         EmailOptOut,
+         SkypeID,
+         SecondaryEmail,
+         Twitter,
+          Street ,
+          City ,
+          State ,
+          ZipCode ,
+          Country ,
+          DescriptionInfo  , 
+          
+      }, true);
+   
+   
+    return data;
+   }
 
    const getLead = async(id,query,page,perPage)=>{
+      let user = JSON.parse(localStorage.getItem("hrms_user"));
+      console.log("user ",user);
+
+      const data = await post(`${baseUrl}/lead/getAllLead/?id=${id}&query=${query}&page=${page}&perPage=${perPage}`, {id: user?._id}, true);
+      return data;
+   }
+
+   const getLead2 = async(id,query,page,perPage)=>{
+
       const data = await get(`${baseUrl}/lead/getAllLead/?id=${id}&query=${query}&page=${page}&perPage=${perPage}`, true);
       return data;
    }
@@ -1459,7 +1534,8 @@ const MainState = (props) => {
          createTrip,getTrip,deleteTrip,updateTrip,deletePromotion,updatePromotion , 
          createLead  ,
          getLead,
-         deleteLeads
+         getLead2,
+         deleteLeads , updateLead
       }}>
          {props.children}
       </MainContext.Provider>

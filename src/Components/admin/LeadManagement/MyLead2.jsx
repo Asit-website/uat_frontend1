@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from "react";
-import AdminNavbar from "../../admin/Navbar/AdminNavbar";
-import AdminSidebar from "../../admin/Sidebar/AdminSidebar";
 import "react-calendar/dist/Calendar.css";
 import { useMain } from "../../../hooks/useMain";
 import pluss from "../../images/pluss.png"
@@ -11,27 +9,17 @@ import { NavLink, useNavigate } from "react-router-dom";
 import OutsideClickHandler from 'react-outside-click-handler';
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
-
-const data = [
-    {
-        leadName: "Adrian Kirk",
-        company: "Design Pro Web Solutions, LLC",
-        email: "sales@designprowebsolutions.com",
-        phone: "1 901-275-2749",
-        firstName: "Gulinski",
-        lastName: "Adrian Kirk",
-        leadStatus: "Adrian Kirk",
-        industry: "Adrian Kirk"
-    }
-]
+import EmployeeNavbar from "../../Employee/Navbar/EmployeeNavbar";
+import EmployeeSidebar from "../../Employee/Sidebar/EmployeeSidebar";
 
 
 
-const MyLead = ({ setAlert, pop, setPop }) => {
+const MyLead2 = ({ setAlert, pop, setPop }) => {
+
 
     const navigate = useNavigate();
 
-    const { user, getLead2,deleteLeads } = useMain();
+    const { user, getLead,deleteLeads } = useMain();
     const [start, setStart] = useState(false);
 
     const [refreshFlag,setRefreshFlag] = useState(false);
@@ -55,7 +43,8 @@ const MyLead = ({ setAlert, pop, setPop }) => {
     const [allLead, setAllLead] = useState([]);
 
     const fetchLead = async () => {
-        const ans = await getLead2("","","","");
+  
+        const ans = await getLead("","","","");
         setAllLead(ans?.data);
     }
 
@@ -64,8 +53,6 @@ const MyLead = ({ setAlert, pop, setPop }) => {
     }, [refreshFlag])
 
     const deleteProject = async (id) => {
-
-        console.log("id ",id);
 
         confirmAlert({
           title: 'Are you sure to delete this data?',
@@ -96,10 +83,10 @@ const MyLead = ({ setAlert, pop, setPop }) => {
     return (
         <>
             <div className="employee-dash h-full">
-                <AdminSidebar pop={pop} setPop={setPop} />
+                <EmployeeSidebar pop={pop} setPop={setPop} />
 
                 <div className="tm">
-                    <AdminNavbar user={user} setAlert={setAlert} />
+                    <EmployeeNavbar user={user} setAlert={setAlert} />
 
                     <div className="em">
 
@@ -112,7 +99,7 @@ const MyLead = ({ setAlert, pop, setPop }) => {
                                 <div className="leads_btn2">
 
                                     <button className="lead_btn2">
-                                        <NavLink className="such_thing" to="/adminDash/createLead" >  <img src={pluss} alt="" /> <span className="colp"> Create New Lead </span> </NavLink>
+                                        <NavLink className="such_thing" to="/employeeDash/createLead" >  <img src={pluss} alt="" /> <span className="colp"> Create New Lead </span> </NavLink>
                                     </button>
 
                                   <NavLink to="/adminDash/leadFile"><button className="refresh">
@@ -507,7 +494,7 @@ const MyLead = ({ setAlert, pop, setPop }) => {
                                                                         <li className="sysok">
 
                                                                             <a 
-                                                                            onClick={()=>navigate("/adminDash/editLead",{state:item})}
+                                                                            onClick={()=>navigate("/employeeDash/editLead",{state:item})}
                                                                                 className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                                                                             >
                                                                                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -588,4 +575,4 @@ const MyLead = ({ setAlert, pop, setPop }) => {
     );
 };
 
-export default MyLead;
+export default MyLead2;

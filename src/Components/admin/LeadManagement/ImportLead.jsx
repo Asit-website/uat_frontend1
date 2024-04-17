@@ -9,13 +9,13 @@ import "./lead.css"
 import { useParams } from "react-router-dom";
 
 const ImportLead = ({ setAlert, pop, setPop }) => {
-    const { user, getLead } = useMain();
+    const { user, getLead2 } = useMain();
 
     const { id } = useParams();
     const [data, setData] = useState({});
 
     const getData = async () => {
-        let ans = await getLead(id, '', '', '');
+        let ans = await getLead2(id, '', '', '');
         setData(ans.data[0]);
     };
 

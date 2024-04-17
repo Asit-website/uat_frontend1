@@ -1,13 +1,28 @@
-import React from "react";
+import React, { useState } from "react";
 import dots from "../../images/dots.png";
 import lokia from "../../images/lokia.png";
 import calling from "../../images/calling.png";
-import earth from "../../images/earth.png";
-import pdf from "../../images/pdf.png";
 import chakka from "../../images/chakka.png";
-import kushel1 from '../../images/kushel1.png';
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+
 const EmployeeSidebar = () => {
+
+  const leadItem = [
+    {
+      title:"Lead Dashboard" , 
+      link:"/employeeDash/leadDash",
+    },
+    {
+      title:"My Lead" , 
+      link:"/employeeDash/myLead",
+    },
+  
+  ]
+
+   const [openLead , setOpenLead] = useState(false);
+
+   const navigate = useNavigate();
+
   return (
     <>
       <button
@@ -38,9 +53,7 @@ const EmployeeSidebar = () => {
         className="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0 sidebars"
         aria-label="Sidebar"
       >
-        {/* <div className="logobar">
-      <img src={kushel1} alt="" />
-      </div> */}
+      
         <div className="h-full px-3 py-4 overflow-y-auto  sidebars sidebars1">
 
           <ul className="space-y-2 font-medium sight">
@@ -53,6 +66,30 @@ const EmployeeSidebar = () => {
                 <span style={{color:"black"}} className="ml-3 ">Dashboard</span>
               </a>
             </li></NavLink>
+
+
+           
+           <li className="most">
+            <h2 onClick={()=>setOpenLead((prev)=>!prev)} className="leadHead">Lead Management</h2>
+
+            {
+              openLead && 
+               <div className="leadWrapp">
+{
+
+                  leadItem?.map((item ,index)=>(
+                    <p key={index} className="leadHead" onClick={()=>navigate(item?.link)}>{item.title}</p>
+                  ))
+
+                }
+             
+               </div>
+ 
+            }
+
+           </li>
+
+
            <li className="most">
               <button
                 type="button"
@@ -108,6 +145,7 @@ const EmployeeSidebar = () => {
                 </li>
               </ul>
             </li>
+
             <li className="most">
               <button
                 type="button"
@@ -116,12 +154,14 @@ const EmployeeSidebar = () => {
                 data-collapse-toggle="dropdown-example"
               >
                 <img width={16} src={calling} alt="lokia" />
+
                 <span
                   className="flex-1 ml-3 text-left whitespace-nowrap"
                   sidebar-toggle-item
                 >
                   Inbox
                 </span>
+
                 <svg
                   sidebar-toggle-item
                   className="w-6 h-6"
@@ -135,8 +175,11 @@ const EmployeeSidebar = () => {
                     clipRule="evenodd"
                   ></path>
                 </svg>
+
               </button>
+
               <ul id="dropdown-example" className="hidden py-2 space-y-2">
+
                 <li>
                   <a
                     href="#"
@@ -145,6 +188,7 @@ const EmployeeSidebar = () => {
                     Products
                   </a>
                 </li>
+
                 <li>
                   <a
                     href="#"
@@ -153,6 +197,7 @@ const EmployeeSidebar = () => {
                     Billing
                   </a>
                 </li>
+
                 <li>
                   <a
                     href="#"
@@ -161,8 +206,11 @@ const EmployeeSidebar = () => {
                     Invoice
                   </a>
                 </li>
+
               </ul>
+
             </li>
+
             <div className="red-box">
               <div className="white-box">
                 <img src={chakka} alt="chakka" />
@@ -173,7 +221,9 @@ const EmployeeSidebar = () => {
                 </div>
               </div>
             </div>
+
           </ul>
+
         </div>
       </aside>
 

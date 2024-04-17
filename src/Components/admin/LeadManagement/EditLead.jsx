@@ -7,21 +7,35 @@ import uint from '../../images/uing.png';
 import { useNavigate } from "react-router-dom";
 import upload from '../../images/upload.svg';
 import OutsideClickHandler from "react-outside-click-handler";
-const CreateLead = ({ setAlert, pop, setPop }) => {
-    const { user , createLead , getEmployees } = useMain();
+import { useLocation } from 'react-router-dom';
+
+
+
+const EditLead = ({ setAlert, pop, setPop }) => {
+    
+    const { user , updateLead , getEmployees } = useMain();
+
     const [pop1,setPop1] = useState(false);
+
+
+    const location = useLocation();
+
+    const item = location?.state;
+
+
+    console.log("item ",item);
+
+
+
     const stylePeer = {
         display:pop1 ? "block" : "none"
     }
 
     const [emp , setEmp] = useState([]);
 
-    let userDetail = JSON.parse(localStorage.getItem("hrms_user"));
-
-
      const [formdata , setFormdata] = useState({
         image:"",
-        LeadOwner:userDetail?._id,
+        LeadOwner:"",
         Company:"",
         FirstName:"",
         LastName:"",
@@ -51,7 +65,6 @@ const CreateLead = ({ setAlert, pop, setPop }) => {
 
      const navigate = useNavigate();
 
-
      const handleImageChange = (event) => {
         const imageFile = event.target.files[0];
     
@@ -75,51 +88,51 @@ const CreateLead = ({ setAlert, pop, setPop }) => {
      }
 
      const submitHandler = async()=>{
-         const ans = await createLead({...formdata});
-         console.log(ans)
+         const ans = await updateLead({...formdata , id: item?._id});
           if(ans?.status){
-            alert("Successful created");
-            navigate("/adminDash/myLead")
-            setFormdata({
-                LeadOwner:userDetail?._id,
-                Company:"",
-                FirstName:"",
-                LastName:"",
-                Title:"",
-                Email:"",
-                Phone:"",
-                Fax:"",
-                Mobile:"",
-                Website:"",
-                LeadSource:"",
-                NoOfEmployee:"",
-                Industry:"",
-                LeadStatus:"",
-                AnnualRevenue:"",
-                Rating:"",
-                EmailOptOut:"",
-                SkypeID:"",
-                SecondaryEmail:"",
-                Twitter:"",
-                 Street:"" ,
-                 City :"",
-                 State :"",
-                 ZipCode :"",
-                 Country:"" ,
-                 DescriptionInfo:""
-            })
+            alert("Successful Updated");
+            navigate("/adminDash/myLead");
+           
           }
      }
 
      const getOwner = async()=>{
          const ans = await getEmployees();
-         console.log(ans?.data);
          setEmp(ans?.data);
 
      }
 
      useEffect(()=>{
         getOwner();
+        setFormdata({
+            image: item?.image,
+            LeadOwner: item?.LeadOwner?._id,
+            Company:item?.Company,
+            FirstName:item?.FirstName,
+            LastName:item?.LastName,
+            Title:item?.Title,
+            Email:item?.Email,
+            Phone:item?.Phone,
+            Fax:item?.Fax,
+            Mobile:item?.Mobile,
+            Website:item?.Website,
+            LeadSource: item?.LeadSource,
+            NoOfEmployee: item?.NoOfEmployee,
+            Industry: item?.Industry,
+            LeadStatus: item?.LeadStatus,
+            AnnualRevenue: item?.AnnualRevenue,
+            Rating: item?.Rating,
+            EmailOptOut: item?.EmailOptOut,
+            SkypeID: item?.SkypeID,
+            SecondaryEmail: item?.SecondaryEmail,
+            Twitter: item?.Twitter,
+             Street: item?.Street ,
+             City :item?.City,
+             State : item?.State,
+             ZipCode : item?.ZipCode,
+             Country: item?.Country ,
+             DescriptionInfo: item?.DescriptionInfo
+        })
      },[])
 
     return (
@@ -161,28 +174,7 @@ const CreateLead = ({ setAlert, pop, setPop }) => {
                                                 <h3 className="text-xl sini  font-semibold text-gray-900 dark:text-white">
                                                 Select Image
                                                 </h3>
-                                                {/* <button
-                                                    type="button"
-                                                    className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
-                                                    data-modal-hide="default-modal"
-                                                >
-                                                    <svg
-                                                        className="w-3 h-3"
-                                                        aria-hidden="true"
-                                                        xmlns="http://www.w3.org/2000/svg"
-                                                        fill="none"
-                                                        viewBox="0 0 14 14"
-                                                    >
-                                                        <path
-                                                            stroke="currentColor"
-                                                            strokeLinecap="round"
-                                                            strokeLinejoin="round"
-                                                            strokeWidth={2}
-                                                            d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
-                                                        />
-                                                    </svg>
-                                                    <span className="sr-only">Close modal</span>
-                                                </button> */}
+                               
                                             </div>
                                             {/* Modal body */}
                                              <div className="selct_div">
@@ -205,28 +197,7 @@ const CreateLead = ({ setAlert, pop, setPop }) => {
                                              </div>
                                             {/* Modal footer */}
                                             <div className="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
-                                                {/* <button onClick={()=>
-                                                {
-                                                     setFormdata((prev)=>({
-                                                        ...prev ,
-                                                        image:""
-                                                     }))
-                                                    setPop1(false);
-
-                                                }}
-                                                    data-modal-hide="default-modal"
-                                                    type="button"
-                                                    className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                                                >
-                                                    I accept
-                                                </button>
-                                                <button onClick={()=>setPop1(false)}
-                                                    data-modal-hide="default-modal"
-                                                    type="button"
-                                                    className="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
-                                                >
-                                                    Decline
-                                                </button> */}
+                                       
                                             </div>
                                         </div>
                                     </div>
@@ -242,7 +213,7 @@ const CreateLead = ({ setAlert, pop, setPop }) => {
                                     <div className="lead_inp">
                                         <div className="lead_inp1">
                                             <label htmlFor="">Lead Owner</label>
-                                            <input type="LeadOwner" value={userDetail?.fullName} disabled onChange={changeHandler}  />
+                                            <input type="LeadOwner" value={item?.LeadOwner?.fullName} disabled onChange={changeHandler}  />
 
                                         </div>
                                         <div className="lead_inp1">
@@ -446,4 +417,4 @@ const CreateLead = ({ setAlert, pop, setPop }) => {
     );
 };
 
-export default CreateLead;
+export default EditLead;
