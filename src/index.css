@@ -581,11 +581,12 @@ width: 100%;
   padding: 20px;
 }
 .forget {
-  color: #0b60ff !important;
-  font-family: gilroy !important;
-  font-size: 17px !important;
-  font-weight: 400 !important;
-
+  color: #0B56E4 !important;
+  font-family: inter !important;
+  font-size: 16px !important;
+  font-weight: 500 !important;
+  text-align: right;
+  font-family: inter !important;
 }
 .login_new_div{
   /* padding: 50px; */
@@ -1129,6 +1130,7 @@ gap: 90px;
   width: 100%;
   background-color: #ffffff;
   padding:20px;
+  margin: 10px;
 }
 
 .cel-boxing {
@@ -3284,7 +3286,7 @@ abbr:where([title]) {
 .attend-ctiveWrapempp .markAttWrap55 .markAtt55 {
   display: flex;
   padding: 0px 20px;
-  justify-content: space-between;
+  /* justify-content: space; */
   align-items: center;
 }
 .attend-ctiveWrapempp .myOficeWrap55 {
@@ -3294,13 +3296,14 @@ abbr:where([title]) {
   gap: 24px;
 }
 .attend-ctiveWrapempp .markAttWrap55 .markAtt55 p {
-  font-family: Gilroy-Medium;
-  font-size: 18px;
-  font-weight: 400;
+  font-family: inter !important;
+  font-size: 16px;
+  font-weight: 600;
   line-height: 22px;
   letter-spacing: 0em;
   text-align: left;
-  color: #060606;
+  color: #1B2533;
+  margin-left: 10px;
 }
 .attend-ctiveWrapempp .myOficeWrap55 .myOfText55 {
   font-family: Gilroy-Medium;
@@ -3325,6 +3328,7 @@ abbr:where([title]) {
   justify-content: center;
   gap: 30px;
   align-items: center;
+  margin-top: 20px;
 }
 .attend-ctiveWrapempp .ofSin55 {
   display: flex;
@@ -3346,7 +3350,7 @@ abbr:where([title]) {
   justify-content: center;
 }
 .attend-ctiveWrapempp .ofSin55 .day55 {
-  font-family: Gilroy-Medium;
+  font-family: inter !important;
   font-size: 16px;
   font-weight: 400;
   line-height: 26px;
@@ -3355,7 +3359,7 @@ abbr:where([title]) {
   color: #293240;
 }
 .attend-ctiveWrapempp .oficTime55 .singlTime55 p {
-  font-family: Gilroy-Bold;
+  font-family: inter !important;
   font-size: 34px;
   font-weight: 400;
   line-height: 44px;
@@ -3364,38 +3368,47 @@ abbr:where([title]) {
   color: #293240;
 }
 .attend-ctiveWrapempp .clockIN55 {
-  width: 100px;
-  height: 41px;
-  top: 523px;
-  left: 1058px;
-  padding: 12px, 30px, 12px, 30px;
-  border-radius: 4px;
-  gap: 10px;
-  background-color: #6FD943;
+  width: 134px;
+    height: 48px;
+    top: 523px;
+    left: 1058px;
+    padding: 12px, 30px, 12px, 30px;
+    border-radius: 6px;
+    gap: 10px;
+    /* background-color: #6FD943; */
+    background-color: #189877;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .attend-ctiveWrapempp .clockOUT55 {
-  width: 100px;
-  height: 41px;
+  width: 134px;
+  height: 48px;
   top: 523px;
   left: 1058px;
   padding: 12px, 30px, 12px, 30px;
-  border-radius: 4px;
+  border-radius: 6px;
   gap: 10px;
+  /* background-color: #6FD943; */
+  /* background-color: #189877; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background-color: #E9002A;
 }
 .attend-ctiveWrapempp .clockIN55 span {
-  font-family: Gilroy-SemiBold;
-  font-size: 14px;
-  font-weight: 400;
+  font-family: inter !important;
+  font-size: 16px;
+  font-weight: 500;
   line-height: 17px;
   letter-spacing: 0em;
   text-align: left;
   color: white;
 }
 .attend-ctiveWrapempp .clockOUT55 span {
-  font-family: Gilroy-SemiBold;
-  font-size: 14px;
-  font-weight: 400;
+  font-family: inter !important;
+  font-size: 16px;
+  font-weight: 500;
   line-height: 17px;
   letter-spacing: 0em;
   text-align: left;
@@ -3872,4 +3885,35 @@ input::-webkit-inner-spin-button {
   font-size: 14px;
   font-family: inter !important;
 }
-
+.react-confirm-alert-body{
+  width: 441px !important;
+}
+.react-confirm-alert-body > h1 {
+  text-align: center !important;
+  font-size: 16px;
+  font-family: inter !important;
+  font-weight: 500;
+  color: #1B2533 !important;
+}
+.react-confirm-alert-button-group{
+  margin-left: 26px !important;
+  margin-top: 25px !important;
+}
+.react-confirm-alert-button-group > button{
+  font-size: 16px !important;
+  font-weight: 500 !important;
+  font-family: inter !important;
+}
+.react-confirm-alert-body{
+  padding: 40px 30px !important;
+  border-radius: 15px !important;
+}
+.react-confirm-alert-overlay{
+  background-color: rgb(87 87 87 / 50%) !important;
+}
+.skm{
+  width: 100% !important;
+}
+.tasklo{
+  color: #0B56E4 !important;
+}

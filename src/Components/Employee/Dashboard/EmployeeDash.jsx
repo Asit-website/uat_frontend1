@@ -9,7 +9,7 @@ import goals from "../../images/goals.png";
 import arrow from "../../images/arrow.png";
 import { NavLink } from "react-router-dom";
 import timer1 from "../../images/timer.png";
-
+import lighting from '../../images/ligting.svg';
 var tc;
 var tc2;
 var tc3;
@@ -215,7 +215,7 @@ const EmployeeDash = ({ setAlert, pop1, setPop1 }) => {
     let t = localStorage.getItem("clock-status");
     localStorage.setItem('clockInTime', new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', second: '2-digit', hour12: true }));
 
-    localStorage.setItem("date1"  ,new Date().toLocaleDateString("en-GB"));
+    localStorage.setItem("date1", new Date().toLocaleDateString("en-GB"));
 
 
     if (!t) {
@@ -233,11 +233,11 @@ const EmployeeDash = ({ setAlert, pop1, setPop1 }) => {
       localStorage.setItem("clock-status", "break");
 
       // for setting todat date 
-    //   const today = new Date();
-    // const currentDate = `${today.getDate()}-${today.getMonth() + 1}-${today.getFullYear()}`;
-   let currentDate =  new Date().toLocaleDateString("en-GB")
-    localStorage.setItem("clock-in-date" , currentDate);
-    
+      //   const today = new Date();
+      // const currentDate = `${today.getDate()}-${today.getMonth() + 1}-${today.getFullYear()}`;
+      let currentDate = new Date().toLocaleDateString("en-GB")
+      localStorage.setItem("clock-in-date", currentDate);
+
       localStorage.setItem('breakInTime', new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', second: '2-digit', hour12: true }));
 
 
@@ -249,7 +249,7 @@ const EmployeeDash = ({ setAlert, pop1, setPop1 }) => {
         localStorage.setItem("break-time", new Date().getTime());
         localStorage.setItem("clock-status", "resume");
 
-      localStorage.setItem('breakOutTime', new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', second: '2-digit', hour12: true }));
+        localStorage.setItem('breakOutTime', new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', second: '2-digit', hour12: true }));
 
         let t3 = localStorage.getItem("break-seconds");
 
@@ -302,7 +302,7 @@ const EmployeeDash = ({ setAlert, pop1, setPop1 }) => {
   };
 
   const clockOut = async () => {
-    
+
     localStorage.setItem("clock-status", "out");
     localStorage.setItem("clock-out-time", new Date().getTime());
     localStorage.setItem('clockOutTime', new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', second: '2-digit', hour12: true }));
@@ -312,26 +312,26 @@ const EmployeeDash = ({ setAlert, pop1, setPop1 }) => {
     setMount(!mount);
     setClock(0);
 
-     const breakIn = localStorage.getItem("breakInTime");
-     const breakOut = localStorage.getItem("breakOutTime");
+    const breakIn = localStorage.getItem("breakInTime");
+    const breakOut = localStorage.getItem("breakOutTime");
 
-  // Get the current year
-  const currentYear = new Date().getFullYear();
+    // Get the current year
+    const currentYear = new Date().getFullYear();
 
-  // Construct Date objects using the current year
-  const date1 = new Date(`${currentYear} 01 01 ${breakIn}`);
-  const date2 = new Date(`${currentYear} 01 01 ${breakOut}`);
-  
-   // Calculate the difference in milliseconds
-   const differenceMs = date2.getTime() - date1.getTime();
+    // Construct Date objects using the current year
+    const date1 = new Date(`${currentYear} 01 01 ${breakIn}`);
+    const date2 = new Date(`${currentYear} 01 01 ${breakOut}`);
 
-   // Convert the difference to a readable format
-   const hours = Math.floor(differenceMs / (1000 * 60 * 60));
-   const minutes = Math.floor((differenceMs % (1000 * 60 * 60)) / (1000 * 60));
-   const seconds = Math.floor((differenceMs % (1000 * 60)) / 1000);
+    // Calculate the difference in milliseconds
+    const differenceMs = date2.getTime() - date1.getTime();
 
-   const differenceText = `${hours}:${minutes}:${seconds}`;
-   
+    // Convert the difference to a readable format
+    const hours = Math.floor(differenceMs / (1000 * 60 * 60));
+    const minutes = Math.floor((differenceMs % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((differenceMs % (1000 * 60)) / 1000);
+
+    const differenceText = `${hours}:${minutes}:${seconds}`;
+
     let ans = await postActivity({
       clockIn: localStorage.getItem("clock-in"),
       clockOut: localStorage.getItem("clock-out-time"),
@@ -345,11 +345,11 @@ const EmployeeDash = ({ setAlert, pop1, setPop1 }) => {
 
     const userDataString = localStorage.getItem("hrms_user");
 
-const userData = JSON.parse(userDataString);
+    const userData = JSON.parse(userDataString);
 
-   const clockInDate =  localStorage.getItem('clock-in-date');
+    const clockInDate = localStorage.getItem('clock-in-date');
 
-  const attendence = await postAttendence({ clockInDetail: localStorage.getItem("clockInTime"), breakTime:differenceText , clockOutDetail: localStorage.getItem("clockOutTime"), id:userData?._id , clockInDate:clockInDate });
+    const attendence = await postAttendence({ clockInDetail: localStorage.getItem("clockInTime"), breakTime: differenceText, clockOutDetail: localStorage.getItem("clockOutTime"), id: userData?._id, clockInDate: clockInDate });
 
     localStorage.removeItem("clock-in");
     localStorage.removeItem("clock-status");
@@ -359,7 +359,7 @@ const userData = JSON.parse(userDataString);
     localStorage.removeItem("breakInTime");
     localStorage.removeItem("breakOutTime");
     localStorage.removeItem("clock-in-date");
-   
+
   };
 
   const [star1, setStar1] = useState(false);
@@ -479,16 +479,16 @@ const userData = JSON.parse(userDataString);
                     <div className="hrmActRight55">
                       <div className="markAttWrap55">
                         <div className="markAtt55">
-                          <p>Mark Attandance</p>
-                          <img src={timer1} alt="" />
+                          <img src={lighting} alt="" />
+                          <p>  Mark Attandance</p>
                         </div>
 
                         <hr />
 
                         <div className="myOficeWrap55">
-                          <p className="myOfText55">
+                          {/* <p className="myOfText55">
                             My Office Time: 10:00 to 19:00
-                          </p>
+                          </p> */}
 
                           <div className="oficTime55">
                             <div className="ofSin55">
@@ -517,9 +517,12 @@ const userData = JSON.parse(userDataString);
                           <div className="clockINOUTBtn55">
                             {(mount || !mount) && (
                               <button className="clockIN55" onClick={clockIn}>
+                                <svg width="19" height="21" viewBox="0 0 19 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                  <path d="M6.5 1.5V0H12.5V1.5H6.5ZM8.75 12.675H10.25V6.925H8.75V12.675ZM9.5 20.975C8.26667 20.975 7.10417 20.7375 6.0125 20.2625C4.92083 19.7875 3.96667 19.1417 3.15 18.325C2.33333 17.5083 1.6875 16.5542 1.2125 15.4625C0.7375 14.3708 0.5 13.2083 0.5 11.975C0.5 10.7417 0.7375 9.57917 1.2125 8.4875C1.6875 7.39583 2.33333 6.44167 3.15 5.625C3.96667 4.80833 4.92083 4.1625 6.0125 3.6875C7.10417 3.2125 8.26667 2.975 9.5 2.975C10.6167 2.975 11.6667 3.1625 12.65 3.5375C13.6333 3.9125 14.5083 4.43333 15.275 5.1L16.55 3.825L17.6 4.875L16.325 6.15C16.925 6.81667 17.4375 7.625 17.8625 8.575C18.2875 9.525 18.5 10.6583 18.5 11.975C18.5 13.2083 18.2625 14.3708 17.7875 15.4625C17.3125 16.5542 16.6667 17.5083 15.85 18.325C15.0333 19.1417 14.0792 19.7875 12.9875 20.2625C11.8958 20.7375 10.7333 20.975 9.5 20.975ZM9.5 19.475C11.5833 19.475 13.3542 18.7458 14.8125 17.2875C16.2708 15.8292 17 14.0583 17 11.975C17 9.89167 16.2708 8.12083 14.8125 6.6625C13.3542 5.20417 11.5833 4.475 9.5 4.475C7.41667 4.475 5.64583 5.20417 4.1875 6.6625C2.72917 8.12083 2 9.89167 2 11.975C2 14.0583 2.72917 15.8292 4.1875 17.2875C5.64583 18.7458 7.41667 19.475 9.5 19.475Z" fill="white" />
+                                </svg>
                                 <span>
                                   {!localStorage.getItem("clock-status")
-                                    ? "Clock In"
+                                    ? "Check-in"
                                     : localStorage.getItem("clock-status") ===
                                       "break"
                                       ? "Break"
@@ -528,7 +531,7 @@ const userData = JSON.parse(userDataString);
                                         ? "Resume"
                                         : localStorage.getItem("clock-status") ===
                                           "out"
-                                          ? "Clock In"
+                                          ? "Check-in"
                                           : null}
                                 </span>
                               </button>
@@ -543,7 +546,10 @@ const userData = JSON.parse(userDataString);
                                 }
                                 onClick={clockOut}
                               >
-                                <span>Clock Out</span>
+                                <svg width="19" height="21" viewBox="0 0 19 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                  <path d="M6.5 1.5V0H12.5V1.5H6.5ZM8.75 12.675H10.25V6.925H8.75V12.675ZM9.5 20.975C8.26667 20.975 7.10417 20.7375 6.0125 20.2625C4.92083 19.7875 3.96667 19.1417 3.15 18.325C2.33333 17.5083 1.6875 16.5542 1.2125 15.4625C0.7375 14.3708 0.5 13.2083 0.5 11.975C0.5 10.7417 0.7375 9.57917 1.2125 8.4875C1.6875 7.39583 2.33333 6.44167 3.15 5.625C3.96667 4.80833 4.92083 4.1625 6.0125 3.6875C7.10417 3.2125 8.26667 2.975 9.5 2.975C10.6167 2.975 11.6667 3.1625 12.65 3.5375C13.6333 3.9125 14.5083 4.43333 15.275 5.1L16.55 3.825L17.6 4.875L16.325 6.15C16.925 6.81667 17.4375 7.625 17.8625 8.575C18.2875 9.525 18.5 10.6583 18.5 11.975C18.5 13.2083 18.2625 14.3708 17.7875 15.4625C17.3125 16.5542 16.6667 17.5083 15.85 18.325C15.0333 19.1417 14.0792 19.7875 12.9875 20.2625C11.8958 20.7375 10.7333 20.975 9.5 20.975ZM9.5 19.475C11.5833 19.475 13.3542 18.7458 14.8125 17.2875C16.2708 15.8292 17 14.0583 17 11.975C17 9.89167 16.2708 8.12083 14.8125 6.6625C13.3542 5.20417 11.5833 4.475 9.5 4.475C7.41667 4.475 5.64583 5.20417 4.1875 6.6625C2.72917 8.12083 2 9.89167 2 11.975C2 14.0583 2.72917 15.8292 4.1875 17.2875C5.64583 18.7458 7.41667 19.475 9.5 19.475Z" fill="white" />
+                                </svg>
+                                <span>Check-out</span>
                               </button>
                             )}
                           </div>

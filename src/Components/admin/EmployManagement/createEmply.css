@@ -4,6 +4,8 @@
     width: 100%;
     background-color: white;
     padding: 16px 0px;
+    border: 1px solid #E8E9EB !important;
+    border-radius: 10px !important;
 }
 
 .table1 th{
@@ -34,7 +36,7 @@ text-align: left;
 
 .totalRecord{
     padding: 24px 0px 8px 0px;
-font-family: Inter;
+font-family: inter !important;
 color: #1B2533;
 font-size: 12px;
 font-weight: 500;

@@ -73,7 +73,7 @@ const Auth = (props) => {
       } else if (ans.user.role === "EMPLOYEE") {
         navigate("/employeeDash/update");
       } else {
-        navigate("/adminDash");
+        navigate("/adminDash/HRM");
       }
 
     } else {

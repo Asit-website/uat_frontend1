@@ -160,7 +160,7 @@ padding: 0px 12px;
 }
 
 .fiterWrap h3{
-    font-family: Inter;
+    font-family: inter !important;
     font-size: 14px;
     font-weight: 600;
     line-height: 20px;
@@ -179,6 +179,10 @@ color: #2B2B2B;
  border: none;
  outline: none;
  width: 150px;
+ font-size: 14px;
+ font-family: inter !important;
+ font-weight: 400 !important;
+ color: #0F141C !important;
 }
 
 .EllWrap{
