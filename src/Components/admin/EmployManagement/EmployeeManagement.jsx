@@ -5,88 +5,20 @@ import "react-calendar/dist/Calendar.css";
 import { useMain } from "../../../hooks/useMain";
 import HrSidebar from "../../Hr/Sidebar/HrSidebar";
 import HrNavbar from "../../Hr/Navbar/HrNavbar";
-import chevron from "../../images/chevron_right.png";
-import inbox from "../../images/move_to_inbox.png"
-import outbox from "../../images/outbox.png"
-import personAdd from "../../images/person_add.png"
-import Calendar from "react-calendar";
+// import chevron from "../../images/chevron_right.png";
+// import inbox from "../../images/move_to_inbox.png"
+// import outbox from "../../images/outbox.png"
+// import personAdd from "../../images/person_add.png"
+import f from "../../images/f.png";
+import deleted from "../../images/deletedd.svg";
 import "./employeManage.css";
 import { NavLink, useNavigate } from "react-router-dom";
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
+import actions from "../../images/actions.png"
+import happy from "../../images/bx-happy-heart-eyes.png"
+import edit22 from "../../images/edit22.png"
 
-
-// const emplyData = [
-//     {
-//         employeId : "#EMP0000001",
-//         name:"Surbhi Rajwanshi",
-//         email:"Surbhi@kusheldigi.com",
-//         branch:"Head Office",
-//         department:"Developer",
-//         designation:"Developer",
-//         date_of_joining:" Sep 1, 2023",
-//         Last_login:"2024-1-29 10:43:55",
-//         active:""
-//     },
-
-
-//     {
-//         employeId : "#EMP0000001",
-//         name:"Surbhi Rajwanshi",
-//         email:"Surbhi@kusheldigi.com",
-//         branch:"Head Office",
-//         department:"Developer",
-//         designation:"Developer",
-//         date_of_joining:" Sep 1, 2023",
-//         Last_login:"2024-1-29 10:43:55",
-//         active:""
-//     },
-//     {
-//         employeId : "#EMP0000001",
-//         name:"Surbhi Rajwanshi",
-//         email:"Surbhi@kusheldigi.com",
-//         branch:"Head Office",
-//         department:"Developer",
-//         designation:"Developer",
-//         date_of_joining:" Sep 1, 2023",
-//         Last_login:"2024-1-29 10:43:55",
-//         active:""
-//     },
-//     {
-//         employeId : "#EMP0000001",
-//         name:"Surbhi Rajwanshi",
-//         email:"Surbhi@kusheldigi.com",
-//         branch:"Head Office",
-//         department:"Developer",
-//         designation:"Developer",
-//         date_of_joining:" Sep 1, 2023",
-//         Last_login:"2024-1-29 10:43:55",
-//         active:""
-//     },
-//     {
-//         employeId : "#EMP0000001",
-//         name:"Surbhi Rajwanshi",
-//         email:"Surbhi@kusheldigi.com",
-//         branch:"Head Office",
-//         department:"Developer",
-//         designation:"Developer",
-//         date_of_joining:" Sep 1, 2023",
-//         Last_login:"2024-1-29 10:43:55",
-//         active:""
-//     },
-//     {
-//         employeId : "#EMP0000001",
-//         name:"Surbhi Rajwanshi",
-//         email:"Surbhi@kusheldigi.com",
-//         branch:"Head Office",
-//         department:"Developer",
-//         designation:"Developer",
-//         date_of_joining:" Sep 1, 2023",
-//         Last_login:"2024-1-29 10:43:55",
-//         active:""
-//     },
-
-// ]
 
 const EmployeeManagement = ({
   pop1,
@@ -96,7 +28,6 @@ const EmployeeManagement = ({
   setAlert,
   isHr = false,
 }) => {
-  // const { user } = useMain();
 
   const navigate = useNavigate();
 
@@ -106,11 +37,9 @@ const EmployeeManagement = ({
 
   const [data, setData] = useState([])
 
-  const [value, onChange] = useState(new Date());
-  const [loadFlag, setLoadFlag] = useState(false);
-  const [mainData, setMainData] = useState({});
-
   const [refreshFlag,setRefreshFlag] = useState(false);
+
+  const [currView , setCurrView] = useState(-1);
 
   useEffect(() => {
     getData();
@@ -128,17 +57,8 @@ const EmployeeManagement = ({
   }, []);
 
   const getData1 = async (date) => {
-    setLoadFlag(true);
     const data = await getActivitiesByUser(date, '', '', 0, 10, '');
     console.log(data.data[0]);
-    setMainData(data.data[0]);
-    setLoadFlag(false);
-  };
-
-  const handleCalendar = (e) => {
-    let date = new Date(e).toLocaleDateString('en-GB');
-    // console.log(date);
-    getData(date);
   };
 
   const deleteUser1 = async (id) => {
@@ -170,7 +90,6 @@ const EmployeeManagement = ({
   };
 
   
-
   return (
     <>
       <div className="employee-dash h-full">
@@ -191,7 +110,7 @@ const EmployeeManagement = ({
             <div className="flex-col">
 
               {/* first  */}
-              <div className="hrmDasTxtFir">
+              {/* <div className="hrmDasTxtFir">
                 <p className="hrmHed">HRMS</p>
 
                 <div className="hrDSPAwRAP">
@@ -215,41 +134,91 @@ const EmployeeManagement = ({
                 </div>
 
 
-              </div>
+              </div> */}
+
+               <div className="hrmsFri">
+
+                <h2>Employee Management</h2>
+
+                 {/* right  */}
+                 <div className="hrFRi">
+                  <button>
+                 <span>Add Employee</span>
+                  </button>
+                  <img src={f} alt="" />
+                 </div>
+
+               </div>
+
+               {/* filter section  */}
+               <section className="fiterWrap">
+
+                  <h3>Filter by</h3>
+                  
+                  <p className="line" />
+
+                  <select name="" id="">
+                    <option value="Department">Department</option>
+                  </select>
+
+                  <p className="line" />
+
+                  <select name="" id="">
+                    <option value="Department">Department</option>
+                  </select>
+
+                  <p className="line" />
+
+
+                  <select name="" id="">
+                    <option value="Employee Type">Employee Type</option>
+                  </select>
+
+                
+                  <p className="line" />
+
+               </section>
+
 
               {/* second */}
               <main className="creteEmpWrap">
+
+                 <div className="allEtOL">
+                  <p className="hhj">All Employee</p>
+
+                   <div className="deletwrP">
+                     <img src={deleted} alt="" />
+                     <span>Delete</span>
+                   </div>
+                 </div>
+
                 <div className="relative overflow-x-auto w-full">
                   <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
 
                     <thead className="text-xs uppercase textALLtITL ">
                       <tr>
-                        <th scope="col" className="px-6 py-3 taskTitl ">
-                          EMPLOYEE ID
+                        <th scope="col" className="px-4 py-3 taskTitl ">
+                           ID
                         </th>
-                        <th scope="col" className="px-6 py-3 taskTitl ">
-                          NAME
+                        <th scope="col" className="px-4 py-3 taskTitl ">
+                        EMPLOYEE NAME
                         </th>
-                        <th scope="col" className="px-6 py-3 taskTitl ">
+                        <th scope="col" className="px-4 py-3 taskTitl ">
                           EMAIL
                         </th>
 
-                        {/* <th scope="col" className="px-6 py-3 taskTitl ">
-                          BRANCH
-                        </th> */}
-                        <th scope="col" className="px-6 py-3 taskTitl ">
+                       
+                        <th scope="col" className="px-4 py-3 taskTitl ">
                           DEPARTMENT
                         </th>
-                        <th scope="col" className="px-6 py-3 taskTitl ">
+                        <th scope="col" className="px-4 py-3 taskTitl ">
                           DESIGNATION
                         </th>
-                        <th scope="col" className="px-6 py-3 taskTitl ">
+                        <th scope="col" className="px-4 py-3 taskTitl ">
                           DATE OF JOIN
                         </th>
-                        {/* <th scope="col" className="px-6 py-3 taskTitl ">
-                          Last login
-                        </th> */}
-                        <th scope="col" className="px-6 py-3 taskTitl ">
+                       
+                        <th scope="col" className="px-4 py-3 taskTitl ">
                           ACTION
                         </th>
                       </tr>
@@ -257,25 +226,17 @@ const EmployeeManagement = ({
 
                     <tbody>
                       {
-                        // onClick={() => navigate(`/adminDash/HRM/EmployeeManagement/${item.employeId.replace('#', '')}`)}
                         data?.map((item, index) => (
-                          // let slice1 = slice()
                           <tr key={index} className="bg-white border-b">
-                            <th scope="row" className="px-6 py-4  taskAns employId "><span className=" cursor-pointer">{index+1}</span> </th>
+                            <th scope="row" className="px-4 py-4   "><span className=" cursor-pointer">{index+1}</span> </th>
                             <td className="px-6 py-4 taskAns">{item?.fullName}</td>
                             <td className="px-6 py-4 taskAns">{item?.email}</td>
-                            {/* <td className="px-6 py-4 taskAns">{item?.branch}</td> */}
                             <td className="px-6 py-4 taskAns">{item?.department}</td>
                             <td className="px-6 py-4 taskAns">{item?.designation}</td>
                             <td className="px-6 py-4 taskAns">{item?.joiningDate}</td>
-                            {/* {
-
-                              !loadFlag ? <> <td id={item._id} className="px-6 py-4 taskAns">{mainData && Object.keys(mainData).length > 0 && mainData.activity[mainData.activity.length - 1].message !== "" ? new Date(mainData.activity[mainData.activity.length - 1].ts).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true }) : " - : -"}</td>
-                                </> : null
-
-                            } */}
+                          
                              
-                             <td className="px-6 py-4 taskAns">
+                             {/* <td className="px-6 py-4 taskAns">
                              <div className='flex items-center sk'>
                               <i onClick={()=>{
                                   navigate(`/adminDash/EmployeeMan/${item._id}`);
@@ -284,7 +245,56 @@ const EmployeeManagement = ({
                                 deleteUser1(item?._id);
                               }} className="fa-solid fa-trash"></i>
                             </div>
-                             </td>
+                             </td> */}
+
+                         <div className="viewOnwWRAP"> 
+
+                             <td onClick={()=>{
+                              if(index == currView){
+                                setCurrView(-1);
+                              }
+                              else {
+                                setCurrView(index)
+                              }
+                             }} className="px-6 py-4 taskAns"><img src={actions} alt="" /></td>
+
+
+{
+  index == currView && 
+
+                              <div className=" viewOne">
+                                {/* first  */}
+                                <div className="subView">
+                             <img src={happy} alt="" />
+                                  <p>View </p>
+                                </div>
+
+                                <br />
+
+                                {/* second */}
+                                <div onClick={()=>{
+                                  navigate(`/adminDash/EmployeeMan/${item._id}`);
+                              }}  className="subView">
+                                  <img src={edit22} alt="" />
+                                  <p>Edit </p>
+                                </div>
+
+                                <br />
+
+                                {/* third */}
+                                <div onClick={()=>{
+                                deleteUser1(item?._id);
+                              }} className="subView">
+                                  <img src={deleted} alt="" />
+                                  <p className="deel">Delete </p>
+                                </div>
+                              </div>
+      
+}
+
+                         </div>
+
+
 
                           </tr>
                         ))
@@ -294,8 +304,8 @@ const EmployeeManagement = ({
 
                     </tbody>
                   </table>
-                  {/* <Calendar onChange={handleCalendar} value={value} /> */}
                 </div>
+
               </main>
 
 

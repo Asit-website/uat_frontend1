@@ -15,6 +15,10 @@ import calendarMonth from "../../images/calendar_month.png"
 import "./hrm.css";
 import { NavLink } from "react-router-dom";
 import { useEffect, useState } from "react";
+import refresh from "../../images/bx-refresh.png"
+import annouce from "../../images/annouce.png"
+import holi from "../../images/holid.png"
+import taskA from "../../images/taskAs.png"
 
 var tc3;
 var tc4;
@@ -42,6 +46,33 @@ const EmployeeHRM = ({
   const [announce, setAnnounce] = useState([]);
 
   const [holiday, setHoliday] = useState([]);
+
+  const [task , setTask] = useState([
+    {
+      name:"Chirag",
+      assignDate:"31/05/2023",
+      endDate:"31/05/2023",
+      task:"Madfish"
+    },
+    {
+      name:"Chirag",
+      assignDate:"31/05/2023",
+      endDate:"31/05/2023",
+      task:"Madfish"
+    },
+    {
+      name:"Chirag",
+      assignDate:"31/05/2023",
+      endDate:"31/05/2023",
+      task:"Madfish"
+    },
+    {
+      name:"Chirag",
+      assignDate:"31/05/2023",
+      endDate:"31/05/2023",
+      task:"Madfish"
+    },
+  ])
 
 
   const getData = async () => {
@@ -294,7 +325,6 @@ console.log("userda ",userData);
   }, []);
 
 
-
   return (
     <>
       <div className="employee-dash h-full">
@@ -312,98 +342,109 @@ console.log("userda ",userData);
             <AdminNavbar user={user} setAlert={setAlert} />
           )}
 
-          {loadFlag ? 'Loading ..' : <div className="em">
+          {loadFlag ? 'Loading ..'
+           : 
+          <div className="em">
+
             <div className="flex-col">
-              <div className="hrmDasTxtFir">
-                <p className="hrmHed">Dashboard</p>
-                <div className="hrDsPa">
-                  <p className="hrFirDs">Dashboard</p>
-                  <span>
-                    <img src={chevron} alt="" />
-                  </span>
-                  <span className="html">HRM</span>
-                </div>
+
+            <div className="firstD">
+
+              {/* left side */}
+              <div className="dFirLef">
+                <h2>Hi Akash negi</h2>
+                <p>Real-time insights and performance overview</p>
               </div>
 
-              <main className="attend-ctiveWrap">
-                {/* left side */}
-                <div className="hrmActLeft">
+              {/* right side  */}
+               <button className="refreBtn">Refresh <span><img src={refresh} alt="" /></span></button>
 
-                  {/* first  */}
-                  <div className="hrLefFir">
+            </div>
+
+
+            {/* second boxes  */}
+              <div className="hrLefFir">
+                
                     <NavLink to={`/adminDash/HRM/activeEmployee`}>
-                      <div className="sinActDat">
+                      <div className="sinActDat colorChange1 ">
+
                         <img className="firImg" src={ac1} alt="" />
 
                         <div className="titWrap">
-                          <p className="t1">{'Active'}</p>
-                          <p className="t2">{'Employees'}</p>
+                        <h3>Active Employee</h3>
+                        <p className="hrmlRNu">{counts?.activeEmployees}</p>
                         </div>
 
-                        <p className="hrmlRNu">{counts?.activeEmployees}</p>
                       </div>
                     </NavLink>
 
                     <NavLink to={`/adminDash/HRM/leaveRequest`}>
-                      <div className="sinActDat">
+                      <div className="sinActDat colorChange2">
                         <img className="firImg" src={ac2} alt="" />
 
                         <div className="titWrap">
-                          <p className="t1">{'Leave'}</p>
-                          <p className="t2">{'Requests'}</p>
+                        <h3>Leave Request</h3>
+                        <p className="hrmlRNu">{totalLeave}</p>
+
                         </div>
 
-                        <p className="hrmlRNu">{totalLeave}</p>
                       </div>
                     </NavLink>
 
                     <NavLink to={`/adminDash/HRM/LeaveEmployee`}>
-                      <div className="sinActDat">
+                      <div className="sinActDat colorChange3">
                         <img className="firImg" src={ac3} alt="" />
 
                         <div className="titWrap">
-                          <p className="t1">{'Employees on'}</p>
-                          <p className="t2">{'Leave'}</p>
-                        </div>
+                        <h3>Employee on Leave</h3>
 
                         <p className="hrmlRNu">{counts?.employeesLeaves}</p>
+                        </div>
+
                       </div>
                     </NavLink>
 
                     <NavLink to={`/adminDash/HRM/totalEmployee`}>
-                      <div className="sinActDat">
+                      <div className="sinActDat colorChange4">
                         <img className="firImg" src={ac4} alt="" />
 
                         <div className="titWrap">
-                          <p className="t1">{'Total'}</p>
-                          <p className="t2">{'Employees'}</p>
-                        </div>
+                        <h3>Total Employee</h3>
 
                         <p className="hrmlRNu">{counts?.totalEmployees}</p>
+                        </div>
+
                       </div>
                     </NavLink>
+
                   </div>
 
+
+              <main className="attend-ctiveWrap">
+
+                {/* left side */}
+                <div className="hrmActLeft">
+        
                   {/* second  */}
                   <NavLink to="/adminDash/announcement"><div className="hrLefThi">
 
-                    <h2>Announcement Lists</h2>
+                    <h2 className="headind"> <img src={annouce} alt="" /> <span>Announcement Lists</span></h2>
 
                     <div className="relative overflow-x-auto">
                       <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                         <thead className="text-xs uppercase textALLtITL ">
                           <tr  >
-                            <th scope="col" className="px-6 py-3 taskTitl">
+                            <th scope="col" className="px-2  py-3 taskTitl">
                               TITLE
                             </th>
-                            <th scope="col" className="px-2 py-3 taskTitl">
+                            <th scope="col" className="px-3  py-3 taskTitl">
                               START DATE
                             </th>
-                            <th scope="col" className="px-6 py-3 taskTitl">
+                            <th scope="col" className="px-3 py-3 taskTitl">
                               END DATE
                             </th>
 
-                            <th scope="col" className="px-6 py-3 taskTitl">
+                            <th scope="col" className="px-3 py-3 taskTitl">
                               DESCRIPTION
                             </th>
 
@@ -414,16 +455,16 @@ console.log("userda ",userData);
                             announce?.map((val, index) => {
                               return (
                                 <tr key={index} className="bg-white border-b  ">
-                                  <th scope="row" className="px-6 py-4 font-medium  whitespace-nowrap taskAns ">
+                                  <th scope="row" className="px-2 py-4 font-medium  whitespace-nowrap taskAns ">
                                     {val?.title}
                                   </th>
                                   <td className="px-2 py-4 taskAns">
                                     {val?.startDate}
                                   </td>
-                                  <td className="px-6 py-4 taskAns">
+                                  <td className="px-2 py-4 taskAns">
                                     {val?.endDate}
                                   </td>
-                                  <td className="px-6 py-4 taskAns">
+                                  <td className="px-2 py-4 taskAns">
                                     {val?.description}
                                   </td>
 
@@ -439,39 +480,49 @@ console.log("userda ",userData);
 
                   </div></NavLink>
 
-                  <NavLink to="/adminDash/HRM/holiday"><div className="hrLefThi">
+                  {/* third  */}
+                  <NavLink to="/adminDash/announcement"><div className="hrLefThi">
 
-                    <h2>Holiday Lists</h2>
+                    <h2 className="headind"> <img src={taskA} alt="" /> <span>Task Assign</span></h2>
 
                     <div className="relative overflow-x-auto">
                       <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                         <thead className="text-xs uppercase textALLtITL ">
                           <tr  >
-                            <th scope="col" className="px-6 py-3 taskTitl">
-                              OCCASION
+                            <th scope="col" className="px-2  py-3 taskTitl">
+                            Name
                             </th>
-                            <th scope="col" className="px-2 py-3 taskTitl">
-                              START DATE
+                            <th scope="col" className="px-3  py-3 taskTitl">
+                            Assign Date
                             </th>
-                            <th scope="col" className="px-6 py-3 taskTitl">
+                            <th scope="col" className="px-3 py-3 taskTitl">
                               END DATE
                             </th>
+
+                            <th scope="col" className="px-3 py-3 taskTitl">
+                            Tasks
+                            </th>
+
                           </tr>
                         </thead>
                         <tbody>
                           {
-                            holiday?.map((val, index) => {
+                            task?.map((val, index) => {
                               return (
                                 <tr key={index} className="bg-white border-b  ">
-                                  <th scope="row" className="px-6 py-4 font-medium  whitespace-nowrap taskAns ">
-                                    {val?.holidayName}
+                                  <th scope="row" className="px-2 py-4 font-medium  whitespace-nowrap taskAns ">
+                                    {val?.name}
                                   </th>
                                   <td className="px-2 py-4 taskAns">
-                                    {val?.startDate}
+                                    {val?.assignDate}
                                   </td>
-                                  <td className="px-6 py-4 taskAns">
+                                  <td className="px-2 py-4 taskAns">
                                     {val?.endDate}
                                   </td>
+                                  <td className="px-2 py-4 taskAns">
+                                    {val?.task}
+                                  </td>
+
                                 </tr>
                               )
                             })
@@ -483,6 +534,10 @@ console.log("userda ",userData);
 
 
                   </div></NavLink>
+
+
+      
+
                 </div>
 
                 {/* right side */}
@@ -544,8 +599,71 @@ console.log("userda ",userData);
                     </div>
                   </div>
 
-                  {/* second  */}
-                  <div className="timeSheetWrap">
+                  {/* second  */}          
+
+<NavLink to="/adminDash/HRM/holiday"><div className="hrLefThi">
+
+<h2 className="holiHead"> <img src={holi} alt="" /> <span>Holiday Lists</span></h2>
+
+<div className="relative overflow-x-auto">
+  <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+    <thead className="text-xs uppercase textALLtITL ">
+      <tr  >
+        <th scope="col" className="px-6 py-3 taskTitl">
+          OCCASION
+        </th>
+        <th scope="col" className="px-2 py-3 taskTitl">
+          START DATE
+        </th>
+        <th scope="col" className="px-6 py-3 taskTitl">
+          END DATE
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      {
+        holiday?.map((val, index) => {
+          return (
+            <tr key={index} className="bg-white border-b  ">
+              <th scope="row" className="px-6 py-4 font-medium  whitespace-nowrap taskAns ">
+                {val?.holidayName}
+              </th>
+              <td className="px-2 py-4 taskAns">
+                {val?.startDate}
+              </td>
+              <td className="px-6 py-4 taskAns">
+                {val?.endDate}
+              </td>
+            </tr>
+          )
+        })
+      }
+
+    </tbody>
+  </table>
+</div>
+
+
+</div>
+</NavLink>
+                </div>
+
+              </main>
+
+            </div>
+          </div>}
+        </div>
+      </div>
+    </>
+  );
+};
+
+export default EmployeeHRM;
+
+
+// THIS IS THE PREVIOUS CODE FOR TIMESHEET ACCORDING TO PREVIOUS FIGMA FILE 
+
+ {/* <div className="timeSheetWrap">
                     <div className="tScONT">
                       <p className="time">Timesheets</p>
 
@@ -661,15 +779,4 @@ console.log("userda ",userData);
                         </tbody>
                       </table>
                     </div>
-                  </div>
-                </div>
-              </main>
-            </div>
-          </div>}
-        </div>
-      </div>
-    </>
-  );
-};
-
-export default EmployeeHRM;
+                  </div> */}

@@ -1,3 +1,58 @@
+
+
+.firstD{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.dFirLef{
+    display: flex;
+flex-direction: column;
+gap: 10px;
+}
+.dFirLef h2{
+    font-family: Inter;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 32px;
+    text-align: left;
+    
+}
+.dFirLef p{
+    font-family: Inter;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 16px;
+    text-align: left;
+    color: #666D76;
+}
+
+.refreBtn{
+    width: 136px;
+height: 40px;
+padding: 10px 24px 10px 24px;
+gap: 10px;
+border-radius: 10px;
+background: linear-gradient(131.78deg, #D1E8FD 6.87%, #EDEFFF 91.67%);
+border: 1px solid #0B56E4;
+display: flex;
+align-items: center;
+gap: 4px;
+border: 1px 0px 0px 0px;
+opacity: 0px;
+font-family: Inter;
+color: #0B56E4;
+font-size: 16px;
+font-weight: 500;
+line-height: 24px;
+letter-spacing: 0.005em;
+text-align: left;
+
+
+}
+
 .hrmDasTxtFir{
     display: flex;
     flex-direction: column;
@@ -79,45 +134,133 @@ color: #293240;
     flex-direction: column;
     gap: 20px;
 } 
-.hrmActLeft .hrLefFir{
+
+
+ .hrLefFir{
   display: flex;
-  flex-wrap: wrap;
   gap: 20px;
+  margin-top: 20px;
   align-items: center;
   justify-content: center;
 }
-.hrmActLeft .sinActDat{
-    width: 150px;
-    height: 176px;
-    top: 233px;
-    left: 315px;
-    border-radius: 5px;
-    border: 1px;
-    box-shadow: 2px 5px 15px 0px #0000001A;
-padding: 16px 20px;
+ .sinActDat{
+  cursor: pointer;
+width: 274px;
+height: 129px;
+padding: 24px 20px 24px 20px;
+gap: 8px;
+border-radius: 10px;
+border: 1px 0px 0px 0px;
 display: flex;
-flex-direction: column;
-gap: 15px;
-background-color: white;
-cursor: pointer;
+justify-content: space-between;
+
+opacity: 0px;
+
     
 }
-.hrmActLeft .titWrap{
+
+.viewOnwWRAP{
+    position: relative;
+
+}
+
+.viewOne{
+    position:absolute;
+    top: 40px;
+    min-width: 161px;
+height: 148px;
+border: 1px solid #E3E3E3;
+display: flex;
+flex-direction: column;
+box-shadow: 0px 4px 12px 0px #1A1A1A33;
+padding: 8px 0px 8px 0px;
+gap: 0px;
+border-radius: 8px 0px 0px 0px;
+z-index: 20;
+border: 1px 0px 0px 0px;
+background-color: white;
+
+}
+
+.subView{
+    display: flex;
+    gap: 4px;
+    padding: 5px 5px;
+    cursor: pointer;
+}
+.subView p{
+    font-family: Inter;
+    color: #2B2B2B;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    letter-spacing: 0.0025em;
+    text-align: left;
+    
+}
+
+.deel{
+    color: #DD3409 !important;
+}
+.headind{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+
+}
+.headind span{
+    font-family: Inter;
+    color: #1B2533;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 24px;
+    letter-spacing: 0.0015em;
+    text-align: left;
+    
+}
+
+.colorChange1{
+    background: #DEF2EB;
+    border: 1px solid #B7DFD5;
+}
+.colorChange2{
+    background: #FCEFEC;
+    border: 1px solid #F4C0B3;
+}
+.colorChange3{
+    background: #FFF5D7;
+    border: 1px solid #FCDCB2;
+}
+.colorChange4{
+    background: #D7E5FF;
+    border: 1px solid #B3CBF7;
+}
+
+ .sinActDat img{
+max-width: 42px;
+max-height: 42px;
+border-radius: 8px;
+    
+}
+
+ .titWrap{
    display: flex;
    flex-direction: column;
+   gap: 8px;
    
 }
 .hrmActLeft .firImg{
    max-width: 40px;
    max-height: 40px;
 }
-.hrmActLeft .titWrap .t1{
-    font-family: Gilroy-Regular;
-    font-size: 16px;
-    font-weight: 400;
-    letter-spacing: 0em;
+ .titWrap h3{
+    font-family: Inter;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 24px;
+    letter-spacing: 0.0015em;
     text-align: left;
-color: #293240;    
+    color: #1B2533;
 
 }
 .hrmActLeft .titWrap .t2{
@@ -128,12 +271,12 @@ color: #293240;
     text-align: left;
 color: #060606;    
 }
-.hrmActLeft .hrmlRNu{
-    font-family: Manrope;
-    font-size: 16px;
+ .hrmlRNu{
+    font-family: Inter;
+    font-size: 24px;
     font-weight: 600;
-    letter-spacing: 0em;
-    text-align: left;
+    line-height: 32px;
+    text-align: right;
 color: #293240;    
 }
 
@@ -324,13 +467,31 @@ color: #060606;
 }
 
 .taskTitl{
-font-family: Inter;
-font-size: 16px;
-font-weight: 400;
-line-height: 19px;
-letter-spacing: 0em;
-text-align: left;
-color: #060606;
+    font-family: Inter;
+    color: #2B2B2B;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 16px;
+    letter-spacing: 0.004em;
+    text-align: left;
+    
+    
+}
+
+.holiHead{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.holiHead span{
+    font-family: Inter;
+    color: #1B2533;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 24px;
+    letter-spacing: 0.0015em;
+    text-align: left;
+    
 }
 
 .taskAns{

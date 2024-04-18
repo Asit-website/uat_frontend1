@@ -1,0 +1,131 @@
+.adFri{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    
+}
+.adFri h2{
+    color: #101820;
+    font-family: Inter;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 32px;
+    text-align: left;
+    
+}
+
+.adFrRIH{
+    display: flex;
+    gap: 16px;
+    align-items: center;
+
+}
+.adFrRIH .calce{
+    width: 102px;
+    height:  40px;
+    padding: 10px 24px 10px 24px;
+    gap: 10px;
+    border: 1px 0px 0px 0px;
+    opacity: 0px;
+    border-radius: 10px;
+    background: linear-gradient(131.78deg, #D1E8FD 6.87%, #EDEFFF 91.67%);
+    border: 1px solid #0B56E4;
+    
+
+}
+.adFrRIH .calce span{
+    font-family: Inter;
+    color: #0B56E4;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    letter-spacing: 0.005em;
+    text-align: left;
+    
+}
+.adFrRIH .register{
+    width: Hug 132px;
+    height: 40px;
+    padding: 10px 16px 10px 12px;
+    gap: 10px;
+    border-radius: 10px;
+    background-color: #0B56E4;
+    opacity: 0px;
+    
+
+}
+.adFrRIH .register span{
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    letter-spacing: 0.005em;
+    text-align: left;
+color: white;    
+}
+
+.leadForm{
+    max-width:  1168pxpx;
+    width: 100%;
+    margin-top: 20px;
+    /* height:  1071px; */
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    border: 1px solid #E8E9EB;
+    background-color: white;
+    border-radius: 12px 0px 0px 0px;
+    border: 1px 0px 0px 0px;
+    opacity: 0px;
+
+        
+}
+
+.leadInFir{
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+.sinInfir{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+
+.currEmp{
+    font-family: Inter;
+font-size: 14px;
+font-weight: 400;
+line-height: 24px;
+text-align: left;
+color: #0B56E4;
+}
+.nom{
+    font-family: Inter;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 24px;
+    text-align: left;
+color: #0F141C;    
+}
+
+.haedd{
+font-family: Inter;
+color: #101820;
+font-size: 16px;
+font-weight: 700;
+line-height: 24px;
+letter-spacing: 0.0015em;
+text-align: left;
+
+}
+
+.infoForm{
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}

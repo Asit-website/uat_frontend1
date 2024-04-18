@@ -67,6 +67,7 @@ import CreateLead2 from "./Components/admin/LeadManagement/CreateLead2.jsx";
 import EditLead2 from "./Components/admin/LeadManagement/EditLead2.jsx";
 import ImportLead2 from "./Components/admin/LeadManagement/ImportLead2.jsx";
 import LeadFile2 from "./Components/admin/LeadManagement/LeadFile2.jsx";
+import AddEmployee from "./Components/admin/EmployManagement/AddEmployee.jsx";
 
 var tc;
 
@@ -256,7 +257,9 @@ function App() {
                 <Route path="/adminDash/importLead/:id" element={<ImportLead />}/>
                 <Route path="/adminDash/leadFile" element={<LeadFile/>}/>
 
-                
+
+<Route path="/adminDash/addEmployee" element={<AddEmployee />}  />
+                 
             </Route>
 
           </Routes>
