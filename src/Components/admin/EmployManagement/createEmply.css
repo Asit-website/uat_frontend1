@@ -1,8 +1,47 @@
-.creteEmpWrap{
+.creteEmpWrap2{
     display: flex;
-    flex-wrap: wrap;
-    gap: 24px;
-    padding: 30px 0px;
+    flex-direction: column;
+    width: 100%;
+    background-color: white;
+    padding: 16px 0px;
+}
+
+.table1 th{
+    background-color: white !important;
+}
+
+.table1 th ,td{
+    border: none !important;
+    border-bottom: 1px solid #E8E9EB !important;
+}
+
+.checkboxes{
+    width: 20px;
+    height: 20px;
+  
+}
+
+.index{
+font-family: Inter;
+color: #40444B;
+font-size: 12px;
+font-weight: 500;
+line-height: 16px;
+letter-spacing: 0.005em;
+text-align: left;
+
+}
+
+.totalRecord{
+    padding: 24px 0px 8px 0px;
+font-family: Inter;
+color: #1B2533;
+font-size: 12px;
+font-weight: 500;
+line-height: 16px;
+letter-spacing: 0.004em;
+text-align: left;
+
 }
 
 .personDetaCon{

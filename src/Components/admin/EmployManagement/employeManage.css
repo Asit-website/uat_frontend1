@@ -124,10 +124,13 @@ color: #293240;
     
 }
 .hrFRi button{
-    width: 163px;
-    height: 40px;
+    /* width: 163px; */
+    display: flex;
+    align-items: center;
+    min-height: 40px;
     padding: 10px 16px 10px 12px;
     gap: 10px;
+    border: none;
     border-radius: 10px;
     background-color: #0B56E4;
     opacity: 0px;
@@ -178,11 +181,18 @@ color: #2B2B2B;
  width: 150px;
 }
 
+.EllWrap{
+
+    border-bottom: 1px solid #E8E9EB;
+   height: 44px;
+    
+}
 .allEtOL{
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0px 20px;
+    padding: 0px 16px;
+
     
 }
 .allEtOL .hhj{

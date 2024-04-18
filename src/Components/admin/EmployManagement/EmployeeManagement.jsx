@@ -18,6 +18,7 @@ import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 import actions from "../../images/actions.png"
 import happy from "../../images/bx-happy-heart-eyes.png"
 import edit22 from "../../images/edit22.png"
+import pp from "../../images/pp.png"
 
 
 const EmployeeManagement = ({
@@ -142,7 +143,8 @@ const EmployeeManagement = ({
 
                  {/* right  */}
                  <div className="hrFRi">
-                  <button>
+                  <button className="ddBtn">
+                    <img src={pp} alt="" />
                  <span>Add Employee</span>
                   </button>
                   <img src={f} alt="" />
@@ -181,7 +183,12 @@ const EmployeeManagement = ({
 
 
               {/* second */}
-              <main className="creteEmpWrap">
+
+               <p className="totalRecord">Total Records 24</p>
+
+              <main className="creteEmpWrap2">
+
+         <div className="EllWrap">
 
                  <div className="allEtOL">
                   <p className="hhj">All Employee</p>
@@ -191,13 +198,18 @@ const EmployeeManagement = ({
                      <span>Delete</span>
                    </div>
                  </div>
+         </div>
 
-                <div className="relative overflow-x-auto w-full">
-                  <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                <div className="relative  overflow-x-auto w-full">
+                  <table className="w-full table1 text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
 
                     <thead className="text-xs uppercase textALLtITL ">
                       <tr>
-                        <th scope="col" className="px-4 py-3 taskTitl ">
+                        <th scope="col" className="px-3 py-3 taskTitl ">
+                        <input type="checkbox" className="checkboxes" />
+                           
+                        </th>
+                        <th scope="col" className="px-6 py-3 taskTitl ">
                            ID
                         </th>
                         <th scope="col" className="px-4 py-3 taskTitl ">
@@ -206,8 +218,6 @@ const EmployeeManagement = ({
                         <th scope="col" className="px-4 py-3 taskTitl ">
                           EMAIL
                         </th>
-
-                       
                         <th scope="col" className="px-4 py-3 taskTitl ">
                           DEPARTMENT
                         </th>
@@ -228,25 +238,18 @@ const EmployeeManagement = ({
                       {
                         data?.map((item, index) => (
                           <tr key={index} className="bg-white border-b">
-                            <th scope="row" className="px-4 py-4   "><span className=" cursor-pointer">{index+1}</span> </th>
-                            <td className="px-6 py-4 taskAns">{item?.fullName}</td>
-                            <td className="px-6 py-4 taskAns">{item?.email}</td>
-                            <td className="px-6 py-4 taskAns">{item?.department}</td>
-                            <td className="px-6 py-4 taskAns">{item?.designation}</td>
-                            <td className="px-6 py-4 taskAns">{item?.joiningDate}</td>
+                             <th scope="col" className="px-3 py-3 taskTitl ">
+                        <input type="checkbox" className="checkboxes" />
+                           
+                        </th>
+                            <th scope="row" className="px-6 py-4   "><span className="index cursor-pointer">{index+1}</span> </th>
+                            <td className="px-4 py-4 taskAns">{item?.fullName}</td>
+                            <td className="px-4 py-4 taskAns">{item?.email}</td>
+                            <td className="px-4 py-4 taskAns">{item?.department}</td>
+                            <td className="px-4 py-4 taskAns">{item?.designation}</td>
+                            <td className="px-4 py-4 taskAns">{item?.joiningDate}</td>
                           
                              
-                             {/* <td className="px-6 py-4 taskAns">
-                             <div className='flex items-center sk'>
-                              <i onClick={()=>{
-                                  navigate(`/adminDash/EmployeeMan/${item._id}`);
-                              }} className="fa-solid fa-pen-to-square"></i>
-                              <i onClick={()=>{
-                                deleteUser1(item?._id);
-                              }} className="fa-solid fa-trash"></i>
-                            </div>
-                             </td> */}
-
                          <div className="viewOnwWRAP"> 
 
                              <td onClick={()=>{
@@ -256,7 +259,7 @@ const EmployeeManagement = ({
                               else {
                                 setCurrView(index)
                               }
-                             }} className="px-6 py-4 taskAns"><img src={actions} alt="" /></td>
+                             }} className="px-4 py-4 taskAns"><img src={actions} alt="" /></td>
 
 
 {
@@ -303,6 +306,7 @@ const EmployeeManagement = ({
 
 
                     </tbody>
+                    
                   </table>
                 </div>
 
