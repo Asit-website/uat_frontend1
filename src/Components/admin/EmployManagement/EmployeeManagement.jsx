@@ -35,28 +35,34 @@ const EmployeeManagement = ({
 
   let todayDate = new Date().toLocaleDateString('en-GB');
 
-  const { user, getUsers, getActivitiesByUser, deleteUser,getDepartments,getDesingation } = useMain();
+  const { user, getUsers, getActivitiesByUser, deleteUser,getDepartments,getDesignations } = useMain();
 
-  const [data, setData] = useState([])
+  const [data, setData] = useState([]);
+
+  const [allData , setAllData] = useState([]);
 
   const [refreshFlag, setRefreshFlag] = useState(false);
 
   const [currView, setCurrView] = useState(-1);
 
+  const [filters , setFilters] = useState({
+    department:"Department",
+    designation:"Designation"
+  })
+
   const [department,setDepartment] = useState([]);
 
-  // const [designation,setDesignation] = useState([]);
-  
+  const [designation,setDesignation] = useState([]);
 
-  useEffect(() => {
-    getData();
-    // getDes();
-    getDep();
-  }, [refreshFlag]);
+  const fetchDesig = async()=>{
+      const ans = await getDesignations();
+      setDesignation(ans?.data);
+  }
+  
 
   const getData = async () => {
     const ans = await getUsers();
-    console.log(ans);
+    setAllData(ans?.data);
     setData(ans.data);
   };
 
@@ -66,16 +72,6 @@ const EmployeeManagement = ({
     console.log(ans);
   }
 
-  // const getDes = async () =>{
-  //   const ans = await getDesingation();
-  //   setDesignation(ans?.data);
-  // }
-  
-
-
-  useEffect(() => {
-    getData1(todayDate);
-  }, []);
 
   const getData1 = async (date) => {
     const data = await getActivitiesByUser(date, '', '', 0, 10, '');
@@ -86,7 +82,6 @@ const EmployeeManagement = ({
 
     confirmAlert({
       title: 'Are you sure you want to delete this item?',
-      // message: 'All related data to this will be deleted',
       buttons: [
         {
           label: 'Delete',
@@ -114,6 +109,52 @@ const EmployeeManagement = ({
 
   };
 
+  const  filterHandler = (e)=>{
+    const {name , value} = e.target;
+
+     setFilters((prev)=>({
+      ...prev ,
+      [name]: value
+     }))
+  }
+  
+  useEffect(() => {
+    getData();
+    fetchDesig();
+    getDep();
+  }, [refreshFlag]);
+
+  useEffect(() => {
+    getData1(todayDate);
+  }, []);
+
+  useEffect(()=>{
+
+
+    const completeData = [...allData];
+
+    if(filters.department !== "Department" && filters.designation === "Designation" ){
+         const filterData = completeData.filter((data)=> data.department === filters.department);
+
+          setData(filterData);
+          
+    }
+     else if(filters.department === "Department" && filters.designation !== "Designation"){
+      const filterData = completeData.filter((data)=> data.designation === filters.designation);
+
+      setData(filterData);
+     }
+     else if(filters.department !== "Department" && filters.designation !== "Designation") {
+      const filterData = completeData.filter((data)=> (data.designation === filters.designation) && (data.department === filters.department));
+
+      setData(filterData);
+     }
+     else{
+       setData([...allData]);
+     }
+
+  },[filters.department , filters.designation])
+
 
   return (
     <>
@@ -135,31 +176,7 @@ const EmployeeManagement = ({
             <div className="flex-col">
 
               {/* first  */}
-              {/* <div className="hrmDasTxtFir">
-                <p className="hrmHed">HRMS</p>
-
-                <div className="hrDSPAwRAP">
-
-
-
-                  <div className="hrDsPa">
-                    <p className="hrFirDs">HRMS</p>{" "}
-                    <span>
-                      <img src={chevron} alt="" />
-                    </span>{" "}
-                    <span className="thml">Employee Management</span>
-                  </div>
-
-                  <div className="inObPerAd">
-                    <img src={inbox} alt="" />
-                    <img src={outbox} alt="" />
-                   <NavLink to="/adminDash/EmployeeMan"><img src={personAdd} alt="" /></NavLink>
-                  </div>
-
-                </div>
-
-
-              </div> */}
+             
 
               <div className="hrmsFri">
 
@@ -183,7 +200,7 @@ const EmployeeManagement = ({
 
                 <p className="line" />
 
-                <select name="" id="">
+                <select name="department" onChange={filterHandler} id="">
                   <option value="Department">Department</option>
                   {
                      department?.map((val,index)=>{
@@ -194,13 +211,13 @@ const EmployeeManagement = ({
 
                 <p className="line" />
 
-                <select name="" id="">
+                <select name="designation" onChange={filterHandler} id="">
                   <option value="Designation">Designation</option>
-                  {/* {
+                  {
                      designation?.map((val,index)=>{
                       return <option key={index} value={val?.name}>{val?.name}</option>
                      })
-                  } */}
+                  }
                 </select>
 
                 <p className="line" />
@@ -235,6 +252,7 @@ const EmployeeManagement = ({
                 </div>
 
                 <div className="relative  overflow-x-auto w-full">
+
                   <table className="w-full table1 text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
 
                     <thead className="text-xs uppercase textALLtITL ">
