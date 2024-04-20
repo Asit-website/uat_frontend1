@@ -65,9 +65,9 @@ const AdminNavbar = ({ setAlert }) => {
               {/* <img src={thir} alt="" /> */}
 
 
-              <p className="">Hi, {user?.fullName == null ? ("Shubham Gupta") : user?.fullName}!</p>
+              {/* <p className="">Hi, {user?.fullName == null ? ("Shubham Gupta") : user?.fullName}!</p>
 
-              <span><img src={arrowDown} alt="" /></span>
+              <span><img src={arrowDown} alt="" /></span> */}
 
             </div>
 

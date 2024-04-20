@@ -520,6 +520,7 @@
     background-color: white;
     border-left: none;
     border-right: none;
+    white-space: nowrap !important;
 }
 
 .holiHead {
@@ -550,6 +551,7 @@
     background-color: white;
     border-right: none;
     border-left: none;
+    /* white-space: nowrap !important; */
 }
 
 .textALLtITL {

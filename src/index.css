@@ -580,6 +580,12 @@ width: 100%;
 .serad{
   padding: 20px;
 }
+.emm{
+  margin-top: 50px !important;
+}
+.taskans11{
+  white-space: nowrap !important;
+}
 .forget {
   color: #0B56E4 !important;
   font-family: inter !important;
@@ -733,7 +739,9 @@ gap: 90px;
 }
 
 .sixth-logo .john {
-  width: 40px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
 }
 
 .sixth-logo .bottom {
@@ -1279,10 +1287,11 @@ gap: 90px;
 }
 
 .calend-head h2 {
-  color: #000000;
-  font-family: "Bold" !important;
-  font-size: 18px;
+  color: #1B2533;
+  font-family: inter !important;
+  font-size: 16px;
   letter-spacing: 0.5px;
+  font-weight: 600;
 }
 
 .calend-head p {
@@ -3116,7 +3125,7 @@ abbr:where([title]) {
 }
 
 .falend .react-calendar {
-  background-color: #F1F6FF;
+  background-color: #ffffff;
   margin-top: 20px;
 }
 
@@ -3144,7 +3153,7 @@ abbr:where([title]) {
 }
 
 .falend .react-calendar__navigation {
-  width: 42% !important;
+  width: 100% !important;
 }
 
 .falend .react-calendar__navigation__arrow {
@@ -3156,7 +3165,11 @@ abbr:where([title]) {
 
 .falend .react-calendar__navigation__label__labelText {
   font-size: 13px !important;
-  font-family: "Bold" !important;
+  font-family: inter !important;
+}
+
+.react-calendar__navigation button:enabled:hover, .react-calendar__navigation button:enabled:focus{
+  background-color: #fff !important;
 }
 
 .falend hr {
@@ -3172,14 +3185,16 @@ abbr:where([title]) {
 .falend .react-calendar__tile {
   line-height: 8px !important;
   font-size: 11px;
-  border-radius: 50% !important;
+  /* border-radius: 50% !important; */
 }
 
 .falend .react-calendar__tile abbr {
   color: #000000 !important;
   font-family: "Semi Bold" !important;
 }
-
+.react-calendar__tile:enabled:hover, .react-calendar__tile:enabled:focus{
+  background-color: #e6e6e6 !important;
+}
 .cals-dent img {
   position: absolute;
   right: 30px;

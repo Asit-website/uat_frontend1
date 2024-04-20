@@ -4,14 +4,10 @@ import "react-calendar/dist/Calendar.css";
 import { useMain } from "../../../hooks/useMain";
 import HrSidebar from "../../Hr/Sidebar/HrSidebar";
 import HrNavbar from "../../Hr/Navbar/HrNavbar";
-import chevron from "../../images/chevron_right.png";
 import ac1 from "../../images/ac1.png";
 import ac2 from "../../images/ac2.png";
 import ac3 from "../../images/ac3.png";
 import ac4 from "../../images/ac4.png";
-import timer from "../../images/timer.png";
-import MagnifyingGlass from "../../images/MagnifyingGlass.png"
-import calendarMonth from "../../images/calendar_month.png"
 import "./hrm.css";
 import { NavLink } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -19,7 +15,7 @@ import refresh from "../../images/bx-refresh.png"
 import annouce from "../../images/annouce.png"
 import holi from "../../images/holid.png"
 import taskA from "../../images/taskAs.png"
-import lighting from '../../images/ligting.svg';
+import sites from '../../images/sites.svg';
 var tc3;
 var tc4;
 
@@ -348,7 +344,7 @@ const EmployeeHRM = ({
 
           {loadFlag ? 'Loading ..'
             :
-            <div className="em">
+            <div className="em emm">
 
               <div className="flex-col">
 
@@ -461,16 +457,16 @@ const EmployeeHRM = ({
                               announce?.map((val, index) => {
                                 return (
                                   <tr key={index} className="bg-white border-b  ">
-                                    <th scope="row" className="px-3 py-4 font-medium tasklo  whitespace-nowrap taskAns ">
+                                    <th scope="row" className="px-3 py-4 font-medium tasklo  whitespace-nowrap taskAns taskans11">
                                       {val?.title}
                                     </th>
-                                    <td className="px-3 py-4 taskAns lolo">
+                                    <td className="px-3 py-4 taskAns lolo taskans11">
                                       {val?.startDate}
                                     </td>
-                                    <td className="px-3 py-4 taskAns lolo">
+                                    <td className="px-3 py-4 taskAns lolo taskans11">
                                       {val?.endDate}
                                     </td>
-                                    <td className="px-3 py-4 taskAns">
+                                    <td className="px-3 py-4 taskAns taskans11">
                                       {val?.description}
                                     </td>
 
@@ -554,8 +550,8 @@ const EmployeeHRM = ({
                     <div className="markAttWrap">
                       {/* top */}
                       <div className="markAtt">
-                        <img src={lighting} alt="" />
-                        <p>  Mark Attandance</p>
+                        <img src={sites} alt="" />
+                        <p>Mark Attandance</p>
                       </div>
 
                       <hr />

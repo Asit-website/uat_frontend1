@@ -273,10 +273,10 @@ const EmployeeNavbar = ({ user, setAlert, pop1, setPop1 }) => {
         </div>
         <NavLink to="/employeeDash">
         <div className="second-logo flex items-center">
-          <img src={thir} alt="" />
+          {/* <img src={thir} alt="" />
           <p className="ml-2">
             Good {greet} {user?.fullName}
-          </p>
+          </p> */}
         </div>
         </NavLink>
         <div className="third-logo ">

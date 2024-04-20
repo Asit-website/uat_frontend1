@@ -5,10 +5,10 @@ import "react-calendar/dist/Calendar.css";
 import { useMain } from "../../../hooks/useMain";
 import "./lead.css"
 import bxs from '../../images/bxs.svg'
+import { NavLink } from "react-router-dom";
 
 const LeadFile = ({ setAlert, pop, setPop }) => {
     const { user } = useMain();
-
 
     return (
         <>
@@ -21,9 +21,9 @@ const LeadFile = ({ setAlert, pop, setPop }) => {
                     <div className="em">
                         <div className="importB">
                             <h2>Import Leads</h2>
-                            <button className="refresh canlo">
+                           <NavLink to="/adminDash/myLead"><button className="refresh canlo">
                                 <span className="ref1">Cancel</span>
-                            </button>
+                            </button></NavLink>
                         </div>
                         <div className="import_vhasa">
                             <div className="form_filel">
