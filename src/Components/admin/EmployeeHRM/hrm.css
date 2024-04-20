@@ -511,12 +511,13 @@
 
 .taskTitl {
     font-family: Inter;
-    color: #2B2B2B;
-    font-size: 11px;
+    font-size: 12px;
     font-weight: 500;
     line-height: 16px;
     letter-spacing: 0.004em;
     text-align: left;
+    color: #2B2B2B;
+    
     background-color: white;
     border-left: none;
     border-right: none;
@@ -540,19 +541,6 @@
 
 }
 
-.taskAns {
-    font-family: Inter;
-    font-size: 12px;
-    font-weight: 400;
-    line-height: 17px;
-    letter-spacing: 0em;
-    text-align: left;
-    color: #293240;
-    background-color: white;
-    border-right: none;
-    border-left: none;
-    /* white-space: nowrap !important; */
-}
 
 .textALLtITL {
     background-color: #F8F9FD;
@@ -560,17 +548,8 @@
 
 .hrLefThi {
     background-color: #FFFFFF;
+    border-radius: 10px;
+    max-width: 672px;
     width: 100%;
-    border-radius: 5px;
 }
 
-.hrLefThi h2 {
-    padding: 20px 20px;
-    font-family: Gilroy-Medium;
-    font-size: 18px;
-    font-weight: 400;
-    line-height: 22px;
-    letter-spacing: 0em;
-    text-align: left;
-    color: #060606;
-}

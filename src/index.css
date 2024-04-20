@@ -992,6 +992,9 @@ gap: 90px;
   width: 100%;
   overflow-y: scroll;
   height: 690px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
   overflow-x: hidden;
 }
 
@@ -1021,16 +1024,48 @@ gap: 90px;
 .time_emp_desh_flex2{
   display: flex;
   gap: 20px;
+  align-items: center;
+}
+.time_emp_desh{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+}
+.time_emp_desh h5{
+  font-family: Inter;
+  color: #0B56E4;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  letter-spacing: 0.001em;
+  text-align: center;
+  
+
 }
 .time_emp_desh p{
-  font-size: 20px;
-  font-weight: 400;
-  color: #293240;
-  font-family: Gilroy-Regular;
+  font-family: Inter;
+  color: #2B2B2B;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 16px;
+  letter-spacing: 0.004em;
+  text-align: center;
+  
 }
 .leaves_request_emp{
   display: flex;
   justify-content: space-between;
+  padding: 16px;
+}
+.leaves_request_emp button span{
+  font-family: Inter;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+  letter-spacing: 0.005em;
+  text-align: left;
+color: white;  
 }
 .leave_setion_emp{
   display: flex;
@@ -1066,9 +1101,7 @@ gap: 90px;
   color: #060606;
 }
 .second-bedge {
- 
-  max-width: 650px;
-  width: 100%;
+   width: 100%;
 }
 
 .line img {
@@ -3284,7 +3317,6 @@ abbr:where([title]) {
   display: flex;
   flex-direction: column;
   gap: 20px;
-  max-width: 435px;
   width: 100%;
 }
 .attend-ctiveWrapempp .markAttWrap55 {
