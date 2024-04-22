@@ -18,6 +18,7 @@ import leavimg from "../../images/leaveImg.png"
 import cas from "../../images/cssual.png"
 import sick2 from "../../images/sick2.png"
 import annNav from "../../images/annNav.png"
+import cutt from "../../images/cutt.png"
 
 var tc3;
 var tc4;
@@ -845,23 +846,31 @@ const EmployeeDash = ({ setAlert, pop1, setPop1 }) => {
                     id="authentication-modal"
                     tabindex="-1"
                     aria-hidden="true"
-                    class="user_class  hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center mt-10 md:inset-0 h-[calc(100%-1rem)] max-h-full"
+                    class="user_class  hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center mt-10 md:inset-0 h-[calc(100%-1rem)] max-h-full "
                   >
-                    <div class="relative  p-4 w-full max-w-md max-h-full">
+                    <div class="relative  p-4 w-full wrapping max-w-md max-h-full">
                       {/* <!-- Modal content --> */}
                       <div class="relative createLeaveWrap bg-white rounded-lg shadow dark:bg-gray-700">
                         {/* <!-- Modal header --> */}
 
-                        <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
-                          <h3 class="text-xl font-semibold text-gray-900 ">
-                            Create Leave Request
+                        <div class="leaHEcUTwRAP">
+
+                          <h3 class="leaveHead ">
+                             Leave Request
                           </h3>
+
+                          <img src={cutt} alt="" />
+
                         </div>
 
+                        <hr />
+
                         {/* <!-- Modal body --> */}
-                        <div class="p-4 md:p-5">
-                          <form className="space-y-4" action="#">
-                            <div class="mt-2 user_class_input">
+                        <div class="">
+                          <form className=" mainModel" action="#">
+
+                            {/* <div class=" user_class_input">
+
                               <label
                                 for="name"
                                 class="block mb-2 text-sm font-medium text-gray-900 employName"
@@ -879,9 +888,10 @@ const EmployeeDash = ({ setAlert, pop1, setPop1 }) => {
                                 placeholder="Enter the name"
                                 required
                               />
-                            </div>
+                            </div> */}
 
-                            <div class="mt-2 user_class_input">
+                            <div class="user_class_input2">
+
                               <label
                                 for="text"
                                 class="block mb-2 text-sm font-medium text-gray-900 employName"
@@ -903,8 +913,9 @@ const EmployeeDash = ({ setAlert, pop1, setPop1 }) => {
                               </select>
                             </div>
 
-                            <div className="flex justify-between w-full">
-                              <div class="user_class_input w-full mt-2 ">
+                            <div className="userClassWrap">
+
+                              <div class="user_class_input3 w-full mt-2 ">
                                 <label
                                   for="text"
                                   class="block mb-2 text-sm font-medium text-gray-900 employName"
@@ -921,7 +932,8 @@ const EmployeeDash = ({ setAlert, pop1, setPop1 }) => {
                                   required
                                 />
                               </div>
-                              <div class="user_class_input w-full ml-2  mt-2">
+
+                              <div class="user_class_input3 w-full ml-2  mt-2">
                                 <label
                                   for="text"
                                   class="block mb-2 text-sm font-medium text-gray-900 employName"
@@ -938,9 +950,10 @@ const EmployeeDash = ({ setAlert, pop1, setPop1 }) => {
                                   required
                                 />
                               </div>
+
                             </div>
 
-                            <div class="user_class_input">
+                            <div class="user_class_input4">
                               <label
                                 for="message"
                                 class="block mb-2 mt-2 text-sm font-medium text-gray-900 employName"
@@ -954,12 +967,13 @@ const EmployeeDash = ({ setAlert, pop1, setPop1 }) => {
                                 value={formdata.reason}
                                 id="message"
                                 rows="4"
-                                class="reasonText"
+                                class="reasonText2"
                                 placeholder="Enter your reason..."
                               ></textarea>
                             </div>
 
-                            <button
+                            {/*
+                             <button
                               onClick={(e) => {
                                 e.preventDefault();
 
@@ -977,7 +991,33 @@ const EmployeeDash = ({ setAlert, pop1, setPop1 }) => {
                               class="w-full mt-5 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                             >
                               Cancel
+                            </button> */}
+
+
+                            <div className="sendReBtn">
+
+                            <button
+                              onClick={(e) => {
+                                e.preventDefault();
+
+                                submitHandler(e);
+                              }}
+                              type="button"
+                              class="reqSend"
+                            >
+                             <span>  Request send</span>
                             </button>
+
+                            <button
+                              onClick={() => setStar1(false)}
+                              type="button"
+                              class="canceBtn"
+                            >
+                              <span>Cancel</span>
+                            </button> 
+
+                            </div>
+
                           </form>
                         </div>
                       </div>

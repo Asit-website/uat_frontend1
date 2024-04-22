@@ -3468,14 +3468,33 @@ abbr:where([title]) {
 
 
 .user_class{
-  width: 40%;
   position: fixed;
-  left: 30%;
-  top: 9%;
+  /* top: 9%; */
 }
 
-.user_class_input input#text, textarea {
-  background: transparent;
+.user_class_input3{
+  width: 50%;
+}
+
+.user_class_input3 label{
+font-family: Inter;
+color: #1B2533;
+font-size: 14px;
+font-weight: 400;
+line-height: 20px;
+letter-spacing: 0.0025em;
+text-align: left;
+
+}
+.user_class_input3 input{
+  height: 44px;
+  padding: 8px 16px 8px 16px;
+  gap: 8px;
+  border-radius: 10px;
+  opacity: 0px;
+  border: 1px solid #D0D4DC;
+  
+
 }
 .sk i{
   margin: 0px 6px;

@@ -3,290 +3,450 @@ import AdminNavbar from "../../admin/Navbar/AdminNavbar";
 import AdminSidebar from "../../admin/Sidebar/AdminSidebar";
 import "react-calendar/dist/Calendar.css";
 import { useMain } from "../../../hooks/useMain";
-import "./emp.css"
-import bxUser from "../../images/bx-user-pin.png"
-import OutsideClickHandler from "react-outside-click-handler";
-import upload from '../../images/upload.svg';
-
-
+import "./emp.css";
+import bxUser from "../../images/bx-user-pin.png";
+// import OutsideClickHandler from "react-outside-click-handler";
+// import upload from '../../images/upload.svg';
 
 const item = [
-    {
-    title:"Full-time Employees"
-    },
-    {
-    title:"Part-time Employees"
-    },
-    {
-    title:"Trainee Employees"
-    },
-]
+  {
+    title: "Full-time Employees",
+  },
+  {
+    title: "Part-time Employees",
+  },
+  {
+    title: "Trainee Employees",
+  },
+];
 
 const AddEmployee = ({ setAlert, pop, setPop }) => {
-    const { user } = useMain();
+  const { user } = useMain();
 
-    const [currEmp , setCurrEmp] = useState(0);
+  const [currEmp, setCurrEmp] = useState(0);
 
-    let userDetail = JSON.parse(localStorage.getItem("hrms_user"));
+  const [formdata , setFormdata] = useState({
+    employeeId:"" ,
+    firstName:"",
+    lastName:"" ,
+    dateOfJoin:"",
+    mobile:"" , 
+    personalEmail:"",
+    password:"",
+    email:"",
+    gender:""
+  })
 
 
-    const [formdata , setFormdata] = useState({
-        image:"",
-        LeadOwner:userDetail?._id,
-        Company:"",
-        FirstName:"",
-        LastName:"",
-        Title:"",
-        Email:"",
-        Phone:"",
-        Fax:"",
-        Mobile:"",
-        Website:"",
-        LeadSource:"",
-        NoOfEmployee:"",
-        Industry:"",
-        LeadStatus:"",
-        AnnualRevenue:"",
-        Rating:"",
-        EmailOptOut:"",
-        SkypeID:"",
-        SecondaryEmail:"",
-        Twitter:"",
-         Street:"" ,
-         City :"",
-         State :"",
-         ZipCode :"",
-         Country:"" ,
-         DescriptionInfo:""
-     });
+  const changeHandler = async(e)=>{
+    const {name , value} = e.target;
+
+     setFormdata((prev)=>({
+        ...prev ,
+        [name]:value
+     }))
+  }
+
+  return (
+    <>
+      <div className="employee-dash h-full">
+        <AdminSidebar pop={pop} setPop={setPop} />
+
+        <div className="tm">
+          <AdminNavbar user={user} setAlert={setAlert} />
+
+          <div className="em">
+            {/* first  */}
+            <section className="adFri">
+              {/* left side  */}
+              <h2>Add Employee</h2>
+
+              {/* right side  */}
+              <div className="adFrRIH">
+                <button className="calce">
+                  <span>Cancel</span>
+                </button>
+                <button className="register">
+                  <span>Register New</span>
+                </button>
+              </div>
+            </section>
+
+            {/* /main section  */}
+            <main className="leadForm">
+              {/* first sec */}
+
+              <div className="leadInFir">
+                {item.map((e, index) => (
+                  <div
+                    onClick={() => setCurrEmp(index)}
+                    className="sinInfir"
+                    key={index}
+                  >
+                    <img src={bxUser} alt="" />
+
+                    <p className={`${currEmp == index ? "currEmp" : "nom"}`}>
+                      {e.title}
+                    </p>
+                  </div>
+                ))}
+              </div>
+
+                     {/* four forms   */}
+              <div className="foruFormWrap">
+
+{/* first row form  */}
+
+ <div className="emFriFormwrap">
+
+   {/* first form  */}
+   <div className="adFirstForm">
+
+    <h2>Personal Detail</h2>
+
+    <label htmlFor="" className="fullLabel">
+        <p>EMPLOYEE ID**</p>
+        <input type="text" value={formdata.employeeId} name="employeeId"  onChange={changeHandler} />
+    </label>
+
+     <div className="twoInputWrap">
+
+     <label htmlFor="" className="halfLabel">
+        <p>First Name*</p>
+        <input type="text" value={formdata.firstName} name="firstName"  onChange={changeHandler} />
+    </label>
+
+     <label htmlFor="" className="halfLabel">
+        <p>Last Name*</p>
+        <input type="text" value={formdata.lastName} name="lastName"  onChange={changeHandler} />
+    </label>
+    
+     </div>
+
+     <div className="twoInputWrap">
+
+     <label htmlFor="" className="halfLabel">
+        <p>Date of Joining*</p>
+        <input type="text" value={formdata.dateOfJoin} name="dateOfJoin"  onChange={changeHandler} />
+    </label>
+
+     <label htmlFor="" className="halfLabel">
+        <p>Mobile*</p>
+        <input type="text" value={formdata.mobile} name="mobile"  onChange={changeHandler} />
+    </label>
+
 
     
-     const submitHandler = async()=>{
-       
-         
-    }
+     </div>
 
-    const changeHandler = async(e)=>{
-        const {name ,value} = e.target;
+     <div className="twoInputWrap">
 
-        setFormdata((prev)=>({
-            ...prev ,
-            [name]:value
-        }))
-     }
+     <label htmlFor="" className="halfLabel">
+        <p>Personal Email ID*</p>
+        <input type="text" value={formdata.personalEmail} name="personalEmail"  onChange={changeHandler} />
+    </label>
 
-    return (
-        <>
-            <div className="employee-dash h-full">
-                <AdminSidebar pop={pop} setPop={setPop} />
+  <div className="checWrap">
 
-                <div className="tm">
-                    <AdminNavbar user={user} setAlert={setAlert} />
+     <label htmlFor="" className="checkLabel">
+        <input type="checkbox" name="gender" value={formdata.gender} onChange={changeHandler} />
 
-                    <div className="em">
+        <span>Male</span>
+        
+     </label>
 
-                        {/* first  */}
-                        <section className="adFri">
-                            {/* left side  */}
-                            <h2>Add Employee</h2>
+     <label htmlFor="" className="checkLabel">
+        <input type="checkbox" onChange={changeHandler} value={formdata.gender} name="gender" />
+        <span>Female</span>
+     </label>
 
-                            {/* right side  */}
-                            <div className="adFrRIH">
+  </div>
 
-                                <button className="calce"><span>Cancel</span></button>
-                                <button className="register"><span>Register New</span></button>
+     </div>
 
-                            </div>
-                        </section>
-                    
+     <div className="twoInputWrap">
 
-                    {/* /main section  */}
-                    <main className="leadForm">
+     <label htmlFor="" className="halfLabel">
+        <p>Password*</p>
+        <input type="text" value={formdata.password} name="password"  onChange={changeHandler} />
+    </label>
 
-                        {/* first sec */}
-                        <div className="leadInFir">
-
-                            {
-                                item.map((e ,index)=>(
-                                    <div onClick={()=>setCurrEmp(index)} className="sinInfir" key={index}>
-
-                                        <img src={bxUser} alt="" />
-
-                                        <p className={`${currEmp == index ?"currEmp":"nom"}`}>{e.title}</p>
-
-                                    </div>
-                                ))
-                            }
-                            
+     <label htmlFor="" className="halfLabel">
+        <p>Email*</p>
+        <input type="email" value={formdata.email} name="email"  onChange={changeHandler} />
+    </label>
 
 
-                        </div>
+    
+     </div>
 
-                        <div className="em2">
-                        <form>
-                           
-                            <div className="lead_information ">
-                                <h2>Lead Information</h2>
+   </div>
 
-                                <div className="lead_input mt-5">
-                                    
-                                    <div className="lead_inp">
-                                        <div className="lead_inp1">
-                                            <label htmlFor="">Lead Owner</label>
-                                            <input type="LeadOwner" value={userDetail?.fullName} disabled onChange={changeHandler}  />
+     {/* second form  */}
+     <div className="adFirstForm">
 
-                                        </div>
-                                        <div className="lead_inp1">
-                                            <label htmlFor="">Company</label>
-                                            <input type="text" value={formdata.Company} name="Company" onChange={changeHandler} />
-                                        </div>
-                                    </div>
+<h2>Address Detail</h2>
 
-                                    <div className="lead_inp">
-                                        <div className="lead_inp1 lead_inp11">
-                                            <label htmlFor="">First Name</label>
-                                            <select style={{ width: "91px !important" }} className="selr" name="" id="">
-                                                <option value="info">None</option>
-                                            </select>
-                                        </div>
-                                        <div className="lead_inp1">
-                                            <label style={{ visibility: "hidden" }} htmlFor="">Company</label>
-                                            <input value={formdata.FirstName} name="FirstName" onChange={changeHandler}  type="text" />
-                                        </div>
-                                        <div className="lead_inp1">
-                                            <label htmlFor="">Last Name</label>
-                                            <input value={formdata.LastName} name="LastName" onChange={changeHandler}  type="text" />
-                                        </div>
-                                    </div>
+<label htmlFor="" className="fullLabel">
+    <p>EMPLOYEE ID**</p>
+    <input type="text" value={formdata.employeeId} name="employeeId"  onChange={changeHandler} />
+</label>
 
-                                    <div className="lead_inp">
-                                        <div className="lead_inp1">
-                                            <label htmlFor="">Title</label>
-                                            <input value={formdata.Title} name="Title" onChange={changeHandler}  type="text" />
-                                        </div>
-                                        <div className="lead_inp1">
-                                            <label htmlFor="">Email</label>
-                                            <input value={formdata.Email} name="Email" onChange={changeHandler} type="email" />
-                                        </div>
-                                    </div>
+ <div className="twoInputWrap">
 
-                                    <div className="lead_inp">
-                                        <div className="lead_inp1">
-                                            <label htmlFor="">Phone</label>
-                                            <input value={formdata.Phone} name="Phone" onChange={changeHandler} type="number" />
-                                        </div>
-                                        <div className="lead_inp1">
-                                            <label htmlFor="">Fax</label>
-                                            <input value={formdata.Fax} name="Fax" onChange={changeHandler} type="text" />
-                                        </div>
-                                    </div>
+ <label htmlFor="" className="halfLabel">
+    <p>First Name*</p>
+    <input type="text" value={formdata.firstName} name="firstName"  onChange={changeHandler} />
+</label>
 
-                                    <div className="lead_inp">
-                                        <div className="lead_inp1">
-                                            <label htmlFor="">Mobile</label>
-                                            <input value={formdata.Mobile} name="Mobile" onChange={changeHandler} type="text" />
-                                        </div>
-                                        <div className="lead_inp1">
-                                            <label htmlFor="">Website</label>
-                                            <input value={formdata.Website} name="Website" onChange={changeHandler}  type="text" />
-                                        </div>
-                                    </div>
+ <label htmlFor="" className="halfLabel">
+    <p>Last Name*</p>
+    <input type="text" value={formdata.lastName} name="lastName"  onChange={changeHandler} />
+</label>
 
-                                    <div className="lead_inp">
-                                        <div className="lead_inp1">
-                                            <label htmlFor="">Lead Source</label>
-                                            <select  name="LeadSource" onChange={changeHandler} id="">
-                                                <option disabled>Select lead source</option>
-                                                <option>Cold Call</option>
-                                                <option>Cold Email</option>
-                                            </select>
-                                        </div>
-                                        <div className="lead_inp1">
-                                            <label htmlFor="">No. of Employees</label>
-                                            <input value={formdata.NoOfEmployee} name="NoOfEmployee" onChange={changeHandler} type="number" />
-                                        </div>
-                                    </div>
+ </div>
 
-                                    <div className="lead_inp">
-                                        <div className="lead_inp1">
-                                            <label htmlFor="Industry">Industry</label>
-                                            <select  value={formdata?.Industry}  name="Industry" onChange={changeHandler} id="Industry">
-                                                 <option disabled>Select Industry</option>
-                                                <option>IT_B2B</option>
-                                                <option>IT_B2C</option>
-                                            </select>
-                                        </div>
-                                        <div className="lead_inp1">
-                                            <label htmlFor="">Lead Status</label>
-                                            <select value={formdata?.LeadStatus}  name="LeadStatus" onChange={changeHandler}  id="">
-                                                <option disabled>Select Status</option>
-                                                <option>Active</option>
-                                                <option>Inactive</option>
-                                            </select>
-                                        </div>
-                                    </div>
+ <div className="twoInputWrap">
 
-                                    <div className="lead_inp">
-                                        <div className="lead_inp1">
-                                            <label htmlFor="">Annual Revenue</label>
-                                            <input value={formdata.AnnualRevenue} name="AnnualRevenue" onChange={changeHandler} placeholder="$" type="number" />
-                                        </div>
-                                        <div className="lead_inp1">
-                                            <label htmlFor="">Rating</label>
-                                            <select name="Rating" onChange={changeHandler}  id="">
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
-                                            </select>
-                                        </div>
+ <label htmlFor="" className="halfLabel">
+    <p>Date of Joining*</p>
+    <input type="text" value={formdata.dateOfJoin} name="dateOfJoin"  onChange={changeHandler} />
+</label>
 
-                                    </div>
+ <label htmlFor="" className="halfLabel">
+    <p>Mobile*</p>
+    <input type="text" value={formdata.mobile} name="mobile"  onChange={changeHandler} />
+</label>
 
-                                    <div className="lead_inp">
-                                        <div className="lead_inp1 lead_inp111">
-                                            <label className="jpo" htmlFor="">Email Opt Out</label>
-                                            <input value={formdata.EmailOptOut} name="EmailOptOut" onChange={changeHandler}  className="seng" type="checkbox" />
-                                        </div>
-                                        <div className="lead_inp1">
-                                            <label htmlFor="">Skype ID</label>
-                                             <input value={formdata?.SkypeID} name="SkypeID" type="text" onChange={changeHandler} />
-                                        </div>
-                                    </div>
 
-                                    <div className="lead_inp">
-                                        <div className="lead_inp1">
-                                            <label htmlFor="">Secondary Email</label>
-                                            <input value={formdata.SecondaryEmail} name="SecondaryEmail" onChange={changeHandler}  type="email" />
-                                        </div>
-                                        <div className="lead_inp1">
-                                            <label htmlFor="">Twitter</label>
-                                            <input value={formdata.Twitter} name="Twitter" onChange={changeHandler} type="text" />
-                                        </div>
 
-                                    </div>
-                                    
-                                </div>
+ </div>
 
-                            </div>
+ <div className="twoInputWrap">
 
-                                
-                             <div>
-                             <button type="button" onClick={submitHandler} class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Submit</button>
+ <label htmlFor="" className="halfLabel">
+    <p>Personal Email ID*</p>
+    <input type="text" value={formdata.personalEmail} name="personalEmail"  onChange={changeHandler} />
+</label>
 
-                             </div>
+<div className="checWrap">
 
-                        </form>
-                    </div>
+ <label htmlFor="" className="checkLabel">
+    <input type="checkbox" name="gender" value={formdata.gender} onChange={changeHandler} />
 
-                    </main>
+    <span>Male</span>
+    
+ </label>
 
-                    </div>
-                </div>
-            </div>
-        </>
-    );
+ <label htmlFor="" className="checkLabel">
+    <input type="checkbox" onChange={changeHandler} value={formdata.gender} name="gender" />
+    <span>Female</span>
+ </label>
+
+</div>
+
+ </div>
+
+ <div className="twoInputWrap">
+
+ <label htmlFor="" className="halfLabel">
+    <p>Password*</p>
+    <input type="text" value={formdata.password} name="password"  onChange={changeHandler} />
+</label>
+
+ <label htmlFor="" className="halfLabel">
+    <p>Email*</p>
+    <input type="email" value={formdata.email} name="email"  onChange={changeHandler} />
+</label>
+
+
+
+ </div>
+
+</div>
+
+ </div>
+
+{/* second row form  */}
+
+ <div className="emFriFormwrap">
+
+   {/* first form  */}
+   <div className="adFirstForm">
+
+    <h2>Personal Detail</h2>
+
+    <label htmlFor="" className="fullLabel">
+        <p>EMPLOYEE ID**</p>
+        <input type="text" value={formdata.employeeId} name="employeeId"  onChange={changeHandler} />
+    </label>
+
+     <div className="twoInputWrap">
+
+     <label htmlFor="" className="halfLabel">
+        <p>First Name*</p>
+        <input type="text" value={formdata.firstName} name="firstName"  onChange={changeHandler} />
+    </label>
+
+     <label htmlFor="" className="halfLabel">
+        <p>Last Name*</p>
+        <input type="text" value={formdata.lastName} name="lastName"  onChange={changeHandler} />
+    </label>
+    
+     </div>
+
+     <div className="twoInputWrap">
+
+     <label htmlFor="" className="halfLabel">
+        <p>Date of Joining*</p>
+        <input type="text" value={formdata.dateOfJoin} name="dateOfJoin"  onChange={changeHandler} />
+    </label>
+
+     <label htmlFor="" className="halfLabel">
+        <p>Mobile*</p>
+        <input type="text" value={formdata.mobile} name="mobile"  onChange={changeHandler} />
+    </label>
+
+
+    
+     </div>
+
+     <div className="twoInputWrap">
+
+     <label htmlFor="" className="halfLabel">
+        <p>Personal Email ID*</p>
+        <input type="text" value={formdata.personalEmail} name="personalEmail"  onChange={changeHandler} />
+    </label>
+
+  <div className="checWrap">
+
+     <label htmlFor="" className="checkLabel">
+        <input type="checkbox" name="gender" value={formdata.gender} onChange={changeHandler} />
+
+        <span>Male</span>
+        
+     </label>
+
+     <label htmlFor="" className="checkLabel">
+        <input type="checkbox" onChange={changeHandler} value={formdata.gender} name="gender" />
+        <span>Female</span>
+     </label>
+
+  </div>
+
+     </div>
+
+     <div className="twoInputWrap">
+
+     <label htmlFor="" className="halfLabel">
+        <p>Password*</p>
+        <input type="text" value={formdata.password} name="password"  onChange={changeHandler} />
+    </label>
+
+     <label htmlFor="" className="halfLabel">
+        <p>Email*</p>
+        <input type="email" value={formdata.email} name="email"  onChange={changeHandler} />
+    </label>
+
+
+    
+     </div>
+
+   </div>
+
+     {/* second form  */}
+     <div className="adFirstForm">
+
+<h2>Address Detail</h2>
+
+<label htmlFor="" className="fullLabel">
+    <p>EMPLOYEE ID**</p>
+    <input type="text" value={formdata.employeeId} name="employeeId"  onChange={changeHandler} />
+</label>
+
+ <div className="twoInputWrap">
+
+ <label htmlFor="" className="halfLabel">
+    <p>First Name*</p>
+    <input type="text" value={formdata.firstName} name="firstName"  onChange={changeHandler} />
+</label>
+
+ <label htmlFor="" className="halfLabel">
+    <p>Last Name*</p>
+    <input type="text" value={formdata.lastName} name="lastName"  onChange={changeHandler} />
+</label>
+
+ </div>
+
+ <div className="twoInputWrap">
+
+ <label htmlFor="" className="halfLabel">
+    <p>Date of Joining*</p>
+    <input type="text" value={formdata.dateOfJoin} name="dateOfJoin"  onChange={changeHandler} />
+</label>
+
+ <label htmlFor="" className="halfLabel">
+    <p>Mobile*</p>
+    <input type="text" value={formdata.mobile} name="mobile"  onChange={changeHandler} />
+</label>
+
+
+
+ </div>
+
+ <div className="twoInputWrap">
+
+ <label htmlFor="" className="halfLabel">
+    <p>Personal Email ID*</p>
+    <input type="text" value={formdata.personalEmail} name="personalEmail"  onChange={changeHandler} />
+</label>
+
+<div className="checWrap">
+
+ <label htmlFor="" className="checkLabel">
+    <input type="checkbox" name="gender" value={formdata.gender} onChange={changeHandler} />
+
+    <span>Male</span>
+    
+ </label>
+
+ <label htmlFor="" className="checkLabel">
+    <input type="checkbox" onChange={changeHandler} value={formdata.gender} name="gender" />
+    <span>Female</span>
+ </label>
+
+</div>
+
+ </div>
+
+ <div className="twoInputWrap">
+
+ <label htmlFor="" className="halfLabel">
+    <p>Password*</p>
+    <input type="text" value={formdata.password} name="password"  onChange={changeHandler} />
+</label>
+
+ <label htmlFor="" className="halfLabel">
+    <p>Email*</p>
+    <input type="email" value={formdata.email} name="email"  onChange={changeHandler} />
+</label>
+
+
+
+ </div>
+
+</div>
+
+ </div>
+
+              </div>
+
+            </main>
+          </div>
+        </div>
+      </div>
+    </>
+  );
 };
 
 export default AddEmployee;

@@ -311,6 +311,144 @@ text-align: left;
     border: 1px solid black;
 }
 
+.wrapping{
+    background: #4040404D;
+    width: 100vw;
+    height: 100vh;
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .createLeaveWrap{
+    padding: 12px;
+    gap: 16px;
+    border-radius: 18px ;
     border: 1px solid #E8E9EB;
+opacity: 0px;
+display: flex;
+flex-direction: column;
+gap: 20px;
+transform: translateY(40px);
+max-width: 500px;
+width: 100%;
+
+
+}
+
+.mainModel{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.leaveHead{
+font-family: Inter;
+color: #1B2533;
+font-size: 16px;
+font-weight: 600;
+line-height: 24px;
+letter-spacing: 0.0015em;
+text-align: left;
+
+}
+
+.leaHEcUTwRAP{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.user_class_input2 label{
+font-family: Inter;
+color: #1B2533;
+font-size: 14px;
+font-weight: 400;
+line-height: 20px;
+letter-spacing: 0.0025em;
+text-align: left;
+
+
+}
+.user_class_input2 select{
+    /* width: 415px; */
+    width: 95%;
+    height: 44px;
+    padding: 8px 16px 8px 16px;
+    gap: 8px;
+    border-radius:10px;
+    border: 1px solid #D0D4DC;
+    opacity: 0px;
+    
+
+}
+
+.userClassWrap{
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.user_class_input4 label{
+font-family: Inter;
+color: #1B2533;
+font-size: 14px;
+font-weight: 400;
+line-height: 20px;
+letter-spacing: 0.0025em;
+text-align: left;
+
+}
+
+.reasonText2{
+    width: 95%;
+height: 74px;
+padding: 8px 16px 8px 16px;
+gap: 8px;
+border-radius: 10px;
+border: 1px solid #D0D4DC;
+resize: none;
+}
+
+.sendReBtn{
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.reqSend{
+    width: 138px;
+height: 40px;
+gap: 10px;
+border-radius: 10px;
+background-color: #0B56E4;
+}
+.reqSend span{
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    letter-spacing: 0.005em;
+    text-align: left;
+color: #FFFFFF;    
+}
+
+.canceBtn {
+    width: 86px;
+    height: 40px;
+    border-radius: 10px;
+    border: 1px solid #49515C;
+    
+}
+
+.canceBtn span{
+    font-family: Inter;
+font-size: 16px;
+font-weight: 500;
+line-height: 24px;
+letter-spacing: 0.005em;
+text-align: left;
+color: #49515C;
 }
