@@ -380,11 +380,11 @@ const EmployeeDash = ({ setAlert, pop1, setPop1 }) => {
             setPop1={setPop1}
           />
 
-          <div className="em">
-            <div className="flex-col">
+          <div className="em2">
+            <div >
               <div className="bedge">
 
-                <div className="first-bedge w-full ">
+                <div className=" w-full  dashwar ">
 
                   <div className="topWrap">
                     <h2>Hi Akash negi</h2>
@@ -859,7 +859,7 @@ const EmployeeDash = ({ setAlert, pop1, setPop1 }) => {
                              Leave Request
                           </h3>
 
-                          <img src={cutt} alt="" />
+                          <img src={cutt}  onClick={() => setStar1(false)} alt="" />
 
                         </div>
 
@@ -1024,6 +1024,7 @@ const EmployeeDash = ({ setAlert, pop1, setPop1 }) => {
                     </div>
                   </div>
                 </>
+                
               </div>
             </div>
           </div>

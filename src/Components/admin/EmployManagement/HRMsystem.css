@@ -24,7 +24,6 @@ padding: 10px 16px 10px 12px;
 gap: 10px;
 border-radius: 10px;
 background: #0B56E4;
-opacity: 0px;
 
 
 }
@@ -306,7 +305,6 @@ padding: 0px 20px;
 .hrmsystemsetup-leftmenu {
     padding: 0px 0px 20px 0px;
     border-radius: 12px;
-    opacity: 0px;
     border: 1px solid #E8E9EB;
     background-color: white;
     padding: 20px 20px ;

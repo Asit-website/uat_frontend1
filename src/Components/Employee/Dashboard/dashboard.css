@@ -39,7 +39,6 @@ padding: 12px 16px;
 gap: 8px;
 border-radius: 12px 12px 0px 0px;
 border: 0px 0px 1px 0px;
-opacity: 0px;
 
 
 }
@@ -71,7 +70,6 @@ align-items: center;
 padding: 20px 16px 20px 16px;
 gap: 10px;
 border-radius: 12px;
-opacity: 0px;
 
 }
 
@@ -326,7 +324,6 @@ text-align: left;
     gap: 16px;
     border-radius: 18px ;
     border: 1px solid #E8E9EB;
-opacity: 0px;
 display: flex;
 flex-direction: column;
 gap: 20px;
@@ -360,6 +357,9 @@ text-align: left;
     width: 100%;
     justify-content: space-between;
 }
+.leaHEcUTwRAP img{
+ cursor: pointer;
+}
 
 .user_class_input2 label{
 font-family: Inter;
@@ -372,6 +372,11 @@ text-align: left;
 
 
 }
+.em2{
+    padding: 40px 30px ;
+    margin-top: 79px;
+    
+}
 .user_class_input2 select{
     /* width: 415px; */
     width: 95%;
@@ -380,9 +385,14 @@ text-align: left;
     gap: 8px;
     border-radius:10px;
     border: 1px solid #D0D4DC;
-    opacity: 0px;
     
 
+}
+
+.dashwar{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
 .userClassWrap{

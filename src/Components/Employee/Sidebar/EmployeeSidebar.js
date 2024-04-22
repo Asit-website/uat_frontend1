@@ -1,9 +1,15 @@
 import React, { useState } from "react";
-import dots from "../../images/dots.png";
 import lokia from "../../images/lokia.png";
 import calling from "../../images/calling.png";
 import chakka from "../../images/chakka.png";
 import { NavLink, useNavigate } from "react-router-dom";
+import chart from "../../images/ChartPieSlice.png"
+import shopping from "../../images/ShoppingBagOpen-d.png"
+import identify from "../../images/IdentificationBadge-d.png"
+import userP from "../../images/userProfile.png"
+import usepp from "../../images/userPp.png"
+import user3d from "../../images/UsersThree-d.png"
+import chatd from "../../images/ChatsTeardrop-d.png"
 
 const EmployeeSidebar = () => {
 
@@ -56,29 +62,33 @@ const EmployeeSidebar = () => {
       
         <div className="h-full px-3 py-4 overflow-y-auto  sidebars sidebars1">
 
-          <ul className="space-y-2 font-medium sight">
-            <NavLink to="/employeeDash"><li className="most">
+          <ul className="allNavItem">
+
+            <NavLink to="/employeeDash"><li className="dashNW">
+              <img src={chart} alt="" />
               <a
                 href="#"
-                className="flex items-center p-2 text-gray-900 rounded-lg "
+                className=" "
               >
-                <img width={16} src={dots} alt="dots" />
-                <span style={{color:"black"}} className="ml-3 ">Dashboard</span>
+                <span  className="">Dashboard</span>
               </a>
-            </li></NavLink>
+
+            </li>
+            </NavLink>
 
 
            
-           <li className="most">
-            <h2 onClick={()=>setOpenLead((prev)=>!prev)} className="leadHead">Lead Management</h2>
+           <li className="mostwrap">
+
+            <h2 onClick={()=>setOpenLead((prev)=>!prev)} className="leadHead"> <img src={shopping} alt="" /> <span> Lead Management</span></h2>
 
             {
               openLead && 
-               <div className="leadWrapp">
+               <div className="leadWrapp2">
 {
 
                   leadItem?.map((item ,index)=>(
-                    <p key={index} className="leadHead" onClick={()=>navigate(item?.link)}>{item.title}</p>
+                    <p key={index} className="leadHead2" onClick={()=>navigate(item?.link)}>{item.title}</p>
                   ))
 
                 }
@@ -89,8 +99,71 @@ const EmployeeSidebar = () => {
 
            </li>
 
+           
+           <NavLink to="/"><li className="indefy">
+              <img src={identify} alt="" />
+              <a
+                href="#"
+                className=" "
+              >
+                <span  className="">Payroll Management</span>
+              </a>
 
-           <li className="most">
+            </li>
+            </NavLink>
+
+
+           <NavLink to="/"><li className="indefy">
+              <img src={userP} alt="" />
+              <a
+                href="#"
+                className=" "
+              >
+                <span  className="">User Profile</span>
+              </a>
+
+            </li>
+            </NavLink>
+
+           <NavLink to="/"><li className="indefy">
+              <img src={usepp} alt="" />
+              <a
+                href="#"
+                className=" "
+              >
+                <span  className="">Account</span>
+              </a>
+
+            </li>
+            </NavLink>
+
+           <NavLink to="/"><li className="indefy">
+              <img src={user3d} alt="" />
+              <a
+                href="#"
+                className=" "
+              >
+                <span  className="">Corporate</span>
+              </a>
+
+            </li>
+            </NavLink>
+
+           <NavLink to="/"><li className="indefy">
+              <img src={chatd} alt="" />
+              <a
+                href="#"
+                className=" "
+              >
+                <span  className="">Social</span>
+              </a>
+
+            </li>
+            </NavLink>
+
+
+
+           {/* <li className="most">
               <button
                 type="button"
                 className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg group"
@@ -209,7 +282,7 @@ const EmployeeSidebar = () => {
 
               </ul>
 
-            </li>
+            </li> */}
 
             <div className="red-box">
               <div className="white-box">
@@ -225,9 +298,11 @@ const EmployeeSidebar = () => {
           </ul>
 
         </div>
+
       </aside>
 
       <div className="p-0 sm:ml-64">
+
       </div>
     </>
   );
