@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 
 const ForgetPassword2 = ({ setAlert }) => {
   const { forgetPassword2 } = useMain();
-  // const { user, changePassword1 } = useMain();
+
   const [value, setValue] = useState({
     password: '',
     password1: ''
@@ -20,9 +20,6 @@ const ForgetPassword2 = ({ setAlert }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    console.log(value);
-
     if (value.password === value.password1) {
       const ans = await forgetPassword2({ email: localStorage.getItem('kds-reset-email'), password: value.password });
 
@@ -42,19 +39,25 @@ const ForgetPassword2 = ({ setAlert }) => {
   return (
     <div className="auth">
       <div className="login-page">
-        <div className="login-page1">
-          <img className="path6" src={path} alt="path" />
-          <img className="kushel-logo" src={kushel} alt="" />
-          <img src={photo} alt="photo" />
-        </div>
+
+        {/* <div className="login-page1"> */}
+          {/* <img className="path6" src={path} alt="path" /> */}
+          {/* <img src={photo} alt="photo" /> */}
+        {/* </div> */}
+
         <div className="login-page2">
+
+                    <img className="kushImg" src={kushel} alt="" />
+
           <h2>Create new password</h2>
-          <p className="mt-4">
-            This is a secure system and you will need to provide your login
-            details to access the site.
+
+          <p className="mt-4 max-w-[363px]">
+          There is nothing to worry about, we'll send you a message to help you reset your password.
           </p>
+
           <div className="login-form">
             <form onSubmit={handleSubmit}>
+
               <div className=" flex flex-col mt-4 ">
                 {/* <label htmlFor='oldPassword' className="custom-field one">
               <input type="text"
@@ -92,13 +95,17 @@ const ForgetPassword2 = ({ setAlert }) => {
                 </label>
 
               </div>
-              <button type='submit'>Sign In</button>
+
+              <button type='submit' className='forgetSumtBtn'><span>Continue</span></button>
+
               <div className="sign-information">
                 <p>Powered by <a target='_blank' href="https://www.kusheldigi.com/"> <span>KusheldigiSolutions</span></a> </p>
               </div>
+
             </form>
           </div>
         </div>
+
       </div>
     </div>
   )

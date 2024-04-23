@@ -113,7 +113,7 @@ const EmployeeSidebar = () => {
             </NavLink>
 
 
-           <NavLink to="/"><li className="indefy">
+           <NavLink to="/employeeDash/update"><li className="indefy">
               <img src={userP} alt="" />
               <a
                 href="#"
