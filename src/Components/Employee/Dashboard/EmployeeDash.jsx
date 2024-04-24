@@ -46,7 +46,16 @@ const EmployeeDash = ({ setAlert, pop1, setPop1 }) => {
     getLeaveTypes,
     postNotification,
     postAttendence,
+    fetchAnnoucement
   } = useMain();
+
+  const [announce, setAnnounce] = useState([]);
+
+  const getAnnoucement = async () => {
+    const ans = await fetchAnnoucement();
+    setAnnounce(ans?.data);
+  }
+
 
   // =================Popup==============
   const [popup1, setPopup1] = useState(false);
@@ -366,6 +375,12 @@ const EmployeeDash = ({ setAlert, pop1, setPop1 }) => {
     fetchLeaveType();
   }, []);
 
+  let userDetail = JSON.parse(localStorage.getItem("hrms_user"));
+
+  useEffect(()=>{
+    getAnnoucement();
+  },[])
+
   return (
     <>
       <div className="employee-dash h-full">
@@ -388,7 +403,7 @@ const EmployeeDash = ({ setAlert, pop1, setPop1 }) => {
                 <div className=" w-full  dashwar ">
 
                   <div className="topWrap">
-                    <h2>Hi Akash negi</h2>
+                    <h2>Hi {userDetail?.fullName}</h2>
                     <p>Real-time insights and performance overview</p>
                   </div>
 
@@ -765,7 +780,7 @@ const EmployeeDash = ({ setAlert, pop1, setPop1 }) => {
                      <div className="annNav">
 
                     <img src={annNav} alt="" />
-                    <h3>Announcement Lists</h3>
+                    <h3>Announcement Lists </h3>
 
                      </div>
 
@@ -791,47 +806,29 @@ const EmployeeDash = ({ setAlert, pop1, setPop1 }) => {
                         </thead>
 
                         <tbody>
-                          <tr className="bg-white border-b  ">
-                            <th
-                              scope="row"
-                              className="px-6 py-4 font-medium  whitespace-nowrap  taskansudpate "
-                            >
-                              WORK FROM HOME
-                            </th>
-                            <td className="px-2 py-4 taskansudpate2">JAN 22,2024</td>
-                            <td className="px-6 py-4 taskansudpate2">JAN 22,2024</td>
-                            <td className="px-6 py-4 taskansudpate2">
-                              AYODHYA RAM MANDIR
-                            </td>
-                          </tr>
+                        {
+                              announce?.map((val, index) => {
+                                return (
+                                  <tr key={index} className="bg-white border-b  ">
+                                    <th scope="row" className="px-3 py-4 font-medium tasklo  whitespace-nowrap taskAns taskans11">
+                                      {val?.title}
+                                    </th>
+                                    <td className="px-3 py-4 taskAns lolo taskans11">
+                                      {val?.startDate}
+                                    </td>
+                                    <td className="px-3 py-4 taskAns lolo taskans11">
+                                      {val?.endDate}
+                                    </td>
+                                    <td className="px-3 py-4 taskAns taskans11">
+                                      {val?.description}
+                                    </td>
 
-                          <tr className="bg-white border-b  ">
-                            <th
-                              scope="row"
-                              className="px-6 py-4 font-medium  whitespace-nowrap taskansudpate "
-                            >
-                              WORK FROM HOME
-                            </th>
-                            <td className="px-2 py-4 taskansudpate2">JAN 22,2024</td>
-                            <td className="px-6 py-4 taskansudpate2">JAN 22,2024</td>
-                            <td className="px-6 py-4 taskansudpate2">
-                              AYODHYA RAM MANDIR
-                            </td>
-                          </tr>
+                                  </tr>
+                                )
+                              })
+                            }
 
-                          <tr className="bg-white border-b  ">
-                            <th
-                              scope="row"
-                              className="px-6 py-4 font-medium  whitespace-nowrap taskansudpate "
-                            >
-                              WORK FROM HOME
-                            </th>
-                            <td className="px-2 py-4 taskansudpate2">JAN 22,2024</td>
-                            <td className="px-6 py-4 taskansudpate2">JAN 22,2024</td>
-                            <td className="px-6 py-4 taskansudpate2">
-                              AYODHYA RAM MANDIR
-                            </td>
-                          </tr>
+                     
                         </tbody>
 
                       </table>

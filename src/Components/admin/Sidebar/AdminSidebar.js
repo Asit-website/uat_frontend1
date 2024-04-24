@@ -122,6 +122,10 @@ const LeaveManItem = [
     link: "/adminDash/HRM/LeaveEmployee"
   },
   {
+    title: "Leave Request",
+    link: "/adminDash/HRM/leaveRequest"
+  },
+  {
     title: "Mark Attendence",
     link: "/adminDash/HRM/markAttendance"
   },

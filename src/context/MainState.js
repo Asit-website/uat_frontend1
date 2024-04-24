@@ -421,7 +421,8 @@ const MainState = (props) => {
       return data;
    };
 
-   const updateProfile = async ({ fullName,
+   const updateProfile = async (
+      { fullName,
       mobile,
       email,
       email1,
@@ -517,7 +518,6 @@ const MainState = (props) => {
          const formdata = new FormData();
          formdata.append("image", image);
          const resp = await postDocuments(`${baseUrl}/user/updateProfile/${_id}`, formdata);
-         console.log("inage ",resp);
 
       }
       return data;
@@ -1512,6 +1512,14 @@ const MainState = (props) => {
    };
 
 
+   const uploadToCloudinaryImg = async({image})=>{
+
+      const formdata = new FormData();
+      formdata.append("image", image);
+      const resp = await postDocuments(`${baseUrl}/user/uploadToCloudinary`, formdata);
+      return resp;  
+   }
+
 
    return (
       <MainContext.Provider value={{
@@ -1537,7 +1545,8 @@ const MainState = (props) => {
          createLead  ,
          getLead,
          getLead2,
-         deleteLeads , updateLead
+         deleteLeads , updateLead , 
+         uploadToCloudinaryImg
       }}>
          {props.children}
       </MainContext.Provider>

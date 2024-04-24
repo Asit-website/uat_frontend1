@@ -3,17 +3,20 @@ import EmployeeNavbar from "../Navbar/EmployeeNavbar";
 import EmployeeSidebar from "../Sidebar/EmployeeSidebar";
 import { useMain } from "../../../hooks/useMain";
 import { useNavigate } from "react-router-dom";
+import cutImg from "../../images/cutt.png"
 
 const UpdateProfile = ({ setAlert, pop1, setPop1 }) => {
-  const { user, updateProfile, postActivity, getStatisticsByUser, getBranchs, getDepartments, getDesignations } = useMain();
+  
+  const { user, updateProfile, postActivity, getStatisticsByUser, getBranchs, getDepartments, getDesignations , uploadToCloudinaryImg } = useMain();
   const [value, setValue] = useState(user);
-
 
   const navigate = useNavigate();
 
   const [branches, setBranches] = useState([]);
   const [departments, setDepartments] = useState([]);
   const [designations, setDesignations] = useState([]);
+
+  const [uploadedProfile , setUploadedProfile] = useState("");
 
   const getData = async () => {
     let ans = await getBranchs();
@@ -25,30 +28,35 @@ const UpdateProfile = ({ setAlert, pop1, setPop1 }) => {
     setDesignations(ans2?.data);
   };
 
-
-
   useEffect(() => {
-    // setValue(user);
     let user1 = JSON.parse(localStorage.getItem("hrms_user"));
     setValue(user1);
     getData();
   }, []);
 
-  const handleChange = (e) => {
-    if (e.target.name === "image") {
-      setValue({ ...value, [e.target.name]: e.target.files[0] });
-    } else {
-      setValue({ ...value, [e.target.name]: e.target.value });
-    }
+  const [pic , setPic] = useState("");
+
+  const handleChange = async(e) => {
+ const {name } = e.target;
+
+ if (name === "image") {
+  setValue({ ...value, [e.target.name]: e.target.files[0] });
+  let image = e.target.files[0];
+  const ans = await uploadToCloudinaryImg({image});
+  if(ans.status){
+    setUploadedProfile(ans?.data);
+   }
+} else {
+  setValue({ ...value, [e.target.name]: e.target.value });
+}
+
+
   };
 
-
-
   const handleSubmit = async (e) => {
+    
     e.preventDefault();
-    console.log(value);
     const ans = await updateProfile(value);
-    console.log(ans);
 
     if (ans.success) {
       setAlert("success", ans.message);
@@ -58,6 +66,7 @@ const UpdateProfile = ({ setAlert, pop1, setPop1 }) => {
       setAlert("error", ans.message);
     }
   };
+
 
   return (
     <>
@@ -74,7 +83,7 @@ const UpdateProfile = ({ setAlert, pop1, setPop1 }) => {
             setPop1={setPop1}
           />
           <div className="em">
-            <div className="flex-col">
+            <div className="">
               <form className="updateUser" onSubmit={handleSubmit}>
                 <div className="mb-6">
                   <label htmlFor="fullName" className="block mb-1 ">
@@ -122,19 +131,37 @@ const UpdateProfile = ({ setAlert, pop1, setPop1 }) => {
                   <label htmlFor="image" className="block mb-1">
                     Image
                   </label>
+
                   <input
                     className="block w-full"
                     name="image"
                     onChange={handleChange}
                     id="file_input"
                     type="file"
+                     value={pic}
 
                   />
+
+                   {
+                    uploadedProfile !== "" && 
+                     <div className="uploadedProfile">
+
+                   {/* <div className="cutImg">
+
+                        <img onClick={()=>{
+                          setUploadedProfile("");
+                           setProfileImage("");
+                        }} src={cutImg} className="" alt="" />
+                   </div> */}
+                       
+                      <img src={uploadedProfile} alt="" />
+                     </div>
+                    }
                 </div>
 
                 <div className="mb-6">
                   <label htmlFor="email1" className="block mb-1">
-                    Personal Email
+                    Personal Gmail
                   </label>
                   <input
                     className="block w-full"
@@ -443,7 +470,7 @@ const UpdateProfile = ({ setAlert, pop1, setPop1 }) => {
                     onChange={handleChange}
                   >
                     <option>Nationality</option>
-                    <option>india</option>
+                    <option>Indian</option>
                   </select>
                 </div>
                 <div className="mb-6">
@@ -802,7 +829,7 @@ const UpdateProfile = ({ setAlert, pop1, setPop1 }) => {
                   type="submit"
                   className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                 >
-                  Submit
+                  Save
                 </button>
 
               </form>

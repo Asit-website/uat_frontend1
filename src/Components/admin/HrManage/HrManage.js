@@ -763,7 +763,7 @@ const HrManage = ({ pop, setPop, setAlert }) => {
                                   disabled={value3.status}
                                 >
                                   <option>Nationality</option>
-                                  <option>india</option>
+                                  <option>Indian</option>
                                 </select>
                               </div>
                               <div className="mb-6 w-full try">

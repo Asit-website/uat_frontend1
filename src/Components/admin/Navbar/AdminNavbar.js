@@ -1,16 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import kushel1 from "../../images/kushel1.png";
-import arrowDown from "../../images/keyboard_arrow_down.png"
 import notification from "../../images/notifications.png"
 import chatbot from "../../images/chat_bubble_outline.png"
 import lok from "../../images/lok.png";
 import bottom from "../../images/bottom.png";
-
 import { NavLink, useNavigate } from "react-router-dom";
-import { useMain } from "../../../hooks/useMain";
-const AdminNavbar = ({ setAlert }) => {
+
+
+const AdminNavbar = ({ setAlert}) => {
   
   let user = JSON?.parse(localStorage.getItem("hrms_user"));
+
   const updateUser = () => {
     document.getElementById("ty").classList.toggle("tys");
   };
@@ -45,6 +45,7 @@ const AdminNavbar = ({ setAlert }) => {
   if (hours < 12) greet = "Morning";
   else if (hours >= 12 && hours <= 17) greet = "Afternoon";
   else if (hours >= 17 && hours <= 24) greet = "Evening";
+
 
 
   return (

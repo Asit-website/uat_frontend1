@@ -1,11 +1,8 @@
 import React, { useState } from "react";
-import thir from "../../images/thir.png";
 import lok from "../../images/lok.png";
 import bottom from "../../images/bottom.png";
 import bell from "../../images/bell.png";
 import OutsideClickHandler from "react-outside-click-handler";
-import brake from "../../images/break.png";
-import logout from "../../images/logout.png";
 import { NavLink, useNavigate } from "react-router-dom";
 import "react-circular-progressbar/dist/styles.css";
 import LogoutPop from "../Popup/LogoutPop";
@@ -19,9 +16,6 @@ const EmployeeNavbar = ({ user, setAlert, pop1, setPop1 }) => {
   let todayDate = new Date().toLocaleDateString('en-GB');
   const [pass, setPass] = useState(false);
   const [pass1, setPass1] = useState(false);
-  const stylePeer = {
-    display: pass ? "block" : "none",
-  };
 
   const navigate = useNavigate();
 

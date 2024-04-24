@@ -5,12 +5,14 @@ import { useMain } from '../../../hooks/useMain'
 import { useNavigate } from 'react-router-dom';
 const AdminProfile = ({ pop, setPop, setAlert }) => {
 
-  const { user, updateProfile, getBranchs, getDepartments, getDesignations } = useMain();
+  const { user, updateProfile, getBranchs, getDepartments, getDesignations ,uploadToCloudinaryImg } = useMain();
   const [value, setValue] = useState(user);
 
   const navigate = useNavigate();
 
   const [branches, setBranches] = useState([]);
+  const [uploadedProfile , setUploadedProfile] = useState("");
+
   const [departments, setDepartments] = useState([]);
   const [designations, setDesignations] = useState([]);
 
@@ -31,9 +33,14 @@ const AdminProfile = ({ pop, setPop, setAlert }) => {
   }, []);
 
 
-  const handleChange = (e) => {
+  const handleChange = async(e) => {
     if (e.target.name === "image") {
       setValue({ ...value, [e.target.name]: e.target.files[0] });
+      let image = e.target.files[0];
+      const ans = await uploadToCloudinaryImg({image});
+      if(ans.status){
+        setUploadedProfile(ans?.data);
+       }
     } else {
       setValue({ ...value, [e.target.name]: e.target.value });
     }
@@ -42,7 +49,7 @@ const AdminProfile = ({ pop, setPop, setAlert }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const ans = await updateProfile(value);
-     localStorage.setItem("hrms_user" ,JSON.stringify(ans?.data));
+     localStorage.setItem("hrms_user" ,JSON.stringify(ans.data));
     if (ans.success) {
       setAlert("success", ans.message);
       setValue(ans?.data);
@@ -52,6 +59,7 @@ const AdminProfile = ({ pop, setPop, setAlert }) => {
       setAlert("error", ans.message);
     }
   };
+
   return (
     <>
       <div className="employee-dash h-full">
@@ -64,7 +72,8 @@ const AdminProfile = ({ pop, setPop, setAlert }) => {
 
               <form className="updateUser" onSubmit={handleSubmit}>
                 {
-                  user?.designation === "CEO" ? 
+                  user?.designation === "CEO" ?
+
                   <div className="mb-6">
                   <label htmlFor="fullName" className="block samat mb-1 ">
                     Full Name
@@ -78,6 +87,7 @@ const AdminProfile = ({ pop, setPop, setAlert }) => {
                     className=" block w-full"
                   />
                 </div>
+
                 :
                 <div className="mb-6">
                   <label htmlFor="fullName" className="block samat mb-1 ">
@@ -152,11 +162,26 @@ const AdminProfile = ({ pop, setPop, setAlert }) => {
                     id="file_input"
                     type="file"
                   />
+                   {
+                    uploadedProfile !== "" && 
+                     <div className="uploadedProfile">
+
+                   {/* <div className="cutImg">
+
+                        <img onClick={()=>{
+                          setUploadedProfile("");
+                           setProfileImage("");
+                        }} src={cutImg} className="" alt="" />
+                   </div> */}
+                       
+                      <img src={uploadedProfile} alt="" />
+                     </div>
+                    }
                 </div>
 
                 <div className="mb-6">
                   <label htmlFor="email1" className="block mb-1">
-                    Personal Email
+                    Personal Gmail
                   </label>
                   <input
                     className="block w-full"
@@ -459,7 +484,7 @@ const AdminProfile = ({ pop, setPop, setAlert }) => {
                     onChange={handleChange}
                   >
                     <option>Nationality</option>
-                    <option>india</option>
+                    <option>Indian</option>
                   </select>
                 </div>
                 <div className="mb-6">
@@ -808,7 +833,7 @@ const AdminProfile = ({ pop, setPop, setAlert }) => {
                   type="submit"
                   className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                 >
-                  Submit
+                  Save
                 </button>
 
               </form>

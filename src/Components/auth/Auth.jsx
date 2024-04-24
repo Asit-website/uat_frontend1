@@ -86,7 +86,7 @@ const Auth = (props) => {
   return (
     <div className="auth">
 
-      <div className="login-page">
+      <div className="login-pageMain">
         
         <div className="login-page2">
 

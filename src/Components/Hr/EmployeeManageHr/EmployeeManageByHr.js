@@ -762,7 +762,7 @@ const EmployeeManageByHr = ({ setAlert, pop1, setPop1 }) => {
                                   disabled={value3.status}
                                 >
                                   <option>Nationality</option>
-                                  <option>india</option>
+                                  <option>Indian</option>
                                 </select>
                               </div>
                               <div className="mb-6 w-full try">

@@ -66,6 +66,21 @@ body {
 
 
 }
+.login-pageMain {
+  max-width: 1069px;
+  margin: 0 auto;
+  width: 100%;
+  padding: 60px 60px 80px 60px;
+  gap: 8px;
+  border-radius: 12px 0px 0px 12px;
+  height: 100vh;
+  display: flex;
+  position: relative;
+  align-items: center;
+  justify-content: space-between;
+
+
+}
 .termanduse{
   position: absolute;
   bottom: 20px;
@@ -962,6 +977,10 @@ text-align: left;
   /* padding: 62px 70px; */
   padding: 62px 30px;
   margin-top: 69px;
+}
+
+.emwrap{
+  margin-top: 120px;
 }
 
 .em1 {
@@ -2073,12 +2092,31 @@ abbr:where([title]) {
   opacity: 100% !important;
 }
 
+.uploadedProfile{
+  max-width: 200px;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+ .cutImg{
+ display: flex;
+ justify-content: flex-end;
+ 
+}
+ .cutImg img{
+ cursor: pointer;
+
+}
+
 .updateUser {
   width: 80%;
-  display: block;
-  margin: auto;
-  overflow-x: scroll;
-  height: 600px;
+  margin: 0 auto;
+  /* display: block; */
+  /* margin: auto; */
+  /* overflow-x: scroll; */
+  /* height: 600px; */
 }
 
 .updateUser::-webkit-scrollbar {

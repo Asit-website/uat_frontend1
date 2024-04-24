@@ -76,7 +76,6 @@ const CreateLead = ({ setAlert, pop, setPop }) => {
 
      const submitHandler = async()=>{
          const ans = await createLead({...formdata});
-         console.log(ans)
           if(ans?.status){
             alert("Successful created");
             navigate("/adminDash/myLead")
