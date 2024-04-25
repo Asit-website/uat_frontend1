@@ -37,7 +37,11 @@ const EmployeeHRM = ({
     employeesLeaves: 0,
     totalEmployees: 0
   });
+
   const [loadFlag, setLoadFlag] = useState(true);
+
+  const [loading , setLoading] = useState(false);
+  const [clockoutLoading , setClockOutLoading] = useState(false);
 
   const [totalLeave, setTotalLeave] = useState(0);
 
@@ -71,8 +75,6 @@ const EmployeeHRM = ({
       task: "Madfish"
     },
   ])
-
-  
 
   const getData = async () => {
     setLoadFlag(true);
@@ -146,6 +148,8 @@ const EmployeeHRM = ({
   };
 
   const clockIn = async () => {
+
+    setLoading(true);
 
     let t = localStorage.getItem("clock-status");
     localStorage.setItem('clockInTime', new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', second: '2-digit', hour12: true }));
@@ -234,10 +238,12 @@ const EmployeeHRM = ({
       }
     }
     setMount(!mount);
+    setLoading(false);
   };
 
-
   const clockOut = async () => {
+
+    setClockOutLoading(true);
 
     localStorage.setItem("clock-status", "out");
     localStorage.setItem("clock-out-time", new Date().getTime());
@@ -281,7 +287,6 @@ const EmployeeHRM = ({
     const userDataString = localStorage.getItem("hrms_user");
 
     const userData = JSON.parse(userDataString);
-    console.log("userda ", userData);
 
     const clockInDate = localStorage.getItem('clock-in-date');
 
@@ -290,8 +295,6 @@ const EmployeeHRM = ({
       id: userData?._id,
       clockInDate: clockInDate
     });
-
-    console.log("attendece ", attendence);
 
     localStorage.removeItem("clock-in");
     localStorage.removeItem("clock-status");
@@ -302,8 +305,9 @@ const EmployeeHRM = ({
     localStorage.removeItem("breakOutTime");
     localStorage.removeItem("clock-in-date");
 
-  };
+    setClockOutLoading(false);
 
+  };
 
   useEffect(() => {
     getData();
@@ -595,14 +599,24 @@ const EmployeeHRM = ({
                           <svg width="19" height="21" viewBox="0 0 19 21" fill="none" xmlns="http://www.w3.org/2000/svg">
                               <path d="M6.5 1.5V0H12.5V1.5H6.5ZM8.75 12.675H10.25V6.925H8.75V12.675ZM9.5 20.975C8.26667 20.975 7.10417 20.7375 6.0125 20.2625C4.92083 19.7875 3.96667 19.1417 3.15 18.325C2.33333 17.5083 1.6875 16.5542 1.2125 15.4625C0.7375 14.3708 0.5 13.2083 0.5 11.975C0.5 10.7417 0.7375 9.57917 1.2125 8.4875C1.6875 7.39583 2.33333 6.44167 3.15 5.625C3.96667 4.80833 4.92083 4.1625 6.0125 3.6875C7.10417 3.2125 8.26667 2.975 9.5 2.975C10.6167 2.975 11.6667 3.1625 12.65 3.5375C13.6333 3.9125 14.5083 4.43333 15.275 5.1L16.55 3.825L17.6 4.875L16.325 6.15C16.925 6.81667 17.4375 7.625 17.8625 8.575C18.2875 9.525 18.5 10.6583 18.5 11.975C18.5 13.2083 18.2625 14.3708 17.7875 15.4625C17.3125 16.5542 16.6667 17.5083 15.85 18.325C15.0333 19.1417 14.0792 19.7875 12.9875 20.2625C11.8958 20.7375 10.7333 20.975 9.5 20.975ZM9.5 19.475C11.5833 19.475 13.3542 18.7458 14.8125 17.2875C16.2708 15.8292 17 14.0583 17 11.975C17 9.89167 16.2708 8.12083 14.8125 6.6625C13.3542 5.20417 11.5833 4.475 9.5 4.475C7.41667 4.475 5.64583 5.20417 4.1875 6.6625C2.72917 8.12083 2 9.89167 2 11.975C2 14.0583 2.72917 15.8292 4.1875 17.2875C5.64583 18.7458 7.41667 19.475 9.5 19.475Z" fill="white" />
                             </svg>
+                            {
+                              loading ?
+                              <span class="loader"></span>
+                              :
                             <span>{!localStorage.getItem('clock-status') ? 'Check-in' : localStorage.getItem('clock-status') === 'break' ? 'Break' : localStorage.getItem('clock-status') === 'resume' ? 'Resume' : localStorage.getItem('clock-status') === 'out' ? 'Check-in' : null}</span>
+
+                            }
                           </button>}
 
                           {(mount || !mount) && <button className="clockOUT cursor-pointer" disabled={!localStorage.getItem('clock-status') || localStorage.getItem('clock-status') === 'out'} onClick={clockOut}>
                           <svg width="19" height="21" viewBox="0 0 19 21" fill="none" xmlns="http://www.w3.org/2000/svg">
                               <path d="M6.5 1.5V0H12.5V1.5H6.5ZM8.75 12.675H10.25V6.925H8.75V12.675ZM9.5 20.975C8.26667 20.975 7.10417 20.7375 6.0125 20.2625C4.92083 19.7875 3.96667 19.1417 3.15 18.325C2.33333 17.5083 1.6875 16.5542 1.2125 15.4625C0.7375 14.3708 0.5 13.2083 0.5 11.975C0.5 10.7417 0.7375 9.57917 1.2125 8.4875C1.6875 7.39583 2.33333 6.44167 3.15 5.625C3.96667 4.80833 4.92083 4.1625 6.0125 3.6875C7.10417 3.2125 8.26667 2.975 9.5 2.975C10.6167 2.975 11.6667 3.1625 12.65 3.5375C13.6333 3.9125 14.5083 4.43333 15.275 5.1L16.55 3.825L17.6 4.875L16.325 6.15C16.925 6.81667 17.4375 7.625 17.8625 8.575C18.2875 9.525 18.5 10.6583 18.5 11.975C18.5 13.2083 18.2625 14.3708 17.7875 15.4625C17.3125 16.5542 16.6667 17.5083 15.85 18.325C15.0333 19.1417 14.0792 19.7875 12.9875 20.2625C11.8958 20.7375 10.7333 20.975 9.5 20.975ZM9.5 19.475C11.5833 19.475 13.3542 18.7458 14.8125 17.2875C16.2708 15.8292 17 14.0583 17 11.975C17 9.89167 16.2708 8.12083 14.8125 6.6625C13.3542 5.20417 11.5833 4.475 9.5 4.475C7.41667 4.475 5.64583 5.20417 4.1875 6.6625C2.72917 8.12083 2 9.89167 2 11.975C2 14.0583 2.72917 15.8292 4.1875 17.2875C5.64583 18.7458 7.41667 19.475 9.5 19.475Z" fill="white" />
                             </svg>
+                            {
+                              clockoutLoading?
+                              <span class="loader2"></span>:
                             <span>Check-out</span>
+                            }
                           </button>}
                         </div>
                       </div>

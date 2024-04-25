@@ -56,6 +56,9 @@ const EmployeeDash = ({ setAlert, pop1, setPop1 }) => {
     setAnnounce(ans?.data);
   }
 
+ const [loading , setLoading] = useState(false);
+
+ const [clockoutLoading , setClockoutLoading] = useState(false);
 
   // =================Popup==============
   const [popup1, setPopup1] = useState(false);
@@ -124,6 +127,7 @@ const EmployeeDash = ({ setAlert, pop1, setPop1 }) => {
   };
 
   const clockIn = async () => {
+    setLoading(true);
     let t = localStorage.getItem("clock-status");
     localStorage.setItem(
       "clockInTime",
@@ -234,9 +238,11 @@ const EmployeeDash = ({ setAlert, pop1, setPop1 }) => {
       }
     }
     setMount(!mount);
+    setLoading(false);
   };
 
   const clockOut = async () => {
+    setClockoutLoading(true);
     localStorage.setItem("clock-status", "out");
     localStorage.setItem("clock-out-time", new Date().getTime());
     localStorage.setItem(
@@ -306,6 +312,9 @@ const EmployeeDash = ({ setAlert, pop1, setPop1 }) => {
     localStorage.removeItem("breakInTime");
     localStorage.removeItem("breakOutTime");
     localStorage.removeItem("clock-in-date");
+
+
+    setClockoutLoading(false);
   };
 
   const [star1, setStar1] = useState(false);
@@ -507,6 +516,11 @@ const EmployeeDash = ({ setAlert, pop1, setPop1 }) => {
                                       fill="white"
                                     />
                                   </svg>
+                                  {
+                                    loading ? 
+                                    <span class="loader"></span>
+                                    :
+                                  
                                   <span>
                                     {!localStorage.getItem("clock-status")
                                       ? "Check-in"
@@ -521,6 +535,8 @@ const EmployeeDash = ({ setAlert, pop1, setPop1 }) => {
                                       ? "Check-in"
                                       : null}
                                   </span>
+
+}
                                 </button>
                               )}
 
@@ -546,11 +562,18 @@ const EmployeeDash = ({ setAlert, pop1, setPop1 }) => {
                                       fill="white"
                                     />
                                   </svg>
+                                  {
+                                    clockoutLoading ?
+                                    <span class="loader2"></span>
+                                    :
+
                                   <span>Check-out</span>
+                                  }
                                 </button>
                               )}
                             </div>
                           </div>
+
                         </div>
                       </div>
 
