@@ -108,6 +108,15 @@ body {
 
 
 }
+
+.auth4{
+  display: flex;
+  width: 100%;
+  background-color: #f5f5f5;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
 .login-pageMain {
   max-width: 1069px;
   margin: 0 auto;
@@ -123,6 +132,24 @@ body {
 
 
 }
+.login-pageMain3 {
+  max-width: 1069px;
+  margin: 0 auto;
+  width: 100%;
+  padding: 60px 60px 80px 60px;
+ background-color: white;
+ border-radius: 12px;
+ display: flex;
+ align-items: center;
+ gap: 100px;
+ max-height: 616px;
+
+
+}
+
+
+
+
 .termanduse{
   position: absolute;
   bottom: 20px;
@@ -633,15 +660,14 @@ width: 100%;
   height: fit-content;
   padding: 30px 40px ;
   gap: 8px;
-  border-radius: 12px ;
-  border: 0px 1px 0px 0px;  
-  background-color: white;
-  box-shadow: 0px 8px 32px -2px #1B25330F;
-
-
 
 }
 
+.formgotPassWidht{
+  margin-top: 10px;
+  width: 100%;
+  justify-content: flex-start;
+}
 
 .login-page2 button {
   width: 100%;
@@ -697,7 +723,6 @@ width: 100%;
   font-family: inter !important;
   font-size: 16px !important;
   font-weight: 500 !important;
-  text-align: right;
   font-family: inter !important;
 }
 .login_new_div{
@@ -783,7 +808,6 @@ gap: 90px;
 .logo img {
   max-width: 160px;
   width: 100%;
-  /* background-color: red; */
 }
 
 .second-logo{

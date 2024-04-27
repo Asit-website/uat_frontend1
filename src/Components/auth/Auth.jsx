@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import photo from "../images/loginScreen.png";
 import kushel from "../images/kushel.png";
-import path from "../images/path.png";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useMain } from "../../hooks/useMain";
+import frame from "../images/Frame.png"
 
 
 const Auth = (props) => {
@@ -84,76 +83,74 @@ const Auth = (props) => {
 
 
   return (
-    <div className="auth">
+    <div className="auth4">
 
-      <div className="login-pageMain">
+      <div className="login-pageMain3">
         
-        <div className="login-page2">
+      <div className="login-page2">
 
 
-         <div className="login_new_div">
+<div className="login_new_div">
 
 
-          <img className="kushel-logo2" src={kushel} alt="" />
+ <img className="kushel-logo2" src={kushel} alt="" />
 
 
-                         <div className="singWrap">
-          <h2 className="singin">Sign in </h2>
-          <p className="access">to access HRMS Dashboard</p>
-                         </div>
-          
-          <div className="login-buttons flex">
-            <button id="btn1" onClick={adminLogin} className="admin_login">Admin Login</button>
-            <button  id="btn2" onClick={userLogin} className="user_login">User Login</button>
-          </div>
+                <div className="singWrap">
+ <h2 className="singin">Sign in </h2>
+ <p className="access">to access HRMS Dashboard</p>
+                </div>
+ 
+ <div className="login-buttons flex">
+   <button id="btn1" onClick={adminLogin} className="admin_login">Admin</button>
+   <button  id="btn2" onClick={userLogin} className="user_login">Employee</button>
+ </div>
 
-          <div className="login-form">
-            <form onSubmit={handleSubmit}>
-              <div className=" flex flex-col mt-4 ">
-                <label className="custom-field one">
-                  <input
-                    required
-                    name={tab === 1 ? "email" : "employeeCode"}
-                    onChange={handleChange}
-                    value={tab === 1 ? value.email : value.employeeCode}
-                    type={tab === 1 ? "email" : "text"}
-                    placeholder=" "
-                  />
-                  <span className="placeholder">{tab === 1 ? "Email" : "Employee Code"}</span>
-                </label>
-                <label className="custom-field one">
-                  <input
-                    required
-                    name="password"
-                    onChange={handleChange}
-                    value={value.password}
-                    type="password"
-                    placeholder=" "
-                  />
-                  <span className="placeholder">Password</span>
-                </label>
-                <NavLink to="/forget">
-                  <p className=" text-right  forget">Forgot password?</p>
-                </NavLink>
-              </div>
+ <div className="login-form">
+   <form onSubmit={handleSubmit}>
+     <div className=" flex flex-col mt-4 ">
+       <label className="custom-field one">
+         <input
+           required
+           name={tab === 1 ? "email" : "employeeCode"}
+           onChange={handleChange}
+           value={tab === 1 ? value.email : value.employeeCode}
+           type={tab === 1 ? "email" : "text"}
+           placeholder=" "
+         />
+         <span className="placeholder">{tab === 1 ? "Email" : "Employee Code"}</span>
+       </label>
+       <label className="custom-field one">
+         <input
+           required
+           name="password"
+           onChange={handleChange}
+           value={value.password}
+           type="password"
+           placeholder=" "
+         />
+         <span className="placeholder">Password</span>
+       </label>
+        <div className="formgotPassWidht">
 
-              <button className="yui">Log in</button>
-
-             
-            </form>
-          </div>
-
-          </div>
-          
+       <NavLink to="/forget">
+         <p className="   forget">Forgot password?</p>
+       </NavLink>
         </div>
-        
-        <div className="login-page3">
-          
-        </div>
-        
+     </div>
 
+     <button className="yui">Log in</button>
+
+    
+   </form>
+ </div>
+
+ </div>
+ 
+</div>
+      
         <div className="login-page1">
-          <img src={photo} alt="photo" />
+          <img src={frame} alt="photo" />
         </div>
 
       </div>
