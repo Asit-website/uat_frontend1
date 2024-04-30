@@ -8,6 +8,8 @@ import ac1 from "../../images/ac1.png";
 import ac2 from "../../images/ac2.png";
 import ac3 from "../../images/ac3.png";
 import ac4 from "../../images/ac4.png";
+import clock2 from '../../images/clock2.png';
+import timeLog from '../../images/timeLog.png';
 import "./hrm.css";
 import { NavLink } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -621,6 +623,109 @@ const EmployeeHRM = ({
                         </div>
                       </div>
                     </div>
+
+                    <div>
+                        <a
+                          href="#"
+                          className="block serad max-w-2xl p-5 bg-white border timeWrap border-gray-200 rounded-lg shadow hover:bg-gray-100   "
+                        >
+
+                           <div className="timeLogWrap">
+                            <img src={timeLog} alt="" />
+                      <h5 className="mb-3 text-xl  text-gray-900 dark:text-white">   Time Log </h5>
+                           </div>
+
+                          <hr />
+
+                          <h5 className="todayText">
+                            Today
+                          </h5>
+
+                          <hr />
+
+                          <div className="time_emp_desh_flex">
+
+                            <div className="time_emp_desh">
+                              <h5 className="mb-1 mt-3 text-xl  tracking-tight text-gray-900 -">{`${Math.floor(
+                                clock / 3600
+                              )
+                                .toString()
+                                .padStart(2, "0")}:${Math.floor(
+                                (clock % 3600) / 60
+                              )
+                                .toString()
+                                .padStart(2, "0")}`}</h5>
+                              <p>Scheduled</p>
+                            </div>
+
+                            <div className="time_emp_desh">
+                              <h5 className="mb-1 mt-3 text-xl  tracking-tight text-gray-900 ">{`${Math.floor(
+                                (clock - breakClock) / 3600
+                              )
+                                .toString()
+                                .padStart(2, "0")}:${Math.floor(
+                                ((clock - breakClock) % 3600) / 60
+                              )
+                                .toString()
+                                .padStart(2, "0")}`}</h5>
+                              <p>Worked</p>
+                            </div>
+
+                            <div className="time_emp_desh">
+                              <h5 className="mb-1 mt-3 text-xl  tracking-tight text-gray-900 ">{`${Math.floor(
+                                breakClock / 3600
+                              )
+                                .toString()
+                                .padStart(2, "0")}:${Math.floor(
+                                (breakClock % 3600) / 60
+                              )
+                                .toString()
+                                .padStart(2, "0")}`}</h5>
+                              <p>Break</p>
+                            </div>
+
+                            <div className="time_emp_desh">
+                              <h5 className="mb-1 mt-3 text-xl  tracking-tight text-gray-900 ">{`${Math.floor(
+                                (32400 - clock) / 3600
+                              )
+                                .toString()
+                                .padStart(2, "0")}:${Math.floor(
+                                ((32400 - clock) % 3600) / 60
+                              )
+                                .toString()
+                                .padStart(2, "0")}`}</h5>
+                              <p>balance</p>
+                            </div>
+                          </div>
+
+                          <hr />
+
+                          <h5 className="thisMonText">
+                            This month
+                          </h5>
+
+                          <hr />
+
+                          <div className="time_emp_desh_flex2">
+                            
+                              <img src={clock2} alt="" />
+
+                            <div className="time_emp_desh">
+                              <h6 className="timeEmptext">
+                                168 hrs
+                              </h6>
+                              {/* <p>{`${Math.floor((32400 - clock) / 3600)
+                                .toString()
+                                .padStart(2, "0")}:${Math.floor(
+                                ((32400 - clock) % 3600) / 60
+                              )
+                                .toString()
+                                .padStart(2, "0")}`}</p> */}
+                            </div>
+                            
+                          </div>
+                        </a>
+                      </div>
 
                     {/* second  */}
 
