@@ -1521,6 +1521,12 @@ const MainState = (props) => {
       return resp;  
    }
 
+   const updateLeadStatus = async(id,LeadStatus)=>{
+
+      const data = await post(`${baseUrl}/lead/updateLeadStatus/${id}`, {LeadStatus}, true);
+      console.log("data ",data);
+      return data;
+   }
 
    return (
       <MainContext.Provider value={{
@@ -1529,6 +1535,7 @@ const MainState = (props) => {
          getTotalLeavesCount, uploadDocuments, createAnnouncement, deleteAnnouncement, updateAnnouncements, fetchAnnoucement, deleteAnnouncements, getEmp, allEmployeebyDep, notificationGet,
          acceptLeave, rejectLeave,
          postNotification, fetchUserNotify,
+         updateLeadStatus,
          deleteNotification,
          postNotifyLeavereq,
          createTermination, getTermination, deleteTermination, updateTermination,

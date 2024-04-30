@@ -327,9 +327,12 @@ const CreateLead = ({ setAlert, pop, setPop }) => {
                                         <div className="lead_inp1">
                                             <label htmlFor="">Lead Status</label>
                                             <select value={formdata?.LeadStatus}  name="LeadStatus" onChange={changeHandler}  id="">
-                                                <option disabled>Select Status</option>
-                                                <option>Active</option>
-                                                <option>Inactive</option>
+                                                <option >Select Status</option>
+                                                   <option value="Cold">Cold</option>
+                                                   <option value="Follow-up">Follow-up</option>
+                                                   <option value="Hot">Hot</option>
+                                                   <option value="Warm">Warm</option>
+
                                             </select>
                                         </div>
                                     </div>

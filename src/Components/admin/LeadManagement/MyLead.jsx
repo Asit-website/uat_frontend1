@@ -350,7 +350,7 @@ const MyLead = ({ setAlert, pop, setPop }) => {
                                                         <td className="px-6 py-4 relt">{item?.Phone}</td>
                                                         <td className="px-6 py-4">{item?.FirstName}</td>
                                                         <td className="px-6 py-4">{item?.LastName}</td>
-                                                        <td className="px-6 py-4">{item?.LeadStatus}</td>
+                                                        <td className={`px-6 py-4 ${item?.LeadStatus === 'Follow-up' && "followUp"} ${item?.LeadStatus == 'Hot' && 'Hot'} ${item?.LeadStatus == 'Cold' && 'Cold'}  ${item?.LeadStatus == 'Warm' && 'Warm'} `}>{item?.LeadStatus}</td>
                                                         <td className="px-6 py-4">{item?.Industry}</td>
                                                         <td className="px-6 py-4">
                                                             <OutsideClickHandler

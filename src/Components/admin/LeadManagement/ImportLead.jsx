@@ -9,21 +9,30 @@ import "./lead.css"
 import { NavLink, useNavigate, useParams } from "react-router-dom";
 
 const ImportLead = ({ setAlert, pop, setPop }) => {
-    const { user, getLead2 } = useMain();
+    const { user, getLead2  , updateLeadStatus} = useMain();
 
     const { id } = useParams();
     const [data, setData] = useState({});
+
+    const [LeadStatus , setLeadStatus] = useState("");
 
     const navigate = useNavigate();
 
     const getData = async () => {
         let ans = await getLead2(id, '', '', '');
         setData(ans.data[0]);
+        setLeadStatus(ans?.data[0]?.LeadStatus);
     };
 
-    useEffect(() => {
+    useEffect(() => { 
         getData();
     }, [])
+
+
+     const updatingLeadStatus = async(leading)=>{
+        const {_id} = data;
+         const ans = await updateLeadStatus(_id , leading);
+     }
 
     return (
         <>
@@ -246,6 +255,38 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
                                 </div>
 
                             </div>
+
+                            {/* third  */}
+                            <div className="leadFirs">
+
+ <div className = "LEADSsTunav">
+    
+                                <h2 className="ehading">Lead Status</h2>
+
+                                <select  onChange={(e)=>{
+                                    setLeadStatus(e.target.value);
+                                    updatingLeadStatus(e.target.value);
+                                }}  className="leadUPdateStsus" name="LeadStatus"  id="">
+                                                <option >Select Status</option>
+                                                   <option value="Cold">Cold</option>
+                                                   <option value="Follow-up">Follow-up</option>
+                                                   <option value="Hot">Hot</option>
+                                                   <option value="Warm">Warm</option>
+
+                                            </select>
+ </div>
+
+                                <div className="eladinfoWrap secondWRap">
+
+                                   {
+                                    LeadStatus ? <span className="ladingstaus">{LeadStatus}</span> : <span className="noRecord">No records found</span>
+                                   }
+
+                                </div>
+
+                            </div>
+
+
                             {/* fourth  */}
                             <div className="leadFirs">
                                 <div className="attachment">

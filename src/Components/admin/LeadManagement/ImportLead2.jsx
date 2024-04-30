@@ -11,22 +11,34 @@ import EmployeeNavbar from "../../Employee/Navbar/EmployeeNavbar";
 import EmployeeSidebar from "../../Employee/Sidebar/EmployeeSidebar";
 
 const ImportLead2 = ({ setAlert, pop, setPop }) => {
-    const { user, getLead2 } = useMain();
+    const { user, getLead2 , updateLeadStatus } = useMain();
 
     const { id } = useParams();
     const [data, setData] = useState({});
 
     const navigate = useNavigate();
 
+    const [LeadStatus , setLeadStatus] = useState("");
+
+
     const getData = async () => {
         let ans = await getLead2(id, '', '', '');
         setData(ans.data[0]);
+        setLeadStatus(ans?.data[0]?.LeadStatus);
+
     };
 
     useEffect(() => {
         getData();
     }, [])
 
+    const updatingLeadStatus = async(leading)=>{
+        const {_id} = data;
+         const ans = await updateLeadStatus(_id , leading);
+         console.log("ans " , ans);
+     }
+
+     console.log("ata ",data);
     return (
         <>
             <div className="employee-dash h-full">
@@ -46,7 +58,7 @@ const ImportLead2 = ({ setAlert, pop, setPop }) => {
                                 <img className="sio" src={data?.image ? data?.image : leadProfile} alt="" />
 
                                 <div className="lTITL">
-                                    <h2>Kanishka Tyagi</h2>
+                                    <h2>{data?.LeadOwner?.fullName}</h2>
                                     <p style={{ display: "flex" }}><img src={bx} /> <span> Add Tags</span></p>
                                 </div>
 
@@ -248,6 +260,37 @@ const ImportLead2 = ({ setAlert, pop, setPop }) => {
                                 </div>
 
                             </div>
+
+   {/* third  */}
+   <div className="leadFirs">
+
+<div className = "LEADSsTunav">
+   
+                               <h2 className="ehading">Lead Status</h2>
+
+                               <select  onChange={(e)=>{
+                                   setLeadStatus(e.target.value);
+                                   updatingLeadStatus(e.target.value);
+                               }}  className="leadUPdateStsus" name="LeadStatus"  id="">
+                                               <option >Select Status</option>
+                                                  <option value="Cold">Cold</option>
+                                                  <option value="Follow-up">Follow-up</option>
+                                                  <option value="Hot">Hot</option>
+                                                  <option value="Warm">Warm</option>
+
+                                           </select>
+</div>
+
+                               <div className="eladinfoWrap secondWRap">
+
+                                  {
+                                   LeadStatus ? <span className="ladingstaus">{LeadStatus}</span> : <span className="noRecord">No records found</span>
+                                  }
+
+                               </div>
+
+                           </div>
+
                             {/* fourth  */}
                             
                             <div className="leadFirs">
