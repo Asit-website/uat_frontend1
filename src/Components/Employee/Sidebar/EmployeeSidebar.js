@@ -10,6 +10,7 @@ import userP from "../../images/userProfile.png"
 import usepp from "../../images/userPp.png"
 import user3d from "../../images/UsersThree-d.png"
 import chatd from "../../images/ChatsTeardrop-d.png"
+import  shop from "../../images/ShoppingBagOpen-d.png"
 
 const EmployeeSidebar = () => {
 
@@ -76,6 +77,18 @@ const EmployeeSidebar = () => {
             </li>
             </NavLink>
 
+        
+            <NavLink to="/employeeDash/mySelf"><li className="indefy">
+              <img src={shop} alt="" />
+              <a
+                href="#"
+                className=" "
+              >
+                <span  className="">My Self</span>
+              </a>
+
+            </li>
+            </NavLink>
 
            
            <li className="mostwrap">

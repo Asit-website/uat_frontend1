@@ -11,7 +11,7 @@ import EmployeeNavbar from "../../Employee/Navbar/EmployeeNavbar";
 import EmployeeSidebar from "../../Employee/Sidebar/EmployeeSidebar";
 
 const ImportLead2 = ({ setAlert, pop, setPop }) => {
-    const { user, getLead2 , updateLeadStatus } = useMain();
+    const { user, getLead2 , updateLeadStatus , updateLeadNote } = useMain();
 
     const { id } = useParams();
     const [data, setData] = useState({});
@@ -36,6 +36,12 @@ const ImportLead2 = ({ setAlert, pop, setPop }) => {
         const {_id} = data;
          const ans = await updateLeadStatus(_id , leading);
          console.log("ans " , ans);
+     }
+
+     const updatingNote = async(Note)=>{
+        const {_id} = data;
+         const ans = await updateLeadNote(_id , Note);
+         console.log("ans ",ans);
      }
 
      console.log("ata ",data);
@@ -288,6 +294,22 @@ const ImportLead2 = ({ setAlert, pop, setPop }) => {
                                   }
 
                                </div>
+
+                               {
+                                data?.Note ?
+                                <div className="notePresent">
+    <p>{new Date(data?.NoteDate).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</p>
+                                 <span className="realNote">{data?.Note}</span>
+                                </div>
+                                :
+                                <label className="noteLabel" >
+                                    <p >Note:</p>
+                                    <input onChange={(e)=>{
+                                        updatingNote(e.target.value);
+                                    }} type="text" />
+                                </label>
+
+                                }
 
                            </div>
 

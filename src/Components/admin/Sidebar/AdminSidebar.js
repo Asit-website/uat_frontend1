@@ -28,6 +28,10 @@ const dashboardItem = [
     link: "/adminDash/HRM"
   },
   {
+    title: "My Self",
+    link: "/adminDash/mySelf"
+  },
+  {
     title: "Accounting",
   },
   {

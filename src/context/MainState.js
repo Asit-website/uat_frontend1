@@ -3,17 +3,17 @@ import MainContext from './MainContext';
 import { deleteReq, get, post, put, postDocuments } from '../Api/api'
 import { useState } from 'react';
 
-// const baseUrl = "http://localhost:5000";
+const baseUrl = "http://localhost:5000";
 
 // const baseUrl = "https://hrms-backend-code.onrender.com"
 
-const baseUrl = "http://localhost:5000";
+// const baseUrl = "http://localhost:5000";
 
 // const baseUrl = "https://hrms-backend-q2ta.onrender.com";
 
 // this is production baseurl 
 
-// const baseUrl = "https://hmsbackend.kusheldigi.com";
+//  const baseUrl = "https://hmsbackend.kusheldigi.com";
 
 // const baseUrl = "https://hrms-backend-g3wt.onrender.com";
 
@@ -1524,7 +1524,11 @@ const MainState = (props) => {
    const updateLeadStatus = async(id,LeadStatus)=>{
 
       const data = await post(`${baseUrl}/lead/updateLeadStatus/${id}`, {LeadStatus}, true);
-      console.log("data ",data);
+      return data;
+   }
+   const updateLeadNote = async(id,Note)=>{
+
+      const data = await post(`${baseUrl}/lead/updateLeadNote/${id}`, {Note}, true);
       return data;
    }
 
@@ -1538,6 +1542,7 @@ const MainState = (props) => {
          updateLeadStatus,
          deleteNotification,
          postNotifyLeavereq,
+         updateLeadNote,
          createTermination, getTermination, deleteTermination, updateTermination,
          createWarning, getWarning, deleteWarning, updateWarning,
          createComplain, getComplain, updateComplain, deleteComplain,

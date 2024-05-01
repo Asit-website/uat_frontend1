@@ -6,12 +6,18 @@ import { useMain } from "../../../hooks/useMain";
 import leadProfile from "../../images/leadProfile.png"
 import bx from "../../images/bx-purchase-tag.png"
 import "./lead.css"
-import { NavLink, useNavigate, useParams } from "react-router-dom";
+import {  useNavigate, useParams } from "react-router-dom";
 
 const ImportLead = ({ setAlert, pop, setPop }) => {
-    const { user, getLead2  , updateLeadStatus} = useMain();
+    
+    const { user, getLead2  , updateLeadStatus , updateLeadNote} = useMain();
+
+
 
     const { id } = useParams();
+
+    // const [Note , setNote] = useState("");
+
     const [data, setData] = useState({});
 
     const [LeadStatus , setLeadStatus] = useState("");
@@ -32,6 +38,10 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
      const updatingLeadStatus = async(leading)=>{
         const {_id} = data;
          const ans = await updateLeadStatus(_id , leading);
+     }
+     const updatingNote = async(Note)=>{
+        const {_id} = data;
+         const ans = await updateLeadNote(_id , Note);
      }
 
     return (
@@ -283,6 +293,23 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
                                    }
 
                                 </div>
+
+
+                              {
+                                data?.Note ?
+                                <div className="notePresent">
+    <p>{new Date(data?.NoteDate).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</p>
+                                 <span className="realNote">{data?.Note}</span>
+                                </div>
+                                :
+                                <label className="noteLabel" >
+                                    <p >Note:</p>
+                                    <input onChange={(e)=>{
+                                        updatingNote(e.target.value);
+                                    }} type="text" />
+                                </label>
+
+                                }
 
                             </div>
 

@@ -4226,3 +4226,60 @@ text-align: left;
 
 
 }
+
+.noteLabel{
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.noteLabel p{
+  font-family: Inter;
+  color: #1B2533;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: 0.0025em;
+  text-align: left;
+  
+}
+
+.noteLabel input{
+  width: 1120px;
+  height: 48px;
+  padding: 8px 16px 8px 16px;
+  background: #FFFFFF;
+  border: 1px solid #D0D4DC;
+
+
+
+}
+
+.notePresent{
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  
+}
+.notePresent p{
+  font-family: Inter;
+  color: #666D76;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: 0.0025em;
+  text-align: right;
+  
+
+}
+
+.realNote{
+font-family: Inter;
+color: #101820;
+font-size: 16px;
+font-weight: 700;
+line-height: 24px;
+letter-spacing: 0.0015em;
+text-align: right;
+
+}
