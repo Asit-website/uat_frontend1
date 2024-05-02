@@ -20,6 +20,7 @@ import happy from "../../images/bx-happy-heart-eyes.png"
 import edit22 from "../../images/edit22.png"
 import pp from "../../images/pp.png"
 import OutsideClickHandler from "react-outside-click-handler";
+import toast from "react-hot-toast";
 
 
 const EmployeeManagement = ({
@@ -90,7 +91,7 @@ const EmployeeManagement = ({
           },
           onClick: async () => {
             await deleteUser(id);
-            alert("delete Successfully");
+            toast.success("delete Successfully");
             setRefreshFlag(!refreshFlag);
             getData();
           }

@@ -4,6 +4,7 @@ import kushel from "../images/kushel.png";
 import path from '../images/path.png';
 import { useMain } from '../../hooks/useMain';
 import { useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
 
 const ForgetPassword2 = ({ setAlert }) => {
   const { forgetPassword2 } = useMain();
@@ -27,7 +28,7 @@ const ForgetPassword2 = ({ setAlert }) => {
         localStorage.removeItem('hrms_token');
         localStorage.removeItem('hrms_user');
         localStorage.removeItem('kds-reset-email');
-        alert("password changed successfully");
+        toast.success("password changed successfully");
         navigate('/login');
       }
     }

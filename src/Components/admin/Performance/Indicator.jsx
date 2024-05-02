@@ -8,6 +8,7 @@ import cross from "../../images/crossAn.png"
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 import { FaRegStar, FaSleigh } from "react-icons/fa";
+import toast from 'react-hot-toast';
 
 
 const Indicator = ({ pop, setPop, setAlert }) => {
@@ -93,7 +94,7 @@ const Indicator = ({ pop, setPop, setAlert }) => {
           },
           onClick: async () => {
             await deleteIndicator(id);
-            alert("delete Successfully");
+            toast.success("delete Successfully");
             setRefreshFlag(!refreshFlag);
             getData(); 
           }
@@ -136,13 +137,13 @@ const Indicator = ({ pop, setPop, setAlert }) => {
       if (onEdit) {
         const ans = await updateIndicator({ ...formdata });
         console.log(ans.data);
-        alert("update successfully");
+        toast.success("update successfully");
         setRefreshFlag(!refreshFlag);
       }
       else {
         const ans = await createIndicator({ ...formdata });
         console.log("rep ans ", ans);
-        alert("Successfuly Created");
+        toast.success("Successfuly Created");
         setRefreshFlag(!refreshFlag);
       }
       setOpenForm(false);

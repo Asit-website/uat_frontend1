@@ -19,6 +19,7 @@ import cas from "../../images/cssual.png"
 import sick2 from "../../images/sick2.png"
 import annNav from "../../images/annNav.png"
 import cutt from "../../images/cutt.png"
+import toast from "react-hot-toast";
 
 var tc3;
 var tc4;
@@ -343,6 +344,8 @@ const EmployeeDash = ({ setAlert, pop1, setPop1 }) => {
   const submitHandler = async (e) => {
     e.preventDefault();
 
+   const toastId =   toast.loading("Loading...");
+
     const startDate = new Date(formdata.start);
     const endDate = new Date(formdata.end);
     const timeDifference = Math.abs(endDate - startDate);
@@ -359,8 +362,10 @@ const EmployeeDash = ({ setAlert, pop1, setPop1 }) => {
     const notify = await postNotification(daysGap, formdata.employeeName);
 
     if (ans.success) {
-      alert("Successfuly applied");
+      // alert("Successfuly applied");
+      toast.success("Successfully applied");
       setStar1(false);
+
     }
     setFormdata({
       employeeName: "",
@@ -369,6 +374,9 @@ const EmployeeDash = ({ setAlert, pop1, setPop1 }) => {
       end: "",
       reason: "",
     });
+
+toast.dismiss(toastId);
+
   };
 
   const [leaveType, setLeaveType] = useState([]);

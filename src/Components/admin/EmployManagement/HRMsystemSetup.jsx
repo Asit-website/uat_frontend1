@@ -14,6 +14,7 @@ import hub2 from "../../images/work_FILL0_wght400_GRAD0_opsz24 1.png"
 import hub3 from "../../images/hub3.png"
 import frame1 from "../../images/Frame 9688.png"
 import cross1 from "../../images/cross1.png"
+import toast from "react-hot-toast";
 
 const sidebarItem = [
   {
@@ -141,7 +142,6 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
     const ans1 = await getBranchs();
     const ans2 = await getDepartments();
     const ans3 = await getDesignations();
-     console.log("ans3",ans3);
     const ans4 = await getLeaveTypes();
     setBranches(ans1?.data);
     setBranches1(ans1?.data);
@@ -158,41 +158,46 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
   }, [refreshFlag]);
 
   const handleCreateBranch = async () => {
+    const toastId = toast.loading("Loading...");
+
     const ans = await postBranch({ name: branch });
-    console.log(ans);
     if (ans.success) {
-      alert(ans.message);
+      toast.success(ans.message);
       setBranch("");
       setRefreshFlag(!refreshFlag);
       setPopup1(false);
     } else {
-      alert("Branch name is alreday exist");
+      toast.error("Branch name is alreday exist");
     }
+
+    toast.dismiss(toastId);
   };
 
   const handleUpdateBranch = async () => {
+    const toastId = toast.loading("Loading...");
+
     const ans = await updateBranch({ name: branch1, id });
-    console.log(ans);
     if (ans.success) {
-      alert(ans.message);
+      toast.success(ans.message);
       setBranch1("");
       setRefreshFlag(!refreshFlag);
       setPopup11(false);
     } else {
-      alert("something went wrong");
+      toast.error("something went wrong");
     }
+
+    toast.dismiss(toastId);
   };
 
   const handleCreateDepartment = async () => {
-    // console.log(departmentValue);
+    const toastId = toast.loading("Loading...");
     const ans = await postDepartment({
       name: departmentValue.name,
       branch: branches.find(x => x._id === departmentValue.branch),
     });
-    console.log(ans);
 
     if (ans.status) {
-      alert("success");
+      toast.success("success");
       setBranch('');
       setRefreshFlag(!refreshFlag);
       setPopup1(false);
@@ -202,25 +207,27 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
         name: '',
         branch: ''
       });
-      alert(ans.message);
+      toast.success(ans.message);
       setRefreshFlag(!refreshFlag);
       setPopup2(false);
     }
      else {
-      alert("Department name alreday exist");
+      toast.error("Department name alreday exist");
 
     }
+
+    toast.dismiss(toastId);
   }
   
   const handleCreateDesignation = async () => {
-    // console.log(designationValue);
+    const toastId = toast.loading("Loading...");
+
     const ans = await postDesignation({
       name: designationValue.name,
       department: departments.find(x => x._id === designationValue.department)
     });
-    console.log(ans);
     if (ans.success) {
-      alert(ans.message);
+      toast.success(ans.message);
       setDesignationValue({
         name: '',
         department: ''
@@ -228,18 +235,21 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
       setRefreshFlag(!refreshFlag);
       setPopup3(false);
     } else {
-      alert("something went wrong");
+      toast.error("something went wrong");
     }
+
+    toast.dismiss(toastId);
   };
 
   const handleCreateLeaveType = async () => {
+    const toastId = toast.loading("Loading...");
+
     const ans = await postLeaveType({
       days: leaveTypeValue?.days,
       name: leaveTypeValue?.name
     });
-    console.log(ans);
     if (ans.success) {
-      alert(ans.message);
+      toast.success(ans.message);
       setLeaveTypeValue({
         name: '',
         days: ''
@@ -247,41 +257,44 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
       setRefreshFlag(!refreshFlag);
       setPopup4(false);
     } else {
-      alert("Leave Name already exist");
+      toast.error("Leave Name already exist");
     }
+
+    toast.dismiss(toastId);
   };
 
   const handleUpdateDepartment = async () => {
-    // console.log(departmentValue);
+    const toastId = toast.loading("Loading...");
     const ans = await updateDepartment({
       id,
       name: departmentValue1?.name,
       branch: branches?.find(x => x?._id === departmentValue1?.branch),
     });
-    console.log(ans);
     if (ans.success) {
       setDepartmentValue1({
         name: '',
         branch: ''
       });
-      alert(ans.message);
+      toast.success(ans.message);
       setRefreshFlag(!refreshFlag);
       setPopup21(false);
     } else {
-      alert("something went wrong");
+      toast.error("something went wrong");
     }
+
+    toast.dismiss(toastId);
   };
 
   const handleUpdateDesignation = async () => {
-    // console.log(designationValue);
+    const toastId = toast.loading("Loading...");
+
     const ans = await updateDesignation({
       id,
       name: designationValue1?.name,
       department: departments?.find(x => x?._id === designationValue1?.department)
     });
-    console.log(ans);
     if (ans.success) {
-      alert(ans.message);
+      toast.success(ans.message);
       setDesignationValue1({
         name: '',
         department: ''
@@ -289,19 +302,21 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
       setRefreshFlag(!refreshFlag);
       setPopup31(false);
     } else {
-      alert("something went wrong");
+      toast.error("something went wrong");
     }
+
+    toast.dismiss(toastId);
   };
 
   const handleUpdateLeaveType = async () => {
+    const toastId = toast.loading("Loading...");
     const ans = await updateLeaveType({
       id,
       days: leaveTypeValue1?.days,
       name: leaveTypeValue1?.name
     });
-    console.log(ans);
     if (ans.success) {
-      alert(ans.message);
+      toast.success(ans.message);
       setLeaveTypeValue1({
         name: '',
         days: ''
@@ -309,13 +324,15 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
       setRefreshFlag(!refreshFlag);
       setPopup41(false);
     } else {
-      alert("something went wrong");
+      toast.error("something went wrong");
     }
+
+    toast.dismiss(toastId);
   };
 
   const handleDelete = async (id, type) => {
+    const toastId = toast.loading("Loading...");
     let ans;
-    console.log(id, type);
     if (type === 'branch') {
       ans = await deleteBranch(id);
     }
@@ -328,14 +345,15 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
     else if (type === 'leaveType') {
       ans = await deleteLeaveType(id);
     }
-    console.log(ans);
 
     if (ans.success) {
-      alert(ans.message);
+      toast.success(ans.message);
       setRefreshFlag(!refreshFlag);
     } else {
-      alert("something went wrong");
+      toast.success("something went wrong");
     }
+
+    toast.dismiss(toastId);
   };
 
   return (

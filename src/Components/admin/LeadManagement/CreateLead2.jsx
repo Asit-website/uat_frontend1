@@ -7,6 +7,7 @@ import upload from '../../images/upload.svg';
 import OutsideClickHandler from "react-outside-click-handler";
 import EmployeeSidebar from "../../Employee/Sidebar/EmployeeSidebar";
 import EmployeeNavbar from "../../Employee/Navbar/EmployeeNavbar";
+import toast from "react-hot-toast";
 
 const CreateLead2 = ({ setAlert, pop, setPop }) => {
     const { user , createLead , getEmployees } = useMain();
@@ -56,7 +57,7 @@ const CreateLead2 = ({ setAlert, pop, setPop }) => {
         const imageFile = event.target.files[0];
     
         if (!imageFile || !imageFile.type.match('image/*')) {
-          return alert('Please select a valid image file.');
+          return toast.error('Please select a valid image file.');
         }
     
         setFormdata((prev)=>({
@@ -75,10 +76,9 @@ const CreateLead2 = ({ setAlert, pop, setPop }) => {
      }
 
      const submitHandler = async()=>{
+        const toastId = toast.loading("Loading...");
          const ans = await createLead({...formdata});
-         console.log(ans)
           if(ans?.status){
-            alert("Successful created");
             navigate("/employeeDash/myLead")
             setFormdata({
                 LeadOwner:userDetail?._id,
@@ -108,7 +108,11 @@ const CreateLead2 = ({ setAlert, pop, setPop }) => {
                  Country:"" ,
                  DescriptionInfo:""
             })
+
+            toast.success("Successfuly submit");
           }
+
+          toast.dismiss(toastId);
      }
 
      const getOwner = async()=>{

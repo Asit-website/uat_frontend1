@@ -11,6 +11,7 @@ import plusIcon from "../../images/plusIcon.png";
 
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
+import toast from "react-hot-toast";
 
 
 const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
@@ -79,13 +80,13 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
     if (onEdit) {
       const ans = await updateTransfer({ ...formdata });
       console.log(ans.data);
-      alert("update successfully");
+      toast.success("update successfully");
       setRefreshFlag(!refreshFlag);
     }
     else {
       const ans = await createTransfer({ ...formdata });
       console.log("rep ans ", ans);
-      alert("Successfuly Created");
+      toast.success("Successfuly Created");
       setRefreshFlag(!refreshFlag);
     }
     setPopup1(false)
@@ -109,7 +110,7 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
           },
           onClick: async () => {
             await deleteTransfer(id);
-            alert("delete Successfully");
+            toast.success("delete Successfully");
             setRefreshFlag(!refreshFlag);
           }
         },

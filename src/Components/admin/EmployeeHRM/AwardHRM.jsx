@@ -11,6 +11,7 @@ import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 
 import plusIcon from "../../images/plusIcon.png";
+import toast from "react-hot-toast";
 
 const sidebarItem = [
   {
@@ -165,24 +166,24 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
   const handleCreateBranch = async () => {
     const ans = await postBranch({ name: branch });
     if (ans.success) {
-      alert(ans.message);
+      toast.success(ans.message);
       setBranch("");
       setRefreshFlag(!refreshFlag);
       setPopup1(false);
     } else {
-      alert("something went wrong");
+      toast.error("something went wrong");
     }
   };
 
   const handleUpdateBranch = async () => {
     const ans = await updateBranch({ name: branch1, id });
     if (ans.success) {
-      alert(ans.message);
+      toast.success(ans.message);
       setBranch1("");
       setRefreshFlag(!refreshFlag);
       setPopup11(false);
     } else {
-      alert("something went wrong");
+      toast.error("something went wrong");
     }
   };
 
@@ -196,11 +197,11 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
         name: '',
         branch: ''
       });
-      alert(ans.message);
+      toast.success(ans.message);
       setRefreshFlag(!refreshFlag);
       setPopup2(false);
     } else {
-      alert("something went wrong");
+      toast.error("something went wrong");
     }
   };
 
@@ -211,7 +212,7 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
       department: departments.find(x => x._id === designationValue.department)
     });
     if (ans.success) {
-      alert(ans.message);
+      toast.success(ans.message);
       setDesignationValue({
         name: '',
         department: ''
@@ -219,7 +220,7 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
       setRefreshFlag(!refreshFlag);
       setPopup3(false);
     } else {
-      alert("something went wrong");
+      toast.error("something went wrong");
     }
   };
 
@@ -377,7 +378,7 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
   const submitHandler = async () => {
     try {
       if (formdata.employee === 'Select Employee') {
-        return alert("Please select correct employee");
+        return toast.error("Please select correct employee");
       }
       if (onEdit) {
         const ans = await updateAward({ ...formdata });
@@ -410,7 +411,7 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
           },
           onClick: async () => {
             await deleteAward(id);
-            alert("delete Successfully");
+            toast.success("delete Successfully");
             setRefreshFlag(!refreshFlag);
           }
         },

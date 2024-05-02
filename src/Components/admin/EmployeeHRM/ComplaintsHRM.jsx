@@ -10,6 +10,7 @@ import "./award.css";
 import plusIcon from "../../images/plusIcon.png";
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
+import toast from "react-hot-toast";
 
 
 
@@ -71,12 +72,12 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
     try {
       if (onEdit) {
         await updateComplain({ ...formdata });
-        alert("update successfully");
+        toast.success("update successfully");
         setRefreshFlag(!refreshFlag);
       }
       else {
         await createComplain({ ...formdata });
-        alert("Successfuly Created");
+        toast.success("Successfuly Created");
         setRefreshFlag(!refreshFlag);
       }
       setPopup1(false);
@@ -98,7 +99,7 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
           },
           onClick: async () => {
             await deleteComplain(id);
-            alert("delete Successfully");
+            toast.success("delete Successfully");
             setRefreshFlag(!refreshFlag);
             getData();
           }

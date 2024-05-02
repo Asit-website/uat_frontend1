@@ -9,6 +9,7 @@ import upper from "../../images/upper.png";
 import lower from "../../images/lower.png";
 import del from '../../images/delete.png';
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const HrManage = ({ pop, setPop, setAlert }) => {
   const navigate = useNavigate();
@@ -183,7 +184,7 @@ const HrManage = ({ pop, setPop, setAlert }) => {
 
   const handleSubmit = async (e, type) => {
     e.preventDefault();
-    alert("created");
+    toast.success("created");
     const ans = await createHr({ ...value1, ...value2, ...value3, ...value4, ...value5 });
     console.log(ans.data);
     console.log({ ...value1, ...value2, ...value3, ...value4, ...value5 });
@@ -294,7 +295,7 @@ const HrManage = ({ pop, setPop, setAlert }) => {
                             <button
                               onClick={() => {
                                 handleEdit("form1");
-                                alert("Now admin can edit");
+                                toast.success("Now admin can edit");
                               }}
                               type="button"
                               className="edit"
@@ -304,7 +305,7 @@ const HrManage = ({ pop, setPop, setAlert }) => {
                             <button
                               onClick={() => {
                                 handleSave("form1");
-                                alert("Saved the data");
+                                toast.success("Saved the data");
                               }}
                               type="button"
                               className="save"

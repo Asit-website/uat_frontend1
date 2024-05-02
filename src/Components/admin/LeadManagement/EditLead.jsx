@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import upload from '../../images/upload.svg';
 import OutsideClickHandler from "react-outside-click-handler";
 import { useLocation } from 'react-router-dom';
+import toast from "react-hot-toast";
 
 
 
@@ -69,7 +70,7 @@ const EditLead = ({ setAlert, pop, setPop }) => {
         const imageFile = event.target.files[0];
     
         if (!imageFile || !imageFile.type.match('image/*')) {
-          return alert('Please select a valid image file.');
+          return toast.error('Please select a valid image file.');
         }
     
         setFormdata((prev)=>({
@@ -90,7 +91,7 @@ const EditLead = ({ setAlert, pop, setPop }) => {
      const submitHandler = async()=>{
          const ans = await updateLead({...formdata , id: item?._id});
           if(ans?.status){
-            alert("Successful Updated");
+            toast.success("Successful Updated");
             navigate("/adminDash/myLead");
            
           }

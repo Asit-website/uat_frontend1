@@ -8,6 +8,7 @@ import edit from "../../images/edit.png";
 import upper from "../../images/upper.png";
 import lower from "../../images/lower.png";
 import del from "../../images/delete.png";
+import toast from "react-hot-toast";
 // import { useNavigate } from "react-router-dom";
 
 const EmployeeManageByHr = ({ setAlert, pop1, setPop1 }) => {
@@ -156,7 +157,7 @@ const EmployeeManageByHr = ({ setAlert, pop1, setPop1 }) => {
   };
   const handleSubmit = async (e, type) => {
     e.preventDefault();
-    alert("created");
+    toast.success("created");
     const ans = await createEmployee({
       ...value1,
       ...value2,
@@ -282,7 +283,7 @@ const EmployeeManageByHr = ({ setAlert, pop1, setPop1 }) => {
                             <button
                               onClick={() => {
                                 handleEdit("form1");
-                                alert("Now admin can edit");
+                                toast.success("Now admin can edit");
                               }}
                               type="button"
                               className="edit"
@@ -292,7 +293,7 @@ const EmployeeManageByHr = ({ setAlert, pop1, setPop1 }) => {
                             <button
                               onClick={() => {
                                 handleSave("form1");
-                                alert("Saved the data");
+                                toast.success("Saved the data");
                               }}
                               type="button"
                               className="save"

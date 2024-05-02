@@ -4,6 +4,7 @@ import EmployeeSidebar from "../Sidebar/EmployeeSidebar";
 import { useMain } from "../../../hooks/useMain";
 import { useNavigate } from "react-router-dom";
 import cutImg from "../../images/cutt.png"
+import toast from "react-hot-toast";
 
 const UpdateProfile = ({ setAlert, pop1, setPop1 }) => {
   
@@ -55,16 +56,22 @@ const UpdateProfile = ({ setAlert, pop1, setPop1 }) => {
 
   const handleSubmit = async (e) => {
     
+     const toastId = toast.loading("Loading...");
+
     e.preventDefault();
     const ans = await updateProfile(value);
 
     if (ans.success) {
-      setAlert("success", ans.message);
+      // setAlert("success", ans.message);
+      toast.success(ans?.message);
       setValue(ans.data);
       navigate("/employeeDash");
     } else {
-      setAlert("error", ans.message);
+      // setAlert("error", ans.message);
+      toast.error(ans?.message);
     }
+
+    toast.dismiss(toastId);
   };
 
 

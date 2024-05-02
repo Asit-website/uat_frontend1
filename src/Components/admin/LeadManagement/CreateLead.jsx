@@ -7,6 +7,7 @@ import uint from '../../images/uing.png';
 import { useNavigate } from "react-router-dom";
 import upload from '../../images/upload.svg';
 import OutsideClickHandler from "react-outside-click-handler";
+import toast from "react-hot-toast";
 const CreateLead = ({ setAlert, pop, setPop }) => {
     const { user , createLead , getEmployees } = useMain();
     const [pop1,setPop1] = useState(false);
@@ -56,7 +57,7 @@ const CreateLead = ({ setAlert, pop, setPop }) => {
         const imageFile = event.target.files[0];
     
         if (!imageFile || !imageFile.type.match('image/*')) {
-          return alert('Please select a valid image file.');
+          return toast.error('Please select a valid image file.');
         }
     
         setFormdata((prev)=>({
@@ -75,9 +76,10 @@ const CreateLead = ({ setAlert, pop, setPop }) => {
      }
 
      const submitHandler = async()=>{
+        const toastId = toast.loading("Loading...");
          const ans = await createLead({...formdata});
           if(ans?.status){
-            alert("Successful created");
+            toast.success("Successful created");
             navigate("/adminDash/myLead")
             setFormdata({
                 LeadOwner:userDetail?._id,
@@ -108,11 +110,12 @@ const CreateLead = ({ setAlert, pop, setPop }) => {
                  DescriptionInfo:""
             })
           }
+
+          toast.dismiss(toastId);
      }
 
      const getOwner = async()=>{
          const ans = await getEmployees();
-         console.log(ans?.data);
          setEmp(ans?.data);
 
      }

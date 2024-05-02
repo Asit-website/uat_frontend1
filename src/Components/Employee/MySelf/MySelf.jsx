@@ -6,6 +6,7 @@ import { useMain } from "../../../hooks/useMain";
 import "./myself.css"
 import doc from "../../images/docu.png"
 import  bx from "../../images/bxs-download.png"
+import AdminSidebar from "../../admin/Sidebar/AdminSidebar";
 
 const MySelf = ({ setAlert, pop1, setPop1 }) => {
   // =================punch in punch out concept==========
@@ -18,11 +19,18 @@ const MySelf = ({ setAlert, pop1, setPop1 }) => {
 
   let user1 = JSON?.parse(localStorage.getItem("hrms_user"));
 
+  console.log("user ",user1);
+
 
   return (
     <>
       <div className="employee-dash h-full">
+         {
+            user1?.role === "ADMIN" ?
+            <AdminSidebar />
+            :
         <EmployeeSidebar />
+         }
         <div className="tm">
           <EmployeeNavbar
             user={user}

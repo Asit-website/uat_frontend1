@@ -9,6 +9,7 @@ import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 import "./award.css";
 
 import plusIcon from "../../images/plusIcon.png";
+import toast from "react-hot-toast";
 
 
 
@@ -86,12 +87,12 @@ const Trip = ({ setAlert, pop, setPop }) => {
         try {
             if (onEdit) {
               await updateTrip({ ...formdata });
-              alert("update successfully");
+              toast.success("update successfully");
               setRefreshFlag(!refreshFlag);
             }
             else {
               await createTrip({ ...formdata });
-              alert("Successfuly Created");
+              toast.success("Successfuly Created");
               setRefreshFlag(!refreshFlag);
             }
             setPopup1(false);
@@ -114,7 +115,7 @@ const Trip = ({ setAlert, pop, setPop }) => {
               },
               onClick: async () => {
                 await deleteTrip(id);
-                alert("delete Successfully");
+                toast.success("delete Successfully");
                 setRefreshFlag(!refreshFlag);
                 getData();
               }

@@ -12,6 +12,7 @@ import write from "../../images/write.png";
 import del from "../../images/del.png";
 import write2 from "../../images/write2.png";
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 const LeaveRequest = ({
   pop1,
@@ -83,7 +84,7 @@ const LeaveRequest = ({
   const ans = await updateLeave({ employeeName: formdata.employeeName ,  id:formdata.id ,  type: formdata.leaveType, from: formdata.start, to: formdata.end, days: daysGap, reason: formdata.reason});
 
    if(ans.success){
-    alert("Successfuly updated");
+    toast.success("Successfuly updated");
     setStar1(false);
     getUserLeaves();
    }
@@ -101,7 +102,7 @@ const LeaveRequest = ({
     console.log("notify ",notify);
 
     if(ans?.status){
-      alert("Successfuly reject the leave");
+      toast.success("Successfuly reject the leave");
       setShowPlay(-1);
     }
   }
@@ -119,7 +120,7 @@ const LeaveRequest = ({
 
     if(ans?.status){
       
-      alert("Successfuly Accepted the leave");
+      toast.success("Successfuly Accepted the leave");
       setShowPlay(-1);
     }
    }

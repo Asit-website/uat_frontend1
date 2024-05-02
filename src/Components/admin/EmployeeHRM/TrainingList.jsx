@@ -11,6 +11,7 @@ import "./trainingsetup.css"
 import plusIcon from "../../images/plusIcon.png";
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
+import toast from "react-hot-toast";
 
 
 
@@ -66,7 +67,7 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
           },
           onClick: async () => {
             await deleteTrainingList(id);
-            alert("delete Successfully");
+            toast.success("delete Successfully");
             setRefreshFlag(!refreshFlag);
           }
         },
@@ -115,13 +116,13 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
     if (onEdit) {
       const ans = await updateTrainingList({ ...formdata });
       console.log(ans.data);
-      alert("update successfully");
+      toast.success("update successfully");
       setRefreshFlag(!refreshFlag);
     }
     else {
       const ans = await createTrainingList({ ...formdata });
       console.log("rep ans ", ans);
-      alert("Successfuly Created");
+      toast.success("Successfuly Created");
       setRefreshFlag(!refreshFlag);
     }
     setPopup1(false)

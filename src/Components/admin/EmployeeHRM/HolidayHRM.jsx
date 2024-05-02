@@ -11,6 +11,7 @@ import "./resignation.css";
 import plusIcon from "../../images/plusIcon.png";
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
+import toast from "react-hot-toast";
 
 
 
@@ -62,12 +63,12 @@ const HolidayHRM = ({ setAlert, pop, setPop }) => {
     try {
       if (onEdit) {
         await updateHolidays({ ...formdata });
-        alert("update successfully");
+        toast.success("update successfully");
         setRefreshFlag(!refreshFlag);
       }
       else {
         await createHoliday({ ...formdata });
-        alert("Successfuly Created");
+        toast.success("Successfuly Created");
         setRefreshFlag(!refreshFlag);
       }
       setPopup1(false);
@@ -89,7 +90,7 @@ const HolidayHRM = ({ setAlert, pop, setPop }) => {
           },
           onClick: async () => {
             await deleteHolidays(id);
-            alert("delete Successfully");
+            toast.success("delete Successfully");
             setRefreshFlag(!refreshFlag);
             getData();
           }

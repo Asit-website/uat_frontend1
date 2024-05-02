@@ -8,6 +8,7 @@ import cross from "../../images/crossAn.png"
 import { FaOm, FaRegStar } from "react-icons/fa";
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
+import toast from 'react-hot-toast';
 
 
 const GoalTracking = ({ pop, setPop, setAlert }) => {
@@ -76,12 +77,12 @@ const GoalTracking = ({ pop, setPop, setAlert }) => {
     try {
       if (onEdit) {
         await updateTracks({ ...formdata });
-        alert("update successfully");
+        toast.success("update successfully");
         setRefreshFlag(!refreshFlag);
       }
       else {
         await createTracks({ ...formdata });
-        alert("Successfuly Created");
+        toast.success("Successfuly Created");
         setRefreshFlag(!refreshFlag);
       }
       setOpenForm(false);
@@ -103,7 +104,7 @@ const GoalTracking = ({ pop, setPop, setAlert }) => {
           },
           onClick: async () => {
             await deleteTracks(id);
-            alert("delete Successfully");
+            toast.success("delete Successfully");
             setRefreshFlag(!refreshFlag);
             getData();
           }

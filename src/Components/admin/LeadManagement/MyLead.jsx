@@ -11,6 +11,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import OutsideClickHandler from 'react-outside-click-handler';
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
+import toast from "react-hot-toast";
 
 const MyLead = ({ setAlert, pop, setPop }) => {
 
@@ -55,7 +56,7 @@ const MyLead = ({ setAlert, pop, setPop }) => {
               },
               onClick: async () => {
                 await deleteLeads(id);
-                alert("delete Successfully");
+                toast.success("delete Successfully");
                 setRefreshFlag(!refreshFlag);
               }
             },

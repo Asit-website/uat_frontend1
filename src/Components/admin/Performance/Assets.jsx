@@ -8,6 +8,7 @@ import cross from "../../images/crossAn.png"
 import { FaRegStar } from "react-icons/fa";
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
+import toast from 'react-hot-toast';
 
 
 const Assets = ({ pop, setPop, setAlert }) => {
@@ -64,12 +65,12 @@ const Assets = ({ pop, setPop, setAlert }) => {
     try {
       if (onEdit) {
         await updateAssets({ ...formdata });
-        alert("update successfully");
+        toast.success("update successfully");
         setRefreshFlag(!refreshFlag);
       }
       else {
         await createAssets({ ...formdata });
-        alert("Successfuly Created");
+        toast.success("Successfuly Created");
         setRefreshFlag(!refreshFlag);
       }
       setOpenForm(false);
@@ -103,7 +104,7 @@ const Assets = ({ pop, setPop, setAlert }) => {
           },
           onClick: async () => {
             await deleteAssets(id);
-            alert("delete Successfully");
+            toast.success("delete Successfully");
             setRefreshFlag(!refreshFlag);
             getData();
           }

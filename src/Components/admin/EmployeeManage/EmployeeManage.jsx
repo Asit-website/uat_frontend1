@@ -11,6 +11,7 @@ import del from "../../images/delete.png";
 import { useNavigate, useParams } from "react-router-dom";
 import HrSidebar from "../../Hr/Sidebar/HrSidebar";
 import HrNavbar from "../../Hr/Navbar/HrNavbar";
+import toast from "react-hot-toast";
 
 const EmployeeManage = ({ pop1, setPop1, pop, setPop, setAlert, isHr = false }) => {
   
@@ -301,12 +302,11 @@ const EmployeeManage = ({ pop1, setPop1, pop, setPop, setAlert, isHr = false }) 
   const handleSubmit = async (e, type) => {
     e.preventDefault();
 
+    const toastId = toast.loading("Loading...");
+
     if (!id) {
 
       const {adharCard , cancelCheque , educationCert , monthSalary , prevOrgOffer} = documents;
-
-      console.log('adhee ',adharCard , cancelCheque , educationCert , monthSalary , prevOrgOffer);
-
     
     const formData = new FormData();
      if(documents.adharCard){
@@ -423,10 +423,9 @@ const EmployeeManage = ({ pop1, setPop1, pop, setPop, setAlert, isHr = false }) 
         Branch: "",
       });
 
-      alert("created");
+     toast.success("Successfuly created");
     }
     else {
-
 
  const {adharCard , cancelCheque , educationCert , monthSalary , prevOrgOffer} = documents;
 
@@ -455,15 +454,14 @@ const EmployeeManage = ({ pop1, setPop1, pop, setPop, setAlert, isHr = false }) 
  if(adharCard !== "" || cancelCheque !== "" || educationCert !=="" || monthSalary !== "" || prevOrgOffer !== ""){
   // formData
   const ans = await uploadDocuments(id , formData);
-  if(ans.success){
-     alert("Successfuly updated the documents");
+  if(ans?.success){
+     toast.success("Successfuly updated the documents");
   }
 }
 
       const ans = await updateUser(id, value1, value2, value3, value4, value5);
-      console.log(ans.data);
 
-      setAlert("success", "Profile updated Successfully");
+      toast.success("success", "Profile updated Successfully");
       
       if (!isHr) {
         navigate("/adminDash/HRM/EmployeeManagement");
@@ -472,6 +470,8 @@ const EmployeeManage = ({ pop1, setPop1, pop, setPop, setAlert, isHr = false }) 
         navigate("/hrDash/EmployeeMan");
       }
     }
+
+    toast.dismiss(toastId);
 
   };
 

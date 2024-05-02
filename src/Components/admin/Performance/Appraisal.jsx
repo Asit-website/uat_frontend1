@@ -8,6 +8,7 @@ import cross from "../../images/crossAn.png"
 import { FaRegStar } from "react-icons/fa";
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
+import toast from 'react-hot-toast';
 
 const Appraisal = ({ pop, setPop, setAlert }) => {
   const { user, getAppraisal, createAppraisal, allEmployee, getBranchs, deleteApprisal, updateApprisal } = useMain();
@@ -65,7 +66,7 @@ const Appraisal = ({ pop, setPop, setAlert }) => {
           },
           onClick: async () => {
             await deleteApprisal(id);
-            alert("delete Successfully");
+            toast.success("delete Successfully");
             setRefreshFlag(!refreshFlag);
             getData();
           }
@@ -114,12 +115,12 @@ const Appraisal = ({ pop, setPop, setAlert }) => {
     try {
       if (onEdit) {
         await updateApprisal({ ...formdata });
-        alert("update successfully");
+        toast.success("update successfully");
         setRefreshFlag(!refreshFlag);
       }
       else {
         await createAppraisal({ ...formdata });
-        alert("Successfuly Created");
+        toast.success("Successfuly Created");
         setRefreshFlag(!refreshFlag);
       }
       setOpenForm(false);

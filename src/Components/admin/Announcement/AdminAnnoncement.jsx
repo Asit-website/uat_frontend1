@@ -7,6 +7,7 @@ import { useState, useEffect } from 'react';
 import cross from "../../images/crossAn.png";
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
+import toast from 'react-hot-toast';
 // import { useMain } from '../../../hooks/useMain';
 
 const AdminProfile = ({ pop, setPop, setAlert }) => {
@@ -68,12 +69,12 @@ const AdminProfile = ({ pop, setPop, setAlert }) => {
 
             if (onEdit) {
                 await updateAnnouncements({ ...formdata });
-                alert("update successfully");
+                toast.success("update successfully");
                 setRefreshFlag(!refreshFlag);
             }
             else {
                 await createAnnouncement({ ...formdata });
-                alert("Successfuly Created");
+                toast.success("Successfuly Created");
                 setRefreshFlag(!refreshFlag);
             }
 
@@ -125,7 +126,7 @@ const AdminProfile = ({ pop, setPop, setAlert }) => {
                     },
                     onClick: async () => {
                         await deleteAnnouncements(id);
-                        alert("delete Successfully");
+                        toast.success("delete Successfully");
                         setRefreshFlag(!refreshFlag);
                         // getData();
                     }

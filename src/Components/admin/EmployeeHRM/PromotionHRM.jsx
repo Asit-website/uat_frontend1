@@ -8,6 +8,7 @@ import { useMain } from "../../../hooks/useMain";
 import "./award.css";
 
 import plusIcon from "../../images/plusIcon.png";
+import toast from "react-hot-toast";
 
 
 
@@ -78,12 +79,12 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
     try {
       if (onEdit) {
         await updatePromotion({ ...formdata });
-        alert("update successfully");
+        toast.success("update successfully");
         setRefreshFlag(!refreshFlag);
       }
       else {
         await createPromotion({ ...formdata });
-        alert("Successfuly Created");
+        toast.success("Successfuly Created");
         setRefreshFlag(!refreshFlag);
       }
       setPopup1(false);

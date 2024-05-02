@@ -12,6 +12,7 @@ import "./leaveReq.css";
 import "./markAttendance.css";
 
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 const EmployeAttendence = ({
   pop1,
@@ -68,7 +69,7 @@ const changeHandler = (e)=>{
 
 const submitHandler = async()=>{
      if(formdata.Employee == "Select Employee"){
-        return alert("Please select the Employee");
+        return toast.error("Please select the Employee");
      }
 
       console.log("formd id ",formdata.id);

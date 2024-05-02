@@ -10,6 +10,7 @@ import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 import EmployeeNavbar from "../../Employee/Navbar/EmployeeNavbar";
 import EmployeeSidebar from "../../Employee/Sidebar/EmployeeSidebar";
+import toast from "react-hot-toast";
 const MyLead2 = ({ setAlert, pop, setPop }) => {
 
 
@@ -61,7 +62,7 @@ const MyLead2 = ({ setAlert, pop, setPop }) => {
               },
               onClick: async () => {
                 await deleteLeads(id);
-                alert("delete Successfully");
+                toast.success("delete Successfully");
                 setRefreshFlag(!refreshFlag);
               }
             },
