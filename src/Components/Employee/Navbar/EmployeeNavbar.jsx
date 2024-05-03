@@ -273,8 +273,8 @@ const EmployeeNavbar = ({ user, setAlert, pop1, setPop1 }) => {
           </p> */}
         </div>
         </NavLink>
-        <div className="third-logo ">
-          <input type="search" placeholder="Search" />
+        <div  className="third-logo ">
+          <input style={{visibility:"hidden"}}  type="search" placeholder="Search" />
         </div>
 
         {/* <div className="fourth-logo ">

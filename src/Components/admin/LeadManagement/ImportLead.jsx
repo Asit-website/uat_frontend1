@@ -6,11 +6,11 @@ import { useMain } from "../../../hooks/useMain";
 import leadProfile from "../../images/leadProfile.png"
 import bx from "../../images/bx-purchase-tag.png"
 import "./lead.css"
-import {  useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const ImportLead = ({ setAlert, pop, setPop }) => {
-    
-    const { user, getLead2  , updateLeadStatus , updateLeadNote} = useMain();
+
+    const { user, getLead2, updateLeadStatus, updateLeadNote } = useMain();
 
 
 
@@ -20,7 +20,7 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
 
     const [data, setData] = useState({});
 
-    const [LeadStatus , setLeadStatus] = useState("");
+    const [LeadStatus, setLeadStatus] = useState("");
 
     const navigate = useNavigate();
 
@@ -30,19 +30,19 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
         setLeadStatus(ans?.data[0]?.LeadStatus);
     };
 
-    useEffect(() => { 
+    useEffect(() => {
         getData();
     }, [])
 
 
-     const updatingLeadStatus = async(leading)=>{
-        const {_id} = data;
-         const ans = await updateLeadStatus(_id , leading);
-     }
-     const updatingNote = async(Note)=>{
-        const {_id} = data;
-         const ans = await updateLeadNote(_id , Note);
-     }
+    const updatingLeadStatus = async (leading) => {
+        const { _id } = data;
+        const ans = await updateLeadStatus(_id, leading);
+    }
+    const updatingNote = async (Note) => {
+        const { _id } = data;
+        const ans = await updateLeadNote(_id, Note);
+    }
 
     return (
         <>
@@ -74,7 +74,7 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
 
                                 <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2  dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 sendBtn">Send Email</button>
 
-                              <button onClick={()=>navigate("/adminDash/editLead",{state:data})} className="refresh1"><span className="ref1">Edit</span>
+                                <button onClick={() => navigate("/adminDash/editLead", { state: data })} className="refresh1"><span className="ref1">Edit</span>
                                 </button>
 
                                 <button
@@ -269,45 +269,45 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
                             {/* third  */}
                             <div className="leadFirs">
 
- <div className = "LEADSsTunav">
-    
-                                <h2 className="ehading">Lead Status</h2>
+                                <div className="LEADSsTunav">
 
-                                <select  onChange={(e)=>{
-                                    setLeadStatus(e.target.value);
-                                    updatingLeadStatus(e.target.value);
-                                }}  className="leadUPdateStsus" name="LeadStatus"  id="">
-                                                <option >Select Status</option>
-                                                   <option value="Cold">Cold</option>
-                                                   <option value="Follow-up">Follow-up</option>
-                                                   <option value="Hot">Hot</option>
-                                                   <option value="Warm">Warm</option>
+                                    <h2 className="ehading">Lead Status</h2>
 
-                                            </select>
- </div>
+                                    <select onChange={(e) => {
+                                        setLeadStatus(e.target.value);
+                                        updatingLeadStatus(e.target.value);
+                                    }} className="leadUPdateStsus" name="LeadStatus" id="">
+                                        <option >Select Status</option>
+                                        <option value="Cold">Cold</option>
+                                        <option value="Follow-up">Follow-up</option>
+                                        <option value="Hot">Hot</option>
+                                        <option value="Warm">Warm</option>
+
+                                    </select>
+                                </div>
 
                                 <div className="eladinfoWrap secondWRap">
 
-                                   {
-                                    LeadStatus ? <span className="ladingstaus">{LeadStatus}</span> : <span className="noRecord">No records found</span>
-                                   }
+                                    {
+                                        LeadStatus ? <span className="ladingstaus">{LeadStatus}</span> : <span className="noRecord">No records found</span>
+                                    }
 
                                 </div>
 
 
-                              {
-                                data?.Note ?
-                                <div className="notePresent">
-    <p>{new Date(data?.NoteDate).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</p>
-                                 <span className="realNote">{data?.Note}</span>
-                                </div>
-                                :
-                                <label className="noteLabel" >
-                                    <p >Note:</p>
-                                    <input onChange={(e)=>{
-                                        updatingNote(e.target.value);
-                                    }} type="text" />
-                                </label>
+                                {
+                                    data?.Note ?
+                                        <div className="notePresent">
+                                            <p>{new Date(data?.NoteDate).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</p>
+                                            <span className="realNote">{data?.Note}</span>
+                                        </div>
+                                        :
+                                        <label className="noteLabel" >
+                                            <p >Note:</p>
+                                            <input onChange={(e) => {
+                                                updatingNote(e.target.value);
+                                            }} type="text" />
+                                        </label>
 
                                 }
 
@@ -327,7 +327,7 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
                                     </div>
                                 </div>
                                 <div className="eladinfoWrap secondWRap lion">
-                                     <p className="toyotoyo">No Attachment</p>
+                                    <p className="toyotoyo">No Attachment</p>
                                 </div>
 
                             </div>
