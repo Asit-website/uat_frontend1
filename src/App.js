@@ -69,6 +69,8 @@ import ImportLead2 from "./Components/admin/LeadManagement/ImportLead2.jsx";
 import LeadFile2 from "./Components/admin/LeadManagement/LeadFile2.jsx";
 import AddEmployee from "./Components/admin/EmployManagement/AddEmployee.jsx";
 import MySelf from "./Components/Employee/MySelf/MySelf.jsx";
+import CreateQuotation from "./Components/quotation/CreateQuotation.jsx";
+import InvoicePage from "./Components/quotation/InvoicePage.jsx";
 
 var tc;
 
@@ -162,6 +164,9 @@ function App() {
                 <Route path="/employeeDash/importLead/:id" element={<ImportLead2/>}/>
                 <Route path="/employeeDash/leadFile" element={<LeadFile2/>}/>
                 <Route path="/employeeDash/mySelf" element={<MySelf />}/>
+
+                <Route path="/employeeDash/createQuotation" element={<CreateQuotation />}  />
+
                 
             </Route>
 
@@ -263,8 +268,12 @@ function App() {
 
                 <Route path="/adminDash/leadFile" element={<LeadFile/>}/>
 
+                <Route path="/adminDash/createQuotation" element={<CreateQuotation />}  />
+
 
 <Route path="/adminDash/addEmployee" element={<AddEmployee />}  />
+
+<Route path="/invoicePage" element={<InvoicePage />} />
                  
             </Route>
 

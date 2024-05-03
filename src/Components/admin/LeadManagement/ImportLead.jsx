@@ -7,20 +7,19 @@ import leadProfile from "../../images/leadProfile.png"
 import bx from "../../images/bx-purchase-tag.png"
 import "./lead.css"
 import { useNavigate, useParams } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const ImportLead = ({ setAlert, pop, setPop }) => {
 
-    const { user, getLead2, updateLeadStatus, updateLeadNote } = useMain();
-
-
+    const { user, getLead2, updateLeadStatus, updateLeadNote , getQuotationAll } = useMain();
 
     const { id } = useParams();
-
-    // const [Note , setNote] = useState("");
 
     const [data, setData] = useState({});
 
     const [LeadStatus, setLeadStatus] = useState("");
+
+    const [Note , setNote] = useState("");
 
     const navigate = useNavigate();
 
@@ -39,11 +38,41 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
         const { _id } = data;
         const ans = await updateLeadStatus(_id, leading);
     }
-    const updatingNote = async (Note) => {
+
+    const updatingNote = async () => {
+      const toastId =   toast.loading("Loading...");
         const { _id } = data;
         const ans = await updateLeadNote(_id, Note);
-    }
 
+         if(ans?.message){
+            toast.success("Successfuly updated");
+            getData();
+         }
+         else{
+            toast.error("Error while updating")
+         }
+        
+          toast.dismiss(toastId);
+        }
+
+
+        const [userQuotation , setUserQu] = useState([]);
+
+        const getQuotation = async()=>{
+            let user = JSON?.parse(localStorage.getItem("hrms_user"));
+          const id = user._id;
+           const ans = await getQuotationAll(id);
+           console.log("anss1 ",ans);
+           if(ans?.status){
+            setUserQu(ans?.data);
+           }
+        }
+      
+        useEffect(()=>{
+           getQuotation();
+        },[])
+
+        
     return (
         <>
             <div className="employee-dash h-full">
@@ -266,7 +295,7 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
 
                             </div>
 
-                            {/* third  */}
+                            {/* second  third  */}
                             <div className="leadFirs">
 
                                 <div className="LEADSsTunav">
@@ -277,39 +306,86 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
                                         setLeadStatus(e.target.value);
                                         updatingLeadStatus(e.target.value);
                                     }} className="leadUPdateStsus" name="LeadStatus" id="">
-                                        <option >Select Status</option>
+                                        <option > Status</option>
                                         <option value="Cold">Cold</option>
                                         <option value="Follow-up">Follow-up</option>
                                         <option value="Hot">Hot</option>
                                         <option value="Warm">Warm</option>
 
                                     </select>
+
                                 </div>
 
                                 <div className="eladinfoWrap secondWRap">
 
                                     {
-                                        LeadStatus ? <span className="ladingstaus">{LeadStatus}</span> : <span className="noRecord">No records found</span>
+                                        LeadStatus ? <span className="ladingstausw">{LeadStatus}</span> : <span className="noRecord">No records found</span>
                                     }
 
                                 </div>
 
 
                                 {
-                                    data?.Note ?
+                                    data?.Note &&
                                         <div className="notePresent">
                                             <p>{new Date(data?.NoteDate).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</p>
                                             <span className="realNote">{data?.Note}</span>
                                         </div>
-                                        :
+                                       
+                                }
                                         <label className="noteLabel" >
                                             <p >Note:</p>
                                             <input onChange={(e) => {
-                                                updatingNote(e.target.value);
+                                               setNote(e.target.value)
                                             }} type="text" />
                                         </label>
 
-                                }
+                                           <div className="noteSaveBtn">
+
+                                        <button onClick={updatingNote}><span>Save</span></button>
+                                           </div>
+
+                                
+
+                            </div>
+
+
+                            {/* third third  */}
+                            <div className="leadFirs">
+
+                                <div className="LEADSsTunav">
+
+                                    <h2 className="ehading">Quotation</h2>
+
+                                   <button onClick={()=>navigate("/adminDash/createQuotation")} className="createQquot"><span>Create Quotation</span></button>
+
+                                </div>
+
+                            <hr />
+
+
+                            {
+                  userQuotation?.length > 0 ?
+                  <div className="allQui">
+
+                    {
+                      userQuotation?.map((item ,index)=>(
+                        <div className="singlquot" key={index}>
+
+                           <p className="invId">Invoice ID: {item?.InvoiceNo}</p>
+                           <p className="inName"> {item?.ClientName}</p>
+                           <p className="inName">{item?.Price}</p>
+                           <p className="date">April 29, 2024: 2,234.50</p>
+
+                        </div>
+                      ))
+                    }
+
+                  </div>
+                  :
+                  <span className="norecord">No records found</span>
+                 }
+
 
                             </div>
 

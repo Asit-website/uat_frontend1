@@ -4187,12 +4187,19 @@ letter-spacing: 0.004em !important; */
 }
 
 .leadUPdateStsus{
-  width: 150px;
+  width: 110px;
+  height: 40px;
+  border-radius: 10px;
+  border: 1px solid #0B56E4;
 font-family: Inter;
-font-size: 14px;
-font-weight: 400;
-line-height: 20px;
-letter-spacing: 0.0025em;
+color: #0B56E4;
+background: linear-gradient(131.78deg, #D1E8FD 6.87%, #EDEFFF 91.67%);
+font-size: 16px;
+font-weight: 500;
+line-height: 24px;
+letter-spacing: 0.005em;
+text-align: left;
+  
 
 }
 
@@ -4203,28 +4210,24 @@ font-size: 14px;
 font-weight: 400;
 line-height: 20px;
 letter-spacing: 0.0025em;
-text-align: right;
 
 }
 
-.ladingstaus{
-  width: 110px;
-height: 35px;
-border-radius: 27px ;
+.ladingstausw{
+font-family: Inter !important;
+border: 1px solid #46AD92 !important;
+width: 77px !important;
 display: flex;
 align-items: center;
 justify-content: center;
-border: 1px solid #46AD92;
-background-color: #E3E3E3;
-font-family: Inter;
-color: #189877;
-font-size: 12px;
-font-weight: 400;
-line-height: 16px;
-letter-spacing: 0.004em;
-text-align: left;
+background: #E8F5F1;
 
-
+color: #189877 !important;
+font-size: 12px  !important;
+font-weight: 400 !important;
+  height: 28px;
+  border-radius: 27px ;
+  
 }
 
 .noteLabel{
@@ -4282,4 +4285,213 @@ line-height: 24px;
 letter-spacing: 0.0015em;
 text-align: right;
 
+}
+
+.noteSaveBtn{
+   display: flex;
+   justify-content: flex-start;
+   
+}
+.noteSaveBtn button{
+  width: 118px;
+  height: 40px;
+  padding: 10px 16px 10px 16px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+background-color: #0B56E4;
+  
+}
+.noteSaveBtn button span{
+  font-family: Inter;
+  color: white;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+  letter-spacing: 0.005em;
+  text-align: left;
+  
+  
+}
+
+.createQquot{
+  width: 165px;
+height: 40px;
+border-radius: 10px;
+background: linear-gradient(131.78deg, #D1E8FD 6.87%, #EDEFFF 91.67%);
+border: 1px solid #0B56E4;
+font-family: Inter;
+color: #0B56E4;
+font-size: 16px;
+font-weight: 500  !important;
+line-height: 24px;
+letter-spacing: 0.005em;
+text-align: center;
+
+}
+
+.invoiceNav{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  
+}
+.invoiceNav h2{
+  font-family: Inter;
+  color: #101820;
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 32px;
+  text-align: left;
+  
+  
+}
+.invoiceNav .invoiceBtn{
+display: flex;
+align-items: center;
+gap: 16px;
+  
+}
+.invoiceNav .invoiceCancel{
+  width: 86px;
+  height: 40px;
+  border-radius: 10px;
+  background: linear-gradient(131.78deg, #D1E8FD 6.87%, #EDEFFF 91.67%);
+  border: 1px solid #0B56E4;
+    
+}
+.invoiceNav .invoiceCancel span{
+  font-family: Inter;
+  color: #0B56E4;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+  letter-spacing: 0.005em;
+  text-align: left;
+  
+}
+
+.invoiceForm{
+  max-width: 1120px;
+  width: 100%;
+ margin-top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.sinelinvoice{
+  display: flex;
+  gap: 30px;
+  align-items: center;
+}
+
+.sinelinvoice label{
+ display: flex;
+ flex-direction: column;
+ gap: 8px;
+ width: 100%;
+}
+.sinelinvoice label p{
+  font-family: Inter;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: 0.0025em;
+  text-align: left;
+  
+}
+.sinelinvoice label input{
+  max-width: 524px;
+  width: 100%;
+  height: 44px;
+  padding: 8px 16px 8px 16px;
+  border-radius: 10px;
+  border: 1px solid #D0D4DC;
+  background: #F8F9FB;
+  outline: none;
+  
+}
+
+.norecord{
+font-family: Inter;
+color: #1B2533;
+font-size: 14px;
+font-weight: 400;
+line-height: 20px;
+letter-spacing: 0.0025em;
+
+}
+
+.allQui{
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.allQui .invId{
+  font-family: Inter;
+  color: #666D76;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: 0.0025em;
+  text-align: right;
+  
+}
+.allQui .inName{
+  font-family: Inter;
+  color: #101820;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 24px;
+  letter-spacing: 0.0015em;
+  text-align: right;
+  
+  
+}
+
+
+.allQui .date{
+  font-family: Inter;
+  color: #666D76;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: 0.0025em;
+  text-align: right;
+  
+}
+
+
+.singlquot{
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  border-left: 2px solid green;
+  padding: 0px 0px 0px 16px;
+}
+
+.quaotitionBtn{
+  display: flex;
+  width: 100%;
+  justify-content: flex-start;
+}
+.quaotitionBtn button{
+  width: 118px;
+  height: 40px;
+  border-radius: 10px;
+  
+background-color: #0B56E4;
+}
+.quaotitionBtn button span{
+  font-family: Inter;
+  color: #FFFFFF;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+  letter-spacing: 0.005em;
+  text-align: left;
+  
 }
