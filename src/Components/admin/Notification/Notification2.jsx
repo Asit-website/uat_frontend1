@@ -13,6 +13,7 @@ const Notification = ({ pop1, setPop1, pop, setPop, setAlert, isHr = false }) =>
 
      const fetchNotification  = async()=>{
         const ans = await fetchUserNotify();
+        console.log(ans);
 
          if(ans.status){
             setAllNotification(ans?.notifications);
@@ -51,6 +52,8 @@ const Notification = ({ pop1, setPop1, pop, setPop, setAlert, isHr = false }) =>
                     <div className="em">
 
                         <div  className='anNav notificaont'>
+
+                           
 
  
  {

@@ -3,13 +3,17 @@ import AdminNavbar from '../Navbar/AdminNavbar';
 import { useMain } from '../../../hooks/useMain'
 import "../Announcement/annocement.css"
 import { useState, useEffect } from 'react';
+import EmployeeSidebar from '../../Employee/Sidebar/EmployeeSidebar';
+import EmployeeNavbar from '../../Employee/Navbar/EmployeeNavbar';
+import HrSidebar from '../../Hr/Sidebar/HrSidebar';
+import HrNavbar from '../../Hr/Navbar/HrNavbar';
 
-const Notification = ({ pop, setPop, setAlert }) => {
-    const { user , fetchUserNotify , deleteNotification } = useMain();
+const Notification4 = ({ pop1, setPop1, pop, setPop, setAlert, isHr = false }) => {
+    const { user ,postActivity ,getStatisticsByUser ,  fetchUserNotify , deleteNotification  } = useMain();
 
-     const [allNotication , setAllNotification] = useState([]);
+     const [allNotication , setAllNotification] = useState([])
 
-    const fetchNotification  = async()=>{
+     const fetchNotification  = async()=>{
         const ans = await fetchUserNotify();
         console.log(ans);
          if(ans.status){
@@ -18,44 +22,52 @@ const Notification = ({ pop, setPop, setAlert }) => {
          }
     }
 
+    
     const deleteNotify = async(id)=>{
         const ans = await deleteNotification(id);
         fetchNotification();
     }
 
+
     useEffect(()=>{
         fetchNotification();
     },[])
 
+
     return (
         <>
             <div className="annDash relative h-full">
+            <HrSidebar />
+        <div className="tm">
+          <HrNavbar
+            user={user}
+            setAlert={setAlert}
+            postActivity={postActivity}
+            getStatisticsByUser={getStatisticsByUser}
+            pop1={pop1}
+            setPop1={setPop1}
+          />
 
-                <AdminSidebar pop={pop} setPop={setPop} />
-
-                <div className="tm">
-                    <AdminNavbar user={user} setAlert={setAlert} />
 
                     
                     <div className="em">
 
                         <div  className='anNav notificaont'>
-
- 
  {
     allNotication?.map((item ,index)=>(
 <div key={index} id="toast-message-cta" class="w-full p-4 text-gray-500 bg-white rounded-lg shadow dark:bg-gray-800 dark:text-gray-400" role="alert">
     <div class="flex justify-between">
 
         <div class="ms-3 text-sm font-normal">
-            <span  class="mb-1 text-sm font-semibold text-gray-900 dark:text-white">{item.title}</span>
+            <span class="mb-1 text-sm font-semibold text-gray-900 dark:text-white">{item.title}</span>
             <div class="mb-2 text-sm font-normal">{item.description}</div> 
             <div class="mb-2 text-sm font-normal">Date : {new Date(parseInt(item?.date)).toLocaleDateString()}
-</div> 
+</div>
           
         </div>
 
         <button onClick={()=>{
+             console.log("item id ",item);
             deleteNotify(item?._id);
         }}  type="button" class="ms-auto -mx-1.5 -my-1.5 bg-white justify-center items-center flex-shrink-0 text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex h-8 w-8 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700" data-dismiss-target="#toast-message-cta" aria-label="Close">
             <span class="sr-only">Close</span>
@@ -85,4 +97,4 @@ const Notification = ({ pop, setPop, setAlert }) => {
     )
 }
 
-export default Notification
+export default Notification4;

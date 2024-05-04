@@ -71,6 +71,9 @@ import AddEmployee from "./Components/admin/EmployManagement/AddEmployee.jsx";
 import MySelf from "./Components/Employee/MySelf/MySelf.jsx";
 import CreateQuotation from "./Components/quotation/CreateQuotation.jsx";
 import InvoicePage from "./Components/quotation/InvoicePage.jsx";
+import HrAttendence1 from "./Components/Hr/attendence/HrAttendence1.jsx";
+import Notification3 from "./Components/admin/Notification/Notification3.jsx";
+import Notification4 from "./Components/admin/Notification/Notification4.jsx";
 
 var tc;
 
@@ -204,6 +207,10 @@ function App() {
 
               <Route path="/hrDash/atten" element={<HrAttendence pop1={pop1}
                 setPop1={setPop1} setAlert={setAlert} />} />
+                 <Route path="/hrDash/atten1" element={<HrAttendence1 pop1={pop1}
+                setPop1={setPop1} setAlert={setAlert} />} />
+
+
             </Route>
 
             {/* ================admin routing===================== */}
@@ -254,6 +261,13 @@ function App() {
               <Route path="/training/DocumentSetup" element={<DocumentSetup />} />
               <Route path="/adminDash/notification" element={<Notification />} />
               <Route path="/hrDash/notification" element={<Notification2 setAlert={setAlert}
+                pop={pop}
+                setPop={setPop}
+                pop1={pop1}
+                setPop1={setPop1}
+                isHr={true} />} />
+                <Route path="/hrDash/notification3" element={<Notification3 />} />
+                 <Route path="/hrDash/notification4" element={<Notification4 setAlert={setAlert}
                 pop={pop}
                 setPop={setPop}
                 pop1={pop1}

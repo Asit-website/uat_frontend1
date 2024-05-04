@@ -3,15 +3,17 @@ import AdminNavbar from '../Navbar/AdminNavbar';
 import { useMain } from '../../../hooks/useMain'
 import "../Announcement/annocement.css"
 import { useState, useEffect } from 'react';
+import HrSidebar from '../../Hr/Sidebar/HrSidebar';
+import HrNavbar from '../../Hr/Navbar/HrNavbar';
 
-const Notification = ({ pop, setPop, setAlert }) => {
+const Notification3 = ({ pop, setPop, setAlert }) => {
     const { user , fetchUserNotify , deleteNotification } = useMain();
 
      const [allNotication , setAllNotification] = useState([]);
 
     const fetchNotification  = async()=>{
         const ans = await fetchUserNotify();
-        console.log(ans);
+
          if(ans.status){
             setAllNotification(ans?.notifications);
 
@@ -31,10 +33,10 @@ const Notification = ({ pop, setPop, setAlert }) => {
         <>
             <div className="annDash relative h-full">
 
-                <AdminSidebar pop={pop} setPop={setPop} />
+                <HrSidebar pop={pop} setPop={setPop} />
 
                 <div className="tm">
-                    <AdminNavbar user={user} setAlert={setAlert} />
+                    <HrNavbar user={user} setAlert={setAlert} />
 
                     
                     <div className="em">
@@ -85,4 +87,4 @@ const Notification = ({ pop, setPop, setAlert }) => {
     )
 }
 
-export default Notification
+export default Notification3
