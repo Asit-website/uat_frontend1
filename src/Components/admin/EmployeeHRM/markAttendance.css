@@ -13,6 +13,57 @@
     background-color: white;
     border-radius: 5px;
 }
+.mselected{
+    width: 114px !important;
+height: 44px !important;
+border-radius: 8px !important ;
+background: linear-gradient(131.78deg, #D1E8FD 6.87%, #EDEFFF 91.67%) !important;
+border: 1px solid #0B56E4 !important;
+}
+.mselected span{
+    font-family: Inter;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 24px;
+    text-align: left;
+color: #0B56E4;    
+}
+
+.markAttSelect{
+    width: 196px;
+height: 46px;
+border-radius: 10px;
+background: #E8E9EB;
+border: 1px solid #D0D4DC;
+font-family: Inter  !important;
+color: #1B2533  !important;
+font-size: 14px  !important;
+font-weight: 400 !important;
+font-size: 14px  !important;
+line-height: 20px !important;
+letter-spacing: 0.0025em !important;
+text-align: left !important;
+
+}
+
+
+.notSelected{
+    width: 114px;
+height: 44px;
+border-radius: 8px ;
+border: 1px solid #E3E3E3;
+
+
+}
+
+.notSelected span{
+    font-family: Inter;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 24px;
+    text-align: left;
+}
+
 .marSecond .mAdSlE{
   display: flex;
   align-items: center;
@@ -20,9 +71,12 @@
   
 }
 .daate_mate_btn{
-    border: 1px solid;
-    padding: 6px;
-    border-radius: 12px;
+    width: 196px;
+    height: 46px;
+    border-radius: 10px;
+    background: #E8E9EB;
+    border: 1px solid #D0D4DC;    
+    padding: 8px 16px;
 }
 .marSecond .mAdSlE .tText{
     font-family: Gilroy-Medium;
@@ -77,13 +131,14 @@ color: #293240;
 }
 
 .itemANs{
-    font-family: Gilroy-Medium;
-    font-size: 14px;
-    font-weight: 500;
-    line-height: 17px;
-    letter-spacing: 0em;
+    font-family: Inter;
+    color: #40444B;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 16px;
+    letter-spacing: 0.004em;
     text-align: left;
-    color: #293240;
+    
     }
 
     .marknav{
@@ -99,7 +154,20 @@ color: #293240;
     .marNavLef{
         display: flex;
         align-items: center;
+        justify-content: space-between;
+        width: 100%;
         gap: 10px;
+        transform: translateY(10px);
+    }
+    .marNavLef h3{
+        font-family: Inter;
+        color: #1B2533;
+        font-size: 16px;
+        font-weight: 600;
+        line-height: 24px;
+        letter-spacing: 0.0015em;
+        text-align: left;
+        
     }
 
     .marNavLef select{
@@ -112,18 +180,65 @@ color: #293240;
 
     .MarkAtMain{
         background-color: white;
+        transform: translateY(-25px);
+        border-top: 1px solid #D8D8D8;
+    }
+
+    .serchEmpl{
+        display: flex;
+        align-items: center;
+        width: 247px;
+height: 44px;
+padding: 8px 16px 8px 16px;
+gap: 8px;
+border-radius: 10px;
+background: #FFFFFF;
+border: 1px solid #D0D4DC;
+justify-content: space-between;
+    }
+
+    .exprtbtn{
+        width: 99px;
+height: 44px;
+background: #E8F5F1;
+border-radius: 8px ;
+border: 1px solid #189877;
+
+    }
+    .exprtbtn span{
+        font-family: Inter !important;
+        font-size: 16px !important;
+        font-weight: 500 !important;
+        line-height: 24px !important;
+        letter-spacing: 0.005em !important;
+color: #189877 !important;        
+
+    }
+
+    .seexwrap{
+        display: flex;
+        align-items: center;
+        gap: 17px;
     }
 
     .currentText{
-        font-family: Gilroy-Medium;
-font-size: 14px;
-font-weight: 400;
-line-height: 17px;
-letter-spacing: 0em;
-text-align: left;
-color: #101010;
+        font-family: Inter;
+        color: #2B2B2B;
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 20px;
+        letter-spacing: 0.0025em;
+        text-align: left;
+        background-color: white !important;
+        
     }
 
+      th, td {
+        border: none !important;
+        border-bottom: 1px solid #E8E9EB !important;
+        border-top: 1px solid #E8E9EB !important;
+     }
+  
     .marNavLef span{
         font-family: Gilroy-Medium;
         font-size: 14px;
@@ -138,4 +253,139 @@ color: #293240;
         display: flex;
         align-items: center;
         gap: 10px;
+    }
+
+
+    /* for pipu p */
+
+    .importPopWrap{
+        background: #4040404D;
+              position: absolute;
+              top: 0;
+              left: 0;
+              right: 0;
+              bottom: 0;
+    }
+
+    .impPopCont{
+        width: 455px;
+height: 248px;
+padding: 12px 0px ;
+ display: flex;
+ flex-direction: column;
+gap: 20px;
+background: #FFFFFF;
+border-radius: 10px;
+transform: translateX(350px) translateY(150px);
+    }
+
+    .hrrr{
+        transform: translateY(-10px);
+    }
+
+    .impPopCont nav{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+         padding: 12px;
+    }
+    .impPopCont nav h2{
+        font-family: Inter;
+        color: #1B2533;
+        font-size: 16px;
+        font-weight: 600;
+        line-height: 24px;
+        letter-spacing: 0.0015em;
+        text-align: left;
+        
+    }
+
+    .excewrap{
+        display: flex;
+        width: 404px;
+height: 48px;
+padding: 0px 0px 0px 20px;
+
+    }
+    .excewrap p{
+        width: 137px;
+        height:100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+font-family: Inter;
+color: #1B2533;
+font-size: 14px;
+font-weight: 500;
+line-height: 20px;
+letter-spacing: 0.0025em;
+text-align: left;
+        border-radius: 10px 0px 0px 10px;
+        background: #F5F9FF;
+        border: 1px solid #D0D4DC;
+    }
+    .excewrap span{
+        width: 279px;
+        height:100%;
+        display: flex;
+        align-items: center;
+        font-family: Inter;
+        color: #969BA1;
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 20px;
+        letter-spacing: 0.0025em;
+        text-align: left;
+        padding-left: 20px;
+      border-radius: 0px 10px 10px 0px;
+        background: #F5F9FF;
+        border: 1px solid #D0D4DC;
+    }
+
+    .extext{
+font-family: Inter;
+color: #969BA1;
+font-size: 14px;
+font-weight: 500;
+line-height: 20px;
+letter-spacing: 0.0025em;
+text-align: left;
+padding: 0px 0px 0px 20px;
+transform: translateY(-15px);
+    }
+
+    .impopbtn{
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        padding: 0px 0px 0px 20px;
+
+    }
+    .impopbtn .cence{
+        width: 86px;
+        height: 40px;
+        border-radius: 10px;
+        font-family: Inter;
+font-size: 16px;
+font-weight: 500;
+line-height: 24px;
+letter-spacing: 0.005em;
+text-align: center;
+color: #666D76;
+        border: 1px solid #B8BBC0;
+    }
+    .impopbtn .uplaodin{
+        width: 87px;
+        height: 40px;
+        border-radius: 10px;
+        background: #0B56E4;
+        
+    }
+    .impopbtn .uplaodin span{
+        font-family: Inter;
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 24px;
+        letter-spacing: 0.005em;
+color: white;        
     }

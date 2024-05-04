@@ -11,7 +11,7 @@ const Notification = ({ pop, setPop, setAlert }) => {
 
     const fetchNotification  = async()=>{
         const ans = await fetchUserNotify();
-        console.log(ans);
+        console.log("notify ",ans);
          if(ans.status){
             setAllNotification(ans?.notifications);
 

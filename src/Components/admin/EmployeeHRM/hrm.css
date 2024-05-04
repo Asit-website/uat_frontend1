@@ -20,6 +20,7 @@
 
 }
 
+
 .dFirLef p {
     font-family: Inter;
     font-size: 12px;
@@ -60,6 +61,42 @@
     width: 100%;
     margin: 0 auto;
 
+}
+
+.hrmDasTxtFir2{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    
+}
+.hrmDasTxtFir2 h2{
+    font-family: Inter;
+    color: #101820;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 32px;
+    text-align: left;
+    
+
+}
+.hrmDasTxtFir2 button{
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: #0B56E4;
+ height: 40px;
+ width: 143px;
+ justify-content: center;
+ border-radius: 8px;
+}
+.hrmDasTxtFir2 button span{
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    letter-spacing: 0.005em;
+    text-align: left;
+    color: #FFFFFF;
 }
 
 .carding {

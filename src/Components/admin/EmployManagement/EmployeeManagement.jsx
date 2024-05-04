@@ -73,7 +73,6 @@ const EmployeeManagement = ({
     console.log(ans);
   }
 
-
   const getData1 = async (date) => {
     const data = await getActivitiesByUser(date, '', '', 0, 10, '');
     console.log(data.data[0]);
@@ -178,7 +177,6 @@ const EmployeeManagement = ({
 
               {/* first  */}
              
-
               <div className="hrmsFri">
 
                 <h2>Employee Management</h2>
@@ -250,6 +248,7 @@ const EmployeeManagement = ({
                       <span>Delete</span>
                     </div>
                   </div>
+
                 </div>
 
                 <div className="relative  overflow-x-auto w-full">
@@ -326,7 +325,7 @@ const EmployeeManagement = ({
 
                                 <div className=" viewOne">
                                   {/* first  */}
-                                  <div className="subView">
+                                  <div onClick={()=>navigate("/adminDash/EmployeeDetails" , {state:item?._id})} className="subView">
                                     <img src={happy} alt="" />
                                     <p>View </p>
                                   </div>

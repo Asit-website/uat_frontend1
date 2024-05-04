@@ -359,7 +359,7 @@ const EmployeeDash = ({ setAlert, pop1, setPop1 }) => {
       reason: formdata.reason,
     });
 
-    const notify = await postNotification(daysGap, formdata.employeeName);
+    const notify = await postNotification(daysGap, formdata.employeeName , user?.fullName);
 
     if (ans.success) {
       // alert("Successfuly applied");

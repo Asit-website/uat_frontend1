@@ -74,6 +74,7 @@ import InvoicePage from "./Components/quotation/InvoicePage.jsx";
 import HrAttendence1 from "./Components/Hr/attendence/HrAttendence1.jsx";
 import Notification3 from "./Components/admin/Notification/Notification3.jsx";
 import Notification4 from "./Components/admin/Notification/Notification4.jsx";
+import EmployeeSelf from "./Components/Employee/EmployeeSelf/EmployeeSelf.jsx";
 
 var tc;
 
@@ -279,6 +280,7 @@ function App() {
                 <Route path="/adminDash/editLead" element={<EditLead />}/>
                 <Route path="/adminDash/importLead/:id" element={<ImportLead />}/>
                 <Route path="/adminDash/mySelf" element={<MySelf />}/>
+                <Route path="/adminDash/EmployeeDetails" element={<EmployeeSelf />}/>
 
                 <Route path="/adminDash/leadFile" element={<LeadFile/>}/>
 

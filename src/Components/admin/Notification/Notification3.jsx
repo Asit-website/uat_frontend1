@@ -7,16 +7,15 @@ import HrSidebar from '../../Hr/Sidebar/HrSidebar';
 import HrNavbar from '../../Hr/Navbar/HrNavbar';
 
 const Notification3 = ({ pop, setPop, setAlert }) => {
-    const { user , fetchUserNotify , deleteNotification } = useMain();
+    const { user , fetchUserNotifyHR , deleteNotification } = useMain();
 
      const [allNotication , setAllNotification] = useState([]);
 
     const fetchNotification  = async()=>{
-        const ans = await fetchUserNotify();
+        const ans = await fetchUserNotifyHR();
 
          if(ans.status){
             setAllNotification(ans?.notifications);
-
          }
     }
 

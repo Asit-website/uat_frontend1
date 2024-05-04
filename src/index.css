@@ -1045,6 +1045,7 @@ text-align: left;
   /* padding: 62px 70px; */
   padding: 62px 30px;
   margin-top: 69px;
+  position: relative;
 }
 
 .emwrap{

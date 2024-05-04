@@ -908,15 +908,17 @@ const MainState = (props) => {
    }
 
 
-   const postNotification = async (daysGap, name) => {
+   const postNotification = async (daysGap, name , username) => {
 
-      const data = await post(`${baseUrl}/notification/createNotification`, { title: `Leave Application from ${name} `, description: `Leave of ${daysGap} days`, users: ["shubham gupta"] }, true);
+
+      const data = await post(`${baseUrl}/notification/createNotification`, { title: `Leave Application from ${username} `, description: `Leave of ${daysGap} days`, users: ["shubham gupta"] }, true);
 
 
       return data;
 
    }
    const postNotifyLeavereq = async (name, title) => {
+
 
       const data = await post(`${baseUrl}/notification/createNotification`, { title: `${title} Leave Application`, description: `Leave Application ${title} By Admin `, users: [`${name}`] }, true);
 
@@ -935,6 +937,14 @@ const MainState = (props) => {
       const data = await get(`${baseUrl}/notification/getNotification/${id}`, true);
       return data;
    }
+   
+   const fetchUserNotifyHR = async () => {
+
+      const data = await get(`${baseUrl}/notification/getNotification`, true);
+      return data;
+   }
+
+
    const deleteNotification = async (notId) => {
       let user = JSON.parse(localStorage.getItem("hrms_user"));
       const userDetail = user;
@@ -1574,7 +1584,8 @@ const MainState = (props) => {
          deleteLeads , updateLead , 
          uploadToCloudinaryImg , 
          postQuotation , 
-         getQuotationAll
+         getQuotationAll , 
+         fetchUserNotifyHR
       }}>
          {props.children}
       </MainContext.Provider>

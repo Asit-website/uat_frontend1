@@ -357,7 +357,7 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
 
                                     <h2 className="ehading">Quotation</h2>
 
-                                   <button onClick={()=>navigate("/adminDash/createQuotation")} className="createQquot"><span>Create Quotation</span></button>
+                                   <button onClick={()=>navigate("/adminDash/createQuotation" , )} className="createQquot"><span>Create Quotation</span></button>
 
                                 </div>
 
