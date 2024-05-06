@@ -75,6 +75,8 @@ import HrAttendence1 from "./Components/Hr/attendence/HrAttendence1.jsx";
 import Notification3 from "./Components/admin/Notification/Notification3.jsx";
 import Notification4 from "./Components/admin/Notification/Notification4.jsx";
 import EmployeeSelf from "./Components/Employee/EmployeeSelf/EmployeeSelf.jsx";
+import EmployeeSalary from "./Components/admin/Payroll/EmployeeSalary.jsx";
+import SetSallary from "./Components/admin/Payroll/SetSallary.jsx";
 
 var tc;
 
@@ -285,7 +287,10 @@ function App() {
                 <Route path="/adminDash/leadFile" element={<LeadFile/>}/>
 
                 <Route path="/adminDash/createQuotation" element={<CreateQuotation />}  />
+                 
+                 <Route path="/adminDash/setSallary" element={<EmployeeSalary pop={pop} setPop={setPop}/>}/>
 
+                 <Route path="/adminDash/setAll" element={<SetSallary pop={pop} setPop={setPop}/>}/>
 
 <Route path="/adminDash/addEmployee" element={<AddEmployee />}  />
 

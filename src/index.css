@@ -31,7 +31,206 @@ body {
 }
 
 
+.employee_sal_card{
+  background-color: #ffffff;
+  border-radius: 10px;
+  padding: 20px 0px;
+}
+.sklin th,
+.sklin tr,
+.sklin td{
+  background-color: white !important;
+}
+.sipi th{
+  color: #2B2B2B !important;
+  font-weight: 500 !important;
+  font-family: inter !important;
+  font-size: 14px !important;
+}
+.oklo{
+  color: #0B56E4 !important;
+  font-size: 12px;
+  font-weight: 400;
+  font-family: inter !important;
+}
+.opos th,
+.opos td{
+  color: #40444B;
+  font-size: 12px;
+  font-weight: 400;
+  font-family: inter !important;
+}
+.salary_details{
+  width: 100%;
+  max-width: 100%;
+  border-radius: 20px;
+  height: 275px;
+  max-height: 100%;
+  background-color: #ffffff;
+  /* padding: 20px; */
+}
+.salary_head{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #E8E9EB !important;
+  padding: 15px 20px;
+}
+.salary_head11{
+  display: flex;
+  align-items: center;
+}
+.salary_head11 h2{
+  font-family: inter !important;
+  font-size: 16px;
+  font-weight: 600;
+  margin-left: 10px;
+}
+.salary_body{
+  padding: 20px;
+  display: flex;
+  align-items: center;
+}
+.salary_bn h3{
+  color: #0F141C;
+  font-weight: 600;
+  font-family: inter !important;
+  font-size: 14px;
+}
+.salary_bn p{
+  color: #545962;
+  font-weight: 500;
+  font-size: 12px;
+  font-family: inter !important;
+  margin-top: 5px;
+}
+.Employee_set{
+  display: flex;
+  align-items: center;
+}
+.salary_bn1{
+  margin-left: 100px;
+}
+.emp_selo{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0px 25px;
+}
+.sonit{
+  right: 20px;
+  top: 15px;
+}
+.employee_set1{
+  width: 100% !important;
+  margin: 0 10px;
+}
+.employee_set2{
+  width: 100% !important;
+  margin: 0px 10px;
+}
+.salary_bdy11{
+  padding: 0px !important;
+}
+.sipi1 th{
+  font-size: 12px !important;
+}
+.action_so{
+  display: flex;
+  align-items: center;
+}
+.action_so img{
+  margin: 0px 5px;
+}
+.opos1 td{
+  font-weight: 500 !important; 
+  font-size: 11px !important;
+}
+.lokig{
+  height: 100vh !important;
+  background-color: #4040404D;
+}
+.sekin{
+  position: absolute !important;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  max-width: 425px;
+  width: 100%;
+}
+.sekin1{
+   max-width: 599px !important;
+   width: 100% !important;
+}
 
+.basic_sel{
+  color: #1B2533;
+  font-size: 16px;
+  font-weight: 600;
+  font-family: inter !important;
+}
+.okad{
+  border-bottom: 1px solid #E8E9EB !important;
+}
+.somoi{
+    font-family: inter !important;
+    font-weight: 600;
+}
+.buttons_formo{
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+}
+.sarfros{
+  font-size: 16px;
+  font-family: inter !important;
+  font-weight: 500;
+  color: #ffffff;
+}
+.sarfros1{
+  border: 1px solid #B8BBC0 !important;
+  color: #666D76;
+  font-size: 16px;
+  font-family: inter !important;
+  font-weight: 500;
+  margin-left: 10px;
+}
+.kinh label{
+  font-size: 14px;
+  font-family: inter !important;
+   font-weight: 400 !important;
+   color: #1B2533;
+}
+.kinh select{
+  font-weight: 400;
+  font-size: 14px;
+  font-family: inter !important;
+  color: #1B2533 !important;
+  height: 48px;
+  border: 1px solid #D0D4DC !important;
+  outline: none !important;
+}
+.kinh input{
+  height: 48px;
+  font-weight: 400;
+  font-size: 14px;
+  font-family: inter !important;
+  color: #1B2533 !important;
+  border: 1px solid #D0D4DC !important;
+  outline: none !important;
+  padding: 0px 20px;
+}
+.emp_selo input{
+  border: 1px solid #D0D4DC !important;
+  width: 247px;
+  height: 44px;
+  color: #666D76 !important;
+  font-size: 14px !important;
+  outline: none !important;
+  font-family: inter !important;
+  margin-top: 10px;
+  /* padding: 0px 20px !important; */
+}
 .loader {
   width: 28px;
   height: 28px;
@@ -4495,4 +4694,18 @@ background-color: #0B56E4;
   letter-spacing: 0.005em;
   text-align: left;
   
+}
+.fgg label{
+  color: #1B2533 !important;
+  font-weight: 500 !important;
+}
+.fggg{
+  margin-left: 15px;
+}
+.fgg input,
+.fgg select{
+  color: #B8BBC0 !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  width: 100% !important;
 }

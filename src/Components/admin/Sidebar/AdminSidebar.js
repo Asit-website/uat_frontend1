@@ -32,6 +32,13 @@ const dashboardItem = [
     link: "/adminDash/mySelf"
   },
   {
+    title:"Set Salary",
+    link:"/adminDash/setSallary"
+  },
+  {
+    title:"Payslip"
+  },
+  {
     title: "Accounting",
   },
   {
