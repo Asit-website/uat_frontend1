@@ -26,7 +26,50 @@ const SetSallary = ({
     //   setAlert,
     //   isHr = false,
 }) => {
-    const { user, getUsers } = useMain();
+    const { user,createSallary, getSallary } = useMain();
+    const [refreshFlag,setRefreshFlag] = useState(false);
+
+    const [formdata, setFormdata] = useState({
+        salary:"",
+        paySlipType:""
+      })
+
+      const [data,setData] = useState([]);
+
+      useEffect(()=>{
+          getData()
+      },[refreshFlag])
+
+      const getData = async () =>{
+          const ans = await getSallary();
+          setData(ans?.data);
+      }
+
+     
+
+      const changeHandler = (e) => {
+        e.preventDefault();
+        const { name, value } = e.target;
+    
+        setFormdata((prev) => ({
+          ...prev,
+          [name]: value
+        }))
+    
+      }
+
+      const submitHandler = async (e) => {
+          e.preventDefault();
+        try {
+           const ans =  await createSallary({ ...formdata });
+           console.log(ans);
+            alert("Successfuly Created");
+            setRefreshFlag(!refreshFlag);
+            setShow(false);
+        } catch (error) {
+          console.log(error);
+        }
+      }
 
     const [show, setShow] = useState(false);
 
@@ -84,22 +127,30 @@ const SetSallary = ({
                                                 }} src={sink} alt="" />
                                             </div>
                                         </div>
-                                        <div className="salary_body">
-                                            <div className="salary_bn">
-                                                <h3>Payslip Type</h3>
-                                                <p>Monthly Payslip</p>
-                                            </div>
-                                            <div className="salary_bn salary_bn1">
-                                                <h3>Salary</h3>
-                                                <p>₹ 28,00.00</p>
-                                            </div>
-                                        </div>
+                                        {
+                                            data?.map((item,index)=>{
+                                                return (
+                                                    <div key={index} className="salary_body">
+                                                    <div className="salary_bn">
+                                                        <h3>Payslip Type</h3>
+                                                        <p>{item?.paySlipType}</p>
+                                                    </div>
+                                                    <div className="salary_bn salary_bn1">
+                                                        <h3>Salary</h3>
+                                                        <p>{item?.salary}</p>
+                                                    </div>
+                                                </div>
+                                                )
+                                            })
+                                        }
+                                       
                                     </div>
                                     <div className="salary_details mt-5">
                                         <div className="salary_head">
                                             <div className="salary_head11">
                                                 <img src={talent1} alt="talent1" />
                                                 <h2>Commission</h2>
+                                                <input type="date" />
                                             </div>
                                             <div className="salary_head12">
                                                 <img onClick={()=>{
@@ -319,7 +370,7 @@ const SetSallary = ({
                                             </div>
                                             {/* Modal body */}
                                             <div className="p-4 md:p-5">
-                                                <form className="space-y-4 kinh" action="#">
+                                                <form className="space-y-4 kinh" onSubmit={submitHandler}>
                                                     <div>
                                                         <label
                                                             htmlFor="email"
@@ -327,8 +378,8 @@ const SetSallary = ({
                                                         >
                                                             Payslip Type*
                                                         </label>
-                                                        <select name="" id="" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white">
-                                                            <option value="">Select Payslip</option>
+                                                        <select onChange={changeHandler} name="paySlipType" value={formdata?.paySlipType} id="paySlipType" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white">
+                                                            <option>Select Payslip</option>
                                                             <option>Monthly Paysleep</option>
                                                         </select>
                                                     </div>
@@ -343,6 +394,8 @@ const SetSallary = ({
                                                             type="number"
                                                             name="salary"
                                                             id="salary"
+                                                            value={formdata?.salary}
+                                                            onChange={changeHandler}
                                                             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                                                             required=""
                                                         />

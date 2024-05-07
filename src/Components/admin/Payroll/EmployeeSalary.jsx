@@ -11,6 +11,7 @@ import frames from "../../images/Frame 1000010647.png"
 import bxsearch from "../../images/bx-search.png"
 import crosss from "../../images/crosss.png"
 import talent from '../../images/talent.svg';
+import { useNavigate } from "react-router-dom";
 const EmployeeSalary = ({
     pop,
     setPop
@@ -23,16 +24,20 @@ const EmployeeSalary = ({
 }) => {
     const { user, getUsers } = useMain();
 
-    const [data,setData] = useState([]);
+    const [data, setData] = useState([]);
 
-    useEffect(()=>{
-         getData();
-    },[])
+    useEffect(() => {
+        getData();
+    }, [])
 
-    const getData = async () =>{
+    const getData = async () => {
         const ans = await getUsers();
         setData(ans?.data);
     }
+
+    const navigate = useNavigate();
+
+    
 
 
     return (
@@ -116,25 +121,27 @@ const EmployeeSalary = ({
                                         </thead>
                                         <tbody>
                                             {
-                                                data?.map((val,index)=>{
-                                                    return  <tr key={index} className="bg-white opos border-b dark:bg-gray-800 dark:border-gray-700">
-                                                    <th
-                                                        scope="row"
-                                                        className="px-6 py-4 oklo font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                                                    >
-                                                        {index+1}
-                                                    </th>
-                                                    <td className="px-6 py-4">{val?.fullName}</td>
-                                                    <td className="px-6 py-4">Monthly Payslip</td>
-                                                    <td className="px-6 py-4">₹ 0</td>
-                                                    <td className="px-6 py-4">₹ 0</td>
-                                                    <td className="px-6 py-4">
-                                                        <img src={talent} alt="" />
-                                                    </td>
-                                                </tr>
+                                                data?.map((val, index) => {
+                                                    return <tr key={index} className="bg-white opos border-b dark:bg-gray-800 dark:border-gray-700">
+                                                        <th
+                                                            scope="row"
+                                                            className="px-6 py-4 oklo font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                                                        >
+                                                            {index + 1}
+                                                        </th>
+                                                        <td className="px-6 py-4">{val?.fullName}</td>
+                                                        <td className="px-6 py-4">Monthly Payslip</td>
+                                                        <td className="px-6 py-4">₹ 0</td>
+                                                        <td className="px-6 py-4">₹ 0</td>
+                                                        <td onClick={() => {
+                                                            navigate(`/adminDash/setAll/${index+1}`);
+                                                        }} className="px-6 py-4">
+                                                            <img src={talent} alt="" />
+                                                        </td>
+                                                    </tr>
                                                 })
                                             }
-                                           
+
                                         </tbody>
                                     </table>
                                 </div>

@@ -163,17 +163,17 @@ function App() {
                 setPop1={setPop1} setAlert={setAlert} />} />
               <Route path="/employeeDash/atten" element={<AttendenceCalendar pop1={pop1}
                 setPop1={setPop1} setAlert={setAlert} />} />
-                <Route path="/employeeDash/editLead" element={<EditLead2 />}/>
-                <Route path="/employeeDash/createLead" element={<CreateLead2 />}/>
-                <Route path="/employeeDash/myLead" element={<MyLead2 />}/>
-                <Route path="/employeeDash/leadDash" element={<LeadDash2 />}/>
-                <Route path="/employeeDash/importLead/:id" element={<ImportLead2/>}/>
-                <Route path="/employeeDash/leadFile" element={<LeadFile2/>}/>
-                <Route path="/employeeDash/mySelf" element={<MySelf />}/>
+              <Route path="/employeeDash/editLead" element={<EditLead2 />} />
+              <Route path="/employeeDash/createLead" element={<CreateLead2 />} />
+              <Route path="/employeeDash/myLead" element={<MyLead2 />} />
+              <Route path="/employeeDash/leadDash" element={<LeadDash2 />} />
+              <Route path="/employeeDash/importLead/:id" element={<ImportLead2 />} />
+              <Route path="/employeeDash/leadFile" element={<LeadFile2 />} />
+              <Route path="/employeeDash/mySelf" element={<MySelf />} />
 
-                <Route path="/employeeDash/createQuotation" element={<CreateQuotation />}  />
+              <Route path="/employeeDash/createQuotation" element={<CreateQuotation />} />
 
-                
+
             </Route>
 
             {/* ====================hr routing============== */}
@@ -210,7 +210,7 @@ function App() {
 
               <Route path="/hrDash/atten" element={<HrAttendence pop1={pop1}
                 setPop1={setPop1} setAlert={setAlert} />} />
-                 <Route path="/hrDash/atten1" element={<HrAttendence1 pop1={pop1}
+              <Route path="/hrDash/atten1" element={<HrAttendence1 pop1={pop1}
                 setPop1={setPop1} setAlert={setAlert} />} />
 
 
@@ -269,33 +269,33 @@ function App() {
                 pop1={pop1}
                 setPop1={setPop1}
                 isHr={true} />} />
-                <Route path="/hrDash/notification3" element={<Notification3 />} />
-                 <Route path="/hrDash/notification4" element={<Notification4 setAlert={setAlert}
+              <Route path="/hrDash/notification3" element={<Notification3 />} />
+              <Route path="/hrDash/notification4" element={<Notification4 setAlert={setAlert}
                 pop={pop}
                 setPop={setPop}
                 pop1={pop1}
                 setPop1={setPop1}
                 isHr={true} />} />
-                <Route path="/adminDash/leadDash" element={<LeadDash/>}/>
-                <Route path="/adminDash/myLead" element={<MyLead />}/>
-                <Route path="/adminDash/createLead" element={<CreateLead/>}/>
-                <Route path="/adminDash/editLead" element={<EditLead />}/>
-                <Route path="/adminDash/importLead/:id" element={<ImportLead />}/>
-                <Route path="/adminDash/mySelf" element={<MySelf />}/>
-                <Route path="/adminDash/EmployeeDetails" element={<EmployeeSelf />}/>
+              <Route path="/adminDash/leadDash" element={<LeadDash />} />
+              <Route path="/adminDash/myLead" element={<MyLead />} />
+              <Route path="/adminDash/createLead" element={<CreateLead />} />
+              <Route path="/adminDash/editLead" element={<EditLead />} />
+              <Route path="/adminDash/importLead/:id" element={<ImportLead />} />
+              <Route path="/adminDash/mySelf" element={<MySelf />} />
+              <Route path="/adminDash/EmployeeDetails" element={<EmployeeSelf />} />
 
-                <Route path="/adminDash/leadFile" element={<LeadFile/>}/>
+              <Route path="/adminDash/leadFile" element={<LeadFile />} />
 
-                <Route path="/adminDash/createQuotation" element={<CreateQuotation />}  />
-                 
-                 <Route path="/adminDash/setSallary" element={<EmployeeSalary pop={pop} setPop={setPop}/>}/>
+              <Route path="/adminDash/createQuotation" element={<CreateQuotation />} />
 
-                 <Route path="/adminDash/setAll" element={<SetSallary pop={pop} setPop={setPop}/>}/>
+              <Route path="/adminDash/setSallary" element={<EmployeeSalary pop={pop} setPop={setPop} />} />
 
-<Route path="/adminDash/addEmployee" element={<AddEmployee />}  />
+              <Route path="/adminDash/setAll/:id" element={<SetSallary pop={pop} setPop={setPop} />} />
 
-<Route path="/invoicePage" element={<InvoicePage />} />
-                 
+              <Route path="/adminDash/addEmployee" element={<AddEmployee />} />
+
+              <Route path="/invoicePage" element={<InvoicePage />} />
+
             </Route>
 
           </Routes>
