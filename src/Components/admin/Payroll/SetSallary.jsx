@@ -2,37 +2,89 @@ import AdminNavbar from "../../admin/Navbar/AdminNavbar";
 import AdminSidebar from "../../admin/Sidebar/AdminSidebar";
 import "react-calendar/dist/Calendar.css";
 import { useMain } from "../../../hooks/useMain";
-import HrSidebar from "../../Hr/Sidebar/HrSidebar";
-import HrNavbar from "../../Hr/Navbar/HrNavbar";
-import moreVert from "../../images/more_vert.png";
 import { useEffect, useState } from "react";
-import upload2 from "../../images/upload_2.png"
-import frames from "../../images/Frame 1000010647.png"
-import bxsearch from "../../images/bx-search.png"
-import crosss from "../../images/crosss.png"
 import talent1 from '../../images/talent1.svg';
 import sink from '../../images/sink.svg';
 import elo from '../../images/elo.svg';
 import frema from '../../images/frema.svg';
 import lion from '../../images/lion.svg';
 import oot from '../../images/oot.svg'
+import { useParams } from 'react-router-dom';
+import toast from "react-hot-toast";
+
 const SetSallary = ({
     pop,
     setPop
-    //   pop1,
-    //   setPop1,
-    //   pop,
-    //   setPop,
-    //   setAlert,
-    //   isHr = false,
+   
 }) => {
-    const { user,createSallary, getSallary } = useMain();
+    const { user,salaryCreate, getSallary  , userSalaryFetch , createAllowance , allowDeleteHandler , editAllowance , commisionDelteHandler,  createCommision , editComApi , createLoan , loanDeleteHandler , editLoanApi} = useMain();
     const [refreshFlag,setRefreshFlag] = useState(false);
 
     const [formdata, setFormdata] = useState({
-        salary:"",
+        salary:"00",
         paySlipType:""
       })
+    const [formdata1, setFormdata1] = useState({
+        salary:"00",
+        paySlipType:""
+      })
+
+      const [Allowance , setAllowance] = useState([]);
+
+       const [Loan , setLoan] = useState([]);
+
+       const [Commission , setCommission] = useState([]);
+
+       const [allowanceForm ,setAllowanceForm ] = useState({
+        allowanceOption:"",
+        title:"",
+        type:"",
+        amount:""
+       })
+     
+       const [loanForm ,setLoanForm ] = useState({
+        LoanOption:"",
+        title:"",
+        type:"",
+        loanAmount:"" , 
+        reason:""
+       })
+
+       const loanHandler = (e)=>{
+        const {name ,value} = e.target;
+
+         setLoanForm((prev)=>({
+            ...prev ,
+            [name]:value
+         }))
+       }
+
+       const [commisionForm ,setCommisionForm ] = useState({
+        title:"",
+        type:"",
+        amount:""
+       })
+
+       let userDetail = JSON.parse(localStorage.getItem("hrms_user"));
+
+       const allowChangeHandler = async(e)=>{
+
+        const {name , value} = e.target;
+    
+        setAllowanceForm((prev)=>({
+            ...prev ,
+            [name]:value
+        }))
+       }
+
+ const commisionChange = async(e)=>{
+    const {name , value} = e.target;
+    setCommisionForm((prev)=>({
+        ...prev ,
+        [name]:value
+    }))
+
+ }
 
       const [data,setData] = useState([]);
 
@@ -43,34 +95,19 @@ const SetSallary = ({
       const getData = async () =>{
           const ans = await getSallary();
           setData(ans?.data);
-      }
-
-     
+      }    
 
       const changeHandler = (e) => {
-        e.preventDefault();
         const { name, value } = e.target;
     
-        setFormdata((prev) => ({
+        setFormdata1((prev) => ({
           ...prev,
           [name]: value
         }))
     
       }
 
-      const submitHandler = async (e) => {
-          e.preventDefault();
-        try {
-           const ans =  await createSallary({ ...formdata });
-           console.log(ans);
-            alert("Successfuly Created");
-            setRefreshFlag(!refreshFlag);
-            setShow(false);
-        } catch (error) {
-          console.log(error);
-        }
-      }
-
+    
     const [show, setShow] = useState(false);
 
     const [show1,setShow1] = useState(false);
@@ -79,7 +116,11 @@ const SetSallary = ({
 
     const [show3,setShow3] = useState(false);
 
+    const [isAllowEdit , setIsAllowEdit] = useState(null);
+    const [isCommisionEdit , setIsCommisionEdit] = useState(null);
+    const [isLoanEdit , setIsLoanEdit] = useState(null);
 
+   
     const stylePeer1 = {
         display: show ? "block" : "none"
     }
@@ -96,6 +137,276 @@ const SetSallary = ({
         display: show3 ? "block" : "none"
     }
 
+    let { id } = useParams();
+
+    const fetchUserSalary = async()=>{
+        const ans = await userSalaryFetch(id);
+         if(ans?.status){
+              const {allowance , commission , loan , userDetails} = ans?.data;
+               
+               if(allowance){
+                   setAllowance(allowance);
+               }
+
+                if(commission){
+                    setCommission(commission);
+                }
+
+                 if(loan){
+                    setLoan(loan);
+                 }
+
+                  if(userDetails){
+
+                     const {paySlipType , salary} = userDetails;
+
+                      if(paySlipType){
+                        formdata.paySlipType = paySlipType;
+                        formdata1.paySlipType = paySlipType;
+                      }
+
+                      if(salary){
+                        formdata.salary = salary;
+                        formdata1.salary = salary;
+                      }
+                    
+                    }
+         }
+
+    }
+
+     const postSalary = async(e)=>{
+        e.preventDefault();
+
+        const toastId = toast.loading("Loading...");
+        try{
+
+            const ans = await salaryCreate(formdata1?.paySlipType , formdata1?.salary , id);
+            if(ans?.status){
+                toast.success("Successfuly created");
+                fetchUserSalary();
+                setShow(false);
+            }
+ else {
+    toast.error("Something went wrong ,please try again later");
+ }
+        } catch(error){
+            toast.error("Internal server eror");
+        }
+        toast.dismiss(toastId);
+     }
+    
+    useEffect(()=>{
+        fetchUserSalary();
+    },[]);
+
+    const editAllow = async(e)=>{
+            const toastId = toast.loading("Loading...");
+
+            const ans  = await editAllowance(allowanceForm?.allowanceOption , allowanceForm?.amount  , allowanceForm?.title , allowanceForm?.type , isAllowEdit);
+
+            if(ans?.status){
+                setAllowanceForm({
+                    allowanceOption:"",
+                    title:"",
+                    type:"",
+                    amount:""
+                })
+               
+
+                toast.success('Successfully updated');
+                setShow1(false);
+
+                fetchUserSalary();
+                setIsAllowEdit(null);
+            }
+            else {
+                toast.error("Something went wrong , please try again later");
+            }
+
+            toast.dismiss(toastId);
+    }
+
+     const postAllowance = async()=>{
+        const toatId = toast.loading("Loading...");
+
+        const ans = await createAllowance(allowanceForm?.allowanceOption , allowanceForm?.amount  , allowanceForm?.title , allowanceForm?.type , id);
+
+        if(ans?.status){
+
+            setShow1(false);
+             fetchUserSalary();
+             setAllowanceForm({
+                allowanceOption:"",
+                title:"",
+                type:"",
+                amount:""
+             })
+
+             toast.success("Succeesssfuly created");
+        }
+        else {
+            toast.error("Something went wrong ");
+        }
+
+        toast.dismiss(toatId);
+
+     }
+
+     const deleteAllow = async(id)=>{
+       const toastId  =   toast.loading("Loading...");
+        const ans = await allowDeleteHandler(id);
+
+        if(ans?.status){
+            fetchUserSalary();
+            toast.success("Successfuly deleted");
+                }
+                else {
+                    toast.error("Something went wrong ");
+                }
+
+
+         toast.dismiss(toastId);
+        
+     }
+     const deleteLoan = async(id)=>{
+       const toastId  =   toast.loading("Loading...");
+        const ans = await loanDeleteHandler(id);
+
+        if(ans?.status){
+            fetchUserSalary();
+            toast.success("Successfuly deleted");
+                }
+                else {
+                    toast.error("Something went wrong ");
+                }
+
+
+         toast.dismiss(toastId);
+        
+     }
+
+     const deleteCommision = async(id)=>{
+       const toastId  =  toast.loading("Loading...");
+        const ans = await commisionDelteHandler(id);
+
+        if(ans?.status){
+            fetchUserSalary();
+            toast.success("Successfuly deleted");
+                }
+
+
+         toast.dismiss(toastId);
+        
+     }
+
+     const editCommision = async()=>{
+        const toastId = toast.loading("Loading...");
+
+        const ans  = await editComApi(commisionForm?.amount , commisionForm?.type  , commisionForm?.title , isCommisionEdit);
+
+        if(ans?.status){
+            setCommisionForm({
+                allowanceOption:"",
+                title:"",
+                type:"",
+                amount:""
+            })
+
+            fetchUserSalary();
+
+            toast.success('Successfully updated');
+            setShow2(false);
+
+            setIsCommisionEdit(null);
+        }
+        else {
+            toast.error("Something went wrong , please try again later");
+        }
+
+        toast.dismiss(toastId);
+     }
+
+     const editLoan = async()=>{
+        const toastId = toast.loading("Loading...");
+
+        const ans  = await editLoanApi(loanForm?.LoanOption , loanForm?.title  , loanForm?.type ,loanForm?.loanAmount , loanForm?.reason ,  isLoanEdit);
+
+        if(ans?.status){
+            setLoanForm({
+                allowanceOption:"",
+                title:"",
+                type:"",
+                amount:""
+            })
+
+            fetchUserSalary();
+
+            toast.success('Successfully updated');
+            setShow3(false);
+
+            setIsLoanEdit(null);
+        }
+        else {
+            toast.error("Something went wrong , please try again later");
+        }
+
+        toast.dismiss(toastId);
+     }
+
+     const commisionSubmit = async()=>{
+
+        const toatId = toast.loading("Loading...");
+
+        const ans = await createCommision(commisionForm?.amount , commisionForm?.type  , commisionForm?.title  , id);
+
+        if(ans?.status){
+
+            setShow2(false);
+             fetchUserSalary();
+             setCommisionForm({
+                title:"",
+                type:"",
+                amount:""
+             })
+
+             toast.success("Succeesssfuly created");
+        }
+        else {
+            toast.error("Something went wrong ");
+        }
+
+        toast.dismiss(toatId);
+
+
+     }
+
+
+     const loanSubmit = async()=>{
+        const toatId = toast.loading("Loading...");
+
+        const ans = await createLoan(loanForm?.LoanOption , loanForm?.loanAmount  , loanForm?.title , loanForm?.type ,loanForm?.reason ,  id);
+
+        if(ans?.status){
+
+            setShow3(false);
+             fetchUserSalary();
+             setLoanForm({
+                LoanOption:"",
+                title:"",
+                type:"",
+                loanAmount:""
+             })
+
+             toast.success("Succeesssfuly created");
+        }
+        else {
+            toast.error("Somthing went wrong , please try again");
+        }
+
+        toast.dismiss(toatId);
+
+     }
 
     return (
         <>
@@ -114,6 +425,7 @@ const SetSallary = ({
                             </div>
 
                             <div className="Employee_set">
+
                                 <div className="employee_set1">
                                     <div className="salary_details">
                                         <div className="salary_head">
@@ -127,22 +439,18 @@ const SetSallary = ({
                                                 }} src={sink} alt="" />
                                             </div>
                                         </div>
-                                        {
-                                            data?.map((item,index)=>{
-                                                return (
-                                                    <div key={index} className="salary_body">
+                                        
+                                                    <div  className="salary_body">
                                                     <div className="salary_bn">
                                                         <h3>Payslip Type</h3>
-                                                        <p>{item?.paySlipType}</p>
+                                                        <p>{formdata?.paySlipType}</p>
                                                     </div>
                                                     <div className="salary_bn salary_bn1">
                                                         <h3>Salary</h3>
-                                                        <p>{item?.salary}</p>
+                                                        <p>{formdata?.salary}</p>
                                                     </div>
                                                 </div>
-                                                )
-                                            })
-                                        }
+                                     
                                        
                                     </div>
                                     <div className="salary_details mt-5">
@@ -164,14 +472,12 @@ const SetSallary = ({
                                                     <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                                         <tr className="sipi sipi1">
                                                             <th scope="col" className="px-6 py-3">
-                                                                Name
+                                                            Employee Name
                                                             </th>
                                                             <th scope="col" className="px-6 py-3">
-                                                                Allowance Option
+                                                            Title
                                                             </th>
-                                                            <th scope="col" className="px-6 py-3">
-                                                                Title
-                                                            </th>
+                                                           
                                                             <th scope="col" className="px-6 py-3">
                                                                 Type
                                                             </th>
@@ -185,25 +491,39 @@ const SetSallary = ({
                                                     </thead>
                                                     <tbody>
 
-                                                        <tr className="bg-white opos opos1 border-b dark:bg-gray-800 dark:border-gray-700">
-                                                            <th
-                                                                scope="row"
-                                                                className="px-6 py-4 oklo font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                                                            >
-                                                                Akash Negi
-                                                            </th>
-                                                            <td className="px-6 py-4">hi</td>
-                                                            <td className="px-6 py-4">Monthly Payslip</td>
-                                                            <td className="px-6 py-4">₹ 0</td>
-                                                            <td className="px-6 py-4">₹ 0</td>
-                                                            <td className="px-6 py-4">
-                                                                <div className="action_so">
-                                                                    <img src={elo} alt="elo" />
-                                                                    <img src={frema} alt="frema" />
-                                                                </div>
-                                                            </td>
-                                                        </tr>
+                                                   {
+                                                    Commission?.map((item , index)=>(
+                                                        <tr key={index} className="bg-white opos opos1 border-b dark:bg-gray-800 dark:border-gray-700">
+                                                        <th
+                                                            scope="row"
+                                                            className="px-6 py-4 oklo font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                                                        >
+                                                           {userDetail?.fullName}
+                                                        </th>
+                                                        <td className="px-6 py-4">{item?.title}</td>
+                                                        <td className="px-6 py-4">{item?.type}</td>
+                                                        <td className="px-6 py-4">{item?.amount}</td>
+                                                        <td className="px-6 py-4">
+                                                            <div className="action_so">
+                                                                <img onClick={()=>{
+                                                        setShow2(true);
+                                                        setIsCommisionEdit(item?._id);
+                                                        setCommisionForm({
+                                                            title:item?.title,
+                                                            type:item?.type,
+                                                            amount:item?.amount
+                                                        })
+                                                    }} src={elo} alt="elo" />
+                                                                <img onClick={(e)=>{
+                                                                    e.preventDefault();
+                                                                    deleteCommision(item?._id);
+                                                                }} src={frema} alt="frema" />
+                                                            </div>
+                                                        </td>
+                                                    </tr>
 
+                                                    ))
+                                                   }
 
                                                     </tbody>
                                                 </table>
@@ -211,6 +531,7 @@ const SetSallary = ({
                                         </div>
                                     </div>
                                 </div>
+
                                 <div className="employee_set2">
                                     <div className="salary_details">
                                         <div className="salary_head">
@@ -251,31 +572,47 @@ const SetSallary = ({
                                                     </thead>
                                                     <tbody>
 
-                                                        <tr className="bg-white opos opos1 border-b dark:bg-gray-800 dark:border-gray-700">
-                                                            <th
-                                                                scope="row"
-                                                                className="px-6 py-4 oklo font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                                                            >
-                                                                Akash Negi
-                                                            </th>
-                                                            <td className="px-6 py-4">hi</td>
-                                                            <td className="px-6 py-4">Monthly Payslip</td>
-                                                            <td className="px-6 py-4">₹ 0</td>
-                                                            <td className="px-6 py-4">₹ 0</td>
-                                                            <td className="px-6 py-4">
-                                                                <div className="action_so">
-                                                                    <img src={elo} alt="elo" />
-                                                                    <img src={frema} alt="frema" />
-                                                                </div>
-                                                            </td>
-                                                        </tr>
+                                    {
+                                        Allowance?.map((item ,index)=>(
+                                            <tr key={index} className="bg-white opos opos1 border-b dark:bg-gray-800 dark:border-gray-700">
+                                            <th
+                                                scope="row"
+                                                className="px-6 py-4 oklo font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                                            >
+                                               {userDetail?.fullName}
+                                            </th>
+                                            <td className="px-6 py-4">{item?.allowanceOption}</td>
+                                            <td className="px-6 py-4">{item?.title}</td>
+                                            <td className="px-6 py-4">{item?.type}</td>
+                                            <td className="px-6 py-4">{item?.amount}</td>
+                                            <td className="px-6 py-4">
+                                                <div className="action_so">
+                                                    <img onClick={()=>{
+                                                        setShow1(true);
+                                                        setIsAllowEdit(item?._id);
+                                                        setAllowanceForm({
+                                                            allowanceOption:item?.allowanceOption,
+                                                            title:item?.title,
+                                                            type:item?.type,
+                                                            amount:item?.amount
+                                                        })
+                                                    }} src={elo} alt="elo" />
+                                                    <img onClick={()=>{
+                                                        deleteAllow(item?._id);
+                                                    }} src={frema} alt="frema" />
+                                                </div>
+                                            </td>
+                                        </tr>
 
+                                        ))
+                                    }
 
                                                     </tbody>
                                                 </table>
                                             </div>
                                         </div>
                                     </div>
+
                                     <div className="salary_details mt-5">
                                         <div className="salary_head">
                                             <div className="salary_head11">
@@ -294,10 +631,10 @@ const SetSallary = ({
                                                     <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                                         <tr className="sipi sipi1">
                                                             <th scope="col" className="px-6 py-3">
-                                                                Name
+                                                            Employee Name
                                                             </th>
                                                             <th scope="col" className="px-6 py-3">
-                                                                Allowance Option
+                                                            Loan Option
                                                             </th>
                                                             <th scope="col" className="px-6 py-3">
                                                                 Title
@@ -306,7 +643,7 @@ const SetSallary = ({
                                                                 Type
                                                             </th>
                                                             <th scope="col" className="px-6 py-3">
-                                                                Amount
+                                                               Loan Amount
                                                             </th>
                                                             <th scope="col" className="px-6 py-3">
                                                                 Action
@@ -315,25 +652,42 @@ const SetSallary = ({
                                                     </thead>
                                                     <tbody>
 
-                                                        <tr className="bg-white opos opos1 border-b dark:bg-gray-800 dark:border-gray-700">
+                                                     {
+                                                        Loan?.map((item ,index)=>(
+                                                            <tr key={index} className="bg-white opos opos1 border-b dark:bg-gray-800 dark:border-gray-700">
                                                             <th
                                                                 scope="row"
                                                                 className="px-6 py-4 oklo font-medium text-gray-900 whitespace-nowrap dark:text-white"
                                                             >
-                                                                Akash Negi
+                                                                {userDetail?.fullName}
                                                             </th>
-                                                            <td className="px-6 py-4">hi</td>
-                                                            <td className="px-6 py-4">Monthly Payslip</td>
-                                                            <td className="px-6 py-4">₹ 0</td>
-                                                            <td className="px-6 py-4">₹ 0</td>
+                                                            <td className="px-6 py-4">{item?.LoanOption}</td>
+                                                            <td className="px-6 py-4">{item?.title}</td>
+                                                            <td className="px-6 py-4">{item?.type}</td>
+                                                            <td className="px-6 py-4">{item?.loanAmount}</td>
                                                             <td className="px-6 py-4">
                                                                 <div className="action_so">
-                                                                    <img src={elo} alt="elo" />
-                                                                    <img src={frema} alt="frema" />
+                                                                    <img onClick={()=>{
+                                                        setShow3(true);
+                                                        setIsLoanEdit(item?._id);
+                                                        setLoanForm({
+                                                            title:item?.title,
+                                                            type:item?.type,
+                                                            loanAmount:item?.loanAmount, 
+                                                            reason:item?.reason,
+                                                            LoanOption: item?.LoanOption
+                                                        })
+                                                    }}  src={elo} alt="elo" />
+                                                                    <img onClick={(e)=>{
+                                                                        e.preventDefault();
+                                                                        deleteLoan(item?._id);
+                                                                    }} src={frema} alt="frema" />
                                                                 </div>
                                                             </td>
                                                         </tr>
 
+                                                        ))
+                                                     }
 
                                                     </tbody>
                                                 </table>
@@ -341,6 +695,7 @@ const SetSallary = ({
                                         </div>
                                     </div>
                                 </div>
+
                             </div>
 
                             {/* =============toggle1============ */}
@@ -366,11 +721,16 @@ const SetSallary = ({
                                                 </h3>
                                                 <img className="cursor-pointer" onClick={() => {
                                                     setShow(false);
+                                                    setIsAllowEdit(null);
+                                                    setIsCommisionEdit(null);
+                                                    setIsLoanEdit(null);
+                                                
+
                                                 }} src={oot} alt="oot" />
                                             </div>
                                             {/* Modal body */}
                                             <div className="p-4 md:p-5">
-                                                <form className="space-y-4 kinh" onSubmit={submitHandler}>
+                                                <form className="space-y-4 kinh" onSubmit={postSalary}>
                                                     <div>
                                                         <label
                                                             htmlFor="email"
@@ -378,8 +738,8 @@ const SetSallary = ({
                                                         >
                                                             Payslip Type*
                                                         </label>
-                                                        <select onChange={changeHandler} name="paySlipType" value={formdata?.paySlipType} id="paySlipType" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white">
-                                                            <option>Select Payslip</option>
+                                                        <select onChange={changeHandler} name="paySlipType" value={formdata1?.paySlipType} id="paySlipType" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white">
+                                                            <option disabled >Select Payslip</option>
                                                             <option>Monthly Paysleep</option>
                                                         </select>
                                                     </div>
@@ -394,7 +754,7 @@ const SetSallary = ({
                                                             type="number"
                                                             name="salary"
                                                             id="salary"
-                                                            value={formdata?.salary}
+                                                            value={formdata1?.salary}
                                                             onChange={changeHandler}
                                                             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                                                             required=""
@@ -404,6 +764,10 @@ const SetSallary = ({
                                                         <button type="submit" className="text-white sarfros bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Save Change</button>
                                                         <button onClick={() => {
                                                             setShow(false);
+                                                            setIsAllowEdit(null);
+                                                            setIsCommisionEdit(null);
+                                                            setIsLoanEdit(null);
+                                                        
                                                         }} type="button" className="text-gray-900 sarfros1 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">Cancel</button>
                                                     </div>
                                                 </form>
@@ -437,6 +801,10 @@ const SetSallary = ({
                                                 </h3>
                                                 <img className="cursor-pointer" onClick={() => {
                                                     setShow1(false);
+                                                    setIsAllowEdit(null);
+                                                    setIsCommisionEdit(null);
+                                                    setIsLoanEdit(null);
+                                                
                                                 }} src={oot} alt="oot" />
                                             </div>
                                             {/* Modal body */}
@@ -448,9 +816,9 @@ const SetSallary = ({
                                                             htmlFor="email"
                                                             className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                                                         >
-                                                            Allowance Options*
+                                                            Allowance Options* 
                                                         </label>
-                                                        <select name="" id="" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white">
+                                                        <select value={allowanceForm.allowanceOption} name="allowanceOption" onChange={allowChangeHandler} id="" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white">
                                                             <option value="">Select Allowance</option>
                                                             <option>Allowance</option>
                                                             <option>Travel Allowance</option>
@@ -465,8 +833,8 @@ const SetSallary = ({
                                                         </label>
                                                         <input
                                                             type="text"
-                                                            name="salary"
-                                                            id="salary"
+                                                            value={allowanceForm.title} name="title" onChange={allowChangeHandler}
+                                                            id="title"
                                                             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                                                             required=""
                                                         />
@@ -480,7 +848,7 @@ const SetSallary = ({
                                                         >
                                                             Type
                                                         </label>
-                                                        <select name="" id="" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white">
+                                                        <select  value={allowanceForm.type} name="type" onChange={allowChangeHandler} id="" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white">
                                                             <option>Select Type</option>
                                                             <option>Fixed</option>
                                                         </select>
@@ -494,17 +862,31 @@ const SetSallary = ({
                                                         </label>
                                                         <input
                                                             type="number"
-                                                            name="amount"
-                                                            id="amount"
+                                                            value={allowanceForm.amount} name="amount" onChange={allowChangeHandler}                                                            id="amount"
                                                             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                                                             required=""
                                                         />
                                                     </div>
                                                     </div>
                                                     <div className="buttons_formo">
-                                                        <button type="submit" className="text-white sarfros bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Create</button>
+                                                        <button onClick={ (e)=>{
+                                                            e.preventDefault();
+                                                            if(isAllowEdit){
+                                                                editAllow();
+
+                                                            }
+                                                            else {
+
+                                                                postAllowance();
+                                                            }
+                                                        }
+                                                         } type="submit" className="text-white sarfros bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">{isAllowEdit !==null ? "Update":"Create"}</button>
                                                         <button onClick={() => {
                                                             setShow1(false);
+                                                            setIsAllowEdit(null);
+                                                            setIsCommisionEdit(null);
+                                                            setIsLoanEdit(null);
+                                                        
                                                         }} type="button" className="text-gray-900 sarfros1 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">Cancel</button>
                                                     </div>
                                                 </form>
@@ -534,11 +916,15 @@ const SetSallary = ({
                                         <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
                                             {/* Modal header */}
                                             <div className="flex okad items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
-                                                <h3 className="text-xl font-semibold basic_sel text-gray-900 dark:text-white">
+                                                <h3 className="text-xl font-semibold basic_sel ">
                                                 Create Commission
                                                 </h3>
                                                 <img className="cursor-pointer" onClick={() => {
                                                     setShow2(false);
+                                                    setIsAllowEdit(null);
+                                                    setIsCommisionEdit(null);
+                                                    setIsLoanEdit(null);
+                                                
                                                 }} src={oot} alt="oot" />
                                             </div>
                                             {/* Modal body */}
@@ -551,11 +937,15 @@ const SetSallary = ({
                                                             htmlFor="email"
                                                             className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                                                         >
-                                                            Title
+                                                            Title 
                                                         </label>
                                                         <input
                                                             type="text"
-                                                            name="salary"
+                                                            name="title"
+                                                            onChange={commisionChange}
+                                                            value={commisionForm.title}
+                                                        
+
                                                             id="salary"
                                                             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                                                             required=""
@@ -570,7 +960,7 @@ const SetSallary = ({
                                                         >
                                                             Type
                                                         </label>
-                                                        <select name="" id="" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white">
+                                                        <select value={commisionForm?.type} onChange={commisionChange} name="type" id="" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white">
                                                             <option>Select Type</option>
                                                             <option>Fixed</option>
                                                         </select>
@@ -583,8 +973,8 @@ const SetSallary = ({
                                                             Amount
                                                         </label>
                                                         <input
+                                                        value={commisionForm?.amount} onChange={commisionChange} name="amount"
                                                             type="number"
-                                                            name="amount"
                                                             id="amount"
                                                             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                                                             required=""
@@ -592,9 +982,22 @@ const SetSallary = ({
                                                     </div>
                                                     </div>
                                                     <div className="buttons_formo">
-                                                        <button type="submit" className="text-white sarfros bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Create</button>
+                                                        <button onClick={(e)=>{
+                                                            e.preventDefault();
+
+                                                            if(isCommisionEdit){
+                                                                 editCommision();
+                                                            }
+                                                            else {
+                                                                commisionSubmit();
+                                                            }
+                                                        }} type="submit" className="text-white sarfros bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">{isCommisionEdit !==null ? "Update":"Create"}</button>
                                                         <button onClick={() => {
                                                             setShow2(false);
+                                                            setIsAllowEdit(null);
+                                                            setIsCommisionEdit(null);
+                                                            setIsLoanEdit(null);
+                                                        
                                                         }} type="button" className="text-gray-900 sarfros1 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">Cancel</button>
                                                     </div>
                                                 </form>
@@ -622,11 +1025,15 @@ const SetSallary = ({
                                         <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
                                             {/* Modal header */}
                                             <div className="flex okad items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
-                                                <h3 className="text-xl font-semibold basic_sel text-gray-900 dark:text-white">
+                                                <h3 className="text-xl font-semibold basic_sel ">
                                                 Create Loan
                                                 </h3>
                                                 <img className="cursor-pointer" onClick={() => {
                                                     setShow3(false);
+                                                    setIsAllowEdit(null);
+                                                    setIsCommisionEdit(null);
+                                                    setIsLoanEdit(null);
+                                                
                                                 }} src={oot} alt="oot" />
                                             </div>
                                             {/* Modal body */}
@@ -642,8 +1049,10 @@ const SetSallary = ({
                                                         </label>
                                                         <input
                                                             type="text"
-                                                            name="salary"
                                                             id="salary"
+                                                            name="title"
+                                                            onChange={loanHandler}
+                                                            value={loanForm?.title}
                                                             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                                                             required=""
                                                         />
@@ -655,7 +1064,9 @@ const SetSallary = ({
                                                         >
                                                             Loan Options*
                                                         </label>
-                                                        <select name="" id="" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white">
+                                                        <select   name="LoanOption"
+                                                            onChange={loanHandler}
+                                                            value={loanForm?.LoanOption} id="" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white">
                                                             <option value="">Select Loan</option>
                                                             <option>Health Insurance</option>
                                                             
@@ -671,7 +1082,9 @@ const SetSallary = ({
                                                         >
                                                             Type
                                                         </label>
-                                                        <select name="" id="" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white">
+                                                        <select name="type"
+                                                            onChange={loanHandler}
+                                                            value={loanForm?.type} id="" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white">
                                                             <option value="">Select Type</option>
                                                             <option>Fixed</option>
                                                             
@@ -682,11 +1095,13 @@ const SetSallary = ({
                                                             htmlFor="email"
                                                             className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                                                         >
-                                                            Amount
+                                                           Loan Amount
                                                         </label>
                                                         <input
                                                             type="number"
-                                                            name="salary"
+                                                            name="loanAmount"
+                                                            onChange={loanHandler}
+                                                            value={loanForm?.loanAmount}
                                                             id="salary"
                                                             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                                                             required=""
@@ -707,7 +1122,9 @@ const SetSallary = ({
                                                        </label>
                                                        <input
                                                            type="text"
-                                                           name="salary"
+                                                           name="reason"
+                                                           onChange={loanHandler}
+                                                           value={loanForm?.reason}
                                                            id="salary"
                                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                                                            required=""
@@ -715,9 +1132,22 @@ const SetSallary = ({
                                                    </div>
                                                    </div>
                                                     <div className="buttons_formo">
-                                                        <button type="submit" className="text-white sarfros bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Create</button>
+                                                        <button onClick={(e)=>{
+                                                            e.preventDefault();
+
+                                                            if(isLoanEdit){
+                                                                 editLoan();
+                                                            }
+                                                            else {
+                                                                loanSubmit();
+                                                            }
+                                                        }} type="submit" className="text-white sarfros bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">{isLoanEdit !==null ? "Update":"Create"}</button>
                                                         <button onClick={() => {
                                                             setShow3(false);
+                                                            setIsAllowEdit(null);
+                                                            setIsCommisionEdit(null);
+                                                            setIsLoanEdit(null);
+                                                        
                                                         }} type="button" className="text-gray-900 sarfros1 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">Cancel</button>
                                                     </div>
                                                 </form>

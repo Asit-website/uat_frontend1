@@ -37,8 +37,7 @@ const EmployeeSalary = ({
 
     const navigate = useNavigate();
 
-    
-
+    console.log("daa ",data);
 
     return (
         <>
@@ -55,9 +54,13 @@ const EmployeeSalary = ({
                             <div className="hrmDasTxtFir2">
                                 <h2>Manage Employee Salary</h2>
                             </div>
+
                             <div className="employee_sal_card">
+
                                 <div className="emp_selo">
+
                                     <h3 className="somoi">Employee</h3>
+
                                     <form className="max-w-md mx-auto">
                                         <label
                                             htmlFor="default-search"
@@ -95,7 +98,9 @@ const EmployeeSalary = ({
                                     </form>
 
                                 </div>
+
                                 <div className="relative overflow-x-auto sklin">
+
                                     <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                                         <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                             <tr className="sipi">
@@ -127,14 +132,15 @@ const EmployeeSalary = ({
                                                             scope="row"
                                                             className="px-6 py-4 oklo font-medium text-gray-900 whitespace-nowrap dark:text-white"
                                                         >
-                                                            {index + 1}
+                                                            {/* {index + 1} */}
+                                                            #{val?.employeeCode}
                                                         </th>
                                                         <td className="px-6 py-4">{val?.fullName}</td>
                                                         <td className="px-6 py-4">Monthly Payslip</td>
                                                         <td className="px-6 py-4">₹ 0</td>
                                                         <td className="px-6 py-4">₹ 0</td>
                                                         <td onClick={() => {
-                                                            navigate(`/adminDash/setAll/${index+1}`);
+                                                            navigate(`/adminDash/setAll/${val?._id}`);
                                                         }} className="px-6 py-4">
                                                             <img src={talent} alt="" />
                                                         </td>
@@ -144,6 +150,7 @@ const EmployeeSalary = ({
 
                                         </tbody>
                                     </table>
+
                                 </div>
 
                                 <div className="prev_next">

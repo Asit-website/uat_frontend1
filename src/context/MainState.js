@@ -1568,17 +1568,69 @@ const MainState = (props) => {
       return data;
    }
 
+    const userSalaryFetch = async(id)=>{
+      const data = await get(`${baseUrl}/payroll/getAllUserPayroll/${id}`, true);
+      return data;
+    }
+
+    const salaryCreate = async( paySlipType,salary, id )=>{
+      const data = await post(`${baseUrl}/payroll/editUserSalary/${id}`, {salary,paySlipType}, true);
+      return data;
+    }
+
+    const createAllowance = async( allowanceOption,amount, title , type,id )=>{
+      const data = await post(`${baseUrl}/payroll/createAllowance/${id}`, {allowanceOption,amount , title, type}, true);
+      return data;
+    }
+    const createCommision = async( amount , type, title, id )=>{
+      const data = await post(`${baseUrl}/payroll/createCommission/${id}`, {amount , title, type}, true);
+      return data;
+    }
+    const createLoan = async( LoanOption , loanAmount, title,type ,reason, id )=>{
+      const data = await post(`${baseUrl}/payroll/createLoan/${id}`, {LoanOption , loanAmount , title, reason,type}, true);
+      return data;
+    }
+    const allowDeleteHandler = async( id )=>{
+      const data = await deleteReq(`${baseUrl}/payroll/deleteAllowance/${id}`, true);
+      return data;
+    }
+    const loanDeleteHandler = async( id )=>{
+      const data = await deleteReq(`${baseUrl}/payroll/deleteLoan/${id}`, true);
+      return data;
+    }
+    const commisionDelteHandler = async( id )=>{
+      const data = await deleteReq(`${baseUrl}/payroll/deleteCommission/${id}`, true);
+      return data;
+    }
+
+    const editAllowance = async( allowanceOption,amount, title , type,allowanceId )=>{
+      const data = await post(`${baseUrl}/payroll/editAllowance`, {allowanceOption,amount , title, type , allowanceId}, true);
+      return data;
+    }
+    const editComApi = async(amount, type , title,allowanceId )=>{
+      console.log('aww ',allowanceId);
+      const data = await post(`${baseUrl}/payroll/editCommission`, {amount , title, type , allowanceId}, true);
+      return data;
+    }
+    const editLoanApi = async( LoanOption, title, type, loanAmount ,reason,allowanceId )=>{
+      console.log('aww ',allowanceId);
+      const data = await post(`${baseUrl}/payroll/editLoan`, {LoanOption ,loanAmount, title, type ,reason, allowanceId}, true);
+      return data;
+    }
 
    return (
       <MainContext.Provider value={{
          login, employeeLogin, employeeResetPassword, hrLogin, createHr, getHrs, deleteHr, createEmployee, getEmployees, getUsers, getActiveUsers, getActiveUsersCount, getAdminEmployees, postActivity, postActivityHr, getActivitiesByUser, getStatisticsByUser, postLeave, updateLeave, getUserLeaves, getUserLeaveById, deleteLeave, getTotalLeaves, postTotalLeaves, verifyEmployee, verifyHr, verifyAdmin, setUser, user, getProjects, postProject, getHolidays, postHoliday, updateProject, getProjectsByEmployee, getTasks, postTask, updateTask, deleteTask, setFlag, flag, changePassword, updateProfile, deleteHoliday, updateHoliday, deleteProject, getChats, createNewChat, postMessage, deleteChat, adminLogin, getChat, getChatByUser, setChatUser, chatUser, getEmployeesByEmployee, topDash, postAnnouncement, updateAnnouncement, getAnnouncements, getAnnouncementDates, deleteAnnouncement, getAttendance, getAttendanceByUser, createEmployee1, updateAdminProfile, changePassword1, verify, updateUser, forgetPassword, forgetPassword1, forgetPassword2, getBranchs, postBranch, updateBranch, deleteBranch, getDepartments, postDepartment, updateDepartment, deleteDepartment, getDesingation, postDesignation, updateDesignation, deleteDesignation, getAllActivities, postLeaveType, updateLeaveType, getLeaveTypes, deleteLeaveType,
-         createIndicator, getIndicator, deleteIndicator, getDesignations, updateIndicator, getAppraisal, createAppraisal, allEmployee, deleteApprisal, updateApprisal, createAssets, getAssets, deleteAssets, updateAssets, deleteUser, createTracks, getTracks, deleteTracks, updateTracks,
+         createIndicator, getIndicator, deleteIndicator, getDesignations, updateIndicator, getAppraisal, createAppraisal, allEmployee, deleteApprisal, updateApprisal, createAssets, getAssets, deleteAssets, updateAssets, deleteUser, createTracks, getTracks, deleteTracks, updateTracks, editComApi,  loanDeleteHandler,
+         editAllowance, commisionDelteHandler,createLoan , editLoanApi,
          getTotalLeavesCount, uploadDocuments, createAnnouncement, deleteAnnouncement, updateAnnouncements, fetchAnnoucement, deleteAnnouncements, getEmp, allEmployeebyDep, notificationGet,
          acceptLeave, rejectLeave,
          postNotification, fetchUserNotify,
          updateLeadStatus,
          deleteNotification,
+         createAllowance,
          postNotifyLeavereq,
+         createCommision,
          updateLeadNote,
          createTermination, getTermination, deleteTermination, updateTermination,
          createWarning, getWarning, deleteWarning, updateWarning,
@@ -1595,13 +1647,15 @@ const MainState = (props) => {
          createLead  ,
          getLead,
          getLead2,
+         allowDeleteHandler,
          deleteLeads , updateLead , 
          uploadToCloudinaryImg , 
          postQuotation , 
          getQuotationAll , 
          fetchUserNotifyHR,
          createSallary,
-         getSallary
+         getSallary , 
+         userSalaryFetch , salaryCreate
       }}>
          {props.children}
       </MainContext.Provider>
