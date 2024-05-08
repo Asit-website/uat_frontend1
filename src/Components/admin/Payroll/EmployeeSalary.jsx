@@ -32,6 +32,7 @@ const EmployeeSalary = ({
 
     const getData = async () => {
         const ans = await getUsers();
+        console.log(ans?.data);
         setData(ans?.data);
     }
 
@@ -137,10 +138,10 @@ const EmployeeSalary = ({
                                                         </th>
                                                         <td className="px-6 py-4">{val?.fullName}</td>
                                                         <td className="px-6 py-4">Monthly Payslip</td>
-                                                        <td className="px-6 py-4">₹ 0</td>
+                                                        <td className="px-6 py-4">₹{val?.salary}</td>
                                                         <td className="px-6 py-4">₹ 0</td>
                                                         <td onClick={() => {
-                                                            navigate(`/adminDash/setAll/${val?._id}`);
+                                                            navigate(`/adminDash/setAll/${val?._id}`,{state:val?._id});
                                                         }} className="px-6 py-4">
                                                             <img src={talent} alt="" />
                                                         </td>

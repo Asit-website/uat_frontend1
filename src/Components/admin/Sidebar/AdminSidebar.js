@@ -36,8 +36,12 @@ const dashboardItem = [
     link:"/adminDash/setSallary"
   },
   {
-    title:"Payslip"
+    title:"Payslip",
+    
   },
+  // {
+  //   title:"Payslip"
+  // },
   {
     title: "Accounting",
   },

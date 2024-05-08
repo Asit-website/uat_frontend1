@@ -327,7 +327,7 @@ const EmployeeManagement = ({
                                   {/* first  */}
                                   <div onClick={()=>navigate("/adminDash/EmployeeDetails" , {state:item?._id})} className="subView">
                                     <img src={happy} alt="" />
-                                    <p>View </p>
+                                    <p>View</p>
                                   </div>
 
                                   <br />
