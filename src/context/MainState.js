@@ -1590,31 +1590,31 @@ const MainState = (props) => {
       const data = await post(`${baseUrl}/payroll/createLoan/${id}`, {LoanOption , loanAmount , title, reason,type}, true);
       return data;
     }
-    const allowDeleteHandler = async( id )=>{
-      const data = await deleteReq(`${baseUrl}/payroll/deleteAllowance/${id}`, true);
+    const allowDeleteHandler = async( allowId , id )=>{
+      const data = await deleteReq(`${baseUrl}/payroll/deleteAllowance/${allowId}/${id}`, true);
       return data;
     }
-    const loanDeleteHandler = async( id )=>{
-      const data = await deleteReq(`${baseUrl}/payroll/deleteLoan/${id}`, true);
+    const loanDeleteHandler = async(loanId ,  id )=>{
+      const data = await deleteReq(`${baseUrl}/payroll/deleteLoan/${loanId}/${id}`, true);
       return data;
     }
-    const commisionDelteHandler = async( id )=>{
-      const data = await deleteReq(`${baseUrl}/payroll/deleteCommission/${id}`, true);
+    const commisionDelteHandler = async(commId ,  id )=>{
+      const data = await deleteReq(`${baseUrl}/payroll/deleteCommission/${commId}/${id}`, true);
       return data;
     }
 
-    const editAllowance = async( allowanceOption,amount, title , type,allowanceId )=>{
-      const data = await post(`${baseUrl}/payroll/editAllowance`, {allowanceOption,amount , title, type , allowanceId}, true);
+    const editAllowance = async( allowanceOption,amount, title , type,allowanceId , id )=>{
+      const data = await post(`${baseUrl}/payroll/editAllowance/${id}`, {allowanceOption,amount , title, type , allowanceId}, true);
       return data;
     }
-    const editComApi = async(amount, type , title,allowanceId )=>{
+    const editComApi = async(amount, type , title,allowanceId  ,id)=>{
       console.log('aww ',allowanceId);
-      const data = await post(`${baseUrl}/payroll/editCommission`, {amount , title, type , allowanceId}, true);
+      const data = await post(`${baseUrl}/payroll/editCommission/${id}`, {amount , title, type , allowanceId}, true);
       return data;
     }
-    const editLoanApi = async( LoanOption, title, type, loanAmount ,reason,allowanceId )=>{
+    const editLoanApi = async( LoanOption, title, type, loanAmount ,reason,allowanceId  ,id)=>{
       console.log('aww ',allowanceId);
-      const data = await post(`${baseUrl}/payroll/editLoan`, {LoanOption ,loanAmount, title, type ,reason, allowanceId}, true);
+      const data = await post(`${baseUrl}/payroll/editLoan/${id}`, {LoanOption ,loanAmount, title, type ,reason, allowanceId}, true);
       return data;
     }
 

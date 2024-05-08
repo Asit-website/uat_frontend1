@@ -80,7 +80,7 @@ const SetSallary = ({
         amount: ""
     })
 
-    let userDetail = JSON.parse(localStorage.getItem("hrms_user"));
+    
 
     const allowChangeHandler = async (e) => {
 
@@ -218,7 +218,7 @@ const SetSallary = ({
     const editAllow = async (e) => {
         const toastId = toast.loading("Loading...");
 
-        const ans = await editAllowance(allowanceForm?.allowanceOption, allowanceForm?.amount, allowanceForm?.title, allowanceForm?.type, isAllowEdit);
+        const ans = await editAllowance(allowanceForm?.allowanceOption, allowanceForm?.amount, allowanceForm?.title, allowanceForm?.type, isAllowEdit , id);
 
         if (ans?.status) {
             setAllowanceForm({
@@ -268,25 +268,9 @@ const SetSallary = ({
 
     }
 
-    const deleteAllow = async (id) => {
+    const deleteAllow = async (allowId) => {
         const toastId = toast.loading("Loading...");
-        const ans = await allowDeleteHandler(id);
-
-        if (ans?.status) {
-            fetchUserSalary();
-            toast.success("Successfuly deleted");
-        }
-        else {
-            toast.error("Something went wrong ");
-        }
-
-
-        toast.dismiss(toastId);
-
-    }
-    const deleteLoan = async (id) => {
-        const toastId = toast.loading("Loading...");
-        const ans = await loanDeleteHandler(id);
+        const ans = await allowDeleteHandler(allowId , id);
 
         if (ans?.status) {
             fetchUserSalary();
@@ -301,9 +285,26 @@ const SetSallary = ({
 
     }
 
-    const deleteCommision = async (id) => {
+    const deleteLoan = async (loadId) => {
         const toastId = toast.loading("Loading...");
-        const ans = await commisionDelteHandler(id);
+        const ans = await loanDeleteHandler(loadId  ,id);
+
+        if (ans?.status) {
+            fetchUserSalary();
+            toast.success("Successfuly deleted");
+        }
+        else {
+            toast.error("Something went wrong ");
+        }
+
+
+        toast.dismiss(toastId);
+
+    }
+
+    const deleteCommision = async (commId ) => {
+        const toastId = toast.loading("Loading...");
+        const ans = await commisionDelteHandler(commId , id);
 
         if (ans?.status) {
             fetchUserSalary();
@@ -318,7 +319,7 @@ const SetSallary = ({
     const editCommision = async () => {
         const toastId = toast.loading("Loading...");
 
-        const ans = await editComApi(commisionForm?.amount, commisionForm?.type, commisionForm?.title, isCommisionEdit);
+        const ans = await editComApi(commisionForm?.amount, commisionForm?.type, commisionForm?.title, isCommisionEdit , id);
 
         if (ans?.status) {
             setCommisionForm({
@@ -345,7 +346,7 @@ const SetSallary = ({
     const editLoan = async () => {
         const toastId = toast.loading("Loading...");
 
-        const ans = await editLoanApi(loanForm?.LoanOption, loanForm?.title, loanForm?.type, loanForm?.loanAmount, loanForm?.reason, isLoanEdit);
+        const ans = await editLoanApi(loanForm?.LoanOption, loanForm?.title, loanForm?.type, loanForm?.loanAmount, loanForm?.reason, isLoanEdit , id);
 
         if (ans?.status) {
             setLoanForm({

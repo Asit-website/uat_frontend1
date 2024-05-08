@@ -38,7 +38,7 @@ const EmployeeSalary = ({
 
     const navigate = useNavigate();
 
-    console.log("daa ",data);
+    console.log("usedagta ",data);
 
     return (
         <>
@@ -139,7 +139,7 @@ const EmployeeSalary = ({
                                                         <td className="px-6 py-4">{val?.fullName}</td>
                                                         <td className="px-6 py-4">Monthly Payslip</td>
                                                         <td className="px-6 py-4">₹{val?.salary}</td>
-                                                        <td className="px-6 py-4">₹ 0</td>
+                                                        <td className="px-6 py-4">₹{val?.netSalary}</td>
                                                         <td onClick={() => {
                                                             navigate(`/adminDash/setAll/${val?._id}`,{state:val?._id});
                                                         }} className="px-6 py-4">
