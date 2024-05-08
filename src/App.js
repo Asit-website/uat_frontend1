@@ -77,6 +77,7 @@ import Notification4 from "./Components/admin/Notification/Notification4.jsx";
 import EmployeeSelf from "./Components/Employee/EmployeeSelf/EmployeeSelf.jsx";
 import EmployeeSalary from "./Components/admin/Payroll/EmployeeSalary.jsx";
 import SetSallary from "./Components/admin/Payroll/SetSallary.jsx";
+import Payslip from "./Components/admin/Payslip/Payslip.jsx";
 
 var tc;
 
@@ -289,6 +290,8 @@ function App() {
               <Route path="/adminDash/createQuotation" element={<CreateQuotation />} />
 
               <Route path="/adminDash/setSallary" element={<EmployeeSalary pop={pop} setPop={setPop} />} />
+
+              <Route path="/adminDash/payslip" element={<Payslip pop={pop} setPop={setPop}/>}/>
 
               <Route path="/adminDash/setAll/:id" element={<SetSallary pop={pop} setPop={setPop} />} />
 

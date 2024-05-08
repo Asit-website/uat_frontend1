@@ -37,7 +37,7 @@ const dashboardItem = [
   },
   {
     title:"Payslip",
-    
+    link:"/adminDash/payslip"
   },
   // {
   //   title:"Payslip"
