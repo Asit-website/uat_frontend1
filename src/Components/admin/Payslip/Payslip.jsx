@@ -3,21 +3,85 @@ import AdminSidebar from "../../admin/Sidebar/AdminSidebar";
 import "react-calendar/dist/Calendar.css";
 import { useMain } from "../../../hooks/useMain";
 import acy from '../../images/acy.svg';
+import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 const Payslip = ({
     pop,
     setPop
-    //   pop1,
-    //   setPop1,
-    //   pop,
-    //   setPop,
-    //   setAlert,
-    //   isHr = false,
 }) => {
-    const { user, getUsers } = useMain();
+    const { user  , getUserSlip , togglePayslip} = useMain();
 
 
+    const [loading , setLoading] = useState(false);
+
+    const [formdata ,setFormdata] = useState({
+        month:"January",
+        year:"2024"
+    })
 
 
+    const changeHandler = (e)=>{
+        const {name , value} = e.target;
+
+        setFormdata((prev)=>({
+            ...prev ,
+            [name]:value
+        }))
+    }
+
+     
+
+    const [data , setData] = useState([]);
+
+    const [showToggle , setShowToggle ] = useState(null);
+
+  const fetchUserSlip = async(showLoading= true)=>{
+    if(showLoading){
+
+        setLoading(true);
+    }
+    const ans = await getUserSlip(formdata.month , formdata.year);
+     if(ans?.status){
+        setData(ans?.payslipDetails);
+     }
+
+          setLoading(false);
+  }
+
+  const toggleStatus = async(userId)=>{
+
+    const toastId = toast.loading("Loading...");
+    const ans = await togglePayslip(userId , formdata.month ,formdata.year);
+     if(ans?.status){
+        fetchUserSlip(false);
+        toast.success('Successfuly updated');
+
+     }
+     else {
+        toast.error("Something went wrong , plese try again");
+     }
+
+     toast.dismiss(toastId);
+     setShowToggle(null);
+  }
+
+
+  useEffect(()=>{
+    fetchUserSlip();
+
+  },[formdata.month , formdata.year])
+
+  useEffect(()=>{
+
+     let toastId;
+    if(loading){
+         toastId = toast.loading("Loading...");
+    }
+    else {
+        toast.dismiss(toastId);
+    }
+
+  },[loading])
 
     return (
         <>
@@ -36,9 +100,10 @@ const Payslip = ({
                             </div>
 
                             <div className="employee_sal_card">
+
                                  <div className="emp_sino">
                                      <div className="type_date">
-                                           <select name="" id="">
+                                           <select name="month" onChange={changeHandler} value={formdata.month} id="">
                                                <option>January</option>
                                                <option>Febuary</option>
                                                <option>March</option>
@@ -54,7 +119,7 @@ const Payslip = ({
                                            </select>
                                      </div>
                                      <div className="type_year">
-                                         <select name="" id="">
+                                         <select name="year" value={formdata.year} onChange={changeHandler} id="">
                                             <option>2024</option>
                                             <option>2025</option>
                                             <option>2026</option>
@@ -68,6 +133,7 @@ const Payslip = ({
                                          <button>Export</button>
                                      </div>
                                  </div>
+
                                 <div className="emp_selo">
 
                                     <h3 className="somoi">Employee Payslip</h3>
@@ -139,49 +205,47 @@ const Payslip = ({
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr className="bg-white opos border-b dark:bg-gray-800 dark:border-gray-700">
-                                                <th
-                                                    scope="row"
-                                                    className="px-6 py-4 oklo font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                                                >
-                                                    {/* {index + 1} */}
-                                                    #
-                                                </th>
-                                                <td className="px-6 py-4">thus</td>
-                                                <td className="px-6 py-4">lion</td>
-                                                <td className="px-6 py-4">sight</td>
-                                                <td className="px-6 py-4">kont</td>
-                                                <td className="px-6 py-4">
-                                                    <div className="soup">
-                                                        <p>Unpaid</p>
-                                                    </div>
-                                                </td>
-                                                <td className="px-6 py-4">
-                                                    <img src={acy} alt="acy" />
-                                                </td>
-                                            </tr>
+                                      
+                            {
+                                data?.map((item ,index)=>(
+                                    <tr key={index} className="bg-white opos border-b dark:bg-gray-800 dark:border-gray-700">
+                                   
+                                    <td className="px-6 py-4">#{item?.user?.employeeCode}</td>
+                                    <td className="px-6 py-4">{item?.user?.fullName}</td>
+                                    <td className="px-6 py-4">{item?.user?.paySlipType}</td>
+                                    <td className="px-6 py-4">{item?.user?.salary ? item?.user?.salary :"00"}</td>
+                                    <td className="px-6 py-4">{item?.user?.netSalary}</td>
+                                     <div  className="toglwCont">
 
-                                            <tr className="bg-white opos border-b dark:bg-gray-800 dark:border-gray-700">
-                                                <th
-                                                    scope="row"
-                                                    className="px-6 py-4 oklo font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                                                >
-                                                    {/* {index + 1} */}
-                                                    #
-                                                </th>
-                                                <td className="px-6 py-4">thus</td>
-                                                <td className="px-6 py-4">lion</td>
-                                                <td className="px-6 py-4">sight</td>
-                                                <td className="px-6 py-4">kont</td>
-                                                <td className="px-6 py-4">
-                                                    <div className="soup1">
-                                                        <p>Paid</p>
-                                                    </div>
-                                                </td>
-                                                <td className="px-6 py-4">
-                                                    <img src={acy} alt="acy" />
-                                                </td>
-                                            </tr>
+                                    <td onClick={()=>{
+                                         if(showToggle === index){
+                                            setShowToggle(null);
+                                         }
+                                         else {
+                                            setShowToggle(index);
+                                         }
+                                    }} className={`px-6 py-4 `}> <span className={`${item?.status === "Unpaid" ?"unpaid":"paid"} `}>{item?.status}</span> </td>
+                                     
+                                     {/*  */}
+                                     {
+                                        showToggle === index && 
+                                     <div className="togglewrap">
+
+                                        <p onClick={()=>{
+                                            toggleStatus(item?.user?._id)
+                                        }}>Click to {item?.status === "Unpaid"?"Paid":"Unpaid"}</p>
+
+                                     </div>
+                                    }
+                            
+                                     </div>
+                                    <td className="px-6 py-4">
+                                        <img src={acy} alt="acy" />
+                                    </td>
+
+                                </tr>
+                                ))
+                            }
                                         </tbody>
                                     </table>
 

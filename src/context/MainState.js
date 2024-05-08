@@ -1608,13 +1608,21 @@ const MainState = (props) => {
       return data;
     }
     const editComApi = async(amount, type , title,allowanceId  ,id)=>{
-      console.log('aww ',allowanceId);
       const data = await post(`${baseUrl}/payroll/editCommission/${id}`, {amount , title, type , allowanceId}, true);
       return data;
     }
     const editLoanApi = async( LoanOption, title, type, loanAmount ,reason,allowanceId  ,id)=>{
-      console.log('aww ',allowanceId);
       const data = await post(`${baseUrl}/payroll/editLoan/${id}`, {LoanOption ,loanAmount, title, type ,reason, allowanceId}, true);
+      return data;
+    }
+    const getUserSlip = async(month , year )=>{
+      const data = await post(`${baseUrl}/payslip/getPlayslip`, {month , year}, true);
+      return data;
+    }
+    const togglePayslip = async(userId , month , year )=>{
+      console.log("userid w2",userId);
+
+      const data = await post(`${baseUrl}/payslip/toglePayslip/${userId}`, {month , year}, true);
       return data;
     }
 
@@ -1626,10 +1634,12 @@ const MainState = (props) => {
          getTotalLeavesCount, uploadDocuments, createAnnouncement, deleteAnnouncement, updateAnnouncements, fetchAnnoucement, deleteAnnouncements, getEmp, allEmployeebyDep, notificationGet,
          acceptLeave, rejectLeave,
          postNotification, fetchUserNotify,
+         togglePayslip,
          updateLeadStatus,
          deleteNotification,
          createAllowance,
          postNotifyLeavereq,
+         getUserSlip,
          createCommision,
          updateLeadNote,
          createTermination, getTermination, deleteTermination, updateTermination,
