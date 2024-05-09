@@ -1126,6 +1126,30 @@ letter-spacing: 0.004em;
   margin: 20px 400px;
   }
 
+  .prevNextWrap{
+    display: flex;
+    margin: 0 auto;
+    /* background-color: red; */
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .prebBtN{
+    border: 1px solid black;
+ padding: 5px 20px ;
+ border-radius: 10px;
+font-family: Inter;
+color: #2B2B2B;
+font-size: 14px;
+font-weight: 500;
+line-height: 20px;
+letter-spacing: 0.0025em;
+text-align: left;
+
+  }
+
+
   @keyframes rotation {
   0% {
       transform: rotate(0deg);

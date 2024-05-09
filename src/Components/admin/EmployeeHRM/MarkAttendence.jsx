@@ -29,6 +29,32 @@ const MarkAttendance = ({
   const [departments, setDepartments] = useState([]);
   const [allDash, setAllDash] = useState([]);
 
+  
+  const [currentPage, setCurrentPage] = useState(1);
+  const pageSize = 10;
+
+
+  const handleNextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+   // Function to handle previous page click
+   const handlePrevPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
+  const totalPages = Math.ceil(data.length / pageSize);
+
+  const getCurrentPageData = () => {
+    const startIndex = (currentPage - 1) * pageSize;
+    const endIndex = startIndex + pageSize;
+    return data.slice(startIndex, endIndex);
+  };
+
 
   const getData = async () => {
     let ans = await getAllActivities();
@@ -154,7 +180,10 @@ const MarkAttendance = ({
 
   useEffect(() => {
     getData();
-  }, []);
+  }, [currentPage]);
+
+  const currentPageData = getCurrentPageData();
+
 
   const [showImportPop, setShowImportPop] = useState(false);
 
@@ -722,7 +751,7 @@ const MarkAttendance = ({
                       </thead>
 
                       <tbody>
-                        {data?.map((item, index) => (
+                        {currentPageData?.map((item, index) => (
                           <tr key={index} className="bg-white ">
                             <td className="px-6 py-4 itemANs">
                               {item?.user?.fullName}
@@ -836,6 +865,12 @@ const MarkAttendance = ({
 
                 )}
 
+
+          <div className="prevNextWrap">
+            <button className="prebBtN"  onClick={handlePrevPage} disabled={currentPage === 1}>Prev</button>
+            <div className="crrpage">{currentPage} / {totalPages}</div>
+            <button className="prebBtN" onClick={handleNextPage} disabled={currentPage === totalPages}>Next</button>
+          </div>
               </main>
 
             </div>
@@ -873,7 +908,6 @@ const MarkAttendance = ({
 
               </div>
             }
-
 
           </div>
         </div>
