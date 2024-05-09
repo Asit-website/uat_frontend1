@@ -13,7 +13,7 @@ import upload2 from "../../images/upload_2.png"
 import frames from "../../images/Frame 1000010647.png"
 import bxsearch from "../../images/bx-search.png"
 import crosss from "../../images/crosss.png"
-
+import ReactHTMLTableToExcel from 'react-html-table-to-excel';
 const MarkAttendance = ({
   pop1,
   setPop1,
@@ -22,12 +22,12 @@ const MarkAttendance = ({
   setAlert,
   isHr = false,
 }) => {
-  const { user, getAllActivities, getDepartments, allEmployee , getAllActivities2 } = useMain();
+  const { user, getAllActivities, getDepartments, allEmployee, getAllActivities2 } = useMain();
   const [data, setData] = useState([]);
   const [data1, setData1] = useState({});
   const [users, setUsers] = useState([]);
   const [departments, setDepartments] = useState([]);
-  const [allDash , setAllDash] = useState([]);
+  const [allDash, setAllDash] = useState([]);
 
 
   const getData = async () => {
@@ -62,27 +62,27 @@ const MarkAttendance = ({
 
   const handleSubmit = async () => {
 
-     let monthUpdate ;
+    let monthUpdate;
 
-    if(month){
-       const regex = /-(\d+)/;
-       const match = month.match(regex);
+    if (month) {
+      const regex = /-(\d+)/;
+      const match = month.match(regex);
 
-       if (match) {
-         monthUpdate = match[1];
-       }
+      if (match) {
+        monthUpdate = match[1];
+      }
     }
 
-    if(selectedOption === "daily"){
+    if (selectedOption === "daily") {
 
-      if(department !== "Select Department"){
-        if(date === ""){
+      if (department !== "Select Department") {
+        if (date === "") {
           // alert("Please select the date ");
         }
         else {
-        const date1 =   formatDate(date);
+          const date1 = formatDate(date);
 
-          let ans = await getAllActivities2(selectedOption, date1, monthUpdate, userId , department );
+          let ans = await getAllActivities2(selectedOption, date1, monthUpdate, userId, department);
           setData(ans?.data);
 
         }
@@ -93,70 +93,70 @@ const MarkAttendance = ({
       }
 
     }
-    else if(selectedOption ==="all"){
+    else if (selectedOption === "all") {
       getData();
     }
     else {
-      let ans = await getAllActivities2(selectedOption, date, monthUpdate, userId , department);
-      if(ans?.status){
+      let ans = await getAllActivities2(selectedOption, date, monthUpdate, userId, department);
+      if (ans?.status) {
         setData(ans?.data);
       }
     }
-  
+
   };
 
   const handleDownload = async () => {
-   console.log("handleDownload");
+    console.log("handleDownload");
   };
 
   const handleShare = async () => {
-     console.log("share");
+    console.log("share");
   };
 
   const calculateTime = (clockIn, clockOut) => {
-    
+
     if (clockIn && clockOut) {
-        const getHour = (time) => {
-            const hourStr = time.split(':')[0];
-            const hour = parseInt(hourStr);
-            if (hour === 12) {
-                return 12; 
-            } else {
-                return hour % 12; 
-            }
-        };
-
-        let clockInDetail = getHour(clockIn);
-        let clockOutDetail = getHour(clockOut);
-        console.log("clock in  dd", clockInDetail, clockOutDetail);
-
-        let count = 0;
-
-        while(clockInDetail !== clockOutDetail){
-            if(clockInDetail === 12){
-                clockInDetail = 1;
-            } else {
-                clockInDetail++;
-            }
-            count++;
-        }
-
-        if(count >= 9){
-            return true;
+      const getHour = (time) => {
+        const hourStr = time.split(':')[0];
+        const hour = parseInt(hourStr);
+        if (hour === 12) {
+          return 12;
         } else {
-            return false;
+          return hour % 12;
         }
+      };
+
+      let clockInDetail = getHour(clockIn);
+      let clockOutDetail = getHour(clockOut);
+      console.log("clock in  dd", clockInDetail, clockOutDetail);
+
+      let count = 0;
+
+      while (clockInDetail !== clockOutDetail) {
+        if (clockInDetail === 12) {
+          clockInDetail = 1;
+        } else {
+          clockInDetail++;
+        }
+        count++;
+      }
+
+      if (count >= 9) {
+        return true;
+      } else {
+        return false;
+      }
     } else {
-        console.error("Error: clockIn or clockOut is null.");
-        return false; 
+      console.error("Error: clockIn or clockOut is null.");
+      return false;
     }
-}
+  }
 
   useEffect(() => {
     getData();
   }, []);
 
-  const [showImportPop , setShowImportPop] = useState(false);
+  const [showImportPop, setShowImportPop] = useState(false);
 
   return (
     <>
@@ -176,36 +176,36 @@ const MarkAttendance = ({
           )}
 
           <div className="em ">
-            
+
             <div className="flex-col emWraping">
 
               {/* first  */}
               <div className="hrmDasTxtFir2">
-               
 
-                  <h2>Attendance  Management</h2>
 
-                   <button onClick={()=>setShowImportPop(true)}> <img src={upload2} alt="" /><span>Upload File</span></button>
+                <h2>Attendance  Management</h2>
+
+                <button onClick={() => setShowImportPop(true)}> <img src={upload2} alt="" /><span>Upload File</span></button>
               </div>
 
 
               <div className="marSecond">
                 <div className="mAdSlE">
 
-                <button onClick={()=>{
+                  <button onClick={() => {
                     setSelectedOption("daily");
-                    selectedOption ="daily";
+                    selectedOption = "daily";
                     handleOptionChange();
-                  }} className={`${selectedOption === "daily" ?"mselected":"notSelected"}`}><span>Daily Report</span></button>
+                  }} className={`${selectedOption === "daily" ? "mselected" : "notSelected"}`}><span>Daily Report</span></button>
 
-                  <button onClick={()=>{
+                  <button onClick={() => {
                     setSelectedOption("monthly");
-                    selectedOption ="monthly";
+                    selectedOption = "monthly";
                     handleOptionChange();
-                  }} className={`${selectedOption === "monthly" ?"mselected":"notSelected"}`}><span>Monthly Report</span>
+                  }} className={`${selectedOption === "monthly" ? "mselected" : "notSelected"}`}><span>Monthly Report</span>
                   </button>
 
-                
+
                 </div>
 
                 <div className="maDSrIGH">
@@ -303,10 +303,10 @@ const MarkAttendance = ({
 
                       </div> */}
 
-                     <div>
-                      <img onClick={handleSubmit} className="cursor-pointer" src={frames} alt="" />
-                     </div>
-          
+                      <div>
+                        <img onClick={handleSubmit} className="cursor-pointer" src={frames} alt="" />
+                      </div>
+
 
                     </>
 
@@ -356,12 +356,12 @@ const MarkAttendance = ({
                         <option value="Select Branch"> All </option>
                       </select> */}
 
-                   
 
-        
-<div>
-                      <img onClick={handleSubmit} className="cursor-pointer" src={frames} alt="" />
-                     </div>
+
+
+                      <div>
+                        <img onClick={handleSubmit} className="cursor-pointer" src={frames} alt="" />
+                      </div>
 
                     </>
                   )}
@@ -465,20 +465,69 @@ const MarkAttendance = ({
 
                   <div className="marNavLef">
 
-           <h3>Daily Attendance</h3>                  
+                    <h3>Daily Attendance</h3>
 
-           <div className="seexwrap">
+                    <div className="seexwrap">
 
-             <div className="serchEmpl">
+                      <div className="serchEmpl">
 
-              <input type="text" placeholder="Search Employee"  />
-              <img src={bxsearch} alt="" />
+                        <input type="text" placeholder="Search Employee" />
+                        <img src={bxsearch} alt="" />
 
-             </div>
+                      </div>
 
-      <button className="exprtbtn"><span>Export</span></button>
+                      {/* <button className="exprtbtn"><span>Export</span></button> */}
+                      {
+                        selectedOption !== "monthly" && (
+                          <ReactHTMLTableToExcel
+                            id="test-table-xls-button"
+                            className="download-table-xls-button exprtbtn"
+                            table="table-to-xls"
+                            filename="tablexls"
+                            sheet="tablexls"
+                            buttonText="Export" />
+                        )
+                      }
 
-           </div>
+                      {
+                        selectedOption === "daily" && date !== "" && (
+                          <ReactHTMLTableToExcel
+                            id="test-table-xls-button"
+                            className="download-table-xls-button exprtbtn"
+                            table="table-to-xls1"
+                            filename="tablexls"
+                            sheet="tablexls"
+                            buttonText="Export" />
+                        )
+                      }
+
+                      {
+                        selectedOption === "monthly" && (
+                          <ReactHTMLTableToExcel
+                            id="test-table-xls-button"
+                            className="download-table-xls-button exprtbtn"
+                            table="table-to-xls2"
+                            filename="tablexls"
+                            sheet="tablexls"
+                            buttonText="Export" />
+                        )
+                      }
+
+                      {
+                        selectedOption === "all" && (
+                          <ReactHTMLTableToExcel
+                            id="test-table-xls-button"
+                            className="download-table-xls-button exprtbtn"
+                            table="table-to-xls3"
+                            filename="tablexls"
+                            sheet="tablexls"
+                            buttonText="Export" />
+                        )
+                      }
+
+
+
+                    </div>
 
                   </div>
 
@@ -486,166 +535,166 @@ const MarkAttendance = ({
 
                 {/* this is do shwo all empplye  */}
                 {
-                (selectedOption === "daily" && date !== "" ) ? (
+                  (selectedOption === "daily" && date !== "") ? (
 
-                  <div className="relative overflow-x-auto">
-                    <table className="w-full martable text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                      <thead className="text-xs text-gray-700 uppercase dark:text-gray-400">
-                        <tr>
-                          <th scope="col" className="px-6 py-3 currentText">
-                            Employee  Name
-                          </th>
-                          <th scope="col" className="px-6 py-3 currentText">
-                            Department
-                          </th>
-                          <th scope="col" className="px-6 py-3 currentText">
-                            Date
-                          </th>
-                          <th scope="col" className="px-6 py-3 currentText">
-                            Status
-                          </th>
-                          <th scope="col" className="px-6 py-3 currentText">
-                            clock In
-                          </th>
-                          <th scope="col" className="px-6 py-3 currentText">
-                            clock out
-                          </th>
-                          <th scope="col" className="px-6 py-3 currentText">
-                            Break
-                          </th>
-                        
-                          <th scope="col" className="px-6 py-3 currentText">
-                            action
-                          </th>
-                        </tr>
-                      </thead>
+                    <div className="relative overflow-x-auto">
+                      <table id="table-to-xls1" className="w-full martable text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                        <thead className="text-xs text-gray-700 uppercase dark:text-gray-400">
+                          <tr>
+                            <th scope="col" className="px-6 py-3 currentText">
+                              Employee  Name
+                            </th>
+                            <th scope="col" className="px-6 py-3 currentText">
+                              Department
+                            </th>
+                            <th scope="col" className="px-6 py-3 currentText">
+                              Date
+                            </th>
+                            <th scope="col" className="px-6 py-3 currentText">
+                              Status
+                            </th>
+                            <th scope="col" className="px-6 py-3 currentText">
+                              clock In
+                            </th>
+                            <th scope="col" className="px-6 py-3 currentText">
+                              clock out
+                            </th>
+                            <th scope="col" className="px-6 py-3 currentText">
+                              Break
+                            </th>
 
-                      <tbody>
-                        {data.map((item, index) => (
-                          <tr key={index} className="bg-white ">
-                            <td className="px-6 py-4 itemANs">
-                              {item?.user?.fullName}
-                            </td>
-                            <td className="px-6 py-4 itemANs">
-                              {item?.user?.department}
-                            </td>
-                            <td className="px-6 py-4 itemANs">
-                              {
-                                new Date(item.Date).toLocaleDateString()}
-                            </td>
-                            <td className="px-6 py-4 itemANs">
-                              
-                              {calculateTime(item.clockIn , item.clockOut) ?"Full Day":"Half Day"}
+                            <th scope="col" className="px-6 py-3 currentText">
+                              action
+                            </th>
+                          </tr>
+                        </thead>
+
+                        <tbody>
+                          {data.map((item, index) => (
+                            <tr key={index} className="bg-white ">
+                              <td className="px-6 py-4 itemANs">
+                                {item?.user?.fullName}
+                              </td>
+                              <td className="px-6 py-4 itemANs">
+                                {item?.user?.department}
+                              </td>
+                              <td className="px-6 py-4 itemANs">
+                                {
+                                  new Date(item.Date).toLocaleDateString()}
+                              </td>
+                              <td className="px-6 py-4 itemANs">
+
+                                {calculateTime(item.clockIn, item.clockOut) ? "Full Day" : "Half Day"}
                               </td>
 
-                            <td className="px-6 py-4 itemANs">
-                              {item?.clockIn}
-                            </td>
-                            <td className="px-6 py-4 itemANs">
-                              {item?.clockOut}
-                            </td>
-                            <td className="px-6 py-4 itemANs">
-                             
-                              {item?.breakTime ? item?.breakTime : "No break"}
-                            </td>
-                           
-                            <td className="px-6 py-4 ">
-                              <img src={moreVert} alt="" />
-                            </td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
+                              <td className="px-6 py-4 itemANs">
+                                {item?.clockIn}
+                              </td>
+                              <td className="px-6 py-4 itemANs">
+                                {item?.clockOut}
+                              </td>
+                              <td className="px-6 py-4 itemANs">
 
-                ):
+                                {item?.breakTime ? item?.breakTime : "No break"}
+                              </td>
 
-                (
-                  selectedOption !== "monthly" && 
+                              <td className="px-6 py-4 ">
+                                <img src={moreVert} alt="" />
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
 
-                  <div className="relative overflow-x-auto">
-                  <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                    <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                      <tr>
-                        <th scope="col" className="px-6 py-3 currentText">
-                          Employee  
-                        </th>
-                        <th scope="col" className="px-6 py-3 currentText">
-                          Department
-                        </th>
-                        <th scope="col" className="px-6 py-3 currentText">
-                          Date
-                        </th>
-                        <th scope="col" className="px-6 py-3 currentText">
-                          Status
-                        </th>
-                        <th scope="col" className="px-6 py-3 currentText">
-                          clock In
-                        </th>
-                        <th scope="col" className="px-6 py-3 currentText">
-                          clock out
-                        </th>
-                        <th scope="col" className="px-6 py-3 currentText">
-                          Break
-                        </th>
-                     
-                        <th scope="col" className="px-6 py-3 currentText">
-                          action
-                        </th>
-                      </tr>
-                    </thead>
+                  ) :
 
-                    <tbody>
-                      {allDash.map((item, index) => (
-                        <tr key={index} className="bg-white ">
-                          <td className="px-6 py-4 itemANs">
-                            {item?.user?.fullName}
-                          </td>
-                          <td className="px-6 py-4 itemANs">
-                            {item?.user?.department}
-                          </td>
-                          <td className="px-6 py-4 itemANs">
-                            { item?.Date
-}
-                          </td>
-                          <td className="px-6 py-4 itemANs">
-                            
-                            {calculateTime(item.clockIn , item.clockOut) ?"Full Day":"Half Day"}
-                            </td>
+                    (
+                      selectedOption !== "monthly" &&
 
-                          <td className="px-6 py-4 itemANs">
-                            {item?.clockIn}
-                          </td>
-                          <td className="px-6 py-4 itemANs">
-                            {item?.clockOut}
-                          </td>
-                          <td className="px-6 py-4 itemANs">
-                          
-                            {item?.breakTime ? item?.breakTime : "No break"}
-                          </td>
-                         
-                          <td className="px-6 py-4 ">
-                            <img src={moreVert} alt="" />
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
+                      <div className="relative overflow-x-auto">
+                        <table id="table-to-xls" className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                          <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                            <tr>
+                              <th scope="col" className="px-6 py-3 currentText">
+                                Employee
+                              </th>
+                              <th scope="col" className="px-6 py-3 currentText">
+                                Department
+                              </th>
+                              <th scope="col" className="px-6 py-3 currentText">
+                                Date
+                              </th>
+                              <th scope="col" className="px-6 py-3 currentText">
+                                Status
+                              </th>
+                              <th scope="col" className="px-6 py-3 currentText">
+                                clock In
+                              </th>
+                              <th scope="col" className="px-6 py-3 currentText">
+                                clock out
+                              </th>
+                              <th scope="col" className="px-6 py-3 currentText">
+                                Break
+                              </th>
 
-                )}
+                              <th scope="col" className="px-6 py-3 currentText">
+                                action
+                              </th>
+                            </tr>
+                          </thead>
+
+                          <tbody>
+                            {allDash.map((item, index) => (
+                              <tr key={index} className="bg-white ">
+                                <td className="px-6 py-4 itemANs">
+                                  {item?.user?.fullName}
+                                </td>
+                                <td className="px-6 py-4 itemANs">
+                                  {item?.user?.department}
+                                </td>
+                                <td className="px-6 py-4 itemANs">
+                                  {item?.Date
+                                  }
+                                </td>
+                                <td className="px-6 py-4 itemANs">
+
+                                  {calculateTime(item.clockIn, item.clockOut) ? "Full Day" : "Half Day"}
+                                </td>
+
+                                <td className="px-6 py-4 itemANs">
+                                  {item?.clockIn}
+                                </td>
+                                <td className="px-6 py-4 itemANs">
+                                  {item?.clockOut}
+                                </td>
+                                <td className="px-6 py-4 itemANs">
+
+                                  {item?.breakTime ? item?.breakTime : "No break"}
+                                </td>
+
+                                <td className="px-6 py-4 ">
+                                  <img src={moreVert} alt="" />
+                                </td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      </div>
+
+                    )}
 
                 {selectedOption === "monthly" && (
 
                   <div className="relative overflow-x-auto">
-                    <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                  
+                    <table id="table-to-xls2" className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+
                       <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                         <tr>
                           <th scope="col" className="px-6 py-3 currentText">
                             Employee Name
                           </th>
-             
+
                           <th scope="col" className="px-6 py-3 currentText">
                             Department
                           </th>
@@ -665,7 +714,7 @@ const MarkAttendance = ({
                           <th scope="col" className="px-6 py-3 currentText">
                             Break
                           </th>
-                          
+
                           <th scope="col" className="px-6 py-3 currentText">
                             action
                           </th>
@@ -684,27 +733,27 @@ const MarkAttendance = ({
                             </td>
 
                             <td className="px-6 py-4 itemANs">
-                                                             {item?.Date}
+                              {item?.Date}
                             </td>
 
                             <td className="px-6 py-4 itemANs">
-                            {calculateTime(item.clockIn , item.clockOut) ?"Full Day":"Half Day"}
+                              {calculateTime(item.clockIn, item.clockOut) ? "Full Day" : "Half Day"}
                             </td>
                             <td className="px-6 py-4 itemANs">
-                            
+
                               {item?.clockIn}
                             </td>
                             <td className="px-6 py-4 itemANs">
-                             
+
                               {item?.clockOut}
                             </td>
                             <td className="px-6 py-4 itemANs">
-                             
-                                 {item?.breakTime ? item?.breakTime : "No break"}
-                            
+
+                              {item?.breakTime ? item?.breakTime : "No break"}
+
                             </td>
-                           
-                          
+
+
                             <td className="px-6 py-4 ">
                               <img src={moreVert} alt="" />
                             </td>
@@ -719,7 +768,7 @@ const MarkAttendance = ({
                 {selectedOption === "all" && (
 
                   <div className="relative overflow-x-auto">
-                    <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                    <table id="table-to-xls3" className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                       <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                         <tr>
                           <th scope="col" className="px-6 py-3 currentText">
@@ -757,10 +806,10 @@ const MarkAttendance = ({
                               {data1[item]?.user?.fullName}
                             </td>
                             <td className="px-6 py-4 itemANs">
-                            {data1[item]?.user?.Branch}
+                              {data1[item]?.user?.Branch}
                             </td>
                             <td className="px-6 py-4 itemANs">
-                            {data1[item]?.user?.department}
+                              {data1[item]?.user?.department}
                             </td>
                             <td className="px-6 py-4 itemANs">
                               {data1[item]?.user?.designation}
@@ -791,39 +840,39 @@ const MarkAttendance = ({
 
             </div>
 
-             {/* for  import cvv popup  */}
+            {/* for  import cvv popup  */}
 
- {
-  showImportPop && 
-  <div className="importPopWrap">
+            {
+              showImportPop &&
+              <div className="importPopWrap">
 
-         <div className="impPopCont">
-
-        
-         <nav >
-           <h2>Import employee CSV file</h2>
-           <img onClick={()=>setShowImportPop(false)} src={crosss} alt="" />
-         </nav>
-
-          <hr className="hrrr" />
-
-           <div className="excewrap">
-              <p>Choose File</p>
-             <span>Exemption application</span>
-           </div>
-
-           <p className="extext">Exemption application of nawab sharif in DV act (3).doc</p>
+                <div className="impPopCont">
 
 
-           <div className="impopbtn">
-            <button onClick={()=>setShowImportPop(false)} className="cence"><span>Cancel</span></button>
-            <button className="uplaodin"><span>Upload</span></button>
-           </div>
+                  <nav >
+                    <h2>Import employee CSV file</h2>
+                    <img onClick={() => setShowImportPop(false)} src={crosss} alt="" />
+                  </nav>
 
-         </div>
+                  <hr className="hrrr" />
 
-  </div>
- }
+                  <div className="excewrap">
+                    <p>Choose File</p>
+                    <span>Exemption application</span>
+                  </div>
+
+                  <p className="extext">Exemption application of nawab sharif in DV act (3).doc</p>
+
+
+                  <div className="impopbtn">
+                    <button onClick={() => setShowImportPop(false)} className="cence"><span>Cancel</span></button>
+                    <button className="uplaodin"><span>Upload</span></button>
+                  </div>
+
+                </div>
+
+              </div>
+            }
 
 
           </div>

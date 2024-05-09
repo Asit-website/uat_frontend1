@@ -104,6 +104,7 @@ body {
   font-family: inter !important;
   margin-top: 5px;
 }
+
 .Employee_set{
   display: flex;
   align-items: center;
@@ -4862,4 +4863,58 @@ background-color: #0B56E4;
   font-weight: 500;
   font-size: 16px;
   font-family: inter !important;
+}
+.htmj{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.htmj button{
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 500;
+  font-family: inter !important;
+}
+.holm{
+  height: 100vh !important;
+  background-color: #4040404D;
+}
+.sijk{
+  border-bottom: 1px solid #E8E9EB;
+}
+.gd{
+  font-size: 16px;
+  font-weight: 600;
+  color: #1B2533;
+  font-family: inter !important;
+}
+.ipsd{
+  font-size: 14px;
+  font-weight: 400;
+  font-family: inter !important;
+  color: #1B2533 !important;
+}
+.bulk{
+  font-size: 16px;
+  font-weight: 500;
+  font-family: inter !important;
+  color: #ffffff;
+}
+.cancol{
+  border: 1px solid #B8BBC0;
+  color: #666D76 !important;
+  font-size: 16px;
+  font-weight: 500;
+  font-family: inter !important;
+}
+.holm1{
+ max-width: 493px;
+ width: 100%;
+ position: absolute;
+ top: 50%;
+ left: 50%;
+ transform: translate(-50%,-50%);
+}
+.thj{
+  margin-top: 60px;
 }

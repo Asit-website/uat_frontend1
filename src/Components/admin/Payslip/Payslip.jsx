@@ -5,83 +5,91 @@ import { useMain } from "../../../hooks/useMain";
 import acy from '../../images/acy.svg';
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import oot from "../../images/oot.svg";
+import ReactHTMLTableToExcel from 'react-html-table-to-excel';
 const Payslip = ({
     pop,
     setPop
 }) => {
-    const { user  , getUserSlip , togglePayslip} = useMain();
+    const { user, getUserSlip, togglePayslip } = useMain();
 
 
-    const [loading , setLoading] = useState(false);
+    const [loading, setLoading] = useState(false);
 
-    const [formdata ,setFormdata] = useState({
-        month:"January",
-        year:"2024"
+    const [show, setShow] = useState(false);
+
+    const styleperr = {
+        display: show ? "block" : "none"
+    }
+
+    const [formdata, setFormdata] = useState({
+        month: "January",
+        year: "2024"
     })
 
 
-    const changeHandler = (e)=>{
-        const {name , value} = e.target;
+    const changeHandler = (e) => {
+        const { name, value } = e.target;
 
-        setFormdata((prev)=>({
-            ...prev ,
-            [name]:value
+        setFormdata((prev) => ({
+            ...prev,
+            [name]: value
         }))
     }
 
-     
 
-    const [data , setData] = useState([]);
 
-    const [showToggle , setShowToggle ] = useState(null);
+    const [data, setData] = useState([]);
 
-  const fetchUserSlip = async(showLoading= true)=>{
-    if(showLoading){
+    const [showToggle, setShowToggle] = useState(null);
 
-        setLoading(true);
+    const fetchUserSlip = async (showLoading = true) => {
+        if (showLoading) {
+
+            setLoading(true);
+        }
+        const ans = await getUserSlip(formdata.month, formdata.year);
+        if (ans?.status) {
+            setData(ans?.payslipDetails);
+        }
+
+        setLoading(false);
     }
-    const ans = await getUserSlip(formdata.month , formdata.year);
-     if(ans?.status){
-        setData(ans?.payslipDetails);
-     }
 
-          setLoading(false);
-  }
+    const toggleStatus = async (userId) => {
 
-  const toggleStatus = async(userId)=>{
+        const toastId = toast.loading("Loading...");
+        const ans = await togglePayslip(userId, formdata.month, formdata.year);
+        if (ans?.status) {
+            fetchUserSlip(false);
+            toast.success('Successfuly updated');
 
-    const toastId = toast.loading("Loading...");
-    const ans = await togglePayslip(userId , formdata.month ,formdata.year);
-     if(ans?.status){
-        fetchUserSlip(false);
-        toast.success('Successfuly updated');
+        }
+        else {
+            toast.error("Something went wrong , plese try again");
+        }
 
-     }
-     else {
-        toast.error("Something went wrong , plese try again");
-     }
-
-     toast.dismiss(toastId);
-     setShowToggle(null);
-  }
-
-
-  useEffect(()=>{
-    fetchUserSlip();
-
-  },[formdata.month , formdata.year])
-
-  useEffect(()=>{
-
-     let toastId;
-    if(loading){
-         toastId = toast.loading("Loading...");
-    }
-    else {
         toast.dismiss(toastId);
+        setShowToggle(null);
     }
 
-  },[loading])
+
+    useEffect(() => {
+        fetchUserSlip();
+
+    }, [formdata.month, formdata.year])
+
+    useEffect(() => {
+
+        let toastId;
+        if (loading) {
+            toastId = toast.loading("Loading...");
+        }
+        else {
+            toast.dismiss(toastId);
+        }
+
+    }, [loading])
 
     return (
         <>
@@ -95,31 +103,32 @@ const Payslip = ({
                         <div className="flex-col emWraping">
 
                             {/* first  */}
-                            <div className="hrmDasTxtFir2">
-                                <h2>Manage Employee Salary</h2>
+                            <div className="hrmDasTxtFir2 htmj">
+                                <h2>Payslip</h2>
+                                <button onClick={() => setShow(true)}>Bulk Payment</button>
                             </div>
 
                             <div className="employee_sal_card">
 
-                                 <div className="emp_sino">
-                                     <div className="type_date">
-                                           <select name="month" onChange={changeHandler} value={formdata.month} id="">
-                                               <option>January</option>
-                                               <option>Febuary</option>
-                                               <option>March</option>
-                                               <option>April</option>
-                                               <option>May</option>
-                                               <option>June</option>
-                                               <option>July</option>
-                                               <option>August</option>
-                                               <option>September</option>
-                                               <option>October</option>
-                                               <option>November</option>
-                                               <option>December</option>
-                                           </select>
-                                     </div>
-                                     <div className="type_year">
-                                         <select name="year" value={formdata.year} onChange={changeHandler} id="">
+                                <div className="emp_sino">
+                                    <div className="type_date">
+                                        <select name="month" onChange={changeHandler} value={formdata.month} id="">
+                                            <option>January</option>
+                                            <option>Febuary</option>
+                                            <option>March</option>
+                                            <option>April</option>
+                                            <option>May</option>
+                                            <option>June</option>
+                                            <option>July</option>
+                                            <option>August</option>
+                                            <option>September</option>
+                                            <option>October</option>
+                                            <option>November</option>
+                                            <option>December</option>
+                                        </select>
+                                    </div>
+                                    <div className="type_year">
+                                        <select name="year" value={formdata.year} onChange={changeHandler} id="">
                                             <option>2024</option>
                                             <option>2025</option>
                                             <option>2026</option>
@@ -127,12 +136,19 @@ const Payslip = ({
                                             <option>2028</option>
                                             <option>2029</option>
                                             <option>2030</option>
-                                         </select>
-                                     </div>
-                                     <div className="btn_export">
-                                         <button>Export</button>
-                                     </div>
-                                 </div>
+                                        </select>
+                                    </div>
+                                    <div className="btn_export">
+                                        {/* <button>Export</button> */}
+                                        <ReactHTMLTableToExcel
+                                            id="test-table-xls-button"
+                                            className="download-table-xls-button"
+                                            table="table-to-xls"
+                                            filename="tablexls"
+                                            sheet="tablexls"
+                                            buttonText="Export" />
+                                    </div>
+                                </div>
 
                                 <div className="emp_selo">
 
@@ -178,7 +194,7 @@ const Payslip = ({
 
                                 <div className="relative overflow-x-auto sklin">
 
-                                    <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                                    <table id="table-to-xls" className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                                         <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                             <tr className="sipi">
                                                 <th scope="col" className="px-6 py-3">
@@ -205,47 +221,47 @@ const Payslip = ({
                                             </tr>
                                         </thead>
                                         <tbody>
-                                      
-                            {
-                                data?.map((item ,index)=>(
-                                    <tr key={index} className="bg-white opos border-b dark:bg-gray-800 dark:border-gray-700">
-                                   
-                                    <td className="px-6 py-4">#{item?.user?.employeeCode}</td>
-                                    <td className="px-6 py-4">{item?.user?.fullName}</td>
-                                    <td className="px-6 py-4">{item?.user?.paySlipType}</td>
-                                    <td className="px-6 py-4">{item?.user?.salary ? item?.user?.salary :"00"}</td>
-                                    <td className="px-6 py-4">{item?.user?.netSalary}</td>
-                                     <div  className="toglwCont">
 
-                                    <td onClick={()=>{
-                                         if(showToggle === index){
-                                            setShowToggle(null);
-                                         }
-                                         else {
-                                            setShowToggle(index);
-                                         }
-                                    }} className={`px-6 py-4 `}> <span className={`${item?.status === "Unpaid" ?"unpaid":"paid"} `}>{item?.status}</span> </td>
-                                     
-                                     {/*  */}
-                                     {
-                                        showToggle === index && 
-                                     <div className="togglewrap">
+                                            {
+                                                data?.map((item, index) => (
+                                                    <tr key={index} className="bg-white opos border-b dark:bg-gray-800 dark:border-gray-700">
 
-                                        <p onClick={()=>{
-                                            toggleStatus(item?.user?._id)
-                                        }}>Click to {item?.status === "Unpaid"?"Paid":"Unpaid"}</p>
+                                                        <td className="px-6 py-4">#{item?.user?.employeeCode}</td>
+                                                        <td className="px-6 py-4">{item?.user?.fullName}</td>
+                                                        <td className="px-6 py-4">{item?.user?.paySlipType}</td>
+                                                        <td className="px-6 py-4">{item?.user?.salary ? item?.user?.salary : "00"}</td>
+                                                        <td className="px-6 py-4">{item?.user?.netSalary}</td>
+                                                        <div className="toglwCont">
 
-                                     </div>
-                                    }
-                            
-                                     </div>
-                                    <td className="px-6 py-4">
-                                        <img src={acy} alt="acy" />
-                                    </td>
+                                                            <td onClick={() => {
+                                                                if (showToggle === index) {
+                                                                    setShowToggle(null);
+                                                                }
+                                                                else {
+                                                                    setShowToggle(index);
+                                                                }
+                                                            }} className={`px-6 py-4 `}> <span className={`${item?.status === "Unpaid" ? "unpaid" : "paid"} `}>{item?.status}</span> </td>
 
-                                </tr>
-                                ))
-                            }
+                                                            {/*  */}
+                                                            {
+                                                                showToggle === index &&
+                                                                <div className="togglewrap">
+
+                                                                    <p onClick={() => {
+                                                                        toggleStatus(item?.user?._id)
+                                                                    }}>Click to {item?.status === "Unpaid" ? "Paid" : "Unpaid"}</p>
+
+                                                                </div>
+                                                            }
+
+                                                        </div>
+                                                        <td className="px-6 py-4">
+                                                            <img src={acy} alt="acy" />
+                                                        </td>
+
+                                                    </tr>
+                                                ))
+                                            }
                                         </tbody>
                                     </table>
 
@@ -281,6 +297,61 @@ const Payslip = ({
                     </div>
                 </div>
             </div>
+
+            {/* ===============modal of export start========= */}
+            <>
+                {/* Modal toggle */}
+                {/* Main modal */}
+                <div
+                    style={styleperr}
+                    id="default-modal"
+                    tabIndex={-1}
+                    aria-hidden="true"
+                    className="hidden holm overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full"
+                >
+                    <div className="relative holm1 p-4 w-full max-w-2xl max-h-full">
+                        {/* Modal content */}
+                        <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                            {/* Modal header */}
+                            <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600 sijk">
+                                <h3 className="text-xl font-semibold text-gray-900 dark:text-white gd">
+                                    Bulk Payment
+                                </h3>
+                                <img className="cursor-pointer" onClick={() => {
+                                    setShow(false);
+                                }} src={oot} alt="oot" />
+                            </div>
+                            {/* Modal body */}
+                            <div className="p-4 md:p-5 space-y-4">
+                                <p className="text-base ipsd leading-relaxed text-gray-500 dark:text-gray-400">
+                                    Total Unpaid Employee 24 out of 23
+                                </p>
+
+                            </div>
+                            {/* Modal footer */}
+                            <div className="flex  thj items-center p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
+                                <button
+                                    data-modal-hide="default-modal"
+                                    type="button"
+                                    className="text-white bulk bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                                >
+                                    Bulk Payment
+                                </button>
+                                <button
+                                    onClick={() => setShow(false)}
+                                    data-modal-hide="default-modal"
+                                    type="button"
+                                    className="py-2.5 ml-3 cancol px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+                                >
+                                    Cancel
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </>
+
+            {/* ========================modal of export end=============== */}
         </>
     );
 };
