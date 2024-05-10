@@ -34,9 +34,19 @@ const MarkAttendance = ({
   const pageSize = 10;
 
 
+   const [currentPage2 , setCurrentPage2] = useState(1);
+
+    const pageSize2 = 10;
+
+
   const handleNextPage = () => {
     if (currentPage < totalPages) {
       setCurrentPage(currentPage + 1);
+    }
+  };
+  const handleNextPage2 = () => {
+    if (currentPage2 < totalPages2) {
+      setCurrentPage2(currentPage2 + 1);
     }
   };
 
@@ -47,13 +57,33 @@ const MarkAttendance = ({
     }
   };
 
+   // Function to handle previous page click
+   const handlePrevPage2 = () => {
+    if (currentPage2 > 1) {
+      setCurrentPage2(currentPage2 - 1);
+    }
+  };
+
   const totalPages = Math.ceil(data.length / pageSize);
+
+  const totalPages2 = Math.ceil(allDash.length / pageSize);
+
+   console.log("alldash  ",allDash);
 
   const getCurrentPageData = () => {
     const startIndex = (currentPage - 1) * pageSize;
     const endIndex = startIndex + pageSize;
     return data.slice(startIndex, endIndex);
   };
+
+  const getCurrentPageData2 = () => {
+    const startIndex = (currentPage2 - 1) * pageSize2;
+    const endIndex = startIndex + pageSize2;
+    return allDash.slice(startIndex, endIndex);
+  };
+
+  // let ans = await getAllActivities();
+  // setAllDash(ans?.data);
 
 
   const getData = async () => {
@@ -73,8 +103,7 @@ const MarkAttendance = ({
   const [department, setDepartment] = useState('Select Department');
 
   const handleOptionChange = () => {
-    // setSelectedOption(event.target.value);
-    // selectedOption = event.target.value;
+  
     handleSubmit();
   };
 
@@ -154,7 +183,6 @@ const MarkAttendance = ({
 
       let clockInDetail = getHour(clockIn);
       let clockOutDetail = getHour(clockOut);
-      console.log("clock in  dd", clockInDetail, clockOutDetail);
 
       let count = 0;
 
@@ -184,8 +212,47 @@ const MarkAttendance = ({
 
   const currentPageData = getCurrentPageData();
 
+  const currentPageData2 = getCurrentPageData2();
+
 
   const [showImportPop, setShowImportPop] = useState(false);
+
+  const [srchText , setSrchText] = useState("");
+
+  const srchHandler = (e)=>{
+    setSrchText(e.target.value);
+  }
+
+
+  useEffect(()=>{
+
+     if(selectedOption === "monthly"){
+
+       if(srchText === ""){
+         getData();
+       }
+       else {
+
+        const filteredData = data.filter(item => item && item.user && item.user.fullName && item.user.fullName.includes(srchText));
+         
+         console.log("fitlledat ",filteredData);
+       }
+
+     }
+
+
+  },[srchText])
+
+
+  useEffect(()=>{
+
+    if(selectedOption !== "monthly"){
+
+     getData();
+    }
+
+
+  },[selectedOption])
 
   return (
     <>
@@ -500,7 +567,7 @@ const MarkAttendance = ({
 
                       <div className="serchEmpl">
 
-                        <input type="text" placeholder="Search Employee" />
+                        <input type="text" value={srchText} onChange={srchHandler} placeholder="Search Employee" />
                         <img src={bxsearch} alt="" />
 
                       </div>
@@ -571,7 +638,7 @@ const MarkAttendance = ({
                         <thead className="text-xs text-gray-700 uppercase dark:text-gray-400">
                           <tr>
                             <th scope="col" className="px-6 py-3 currentText">
-                              Employee  Name
+                              Employee  Name 
                             </th>
                             <th scope="col" className="px-6 py-3 currentText">
                               Department
@@ -643,10 +710,11 @@ const MarkAttendance = ({
 
                       <div className="relative overflow-x-auto">
                         <table id="table-to-xls" className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                     
                           <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                             <tr>
                               <th scope="col" className="px-6 py-3 currentText">
-                                Employee
+                                Employee  
                               </th>
                               <th scope="col" className="px-6 py-3 currentText">
                                 Department
@@ -674,7 +742,7 @@ const MarkAttendance = ({
                           </thead>
 
                           <tbody>
-                            {allDash.map((item, index) => (
+                            {currentPageData2.map((item, index) => (
                               <tr key={index} className="bg-white ">
                                 <td className="px-6 py-4 itemANs">
                                   {item?.user?.fullName}
@@ -709,6 +777,12 @@ const MarkAttendance = ({
                             ))}
                           </tbody>
                         </table>
+
+                        <div className="prevNextWrap">
+            <button className="prebBtN"  onClick={handlePrevPage2} disabled={currentPage2 === 1}>Prev</button>
+            <div className="crrpage">{currentPage2} / {totalPages2}</div>
+            <button className="prebBtN" onClick={handleNextPage2} disabled={currentPage2 === totalPages2}>Next</button>
+          </div>
                       </div>
 
                     )}
@@ -716,12 +790,13 @@ const MarkAttendance = ({
                 {selectedOption === "monthly" && (
 
                   <div className="relative overflow-x-auto">
+
                     <table id="table-to-xls2" className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
 
                       <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                         <tr>
                           <th scope="col" className="px-6 py-3 currentText">
-                            Employee Name
+                            Employee Name 
                           </th>
 
                           <th scope="col" className="px-6 py-3 currentText">
@@ -789,7 +864,14 @@ const MarkAttendance = ({
                           </tr>
                         ))}
                       </tbody>
+
                     </table>
+
+                    <div className="prevNextWrap">
+            <button className="prebBtN"  onClick={handlePrevPage} disabled={currentPage === 1}>Prev</button>
+            <div className="crrpage">{currentPage} / {totalPages}</div>
+            <button className="prebBtN" onClick={handleNextPage} disabled={currentPage === totalPages}>Next</button>
+          </div>
                   </div>
 
                 )}
@@ -866,14 +948,19 @@ const MarkAttendance = ({
                 )}
 
 
-          <div className="prevNextWrap">
+          {/* <div className="prevNextWrap">
             <button className="prebBtN"  onClick={handlePrevPage} disabled={currentPage === 1}>Prev</button>
             <div className="crrpage">{currentPage} / {totalPages}</div>
             <button className="prebBtN" onClick={handleNextPage} disabled={currentPage === totalPages}>Next</button>
-          </div>
+          </div> */}
+
               </main>
 
             </div>
+
+
+
+
 
             {/* for  import cvv popup  */}
 
