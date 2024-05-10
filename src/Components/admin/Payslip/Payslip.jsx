@@ -7,16 +7,22 @@ import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import oot from "../../images/oot.svg";
 import ReactHTMLTableToExcel from 'react-html-table-to-excel';
+import cancell from "../../images/cancell.png"
+import kdslogo from "../../images/kdslogo.png"
+
+
 const Payslip = ({
     pop,
     setPop
 }) => {
-    const { user, getUserSlip, togglePayslip } = useMain();
+    const { user, getUserSlip, togglePayslip , buildAPI } = useMain();
 
 
     const [loading, setLoading] = useState(false);
 
     const [show, setShow] = useState(false);
+
+    const [ openPayslip,setOpenPayslip] = useState(false);
 
     const styleperr = {
         display: show ? "block" : "none"
@@ -36,8 +42,6 @@ const Payslip = ({
             [name]: value
         }))
     }
-
-
 
     const [data, setData] = useState([]);
 
@@ -91,14 +95,29 @@ const Payslip = ({
 
     }, [loading])
 
+    const bulkPaymentHandler = async()=>{
+        const toastId = toast.loading("Loading...");
+        const ans  = await buildAPI(formdata.month , formdata.year);
+         if(ans?.status){
+            toast.success("Successfuly done");
+            setShow(false);
+             fetchUserSlip();
+         }
+         else {
+            toast.error("Something went wrong , please try again");
+         }
+
+         toast.dismiss(toastId);
+    }
+
     return (
         <>
-            <div className="employee-dash h-full">
+            <div className={`employee-dash  h-full`}>
                 <AdminSidebar pop={pop} setPop={setPop} />
                 <div className="tm">
                     <AdminNavbar user={user} />
 
-                    <div className="em ">
+                    <div className={`em ${openPayslip ?"hidenOverflow":""} `}>
 
                         <div className="flex-col emWraping">
 
@@ -231,19 +250,24 @@ const Payslip = ({
                                                         <td className="px-6 py-4">{item?.user?.paySlipType}</td>
                                                         <td className="px-6 py-4">{item?.user?.salary ? item?.user?.salary : "00"}</td>
                                                         <td className="px-6 py-4">{item?.user?.netSalary}</td>
-                                                        <div className="toglwCont">
 
-                                                            <td onClick={() => {
-                                                                if (showToggle === index) {
-                                                                    setShowToggle(null);
-                                                                }
-                                                                else {
-                                                                    setShowToggle(index);
-                                                                }
-                                                            }} className={`px-6 py-4 `}> <span className={`${item?.status === "Unpaid" ? "unpaid" : "paid"} `}>{item?.status}</span> </td>
+                                                            <td  className={`px-6 py-4 `}> <span className={`${item?.status === "Unpaid" ? "unpaid" : "paid"} `}>{item?.status}</span> </td>
 
                                                             {/*  */}
-                                                            {
+                                                           
+
+                                                        <div className="toglwCont">
+                                                        <td onClick={() => {
+                                                            if (showToggle === index) {
+                                                                setShowToggle(null);
+                                                            }
+                                                            else {
+                                                                setShowToggle(index);
+                                                            }
+                                                        }} className="px-6 py-4">
+                                                            <img src={acy} alt="acy" />
+                                                        </td>
+                                                        {
                                                                 showToggle === index &&
                                                                 <div className="togglewrap">
 
@@ -251,13 +275,14 @@ const Payslip = ({
                                                                         toggleStatus(item?.user?._id)
                                                                     }}>Click to {item?.status === "Unpaid" ? "Paid" : "Unpaid"}</p>
 
+                                                                    <p onClick={()=>{
+                                                                        setOpenPayslip(true);
+                                                                        setShowToggle(null);
+                                                                    }}>Payslip</p>
+
                                                                 </div>
                                                             }
-
-                                                        </div>
-                                                        <td className="px-6 py-4">
-                                                            <img src={acy} alt="acy" />
-                                                        </td>
+                                                                </div>
 
                                                     </tr>
                                                 ))
@@ -330,12 +355,12 @@ const Payslip = ({
                             </div>
                             {/* Modal footer */}
                             <div className="flex  thj items-center p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
-                                <button
+                                <button  onClick={bulkPaymentHandler}
                                     data-modal-hide="default-modal"
                                     type="button"
                                     className="text-white bulk bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                                 >
-                                    Bulk Payment
+                                    Bulk Payment 
                                 </button>
                                 <button
                                     onClick={() => setShow(false)}
@@ -352,6 +377,137 @@ const Payslip = ({
             </>
 
             {/* ========================modal of export end=============== */}
+
+
+
+
+            {/*  =================== this is openpayslip ============================= */}
+
+
+{
+    openPayslip && 
+
+              <div className="openPaywrap">
+
+                <div className="openPayCont">
+
+<nav>
+    <h2>Employee Payslip</h2>
+
+    <img onClick={()=>setOpenPayslip(false)} className="cursor-pointer" src={cancell} alt="" />
+    </nav> 
+
+
+    <hr />          
+
+     <img src={kdslogo} alt="" className="kdslogo" />   
+
+
+     <hr />     
+
+     <div className="paydetails">
+
+        {/* left side */}
+        <div className="paydetailLeft">
+
+             <label >
+                <p>Name :</p>
+                 <p>23/01/2022</p>
+             </label>
+
+             <label >
+                <p>Position :</p>
+                 <p>Manager</p>
+             </label>
+
+             <label >
+                <p>Salary Date :</p>
+                 <p>Apr 9, 2024</p>
+             </label>
+
+        </div>
+
+        {/* rigth side */}
+        <div className="paydetailRight">
+            <h3>Kushel Digi Solutions</h3>
+            <p>G-9, first Floor, Sector 63, Noida, Noida, <br />
+Uttar pradesh-251352</p>
+        </div>
+
+     </div>
+
+      <div className="payform">
+
+        
+
+<div class="relative overflow-x-auto">
+    <table class="w-full text-sm text-left rtl:text-right  ">
+        <thead class="text-xs  uppercase bg-gray-50 dark:bg-gray-700 ">
+            <tr>
+                <th scope="col" class="px-6 py-3">
+                Earning
+                </th>
+                <th scope="col" class="px-6 py-3">
+                Title
+                </th>
+                <th scope="col" class="px-6 py-3">
+                Type
+                </th>
+                <th scope="col" class="px-6 py-3">
+                Amount
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+          
+       
+            <tr class="bg-white ">
+                
+                <td class="px-6 py-4">
+                Basic Salary
+                </td>
+                <td class="px-6 py-4">
+                </td>
+                <td class="px-6 py-4">
+                </td>
+                <td class="px-6 py-4">
+                ₹40,000.00                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+ <div className="totalErWrap">
+    <div className="enrcont">
+        <p>Total Earning :</p>
+        <p>₹40,000.00</p>
+    </div>
+     <div className="enrcont">
+        <p>Total Deduction :</p>
+        <p>₹40,000.00 </p>
+     </div>
+ </div>
+
+
+      </div>
+
+       <div className="paidWrap">
+        <h3>Employee Signature</h3>
+        <p>Paid By</p>
+       </div>
+         
+
+                </div>
+
+                
+              </div>
+
+
+}
+
+            {/*  =================== end  is openpayslip ============================= */}
+
+
         </>
     );
 };

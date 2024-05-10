@@ -1109,10 +1109,161 @@ letter-spacing: 0.004em;
   letter-spacing: 0.0025em;
   text-align: left;
   padding: 10px 10px;
-  border-bottom: 1px solid #E8E9EB;  
+  border-bottom: 1px solid #E8E9EB;
+  transition: 0.2s;  
+
+}
+.togglewrap p:hover{
+ background-color: #0B56E4;
+ color: white;
 
 }
 
+.openPaywrap{
+  position: absolute;
+   width: 100vw;
+   overflow: hidden;
+   top: 0;
+   left: 0;
+   right: 0;
+  background: #4040404D;
+  height: 100%;
+  z-index: 200;
+
+}
+
+.hidenOverflow{
+  overflow: hidden !important;
+}
+
+.openPayCont{
+  width: 814px;
+height: 580px;
+padding: 12px;
+border-radius: 12px ;
+display: flex;
+flex-direction: column;
+gap: 24px;
+background: #FFFFFF;
+ transform: translateX(300px) translateY(100px);
+}
+
+.kdslogo{
+  max-width: 150px;
+  max-height: 45px;
+}
+
+.openPayCont nav{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.openPayCont nav h2{
+  font-family: Inter;
+  color: #1B2533;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
+  letter-spacing: 0.0015em;
+  text-align: left;
+  
+}
+
+.paydetails{
+  display: flex;
+  gap: 50px;
+  max-width:600px;
+  width: 100%;
+  justify-content: space-between;
+}
+.paydetails .paydetailLeft{
+ max-width: 300px;
+ display: flex;
+ flex-direction: column;
+ gap: 10px;
+}
+
+.totalErWrap{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+  margin-top: 24px;
+}
+
+.paidWrap{
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.paidWrap h3{
+  font-family: Inter;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  text-align: left;
+color: #2B2B2B;  
+}
+.paidWrap p{
+  font-family: Inter;
+  color: #2B2B2B;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 16px;
+  text-align: left;
+  
+}
+
+.enrcont{
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+}
+
+
+.paydetails .paydetailLeft label{
+display: flex;
+align-items: center;
+gap: 10px;
+}
+.paydetails .paydetailLeft label p{
+  font-family: Inter;
+  color: #2B2B2B;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 16px;
+  letter-spacing: 0.004em;
+  text-align: left;
+  
+}
+.paydetails .paydetailRight{
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  
+}
+.paydetails .paydetailRight h3{
+  font-family: Inter;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
+  letter-spacing: 0.005em;
+  text-align: left;
+  
+  color: #2B2B2B;
+}
+.paydetails .paydetailRight p{
+  font-family: Inter;
+  color: #2B2B2B;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 16px;
+  letter-spacing: 0.004em;
+  text-align: left;
+  
+}
 
 .loader54 {
   width: 48px;
@@ -1335,6 +1486,7 @@ text-align: left;
 } */
 .employee-dash {
   display: flex;
+  position: relative;
   background-color: #f5f5f5;
 }
 
