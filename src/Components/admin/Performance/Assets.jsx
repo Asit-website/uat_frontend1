@@ -4,11 +4,14 @@ import { useMain } from '../../../hooks/useMain'
 import annPlus from "../../images/annPlus.png"
 import "./indicator.css"
 import { useEffect, useState } from 'react';
-import cross from "../../images/crossAn.png"
-import { FaRegStar } from "react-icons/fa";
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 import toast from 'react-hot-toast';
+import bxSerch from "../../images/bx-search.png"
+import thedots from "../../images/thedots.png"
+import editsss from "../../images/editss.svg"
+import delete22 from "../../images/delete22.png"
+import ccc from "../../images/ccc.png"
 
 
 const Assets = ({ pop, setPop, setAlert }) => {
@@ -130,13 +133,11 @@ const Assets = ({ pop, setPop, setAlert }) => {
 
   const departmentCollect = async()=>{
     const ans2 = await  getDepartments();
-    console.log(' ans2 ' , ans2);
     setDepartment(ans2?.data);
     
   }
   const designationCollect = async()=>{
     const ans3 = await getDesignations();
-    console.log(' ans3 ' , ans3);
     setDesignation(ans3?.data);
 
   }
@@ -145,6 +146,9 @@ const Assets = ({ pop, setPop, setAlert }) => {
     departmentCollect();
     designationCollect();
   },[])
+
+
+   const [showdots , setShowdots] = useState(null);
 
   return (
     <>
@@ -161,14 +165,14 @@ const Assets = ({ pop, setPop, setAlert }) => {
               {/* left sie */}
               <div className='anNavLeft'>
 
-                <h2>Assets</h2>
-                <p>Dashboard <span> Assets</span> </p>
-
+                <h2>Assets Management</h2>
               </div>
 
               {/* rogth side  */}
               <div onClick={() => setOpenForm(true)} className='plusImg'>
+
                 <img src={annPlus} alt="" />
+               <span>  Add New</span>
 
               </div>
 
@@ -180,27 +184,23 @@ const Assets = ({ pop, setPop, setAlert }) => {
               {/* top */}
               <div className='anmainTop'>
                 {/* left side */}
-                <div className='anMLef'>
 
-                  <select name="" id="">
-                    <option value="10">10</option>
-                  </select>
+                <h3>Assets</h3>
 
-                  <span>entries per page</span>
+                <div className="amtopsrch">
+
+                  <input type="text" placeholder='Search Employee' />
+                   <img src={bxSerch} alt="" />
 
                 </div>
-
-                {/* right side  */}
-                <div className='anMaRi'>
-                  <input type="text" placeholder='Search...' />
-                </div>
+               
               </div>
 
 
 
               <div class="relative overflow-x-auto">
 
-                <table class="w-full text-sm text-left rtl:text-right text-black dark:text-black">
+                <table class="w-full text-sm assettable ">
 
                   <thead class="text-xs text-black uppercase  dark:text-black">
                     <tr>
@@ -236,9 +236,9 @@ const Assets = ({ pop, setPop, setAlert }) => {
                   <tbody>
 
                     {
-                      data.length > 0 ?
+                      data?.length > 0 ?
                         data.map((item, index) => (
-                          <tr key={index} class="bg-white">
+                          <tr key={index} class="bg-white asetr">
 
                             <td class="px-6 py-4">
                               {item?.Employee}
@@ -265,17 +265,45 @@ const Assets = ({ pop, setPop, setAlert }) => {
                             </td>
 
 
-                            <td class="px-6 py-4">
-                              <div className='flex items-center sk'>
-                                <i onClick={() => {
-                                setOnEdit(true);
-                                setEditData(item);
-                                setOpenForm(true)
-                              }}  className="fa-solid fa-pen-to-square"></i>
-                                <i onClick={()=>{
-                                  deleteProject(item?._id)
-                                }} className="fa-solid fa-trash"></i>
-                              </div>
+                                   
+                            <td class="px-6 py-4 relative">
+                             
+
+                                <img onClick={()=>{
+                                  if(showdots === index) {
+                                    setShowdots(null);
+                                  }
+                                  else {
+
+                                    setShowdots(index);
+                                  }
+                                }} src={thedots} alt="" />
+
+
+                                 {
+                                  showdots === index && 
+                                  <div className="showdots">
+
+
+
+                                    <p onClick={()=>{
+                                         setOnEdit(true);
+                                         setEditData(item);
+                                         setOpenForm(true);
+                                         setShowdots(null);
+                                    }}><img src={editsss} alt="" /> <span className='editSpan cursor-pointer'>Edit</span></p>
+
+                                    <hr />
+
+                                    <p onClick={()=>{
+                                  deleteProject(item?._id);
+                                  setShowdots(null);
+                                }}><img src={delete22} alt="" /> <span className='delettspan cursor-pointer'>Delete</span></p>
+
+                                  </div>
+                                 }
+                                  
+
                             </td>
 
 
@@ -319,7 +347,7 @@ const Assets = ({ pop, setPop, setAlert }) => {
 
               <nav>
                 {/* left  */}
-                <h2>Create New Assets</h2>
+                <h2 className='creanewAsseet'>Create New Assets</h2>
                 <img onClick={() => {
                   setOpenForm(false);
                   setOnEdit(false);
@@ -333,7 +361,7 @@ const Assets = ({ pop, setPop, setAlert }) => {
                     additonal:"",
                     description:""
                   })
-                }} className='cursor-pointer' src={cross} alt="" />
+                }} className='cursor-pointer' src={ccc} alt="" />
               </nav>
 
               <hr />
@@ -352,6 +380,11 @@ const Assets = ({ pop, setPop, setAlert }) => {
                   </select>
                 </label>
 
+
+            
+             <div className='labwrapp'>
+
+          
                 <label htmlFor="Name" className='halfLabel' >
                   <p>Designation</p>
                   <select name="designation" value={formdata.designation} onChange={changeHandler}>
@@ -376,6 +409,10 @@ const Assets = ({ pop, setPop, setAlert }) => {
                   </select>
                 </label>
 
+                </div>
+
+                <div className='labwrapp'>
+
                 <label className='halfLabel' >
                   <p>Product</p>
                   <input value={formdata?.product} name='product' onChange={changeHandler} type="text" />
@@ -385,6 +422,8 @@ const Assets = ({ pop, setPop, setAlert }) => {
                   <p>To Date</p>
                   <input name='purchaseDate' value={formdata?.purchaseDate} onChange={changeHandler} type="date" />
                 </label>
+
+                </div>
 
                 <label className='fullLabel' >
                   <p>Additional Product</p>

@@ -14,6 +14,12 @@ import frames from "../../images/Frame 1000010647.png"
 import bxsearch from "../../images/bx-search.png"
 import crosss from "../../images/crosss.png"
 import ReactHTMLTableToExcel from 'react-html-table-to-excel';
+import * as XLSX from "xlsx"
+import toast from "react-hot-toast";
+
+
+
+
 const MarkAttendance = ({
   pop1,
   setPop1,
@@ -22,7 +28,7 @@ const MarkAttendance = ({
   setAlert,
   isHr = false,
 }) => {
-  const { user, getAllActivities, getDepartments, allEmployee, getAllActivities2 } = useMain();
+  const { user, getAllActivities, getDepartments, allEmployee, getAllActivities2 , postAttendence } = useMain();
   const [data, setData] = useState([]);
   const [data1, setData1] = useState({});
   const [users, setUsers] = useState([]);
@@ -64,33 +70,28 @@ const MarkAttendance = ({
     }
   };
 
-  const totalPages = Math.ceil(data.length / pageSize);
+  const totalPages = Math.ceil(data?.length / pageSize);
 
-  const totalPages2 = Math.ceil(allDash.length / pageSize);
-
-   console.log("alldash  ",allDash);
+  const totalPages2 = Math.ceil(allDash?.length / pageSize);
 
   const getCurrentPageData = () => {
     const startIndex = (currentPage - 1) * pageSize;
     const endIndex = startIndex + pageSize;
-    return data.slice(startIndex, endIndex);
+    return data?.slice(startIndex, endIndex);
   };
 
   const getCurrentPageData2 = () => {
     const startIndex = (currentPage2 - 1) * pageSize2;
     const endIndex = startIndex + pageSize2;
-    return allDash.slice(startIndex, endIndex);
+    return allDash?.slice(startIndex, endIndex);
   };
-
-  // let ans = await getAllActivities();
-  // setAllDash(ans?.data);
 
 
   const getData = async () => {
     let ans = await getAllActivities();
     setAllDash(ans?.data);
     const ans1 = await allEmployee();
-    setUsers(ans1.emp);
+    setUsers(ans1?.emp);
     setData1(ans?.data);
     const ans2 = await getDepartments();
     setDepartments(ans2.data);
@@ -110,8 +111,8 @@ const MarkAttendance = ({
   const formatDate = (inputDate) => {
     const dateObj = new Date(inputDate);
     const year = dateObj.getFullYear();
-    const month = ('0' + (dateObj.getMonth() + 1)).slice(-2);
-    const day = ('0' + dateObj.getDate()).slice(-2);
+    const month = ('0' + (dateObj.getMonth() + 1))?.slice(-2);
+    const day = ('0' + dateObj.getDate())?.slice(-2);
     return `${day}/${month}/${year}`;
   };
 
@@ -223,7 +224,6 @@ const MarkAttendance = ({
     setSrchText(e.target.value);
   }
 
-
   useEffect(()=>{
 
      if(selectedOption === "monthly"){
@@ -252,7 +252,98 @@ const MarkAttendance = ({
     }
 
 
-  },[selectedOption])
+  },[selectedOption]);
+
+
+  // Excel sheet 
+   const [excelFile , setExcelFile] = useState(null);
+
+   const [typeError , setTypeError] = useState(null);
+
+    // submit state 
+    const [excelData , setExcelData] = useState(null);
+
+
+    // onchange event 
+    const handleFile = (e)=>{
+
+      let fileTypes = ['application/vnd.ms-excel' , 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' ,'text/csv' ];
+      
+
+      let selectedFile = e.target.files[0];
+
+       if(selectedFile){
+
+         if(selectedFile && fileTypes.includes(selectedFile.type)){
+setTypeError(null);
+let reader = new FileReader();
+reader.readAsArrayBuffer(selectedFile);
+reader.onload=(e)=>{
+   setExcelFile(e.target.result);
+}
+           console.log("slect file" , selectedFile);
+          }
+          else {
+            setTypeError("please seelect only file type");
+            setExcelFile(null);
+          }
+       }
+       else {
+        console.log("please select the file");
+       }
+
+    }
+
+    // onsubmit event 
+    const handleFileSubmit =async(e)=>{
+
+       e.preventDefault();
+
+        if(excelFile !== null){
+
+   const workbook = XLSX.read(excelFile ,{type:"buffer"});
+
+ const worksheetName = workbook.SheetNames[0];
+
+  const worksheet = workbook.Sheets[worksheetName];
+
+   const data = XLSX.utils.sheet_to_json(worksheet);
+
+
+    let toastId;
+
+    if(data?.length > 0 ){
+    toastId = toast.loading("Loading....");
+    }
+
+   setExcelData(data?.slice(0,10));
+
+    for(let i= 0 ;i<data?.length;i++){
+      
+        const {Break , Date , clockIn , clockOut  , Employee} = data[i];
+
+        const filterdata = users.filter((item) => item?.fullName.toLowerCase() === Employee.toLowerCase());
+
+
+         
+         if(filterdata?.length> 0){
+           
+           let id = filterdata[0]?._id;
+            const ans = await postAttendence({clockInDetail:clockIn , clockOutDetail:clockOut  , id:id , breakTime: Break ,clockInDate:Date});
+          }
+         
+
+
+    }
+
+    toast.success("Successfuly uploaded");
+
+    toast.dismiss(toastId);
+
+        }
+    }
+
+
 
   return (
     <>
@@ -911,7 +1002,7 @@ const MarkAttendance = ({
                       </thead>
 
                       <tbody>
-                        {data1 && Object.keys(data1).length > 0 && Object.keys(data1).map((item, index) => (
+                        {data1 && Object.keys(data1)?.length > 0 && Object.keys(data1).map((item, index) => (
                           <tr key={index} className="bg-white ">
                             <td className="px-6 py-4 itemANs">
                               {data1[item]?.user?.fullName}
@@ -979,7 +1070,8 @@ const MarkAttendance = ({
                   <hr className="hrrr" />
 
                   <div className="excewrap">
-                    <p>Choose File</p>
+                    {/* <p>Choose File</p> */}
+                    <input type="file" required onChange={handleFile} />
                     <span>Exemption application</span>
                   </div>
 
@@ -988,7 +1080,7 @@ const MarkAttendance = ({
 
                   <div className="impopbtn">
                     <button onClick={() => setShowImportPop(false)} className="cence"><span>Cancel</span></button>
-                    <button className="uplaodin"><span>Upload</span></button>
+                    <button onClick={handleFileSubmit}  className="uplaodin"><span>Upload</span></button>
                   </div>
 
                 </div>
@@ -997,6 +1089,31 @@ const MarkAttendance = ({
             }
 
           </div>
+
+
+
+          {
+            typeError && (
+              <div>
+                {typeError}
+              </div>
+            )
+          }
+
+           {/* for dummy excel one  */}
+             <div>
+              {excelData? (
+                <div>show data here </div>
+              ):(
+                <div>
+                  No ffile is uploaded yet 
+                </div>
+              )}
+             </div>
+
+
+
+
         </div>
       </div>
     </>

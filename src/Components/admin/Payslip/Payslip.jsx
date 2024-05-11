@@ -47,6 +47,8 @@ const Payslip = ({
 
     const [showToggle, setShowToggle] = useState(null);
 
+    const [popdata , setPopData]= useState(null);
+
     const fetchUserSlip = async (showLoading = true) => {
         if (showLoading) {
 
@@ -278,7 +280,11 @@ const Payslip = ({
                                                                     <p onClick={()=>{
                                                                         setOpenPayslip(true);
                                                                         setShowToggle(null);
+                                                                        console.log("item ",item);
+                                                                         setPopData(item);
                                                                     }}>Payslip</p>
+
+                                                                    <p>Delete </p>
 
                                                                 </div>
                                                             }
@@ -412,17 +418,17 @@ const Payslip = ({
 
              <label >
                 <p>Name :</p>
-                 <p>23/01/2022</p>
+                 <p>{popdata?.user?.fullName}</p>
              </label>
 
              <label >
                 <p>Position :</p>
-                 <p>Manager</p>
+                 <p>{popdata?.user?.department}</p>
              </label>
 
              <label >
                 <p>Salary Date :</p>
-                 <p>Apr 9, 2024</p>
+                 <p>{popdata?.user?.salarydate}</p>
              </label>
 
         </div>
@@ -471,7 +477,8 @@ Uttar pradesh-251352</p>
                 <td class="px-6 py-4">
                 </td>
                 <td class="px-6 py-4">
-                ₹40,000.00                </td>
+               {popdata?.user?.netSalary}
+                            </td>
             </tr>
         </tbody>
     </table>
@@ -480,11 +487,12 @@ Uttar pradesh-251352</p>
  <div className="totalErWrap">
     <div className="enrcont">
         <p>Total Earning :</p>
-        <p>₹40,000.00</p>
+        <p>  {popdata?.user?.netSalary}</p>
     </div>
      <div className="enrcont">
         <p>Total Deduction :</p>
-        <p>₹40,000.00 </p>
+        <p>{popdata?.user?.netSalary - popdata?.user?.salary || "00"}</p>
+
      </div>
  </div>
 
