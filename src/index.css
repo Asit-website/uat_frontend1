@@ -804,6 +804,7 @@ width: 100%;
 .alladminDash-item .dashItemp{
   /* color: #F3F6F8; */
   font-family: Inter;
+  font-size: 14px;
 }
 
 
@@ -5093,4 +5094,9 @@ background-color: #0B56E4;
 }
 .thj{
   margin-top: 60px;
+}
+.genrt{
+  font-family: inter !important;
+  font-weight: 500;
+  font-size: 14px;
 }

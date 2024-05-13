@@ -17,7 +17,8 @@ import unchosedash from "../../images/unchosedash.png";
 import dasg from '../../images/dasg.svg'
 import adminSetting from "../../images/adminSetting.png"
 import { IoIosArrowDown } from "react-icons/io";
-
+import soulmate from '../../images/solumate.svg';
+import tyming from '../../images/tyming.svg';
 
 // import {user} from '../../../hooks/useMain'
 import "./sidebar.css"
@@ -31,16 +32,13 @@ const dashboardItem = [
     title: "My Self",
     link: "/adminDash/mySelf"
   },
-  {
-    title:"Set Salary",
-    link:"/adminDash/setSallary"
-  },
-  {
-    title:"Payslip",
-    link:"/adminDash/payslip"
-  },
   // {
-  //   title:"Payslip"
+  //   title:"Set Salary",
+  //   link:"/adminDash/setSallary"
+  // },
+  // {
+  //   title:"Payslip",
+  //   link:"/adminDash/payslip"
   // },
   {
     title: "Accounting",
@@ -186,8 +184,21 @@ const hrAdminItem = [
   }
 ]
 
+const payrols = [
+  {
+    title:"Set Salary",
+    link:"/adminDash/setSallary"
+  },
+  {
+    title:"Payslip",
+    link:"/adminDash/payslip"
+  },
+]
+
 const AdminSidebar = ({ pop, setPop }) => {
   const [dashItem, setDashItem] = useState(0);
+
+  const [payrollItem,setPayrollItem] = useState(0);
 
   const [HRMS, setHRMS] = useState(null);
 
@@ -195,6 +206,7 @@ const AdminSidebar = ({ pop, setPop }) => {
 
   const [openDashItem, setOpenDashItem] = useState(false);
   const [openHRMSItem, setOpenHRMSItem] = useState(false);
+  const [openPayroll,setOpenPayroll] = useState(false);
 
   const [openPerfor , setOpenPer] = useState(false);
   const [openTrain , setOpenTrain] = useState(false);
@@ -647,6 +659,49 @@ const AdminSidebar = ({ pop, setPop }) => {
                 ))}
               </div>
             )}
+
+            {/* ==================payroll management=========== */}
+
+            <div
+                onClick={() => setOpenPayroll((prev) => !prev)}
+                className="side-dash-box"
+              >
+                <div className="dash-wrap">
+                  <img src={soulmate} alt="dasg" />
+                  <p>Payroll Management</p>
+                </div>
+
+                <img src={expand_more} alt="" />
+              </div>
+
+              {openPayroll && (
+                <div className="alladminDash-item">
+                  {payrols?.map((item, index) => (
+                    <div
+                      onClick={() => {
+                        setPayrollItem(index)
+                        navigate(item?.link)
+                      }
+
+                      }
+                      className="sinADDasItem"
+                      key={index}
+                    >
+                      {payrollItem == index ? (
+                        <img src={tyming} alt="" />
+                      ) : (
+                        <img src={tyming} alt="" />
+                      )}
+                      <p
+                        className={` ${payrollItem === index ? "dashItemp" : "dITitl"
+                          }`}
+                      >
+                        {item?.title}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              )}
 
             {/* <---------------System setting------------------> */}
             <div className="setWrap">
