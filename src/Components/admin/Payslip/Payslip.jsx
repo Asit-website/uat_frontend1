@@ -259,7 +259,7 @@ const Payslip = ({
                                                 data?.map((item, index) => (
                                                     <tr key={index} className="bg-white opos border-b dark:bg-gray-800 dark:border-gray-700">
 
-                                                        <td className="px-6 py-4">#{item?.user?.employeeCode}</td>
+                                                        <td className="px-6 py-4">#KDS{item?.user?.employeeCode}</td>
                                                         <td className="px-6 py-4">{item?.user?.fullName}</td>
                                                         <td className="px-6 py-4">{item?.user?.paySlipType}</td>
                                                         <td className="px-6 py-4">{item?.user?.salary ? item?.user?.salary : "00"}</td>
