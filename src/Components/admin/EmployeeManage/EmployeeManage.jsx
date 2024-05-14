@@ -1488,6 +1488,7 @@ const EmployeeManage = ({ pop1, setPop1, pop, setPop, setAlert, isHr = false }) 
                                   <option>M.tech</option>
                                   <option>MBA</option>
                                   <option>BCom</option>
+                                  <option>Others</option>
                                 </select>
                               </div>
                             </div>

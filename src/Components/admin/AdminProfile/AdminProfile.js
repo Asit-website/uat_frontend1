@@ -5,13 +5,13 @@ import { useMain } from '../../../hooks/useMain'
 import { useNavigate } from 'react-router-dom';
 const AdminProfile = ({ pop, setPop, setAlert }) => {
 
-  const { user, updateProfile, getBranchs, getDepartments, getDesignations ,uploadToCloudinaryImg } = useMain();
+  const { user, updateProfile, getBranchs, getDepartments, getDesignations, uploadToCloudinaryImg } = useMain();
   const [value, setValue] = useState(user);
 
   const navigate = useNavigate();
 
   const [branches, setBranches] = useState([]);
-  const [uploadedProfile , setUploadedProfile] = useState("");
+  const [uploadedProfile, setUploadedProfile] = useState("");
 
   const [departments, setDepartments] = useState([]);
   const [designations, setDesignations] = useState([]);
@@ -33,14 +33,14 @@ const AdminProfile = ({ pop, setPop, setAlert }) => {
   }, []);
 
 
-  const handleChange = async(e) => {
+  const handleChange = async (e) => {
     if (e.target.name === "image") {
       setValue({ ...value, [e.target.name]: e.target.files[0] });
       let image = e.target.files[0];
-      const ans = await uploadToCloudinaryImg({image});
-      if(ans.status){
+      const ans = await uploadToCloudinaryImg({ image });
+      if (ans.status) {
         setUploadedProfile(ans?.data);
-       }
+      }
     } else {
       setValue({ ...value, [e.target.name]: e.target.value });
     }
@@ -49,7 +49,7 @@ const AdminProfile = ({ pop, setPop, setAlert }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const ans = await updateProfile(value);
-     localStorage.setItem("hrms_user" ,JSON.stringify(ans.data));
+    localStorage.setItem("hrms_user", JSON.stringify(ans.data));
     if (ans.success) {
       setAlert("success", ans.message);
       setValue(ans?.data);
@@ -66,7 +66,7 @@ const AdminProfile = ({ pop, setPop, setAlert }) => {
         <AdminSidebar pop={pop} setPop={setPop} />
         <div className="tm">
           <AdminNavbar user={user} setAlert={setAlert} />
-        
+
           <div className="em">
             <div className="flex-col">
 
@@ -74,68 +74,68 @@ const AdminProfile = ({ pop, setPop, setAlert }) => {
                 {
                   user?.designation === "CEO" ?
 
-                  <div className="mb-6">
-                  <label htmlFor="fullName" className="block samat mb-1 ">
-                    Full Name
-                  </label>
-                  <input
-                    type="text"
-                    name="fullName"
-                    onChange={handleChange}
-                    value={value?.fullName}
-                    id="fullName"
-                    className=" block w-full"
-                  />
-                </div>
+                    <div className="mb-6">
+                      <label htmlFor="fullName" className="block samat mb-1 ">
+                        Full Name
+                      </label>
+                      <input
+                        type="text"
+                        name="fullName"
+                        onChange={handleChange}
+                        value={value?.fullName}
+                        id="fullName"
+                        className=" block w-full"
+                      />
+                    </div>
 
-                :
-                <div className="mb-6">
-                  <label htmlFor="fullName" className="block samat mb-1 ">
-                    Full Name
-                  </label>
-                  <input
-                    type="text"
-                    name="fullName"
-                    onChange={() => null}
-                    value={value?.fullName}
-                    id="fullName"
-                    className=" block w-full"
-                  />
-                </div>
+                    :
+                    <div className="mb-6">
+                      <label htmlFor="fullName" className="block samat mb-1 ">
+                        Full Name
+                      </label>
+                      <input
+                        type="text"
+                        name="fullName"
+                        onChange={() => null}
+                        value={value?.fullName}
+                        id="fullName"
+                        className=" block w-full"
+                      />
+                    </div>
                 }
 
 
                 {
                   user?.designation === "CEO" ? <div className="mb-6">
-                  <label htmlFor="email" className="block mb-1 ">
-                    Company Email
-                  </label>
-                  <input
-                    type="email"
-                    name="email"
-                    onChange={handleChange}
-                    value={value.email}
-                    id="email"
-                    className=" block w-full"
-                  />
-                </div>
-                :
-                <div className="mb-6">
-                  <label htmlFor="email" className="block mb-1 ">
-                    Company Email
-                  </label>
-                  <input
-                    type="email"
-                    name="email"
-                    onChange={() => null}
-                    value={value.email}
-                    id="email"
-                    className=" block w-full"
-                  // required
-                  />
-                </div>
+                    <label htmlFor="email" className="block mb-1 ">
+                      Company Email
+                    </label>
+                    <input
+                      type="email"
+                      name="email"
+                      onChange={handleChange}
+                      value={value.email}
+                      id="email"
+                      className=" block w-full"
+                    />
+                  </div>
+                    :
+                    <div className="mb-6">
+                      <label htmlFor="email" className="block mb-1 ">
+                        Company Email
+                      </label>
+                      <input
+                        type="email"
+                        name="email"
+                        onChange={() => null}
+                        value={value.email}
+                        id="email"
+                        className=" block w-full"
+                      // required
+                      />
+                    </div>
                 }
-                
+
 
                 <div className="mb-6">
                   <label htmlFor="mobile" className="block mb-1">
@@ -162,21 +162,21 @@ const AdminProfile = ({ pop, setPop, setAlert }) => {
                     id="file_input"
                     type="file"
                   />
-                   {
-                    uploadedProfile !== "" && 
-                     <div className="uploadedProfile">
+                  {
+                    uploadedProfile !== "" &&
+                    <div className="uploadedProfile">
 
-                   {/* <div className="cutImg">
+                      {/* <div className="cutImg">
 
                         <img onClick={()=>{
                           setUploadedProfile("");
                            setProfileImage("");
                         }} src={cutImg} className="" alt="" />
                    </div> */}
-                       
+
                       <img src={uploadedProfile} alt="" />
-                     </div>
-                    }
+                    </div>
+                  }
                 </div>
 
                 <div className="mb-6">
@@ -193,7 +193,7 @@ const AdminProfile = ({ pop, setPop, setAlert }) => {
                   // required
                   />
                 </div>
-              
+
                 <div className="mb-6">
                   <label htmlFor="gmail" className="block mb-1">
                     Company Gmail
@@ -368,7 +368,7 @@ const AdminProfile = ({ pop, setPop, setAlert }) => {
                   <label htmlFor="currentState" className="block mb-1">
                     Current state
                   </label>
-                 
+
                   <input
                     type="text"
                     id="currentState"
@@ -545,6 +545,13 @@ const AdminProfile = ({ pop, setPop, setAlert }) => {
                     <option>B.sc</option>
                     <option>10th</option>
                     <option>12th</option>
+                    <option>BBA</option>
+                    <option>BCA</option>
+                    <option>B.tech</option>
+                    <option>M.tech</option>
+                    <option>MBA</option>
+                    <option>BCom</option>
+                    <option>Others</option>
                   </select>
                 </div>
                 <div className="mb-6">

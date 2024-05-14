@@ -1098,7 +1098,7 @@ letter-spacing: 0.004em;
   height: 125px;
   border: 1px solid #E3E3E3;
   box-shadow: 0px 4px 12px 0px #1A1A1A33;
-
+  right: 65px;
 }
 .togglewrap p{
   cursor: pointer;

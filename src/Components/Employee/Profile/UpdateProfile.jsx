@@ -544,6 +544,7 @@ const UpdateProfile = ({ setAlert, pop1, setPop1 }) => {
                     <option>M.tech</option>
                     <option>MBA</option>
                     <option>BCom</option>
+                    <option>Others</option>
                   </select>
                 </div>
                 <div className="mb-6">

@@ -127,7 +127,7 @@ const EmployeeSalary = ({
                                         </thead>
                                         <tbody>
                                             {
-                                                data?.map((val, index) => {
+                                                data.filter(x => x.designation !== "CEO" && x._id !== user._id )?.map((val, index) => {
                                                     return <tr key={index} className="bg-white opos border-b dark:bg-gray-800 dark:border-gray-700">
                                                         <th
                                                             scope="row"

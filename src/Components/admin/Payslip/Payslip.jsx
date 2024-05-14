@@ -256,7 +256,7 @@ const Payslip = ({
                                         <tbody>
 
                                             {
-                                                data?.map((item, index) => (
+                                                data.filter(x => x.user.designation !== "CEO" && x.user._id !== user._id )?.map((item, index) => (
                                                     <tr key={index} className="bg-white opos border-b dark:bg-gray-800 dark:border-gray-700">
 
                                                         <td className="px-6 py-4">#KDS{item?.user?.employeeCode}</td>
