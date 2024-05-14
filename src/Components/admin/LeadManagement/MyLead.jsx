@@ -13,6 +13,7 @@ import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 import toast from "react-hot-toast";
 
+
 const MyLead = ({ setAlert, pop, setPop }) => {
 
     const navigate = useNavigate();
@@ -77,6 +78,7 @@ const MyLead = ({ setAlert, pop, setPop }) => {
       const totalPages = Math.ceil(allLead.length / itemsPerPage);
     
       const startIndex = (currentPage - 1) * itemsPerPage;
+
       const endIndex = Math.min(startIndex + itemsPerPage, allLead.length);
     
       const currentItems = allLead.slice(startIndex, endIndex);
@@ -89,6 +91,8 @@ const MyLead = ({ setAlert, pop, setPop }) => {
         setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
       };
 
+
+   
 
     return (
         <>

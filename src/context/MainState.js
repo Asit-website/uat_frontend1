@@ -1334,7 +1334,8 @@ const MainState = (props) => {
    };
 
    const createLead = async(
-      { LeadOwner,
+      {
+          LeadOwner,
       Company,
       FirstName,
       LastName,
@@ -1360,7 +1361,8 @@ const MainState = (props) => {
        ZipCode ,
        Country ,
        DescriptionInfo , 
-      image })=>{
+      image
+    })=>{
 
          let data;
 
@@ -1437,6 +1439,29 @@ const MainState = (props) => {
    
     return data;
    }
+
+
+   const createExcelLead = async({Company , Email , FirstName , Industry  , LastName , LeadOwner , LeadStatus , Phone})=>{
+
+         let data;
+      
+      data = await post(`${baseUrl}/lead/createLead`, {
+         LeadOwner,
+         Company,
+         FirstName,
+         LastName,
+         Email,
+         Phone,
+         Industry,
+         LeadStatus, 
+      }, true);
+   
+   
+    return data;
+   }
+
+
+
    const updateLead = async(
       { LeadOwner,
       Company,
@@ -1670,7 +1695,8 @@ const MainState = (props) => {
          fetchUserNotifyHR,
          createSallary,
          getSallary , 
-         userSalaryFetch , salaryCreate
+         userSalaryFetch , salaryCreate , 
+         createExcelLead
       }}>
          {props.children}
       </MainContext.Provider>
