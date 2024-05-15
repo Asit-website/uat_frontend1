@@ -289,7 +289,7 @@ const EmployeeManagement = ({
                     <tbody>
                       {
                         data.filter(x => x.designation !== "CEO" && x._id !== user._id)?.map((item, index) => (
-                          <tr key={index} className="bg-white border-b">
+                          <tr key={index} className="bg-white border-b fdf">
                             <th scope="col" className="px-6 py-3 taskTitl ">
                               <input type="checkbox" className="checkboxes" />
 

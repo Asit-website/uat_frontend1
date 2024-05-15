@@ -28,21 +28,21 @@ const MarkAttendance = ({
   setAlert,
   isHr = false,
 }) => {
-  const { user, getAllActivities, getDepartments, allEmployee, getAllActivities2 , postAttendence } = useMain();
+  const { user, getAllActivities, getDepartments, allEmployee, getAllActivities2, postAttendence } = useMain();
   const [data, setData] = useState([]);
   const [data1, setData1] = useState({});
   const [users, setUsers] = useState([]);
   const [departments, setDepartments] = useState([]);
   const [allDash, setAllDash] = useState([]);
 
-  
+
   const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 10;
 
 
-   const [currentPage2 , setCurrentPage2] = useState(1);
+  const [currentPage2, setCurrentPage2] = useState(1);
 
-    const pageSize2 = 10;
+  const pageSize2 = 10;
 
 
   const handleNextPage = () => {
@@ -56,15 +56,15 @@ const MarkAttendance = ({
     }
   };
 
-   // Function to handle previous page click
-   const handlePrevPage = () => {
+  // Function to handle previous page click
+  const handlePrevPage = () => {
     if (currentPage > 1) {
       setCurrentPage(currentPage - 1);
     }
   };
 
-   // Function to handle previous page click
-   const handlePrevPage2 = () => {
+  // Function to handle previous page click
+  const handlePrevPage2 = () => {
     if (currentPage2 > 1) {
       setCurrentPage2(currentPage2 - 1);
     }
@@ -104,7 +104,7 @@ const MarkAttendance = ({
   const [department, setDepartment] = useState('Select Department');
 
   const handleOptionChange = () => {
-  
+
     handleSubmit();
   };
 
@@ -218,130 +218,130 @@ const MarkAttendance = ({
 
   const [showImportPop, setShowImportPop] = useState(false);
 
-  const [srchText , setSrchText] = useState("");
+  const [srchText, setSrchText] = useState("");
 
-  const srchHandler = (e)=>{
+  const srchHandler = (e) => {
     setSrchText(e.target.value);
   }
 
-  useEffect(()=>{
+  useEffect(() => {
 
-     if(selectedOption === "monthly"){
+    if (selectedOption === "monthly") {
 
-       if(srchText === ""){
-         getData();
-       }
-       else {
+      if (srchText === "") {
+        getData();
+      }
+      else {
 
         const filteredData = data.filter(item => item && item.user && item.user.fullName && item.user.fullName.includes(srchText));
-         
-         console.log("fitlledat ",filteredData);
-       }
 
-     }
+        console.log("fitlledat ", filteredData);
+      }
 
-
-  },[srchText])
-
-
-  useEffect(()=>{
-
-    if(selectedOption !== "monthly"){
-
-     getData();
     }
 
 
-  },[selectedOption]);
+  }, [srchText])
+
+
+  useEffect(() => {
+
+    if (selectedOption !== "monthly") {
+
+      getData();
+    }
+
+
+  }, [selectedOption]);
 
 
   // Excel sheet 
-   const [excelFile , setExcelFile] = useState(null);
+  const [excelFile, setExcelFile] = useState(null);
 
-   const [typeError , setTypeError] = useState(null);
+  const [typeError, setTypeError] = useState(null);
 
-    // submit state 
-    const [excelData , setExcelData] = useState(null);
+  // submit state 
+  const [excelData, setExcelData] = useState(null);
 
 
-    // onchange event 
-    const handleFile = (e)=>{
+  // onchange event 
+  const handleFile = (e) => {
 
-      let fileTypes = ['application/vnd.ms-excel' , 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' ,'text/csv' ];
-      
+    let fileTypes = ['application/vnd.ms-excel', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'text/csv'];
 
-      let selectedFile = e.target.files[0];
 
-       if(selectedFile){
+    let selectedFile = e.target.files[0];
 
-         if(selectedFile && fileTypes.includes(selectedFile.type)){
-setTypeError(null);
-let reader = new FileReader();
-reader.readAsArrayBuffer(selectedFile);
-reader.onload=(e)=>{
-   setExcelFile(e.target.result);
-}
-           console.log("slect file" , selectedFile);
-          }
-          else {
-            setTypeError("please seelect only file type");
-            setExcelFile(null);
-          }
-       }
-       else {
-        console.log("please select the file");
-       }
+    if (selectedFile) {
 
+      if (selectedFile && fileTypes.includes(selectedFile.type)) {
+        setTypeError(null);
+        let reader = new FileReader();
+        reader.readAsArrayBuffer(selectedFile);
+        reader.onload = (e) => {
+          setExcelFile(e.target.result);
+        }
+        console.log("slect file", selectedFile);
+      }
+      else {
+        setTypeError("please seelect only file type");
+        setExcelFile(null);
+      }
+    }
+    else {
+      console.log("please select the file");
     }
 
-    // onsubmit event 
-    const handleFileSubmit =async(e)=>{
+  }
 
-       e.preventDefault();
+  // onsubmit event 
+  const handleFileSubmit = async (e) => {
 
-        if(excelFile !== null){
+    e.preventDefault();
 
-   const workbook = XLSX.read(excelFile ,{type:"buffer"});
+    if (excelFile !== null) {
 
- const worksheetName = workbook.SheetNames[0];
+      const workbook = XLSX.read(excelFile, { type: "buffer" });
 
-  const worksheet = workbook.Sheets[worksheetName];
+      const worksheetName = workbook.SheetNames[0];
 
-   const data = XLSX.utils.sheet_to_json(worksheet);
+      const worksheet = workbook.Sheets[worksheetName];
+
+      const data = XLSX.utils.sheet_to_json(worksheet);
 
 
-    let toastId;
+      let toastId;
 
-    if(data?.length > 0 ){
-    toastId = toast.loading("Loading....");
-    }
+      if (data?.length > 0) {
+        toastId = toast.loading("Loading....");
+      }
 
-   setExcelData(data?.slice(0,10));
+      setExcelData(data?.slice(0, 10));
 
-    for(let i= 0 ;i<data?.length;i++){
-      
-        const {Break , Date , clockIn , clockOut  , Employee} = data[i];
+      for (let i = 0; i < data?.length; i++) {
+
+        const { Break, Date, clockIn, clockOut, Employee } = data[i];
 
         const filterdata = users.filter((item) => item?.fullName.toLowerCase() === Employee.toLowerCase());
 
 
-         
-         if(filterdata?.length> 0){
-           
-           let id = filterdata[0]?._id;
-            const ans = await postAttendence({clockInDetail:clockIn , clockOutDetail:clockOut  , id:id , breakTime: Break ,clockInDate:Date});
-          }
-         
 
+        if (filterdata?.length > 0) {
 
-    }
-
-    toast.success("Successfuly uploaded");
-
-    toast.dismiss(toastId);
-
+          let id = filterdata[0]?._id;
+          const ans = await postAttendence({ clockInDetail: clockIn, clockOutDetail: clockOut, id: id, breakTime: Break, clockInDate: Date });
         }
+
+
+
+      }
+
+      toast.success("Successfuly uploaded");
+
+      toast.dismiss(toastId);
+
     }
+  }
 
 
 
@@ -729,7 +729,7 @@ reader.onload=(e)=>{
                         <thead className="text-xs text-gray-700 uppercase dark:text-gray-400">
                           <tr>
                             <th scope="col" className="px-6 py-3 currentText">
-                              Employee  Name 
+                              Employee  Name
                             </th>
                             <th scope="col" className="px-6 py-3 currentText">
                               Department
@@ -801,11 +801,11 @@ reader.onload=(e)=>{
 
                       <div className="relative overflow-x-auto">
                         <table id="table-to-xls" className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                     
+
                           <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                             <tr>
                               <th scope="col" className="px-6 py-3 currentText">
-                                Employee  
+                                Employee
                               </th>
                               <th scope="col" className="px-6 py-3 currentText">
                                 Department
@@ -870,10 +870,10 @@ reader.onload=(e)=>{
                         </table>
 
                         <div className="prevNextWrap">
-            <button className="prebBtN"  onClick={handlePrevPage2} disabled={currentPage2 === 1}>Prev</button>
-            <div className="crrpage">{currentPage2} / {totalPages2}</div>
-            <button className="prebBtN" onClick={handleNextPage2} disabled={currentPage2 === totalPages2}>Next</button>
-          </div>
+                          <button className="prebBtN" onClick={handlePrevPage2} disabled={currentPage2 === 1}>Prev</button>
+                          <div className="crrpage">{currentPage2} / {totalPages2}</div>
+                          <button className="prebBtN" onClick={handleNextPage2} disabled={currentPage2 === totalPages2}>Next</button>
+                        </div>
                       </div>
 
                     )}
@@ -887,7 +887,7 @@ reader.onload=(e)=>{
                       <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                         <tr>
                           <th scope="col" className="px-6 py-3 currentText">
-                            Employee Name 
+                            Employee Name
                           </th>
 
                           <th scope="col" className="px-6 py-3 currentText">
@@ -959,10 +959,10 @@ reader.onload=(e)=>{
                     </table>
 
                     <div className="prevNextWrap">
-            <button className="prebBtN"  onClick={handlePrevPage} disabled={currentPage === 1}>Prev</button>
-            <div className="crrpage">{currentPage} / {totalPages}</div>
-            <button className="prebBtN" onClick={handleNextPage} disabled={currentPage === totalPages}>Next</button>
-          </div>
+                      <button className="prebBtN" onClick={handlePrevPage} disabled={currentPage === 1}>Prev</button>
+                      <div className="crrpage">{currentPage} / {totalPages}</div>
+                      <button className="prebBtN" onClick={handleNextPage} disabled={currentPage === totalPages}>Next</button>
+                    </div>
                   </div>
 
                 )}
@@ -1039,7 +1039,7 @@ reader.onload=(e)=>{
                 )}
 
 
-          {/* <div className="prevNextWrap">
+                {/* <div className="prevNextWrap">
             <button className="prebBtN"  onClick={handlePrevPage} disabled={currentPage === 1}>Prev</button>
             <div className="crrpage">{currentPage} / {totalPages}</div>
             <button className="prebBtN" onClick={handleNextPage} disabled={currentPage === totalPages}>Next</button>
@@ -1080,7 +1080,7 @@ reader.onload=(e)=>{
 
                   <div className="impopbtn">
                     <button onClick={() => setShowImportPop(false)} className="cence"><span>Cancel</span></button>
-                    <button onClick={handleFileSubmit}  className="uplaodin"><span>Upload</span></button>
+                    <button onClick={handleFileSubmit} className="uplaodin"><span>Upload</span></button>
                   </div>
 
                 </div>
@@ -1100,16 +1100,16 @@ reader.onload=(e)=>{
             )
           }
 
-           {/* for dummy excel one  */}
-             <div>
-              {excelData? (
-                <div>show data here </div>
-              ):(
-                <div>
-                  No ffile is uploaded yet 
-                </div>
-              )}
-             </div>
+          {/* for dummy excel one  */}
+          <div>
+            {excelData ? (
+              <div>show data here </div>
+            ) : (
+              <div>
+                No ffile is uploaded yet
+              </div>
+            )}
+          </div>
 
 
 

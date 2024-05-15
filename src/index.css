@@ -47,6 +47,12 @@ body {
   font-family: inter !important;
   font-size: 14px !important;
 }
+.fdf th,
+.fdf td{
+  font-family: inter !important;
+  font-weight: 400 !important;
+  color: #40444B !important;
+}
 .oklo{
   color: #0B56E4 !important;
   font-size: 12px;

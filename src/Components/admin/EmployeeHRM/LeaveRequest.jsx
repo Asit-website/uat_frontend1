@@ -36,7 +36,8 @@ const LeaveRequest = ({
 
   const getData=async()=>{
     let ans = await getUserLeaves();
-    setData(ans.data);
+    const reverseArray = ans?.data?.reverse();
+    setData(reverseArray);
   };
 
   useEffect(()=>{
