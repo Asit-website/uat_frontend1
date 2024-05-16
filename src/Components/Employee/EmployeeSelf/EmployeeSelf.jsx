@@ -224,7 +224,7 @@ const EmployeeSelf = ({ setAlert, pop1, setPop1 }) => {
 
  <div className="reqcahgng">
 
-    <button className="rqbtn"><span>Request Change</span></button>
+    {/* <button className="rqbtn"><span>Request Change</span></button> */}
 
  </div>
 
