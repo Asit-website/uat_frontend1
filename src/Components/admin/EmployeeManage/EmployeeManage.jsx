@@ -179,6 +179,17 @@ const EmployeeManage = ({
 
   const getUser = async () => {
     const ans = await getUsers(id);
+
+    const { EmployeeType } = ans?.data || {};
+
+    if (EmployeeType) {
+      const index = item.findIndex(i => i.title === EmployeeType);
+      if (index !== -1) {
+        setCurrEmp(index);
+      }
+    }
+
+      
     setValue1({
       status: false,
       fullName: ans.data.fullName,
