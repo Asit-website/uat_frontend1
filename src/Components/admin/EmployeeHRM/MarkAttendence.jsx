@@ -87,9 +87,14 @@ const MarkAttendance = ({
   };
 
   const parseDate = (dateStr) => {
-    console.log("ste ",dateStr);
-    const [day, month, year] = dateStr?.split('/')?.map(Number);
-    return new Date(year, month - 1, day); // Month is 0-indexed in Date
+     if(dateStr !== null){
+
+       const [day, month, year] = dateStr?.split('/')?.map(Number);
+       return new Date(year, month - 1, day); // Month is 0-indexed in Date
+      }
+      else {
+        return dateStr;
+      }
   };
 
   const getData = async () => {
@@ -98,6 +103,7 @@ const MarkAttendance = ({
     const ans1 = await allEmployee();
     setUsers(ans1?.emp);
 
+     console.log("ansss data ",ans?.data);
     const sortedArray = ans?.data.sort((a, b) => parseDate(b?.Date) - parseDate(a?.Date));
 
     setData1(sortedArray);
