@@ -30,6 +30,8 @@ const EmployeeSelf = ({ setAlert, pop1, setPop1 }) => {
     
    }
 
+   console.log('user1 ',user1);
+
    useEffect(()=>{
   fetchUserDetails();
    },[])
@@ -161,20 +163,8 @@ const EmployeeSelf = ({ setAlert, pop1, setPop1 }) => {
         user1?.document?.map((item ,index)=>(
             <div className="singleDoc" key={index}>
 
-                    {/* left */}
-                    <div className="sidocLeft">
-
-                <img src={doc} alt="" />
-
-                <div className="ffwrap">
-                    <p className="ff"> Tech requirment :</p>
-                     <p className="dd">200KB</p>
-                </div>
-
-                    </div>
-
-                    {/* right  */}
-                    <p className="singDocRight">Jan 4, 2024</p>
+                        <h2>{item?.name}</h2>
+                  <img src={item?.url} className="docuImgages" alt="" />
 
             </div>
         ))

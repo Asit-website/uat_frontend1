@@ -127,6 +127,8 @@ const EmployeeDash = ({ setAlert, pop1, setPop1 }) => {
     }
   };
 
+  
+
   const clockIn = async () => {
     setLoading(true);
     let t = localStorage.getItem("clock-status");
@@ -143,10 +145,16 @@ const EmployeeDash = ({ setAlert, pop1, setPop1 }) => {
     localStorage.setItem("date1", new Date().toLocaleDateString("en-GB"));
 
     if (!t) {
+
       let ans = await postActivity({
         clockIn: localStorage.getItem("clock-in")
           ? localStorage.getItem("clock-in")
-          : new Date().getTime(),
+          :      new Date().toLocaleTimeString("en-US", {
+            hour: "numeric",
+            minute: "2-digit",
+            second: "2-digit",
+            hour12: true,
+          }),
         clockOut: 0,
         late: 0,
         date1: localStorage.getItem("date1"),
@@ -154,13 +162,14 @@ const EmployeeDash = ({ setAlert, pop1, setPop1 }) => {
         total: 0,
         message: "",
       });
-
-      localStorage.setItem("clock-in", new Date().getTime());
+      localStorage.setItem("clock-in", new Date().toLocaleTimeString("en-US", {
+        hour: "numeric",
+        minute: "2-digit",
+        second: "2-digit",
+        hour12: true,
+      }));
       localStorage.setItem("clock-status", "break");
 
-      // for setting todat date
-      //   const today = new Date();
-      // const currentDate = `${today.getDate()}-${today.getMonth() + 1}-${today.getFullYear()}`;
       let currentDate = new Date().toLocaleDateString("en-GB");
       localStorage.setItem("clock-in-date", currentDate);
 
@@ -177,7 +186,10 @@ const EmployeeDash = ({ setAlert, pop1, setPop1 }) => {
       tc4 = setInterval(() => {
         setClock(++clock);
       }, 1000);
-    } else {
+    } 
+    
+    else {
+
       if (t === "break") {
         localStorage.setItem("break-time", new Date().getTime());
         localStorage.setItem("clock-status", "resume");
@@ -197,7 +209,8 @@ const EmployeeDash = ({ setAlert, pop1, setPop1 }) => {
         tc3 = setInterval(() => {
           setBreakClock(++t3);
         }, 1000);
-      } else if (t === "resume") {
+      }
+       else if (t === "resume") {
         let t1 = localStorage.getItem("break-time");
         if (t1) {
           let t2 = localStorage.getItem("break-seconds");
@@ -298,7 +311,7 @@ const EmployeeDash = ({ setAlert, pop1, setPop1 }) => {
     const clockInDate = localStorage.getItem("clock-in-date");
 
     const attendence = await postAttendence({
-      clockInDetail: localStorage.getItem("clockInTime"),
+      clockInDetail: localStorage.getItem("clock-in"),
       breakTime: differenceText,
       clockOutDetail: localStorage.getItem("clockOutTime"),
       id: userData?._id,
@@ -397,6 +410,7 @@ toast.dismiss(toastId);
   useEffect(()=>{
     getAnnoucement();
   },[])
+
 
   return (
     <>

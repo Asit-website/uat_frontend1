@@ -48,7 +48,8 @@ const EmployeeManagement = ({
 
   const [filters , setFilters] = useState({
     department:"Department",
-    designation:"Designation"
+    designation:"Designation" , 
+    employeeType:"Employee Type"
   })
 
   const [department,setDepartment] = useState([]);
@@ -116,6 +117,7 @@ const EmployeeManagement = ({
       ...prev ,
       [name]: value
      }))
+
   }
   
   useEffect(() => {
@@ -139,21 +141,24 @@ const EmployeeManagement = ({
           setData(filterData);
           
     }
+    
      else if(filters.department === "Department" && filters.designation !== "Designation"){
       const filterData = completeData.filter((data)=> data.designation === filters.designation);
 
       setData(filterData);
      }
+
      else if(filters.department !== "Department" && filters.designation !== "Designation") {
       const filterData = completeData.filter((data)=> (data.designation === filters.designation) && (data.department === filters.department));
 
       setData(filterData);
      }
+
      else{
        setData([...allData]);
      }
 
-  },[filters.department , filters.designation])
+  },[filters.department , filters.designation , filters.employeeType])
 
 
   return (
@@ -222,8 +227,11 @@ const EmployeeManagement = ({
                 <p className="line" />
 
 
-                <select name="" id="">
+                <select name="employeeType" onChange={filterHandler} id="">
                   <option value="Employee Type">Employee Type</option>
+                  <option value="Full-time Employees">Full-time Employees</option>
+                  <option value="Intern Employees">Intern Employees</option>
+                  <option value="Freelancer Employees">Freelancer Employees</option>
                 </select>
 
 

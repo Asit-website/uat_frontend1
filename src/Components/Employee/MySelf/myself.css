@@ -96,17 +96,32 @@ gap: 18px;
 .allFristDe3tail2{
     width: 100%;
     display: flex;
-    flex-direction: column;
-    gap: 36px;
+    gap: 24px;
 
 }
 
 .singleDoc{
+
     max-width: 500px;
     display: flex;
-    align-items: center;
-    justify-content: space-between;
+    flex-direction: column;
+    gap: 20px;
 }
+.singleDoc h2{
+
+    font-family: Inter;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 24px;
+    letter-spacing: 0.0015em;
+    text-align: left;
+color: #1B2533;    
+}
+.singleDoc img{
+ max-width: 200px;
+ max-height: 200px;  
+}
+
 
 .sidocLeft{
     display: flex;

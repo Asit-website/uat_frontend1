@@ -199,7 +199,7 @@ const MainState = (props) => {
       const data = await get(`${baseUrl}/user/getActiveUsersCount?userId=${userId}`, true);
       console.log(data);
       return data;
-   };
+   }; 
 
    const getEmployees = async (userId) => {
       const data = await get(`${baseUrl}/hr/getUsers?userId=${userId}`, true);

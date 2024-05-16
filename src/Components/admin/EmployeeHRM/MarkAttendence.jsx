@@ -86,16 +86,25 @@ const MarkAttendance = ({
     return allDash?.slice(startIndex, endIndex);
   };
 
+  const parseDate = (dateStr) => {
+    console.log("ste ",dateStr);
+    const [day, month, year] = dateStr?.split('/')?.map(Number);
+    return new Date(year, month - 1, day); // Month is 0-indexed in Date
+  };
 
   const getData = async () => {
     let ans = await getAllActivities();
     setAllDash(ans?.data);
     const ans1 = await allEmployee();
     setUsers(ans1?.emp);
-    setData1(ans?.data);
+
+    const sortedArray = ans?.data.sort((a, b) => parseDate(b?.Date) - parseDate(a?.Date));
+
+    setData1(sortedArray);
     const ans2 = await getDepartments();
     setDepartments(ans2.data);
   };
+
 
   var [selectedOption, setSelectedOption] = useState("daily");
   const [date, setDate] = useState('');
@@ -214,7 +223,6 @@ const MarkAttendance = ({
   const currentPageData = getCurrentPageData();
 
   const currentPageData2 = getCurrentPageData2();
-
 
   const [showImportPop, setShowImportPop] = useState(false);
 
@@ -1099,19 +1107,6 @@ const MarkAttendance = ({
               </div>
             )
           }
-
-          {/* for dummy excel one  */}
-          <div>
-            {excelData ? (
-              <div>show data here </div>
-            ) : (
-              <div>
-                No ffile is uploaded yet
-              </div>
-            )}
-          </div>
-
-
 
 
         </div>

@@ -15,10 +15,10 @@ const item = [
     title: "Full-time Employees",
   },
   {
-    title: "Part-time Employees",
+    title: "Intern Employees",
   },
   {
-    title: "Trainee Employees",
+    title: "Freelancer Employees",
   },
 ];
 
@@ -504,8 +504,6 @@ const EmployeeManage = ({
     toast.dismiss(toastId);
   };
 
-
-
   return (
     <>
       <div className="employee-dash h-full">
@@ -572,6 +570,7 @@ const EmployeeManage = ({
                       <div className="form-section">
                         <div>
                           <div className="flex flex-col emmanformwrap1">
+                            
                             <label>
                               <p>Full Name</p>
                               <input
@@ -701,53 +700,15 @@ const EmployeeManage = ({
                                 value={value1?.joiningDate}
                                 disabled={value1.status}
                               />
-                            </label>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* <div className="admin-form2"> */}
-
-                    {/* <div className="basic-information">
-                        <div className="basics">
-                          <h3>Basic Information</h3>
-                          <img src={upper} alt="" />
-                        </div>
-                        <hr className="upper" />
-                        <div className="form2-class">
-                          <div className=" w-full mt-2">
-                            <div className="flex w-full">
-                              <div className="mb-6 w-full try">
-                                <label
-                                  for="gmail"
-                                  className="block mb-0  font-medium "
-                                >
-                                  Company Gmail
-                                </label>
-                                <input
-                                  type="email"
-                                  id="gmail"
-                                  className=" w-full rounded-lg"
-                                  // required
-                                  // name="email"
-                                  name="gmail"
-                                  // value={value2?.email}
-                                  value={value2?.gmail}
-                                  onChange={(e) => {
-                                    handleChange(e, "form2");
-                                  }}
-                                  disabled={value2.status}
-                                />
-                              </div>
-                              <div className="mb-6 w-full try">
+                            </label>                             
+                              
                                 <label
                                   for="email1"
                                   className="block mb-0  font-medium"
                                 >
-                                  Personal Email Address
-                                </label>
-                                <input
+
+                                 <p> Personal Email Address</p>
+                                 <input
                                   type="email"
                                   id="email1"
                                   className="rounded-lg  w-full"
@@ -759,37 +720,15 @@ const EmployeeManage = ({
                                   }}
                                   disabled={value2.status}
                                 />
-                              </div>
-                              <div className="mb-6 w-full try">
-                                <label
-                                  for="mobile"
-                                  className="block mb-0 font-medium"
-                                >
-                                  Mobile Number*
                                 </label>
-                                <input
-                                  type="text"
-                                  id="mobile"
-                                  className="rounded-lg  w-full"
-                                  // required
-                                  name="mobile"
-                                  value={value2?.mobile}
-                                  onChange={(e) => {
-                                    handleChange(e, "form2");
-                                  }}
-                                  disabled={value2.status}
-                                />
-                              </div>
-                            </div>
-                            <div className="flex w-full">
-                              <div className="mb-6 w-full try">
+                               
+                               
                                 <label
                                   for="gender"
                                   className="block mb-0  font-medium "
                                 >
-                                  Gender
-                                </label>
-                                <select
+                                 <p> Gender</p>
+                                 <select
                                   onChange={(e) => {
                                     handleChange(e, "form2");
                                   }}
@@ -807,35 +746,16 @@ const EmployeeManage = ({
                                   }}
                                   disabled={value2.status}
                                 </select>
-                              </div>
-                              <div className="mb-6 w-full try">
-                                <label
-                                  for="dob"
-                                  className="block mb-0  font-medium"
-                                >
-                                  Date of Birth
                                 </label>
-                                <input
-                                  type="text"
-                                  id="dob"
-                                  className="rounded-lg  w-full"
-                                  // required
-                                  name="dob"
-                                  value={value2?.dob}
-                                  onChange={(e) => {
-                                    handleChange(e, "form2");
-                                  }}
-                                  disabled={value2.status}
-                                />
-                              </div>
-                              <div className="mb-6 w-full try">
                               
-                              </div>
-                            </div>
+                              
+
                           </div>
                         </div>
-                      </div> */}
+                      </div>
+                    </div>
 
+                   
                     <div className="basic-information mt-7">
                       <div className="basics">
                         <h3>Address Detail</h3>
@@ -909,6 +829,30 @@ const EmployeeManage = ({
                             </div>
                           </div>
 
+                        
+
+                          <div className="flex w-full">
+                            <div className="mb-6 w-full try">
+                              <label
+                                for="currentAddress"
+                                className="block mb-0  font-medium "
+                              >
+                               Mobile Number*
+                              </label>
+                              <input
+                                  type="number"
+                                  id="mobile"
+                                  className="rounded-lg  w-full"
+                                  // required
+                                  name="mobile"
+                                  value={value2?.mobile}
+                                  onChange={(e) => {
+                                    handleChange(e, "form2");
+                                  }}
+                                  disabled={value2.status}
+                                />
+                            </div>
+                          </div>
                           <div className="flex w-full">
                             <div className="mb-6 w-full try">
                               <label
@@ -1209,6 +1153,7 @@ const EmployeeManage = ({
                               />
                             </div>
                           </div>
+
                         </div>
                       </div>
                     </div>
@@ -1923,214 +1868,3 @@ const EmployeeManage = ({
 };
 
 export default EmployeeManage;
-
-{
-  /* <div className="bg-white border-none ">
-                  <div className=" p-3 pl-9  ">
-                    <a href="#">
-                      <h5 className="text-xl font-bold  ">Personal Details</h5>
-                    </a>
-                  </div>
-
-                  <hr />
-
-                  <div className=" p-3 pl-7 pr-7 ">
-                    <div className="flex w-full ">
-                      <div className=" w-full try">
-                        <div className="pb-4 w-full try">
-                          <label for="name-input" className="block  text-lg font-bold ">Name</label>
-                          <input type="text" id="name-input" className=" border border-gray-300 text-gray-900 text-sm rounded-m  block w-full p-2.5 dark:placeholder-gray-900 " placeholder="First Name" />
-                        </div>
-                        <div className="pb-5 w-full try">
-                          <label for="email-input" className="block  text-lg font-bold ">Email Address</label>
-                          <input type="email" id="email-input" className=" border border-gray-300 text-gray-900 text-sm rounded-m  block w-full p-2.5 dark:placeholder-gray-900 " placeholder="Enter Email" />
-                        </div>
-
-                        <div className="pb-5 w-full try">
-                          <label for="comemail-input" className="block  text-lg font-bold ">Company email id</label>
-                          <input type="email" id="comemail-input" className=" border border-gray-300 text-gray-900 text-sm rounded-m  block w-full p-2.5 dark:placeholder-gray-900 " placeholder="Enter Company Email" />
-                        </div>
-                        <div className="pb-2 w-full try">
-                          <label for="gender-input" className="block  text-lg font-bold ">Gender</label>
-                          <div className="flex hiiihih">
-                            <div className="flex items-center hiiihih">
-                              <input id="gender-input" type="checkbox" value="" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
-                              male
-                            </div>
-                            <div className="flex items-center hiiihih">
-                              <input id="gender-input" type="checkbox" value="" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-50 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
-                              Female
-                            </div>
-
-                          </div>
-                        </div>
-                      </div>
-                      <div className=" w-full try ">
-                        <div className="pb-4 w-full try">
-                          <label for="namelast-input" className="block  text-lg font-bold ">Last Name</label>
-                          <input type="text" id="namelast-input" className=" border border-gray-300 text-gray-900 text-sm rounded-m  block w-full p-2.5 dark:placeholder-gray-900 " placeholder="Last Name" />
-                        </div>
-                        <div className="pb-2 w-full try">
-                          <label for="peraddress-input" className="block  text-lg font-bold ">Permanent Address</label>
-                          <input type="text" id="peraddress-input" className=" border border-gray-300 text-gray-900 text-sm rounded-m  block w-full p-2.5 dark:placeholder-gray-900 " placeholder="Enter Address" />
-                        </div>
-
-
-                      </div>
-                      <div className=" w-full try ">
-                        <div className="pb-4 w-full try">
-                          <label for="phone-input" className="block  text-lg font-bold ">Phone</label>
-                          <input type="number" id="phone-input" className=" border border-gray-300 text-gray-900 text-sm rounded-m  block w-full p-2.5 dark:placeholder-gray-900 " placeholder="Enter Number" />
-                        </div>
-                        <div className="pb-2 w-full try">
-                          <label for="temaddress-input" className="block  text-lg font-bold ">Temporary Address</label>
-                          <input type="text" id="temaddress-input" className=" border border-gray-300 text-gray-900 text-sm rounded-m  block w-full p-2.5 dark:placeholder-gray-900 " placeholder="Enter Address" />
-                        </div>
-
-                      </div>
-                    </div>
-
-                  </div>
-                </div>
-
-                <div className="bg-white border-none mt-7 ">
-                  <div className=" p-3 pl-9  ">
-                    <a href="#">
-                      <h5 className="text-xl font-bold  ">Company Details</h5>
-                    </a>
-                  </div>
-
-                  <hr />
-
-                  <div className=" p-3 pl-7 pr-7 ">
-                    <div className="flex w-full ">
-                      <div className=" w-full try">
-                        <div className="pb-4 w-full try">
-                          <label for="emailid-input" className="block  text-lg font-bold ">Email id </label>
-                          <input type="email" id="emailid-input" className=" border border-gray-300 text-gray-900 text-sm rounded-m  block w-full p-2.5 dark:placeholder-gray-900 " placeholder="Enter Email id" />
-                        </div>
-                        <div className="pb-4 w-full try">
-                          <form className="max-w-sm mx-auto">
-                            <label for="Department" className="block text-lg font-bold ">Department</label>
-                            <select id="Department" className="border border-gray-300 text-gray-900 text-sm rounded  block w-full p-2.5 dark:placeholder-gray-900">
-                              <option selected >Select Department</option>
-                              <option value="Web">Web</option>
-                              {
-                                departments?.map((e,index)=>{
-                                  return <option key={index} value={e?.name}>{e?.name}</option>
-                                })
-                              }
-                              
-                            </select>
-                          </form>
-                        </div>
-
-
-
-                      </div>
-                      <div className=" w-full try ">
-                        <div className="pb-4 w-full try">
-                          <label for="joiningdate-input" className="block  text-lg font-bold ">Date of Joining</label>
-                          <input type="date" id="joiningdate-input" className=" border border-gray-300 text-gray-900 text-sm rounded-m  block w-full p-2.5 dark:placeholder-gray-900 " placeholder="Last Name" />
-                        </div>
-                        <div className="pb-4 w-full try">
-                          <form className="max-w-sm mx-auto">
-                            <label for="Designation" className="block  text-lg font-bold ">Designation</label>
-                            <select id="Designation" className="border border-gray-300 text-gray-900 text-sm rounded  block w-full p-2.5 dark:placeholder-gray-900">
-                              <option selected >Select Designation</option>
-                              {
-                                designations?.map((e,index)=>{
-                                  return <option key={index} value={e?.name}>{e?.name}</option>
-                                })
-                              }
-                            </select>
-                          </form>
-                        </div>
-
-
-
-                      </div>
-                      <div className=" w-full try ">
-                        <div className="pb-4 w-full try">
-                          <form className="max-w-sm mx-auto">
-                            <label for="Branch" className="block  text-lg font-bold ">Branch</label>
-                            <select className="border border-gray-300 text-gray-900 text-sm rounded  block w-full p-2.5 dark:placeholder-gray-900">
-                              <option >Select Branch</option>
-                              {branches?.map((e, index) => {
-                                return <option key={index} value={e?.name}>{e?.name}</option>
-                              })}
-                            </select>
-                          </form>
-                        </div>
-                        <div className="pb-2 w-full try">
-                          <label for="salary-input" className="block  text-lg font-bold ">salary</label>
-                          <input type="number" id="salary-input" className=" border border-gray-300 text-gray-900 text-sm rounded-m  block w-full p-2.5 dark:placeholder-gray-900 " placeholder="Enter Salary" />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                </div>
-
-                <div className="bg-white border-none mt-7 ">
-                  <div className=" p-3 pl-9  ">
-                    <a href="#">
-                      <h5 className="text-xl font-bold  ">Document Details </h5>
-                    </a>
-                  </div>
-                  <hr />
-                  <div className=" p-3 pl-7 pr-7 ">
-                    <div className="flex w-full ">
-                      <div className=" w-full try">
-                        <div className="pb-4 w-full try">
-                          <label for="PanNumber-input" className="block  text-lg font-bold ">Pan Number</label>
-                          <input type="number" id="PanNumber-input" className=" border border-gray-300 text-gray-900 text-sm rounded-m  block w-full p-2.5 dark:placeholder-gray-900 " placeholder="Enter Pan Number" />
-                        </div>
-                        <div className="pb-5 w-full try">
-                          <label for="penfile-input" className="block  text-lg font-bold "></label>
-                          <input type="file" id="penfile-input" className=" border border-gray-300 text-gray-900 text-sm rounded-m  block w-full p-2.5 dark:placeholder-gray-900 " placeholder="Upload Pan Card" />
-                        </div>
-                        <div className="pb-5 w-full try">
-                          <label for="Cancelfile-input" className="block  text-lg font-bold "></label>
-                          <input type="file" id="Cancelfile-input" className=" border border-gray-300 text-gray-900 text-sm rounded-m  block w-full p-2.5 dark:placeholder-gray-900 " placeholder="Cancel Check Upload" />
-                        </div>
-
-
-                      </div>
-                      <div className=" w-full try ">
-                        <div className="pb-5 w-full try">
-                          <label for="Aadharcard-input" className="block  text-lg font-bold ">Aadhar card </label>
-                          <input type="number" id="Aadharcard-input" className=" border border-gray-300 text-gray-900 text-sm rounded-m  block w-full p-2.5 dark:placeholder-gray-900 " placeholder="Enter number" />
-                        </div>
-                        <div className="pb-5 w-full try">
-                          <label for="Aadharfile-input" className="block  text-lg font-bold "></label>
-                          <input type="file" id="Aadharfile-input" className=" border border-gray-300 text-gray-900 text-sm rounded-m  block w-full p-2.5 dark:placeholder-gray-900 " placeholder="Upload Aadhar Card" />
-                        </div>
-                        <div className="pb-5 w-full try">
-                          <label for="12file-input" className="block  text-lg font-bold "></label>
-                          <input type="file" id="12file-input" className=" border border-gray-300 text-gray-900 text-sm rounded-m  block w-full p-2.5 dark:placeholder-gray-900 " placeholder="12th  Certificate" />
-                        </div>
-
-
-                      </div>
-                      <div className=" w-full try ">
-                        <div className="pb-5 w-full try">
-                          <label for="Validation-input" className="block  text-lg font-bold ">Validation Of Pan Number</label>
-                          <input type="number" id="Validation-input" className=" border border-gray-300 text-gray-900 text-sm rounded-m  block w-full p-2.5 dark:placeholder-gray-900 " />
-                        </div>
-                        <div className="pb-5 w-full try">
-                          <label for="10file-input" className="block  text-lg font-bold "></label>
-                          <input type="file" id="10file-input" className=" border border-gray-300 text-gray-900 text-sm rounded-m  block w-full p-2.5 dark:placeholder-gray-900 " placeholder="10th Certificate" />
-                        </div>
-                        <div className="pb-5 w-full try">
-                          <label for="Graduationfile-input" className="block  text-lg font-bold "></label>
-                          <input type="file" id="Graduationfile-input" className=" border border-gray-300 text-gray-900 text-sm rounded-m  block w-full p-2.5 dark:placeholder-gray-900 " placeholder="Graduation Certificate" />
-                        </div>
-
-                      </div>
-                    </div>
-
-                  </div>
-
-                </div> */
-}
