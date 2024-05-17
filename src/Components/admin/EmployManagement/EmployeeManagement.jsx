@@ -130,36 +130,19 @@ const EmployeeManagement = ({
     getData1(todayDate);
   }, []);
 
-  useEffect(()=>{
-
-
+  useEffect(() => {
     const completeData = [...allData];
 
-    if(filters.department !== "Department" && filters.designation === "Designation" ){
-         const filterData = completeData.filter((data)=> data.department === filters.department);
+    const filterData = completeData.filter((data) => {
+        return (
+            (filters.department === "Department" || data.department === filters.department) &&
+            (filters.designation === "Designation" || data.designation === filters.designation) &&
+            (filters.employeeType === "Employee Type" || data.EmployeeType === filters.employeeType)
+        );
+    });
 
-          setData(filterData);
-          
-    }
-    
-     else if(filters.department === "Department" && filters.designation !== "Designation"){
-      const filterData = completeData.filter((data)=> data.designation === filters.designation);
-
-      setData(filterData);
-     }
-
-     else if(filters.department !== "Department" && filters.designation !== "Designation") {
-      const filterData = completeData.filter((data)=> (data.designation === filters.designation) && (data.department === filters.department));
-
-      setData(filterData);
-     }
-
-     else{
-       setData([...allData]);
-     }
-
-  },[filters.department , filters.designation , filters.employeeType])
-
+    setData(filterData);
+}, [filters.department, filters.designation, filters.employeeType]);
 
   return (
     <>

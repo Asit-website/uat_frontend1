@@ -85,6 +85,7 @@ text-align: left;
     height: fit-content;
     background-color: rgba(0, 0, 0, 0.3);
  display: flex;
+ padding:50px 0px;
  align-items: center;
  justify-content: center;
 }

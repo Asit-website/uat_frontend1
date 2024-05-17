@@ -1659,6 +1659,26 @@ const MainState = (props) => {
       return data;
    
    }
+    const postDocSetup = async({name , requiredField})=>{
+      const data = await post(`${baseUrl}/system/createDocSetup`, {name , requiredField }, true);
+      return data;
+   
+   }
+    const updateDocSetup = async({id , name , requiredField})=>{
+      const data = await post(`${baseUrl}/system/updateDocSetup/${id}`, {name , requiredField }, true);
+      return data;
+   
+   }
+    const deleteDocSetup = async({id})=>{
+      const data = await deleteReq(`${baseUrl}/system/deleteDocSetup/${id}`, true);
+      return data;
+   
+   }
+   const fetchAllDocs = async()=>{
+      const data = await get(`${baseUrl}/system/fetchAllDocs`, true);
+      return data;
+    }
+
     const deleteAttendence = async(id)=>{
       const data = await deleteReq(`${baseUrl}/clock/deleteAttendence/${id}`, true);
       return data;
@@ -1672,7 +1692,11 @@ const MainState = (props) => {
          editAllowance, commisionDelteHandler,createLoan , editLoanApi,
          getTotalLeavesCount, uploadDocuments, createAnnouncement, deleteAnnouncement, updateAnnouncements, fetchAnnoucement, deleteAnnouncements, getEmp, allEmployeebyDep, notificationGet,
          acceptLeave, rejectLeave,
+         updateDocSetup,
+         fetchAllDocs,
          updateAttendance,
+         deleteDocSetup,
+         postDocSetup , 
          deleteAttendence,
          postNotification, fetchUserNotify,
          togglePayslip,

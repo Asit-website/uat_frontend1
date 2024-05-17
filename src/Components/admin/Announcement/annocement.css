@@ -198,20 +198,7 @@ color: #293240;
     
 }
 
-.annFormwrap{
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    width: 100%;
-    min-height:100vh;
-    height: fit-content;
-    background-color: rgba(0, 0, 0, 0.3);
- display: flex;
- align-items: center;
- justify-content: center;
-}
+
 
 .openform{
     display: flex;

@@ -15,6 +15,8 @@ import hub3 from "../../images/hub3.png"
 import frame1 from "../../images/Frame 9688.png"
 import cross1 from "../../images/cross1.png"
 import toast from "react-hot-toast";
+import plus from "../../images/pluss.png"
+import Selectmultidropdown from "./MultiSelect";
 
 const sidebarItem = [
   {
@@ -77,7 +79,7 @@ const sidebarItem = [
 ];
 
 const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
-  const { user, getBranchs, postBranch, updateBranch, deleteBranch, getDepartments, postDepartment, updateDepartment, deleteDepartment, getDesignations, postDesignation, updateDesignation, deleteDesignation, postLeaveType, updateLeaveType, getLeaveTypes, deleteLeaveType } = useMain();
+  const { user, getBranchs, postBranch, updateBranch, deleteBranch, getDepartments, postDepartment, updateDepartment, deleteDepartment, getDesignations, postDesignation, updateDesignation, deleteDesignation, postLeaveType, updateLeaveType, getLeaveTypes, deleteLeaveType , postDocSetup  , fetchAllDocs , deleteDocSetup , updateDocSetup} = useMain();
 
   const [open, setOpen] = useState(0);
 
@@ -87,10 +89,6 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
     display: popup ? "block" : "none",
   };
 
-  useEffect(() => {
-    // getData();
-  }, []);
-
   const [popup1, setPopup1] = useState(false);
   const [popup11, setPopup11] = useState(false);
   const [popup2, setPopup2] = useState(false);
@@ -99,6 +97,8 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
   const [popup31, setPopup31] = useState(false);
   const [popup4, setPopup4] = useState(false);
   const [popup41, setPopup41] = useState(false);
+
+  const [docPop , setDocPop] = useState(false);
 
   const [id, setId] = useState('');
   const [branches, setBranches] = useState([]);
@@ -355,6 +355,90 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
 
     toast.dismiss(toastId);
   };
+
+  const [allDocs , setAllDocs] = useState([]);
+
+  const [docData , setDocdata] = useState({
+    id: "",
+    name:"" , 
+    requiredField:[]
+  })
+  const getDocs = async()=>{
+    const ans = await fetchAllDocs();
+    setAllDocs(ans?.data);
+     }
+
+ const handleDocSave = async()=>{
+   const  toastId = toast.loading("Loding...");
+   try{
+
+    const ans = await postDocSetup({name: docData?.name , requiredField:docData?.requiredField});
+   if(ans?.status){
+    toast.success("Successfuly created ");
+    setDocPop(false);
+    setDocdata({
+      name:"" , 
+      requiredField:[]
+    })
+    setIsUpdate(false);
+
+
+    getDocs();
+
+   }
+
+   } catch(error){
+    console.log(error);
+    toast.error("Something went wrong");
+   }
+
+   toast.dismiss(toastId);
+ }
+
+ const deleteDoc = async(id)=>{
+       const toastId = toast.loading("Loading...");
+
+       const ans = await deleteDocSetup({id});
+         if(ans?.status){
+          toast.success("Successfuly deleted");
+          getDocs();
+         }
+         else {
+          toast.error("Something went wrong");
+         }
+
+         toast.dismiss(toastId);
+ }
+
+ const [isUpdate , setIsUpdate] = useState(false);
+
+ const docUpdateHandler = async()=>{
+    const toastId = toast.loading("Loading...");
+
+    const ans = await updateDocSetup({id:docData?.id , name: docData?.name , requiredField: docData?.requiredField});
+
+    if(ans?.status){
+      toast.success("Successfuly updated");
+      setDocPop(false);
+    setDocdata({
+      name:"" , 
+      requiredField:[]
+    })
+
+    getDocs();
+    setIsUpdate(false);
+    }
+    else {
+      toast.error("Something went wrong ");
+    }
+
+    toast.dismiss(toastId);
+     
+ }
+
+ useEffect(()=>{
+    getDocs();
+ },[])
 
   return (
     <>
@@ -638,6 +722,100 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
               
                 </div>
 
+
+                 <div className="docSetupWrap">
+
+                     <nav>
+                      <h2>Documents Type</h2>
+                      <button onClick={()=>setDocPop(true)}><img src={plus} alt="" /> <span>Add New</span></button>
+
+                     </nav>
+
+                     <div className="hrmsystemsetup-leftmenu">
+                      <div className="hrmsystemsetup-container">
+
+                        <div className="hrmsystemsetup-pagination">
+                               <img src={frame1} alt="" />
+                              <span>Documents Type</span>
+                       
+                        </div>
+
+                        <div className="relative overflow-x-auto">
+
+                          <table className="w-full table3 text-left text-[#060606]">
+
+                            <thead className=" uppercase text-[#060606]">
+                              <tr>
+
+                                    <th   scope="col" className="px-6 tabl3had py-3" > Documents   </th>
+                                    <th   scope="col" className="px-6 tabl3had py-3" > Required Field   </th>
+                                    <th   scope="col" className="px-6 tabl3had py-3" > Action   </th>
+                                  
+                              </tr>
+                            </thead>
+
+                            <tbody>
+
+ {
+  allDocs?.map((item , index)=>(
+    <tr  className="bg-white " key={index}>
+
+    <td className="px-6 py-4 tabl3Titl4">{item?.name} </td>
+
+
+    <td className="px-6 py-4">
+      
+    {item?.requiredField?.map((fi , index)=>(
+           
+           <div className="px-6 py-4 requiFild" key={index}> <span>{fi}</span> </div>
+
+         ))}
+
+       </td>
+
+        
+    <td className="px-6 py-4 flex hrmActions">
+      <img
+        className={'cursor-pointer'}
+
+         onClick={()=>{
+          setDocPop(true);
+          setDocdata({
+            name: item?.name , 
+             requiredField: item?.requiredField ,
+             id: item?._id
+          })
+          setIsUpdate(true);
+         }
+
+}
+        src={edited}
+        alt=""
+      />
+      <img
+        className="cursor-pointer"
+        onClick={()=>{
+          deleteDoc(item?._id);
+        }}
+        src={deleted}
+        alt=""
+      />
+    </td>
+
+  </tr>
+  ))
+ }
+                    
+                            </tbody>
+
+                          </table>
+                        </div>
+
+                      </div>
+                    </div>
+
+                 </div>
+
                 <>
               
                   {/* Main modal */}
@@ -723,8 +901,6 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
 
                 </>
 
-               
-
               </div>
             </div>
           </div>
@@ -765,6 +941,84 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
                 </button>
 
                 <button className="cencel" onClick={() => setPopup1(false)}>
+                  <span>Cancel</span>
+                </button>
+              </div>
+
+            </div>
+
+          </div>
+        )}
+
+        {docPop && (
+          <div className="allPopupWrap">
+
+            <div className="popup1 pono10">
+
+                      <div className="popNav">
+
+              <h2>Create New Document</h2>
+              <img onClick={() => {
+                setDocPop(false);
+                setIsUpdate(false);
+                 setDocdata({
+                  name:"" , 
+                  requiredField:[]
+                })
+              }
+              } src={cross1} alt="" />
+
+                      </div>
+              <hr />
+
+              <label>
+                <p className="popTitl">Document Name</p>
+                <input
+                
+                  type="text"
+                  name="name"
+                   
+                  onChange={(e)=>{
+                    setDocdata((prev)=>({
+                      ...prev ,
+                      name:e.target.value
+                    }))
+                  }}
+                  value={docData.name}
+                  
+                />
+              </label>
+
+              <label>
+                <p className="popTitl">Required Field</p>
+                <Selectmultidropdown setDocdata={setDocdata} docData={docData} />
+              </label>
+
+
+              <div className="btnWrap">
+            
+                <button className="create" onClick={
+                  ()=>{
+                     if(isUpdate){
+                      docUpdateHandler();
+                     }
+                     else {
+                      handleDocSave();
+                     }
+                  } 
+                    }>
+                  <span>{isUpdate ? "Update":"Save"}</span>
+                </button>
+
+                <button className="cencel" onClick={() => {
+                setDocPop(false);
+                setIsUpdate(false);
+                 setDocdata({
+                  name:"" , 
+                  requiredField:[]
+                })
+              }
+              }>
                   <span>Cancel</span>
                 </button>
               </div>

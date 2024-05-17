@@ -128,7 +128,6 @@ const EmployeeDash = ({ setAlert, pop1, setPop1 }) => {
   };
 
   
-
   const clockIn = async () => {
     setLoading(true);
     let t = localStorage.getItem("clock-status");
@@ -155,6 +154,7 @@ const EmployeeDash = ({ setAlert, pop1, setPop1 }) => {
             second: "2-digit",
             hour12: true,
           }),
+
         clockOut: 0,
         late: 0,
         date1: localStorage.getItem("date1"),
@@ -162,6 +162,7 @@ const EmployeeDash = ({ setAlert, pop1, setPop1 }) => {
         total: 0,
         message: "",
       });
+
       localStorage.setItem("clock-in", new Date().toLocaleTimeString("en-US", {
         hour: "numeric",
         minute: "2-digit",
