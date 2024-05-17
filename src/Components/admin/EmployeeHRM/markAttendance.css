@@ -389,3 +389,136 @@ color: #666D76;
         letter-spacing: 0.005em;
 color: white;        
     }
+
+    .attaedipop{
+        position: absolute;
+        z-index: 100;
+        display: flex;
+        flex-direction: column;
+        width: 161px;
+height: 104px;
+border-radius: 8px ;
+background: #FFFFFF;
+border: 1px solid #E3E3E3;
+box-shadow: 0px 4px 12px 0px #1A1A1A33;
+transform: translateX(-80px) translateY(10px);
+
+
+    }
+
+    .attposin{
+        width: 161px;
+        height: 44px;
+        padding: 12px 91px 12px 12px;
+        border-bottom: 1px solid #E8E9EB;
+        background-color: white;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+    }
+
+    .editFromwrap{
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        top: 0;
+        background: #4040404D;
+
+    }
+
+    .editfromcont{
+        width: 599px;
+height: 348px;
+padding: 12px;
+border-radius: 18px ;
+ display: flex;
+ flex-direction: column;
+ gap: 20px;
+  transform: translateX(200px ) translateY(200px);
+  background-color: white;
+    }
+    .editfromcont nav{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+    }
+    .editfromcont nav h2{
+color: #1B2533;
+        font-family: Inter;
+        font-size: 16px;
+        font-weight: 600;
+        line-height: 24px;
+        letter-spacing: 0.0015em;
+        text-align: left;
+        
+    }
+
+    .editSindiv{
+        display: flex;
+        gap: 16px;
+        align-items: center;
+         width: 100%;
+    }
+    .editSindiv label{
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+    .editSindiv label p{
+        font-family: Inter;
+        color: #1B2533;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 20px;
+        letter-spacing: 0.0025em;
+        text-align: left;
+        
+    }
+    .editSindiv label input{
+        width: 271.5px;
+        height: 44px;
+        padding: 8px 16px ;
+        border-radius: 10px;
+        background: #FFFFFF;
+        border: 1px solid #D0D4DC;        
+    }
+
+    .formupdacan{
+        display: flex;
+        align-items: center;
+        gap: 16px;
+    }
+    .formupdacan .upda{
+        width: 89px;
+        height: 40px;
+        background: #0B56E4;
+        border-radius: 10px;
+        
+    }
+    .formupdacan .upda span{
+        font-family: Inter;
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 24px;
+        letter-spacing: 0.005em;
+        text-align: left;
+color: #FFFFFF;        
+    }
+    .formupdacan .canc{
+        width: 86px;
+        height: 40px;      
+        border-radius: 10px;
+        border: 1px solid #B8BBC0;
+                
+    }
+    .formupdacan .canc span{
+        font-family: Inter;
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 24px;
+        letter-spacing: 0.005em;
+        text-align: left;
+color: #666D76;        
+    }
