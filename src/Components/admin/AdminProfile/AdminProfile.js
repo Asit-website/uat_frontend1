@@ -151,6 +151,17 @@ const AdminProfile = ({ pop, setPop, setAlert }) => {
                   // required
                   />
                 </div>
+
+                <div className="mb-6">
+                  <label htmlFor="gender" className="block mb-1 ">
+                    Gender
+                  </label>
+                  <select className='w-full' name="gender" id="gender" onChange={() => null} value={value?.gender}>
+                     <option>Male</option>
+                     <option>Female</option>
+                  </select>
+                </div>
+
                 <div className="mb-6">
                   <label htmlFor="image" className="block mb-1">
                     Image
