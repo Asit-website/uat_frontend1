@@ -146,15 +146,7 @@ const EmployeeDash = ({ setAlert, pop1, setPop1 }) => {
     if (!t) {
 
       let ans = await postActivity({
-        clockIn: localStorage.getItem("clock-in")
-          ? localStorage.getItem("clock-in")
-          :      new Date().toLocaleTimeString("en-US", {
-            hour: "numeric",
-            minute: "2-digit",
-            second: "2-digit",
-            hour12: true,
-          }),
-
+        clockIn: localStorage.getItem("clock-in") ? localStorage.getItem("clock-in") : new Date().getTime(),
         clockOut: 0,
         late: 0,
         date1: localStorage.getItem("date1"),
@@ -163,12 +155,8 @@ const EmployeeDash = ({ setAlert, pop1, setPop1 }) => {
         message: "",
       });
 
-      localStorage.setItem("clock-in", new Date().toLocaleTimeString("en-US", {
-        hour: "numeric",
-        minute: "2-digit",
-        second: "2-digit",
-        hour12: true,
-      }));
+      localStorage.setItem("clock-in", new Date().getTime());
+
       localStorage.setItem("clock-status", "break");
 
       let currentDate = new Date().toLocaleDateString("en-GB");
