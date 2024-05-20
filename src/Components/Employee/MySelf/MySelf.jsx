@@ -48,7 +48,7 @@ const MySelf = ({ setAlert, pop1, setPop1 }) => {
 
                      <select name="" id="">
                         <option value="Document">Document</option>
-                        <option value="Offer Latter">Offer Latter</option>
+                        <option value="Offer Latter">Offer Letter</option>
                         <option value="Experience Letter">Experience Letter</option>
                         <option value="Experience Letter">Experience Letter</option>
                         <option value="Experience Letter">Experience Letter</option>
