@@ -79,9 +79,9 @@ const AdminNavbar = ({ setAlert}) => {
 
         <div className="navProfiIcons">
 
-          <img src={notification} alt="" />
+          <img onClick={() => navigate("/adminDash/notification")} src={notification} alt="" />
 
-          <img onClick={() => navigate("/adminDash/notification")} src={chatbot} alt="" />
+          {/* <img  src={chatbot} alt="" />  */}
 
           {/* navitem  */}
           <div className="relative cursor-pointer" onClick={updateUser}>
