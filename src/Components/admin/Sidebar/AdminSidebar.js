@@ -96,10 +96,10 @@ const HRMSItem = [
     title: "Employees Asset Setup",
     link: "/performance/Assets"
   },
-  {
-    title: "Employees Attendence",
-    link: "/adminDash/HRM/userAttendence"
-  },
+  // {
+  //   title: "Employees Attendence",
+  //   link: "/adminDash/HRM/userAttendence"
+  // },
   
 ]
 
