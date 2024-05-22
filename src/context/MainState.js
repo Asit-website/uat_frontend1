@@ -5,7 +5,7 @@ import { useState } from 'react';
 
 // const baseUrl = "http://localhost:5000";
 
-// const baseUrl = "https://hrms-backend-code.onrender.com"
+const baseUrl = "https://hrms-backend-code.onrender.com"
 
 // const baseUrl = "http://localhost:5000";
 
@@ -13,7 +13,7 @@ import { useState } from 'react';
 
 // this is production baseurl 
 
- const baseUrl = "https://hmsbackend.kusheldigi.com";
+//  const baseUrl = "https://hmsbackend.kusheldigi.com";
 
 // const baseUrl = "https://hrms-backend-g3wt.onrender.com";
 

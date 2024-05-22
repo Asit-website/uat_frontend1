@@ -36,6 +36,7 @@ const LeaveRequest = ({
 
   const getData=async()=>{
     let ans = await getUserLeaves();
+    console.log(ans);
     const reverseArray = ans?.data?.reverse();
     setData(reverseArray);
   };
@@ -233,7 +234,7 @@ const LeaveRequest = ({
                           <td className="px-3 py-4 taskAns">{formatDate(e?.appliedOn)}</td>
                           <td className="px-3 py-4 taskAns">  {e?.from}</td>
                           <td className="px-3 py-4 taskAns"> {e?.to} </td>
-                          <td className="px-3 py-4 taskAns"> {e?.days} </td>
+                          <td className="px-3 py-4 taskAns"> {(e?.days) - 1 + 2} </td>
                           
                           <td className="px-3 py-4 taskAns">{e?.reason}</td>
   
