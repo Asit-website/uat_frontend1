@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useRef} from "react";
 import AdminNavbar from "../admin/Navbar/AdminNavbar";
 import AdminSidebar from "../admin/Sidebar/AdminSidebar";
 import "react-calendar/dist/Calendar.css";
@@ -8,12 +8,25 @@ import EmployeeNavbar from "../Employee/Navbar/EmployeeNavbar";
 import { useLocation } from "react-router-dom";
 import "./quotation.css";
 import kidLogo from "../images/Kds logo (1) 1.png";
+import { useReactToPrint } from 'react-to-print'
 
 const InvoicePage = ({ setAlert, pop, setPop }) => {
   const { user } = useMain();
 
   const location = useLocation();
   const invoiceData = location.state;
+
+  const contonentPDF = useRef()
+  const generatePdf = useReactToPrint({
+    content: () => contonentPDF.current,
+    documentTitle: "Order",
+    parentContainer: {
+      '@media print': {
+        display: 'block'
+      },
+    },
+    onAfterPrint: () => alert("success", "item saved")
+  })
 
   return (
     <>
@@ -33,12 +46,12 @@ const InvoicePage = ({ setAlert, pop, setPop }) => {
 
           <div className="em">
             <div className="invnav">
-              <button className="converToPDf">
+              <button onClick={generatePdf} className="converToPDf">
                 <span>Convert To PDF</span>
               </button>
             </div>
 
-            <div className="invoform">
+            <div ref={contonentPDF} className="invoform">
               {/* first section  */}
               <div className="inFirstSec">
                 {/* left side */}
