@@ -6,12 +6,18 @@ import { useMain } from "../../hooks/useMain";
 import EmployeeSidebar from "../Employee/Sidebar/EmployeeSidebar";
 import EmployeeNavbar from "../Employee/Navbar/EmployeeNavbar";
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,useLocation } from "react-router-dom";
 
-const CreateQuotation = ({ setAlert, pop, setPop }) => {
-  const { user , postQuotation } = useMain();
+const EditQuotation = ({ setAlert, pop, setPop }) => {
+  const { user , updateQuotation } = useMain();
+
+  const location = useLocation();
 
   const navigate = useNavigate();
+
+  const item = location?.state;
+
+  console.log("item ", item);
 
   const [formdata , setFormdata] = useState({
     User: user?._id,
@@ -43,44 +49,30 @@ const CreateQuotation = ({ setAlert, pop, setPop }) => {
      }))
   }
 
-   const  submitHandler = async(e)=>{
-     e.preventDefault();
+  const submitHandler = async () => {
+    // e.preventDefault();
+    const ans = await updateQuotation({...formdata, id: item?._id});
+    console.log(ans);
+    // navigate("/invoicePage" , {state:formdata});
+    // if (ans?.status) {
+    //     toast.success("Successful Updated");
+        
+    //     // navigate("/adminDash/myLead");
 
-    const toastId = toast.loading("Loading...");
-
-
-    try{
-
-       const ans = await postQuotation({...formdata});
-
-       if(ans?.status){
-        toast.success("Successfuly created");
-    
-        navigate("/invoicePage" , {state:formdata});
-       }
-       else {
-        toast.error("Something went wrong , please try again");
-       }
-
-    } catch(error){
-      console.log(error);
-      toast.error("Something went wrong");
-    }
-
-    toast.dismiss(toastId);
-   }
+    // }
+}
 
   return (
     <>
       <div className="employee-dash h-full">
-        {user?.role === "ADMIN" ? (
+        {user?.designation === "CEO" ? (
           <AdminSidebar pop={pop} setPop={setPop} />
         ) : (
           <EmployeeSidebar pop={pop} setPop={setPop} />
         )}
 
         <div className="tm">
-          {user?.role === "ADMIN" ? (
+          {user?.designation === "CEO" ? (
             <AdminNavbar user={user} setAlert={setAlert} />
           ) : (
             <EmployeeNavbar user={user} setAlert={setAlert} />
@@ -110,19 +102,19 @@ const CreateQuotation = ({ setAlert, pop, setPop }) => {
 
                   <label>
                     <p>Invoice Number</p>
-                    <input type="text" onChange={changeHandler} name="InvoiceNo" value={formdata.InvoiceNo}  />
+                    <input type="text" onChange={changeHandler} name="InvoiceNo" value={formdata?.InvoiceNo}  />
                   </label>
                 </div>
 
                 <div className="sinelinvoice">
                   <label>
                     <p>GST Number</p>
-                    <input type="text" onChange={changeHandler} name="GstNo" value={formdata.GstNo} />
+                    <input type="text" onChange={changeHandler} name="GstNo" value={formdata?.GstNo} />
                   </label>
 
                   <label>
                     <p>SAC Code</p>
-                    <input type="text" onChange={changeHandler} name="SacCode" value={formdata.SacCode} />
+                    <input type="text" onChange={changeHandler} name="SacCode" value={formdata?.SacCode} />
                   </label>
                 </div>
 
@@ -130,7 +122,7 @@ const CreateQuotation = ({ setAlert, pop, setPop }) => {
                   <label>
                     <p>Placed Supply</p>
                     {/* <input type="text" onChange={changeHandler} name="PlacedSupply" value={formdata.PlacedSupply}  /> */}
-                    <select name="PlacedSupply" id="PlacedSupply" onChange={changeHandler} value={formdata.PlacedSupply}>
+                    <select name="PlacedSupply" id="PlacedSupply" onChange={changeHandler} value={formdata?.PlacedSupply}>
                         <option>Select Placed</option>
                         <option>Outside India</option>
                     </select>
@@ -138,67 +130,67 @@ const CreateQuotation = ({ setAlert, pop, setPop }) => {
 
                   <label>
                     <p>Bill To</p>
-                    <input type="text" onChange={changeHandler} name="BillTo" value={formdata.BillTo} />
+                    <input type="text" onChange={changeHandler} name="BillTo" value={formdata?.BillTo} />
                   </label>
                 </div>
 
                 <div className="sinelinvoice">
                   <label>
                     <p>Ship To</p>
-                    <input type="text" onChange={changeHandler} name="ShipTo" value={formdata.ShipTo}  />
+                    <input type="text" onChange={changeHandler} name="ShipTo" value={formdata?.ShipTo}  />
                   </label>
 
                   <label>
                     <p>Client Name</p>
-                    <input type="text" onChange={changeHandler} name="ClientName" value={formdata.ClientName}  />
+                    <input type="text" onChange={changeHandler} name="ClientName" value={formdata?.ClientName}  />
                   </label>
                 </div>
 
                 <div className="sinelinvoice">
                   <label>
                     <p>Address</p>
-                    <input type="text" onChange={changeHandler} name="Address" value={formdata.Address}  />
+                    <input type="text" onChange={changeHandler} name="Address" value={formdata?.Address}  />
                   </label>
 
                   <label>
                     <p>Mobile</p>
-                    <input type="text" onChange={changeHandler} name="Mobile" value={formdata.Mobile} />
+                    <input type="text" onChange={changeHandler} name="Mobile" value={formdata?.Mobile} />
                   </label>
                 </div>
 
                 <div className="sinelinvoice">
                   <label>
                     <p>Email</p>
-                    <input type="text" onChange={changeHandler} name="Email" value={formdata.Email}   />
+                    <input type="text" onChange={changeHandler} name="Email" value={formdata?.Email}   />
                   </label>
 
                   <label>
                     <p>Item Description</p>
-                    <input type="text" onChange={changeHandler} name="ItemDescription" value={formdata.ItemDescription}  />
+                    <input type="text" onChange={changeHandler} name="ItemDescription" value={formdata?.ItemDescription}  />
                   </label>
                 </div>
 
                 <div className="sinelinvoice">
                   <label>
                     <p>Quantity</p>
-                    <input type="text" onChange={changeHandler} name="Qty" value={formdata.Qty}  />
+                    <input type="text" onChange={changeHandler} name="Qty" value={formdata?.Qty}  />
                   </label>
 
                   <label>
                     <p>Price</p>
-                    <input type="text" onChange={changeHandler} name="Price" value={formdata.Price}  />
+                    <input type="text" onChange={changeHandler} name="Price" value={formdata?.Price}  />
                   </label>
                 </div>
 
                 <div className="sinelinvoice">
                   <label>
                     <p>Amount</p>
-                    <input type="text" onChange={changeHandler} name="Amount" value={formdata.Amount}  />
+                    <input type="text" onChange={changeHandler} name="Amount" value={formdata?.Amount}  />
                   </label>
 
                   <label>
                     <p>Balance Amount</p>
-                    <input type="text" onChange={changeHandler} name="BalanceAmount" value={formdata.BalanceAmount}  />
+                    <input type="text" onChange={changeHandler} name="BalanceAmount" value={formdata?.BalanceAmount}  />
                   </label>
                 </div>
 
@@ -206,7 +198,7 @@ const CreateQuotation = ({ setAlert, pop, setPop }) => {
 
                 <label>
                     <p>Currency</p>
-                    <select name="currency" id="currency" value={formdata.currency} onChange={changeHandler}>
+                    <select name="currency" id="currency" value={formdata?.currency} onChange={changeHandler}>
                         <option value="">Select Currency</option>
                         <option>INR</option>
                         <option>$</option>
@@ -216,7 +208,7 @@ const CreateQuotation = ({ setAlert, pop, setPop }) => {
                   
                   <label>
                     <p>Note</p>
-                    <input type="text" onChange={changeHandler} name="Note" value={formdata.Note} />
+                    <input type="text" onChange={changeHandler} name="Note" value={formdata?.Note} />
                   </label>
 
                  
@@ -225,7 +217,7 @@ const CreateQuotation = ({ setAlert, pop, setPop }) => {
                 </div>
 
                 <div className="quaotitionBtn">
-                  <button type="submit"><span>Submit</span></button>
+                  <button onClick={submitHandler} type="button"><span>Submit</span></button>
                 </div>
 
               </form>
@@ -237,4 +229,4 @@ const CreateQuotation = ({ setAlert, pop, setPop }) => {
   );
 };
 
-export default CreateQuotation;
+export default EditQuotation;

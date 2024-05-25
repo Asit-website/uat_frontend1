@@ -8,6 +8,9 @@ import bx from "../../images/bx-purchase-tag.png"
 import "./lead.css"
 import { useNavigate, useParams } from "react-router-dom";
 import toast from "react-hot-toast";
+import veci from '../../images/veci.svg';
+import deli from '../../images/deli.svg';
+import semi from '../../images/simi.svg';
 
 const ImportLead = ({ setAlert, pop, setPop }) => {
 
@@ -370,13 +373,21 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
 
                     {
                       userQuotation?.map((item ,index)=>(
+                        <div key={index} className="saka">
                         <div className="singlquot" key={index}>
-
+                          
                            <p className="invId">Invoice ID: {item?.InvoiceNo}</p>
                            <p className="inName"> {item?.ClientName}</p>
                            <p className="inName">{item?.Price}</p>
-                           <p className="date">April 29, 2024: 2,234.50</p>
+                           <p className="date">{new Date(Number(item?.ts)).toLocaleDateString()} : {new Date(Number(item?.ts)).toLocaleTimeString()}</p>
 
+                        </div>
+
+                        <div className="dj">
+                            <img onClick={()=>navigate("/adminDash/editQuotation",{state:item})} className="cursor-pointer"  src={veci} alt="veci" />
+                            <img className="dli cursor-pointer" src={deli} alt="deli" />
+                            <img onClick={()=>navigate("/invoicePage",{state:item})} className="dli cursor-pointer" src={semi} alt="semi" />
+                        </div>
                         </div>
                       ))
                     }

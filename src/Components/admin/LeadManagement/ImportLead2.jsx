@@ -10,12 +10,19 @@ import { NavLink, useNavigate, useParams } from "react-router-dom";
 import EmployeeNavbar from "../../Employee/Navbar/EmployeeNavbar";
 import EmployeeSidebar from "../../Employee/Sidebar/EmployeeSidebar";
 import toast from "react-hot-toast";
+import veci from '../../images/veci.svg';
+import deli from '../../images/deli.svg';
+import semi from '../../images/simi.svg';
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 
 const ImportLead2 = ({ setAlert, pop, setPop }) => {
-  const { user, getLead2, updateLeadStatus, updateLeadNote , getQuotationAll } = useMain();
+  const { user, getLead2, updateLeadStatus, updateLeadNote , getQuotationAll,deleteQuotation } = useMain();
 
   const { id } = useParams();
   const [data, setData] = useState({});
+
+  const [refreshFlag,setRefreshFlag] = useState(false);
 
   const navigate = useNavigate();
 
@@ -68,7 +75,33 @@ const ImportLead2 = ({ setAlert, pop, setPop }) => {
 
   useEffect(()=>{
      getQuotation();
-  },[])
+  },[refreshFlag])
+
+  const deleteProject = async (id) => {
+    confirmAlert({
+      title: 'Are you sure to delete this data?',
+      message: 'All related data to this will be deleted',
+      buttons: [
+        {
+          label: 'Yes, Go Ahead!',
+          style: {
+            background: "#FF5449"
+          },
+          onClick: async () => {
+            await deleteQuotation(id);
+            toast.success("delete Successfully");
+            setRefreshFlag(!refreshFlag);
+          }
+        },
+        {
+          label: 'Cancel',
+
+          onClick: () => null
+        }
+      ]
+    });
+
+  };
 
   return (
     <>
@@ -362,13 +395,23 @@ const ImportLead2 = ({ setAlert, pop, setPop }) => {
 
                     {
                       userQuotation?.map((item ,index)=>(
+                        <div key={index} className="saka">
                         <div className="singlquot" key={index}>
-
+                          
                            <p className="invId">Invoice ID: {item?.InvoiceNo}</p>
                            <p className="inName"> {item?.ClientName}</p>
                            <p className="inName">{item?.Price}</p>
-                           <p className="date">April 29, 2024: 2,234.50</p>
+                           <p className="date">{new Date(Number(item?.ts)).toLocaleDateString()} : {new Date(Number(item?.ts)).toLocaleTimeString()}</p>
 
+                        </div>
+
+                        <div className="dj">
+                            <img onClick={()=>navigate("/employeeDash/editQuotation",{state:item})} className="cursor-pointer"  src={veci} alt="veci" />
+                            <img onClick={()=>{
+                              deleteProject(item?._id)
+                            }} className="dli cursor-pointer" src={deli} alt="deli" />
+                            <img onClick={()=>navigate("/invoicePage",{state:item})} className="dli cursor-pointer" src={semi} alt="semi" />
+                        </div>
                         </div>
                       ))
                     }

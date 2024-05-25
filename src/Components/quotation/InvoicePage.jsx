@@ -62,7 +62,7 @@ const InvoicePage = ({ setAlert, pop, setPop }) => {
                   <div className="inLefS">
                     <div className="singLef">
                       <h3>Issue Date :</h3>
-                      <p>23/01/2022</p>
+                      <p>{new Date(Number(invoiceData?.ts)).toLocaleDateString()}</p>
                     </div>
 
                     <div className="singLef">

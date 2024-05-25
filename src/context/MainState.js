@@ -3,9 +3,9 @@ import MainContext from './MainContext';
 import { deleteReq, get, post, put, postDocuments } from '../Api/api'
 import { useState } from 'react';
 
-// const baseUrl = "http://localhost:5000";
+const baseUrl = "http://localhost:5000";
 
-const baseUrl = "https://hrms-backend-code.onrender.com"
+// const baseUrl = "https://hrms-backend-code.onrender.com"
 
 // const baseUrl = "http://localhost:5000";
 
@@ -1566,9 +1566,9 @@ const MainState = (props) => {
       return data;
    }
 
-   const postQuotation = async({ User,InvoiceNo,GstNo,SacCode, PlacedSupply,BillTo,ShipTo,ClientName,Address,Mobile,Email,ItemDescription,Qty,Price,Amount,BalanceAmount,Note})=>{
+   const postQuotation = async({ User,InvoiceNo,GstNo,SacCode, PlacedSupply,BillTo,ShipTo,ClientName,Address,Mobile,Email,ItemDescription,Qty,Price,Amount,BalanceAmount,Note,currency})=>{
 
-      const data = await post(`${baseUrl}/admin/createInvoice`, {User,InvoiceNo,GstNo,SacCode, PlacedSupply,BillTo,ShipTo,ClientName,Address,Mobile,Email,ItemDescription,Qty,Price,Amount,BalanceAmount,Note}, true);
+      const data = await post(`${baseUrl}/admin/createInvoice`, {User,InvoiceNo,GstNo,SacCode, PlacedSupply,BillTo,ShipTo,ClientName,Address,Mobile,Email,ItemDescription,Qty,Price,Amount,BalanceAmount,Note,currency}, true);
       return data;
       
    }
@@ -1578,6 +1578,27 @@ const MainState = (props) => {
       const data = await get(`${baseUrl}/admin/getEveryUserInvoice/${id}`, true);
       return data;
    }
+
+   const updateQuotation = async(
+      { InvoiceNo,GstNo,SacCode, PlacedSupply,BillTo,ShipTo,ClientName,Address,Mobile,Email,ItemDescription,Qty,Price, Amount,BalanceAmount,Note,currency,id}
+
+   )=>{
+
+         let data;
+         
+      data = await post(`${baseUrl}/admin/updateInvoice/${id}`,
+       {
+         InvoiceNo,GstNo,SacCode, PlacedSupply,BillTo,ShipTo,ClientName,Address,Mobile,Email,ItemDescription,Qty,Price, Amount,BalanceAmount,Note,currency
+      }, true);
+   
+   
+    return data;
+   }
+
+   const deleteQuotation = async (id) => {
+      const data = await deleteReq(`${baseUrl}/admin/deleteInvoice/${id}`, true);
+      return data;
+   };
 
    const createSallary = async({salary,paySlipType})=>{
 
@@ -1731,7 +1752,9 @@ const MainState = (props) => {
          createSallary,
          getSallary , 
          userSalaryFetch , salaryCreate , 
-         createExcelLead
+         createExcelLead,
+         updateQuotation,
+         deleteQuotation
       }}>
          {props.children}
       </MainContext.Provider>

@@ -771,7 +771,7 @@ const MarkAttendance = ({
                       </thead>
 
                       <tbody>
-                        {data.map((item, index) => (
+                        {data?.map((item, index) => (
                           <tr key={index} className="bg-white ">
                             <td className="px-6 py-4 itemANs">
                               {item?.user?.fullName}
@@ -871,7 +871,7 @@ const MarkAttendance = ({
                         </thead>
 
                         <tbody>
-                          {currentPageData2.map((item, index) => (
+                          {currentPageData2?.map((item, index) => (
                             <tr key={index} className="bg-white ">
                               <td className="px-6 py-4 itemANs">
                                 {item?.user?.fullName}
@@ -1126,7 +1126,7 @@ const MarkAttendance = ({
                       <tbody>
                         {data1 &&
                           Object.keys(data1)?.length > 0 &&
-                          Object.keys(data1).map((item, index) => (
+                          Object.keys(data1)?.map((item, index) => (
                             <tr key={index} className="bg-white ">
                               <td className="px-6 py-4 itemANs">
                                 {data1[item]?.user?.fullName}

@@ -443,7 +443,6 @@ const EmployeeManage = ({
       toast.success("Successfuly created");
     } else {
       const {
-
         adharCard,
         pancard,
         tenCert,
@@ -596,7 +595,7 @@ const EmployeeManage = ({
                               />
                             </label>
 
-                            <label htmlFor="">
+                            <label htmlFor="password">
                               <p>Password</p>
 
                               <input

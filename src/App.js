@@ -70,6 +70,7 @@ import LeadFile2 from "./Components/admin/LeadManagement/LeadFile2.jsx";
 import AddEmployee from "./Components/admin/EmployManagement/AddEmployee.jsx";
 import MySelf from "./Components/Employee/MySelf/MySelf.jsx";
 import CreateQuotation from "./Components/quotation/CreateQuotation.jsx";
+import EditQuotation from "./Components/quotation/EditQuotation.jsx";
 import InvoicePage from "./Components/quotation/InvoicePage.jsx";
 import HrAttendence1 from "./Components/Hr/attendence/HrAttendence1.jsx";
 import Notification3 from "./Components/admin/Notification/Notification3.jsx";
@@ -173,6 +174,7 @@ function App() {
               <Route path="/employeeDash/mySelf" element={<MySelf />} />
 
               <Route path="/employeeDash/createQuotation" element={<CreateQuotation />} />
+              <Route path="/employeeDash/editQuotation" element={<EditQuotation />} />
 
 
             </Route>
@@ -288,6 +290,7 @@ function App() {
               <Route path="/adminDash/leadFile" element={<LeadFile />} />
 
               <Route path="/adminDash/createQuotation" element={<CreateQuotation />} />
+              <Route path="/adminDash/editQuotation" element={<EditQuotation/>} />
 
               <Route path="/adminDash/setSallary" element={<EmployeeSalary pop={pop} setPop={setPop} />} />
 
