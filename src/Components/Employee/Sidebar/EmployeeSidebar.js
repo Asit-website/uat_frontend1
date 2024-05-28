@@ -112,7 +112,7 @@ const EmployeeSidebar = () => {
 
            </li>
 
-           
+{/*            
            <NavLink to="/"><li className="indefy">
               <img src={identify} alt="" />
               <a
@@ -123,7 +123,7 @@ const EmployeeSidebar = () => {
               </a>
 
             </li>
-            </NavLink>
+            </NavLink> */}
 
 
            <NavLink to="/employeeDash/update"><li className="indefy">
@@ -138,7 +138,7 @@ const EmployeeSidebar = () => {
             </li>
             </NavLink>
 
-           <NavLink to="/"><li className="indefy">
+           {/* <NavLink to="/"><li className="indefy">
               <img src={usepp} alt="" />
               <a
                 href="#"
@@ -148,9 +148,9 @@ const EmployeeSidebar = () => {
               </a>
 
             </li>
-            </NavLink>
+            </NavLink> */}
 
-           <NavLink to="/"><li className="indefy">
+           {/* <NavLink to="/"><li className="indefy">
               <img src={user3d} alt="" />
               <a
                 href="#"
@@ -160,9 +160,9 @@ const EmployeeSidebar = () => {
               </a>
 
             </li>
-            </NavLink>
+            </NavLink> */}
 
-           <NavLink to="/"><li className="indefy">
+           {/* <NavLink to="/"><li className="indefy">
               <img src={chatd} alt="" />
               <a
                 href="#"
@@ -172,7 +172,7 @@ const EmployeeSidebar = () => {
               </a>
 
             </li>
-            </NavLink>
+            </NavLink> */}
 
 
 
