@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import AdminNavbar from "../admin/Navbar/AdminNavbar";
 import AdminSidebar from "../admin/Sidebar/AdminSidebar";
 import "react-calendar/dist/Calendar.css";
@@ -49,30 +49,54 @@ const EditQuotation = ({ setAlert, pop, setPop }) => {
      }))
   }
 
-  const submitHandler = async () => {
-    // e.preventDefault();
+  const submitHandler = async (e) => {
+    e.preventDefault();
     const ans = await updateQuotation({...formdata, id: item?._id});
     console.log(ans);
     // navigate("/invoicePage" , {state:formdata});
-    // if (ans?.status) {
-    //     toast.success("Successful Updated");
+    
+        toast.success("Successful Updated");
         
-    //     // navigate("/adminDash/myLead");
+        // navigate("/adminDash/myLead");
 
-    // }
+    
 }
+
+useEffect(() => {
+  setFormdata({
+    User: user?._id,
+    InvoiceNo: item?.InvoiceNo,
+    GstNo:item?.GstNo,
+    SacCode:item?.SacCode,
+    PlacedSupply:item?.PlacedSupply,
+    BillTo:item?.BillTo,
+    ShipTo:item?.ShipTo,
+    ClientName:item?.ClientName,
+    Address:item?.Address,
+    Mobile:item?.Mobile,
+    Email:item?.Email,
+    ItemDescription:item?.ItemDescription,
+    Qty:item?.Qty,
+    Price:item?.Price,
+    Amount:item?.Amount,
+    BalanceAmount:item?.BalanceAmount,
+    Note:item?.Note,
+    currency:item?.currency
+  })
+}, [])
+
 
   return (
     <>
       <div className="employee-dash h-full">
-        {user?.designation === "CEO" ? (
+        {user?.designation === "CEO" || user?.designation === "Manager" || user?.designation === "HR Admin" ? (
           <AdminSidebar pop={pop} setPop={setPop} />
         ) : (
           <EmployeeSidebar pop={pop} setPop={setPop} />
         )}
 
         <div className="tm">
-          {user?.designation === "CEO" ? (
+          {user?.designation === "CEO" || user?.designation === "Manager" || user?.designation === "HR Admin" ? (
             <AdminNavbar user={user} setAlert={setAlert} />
           ) : (
             <EmployeeNavbar user={user} setAlert={setAlert} />
@@ -92,7 +116,7 @@ const EditQuotation = ({ setAlert, pop, setPop }) => {
 
             <div>
 
-              <form onSubmit={submitHandler} className="invoiceForm">
+              <form onSubmit={submitHandler}  className="invoiceForm">
 
                 <div className="sinelinvoice">
                   <label>
@@ -217,7 +241,7 @@ const EditQuotation = ({ setAlert, pop, setPop }) => {
                 </div>
 
                 <div className="quaotitionBtn">
-                  <button onClick={submitHandler} type="button"><span>Submit</span></button>
+                  <button  type="submit"><span>Update</span></button>
                 </div>
 
               </form>

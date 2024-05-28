@@ -188,7 +188,7 @@ const MyLead = ({ setAlert, pop, setPop }) => {
 
                         <div className="laed1">
 
-                            {/* left side */}
+                          
                             <div>
                                 <div className="leftlead1">
 
@@ -282,7 +282,7 @@ const MyLead = ({ setAlert, pop, setPop }) => {
 
                             </div>
 
-                            {/* right side  */}
+                           
                             <div className="leaftlead2">
 
                                 <span>Sort by</span>
@@ -374,7 +374,7 @@ const MyLead = ({ setAlert, pop, setPop }) => {
                                                                     <path d="M16 14C14.9 14 14 14.9 14 16C14 17.1 14.9 18 16 18C17.1 18 18 17.1 18 16C18 14.9 17.1 14 16 14ZM16 8C14.9 8 14 8.9 14 10C14 11.1 14.9 12 16 12C17.1 12 18 11.1 18 10C18 8.9 17.1 8 16 8ZM16 20C14.9 20 14 20.9 14 22C14 23.1 14.9 24 16 24C17.1 24 18 23.1 18 22C18 20.9 17.1 20 16 20Z" fill="#49515C" />
                                                                 </svg>
 
-                                                                {/* Dropdown menu */}
+                                                                
                                                                 <div
 
                                                                     id={`action_box${index}`}
@@ -415,7 +415,7 @@ const MyLead = ({ setAlert, pop, setPop }) => {
                                                                         <li className="sysok">
                                                                             <a
                                                                               
-                                                                                // href="#"
+                                                                                
                                                                                 className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                                                                             >
                                                                                 <svg width="12" height="16" viewBox="0 0 12 16" fill="none" xmlns="http://www.w3.org/2000/svg">

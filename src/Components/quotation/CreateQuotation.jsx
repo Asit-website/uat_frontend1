@@ -73,14 +73,14 @@ const CreateQuotation = ({ setAlert, pop, setPop }) => {
   return (
     <>
       <div className="employee-dash h-full">
-        {user?.role === "ADMIN" ? (
+        {user?.designation === "CEO" || user?.designation === "Manager" || user?.designation === "HR Admin" ?  (
           <AdminSidebar pop={pop} setPop={setPop} />
         ) : (
           <EmployeeSidebar pop={pop} setPop={setPop} />
         )}
 
         <div className="tm">
-          {user?.role === "ADMIN" ? (
+          {user?.designation === "CEO" || user?.designation === "Manager" || user?.designation === "HR Admin" ? (
             <AdminNavbar user={user} setAlert={setAlert} />
           ) : (
             <EmployeeNavbar user={user} setAlert={setAlert} />

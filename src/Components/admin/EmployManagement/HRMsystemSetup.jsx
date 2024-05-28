@@ -765,11 +765,11 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
 
     <td className="px-6 py-4">
       
+      <div className="seri">
     {item?.requiredField?.map((fi , index)=>(
-           
-           <div className="px-6 py-4 requiFild" key={index}> <span>{fi}</span> </div>
-
-         ))}
+      <div className="px-6 py-4 requiFild" key={index}> <span>{fi}</span> </div>
+    ))}
+    </div>
 
        </td>
 
