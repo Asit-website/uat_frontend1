@@ -99,6 +99,9 @@ const AdminNavbar = ({ setAlert}) => {
               <NavLink to="/adminDash/profile"><p className=" text-center">
                 Edit Profile
               </p></NavLink>
+              <NavLink to="/adminDash/mySelf"><p className=" text-center">
+                My Profile
+              </p></NavLink>
               {/* <NavLink to="/employeeDash/update">
                 <p className=" text-center">Edit Profile</p>
               </NavLink> */}

@@ -21,25 +21,25 @@ const Auth = (props) => {
   const adminLogin = (e) => {
     e.preventDefault();
     setTab(1);
-    document.getElementById("btn1").style.border="1px solid #B3CBF7";
-    document.getElementById("btn1").style.background="none";
-    document.getElementById("btn1").style.color="#49515C";
+    document.getElementById("btn2").style.border="1px solid #B3CBF7";
+    document.getElementById("btn2").style.background="none";
+    document.getElementById("btn2").style.color="#49515C";
 
-    document.getElementById("btn2").style.border="none";
-    document.getElementById("btn2").style.background="#0b60ff";
-    document.getElementById("btn2").style.color="white"
+    document.getElementById("btn1").style.border="none";
+    document.getElementById("btn1").style.background="#0b60ff";
+    document.getElementById("btn1").style.color="white"
   }
 
   const userLogin = (e) => {
     e.preventDefault();
     setTab(2);
-    document.getElementById("btn2").style.border="1px solid #B3CBF7";
-    document.getElementById("btn2").style.background="none";
-    document.getElementById("btn2").style.color="#49515C"
+    document.getElementById("btn1").style.border="1px solid #B3CBF7";
+    document.getElementById("btn1").style.background="none";
+    document.getElementById("btn1").style.color="#49515C"
 
-    document.getElementById("btn1").style.border="none";
-    document.getElementById("btn1").style.background="#0b60ff";
-    document.getElementById("btn1").style.color="white"
+    document.getElementById("btn2").style.border="none";
+    document.getElementById("btn2").style.background="#0b60ff";
+    document.getElementById("btn2").style.color="white"
   }
 
   const handleChange = (e) => {
@@ -72,7 +72,7 @@ const Auth = (props) => {
       } else if (ans.user.role === "EMPLOYEE") {
         navigate("/employeeDash/update");
       } else {
-        navigate("/adminDash");
+        navigate("/adminDash/HRM");
       }
 
     } else {

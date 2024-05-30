@@ -737,7 +737,7 @@ color: #FFFFFF;
 .allDasCon{
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 20px;
 }
 
 .allDasCon .setWrap{
@@ -990,12 +990,19 @@ width: 100%;
   background-color: #ffffff;
   position: fixed;
   right: 0px;
+  top: 0px;
 }
 .aka{
   color: #168A6C;
   font-weight: 500;
   font-size: 11px;
   font-family: "Inter", sans-serif !important;
+}
+.olo{
+  width: 270px !important;
+}
+.olo1{
+  width: 270px !important;
 }
 /* manish admin navbar css  */
 
@@ -3620,7 +3627,12 @@ text-decoration: underline;
   font-family: "Medium" !important;
   font-size: 15px;
 }
-
+.fan{
+  color: #0B56E4 !important;
+}
+.hh{
+  background-color: #F5F9FF;
+}
 .clock1 {
   margin-top: 10px;
 }
@@ -4342,6 +4354,10 @@ input::-webkit-inner-spin-button {
   float: right !important;
   cursor: pointer !important;
 }
+.felas th,
+.felas td{
+   width: 11.1% !important;
+}
 .sysok a{
   display: flex;
   align-items: center;
@@ -4689,14 +4705,14 @@ input::-webkit-inner-spin-button {
   font-family: inter !important;
 }
 .user_login{
-  border: 1px solid #B3CBF7 ;
-  background: none ;
-  color: #49515C ;
-}
-.admin_login{
   background:#0b60ff;
   color: #ffffff;
   border: none;
+}
+.admin_login{
+  border: 1px solid #B3CBF7 ;
+  background: none ;
+  color: #49515C ;
 }
 .yui{
   background:#0b60ff;

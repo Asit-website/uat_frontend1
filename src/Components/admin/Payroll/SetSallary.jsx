@@ -476,7 +476,7 @@ const SetSallary = ({
                                                 <h2>Commission</h2>
                                             </div>
                                             <div className="salary_head12">
-                                                <img onClick={() => {
+                                                <img className="cursor-pointer" onClick={() => {
                                                     setShow2(true);
                                                 }} src={lion} alt="" />
                                             </div>
@@ -520,7 +520,7 @@ const SetSallary = ({
                                                                     <td className="px-6 py-4">{item?.amount}</td>
                                                                     <td className="px-6 py-4">
                                                                         <div className="action_so">
-                                                                            <img onClick={() => {
+                                                                            <img className="cursor-pointer" onClick={() => {
                                                                                 setShow2(true);
                                                                                 setIsCommisionEdit(item?._id);
                                                                                 setCommisionForm({
@@ -529,7 +529,7 @@ const SetSallary = ({
                                                                                     amount: item?.amount
                                                                                 })
                                                                             }} src={elo} alt="elo" />
-                                                                            <img onClick={(e) => {
+                                                                            <img className="cursor-pointer" onClick={(e) => {
                                                                                 e.preventDefault();
                                                                                 deleteCommision(item?._id);
                                                                             }} src={frema} alt="frema" />
@@ -602,7 +602,7 @@ const SetSallary = ({
                                                                     <td className="px-6 py-4">{item?.amount}</td>
                                                                     <td className="px-6 py-4">
                                                                         <div className="action_so">
-                                                                            <img onClick={() => {
+                                                                            <img className="cursor-pointer" onClick={() => {
                                                                                 setShow1(true);
                                                                                 setIsAllowEdit(item?._id);
                                                                                 setAllowanceForm({
@@ -612,7 +612,7 @@ const SetSallary = ({
                                                                                     amount: item?.amount
                                                                                 })
                                                                             }} src={elo} alt="elo" />
-                                                                            <img onClick={() => {
+                                                                            <img className="cursor-pointer" onClick={() => {
                                                                                 deleteAllow(item?._id);
                                                                             }} src={frema} alt="frema" />
                                                                         </div>
@@ -635,7 +635,7 @@ const SetSallary = ({
                                                 <h2>Loan</h2>
                                             </div>
                                             <div className="salary_head12">
-                                                <img onClick={() => {
+                                                <img className="cursor-pointer" onClick={() => {
                                                     setShow3(true);
                                                 }} src={lion} alt="" />
                                             </div>
@@ -682,7 +682,7 @@ const SetSallary = ({
                                                                     <td className="px-6 py-4">{item?.loanAmount}</td>
                                                                     <td className="px-6 py-4">
                                                                         <div className="action_so">
-                                                                            <img onClick={() => {
+                                                                            <img className="cursor-pointer" onClick={() => {
                                                                                 setShow3(true);
                                                                                 setIsLoanEdit(item?._id);
                                                                                 setLoanForm({
@@ -693,7 +693,7 @@ const SetSallary = ({
                                                                                     LoanOption: item?.LoanOption
                                                                                 })
                                                                             }} src={elo} alt="elo" />
-                                                                            <img onClick={(e) => {
+                                                                            <img className="cursor-pointer" onClick={(e) => {
                                                                                 e.preventDefault();
                                                                                 deleteLoan(item?._id);
                                                                             }} src={frema} alt="frema" />
