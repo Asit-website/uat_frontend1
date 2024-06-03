@@ -1478,7 +1478,7 @@ const EmployeeManage = ({
                       <hr className="upper" />
 
                       <div className="form2-class">
-                        <div className="w-full mt-6">
+                        <div className="w-full sfgh mt-6">
                           {/* this is first doc row  */}
 
                           <div className="flex w-full">

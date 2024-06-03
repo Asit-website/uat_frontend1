@@ -3594,7 +3594,9 @@ text-decoration: underline;
 .calendar1 .react-calendar button abbr:hover {
   color: #FFFFFF !important;
 }
-
+.sfgh input{
+  width: 252px !important;
+}
 .calendar1 .react-calendar__month-view__weekdays__weekday abbr {
   color: #000000;
   opacity: 30%;
