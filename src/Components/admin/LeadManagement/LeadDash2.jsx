@@ -11,6 +11,7 @@ const LeadDash2 = ({ setAlert, pop, setPop }) => {
     const [start1, setStart1] = useState(false);
     const [start2, setStart2] = useState(false);
     const [start3, setStart3] = useState(false);
+    const [start4, setStart4] = useState(false);
     const stylePeer1 = {
         display: start ? "block" : "none"
     }
@@ -22,6 +23,9 @@ const LeadDash2 = ({ setAlert, pop, setPop }) => {
     }
     const stylePeer4 = {
         display: start3 ? "block" : "none"
+    }
+    const stylePeer5 = {
+        display: start4 ? "block" : "none"
     }
     return (
         <>
@@ -136,12 +140,6 @@ const LeadDash2 = ({ setAlert, pop, setPop }) => {
                             <div className="table11">
                                 <div className="my_open">
                                     <h3>My Open Tasks</h3>
-                                    {/* <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M0.5 4C0.5 2.067 2.067 0.5 4 0.5H28C29.933 0.5 31.5 2.067 31.5 4V28C31.5 29.933 29.933 31.5 28 31.5H4C2.067 31.5 0.5 29.933 0.5 28V4Z" fill="#F5F9FF" />
-                                        <path d="M0.5 4C0.5 2.067 2.067 0.5 4 0.5H28C29.933 0.5 31.5 2.067 31.5 4V28C31.5 29.933 29.933 31.5 28 31.5H4C2.067 31.5 0.5 29.933 0.5 28V4Z" stroke="#B3CBF7" />
-                                        <path d="M16 14C14.9 14 14 14.9 14 16C14 17.1 14.9 18 16 18C17.1 18 18 17.1 18 16C18 14.9 17.1 14 16 14ZM16 8C14.9 8 14 8.9 14 10C14 11.1 14.9 12 16 12C17.1 12 18 11.1 18 10C18 8.9 17.1 8 16 8ZM16 20C14.9 20 14 20.9 14 22C14 23.1 14.9 24 16 24C17.1 24 18 23.1 18 22C18 20.9 17.1 20 16 20Z" fill="#49515C" />
-                                    </svg> */}
-
                                     <div>
                                         <svg className="floyu" onClick={() => setStart(!start)} width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M0.5 4C0.5 2.067 2.067 0.5 4 0.5H28C29.933 0.5 31.5 2.067 31.5 4V28C31.5 29.933 29.933 31.5 28 31.5H4C2.067 31.5 0.5 29.933 0.5 28V4Z" fill="#F5F9FF" />
@@ -157,7 +155,7 @@ const LeadDash2 = ({ setAlert, pop, setPop }) => {
                                             className="z-10 taning hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600"
                                         >
                                             <ul
-                                                className="py-1 text-sm text-gray-700 dark:text-gray-200"
+                                                className="py-1 lesar text-sm text-gray-700 dark:text-gray-200"
                                                 aria-labelledby="dropdownActionButton"
                                             >
                                                 <li className="sysok">
@@ -306,12 +304,6 @@ const LeadDash2 = ({ setAlert, pop, setPop }) => {
                             <div className="table22">
                                 <div className="my_open">
                                     <h3>My  Meetings</h3>
-                                    {/* <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M0.5 4C0.5 2.067 2.067 0.5 4 0.5H28C29.933 0.5 31.5 2.067 31.5 4V28C31.5 29.933 29.933 31.5 28 31.5H4C2.067 31.5 0.5 29.933 0.5 28V4Z" fill="#F5F9FF" />
-                                        <path d="M0.5 4C0.5 2.067 2.067 0.5 4 0.5H28C29.933 0.5 31.5 2.067 31.5 4V28C31.5 29.933 29.933 31.5 28 31.5H4C2.067 31.5 0.5 29.933 0.5 28V4Z" stroke="#B3CBF7" />
-                                        <path d="M16 14C14.9 14 14 14.9 14 16C14 17.1 14.9 18 16 18C17.1 18 18 17.1 18 16C18 14.9 17.1 14 16 14ZM16 8C14.9 8 14 8.9 14 10C14 11.1 14.9 12 16 12C17.1 12 18 11.1 18 10C18 8.9 17.1 8 16 8ZM16 20C14.9 20 14 20.9 14 22C14 23.1 14.9 24 16 24C17.1 24 18 23.1 18 22C18 20.9 17.1 20 16 20Z" fill="#49515C" />
-                                    </svg> */}
-
                                     <div>
                                         <svg className="floyu" onClick={() => setStart1(!start1)} width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M0.5 4C0.5 2.067 2.067 0.5 4 0.5H28C29.933 0.5 31.5 2.067 31.5 4V28C31.5 29.933 29.933 31.5 28 31.5H4C2.067 31.5 0.5 29.933 0.5 28V4Z" fill="#F5F9FF" />
@@ -327,7 +319,7 @@ const LeadDash2 = ({ setAlert, pop, setPop }) => {
                                             className="z-10 taning hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600"
                                         >
                                             <ul
-                                                className="py-1 text-sm text-gray-700 dark:text-gray-200"
+                                                className="py-1 lesar text-sm text-gray-700 dark:text-gray-200"
                                                 aria-labelledby="dropdownActionButton"
                                             >
                                                 <li className="sysok">
@@ -479,12 +471,6 @@ const LeadDash2 = ({ setAlert, pop, setPop }) => {
                             <div className="table11">
                                 <div className="my_open">
                                     <h3>Today's Leads</h3>
-                                    {/* <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M0.5 4C0.5 2.067 2.067 0.5 4 0.5H28C29.933 0.5 31.5 2.067 31.5 4V28C31.5 29.933 29.933 31.5 28 31.5H4C2.067 31.5 0.5 29.933 0.5 28V4Z" fill="#F5F9FF" />
-                                        <path d="M0.5 4C0.5 2.067 2.067 0.5 4 0.5H28C29.933 0.5 31.5 2.067 31.5 4V28C31.5 29.933 29.933 31.5 28 31.5H4C2.067 31.5 0.5 29.933 0.5 28V4Z" stroke="#B3CBF7" />
-                                        <path d="M16 14C14.9 14 14 14.9 14 16C14 17.1 14.9 18 16 18C17.1 18 18 17.1 18 16C18 14.9 17.1 14 16 14ZM16 8C14.9 8 14 8.9 14 10C14 11.1 14.9 12 16 12C17.1 12 18 11.1 18 10C18 8.9 17.1 8 16 8ZM16 20C14.9 20 14 20.9 14 22C14 23.1 14.9 24 16 24C17.1 24 18 23.1 18 22C18 20.9 17.1 20 16 20Z" fill="#49515C" />
-                                    </svg> */}
-
                                     <div>
                                         <svg className="floyu" onClick={() => setStart2(!start2)} width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M0.5 4C0.5 2.067 2.067 0.5 4 0.5H28C29.933 0.5 31.5 2.067 31.5 4V28C31.5 29.933 29.933 31.5 28 31.5H4C2.067 31.5 0.5 29.933 0.5 28V4Z" fill="#F5F9FF" />
@@ -500,7 +486,7 @@ const LeadDash2 = ({ setAlert, pop, setPop }) => {
                                             className="z-10 taning hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600"
                                         >
                                             <ul
-                                                className="py-1 text-sm text-gray-700 dark:text-gray-200"
+                                                className="py-1 lesar text-sm text-gray-700 dark:text-gray-200"
                                                 aria-labelledby="dropdownActionButton"
                                             >
                                                 <li className="sysok">
@@ -649,12 +635,6 @@ const LeadDash2 = ({ setAlert, pop, setPop }) => {
                             <div className="table22">
                                 <div className="my_open">
                                     <h3>My Deals Closing This Month</h3>
-                                    {/* <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M0.5 4C0.5 2.067 2.067 0.5 4 0.5H28C29.933 0.5 31.5 2.067 31.5 4V28C31.5 29.933 29.933 31.5 28 31.5H4C2.067 31.5 0.5 29.933 0.5 28V4Z" fill="#F5F9FF" />
-                                        <path d="M0.5 4C0.5 2.067 2.067 0.5 4 0.5H28C29.933 0.5 31.5 2.067 31.5 4V28C31.5 29.933 29.933 31.5 28 31.5H4C2.067 31.5 0.5 29.933 0.5 28V4Z" stroke="#B3CBF7" />
-                                        <path d="M16 14C14.9 14 14 14.9 14 16C14 17.1 14.9 18 16 18C17.1 18 18 17.1 18 16C18 14.9 17.1 14 16 14ZM16 8C14.9 8 14 8.9 14 10C14 11.1 14.9 12 16 12C17.1 12 18 11.1 18 10C18 8.9 17.1 8 16 8ZM16 20C14.9 20 14 20.9 14 22C14 23.1 14.9 24 16 24C17.1 24 18 23.1 18 22C18 20.9 17.1 20 16 20Z" fill="#49515C" />
-                                    </svg> */}
-
                                     <div>
                                         <svg className="floyu" onClick={() => setStart3(!start3)} width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M0.5 4C0.5 2.067 2.067 0.5 4 0.5H28C29.933 0.5 31.5 2.067 31.5 4V28C31.5 29.933 29.933 31.5 28 31.5H4C2.067 31.5 0.5 29.933 0.5 28V4Z" fill="#F5F9FF" />
@@ -670,7 +650,7 @@ const LeadDash2 = ({ setAlert, pop, setPop }) => {
                                             className="z-10 taning hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600"
                                         >
                                             <ul
-                                                className="py-1 text-sm text-gray-700 dark:text-gray-200"
+                                                className="py-1 lesar text-sm text-gray-700 dark:text-gray-200"
                                                 aria-labelledby="dropdownActionButton"
                                             >
                                                 <li className="sysok">

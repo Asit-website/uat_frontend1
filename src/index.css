@@ -301,6 +301,16 @@ body {
 .department_test{
   width: 100% !important;
 }
+.tuser_class{
+  position: fixed !important;
+  top: 50%;
+  left: 50%;
+  width: 60%;
+  transform: translate(-50%,-50%);
+}
+.popup33{
+  width: 45%;
+}
 .login-page {
   width: 100%;
   padding: 60px 60px 80px 60px;
@@ -312,8 +322,11 @@ body {
   position: relative;
   align-items: center;
   justify-content: center;
+}
 
-
+.testingk{
+  width: 40% !important;
+  border-radius: 10px !important;
 }
 
 .auth4{
@@ -633,7 +646,7 @@ color: #FFFFFF;
   outline: none;
   font-size: 14px;
   border-radius: 6px;
-  height: 70px;
+  height: 46px;
   max-height: 100%;
   font-family: inter !important;
   color: #666D76 !important;
@@ -820,7 +833,7 @@ width: 100%;
   left: 8px;
   padding: 0 5px;
   font-size: 17px;
-  top: 33px;
+  top: 24px;
   color: #64686d !important;
 }
 
@@ -880,7 +893,7 @@ width: 100%;
 .login-page2 button {
   width: 100%;
  
-  height: 70px;
+  height: 46px;
   border-radius: 6px;
  
   font-family: "Rubik", sans-serif;
@@ -3551,12 +3564,10 @@ text-decoration: underline;
   padding: 7px 0px;
 }
 
-
-
 .login-buttons button {
   max-width: 150px;
   width: 100%;
-  height: 50px;
+  height: 46px;
 }
 
 .calendar1 .react-calendar button {
@@ -3566,7 +3577,20 @@ text-decoration: underline;
 .calendar1 .react-calendar button:hover {
   color: #ffffff !important;
 }
+/* .sesij{
+  position: absolute;
+  background-color: white;
+  z-index: 100;
+} */
 
+.lesar{
+  position: absolute;
+  background-color: white;
+  width: 170px;
+  max-width: 100%;
+  z-index: 2000;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
 .calendar1 .react-calendar button abbr:hover {
   color: #FFFFFF !important;
 }

@@ -21,6 +21,7 @@
     gap: 25px;
     margin-top: 20px;
     border-radius: 20px;
+    overflow-y: scroll !important;
 }
 
 .awardpopup label input {

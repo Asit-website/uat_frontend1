@@ -886,7 +886,7 @@ const LeaveRequest = ({
             id="authentication-modal"
             tabindex="-1"
             aria-hidden="true"
-            class="user_class hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center mt-10 md:inset-0 h-[calc(100%-1rem)] max-h-full"
+            class="user_class tuser_class hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center mt-10 md:inset-0 h-[calc(100%-1rem)] max-h-full"
           >
             <div class="relative p-4 w-full max-w-md max-h-full">
               {/* <!-- Modal content --> */}

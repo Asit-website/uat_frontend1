@@ -435,7 +435,7 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
 
         {popup1 && (
           <div className="allPopupWrap">
-            <div className="popup1 awardpopup">
+            <div className="popup1 awardpopup popup33">
               <h2>Create New Training</h2>
               <label onClick={() => {
                 setPopup1(false);
@@ -604,10 +604,7 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
 
         {popup2 && (
           <div className="allPopupWrap">
-            <div style={{overflow:"hidden"}} className="popup1 popup110">
-
-
-
+            <div style={{overflow:"hidden"}} className="popup1 popup110 testingk">
               {
                 onEdit &&
                 <div>
