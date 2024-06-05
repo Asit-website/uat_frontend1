@@ -79,6 +79,7 @@ import EmployeeSelf from "./Components/Employee/EmployeeSelf/EmployeeSelf.jsx";
 import EmployeeSalary from "./Components/admin/Payroll/EmployeeSalary.jsx";
 import SetSallary from "./Components/admin/Payroll/SetSallary.jsx";
 import Payslip from "./Components/admin/Payslip/Payslip.jsx";
+import DocumentManagement from "./Components/admin/document/DocumentManagement.jsx";
 
 var tc;
 
@@ -299,6 +300,7 @@ function App() {
               <Route path="/adminDash/setAll/:id" element={<SetSallary pop={pop} setPop={setPop} />} />
 
               <Route path="/adminDash/addEmployee" element={<AddEmployee />} />
+              <Route path="/adminDash/documentManagement" element={<DocumentManagement />} />
 
               <Route path="/invoicePage" element={<InvoicePage />} />
 

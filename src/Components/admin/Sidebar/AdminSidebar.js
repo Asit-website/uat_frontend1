@@ -31,6 +31,7 @@ import vect from '../../images/vect.svg';
 import cel from '../../images/cal.svg';
 import cel1 from '../../images/cal1.svg';
 import webAsseting from '../../images/webAsseting.svg';
+import article from "../../images/article.png"
 // import {user} from '../../../hooks/useMain'
 import "./sidebar.css"
 
@@ -475,11 +476,20 @@ const AdminSidebar = ({ pop, setPop }) => {
               <NavLink to="/performance/Assets"><div className={`${window.location.pathname === "/performance/Assets"  ? "hh" : ""} setWrap`}>
               {/* <p>Setting</p> */}
               <div className="systSset">
-                <img src={`${window.location.pathname === "/performance/Assets"   ? webAsseting : webAsseting}`} alt="" />
+              <img src={`${window.location.pathname === "/performance/Assets"   ? webAsseting : webAsseting}`} alt="" />
                 <span className={`${window.location.pathname==="/performance/Assets" ? "fan" : ""}`}>Assets Management</span>
               </div>
             </div></NavLink>
               {/* ====================assets management end==================== */}
+              {/* ==================document  start================ */}
+              <NavLink to="/adminDash/documentManagement"><div className={`${window.location.pathname === "/performance/Assets"  ? "hh" : ""} setWrap`}>
+              {/* <p>Setting</p> */}
+              <div className="systSset">
+                <img src={article} alt="" />
+                <span className={`${window.location.pathname==="/performance/Assets" ? "fan" : ""}`}>Document Management</span>
+              </div>
+            </div></NavLink>
+              {/* ====================document end==================== */}
 
               {/* =================training setup start============= */}
               <div

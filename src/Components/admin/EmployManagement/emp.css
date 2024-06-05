@@ -86,6 +86,16 @@ color: white;
     background-color: white;
     padding: 12px;
 }
+.leadInFir2{
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    border: 1px solid #E8E9EB;
+    border-radius: 12px;
+    border: 1px 0px 0px 0px;
+    background-color: white;
+    padding: 12px;
+}
 
 .sinInfir{
     display: flex;

@@ -1566,9 +1566,9 @@ const MainState = (props) => {
       return data;
    }
 
-   const postQuotation = async({ User,InvoiceNo,GstNo,SacCode, PlacedSupply,BillTo,ShipTo,ClientName,Address,Mobile,Email,ItemDescription,Qty,Price,Amount,BalanceAmount,Note,currency})=>{
+   const postQuotation = async({ User,InvoiceNo,GstNo,SacCode, PlacedSupply,BillTo,ShipTo,ClientName,Address,Mobile,Email,ItemDescription,Qty,Price,Amount,BalanceAmount,Note,currency , leadId})=>{
 
-      const data = await post(`${baseUrl}/admin/createInvoice`, {User,InvoiceNo,GstNo,SacCode, PlacedSupply,BillTo,ShipTo,ClientName,Address,Mobile,Email,ItemDescription,Qty,Price,Amount,BalanceAmount,Note,currency}, true);
+      const data = await post(`${baseUrl}/admin/createInvoice`, {User,InvoiceNo,GstNo,SacCode, PlacedSupply,BillTo,ShipTo,ClientName,Address,Mobile,Email,ItemDescription,Qty,Price,Amount,BalanceAmount,Note,currency , leadId}, true);
       return data;
       
    }

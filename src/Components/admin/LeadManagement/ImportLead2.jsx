@@ -17,9 +17,11 @@ import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 
 const ImportLead2 = ({ setAlert, pop, setPop }) => {
+
   const { user, getLead2, updateLeadStatus, updateLeadNote , getQuotationAll,deleteQuotation } = useMain();
 
   const { id } = useParams();
+
   const [data, setData] = useState({});
 
   const [refreshFlag,setRefreshFlag] = useState(false);
@@ -62,13 +64,15 @@ const ImportLead2 = ({ setAlert, pop, setPop }) => {
 
   const [userQuotation , setUserQu] = useState([]);
 
-  const getQuotation = async()=>{
-    let user = JSON?.parse(localStorage.getItem("hrms_user"));
 
-    const id = user._id;
+
+  const getQuotation = async()=>{
+    // let user = JSON?.parse(localStorage.getItem("hrms_user"));
+
+    // const id = user._id;
      const ans = await getQuotationAll(id);
-     console.log("anss1 ",ans);
      if(ans?.status){
+       console.log('quto ',ans);
       setUserQu(ans?.data);
      }
   }
@@ -382,7 +386,10 @@ const ImportLead2 = ({ setAlert, pop, setPop }) => {
                 <div className="LEADSsTunav">
                   <h2 className="ehading">Quotation</h2>
 
-                  <button onClick={()=>navigate("/employeeDash/createQuotation")} className="createQquot">
+                  <button onClick={()=>{
+                    navigate("/employeeDash/createQuotation" , {state: {id}})
+                  }
+                   } className="createQquot">
                     <span>Create Quotation</span>
                   </button>
                 </div>

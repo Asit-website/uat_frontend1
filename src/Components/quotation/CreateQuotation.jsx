@@ -6,12 +6,16 @@ import { useMain } from "../../hooks/useMain";
 import EmployeeSidebar from "../Employee/Sidebar/EmployeeSidebar";
 import EmployeeNavbar from "../Employee/Navbar/EmployeeNavbar";
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
+import { useNavigate  , useLocation} from "react-router-dom";
 
 const CreateQuotation = ({ setAlert, pop, setPop }) => {
   const { user , postQuotation } = useMain();
 
   const navigate = useNavigate();
+
+  const location = useLocation();
+
+  const { id } = location.state; 
 
   const [formdata , setFormdata] = useState({
     User: user?._id,
@@ -48,10 +52,9 @@ const CreateQuotation = ({ setAlert, pop, setPop }) => {
 
     const toastId = toast.loading("Loading...");
 
-
     try{
 
-       const ans = await postQuotation({...formdata});
+       const ans = await postQuotation({...formdata , leadId:id});
 
        if(ans?.status){
         toast.success("Successfuly created");
