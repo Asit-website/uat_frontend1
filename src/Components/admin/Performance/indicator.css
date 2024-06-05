@@ -1,12 +1,11 @@
-
-.annDash{
+.annDash {
     display: flex;
     background-color: #f0f6ff;
     position: relative;
     min-height: 100vh;
 }
 
-.anNav{
+.anNav {
     width: 100%;
     display: flex;
     align-items: center;
@@ -14,174 +13,186 @@
 }
 
 
-.halfLabel{
+.halfLabel {
     display: flex;
     flex-direction: column;
     gap: 4px;
     max-width: 250px;
     width: 100%;
 }
-.halfLabel p{
-font-family: Inter;
-color: #1B2533;
-font-size: 14px;
-font-weight: 400;
-line-height: 20px;
-letter-spacing: 0.0025em;
-text-align: left;
+
+.halfLabel p {
+    font-family: Inter;
+    color: #1B2533;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    letter-spacing: 0.0025em;
+    text-align: left;
 
 }
-.halfLabel input{
-  width: 100%;
+
+.halfLabel input {
+    width: 100%;
     height: 44px;
     padding: 8px 16px 8px 16px;
     gap: 8px;
     border-radius: 8px;
     outline: none;
     border: 1px solid #D0D4DC;
-        background: #FFFFFF;
+    background: #FFFFFF;
 
 
 }
-.halfLabel select{
-  width: 100%;
+
+.halfLabel select {
+    width: 100%;
     height: 44px;
     padding: 8px 16px 8px 16px;
     gap: 8px;
     border-radius: 8px;
     outline: none;
-    border: 1px solid #D0D4DC;  
-      background: #FFFFFF;
+    border: 1px solid #D0D4DC;
+    background: #FFFFFF;
 
-    
+
 
 }
 
 
 
-.anMain{
- background-color: white;
- display: flex;
- flex-direction: column;
- margin-top: 40px;
- padding: 10px 20px;
+.anMain {
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    margin-top: 40px;
+    padding: 10px 20px;
 }
 
-.anmainTop{
+.anmainTop {
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
 
 
-.annFormwrap{
+.annFormwrap {
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
     width: 100%;
-    min-height:100vh;
+    min-height: 100vh;
     height: fit-content;
     background-color: rgba(0, 0, 0, 0.3);
- display: flex;
- padding:50px 0px;
- align-items: center;
- justify-content: center;
+    display: flex;
+    padding: 50px 0px;
+    align-items: center;
+    justify-content: center;
 }
 
 
 
-.allInputFileds{
+.allInputFileds {
     display: flex;
     flex-wrap: wrap;
-     gap: 20px 50px;
+    gap: 20px 50px;
 }
-.allInputFileds .halfLabel{
-   width: 45%;
-   display: flex;
-   flex-direction: column;
-   gap: 0.5rem;
+
+.allInputFileds .halfLabel {
+    width: 45%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
 
 }
-.allInputFileds .fullLabel{
-   width: 100%;
-   display: flex;
-   flex-direction: column;
-   gap: 0.5rem;
+
+.allInputFileds .fullLabel {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
 
 }
-.allInputFileds .anotheLabel{
-   width: 100%;
-   display: flex;
-   flex-direction: column;
-   gap: 0.5rem;
+
+.allInputFileds .anotheLabel {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
 
 }
-.allInputFileds .anotheLabel h2{
-    font-family: Gilroy-Medium;
+
+.allInputFileds .anotheLabel h2 {
+    font-family: inter !important;
     font-size: 18px;
     font-weight: 400;
     line-height: 17px;
     letter-spacing: 0em;
     text-align: left;
-color: #060606;    
+    color: #060606;
 
 }
-.allInputFileds .anotheLabel .anWrap{
-   display: flex;
-   align-items: center;
-   max-width: 400px;
-   padding: 5px 0px;
-   justify-content: space-between;
-   
 
+.allInputFileds .anotheLabel .anWrap {
+    display: flex;
+    align-items: center;
+    max-width: 400px;
+    padding: 5px 0px;
+    justify-content: space-between;
 }
-.allInputFileds .anotheLabel .anWrap p{ 
+
+.allInputFileds .anotheLabel .anWrap p {
     font-family: Gilroy-Medium;
     font-size: 16px;
     font-weight: 400;
     line-height: 17px;
     letter-spacing: 0em;
     text-align: left;
-color: #293240;    
-
-}
-.allInputFileds .anotheLabel .rating{
-  display: flex;
-  gap: 5px;
-  align-items: center;
-
+    color: #293240;
 
 }
 
-.allInputFileds .fullLabel select   {
+.allInputFileds .anotheLabel .rating {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+
+
+}
+
+.allInputFileds .fullLabel select {
     width: 100%;
     height: 44px;
     border-radius: 3px;
     border: 1px solid #293240;
     padding: 10px;
 }
-.allInputFileds .fullStars{
+
+.allInputFileds .fullStars {
     width: 100%;
     height: 44px;
-  display: flex;
-  gap: 10px;
-  align-items: center;
+    display: flex;
+    gap: 10px;
+    align-items: center;
 }
-.allInputFileds .fullLabel input   {
+
+.allInputFileds .fullLabel input {
     width: 100%;
     height: 44px;
     border-radius: 3px;
     border: 1px solid #293240;
     padding: 10px;
 }
+
 .allInputFileds .fullLabel textarea {
 
     padding: 10px;
-    border: 1px solid  black;
+    border: 1px solid black;
 }
-.allInputFileds .halfLabel select{
+
+.allInputFileds .halfLabel select {
     width: 354px;
     height: 44px;
     border-radius: 3px;
@@ -191,64 +202,67 @@ color: #293240;
     border: 1px solid #D0D4DC;
 }
 
-.anDesWrap{
+.anDesWrap {
     display: flex;
     flex-direction: column;
     gap: 10px;
     width: 100%;
-    
+
 }
-.anDesWrap p{
-  
+
+.anDesWrap p {
+
     font-family: Gilroy-Medium;
     font-size: 14px;
     font-weight: 400;
     line-height: 17px;
     letter-spacing: 0em;
     text-align: left;
-color: #060606;    
+    color: #060606;
 }
-.anDesWrap textarea{
-  width: 100%;
-  height: 230px;
-  resize: none;
-  border-radius: 3px;
+
+.anDesWrap textarea {
+    width: 100%;
+    height: 230px;
+    resize: none;
+    border-radius: 3px;
     border: 1px solid #293240;
     padding: 10px;
 
 }
 
-.createBtn{
+.createBtn {
     width: 100%;
     display: flex;
     gap: 30px;
     justify-content: flex-end;
 }
 
-.showText{
+.showText {
     padding: 50px 0px;
-    font-family: Gilroy-Medium;
-font-size: 18px;
-font-weight: 400;
-line-height: 17px;
-letter-spacing: 0em;
-text-align: left;
+    font-family: inter !important;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 17px;
+    letter-spacing: 0em;
+    text-align: left;
 
 }
 
-.noEntries{
-  width: 90%;
-  position: absolute;
-  overflow: hidden;
-  text-align: center;
-  margin-top: 10px;
+.noEntries {
+    width: 90%;
+    position: absolute;
+    overflow: hidden;
+    text-align: center;
+    margin-top: 10px;
 }
-.noEntries span{
+
+.noEntries span {
     font-family: Gilroy-Medium;
     font-size: 16px;
     font-weight: 400;
     line-height: 17px;
     letter-spacing: 0em;
     text-align: left;
-    
+
 }

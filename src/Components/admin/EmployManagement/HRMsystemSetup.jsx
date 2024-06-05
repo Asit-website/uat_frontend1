@@ -373,6 +373,7 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
    try{
 
     const ans = await postDocSetup({name: docData?.name , requiredField:docData?.requiredField});
+    console.log(ans);
    if(ans?.status){
     toast.success("Successfuly created ");
     setDocPop(false);

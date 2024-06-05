@@ -5096,7 +5096,9 @@ letter-spacing: 0.0025em;
   
   
 }
-
+.gfg th{
+  background-color: white !important;
+}
 
 .allQui .date{
   font-family: Inter;
