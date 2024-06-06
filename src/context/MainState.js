@@ -29,7 +29,6 @@ const MainState = (props) => {
       
       const data = await post(`${baseUrl}/auth/login`, { email, employeeCode, password }, false);
 
-      console.log("data", data);
       return data;
    };
 
@@ -228,7 +227,6 @@ const MainState = (props) => {
    const getAllActivities2 = async (type, date, month , userId , department) => {
 
       const data = await post(`${baseUrl}/clock/attendencedetail` ,{type ,date , month,userId , department},true);
-      console.log("data ",data);
 
       return data;
 
@@ -357,7 +355,6 @@ const MainState = (props) => {
 
    const verify = async (role) => {
       const data = await post(`${baseUrl}/verify`, { role }, true);
-      console.log("data ", data);
       return data;
    };
 
@@ -422,7 +419,8 @@ const MainState = (props) => {
    };
 
    const updateProfile = async (
-      { fullName,
+      {
+          fullName,
       mobile,
       email,
       email1,
@@ -465,7 +463,11 @@ const MainState = (props) => {
       AccountNumber,
       confirmAccount,
       Branch,
-      image, _id }) => {
+      image,
+       _id , 
+      
+   
+   }) => {
 
       const data = await put(`${baseUrl}/user/updateProfile`, {
          fullName,
@@ -523,6 +525,7 @@ const MainState = (props) => {
       return data;
    };
 
+   
    const updateAdminProfile = async ({ fullName, dob, mobile, email, password, employeeCode }) => {
       const data = await put(`${baseUrl}/admin/updateAdmin`, { fullName, dob, mobile, email, password, employeeCode }, true);
       return data;
@@ -888,20 +891,20 @@ const MainState = (props) => {
    }
 
 
-   const acceptLeave = async (formdata) => {
+   const acceptLeave = async (formdata , id) => {
 
       const { user, days } = formdata;
 
       let fullName = user.fullName;
 
-      const data = await post(`${baseUrl}/leave/acceptLeave`, { fullName, days }, true);
+      const data = await post(`${baseUrl}/leave/acceptLeave/${id}`, { fullName, days }, true);
       return data;
    }
-   const rejectLeave = async (formdata) => {
+   const rejectLeave = async (formdata , id) => {
       const { user } = formdata;
       let fullName = user.fullName;
 
-      const data = await post(`${baseUrl}/leave/rejectLeave`, { fullName }, true);
+      const data = await post(`${baseUrl}/leave/rejectLeave/${id}`, { fullName }, true);
 
       return data;
    }
@@ -1706,6 +1709,12 @@ const MainState = (props) => {
    
    }
 
+   const uploadOwnDocs = async({formData , id})=>{
+      const resp = await postDocuments(`${baseUrl}/user/uploadDocument/${id}`, formData);
+      return resp;
+   }
+
+
    return (
       <MainContext.Provider value={{
          login, employeeLogin, employeeResetPassword, hrLogin, createHr, getHrs, deleteHr, createEmployee, getEmployees, getUsers, getActiveUsers, getActiveUsersCount, getAdminEmployees, postActivity, postActivityHr, getActivitiesByUser, getStatisticsByUser, postLeave, updateLeave, getUserLeaves, getUserLeaveById, deleteLeave, getTotalLeaves, postTotalLeaves, verifyEmployee, verifyHr, verifyAdmin, setUser,buildAPI, user, getProjects, postProject, getHolidays, postHoliday, updateProject, getProjectsByEmployee, getTasks, postTask, updateTask, deleteTask, setFlag, flag, changePassword, updateProfile, deleteHoliday, updateHoliday, deleteProject, getChats, createNewChat, postMessage, deleteChat, adminLogin, getChat, getChatByUser, setChatUser, chatUser, getEmployeesByEmployee, topDash, postAnnouncement, updateAnnouncement, getAnnouncements, getAnnouncementDates, deleteAnnouncement, getAttendance, getAttendanceByUser, createEmployee1, updateAdminProfile, changePassword1, verify, updateUser, forgetPassword, forgetPassword1, forgetPassword2, getBranchs, postBranch, updateBranch, deleteBranch, getDepartments, postDepartment, updateDepartment, deleteDepartment, getDesingation, postDesignation, updateDesignation, deleteDesignation, getAllActivities, postLeaveType, updateLeaveType, getLeaveTypes, deleteLeaveType,
@@ -1713,6 +1722,7 @@ const MainState = (props) => {
          editAllowance, commisionDelteHandler,createLoan , editLoanApi,
          getTotalLeavesCount, uploadDocuments, createAnnouncement, deleteAnnouncement, updateAnnouncements, fetchAnnoucement, deleteAnnouncements, getEmp, allEmployeebyDep, notificationGet,
          acceptLeave, rejectLeave,
+         uploadOwnDocs,
          updateDocSetup,
          fetchAllDocs,
          updateAttendance,

@@ -23,7 +23,6 @@ const AttendenceCalendar = ({ setAlert, pop1, setPop1 }) => {
   const getData = async (date) => {
     setLoadFlag(true);
     const data = await getActivitiesByUser(date, '', '', 0, 10, '');
-    console.log("data ",data);
   
     setMainData(data.data[0]);
     setLoadFlag(false);

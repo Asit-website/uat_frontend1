@@ -38,7 +38,7 @@ const LeaveRequest = ({
 
   const getData=async()=>{
     let ans = await getUserLeaves();
-    console.log(ans);
+    console.log("leaves ",ans);
     const reverseArray = ans?.data?.reverse();
     setData(reverseArray);
   };
@@ -96,50 +96,53 @@ const LeaveRequest = ({
    }
 
    const rejectHandler = async(form)=>{
-    const {user} = form;
+
+    const toastId = toast.loading("Loading...");
+    const {user , _id} = form;
 
     const userName = user.fullName;
 
     
-   const ans = await rejectLeave(form);
+   const ans = await rejectLeave(form , _id);
 
     const notify = await postNotifyLeavereq(userName , "Rejected");
-    console.log("notify ",notify);
 
     if(ans?.status){
       toast.success("Successfuly reject the leave");
       setShowPlay(-1);
-      // setAccept(!accept);
+      getData();
 
       if(userName){
         setAccept(!accept);
       }
   
     }
+
+    toast.dismiss(toastId);
   }
   
-  const acceptHandler = async(form)=>{    
-    const {user} = form;
+  const acceptHandler = async(form)=>{   
+    
+    const toastId =toast.loading("Loading...");
+    const {user ,_id} = form;
     const userName = user.fullName;
     
-    
-    const ans = await acceptLeave(form);
-
+    const ans = await acceptLeave(form , _id);
 
     const notify = await postNotifyLeavereq(userName , "Accepted");
-
-    console.log("notify ",notify);
 
     if(ans?.status){
       
       toast.success("Successfuly Accepted the leave");
       setShowPlay(-1);
+      getData();
       if(userName){
         setAccept(!accept);
       }
     }
-   }
+    toast.dismiss(toastId);
 
+   }
 
 
   return (
@@ -161,6 +164,7 @@ const LeaveRequest = ({
           <div className="em">
             <div className="flex-col">
               {/* first  */}
+
               <div className="hrmDasTxtFir">
                 <p className="hrmHed">Dashboard</p>
 
@@ -177,9 +181,11 @@ const LeaveRequest = ({
                   </span>{" "}
                   <span className="thml">manage Leave</span>
                 </div>
+                
               </div>
 
               {/* second  */}
+
               <main className="leaveReqWrap">
                 <div className="relative overflow-x-auto">
                   <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -253,7 +259,7 @@ const LeaveRequest = ({
   
                           <td className="px-3 py-4 taskAns">
                             <div className="ACTIVITYsss">{
-                              accept ? "accept" : "reject"
+                              e?.status === "" ?"Pending":e?.status
                             }</div>
                           </td>
 
@@ -297,8 +303,7 @@ const LeaveRequest = ({
 
                                   <p onClick={
                                     ()=>{
-                                      acceptHandler(e);
-                                      // toggleStatus(e?._id)
+                                      acceptHandler(e );
                                     }
                                   } style={{backgroundColor:"green" , color:"white", padding:"4px" , cursor:"pointer"  }} >Accept </p>
                                   <p onClick={()=>{
@@ -424,11 +429,13 @@ const LeaveRequest = ({
                   </table>
                 </div>
               </main>
+
             </div>
           </div>
 
      
      {/* this is edit form of leave rqeuest  */}
+
             <div
             style={styleThing}
             id="authentication-modal"

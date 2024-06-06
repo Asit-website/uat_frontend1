@@ -74,7 +74,6 @@ const LeadFile = ({ setAlert, pop, setPop }) => {
 
       const data = XLSX.utils.sheet_to_json(worksheet);
 
-      console.log("data ", data);
 
       let toastId;
 

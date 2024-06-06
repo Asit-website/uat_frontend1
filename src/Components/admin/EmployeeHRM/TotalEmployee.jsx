@@ -40,7 +40,6 @@ const TotalEmployee = ({
     setData(ans.data);
   };
 
-  console.log("data ", data);
 
 
   return (

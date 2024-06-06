@@ -3,12 +3,25 @@ import EmployeeNavbar from "../Navbar/EmployeeNavbar";
 import EmployeeSidebar from "../Sidebar/EmployeeSidebar";
 import { useMain } from "../../../hooks/useMain";
 import { useNavigate } from "react-router-dom";
-import cutImg from "../../images/cutt.png"
+import uploadFile from "../../images/upload-file.png";
 import toast from "react-hot-toast";
+
+const item = [
+  {
+    title: "Full-time Employees",
+  },
+  {
+    title: "Intern Employees",
+  },
+  {
+    title: "Part-time Employees",
+  },
+];
+
 
 const UpdateProfile = ({ setAlert, pop1, setPop1 }) => {
   
-  const { user, updateProfile, postActivity, getStatisticsByUser, getBranchs, getDepartments, getDesignations , uploadToCloudinaryImg } = useMain();
+  const { user, updateProfile, postActivity, getStatisticsByUser, getBranchs, getDepartments, getDesignations , uploadToCloudinaryImg  , uploadOwnDocs} = useMain();
   const [value, setValue] = useState(user);
 
   const navigate = useNavigate();
@@ -23,7 +36,6 @@ const UpdateProfile = ({ setAlert, pop1, setPop1 }) => {
     let ans = await getBranchs();
     let ans1 = await getDepartments();
     let ans2 = await getDesignations();
-    console.log(ans?.data);
     setBranches(ans?.data);
     setDepartments(ans1?.data);
     setDesignations(ans2?.data);
@@ -54,25 +66,125 @@ const UpdateProfile = ({ setAlert, pop1, setPop1 }) => {
 
   };
 
+  const [documents, setDocuments] = useState({
+    adharCard: "",
+    pancard: "",
+    tenCert:"",
+    twevelCert:"",
+    cancelCheque: "",
+    LastOrganization: "",
+    RelievingLetter:"",
+    OfferLetter:"",
+    ExperienceLetter:"",
+
+
+  });
+
+ 
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    const { name } = event.target;
+    if (file) {
+      setDocuments((prevDocuments) => ({
+        ...prevDocuments,
+        [name]: file,
+      }));
+    }
+  };
+
+
   const handleSubmit = async (e) => {
     
      const toastId = toast.loading("Loading...");
 
     e.preventDefault();
-    const ans = await updateProfile(value);
+    const ans = await updateProfile(value );
 
+    // this is for upload the user documents 
+    const {
+      adharCard,
+      pancard,
+      tenCert,
+      twevelCert,
+      cancelCheque,
+      LastOrganization,
+      RelievingLetter,
+      OfferLetter,
+      ExperienceLetter,
+    } = documents;
+
+    const formData = new FormData();
+    if (documents.adharCard) {
+      formData.append("adharCard", adharCard);
+    }
+    if (documents.pancard) {
+      formData.append("pancard", pancard);
+    }
+    if (documents.cancelCheque) {
+      formData.append("cancelCheque", cancelCheque);
+    }
+    if (documents.tenCert) {
+      formData.append("tenCert", tenCert);
+    }
+    if (documents.LastOrganization) {
+      formData.append("LastOrganization", LastOrganization);
+    }
+    if (documents.OfferLetter) {
+      formData.append("OfferLetter", OfferLetter);
+    }
+    if (documents.RelievingLetter) {
+      formData.append("RelievingLetter", RelievingLetter);
+    }
+    if (documents.twevelCert) {
+      formData.append("twevelCert", twevelCert);
+    }
+    if (documents.ExperienceLetter) {
+      formData.append("ExperienceLetter", ExperienceLetter);
+    }
+
+    if (
+      documents.adharCard !== "" ||
+      documents.pancard !== "" ||
+      documents.tenCert !== "" ||
+      documents.twevelCert !== "" ||
+      documents.cancelCheque !== "" ||
+      documents.LastOrganization !== "" ||
+      documents.RelievingLetter !== "" ||
+      documents.OfferLetter !== "" ||
+      documents.ExperienceLetter !== ""
+    ) {
+       const uploadans = await uploadOwnDocs({formData , id:user?._id});
+
+       console.log("uploadans ",uploadans);
+    }
+
+  
     if (ans.success) {
-      // setAlert("success", ans.message);
       toast.success(ans?.message);
       setValue(ans.data);
-      navigate("/employeeDash");
+      // navigate("/employeeDash");
     } else {
-      // setAlert("error", ans.message);
       toast.error(ans?.message);
     }
 
     toast.dismiss(toastId);
   };
+
+  const [currEmp, setCurrEmp] = useState(0);
+
+
+
+  useEffect(()=>{
+
+    const {EmployeeType} = user;
+    const index = item.findIndex((emp) => emp.title === EmployeeType);
+
+    if (index !== -1) {
+      setCurrEmp(index);
+    }
+     
+
+  },[user])
 
 
   return (
@@ -191,20 +303,7 @@ const UpdateProfile = ({ setAlert, pop1, setPop1 }) => {
                   // required
                   />
                 </div>
-                {/* <div className="mb-6">
-                  <label htmlFor="password" className="block mb-1">
-                    Password
-                  </label>
-                  <input
-                    className="block w-full"
-                    name="password"
-                    value={value.password}
-                    onChange={handleChange}
-                    id="password"
-                    type="password"
-                    required
-                  />
-                </div> */}
+                
                 <div className="mb-6">
                   <label htmlFor="gmail" className="block mb-1">
                     Company Gmail
@@ -562,37 +661,7 @@ const UpdateProfile = ({ setAlert, pop1, setPop1 }) => {
                   <label htmlFor="yearPass" className="block mb-1">
                     Year of passing •
                   </label>
-                  {/* <select
-                    className="rounded-lg  w-full"
-                    name="yearPass"
-                    id="yearPass"
-                    value={value.yearPass}
-                    onChange={handleChange}
-                  >
-                    <option>year of passing</option>
-                    <option>2000</option>
-                    <option>2001</option>
-                    <option>2002</option>
-                    <option>2003</option>
-                    <option>2004</option>
-                    <option>2005</option>
-                    <option>2006</option>
-                    <option>2007</option>
-                    <option>2008</option>
-                    <option>2009</option>
-                    <option>2010</option>
-                    <option>2011</option>
-                    <option>2012</option>
-                    <option>2013</option>
-                    <option>2014</option>
-                    <option>2015</option>
-                    <option>2016</option>
-                    <option>2017</option>
-                    <option>2018</option>
-                    <option>2019</option>
-                    <option>2020</option>
-                    <option>2021</option>
-                  </select> */}
+                 
                    <input  name="yearPass"
                     id="yearPass"
                     value={value.yearPass}
@@ -826,6 +895,232 @@ const UpdateProfile = ({ setAlert, pop1, setPop1 }) => {
                   />
                 </div>
 
+                {/* this is document upload start  */}
+                <div className="basic-information2 mb-4 mt-7">
+                      <div className="basics">
+                        <h3>Documents</h3>
+                      </div>
+
+                      <hr className="upper" />
+
+                      <div className="form2-class">
+
+                        <div className="w-full sfgh mt-6">
+                          {/* this is first doc row  */}
+
+                          <div className="flex w-full">
+                            {/* fist   */}
+                            <div className="thiddrapgsingl">
+                              <h4>Aadhar Card</h4>
+
+                              <div className="drag-area try">
+                                <img src={uploadFile} alt="" />
+
+                                <p>Click to upload</p>
+
+                                <input
+                                  className="filesjila w-full"
+                                  name="adharCard"
+                                  type="file"
+                                  onChange={handleFileChange}
+                                />
+                              </div>
+                            </div>
+
+                            {/* second */}
+
+                            <div className="thiddrapgsingl">
+                              <h4>PAN Card</h4>
+
+                              <div className="drag-area try">
+                                <img src={uploadFile} alt="" />
+
+                                <p>Click to upload</p>
+
+                                <input
+                                  className="filesjila w-full"
+                                  type="file"
+                                  name="pancard"
+                                  onChange={handleFileChange}
+                                />
+                              </div>
+                            </div>
+                          </div>
+
+                          {/* this is second doc row  */}
+
+                          <div className="flex w-full mt-6">
+                            {/* frist   */}
+                            <div className="thiddrapgsingl">
+                              <h4>10th Certificate</h4>
+
+                              <div className="drag-area try">
+                                <img src={uploadFile} alt="" />
+
+                                <p>Click to upload</p>
+
+                                <input
+                                  className="filesjila w-full"
+                                  type="file"
+                                  name="tenCert"
+                                  onChange={handleFileChange}
+                                />
+                              </div>
+                            </div>
+
+                            {/* second  */}
+                            <div className="thiddrapgsingl">
+                              <h4>12th Certificate</h4>
+
+                              <div className="drag-area try">
+                                <img src={uploadFile} alt="" />
+
+                                <p>Click to upload</p>
+
+                                <input
+                                  name="twevelCert"
+                                  onChange={handleFileChange}
+                                  className="filesjila w-full"
+                                  type="file"
+                                />
+                              </div>
+                            </div>
+                          </div>
+
+                          <div className="flex w-full mt-6">
+                            {/* frist   */}
+
+                            <div className="thiddrapgsingl">
+                              <h4>Cancelled Cheque</h4>
+                              <div className="drag-area try">
+                                <img src={uploadFile} alt="" />
+
+                                <p>Click to upload</p>
+
+                                <input
+                                  className="filesjila w-full"
+                                  type="file"
+                                  name="cancelCheque"
+                                  onChange={handleFileChange}
+                                />
+                              </div>
+                            </div>
+
+                            {currEmp === 0 && (
+                              <div className="thiddrapgsingl">
+                                <h4>Last Organization</h4>
+
+      
+                                <div className="drag-area try">
+                                  <img src={uploadFile} alt="" />
+
+                                  <p>Click to upload</p>
+
+                                  <input
+                                    name="LastOrganization"
+                                    onChange={handleFileChange}
+                                    className="filesjila w-full"
+                                    type="file"
+                                  />
+                                </div>
+                              </div>
+                            )}
+                          </div>
+
+                          {currEmp === 0 && (
+                            <>
+                              <h1 className="lstOrgText">
+                                Last Organization Docs
+                              </h1>
+
+                              <div className="flex w-full mt-6">
+                                {/* first   */}
+
+                                <div className="thiddrapgsingl">
+                                  <h4>Relieving Letter</h4>
+
+       
+                                  <div className="drag-area try">
+                                    <img src={uploadFile} alt="" />
+
+                                    <p>Click to upload</p>
+
+                                    <input
+                                      className="filesjila w-full"
+                                      type="file"
+                                      name="RelievingLetter"
+                                      onChange={handleFileChange}
+                                    />
+                                  </div>
+                                </div>
+
+                                {/* second  */}
+
+                                <div className="thiddrapgsingl">
+                                  <h4>Offer letter</h4>
+
+        
+                                  <div className="drag-area try">
+                                    <img src={uploadFile} alt="" />
+
+                                    <p>Click to upload</p>
+
+                                    <input
+                                      name="OfferLetter"
+                                      className="filesjila w-full"
+                                      type="file"
+                                      onChange={handleFileChange}
+                                    />
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div className="flex w-full mt-6">
+                                {/* first   */}
+
+                                <div className="thiddrapgsingl">
+                                  <h4>Experience letter</h4>
+
+                                  <div className="drag-area try">
+                                    <img src={uploadFile} alt="" />
+
+                                    <p>Click to upload</p>
+
+                                    <input
+                                      className="filesjila w-full"
+                                      type="file"
+                                      name="ExperienceLetter"
+                                      onChange={handleFileChange}
+                                    />
+                                  </div>
+                                </div>
+
+                                {/* second  */}
+
+                                <div className="thiddrapgsingl">
+                                  <h4>Offer letter</h4>
+
+                                  <div className="drag-area try">
+                                    <img src={uploadFile} alt="" />
+
+                                    <p>Click to upload</p>
+
+                                    <input
+                                      name="prevOrgOffer"
+                                      className="filesjila w-full"
+                                      type="file"
+                                      onChange={handleFileChange}
+                                    />
+                                  </div>
+                                </div>
+                              </div>
+                            </>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                {/* this is document upload end  */}
+
                 <div className="mb-6">
                   <label htmlFor="Branch" className="block mb-1">
                     Documents
@@ -841,8 +1136,6 @@ const UpdateProfile = ({ setAlert, pop1, setPop1 }) => {
                     }
                   </div>
                 </div>
-
-
 
                 <button
                   type="submit"
