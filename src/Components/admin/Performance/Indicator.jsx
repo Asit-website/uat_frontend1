@@ -9,12 +9,19 @@ import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 import { FaRegStar, FaSleigh } from "react-icons/fa";
 import toast from 'react-hot-toast';
+import bxsrch from "../../images/bx-search.png"
+import actions from "../../images/actions.png"
+import edit22 from "../../images/edit22.png"
+import deleted from "../../images/deletedd.svg";
+import happy from "../../images/bx-happy-heart-eyes.png"
+import { useNavigate } from 'react-router-dom';
+
 
 
 const Indicator = ({ pop, setPop, setAlert }) => {
 
   const user1 = JSON.parse(localStorage.getItem("hrms_user"));
-  // console.log(user1);
+
   const { user, createIndicator, getIndicator, deleteIndicator, updateIndicator,getBranchs, getDepartments, getDesingation } = useMain();
 
   const [openForm, setOpenForm] = useState(false);
@@ -26,6 +33,8 @@ const Indicator = ({ pop, setPop, setAlert }) => {
   const [refreshFlag, setRefreshFlag] = useState(false);
 
   const [data, setData] = useState([]);
+
+  const navigate = useNavigate();
  
   const [branch,setBranch] = useState([]);
   const [department,setDepartment] = useState([]);
@@ -41,9 +50,7 @@ const Indicator = ({ pop, setPop, setAlert }) => {
 
 
   const getData = async () => {
-    // console.log("caa");
     const ans = await getIndicator();
-    // console.log(ans?.data);
     setData(ans?.data);
     setRefreshFlag(!refreshFlag);
   }
@@ -62,25 +69,7 @@ const Indicator = ({ pop, setPop, setAlert }) => {
     setBranch(ans?.data);
     setDepartment(ans1?.data);
   }
-  // const data = [
-  //   {
-  //     branch: "Head office",
-  //     department: "xyz",
-  //     designation: "xyz",
-  //     overallRating: "5",
-  //     addedBy: "khushel digi solution",
-  //     createAt: "	Jan 4, 2024",
-
-  //   },
-
-  // ]
-
-  // const deleteProject = async (id) =>{
-  //   const ans = await deleteIndicator(id);
-  //   console.log(ans);
-  //   alert("delete Success");
-  // }
-
+  
   const deleteProject = async (id) => {
 
     confirmAlert({
@@ -158,6 +147,9 @@ const Indicator = ({ pop, setPop, setAlert }) => {
   };
   
 
+  const [currView, setCurrView] = useState(-1);
+
+
    const designationFetch = async()=>{
 
     const departmentId = getDepartmentId(formdata.Department);
@@ -189,14 +181,7 @@ const Indicator = ({ pop, setPop, setAlert }) => {
               {/* left sie */}
               <div className='anNavLeft'>
 
-                <h2>Manage Indicator</h2>
-                <p>Dashboard <span> Indicator</span> </p>
-
-              </div>
-
-              {/* right side  */}
-              <div onClick={() => setOpenForm(true)} className='plusImg'>
-                <img src={annPlus} alt="" />
+                <h2>Performance Setup</h2>
 
               </div>
 
@@ -209,48 +194,42 @@ const Indicator = ({ pop, setPop, setAlert }) => {
               <div className='anmainTop'>
                 {/* left side */}
                 <div className='anMLef'>
-
-                  <select name="" id="">
-                    <option value="10">10</option>
-                  </select>
-
-                  <span>entries per page</span>
-
+                Manage Indicator
                 </div>
 
                 {/* right side  */}
                 <div className='anMaRi'>
-                  <input type="text" placeholder='Search...' />
+                  <input type="text" placeholder='Search Employee' />
+                 <img src={bxsrch} alt="" />
                 </div>
               </div>
-
 
 
               <div class="relative overflow-x-auto">
 
                 <table class="w-full text-sm text-left rtl:text-right text-black dark:text-black">
 
-                  <thead class="text-xs text-black uppercase  dark:text-black">
+                  <thead class="text-xs indictortable text-black uppercase  dark:text-black">
                     <tr>
-                      <th scope="col" class="px-6 py-3">
+                      <th scope="col" class="px-6 py-3 indith">
                         BRANCH
                       </th>
-                      <th scope="col" class="px-6 py-3">
+                      <th scope="col" class="px-6 py-3 indith">
                         DEPARTMENT
                       </th>
-                      <th scope="col" class="px-6 py-3">
+                      <th scope="col" class="px-6 py-3 indith">
                         DESIGNATION
                       </th>
-                      <th scope="col" class="px-6 py-3">
+                      <th scope="col" class="px-6 py-3 indith">
                         OVERALL RATING
                       </th>
-                      <th scope="col" class="px-6 py-3">
+                      <th scope="col" class="px-6 py-3 indith">
                         ADDED BY
                       </th>
-                      <th scope="col" class="px-6 py-3">
+                      <th scope="col" class="px-6 py-3 indith">
                         CREATED AT
                       </th>
-                      <th scope="col" class="px-6 py-3">
+                      <th scope="col" class="px-6 py-3 indith">
                         ACTION
                       </th>
                     </tr>
@@ -262,27 +241,27 @@ const Indicator = ({ pop, setPop, setAlert }) => {
                       data?.map((item, index) => (
                         <tr key={index} class="bg-white">
 
-                          <td class="px-6 py-4">
+                          <td class="px-6 py-4 inditd">
                             {item.Branch}
                           </td>
-                          <td class="px-6 py-4">
+                          <td class="px-6 py-4 inditd">
                             {item.Department}
                           </td>
-                          <td class="px-6 py-4">
+                          <td class="px-6 py-4 inditd">
                             {item.Designation}
                           </td>
-                          <td class="px-6 py-4">
+                          <td class="px-6 py-4 inditd">
                             {(item?.businessProcessRating) + (item?.projectManagemntRating)}
                           </td>
 
-                          <td class="px-6 py-4">
+                          <td class="px-6 py-4 inditd">
                             {user1?.createdBy}
                           </td>
-                          <td class="px-6 py-4">
+                          <td class="px-6 py-4 inditd">
                             {new Date(Number(item?.ts)).toLocaleDateString()}
                           </td>
 
-                          <td class="px-6 py-4">
+                          {/* <td class="px-6 py-4 inditd">
                             <div className='flex items-center sk'>
                               <i onClick={() => {
                                 setOnEdit(true);
@@ -293,7 +272,49 @@ const Indicator = ({ pop, setPop, setAlert }) => {
                                 deleteProject(item?._id)
                               }} className="fa-solid fa-trash"></i>
                             </div>
-                          </td>
+                          </td> */}
+
+<div className="viewOnwWRAP">
+
+<td onClick={() => {
+  if (index == currView) {
+    setCurrView(-1);
+  }
+  else {
+    setCurrView(index)
+  }
+}} className="px-6 py-4 taskAns cursor-pointer"><img src={actions} alt="" /></td>
+
+
+{
+  index == currView &&
+
+  <div className="viewOne2">
+   
+    {/* second */}
+    <div onClick={() => {
+      setOnEdit(true);
+      setEditData(item);
+      setOpenForm(true)
+    }} className="subView">
+      <img src={edit22} alt="" />
+      <p>Edit </p>
+    </div>
+
+    <hr />
+
+
+    {/* third */}
+    <div onClick={() => {
+  deleteProject(item?._id)
+      }} className="subView">
+      <img src={deleted} alt="" />
+      <p className="deel">Delete </p>
+    </div>
+  </div>
+
+}
+</div>
 
 
                         </tr>
@@ -306,7 +327,6 @@ const Indicator = ({ pop, setPop, setAlert }) => {
 
                 </table>
 
-                <p className='showText'>Showing 1 to 1 of 1 entries</p>
 
               </div>
 
