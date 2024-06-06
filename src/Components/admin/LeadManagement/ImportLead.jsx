@@ -67,10 +67,8 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
         const [userQuotation , setUserQu] = useState([]);
 
         const getQuotation = async()=>{
-            let user = JSON?.parse(localStorage.getItem("hrms_user"));
-          const id = user._id;
+        
            const ans = await getQuotationAll(id);
-           console.log("anss1 ",ans);
            if(ans?.status){
             setUserQu(ans?.data);
            }
@@ -391,7 +389,7 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
 
                                     <h2 className="ehading">Quotation</h2>
 
-                                   <button onClick={()=>navigate("/adminDash/createQuotation" , )} className="createQquot"><span>Create Quotation</span></button>
+                                   <button onClick={()=>navigate("/adminDash/createQuotation" , {state:{id}} )} className="createQquot"><span>Create Quotation</span></button>
 
                                 </div>
 

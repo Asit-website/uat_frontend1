@@ -64,15 +64,10 @@ const ImportLead2 = ({ setAlert, pop, setPop }) => {
 
   const [userQuotation , setUserQu] = useState([]);
 
-
-
   const getQuotation = async()=>{
-    // let user = JSON?.parse(localStorage.getItem("hrms_user"));
-
-    // const id = user._id;
+   
      const ans = await getQuotationAll(id);
      if(ans?.status){
-       console.log('quto ',ans);
       setUserQu(ans?.data);
      }
   }

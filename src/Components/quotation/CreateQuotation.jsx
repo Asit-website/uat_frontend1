@@ -66,7 +66,6 @@ const CreateQuotation = ({ setAlert, pop, setPop }) => {
        }
 
     } catch(error){
-      console.log(error);
       toast.error("Something went wrong");
     }
 
