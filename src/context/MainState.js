@@ -830,7 +830,7 @@ const MainState = (props) => {
    };
 
    const deleteUser = async (id) => {
-      const data = await deleteReq(`${baseUrl}/user/deleteUser/${id}`, true);
+      const data = await deleteReq(`${baseUrl}/user/deactivateUser/${id}`, true);
       return data;
    };
 
@@ -1678,8 +1678,8 @@ const MainState = (props) => {
       return data;
     }
 
-    const updateAttendance = async(id , Date , clockIn , clockOut)=>{
-      const data = await post(`${baseUrl}/clock/updateAttendance/${id}`, { Date , clockIn , clockOut}, true);
+    const updateAttendance = async(id , Date , clockIn , clockOut , breakTime)=>{
+      const data = await post(`${baseUrl}/clock/updateAttendance/${id}`, { Date , clockIn , clockOut , breakTime}, true);
       return data;
    
    }

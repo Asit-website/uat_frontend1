@@ -5,10 +5,6 @@ import "react-calendar/dist/Calendar.css";
 import { useMain } from "../../../hooks/useMain";
 import HrSidebar from "../../Hr/Sidebar/HrSidebar";
 import HrNavbar from "../../Hr/Navbar/HrNavbar";
-// import chevron from "../../images/chevron_right.png";
-// import inbox from "../../images/move_to_inbox.png"
-// import outbox from "../../images/outbox.png"
-// import personAdd from "../../images/person_add.png"
 import f from "../../images/f.png";
 import deleted from "../../images/deletedd.svg";
 import "./employeManage.css";
@@ -39,6 +35,8 @@ const EmployeeManagement = ({
   const { user, getUsers, getActivitiesByUser, deleteUser,getDepartments,getDesignations } = useMain();
 
   const [data, setData] = useState([]);
+
+  console.log("data ",data);
 
   const [allData , setAllData] = useState([]);
 
@@ -79,19 +77,19 @@ const EmployeeManagement = ({
     console.log(data.data[0]);
   };
 
-  const deleteUser1 = async (id) => {
+  const deleteUser1 = async (id , isDeact) => {
 
     confirmAlert({
-      title: 'Are you sure you want to delete this item?',
+      title: `Are you sure you want to ${isDeact?"Activate":"Deactivate"} this item?`,
       buttons: [
         {
-          label: 'Delete',
+          label: `${isDeact?"Activate":"Deactivate"}`,
           style: {
             background: "#DD3409"
           },
           onClick: async () => {
             await deleteUser(id);
-            toast.success("delete Successfully");
+            toast.success(`${isDeact?"Activate":"Deactivate"} Successfully`);
             setRefreshFlag(!refreshFlag);
             getData();
           }
@@ -335,10 +333,10 @@ const EmployeeManagement = ({
 
                                   {/* third */}
                                   <div onClick={() => {
-                                    deleteUser1(item?._id);
+                                    deleteUser1(item?._id , item?.isDeactivated === "Yes");
                                   }} className="subView">
                                     <img src={deleted} alt="" />
-                                    <p className="deel">Delete </p>
+                                    <p className="deel"> {item?.isDeactivated === "Yes"?"Activate":"Deactivate"} </p>
                                   </div>
                                 </div>
 
