@@ -11,7 +11,7 @@ import Managment from "../Management/Managment";
 import { NavLink, useNavigate } from "react-router-dom";
 import dashboard from "../../images/dashboard.png";
 import expand_more from "../../images/expand_more.png";
-import gridDas from '../../images/gridDas.svg';
+import gridDas from '../../images/gridDas.svg';  
 import chooseDash from "../../images/choosedash.png";
 import unchosedash from "../../images/unchosedash.png";
 import dasg from '../../images/dasg.svg'
@@ -482,11 +482,11 @@ const AdminSidebar = ({ pop, setPop }) => {
             </div></NavLink>
               {/* ====================assets management end==================== */}
               {/* ==================document  start================ */}
-              <NavLink to="/adminDash/documentManagement"><div className={`${window.location.pathname === "/performance/Assets"  ? "hh" : ""} setWrap`}>
+              <NavLink to="/adminDash/documentManagement"><div className={`${window.location.pathname === "/adminDash/documentManagement"  ? "hh" : ""} setWrap`}>
               {/* <p>Setting</p> */}
               <div className="systSset">
-                <img src={article} alt="" />
-                <span className={`${window.location.pathname==="/performance/Assets" ? "fan" : ""}`}>Document Management</span>
+                <img src={window.location.pathname==="/adminDash/documentManagement" ? "fan" : ""} alt="" />
+                <span className={`${window.location.pathname==="/adminDash/documentManagement" ? "fan" : ""}`}>Document Management</span>
               </div>
             </div></NavLink>
               {/* ====================document end==================== */}
