@@ -122,7 +122,7 @@
 
 
 .hrmDasTxtFir .hrmHed {
-    font-family: Gilroy-Medium;
+    font-family: inter !important;
     font-size: 20px;
     font-weight: 400;
     line-height: 24px;
@@ -138,7 +138,7 @@
 }
 
 .hrmDasTxtFir .hrFirDs {
-    font-family: Gilroy-Regular;
+    font-family: inter !important;
     font-size: 16px;
     font-weight: 400;
     line-height: 19px;
@@ -239,7 +239,10 @@
     text-align: left;
 
 }
-
+.serrup th,
+.serrup td{
+    font-family: inter !important; 
+}
 .deel {
     color: #DD3409 !important;
 }
@@ -250,7 +253,10 @@
     gap: 20px;
 
 }
-
+.headind img{
+    margin-left: 10px;
+    margin-top: 5px;
+}
 .headind span {
     font-family: Inter;
     color: #1B2533;

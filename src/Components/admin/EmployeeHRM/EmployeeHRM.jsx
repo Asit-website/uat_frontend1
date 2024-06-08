@@ -461,7 +461,7 @@ const differenceText = `${hours}:${minutes}:${seconds}`;
                       <h2 className="headind"> <img src={annouce} alt="" /> <span>Announcement Lists</span></h2>
 
                       <div className="relative overflow-x-auto">
-                        <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                        <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 serrup">
                           <thead className="text-xs uppercase textALLtITL ">
                             <tr  >
                               <th scope="col" className="px-3  py-3 taskTitl">
@@ -648,7 +648,7 @@ const differenceText = `${hours}:${minutes}:${seconds}`;
                     <div>
                         <a
                           href="#"
-                          className="block serad max-w-2xl p-5 bg-white border timeWrap border-gray-200 rounded-lg shadow hover:bg-gray-100   "
+                          className="block serad max-w-2xl p-5 bg-white border timeWrap border-gray-200 rounded-lg shadow"
                         >
 
                            <div className="timeLogWrap">

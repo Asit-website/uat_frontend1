@@ -209,7 +209,7 @@ const AdminProfile = ({ pop, setPop, setAlert }) => {
 
                             <div class="relative overflow-x-auto">
 
-                                <table class="w-full text-sm text-left rtl:text-right text-black dark:text-black">
+                                <table class="w-full text-sm text-left rtl:text-right text-black dark:text-black tranking">
 
                                     <thead class="text-xs text-black uppercase  dark:text-black">
                                         <tr>

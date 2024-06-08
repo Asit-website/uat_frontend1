@@ -4634,6 +4634,22 @@ input::-webkit-inner-spin-button {
   width: auto !important;
   /* margin: 0px 0px !important; */
 }
+.gfg td{
+  font-family: inter !important;
+}
+.gfg label{
+  font-family: inter !important;
+}
+.thml{
+  font-family: inter !important;
+}
+.ACTIVITYsss{
+  font-family: inter !important;
+}
+.tranking th,
+.tranking td{
+  font-family: inter !important;
+}
 .selr{
   width: 91px !important;
 }
@@ -4793,7 +4809,10 @@ input::-webkit-inner-spin-button {
 }
 .tasklo{
   color: #0B56E4 !important;
+  background-color: white;
 }
+
+
 
 .followUp{
   /* width: 50px!important; */
@@ -5102,6 +5121,7 @@ letter-spacing: 0.0025em;
 }
 .gfg th{
   background-color: white !important;
+  font-family: inter !important;
 }
 
 .allQui .date{

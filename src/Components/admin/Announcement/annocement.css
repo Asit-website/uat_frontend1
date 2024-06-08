@@ -188,7 +188,7 @@ text-align: left;
     
 }
 .anmainTop .anMLef span{
-    font-family: Gilroy-Medium;
+    font-family: inter !important;
     font-size: 14px;
     font-weight: 400;
     line-height: 17px;
