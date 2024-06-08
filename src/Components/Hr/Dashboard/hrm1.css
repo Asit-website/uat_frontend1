@@ -293,13 +293,13 @@
     color: #293240;
 }
 
-.attend-ctiveWrap .hrmActRight {
+/* .attend-ctiveWrap .hrmActRight {
     display: flex;
     flex-direction: column;
     gap: 20px;
     max-width: 435px;
     width: 100%;
-}
+} */
 
 .attend-ctiveWrap .markAttWrap {
     background-color: white;

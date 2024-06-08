@@ -127,8 +127,8 @@ function App() {
   };
 
   return (
-    <>
-      <MainState>
+    <div className="relative">
+      <MainState >
         <BrowserRouter>
           {alertValue.show ? (
             <Alert
@@ -311,7 +311,7 @@ function App() {
         </BrowserRouter>
       </MainState>
       {/* <Auth/> */}
-    </>
+    </div>
   );
 };
 

@@ -1,15 +1,23 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import kushel1 from "../../images/kushel1.png";
 import notification from "../../images/notifications.png"
-import chatbot from "../../images/chat_bubble_outline.png"
 import lok from "../../images/lok.png";
 import bottom from "../../images/bottom.png";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
+import notifyy from "../../images/notifyy.png"
+import { useMain } from '../../../hooks/useMain'
+import redcancel from "../../images/redcancel.png"
 
 
 const AdminNavbar = ({ setAlert}) => {
   
+  const { fetchUserNotify , deleteNotification } = useMain();
+
   let user = JSON?.parse(localStorage.getItem("hrms_user"));
+
+  const [allNotication , setAllNotification] = useState([]);
+
+  const [shownotify , setShownotify] = useState(false);
 
   const updateUser = () => {
     document.getElementById("ty").classList.toggle("tys");
@@ -35,8 +43,6 @@ const AdminNavbar = ({ setAlert}) => {
     setAlert("success", "logout successfully");
   };
 
-  const navigate = useNavigate();
-
   // ===============logic for good morning, good afternoon and evening accorroding to time====
   let myDate = new Date();
   let hours = myDate.getHours();
@@ -47,9 +53,26 @@ const AdminNavbar = ({ setAlert}) => {
   else if (hours >= 17 && hours <= 24) greet = "Evening";
 
 
+  const fetchNotification  = async()=>{
+    const ans = await fetchUserNotify();
+     if(ans.status){
+        setAllNotification(ans?.notifications);
+
+     }
+}
+
+const deleteNotify = async(id)=>{
+  const ans = await deleteNotification(id);
+  fetchNotification();
+}
+
+useEffect(()=>{
+  fetchNotification();
+},[])
 
   return (
     <>
+
       <div className="Employee-nav w-full">
 
 
@@ -62,14 +85,6 @@ const AdminNavbar = ({ setAlert}) => {
           <NavLink to="/adminDash">
 
             <div className="second-logo flex items-center">
-
-              {/* <img src={thir} alt="" /> */}
-
-
-              {/* <p className="">Hi, {user?.fullName == null ? ("Shubham Gupta") : user?.fullName}!</p>
-
-              <span><img src={arrowDown} alt="" /></span> */}
-
             </div>
 
           </NavLink>
@@ -79,9 +94,12 @@ const AdminNavbar = ({ setAlert}) => {
 
         <div className="navProfiIcons">
 
-          <img onClick={() => navigate("/adminDash/notification")} src={notification} alt="" />
+          <img onClick={
+            () => {
+               setShownotify(true);
+            }
 
-          {/* <img  src={chatbot} alt="" />  */}
+          } src={notification} alt="" />
 
           {/* navitem  */}
           <div className="relative cursor-pointer" onClick={updateUser}>
@@ -102,9 +120,7 @@ const AdminNavbar = ({ setAlert}) => {
               <NavLink to="/adminDash/mySelf"><p className=" text-center">
                 My Profile
               </p></NavLink>
-              {/* <NavLink to="/employeeDash/update">
-                <p className=" text-center">Edit Profile</p>
-              </NavLink> */}
+       
             </div>
 
           </div>
@@ -115,6 +131,64 @@ const AdminNavbar = ({ setAlert}) => {
 
 
       </div>
+
+
+         {/* this is notification sidebar  */}
+
+ {
+  shownotify && 
+  <div className="notifySidwrap">
+
+  <div className="notifcont">
+
+    <nav>
+     <h2>Notifications</h2>
+     <img onClick={()=>{
+      setShownotify(false);
+     }}  src={redcancel} alt="" />
+    </nav>
+
+    <hr />
+
+     <div className="allnotiftcont">
+
+         {
+
+          allNotication.length > 0 ?
+
+           allNotication?.map((item , index)=>(
+
+             <>
+             <div key={index} className="singlnotify">
+               <h2>{item?.title}</h2>
+
+              <p>{item?.description}</p>
+
+              <p>Date : {new Date(parseInt(item?.date)).toLocaleDateString()}</p>
+
+
+             </div>
+
+              <hr />
+             </>
+
+           ))
+
+           
+           :
+           <div className="nonotify">
+             <img src={notifyy} alt="" />
+           </div>
+         }
+
+     </div>
+
+  </div>
+
+</div>
+ }
+          
+
     </>
   );
 };

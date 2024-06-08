@@ -750,7 +750,7 @@ color: #FFFFFF;
 .allDasCon{
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 12px;
 }
 
 .allDasCon .setWrap{

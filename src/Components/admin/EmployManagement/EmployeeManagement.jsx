@@ -36,7 +36,24 @@ const EmployeeManagement = ({
 
   const [data, setData] = useState([]);
 
-  console.log("data ",data);
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const itemsPerPage = 11;
+
+
+  // Calculate total pages
+  const totalPages = Math.ceil(data.length / itemsPerPage);
+
+   // Calculate paginated data
+  
+   const paginatedData = data.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
+
+    // Handle page change
+  const handlePageChange = (newPage) => {
+    if (newPage >= 1 && newPage <= totalPages) {
+      setCurrentPage(newPage);
+    }
+  };
 
   const [allData , setAllData] = useState([]);
 
@@ -277,13 +294,13 @@ const EmployeeManagement = ({
 
                     <tbody>
                       {
-                        data.filter(x => x.designation !== "CEO" && x._id !== user._id)?.map((item, index) => (
+                        paginatedData.filter(x => x.designation !== "CEO" && x._id !== user._id)?.map((item, index) => (
                           <tr key={index} className="bg-white border-b fdf">
                             <th scope="col" className="px-6 py-3 taskTitl ">
                               <input type="checkbox" className="checkboxes" />
 
                             </th>
-                            <th scope="row" className="px-6 py-4   "><span className="index cursor-pointer">{index + 1}</span> </th>
+                            <th scope="row" className="px-6 py-4   "><span className="index cursor-pointer">{(currentPage - 1) * itemsPerPage + index + 1}</span> </th>
                             <td className="px-6 py-4 taskAns">{item?.fullName}</td>
                             <td className="px-6 py-4 taskAns">{item?.email}</td>
                             <td className="px-6 py-4 taskAns">{item?.department}</td>
@@ -319,7 +336,7 @@ const EmployeeManagement = ({
                                     <p>View</p>
                                   </div>
 
-                                  <br />
+                                  <hr />
 
                                   {/* second */}
                                   <div onClick={() => {
@@ -329,7 +346,7 @@ const EmployeeManagement = ({
                                     <p>Edit </p>
                                   </div>
 
-                                  <br />
+                                  <hr />
 
                                   {/* third */}
                                   <div onClick={() => {
@@ -358,6 +375,16 @@ const EmployeeManagement = ({
 
 
             </div>
+
+            <div className="emPaginate">
+        <button className="prepaginate" onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1}>
+          Previous
+        </button>
+        <span className="pagenum">Page {currentPage} of {totalPages}</span>
+        <button className="prepaginate" onClick={() => handlePageChange(currentPage + 1)} disabled={currentPage === totalPages}>
+          Next
+        </button>
+      </div>
           </div>
         </div>
       </div>

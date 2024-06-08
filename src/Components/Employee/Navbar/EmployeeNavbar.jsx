@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState , useEffect } from "react";
 import lok from "../../images/lok.png";
 import bottom from "../../images/bottom.png";
 import bell from "../../images/bell.png";
@@ -6,34 +6,24 @@ import OutsideClickHandler from "react-outside-click-handler";
 import { NavLink, useNavigate } from "react-router-dom";
 import "react-circular-progressbar/dist/styles.css";
 import LogoutPop from "../Popup/LogoutPop";
-import { useEffect } from "react";
 import { useMain } from "../../../hooks/useMain";
 import kushel1 from "../../images/kushel1.png";
+import redcancel from "../../images/redcancel.png"
+import notifyy from "../../images/notifyy.png"
+
+
 var tc;
 var tc2;
 
 const EmployeeNavbar = ({ user, setAlert, pop1, setPop1 }) => {
+
+  const { postActivity, getActivitiesByUser , fetchUserNotify , deleteNotification   } = useMain();
+
+
   let todayDate = new Date().toLocaleDateString('en-GB');
   const [pass, setPass] = useState(false);
-  const [pass1, setPass1] = useState(false);
 
   const navigate = useNavigate();
-
-  const stylePeer1 = {
-    display: pass1 ? "block" : "none",
-  };
-
-  const bottomta = () => {
-    setPass1(true);
-    document.getElementById("fg").style.display = "none";
-    document.getElementById("sg").style.display = "block";
-  };
-
-  const bottomta1 = () => {
-    setPass1(false);
-    document.getElementById("fg").style.display = "block";
-    document.getElementById("sg").style.display = "none";
-  };
 
   const updateUser = () => {
     document.getElementById("ty").classList.toggle("tys");
@@ -47,24 +37,13 @@ const EmployeeNavbar = ({ user, setAlert, pop1, setPop1 }) => {
   };
 
   const [startTs, setStartTs] = useState("");
-  // var [percentageDone, setPercentageDone] = useState(0);
-  // var [progressTimer, setProgressTimer] = useState(0);
   var [timer, setTimer] = useState(0);
   var [breakTimer, setBreakTimer] = useState(0);
   const [isPunched, setIsPunched] = useState(false);
   const [isLoggedOut, setIsLoggedOut] = useState(false);
 
-  // var [overTimeTimer, setOverTimeTimer] = useState(0);
-
-  const [punchLog, setPunchLog] = useState({});
   const [punchFlag, setPunchFlag] = useState(false);
-  const [statistics, setStatistics] = useState([]);
   const [message, setMessage] = useState("");
-
-  const { postActivity, getStatisticsByUser, getActivitiesByUser  } = useMain();
-
-  // const [value, setValue] = useState(user);
-
 
   useEffect(() => {
     getData();
@@ -114,15 +93,6 @@ const EmployeeNavbar = ({ user, setAlert, pop1, setPop1 }) => {
     }
   };
 
-  const getStatistics = async () => {
-    const ans = await getStatisticsByUser();
-
-    setStatistics(ans.data);
-  };
-
-  const daysInMonth = (month, year) => {
-    return new Date(year, month, 0).getDate();
-  };
 
   const punchBtn = async (type, flag = -1) => {
     if (!isLoggedOut) {
@@ -259,6 +229,28 @@ const EmployeeNavbar = ({ user, setAlert, pop1, setPop1 }) => {
   else if (hours >= 12 && hours <= 17) greet = "Afternoon";
   else if (hours >= 17 && hours <= 24) greet = "Evening";
 
+  const [allNotication , setAllNotification] = useState([]);
+
+  const [shownotify , setShownotify] = useState(false);
+  
+  const fetchNotification  = async()=>{
+    const ans = await fetchUserNotify();
+     if(ans.status){
+        setAllNotification(ans?.notifications);
+
+     }
+}
+
+const deleteNotify = async(id)=>{
+  const ans = await deleteNotification(id);
+  fetchNotification();
+}
+
+useEffect(()=>{
+  fetchNotification();
+},[])
+
+
   return (
     <>
       <div className="Employee-nav w-full">
@@ -267,118 +259,16 @@ const EmployeeNavbar = ({ user, setAlert, pop1, setPop1 }) => {
         </div>
         <NavLink to="/employeeDash">
         <div className="second-logo flex items-center">
-          {/* <img src={thir} alt="" />
-          <p className="ml-2">
-            Good {greet} {user?.fullName}
-          </p> */}
+      
         </div>
         </NavLink>
         <div  className="third-logo ">
           <input style={{visibility:"hidden"}}  type="search" placeholder="Search" />
         </div>
 
-        {/* <div className="fourth-logo ">
-          {!isPunched ? (
-            <button
-              onClick={() => {
-                punchBtn("Clock In");
-              }}
-            >
-              Clock In
-            </button>
-          ) : (
-            <div className="clock-nav flex">
-              <div className="sat">
-                <h3>
-                  {new Date()
-                    .toLocaleDateString("en-GB", { weekday: "short" })
-                    .slice(0, 2)}
-                </h3>
-                <p>DAY</p>
-              </div>
-              <div className="hrs">
-                <h3>{("0" + Math.floor(timer / 60 / 60)).slice(-2)}</h3>
-                <p>HOURS</p>
-              </div>
-              <h3 className="puts">:</h3>
-              <div className="min">
-                <h3>{("0" + Math.floor(timer / 60)).slice(-2)}</h3>
-                <p>MIN</p>
-              </div>
-              <h3 className="puts">:</h3>
-              <div className="sec">
-                <h3>{("0" + (timer % 60)).slice(-2)}</h3>
-                <p>SEC</p>
-              </div>
-
-              <div className="bottomji">
-                <i
-                  id="fg"
-                  onClick={bottomta}
-                  className="fa-solid fa-chevron-down char cursor-pointer"
-                ></i>
-                <i
-                  id="sg"
-                  onClick={bottomta1}
-                  className="fa-solid fa-chevron-up char char1 cursor-pointer"
-                ></i>
-                <OutsideClickHandler
-                  onOutsideClick={() => {
-                    setPass1(false);
-                    document.getElementById("sg").style.display = "none";
-                    document.getElementById("fg").style.display = "block";
-                  }}
-                >
-                  <div style={stylePeer1} className="brake">
-                    <div
-                      onClick={() => {
-                        punchBtn("Clock Out");
-                      }}
-                      className="flex items-center bt cursor-pointer"
-                    >
-                      <img className="brakes" src={brake} alt="" />
-                      <p className="bring">Brake</p>
-                    </div>
-                    <hr />
-                    <div
-                      onClick={() => {
-                        setPop1(true);
-                      }}
-                      className="logout flex items-center cursor-pointer"
-                    >
-                      <img className="logouts" src={logout} alt="logout" />
-                      <p className="out">Clock Out</p>
-                    </div>
-                  </div>
-                </OutsideClickHandler>
-              </div>
-            </div>
-          )}
-        </div> */}
-
-        {/* <div style={stylePeer}>
-          <CircularProgressbar
-            value={percentageDone}
-            text={`${("0" + Math.floor(timer / 60)).slice(-2)}:${(
-              "0" +
-              (timer % 60)
-            ).slice(-2)} hrs`}
-            styles={buildStyles({
-              strokeLinecap: "round",
-              pathTransitionDuration: 0.5,
-              pathColor: `#EC7165`,
-              trailColor: "#d6d6d6",
-              backgroundColor: "#3e98c7",
-            })}
-          />
-          <div className="flex items-center justify-center ">
-            <p className="mr-1">HOURS</p>
-            <p className="ml-1">MIN</p>
-          </div>
-        </div> */}
-
-        <div onClick={()=>navigate("/hrDash/notification")} className="fifth-logo ">
-          <img src={bell} alt="" />
+       
+        <div onClick={()=>setShownotify(true)} className="fifth-logo ">
+          <img  src={bell} alt="" />
         </div>
 
         <OutsideClickHandler
@@ -417,6 +307,60 @@ const EmployeeNavbar = ({ user, setAlert, pop1, setPop1 }) => {
           setAlert={setAlert}
         />
       )}
+
+         {/* this is notification sidebar  */}
+
+ {
+  shownotify && 
+  <div className="notifySidwrap">
+
+  <div className="notifcont">
+
+    <nav>
+     <h2>Notifications</h2>
+     <img onClick={()=>{
+      setShownotify(false);
+     }}  src={redcancel} alt="" />
+    </nav>
+
+    <hr />
+
+     <div className="allnotiftcont">
+
+         {
+
+ allNotication?.length > 0 ?
+
+           allNotication?.map((item , index)=>(
+
+             <>
+             <div key={index} className="singlnotify">
+               <h2>{item?.title}</h2>
+
+              <p>{item?.description}</p>
+
+              <p>Date : {new Date(parseInt(item?.date)).toLocaleDateString()}</p>
+
+
+             </div>
+
+              <hr />
+             </>
+
+           ))
+
+           :
+            <div className="nonotify">
+              <img src={notifyy} alt="" />
+            </div>
+         }
+
+     </div>
+
+  </div>
+
+</div>
+ }
     </>
   );
 };

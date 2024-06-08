@@ -355,7 +355,7 @@ const differenceText = `${hours}:${minutes}:${seconds}`;
 
   return (
     <>
-      <div className="employee-dash h-full">
+      <div className="employee-dash relative h-full">
         {isHr ? <HrSidebar /> : <AdminSidebar pop={pop} setPop={setPop} />}
 
         <div className="tm">

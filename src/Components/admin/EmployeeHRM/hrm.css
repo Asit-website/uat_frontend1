@@ -214,12 +214,49 @@
     flex-direction: column;
     box-shadow: 0px 4px 12px 0px #1A1A1A33;
     padding: 8px 0px 8px 0px;
-    gap: 0px;
+    gap: 10px;
     border-radius: 8px 0px 0px 0px;
     z-index: 20;
     border: 1px 0px 0px 0px;
     background-color: white;
     right: 30px;
+}
+
+.emPaginate{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: center;
+    margin: 20px 0px 0px 0px;
+}
+
+.prepaginate{
+    width: 100px;
+    height: 40px;
+    padding: 3px 1px 3px 6px;
+    gap: 10px;
+    border-radius: 10px;
+    border: 1px solid #D8D8D8;    
+    background-color: #FFFFFF;
+    color: #2B2B2B;
+font-family: Inter;
+font-size: 12px;
+font-weight: 500;
+line-height: 16px;
+letter-spacing: 0.004em;
+text-align: center;
+
+}
+
+.pagenum{
+    color: #2B2B2B;
+font-family: Inter;
+font-size: 12px;
+font-weight: 400;
+line-height: 16px;
+letter-spacing: 0.004em;
+text-align: left;
+
 }
 
 .subView {
@@ -251,6 +288,7 @@
     display: flex;
     align-items: center;
     gap: 20px;
+    padding: 5px 0px;
 
 }
 .headind img{
@@ -340,7 +378,7 @@
     display: flex;
     flex-direction: column;
     gap: 20px;
-    max-width: 435px;
+    max-width: 500px;
     width: 100%;
 }
 
@@ -592,3 +630,83 @@
     width: 100%;
 }
 
+
+/* this is notification css  */
+.notifySidwrap{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+.notifySidwrap .notifcont{
+    max-width: 455px;
+     width: 100%;
+    height: 950px;
+     position: fixed;
+     top: 80px;
+  padding: 12px;
+  overflow-y: scroll;
+     background: #FFFFFF;
+    border: 1px solid #E8E9EB;   
+    z-index: 200; 
+     display: flex;
+     flex-direction: column;
+     gap: 13px;
+     animation: slideIn 0.5s forwards; /* Apply the animation */
+
+    
+}
+
+@keyframes slideIn {
+    from {
+      right: -100%; /* Start position off-screen */
+    }
+    to {
+      right: 0; /* End position on-screen */
+    }
+  }
+
+
+  .nonotify{
+    display: flex;
+     min-height: calc(100vh - 100px);
+    align-items: center;
+    justify-content: center;
+  }
+
+.notifcont nav{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.notifcont nav h2{
+    font-family: Inter;
+    color: #1B2533;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 24px;
+    letter-spacing: 0.0015em;
+    text-align: left;
+    
+}
+
+.allnotiftcont{
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.singlnotify h2{
+    font-family: Inter;
+font-size: 14px;
+font-weight: 500;
+line-height: 24px;
+letter-spacing: 0.0015em;
+text-align: left;
+color: #1B2533;
+}
