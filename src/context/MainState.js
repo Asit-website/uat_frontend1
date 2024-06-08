@@ -212,7 +212,7 @@ const MainState = (props) => {
    const getEmployeesByEmployee = async () => {
       const data = await get(`${baseUrl}/user/getEmployeesByEmployee`, true);
       return data;
-   };
+   }; 
 
    const getAllActivities = async () => {
 
