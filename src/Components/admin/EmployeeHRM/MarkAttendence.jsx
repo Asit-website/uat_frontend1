@@ -355,6 +355,8 @@ const MarkAttendance = ({
 
   const [editForm, setEditform] = useState(null);
 
+  console.log("editform ",editForm);
+
   useEffect(()=>{
     handleSubmit();
   },[makeChange])
@@ -363,7 +365,7 @@ const MarkAttendance = ({
    let toastId =  toast.loading("Loading...");
      try{
 
-       const ans = await updateAttendance(editForm?._id , editForm?.Date , editForm?.clockIn , editForm?.clockOut);
+       const ans = await updateAttendance(editForm?._id , editForm?.Date , editForm?.clockIn , editForm?.clockOut ,editForm?.breakTime);
 
        if(ans?.status){
         toast.success("Successfuly updated");
@@ -1258,6 +1260,20 @@ const MarkAttendance = ({
                   </label>
 
                 </div>
+
+
+ <div className="editSindiv">
+
+
+                <label >
+                    <p>Break</p>
+                    <input onChange={(e)=>setEditform((prev)=>({
+                      ...prev , 
+                      breakTime: e.target.value
+                    }))} value={editForm?.breakTime} type="text"  />
+                  </label>
+
+                  </div>
 
 
                  <div className="formupdacan">

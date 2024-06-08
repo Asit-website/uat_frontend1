@@ -3,7 +3,7 @@ import MainContext from './MainContext';
 import { deleteReq, get, post, put, postDocuments } from '../Api/api'
 import { useState } from 'react';
 
-const baseUrl = "http://localhost:5000";
+// const baseUrl = "http://localhost:5000";
 
 // const baseUrl = "https://hrms-backend-code.onrender.com"
 
@@ -13,7 +13,7 @@ const baseUrl = "http://localhost:5000";
 
 // this is production baseurl 
 
-//  const baseUrl = "https://hmsbackend.kusheldigi.com";
+ const baseUrl = "https://hmsbackend.kusheldigi.com";
 
 // const baseUrl = "https://hrms-backend-g3wt.onrender.com";
 
@@ -830,7 +830,7 @@ const MainState = (props) => {
    };
 
    const deleteUser = async (id) => {
-      const data = await deleteReq(`${baseUrl}/user/deleteUser/${id}`, true);
+      const data = await deleteReq(`${baseUrl}/user/deactivateUser/${id}`, true);
       return data;
    };
 
@@ -1678,8 +1678,8 @@ const MainState = (props) => {
       return data;
     }
 
-    const updateAttendance = async(id , Date , clockIn , clockOut)=>{
-      const data = await post(`${baseUrl}/clock/updateAttendance/${id}`, { Date , clockIn , clockOut}, true);
+    const updateAttendance = async(id , Date , clockIn , clockOut , breakTime)=>{
+      const data = await post(`${baseUrl}/clock/updateAttendance/${id}`, { Date , clockIn , clockOut , breakTime}, true);
       return data;
    
    }
