@@ -186,8 +186,6 @@ const HrManage = ({ pop, setPop, setAlert }) => {
     e.preventDefault();
     toast.success("created");
     const ans = await createHr({ ...value1, ...value2, ...value3, ...value4, ...value5 });
-    console.log(ans.data);
-    console.log({ ...value1, ...value2, ...value3, ...value4, ...value5 });
     localStorage.removeItem({ ...value1, status: false });
   };
   return (

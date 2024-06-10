@@ -44,7 +44,6 @@ const fetchEmp = async()=>{
 
 const handleCalendar = (e) => {
     let date = new Date(e).toLocaleDateString('en-GB');
-    console.log("date ",date);
     setFormdata((prev)=>({
         ...prev ,
         date: date
@@ -72,9 +71,7 @@ const submitHandler = async()=>{
         return toast.error("Please select the Employee");
      }
 
-      console.log("formd id ",formdata.id);
       const ans = await getAttendence({...formdata });
-      console.log("ans ",ans);
       setUserData(ans?.data);
 
 }

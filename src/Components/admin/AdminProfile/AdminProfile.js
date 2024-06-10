@@ -20,7 +20,6 @@ const AdminProfile = ({ pop, setPop, setAlert }) => {
     let ans = await getBranchs();
     let ans1 = await getDepartments();
     let ans2 = await getDesignations();
-    console.log(ans?.data);
     setBranches(ans?.data);
     setDepartments(ans1?.data);
     setDesignations(ans2?.data);

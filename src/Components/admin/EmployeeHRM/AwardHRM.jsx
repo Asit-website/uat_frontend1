@@ -88,13 +88,7 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
     display: popup ? "block" : "none",
   };
 
-  useEffect(() => {
-    // getData();
-  }, []);
-  // console.log(gen.concat().toString.caller.arguments());
-  // const getData = async () => {
 
-  // };
 
 
 
@@ -206,7 +200,6 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
   };
 
   const handleCreateDesignation = async () => {
-    // console.log(designationValue);
     const ans = await postDesignation({
       name: designationValue.name,
       department: departments.find(x => x._id === designationValue.department)
@@ -243,7 +236,6 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
   };
 
   const handleUpdateDepartment = async () => {
-    // console.log(departmentValue);
     const ans = await updateDepartment({
       id,
       name: departmentValue1?.name,
@@ -303,7 +295,6 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
 
   const handleDelete = async (id, type) => {
     let ans;
-    console.log(id, type);
     if (type === 'branch') {
       ans = await deleteBranch(id);
     }
@@ -382,13 +373,11 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
       }
       if (onEdit) {
         const ans = await updateAward({ ...formdata });
-        console.log(ans.data);
         alert("update successfully");
         setRefreshFlag(!refreshFlag);
       }
       else {
         const ans = await postAward({ ...formdata });
-        console.log("rep ans ", ans);
         alert("Successfuly Created");
         setRefreshFlag(!refreshFlag);
       }

@@ -38,7 +38,6 @@ const LeaveRequest = ({
 
   const getData=async()=>{
     let ans = await getUserLeaves();
-    console.log("leaves ",ans);
     const reverseArray = ans?.data?.reverse();
     setData(reverseArray);
   };

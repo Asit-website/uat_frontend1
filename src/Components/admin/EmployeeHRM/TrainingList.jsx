@@ -115,13 +115,11 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
   const submitHandler = async () => {
     if (onEdit) {
       const ans = await updateTrainingList({ ...formdata });
-      console.log(ans.data);
       toast.success("update successfully");
       setRefreshFlag(!refreshFlag);
     }
     else {
       const ans = await createTrainingList({ ...formdata });
-      console.log("rep ans ", ans);
       toast.success("Successfuly Created");
       setRefreshFlag(!refreshFlag);
     }

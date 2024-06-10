@@ -59,7 +59,6 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
 
   const fetchTranfer = async () => {
     const ans = await getTransfer();
-    console.log("tt", ans);
     setAllTransfer(ans?.data);
   }
 
@@ -79,13 +78,11 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
   const submitHandler = async () => {
     if (onEdit) {
       const ans = await updateTransfer({ ...formdata });
-      console.log(ans.data);
       toast.success("update successfully");
       setRefreshFlag(!refreshFlag);
     }
     else {
       const ans = await createTransfer({ ...formdata });
-      console.log("rep ans ", ans);
       toast.success("Successfuly Created");
       setRefreshFlag(!refreshFlag);
     }

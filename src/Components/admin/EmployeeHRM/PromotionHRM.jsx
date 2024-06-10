@@ -40,7 +40,6 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
 
   const designationCollect = async () => {
     const ans3 = await getDesignations();
-    console.log(' ans3 ', ans3);
     setDesignation(ans3?.data);
 
   }

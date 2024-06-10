@@ -77,7 +77,6 @@ const Trip = ({ setAlert, pop, setPop }) => {
 
     const fetchEmployeeById = async () =>{
         const id = allEmployee?.filter((val,index)=>{
-          console.log(id);
         })
         const ans = await allEmployee();
         setEmployee(ans?.emp);

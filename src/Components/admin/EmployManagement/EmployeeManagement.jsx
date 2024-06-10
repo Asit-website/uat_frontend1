@@ -86,12 +86,10 @@ const EmployeeManagement = ({
   const getDep = async () =>{
     const ans = await getDepartments();
     setDepartment(ans?.data);
-    console.log(ans);
   }
 
   const getData1 = async (date) => {
     const data = await getActivitiesByUser(date, '', '', 0, 10, '');
-    console.log(data.data[0]);
   };
 
   const deleteUser1 = async (id , isDeact) => {

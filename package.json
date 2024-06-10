@@ -9,6 +9,7 @@
     "bootstrap": "^5.3.3",
     "chart.js": "^4.3.0",
     "clone-deep": "^4.0.1",
+    "date-fns": "^3.6.0",
     "flowbite": "^1.6.5",
     "flowbite-react": "^0.4.4",
     "jodit-react": "^4.1.2",

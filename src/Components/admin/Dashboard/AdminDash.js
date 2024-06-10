@@ -15,13 +15,7 @@ const AdminDash = ({ setAlert, pop, setPop }) => {
   const [gen, setGen] = useState([]);
   const [flag, setFlag] = useState();
 
-  useEffect(() => {
-    // getData();
-  }, []);
-  // console.log(gen.concat().toString.caller.arguments());
-  // const getData = async () => {
 
-  // };
 
   return (
     <>

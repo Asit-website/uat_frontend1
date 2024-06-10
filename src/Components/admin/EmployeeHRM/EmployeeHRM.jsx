@@ -279,18 +279,31 @@ const EmployeeHRM = ({
     const breakOut = localStorage.getItem("breakOutTime");
 
   // Convert breakIn and breakOut to Date objects
-const date1 = parseTime(breakIn);
-const date2 = parseTime(breakOut);
+ // Convert breakIn and breakOut to Date objects
+ let date1 , date2;
+ if(breakIn !== null){
+    date1 = parseTime(breakIn);
 
-const differenceMs = date2.getTime() - date1.getTime();
+ }
+ if(breakOut !== null){
+   date2 = parseTime(breakOut);
+
+ }
+
+ let differenceMs , hours , minutes , seconds , differenceText;
+
+
+ if(breakIn !== null && breakOut !== null){
+  differenceMs = date2.getTime() - date1.getTime();
 
 // Convert the difference to a readable format
-const hours = Math.floor(differenceMs / (1000 * 60 * 60));
-const minutes = Math.floor((differenceMs % (1000 * 60 * 60)) / (1000 * 60));
-const seconds = Math.floor((differenceMs % (1000 * 60)) / 1000);
+ hours = Math.floor(differenceMs / (1000 * 60 * 60));
+ minutes = Math.floor((differenceMs % (1000 * 60 * 60)) / (1000 * 60));
+ seconds = Math.floor((differenceMs % (1000 * 60)) / 1000);
 
-const differenceText = `${hours}:${minutes}:${seconds}`;
 
+differenceText = `${hours}:${minutes}:${seconds}`;
+}
    
 
     let ans = await postActivity({

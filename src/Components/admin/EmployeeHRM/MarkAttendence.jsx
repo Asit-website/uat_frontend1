@@ -19,6 +19,8 @@ import toast from "react-hot-toast";
 import edit from "../../images/edit.png";
 import delete4 from "../../images/delete.png";
 import cutt from "../../images/cut.png"
+import { parse, format } from 'date-fns';
+
 
 const MarkAttendance = ({
   pop1,
@@ -107,7 +109,6 @@ const MarkAttendance = ({
     const ans1 = await allEmployee();
     setUsers(ans1?.emp);
 
-    console.log("ansss data ", ans?.data);
     const sortedArray = ans?.data.sort(
       (a, b) => parseDate(b?.Date) - parseDate(a?.Date)
     );
@@ -295,7 +296,6 @@ const MarkAttendance = ({
         reader.onload = (e) => {
           setExcelFile(e.target.result);
         };
-        console.log("slect file", selectedFile);
       } else {
         setTypeError("please seelect only file type");
         setExcelFile(null);
@@ -327,25 +327,57 @@ const MarkAttendance = ({
       setExcelData(data?.slice(0, 10));
 
       for (let i = 0; i < data?.length; i++) {
-        const { Break, Date, clockIn, clockOut, Employee } = data[i];
+        const { Break, date, clockIn, clockOut, Employee } = data[i];
 
+  const excelDateObj = new Date((date - 25569) * 86400000); // Subtract base date (Dec 30, 1899)
+
+  const formattedDate = format(excelDateObj, 'MM/dd/yyyy');
+
+
+        const convertExcelTime = (excelTime) => {
+          const totalSeconds = Math.round(excelTime * 86400);
+          const hours = Math.floor(totalSeconds / 3600);
+          const minutes = Math.floor((totalSeconds % 3600) / 60);
+          const seconds = totalSeconds % 60;
+          const date = new Date(0, 0, 0, hours, minutes, seconds);
+          return format(date, 'h:mm:ss a');
+        };
+
+        const formattedClockIn = convertExcelTime(clockIn);
+        const formattedClockOut = convertExcelTime(clockOut);
+
+
+      // Parse Break value to hours, minutes, and seconds
+      const breakSeconds = parseInt(Break * 86400, 10); // Convert to seconds
+      const breakHours = Math.floor(breakSeconds / 3600);
+      const breakMinutes = Math.floor((breakSeconds % 3600) / 60);
+      const breakSecondsRemainder = breakSeconds % 60;
+
+      // Format Break time as string
+      const formattedBreak = `${breakHours}:${breakMinutes}:${breakSecondsRemainder}`;
+  
         const filterdata = users.filter(
           (item) => item?.fullName.toLowerCase() === Employee.toLowerCase()
         );
 
+
         if (filterdata?.length > 0) {
           let id = filterdata[0]?._id;
           const ans = await postAttendence({
-            clockInDetail: clockIn,
-            clockOutDetail: clockOut,
+            clockInDetail: formattedClockIn,
+            clockOutDetail: formattedClockOut,
             id: id,
-            breakTime: Break,
-            clockInDate: Date,
+            breakTime: formattedBreak,
+            clockInDate: formattedDate,
           });
+
+          
+           console.log("ans ",ans);
+        toast.success("Successfuly uploaded");
+
         }
       }
 
-      toast.success("Successfuly uploaded");
 
       toast.dismiss(toastId);
     }
@@ -354,8 +386,6 @@ const MarkAttendance = ({
   const [optionedit, setOptionEdit] = useState(null);
 
   const [editForm, setEditform] = useState(null);
-
-  console.log("editform ",editForm);
 
   useEffect(()=>{
     handleSubmit();
