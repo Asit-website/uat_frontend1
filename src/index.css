@@ -2869,13 +2869,18 @@ width: 90%;
   font-size: 14px !important;
 }
 .stoing{
-  width: 49px;
+  max-width: 49px;
   height: 38px;
   border: 1.5px solid #D0D4DC !important;
   display: flex;
   align-items: center;
   justify-content: center;
   margin-left: 10px;
+  }
+  .stoing input{
+    max-width: 49px;
+    height: 38px;
+  padding: 3px;
 }
 .aloy1{
   width: 131px;

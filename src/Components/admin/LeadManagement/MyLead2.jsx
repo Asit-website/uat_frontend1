@@ -37,13 +37,19 @@ const MyLead2 = ({ setAlert, pop, setPop }) => {
         display: filter ? "block" : "none"
     }
 
+     const [allLeading , setAllLeading] = useState([]);
     const [allLead, setAllLead] = useState([]);
 
     const fetchLead = async () => {
 
         const ans = await getLead("", "", "", "");
         setAllLead(ans?.data);
+        setAllLeading(ans?.data);
     }
+
+    const [filterInput , setFilterInput ] = useState();
+
+
 
     useEffect(() => {
         fetchLead();
@@ -75,6 +81,22 @@ const MyLead2 = ({ setAlert, pop, setPop }) => {
         });
 
     };
+
+   
+    useEffect(() => {
+        if (filterInput) {
+          const filtered = allLeading.filter(lead => {
+            const leadDate = new Date(lead.createAt);
+            const currentDate = new Date();
+            const daysAgo = new Date(currentDate.setDate(currentDate.getDate() - filterInput));
+            return leadDate >= daysAgo;
+          });
+
+          setAllLead(filtered);
+        } else {
+          setAllLead(allLeading);
+        }
+      }, [filterInput, allLeading]);
 
 
     return (
@@ -207,8 +229,9 @@ const MyLead2 = ({ setAlert, pop, setPop }) => {
                                                 <option value="In the last">In the last</option>
                                             </select>
                                             <div className="stoing">
-                                                <p>2</p>
-                                            </div>
+
+                                            <input type="text" onChange={(e)=>setFilterInput(e.target.value)} placeholder="2"  />                                            </div>
+
                                             <select className="aloy2" name="" id="">
                                                 <option value="Days">Days</option>
                                             </select>
@@ -254,7 +277,13 @@ const MyLead2 = ({ setAlert, pop, setPop }) => {
                                     </div>
                                     <div className="apply_footer">
                                         <div className="apply">
-                                            <button>Apply</button>
+                                            <button onClick={()=>{
+
+                                               if(filterInput === ""){
+                                                    toast.error("Select the number of Days");
+                                                    return ;
+                                                }
+                                            }}>Apply</button>
                                         </div>
                                         <div className="cancel">
                                             <button>Clear</button>

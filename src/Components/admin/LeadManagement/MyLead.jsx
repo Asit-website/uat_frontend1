@@ -41,6 +41,8 @@ const MyLead = ({ setAlert, pop, setPop }) => {
         setAllLead(ans?.data);
     }
 
+    const [filterInput , setFilterInput ] = useState();
+
     useEffect(() => {
         fetchLead();
     }, [refreshFlag])
@@ -71,6 +73,8 @@ const MyLead = ({ setAlert, pop, setPop }) => {
 
     };
 
+    console.log("allleads ",allLead);
+
     const [currentPage, setCurrentPage] = useState(1);
 
     let itemsPerPage = 4;
@@ -91,8 +95,9 @@ const MyLead = ({ setAlert, pop, setPop }) => {
         setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
     };
 
-
-
+   const filterHandler = ()=>{
+    
+   }
 
     return (
         <>
@@ -225,7 +230,7 @@ const MyLead = ({ setAlert, pop, setPop }) => {
                                                 <option value="In the last">In the last</option>
                                             </select>
                                             <div className="stoing">
-                                                <p>2</p>
+                                               <input type="text" onChange={(e)=>setFilterInput(e.target.value)} placeholder="2"  />
                                             </div>
                                             <select className="aloy2" name="" id="">
                                                 <option value="Days">Days</option>
@@ -272,7 +277,14 @@ const MyLead = ({ setAlert, pop, setPop }) => {
                                     </div>
                                     <div className="apply_footer">
                                         <div className="apply">
-                                            <button>Apply</button>
+                                            <button onClick={()=>{
+                                                if(filterInput === ""){
+                                                    toast.error("Select the number of Days");
+                                                    return ;
+                                                }
+
+                                                filterHandler();
+                                            }}>Apply</button>
                                         </div>
                                         <div className="cancel">
                                             <button>Clear</button>
