@@ -45,18 +45,17 @@ color: #FFFFFF;
 }
 
 .singl_EmplyL .singEmp_profileL h2{
-    font-family: Gilroy-SemiBold;
+    font-family: inter;
     font-size: 16px;
     font-weight: 400;
     /* line-height: 44px; */
     letter-spacing: 0px;
     text-align: left;
     color: #060606;
-
 }
 
 .singl_EmplyL .singEmp_profileL p{
-    font-family: Gilroy-Regular;
+    font-family: inter !important;
     font-size: 14px;
     font-weight: 400;
     /* line-height: 44px; */
@@ -79,10 +78,14 @@ color: #293240;
   display: flex;
   gap: 10px;
   align-items: center;
+  font-family: inter !important;
+}
+.singl_EmplyL .empEmail_phnL span{
+    font-family: inter !important;
 }
 
 .singl_EmplyL .empDep_joinL{
- max-width: 215px;
+ /* max-width: 215px; */
  width: 100%;
     left: 20px;
     padding: 10px 13px 10px 13px;
@@ -101,7 +104,7 @@ align-items: center;
     
 }
 .singl_EmplyL .empDep_joinL p span{
-    font-family: Gilroy-Regular;
+    font-family: inter !important;
     font-size: 12px;
     font-weight: 400;
     letter-spacing: 0px;

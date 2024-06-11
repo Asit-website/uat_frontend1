@@ -4442,11 +4442,34 @@ input::-webkit-inner-spin-button {
   justify-content: space-evenly;
   margin: 0px 5px;
 }
+.swer{
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+.leave_ct{
+  font-family: inter !important;
+}
 .next-button:hover{
   border: 1px solid #0B56E4 !important;
   transition: .5s;
   cursor: pointer !important;
   background-color: #D1E8FD !important ;
+}
+.fkl label{
+  font-family: inter !important;
+}
+.fkl input{
+  font-family: inter !important;
+}
+.safar{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+.safar button{
+  font-family: inter !important;
+  width: 200px;
+  max-width: 100%;
 }
 .next button:hover{
   border: 1px solid #0B56E4 !important;
@@ -4650,6 +4673,15 @@ input::-webkit-inner-spin-button {
 }
 .ACTIVITYsss{
   font-family: inter !important;
+}
+.sinoid{
+  grid-template-columns: repeat(1, 1fr) !important;
+}
+.inpo1{
+  width: 110px;
+}
+.inpo2{
+  width: 30px;
 }
 .tranking th,
 .tranking td{

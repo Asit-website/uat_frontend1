@@ -130,6 +130,10 @@ const LeaveRequest = ({
 
     const notify = await postNotifyLeavereq(userName , "Accepted");
 
+    console.log(notify);
+
+    window.prompt("notification reached successfully");
+
     if(ans?.status){
       
       toast.success("Successfuly Accepted the leave");
@@ -191,7 +195,7 @@ const LeaveRequest = ({
                     <thead className="text-xs uppercase textALLtITL ">
                       <tr className="gfg">
                         <th scope="col" className="px-3 py-3 Uppercase">
-                          <div className="flex items-center checkbox_ss ">
+                          <div className="flex items-center checkbox_ss sf_lik ">
                             {/* <input
                               disabled=""
                               id="disabled-checkbox"
@@ -444,17 +448,17 @@ const LeaveRequest = ({
           >
             <div class="relative p-4 w-full max-w-md max-h-full">
               {/* <!-- Modal content --> */}
-              <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+              <div class="relative bg-white rounded-lg shadow dark:bg-gray-700 swer">
                 {/* <!-- Modal header --> */}
                 <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
-                  <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                  <h3 class="text-xl font-semibold text-gray-900 dark:text-white leave_ct">
                     Create Leave Request
                   </h3>
                 </div>
                 {/* <!-- Modal body --> */}
                 <div class="p-4 md:p-5">
 
-                  <form  className="space-y-4" action="#">
+                  <form  className="space-y-4 fkl" action="#">
 
                     <div class="mt-2 user_class_input">
                       <label
@@ -554,6 +558,8 @@ const LeaveRequest = ({
                         ></textarea>
                       </div>
 
+                      <div className="safar">
+
                     <button
                       onClick={(e) =>{
                         
@@ -577,6 +583,7 @@ const LeaveRequest = ({
                     >
                       Cancel
                     </button>
+                    </div>
 
                   </form>
 

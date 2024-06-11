@@ -221,6 +221,58 @@ const EmployeeSelf = ({ setAlert, pop1, setPop1 }) => {
 
                   </div>
 
+                  <div className="myselfFirst">
+
+
+                     <h3>Document Permission</h3>
+
+                     <hr />
+
+                     <div className="allFristDe3tail sinoid">
+
+                        <div className="singfirst">
+                           <p>Offer Latter :</p>
+                           {/* <span>{user1?.SalaryPay}</span> */}
+                         
+                              <input className="inpo1" type="checkbox" />
+                          
+
+                        </div>
+
+                        {/* <div className="singfirst">
+                           <p>Account No :</p>
+                           <span>{user1?.AccountNumber}</span>
+                        </div> */}
+
+                        {/* <div className="singfirst">
+                           <p> Bank Name :</p>
+                           <span>{user1?.SalaryBankName}</span>
+                        </div> */}
+
+                        <div className="singfirst">
+                           <p>Experience Latter :</p>
+                           
+                              <input className="inpo2" type="checkbox" />
+                          
+                        </div>
+
+                        <div className="singfirst">
+                           <p>Offer Latter :</p>
+                           
+                              <input className="inpo1" type="checkbox" />
+                          
+                        </div>
+                        {/* <div className="singfirst">
+                           <p>Bank Branch Name :</p>
+                           <span>{user1?.Branch}</span>
+                        </div> */}
+
+
+
+                     </div>
+
+                  </div>
+
 
                   <div className="reqcahgng">
 
