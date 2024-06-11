@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import AdminNavbar from "../../admin/Navbar/AdminNavbar";
 import AdminSidebar from "../../admin/Sidebar/AdminSidebar";
 import "react-calendar/dist/Calendar.css";
@@ -6,7 +6,7 @@ import { useMain } from "../../../hooks/useMain";
 import siy from '../../images/siy.png';
 import { NavLink } from "react-router-dom";
 const LeadDash = ({ setAlert, pop, setPop }) => {
-    const { user } = useMain();
+    const { user , getLead2 } = useMain();
     const [start, setStart] = useState(false);
     const [start1, setStart1] = useState(false);
     const [start2, setStart2] = useState(false);
@@ -23,6 +23,22 @@ const LeadDash = ({ setAlert, pop, setPop }) => {
     const stylePeer4 = {
         display: start3 ? "block" : "none"
     }
+
+     const [totalMyLead , setTotalMyLead] = useState(0);
+
+     const fetchLead = async () => {
+        const ans = await getLead2("", "", "", "");
+          if(ans?.data){
+            setTotalMyLead(ans?.data?.length);
+          }
+    }
+
+    useEffect(()=>{
+ fetchLead();
+    },[])
+
+    
+
     return (
         <>
             <div className="employee-dash h-full">
@@ -85,7 +101,7 @@ const LeadDash = ({ setAlert, pop, setPop }) => {
                                     </div>
                                     <div className="lead_contens1">
                                         <h3>My Leads</h3>
-                                        <h1>120</h1>
+                                        <h1>{totalMyLead}</h1>
                                     </div>
                                 </div>
                                 <div className="lead_dash_box sing1111">
@@ -125,7 +141,7 @@ const LeadDash = ({ setAlert, pop, setPop }) => {
                                     </div>
                                     <div className="lead_contens1">
                                         <h3>My Leads</h3>
-                                        <h1>120</h1>
+                                        <h1>{totalMyLead}</h1>
                                     </div>
                                 </div>
                             </div>

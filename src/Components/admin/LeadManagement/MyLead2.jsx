@@ -50,7 +50,6 @@ const MyLead2 = ({ setAlert, pop, setPop }) => {
     const [filterInput , setFilterInput ] = useState();
 
 
-
     useEffect(() => {
         fetchLead();
     }, [refreshFlag])
@@ -97,6 +96,39 @@ const MyLead2 = ({ setAlert, pop, setPop }) => {
           setAllLead(allLeading);
         }
       }, [filterInput, allLeading]);
+
+
+      const [ sortDate, setSortDate] = useState("");
+   
+    useEffect(()=>{
+
+         if(sortDate !== undefined && sortDate != "" && sortDate !== null){
+ 
+            const sortedData = allLeading.filter((l) => {
+                const { createAt } = l;
+
+                const date = new Date(createAt);
+
+const cyear = date.getFullYear(); 
+const cmonth = date.getMonth() + 1; 
+const cday = date.getDate(); 
+
+const [nyear, nmonth, nday] = sortDate.split("-");
+
+
+return cyear === parseInt(nyear) && cmonth === parseInt(nmonth) && cday === parseInt(nday);
+
+
+              });
+
+              setAllLead(sortedData);
+
+         }
+         else {
+      setAllLead(allLeading);
+         }
+
+    },[sortDate])
 
 
     return (
@@ -297,7 +329,7 @@ const MyLead2 = ({ setAlert, pop, setPop }) => {
                             <div className="leaftlead2">
 
                                 <span>Sort by</span>
-                                <input type="date" />
+                                <input  type="date" value={sortDate} onChange={(e)=>setSortDate(e.target.value)} />
 
                             </div>
 

@@ -592,15 +592,15 @@ const SetSallary = ({
                                                                 <tr key={index} className="bg-white opos opos1 border-b dark:bg-gray-800 dark:border-gray-700">
                                                                     <th
                                                                         scope="row"
-                                                                        className="px-6 py-4 oklo font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                                                                        className="px-3 py-4 oklo font-medium text-gray-900 whitespace-nowrap dark:text-white"
                                                                     >
                                                                         {user1?.fullName}
                                                                     </th>
-                                                                    <td className="px-6 py-4">{item?.allowanceOption}</td>
-                                                                    <td className="px-6 py-4">{item?.title}</td>
-                                                                    <td className="px-6 py-4">{item?.type}</td>
-                                                                    <td className="px-6 py-4">{item?.amount}</td>
-                                                                    <td className="px-6 py-4">
+                                                                    <td className="px-3 py-4">{item?.allowanceOption}</td>
+                                                                    <td className="px-3 py-4">{item?.title}</td>
+                                                                    <td className="px-3 py-4">{item?.type}</td>
+                                                                    <td className="px-3 py-4">{item?.amount}</td>
+                                                                    <td className="px-3 py-4">
                                                                         <div className="action_so">
                                                                             <img className="cursor-pointer" onClick={() => {
                                                                                 setShow1(true);
@@ -645,22 +645,22 @@ const SetSallary = ({
                                                 <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                                                     <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                                         <tr className="sipi sipi1">
-                                                            <th scope="col" className="px-6 py-3">
+                                                            <th scope="col" className="px-3 py-3">
                                                                 Employee Name
                                                             </th>
-                                                            <th scope="col" className="px-6 py-3">
+                                                            <th scope="col" className="px-3 py-3">
                                                                 Loan Option
                                                             </th>
-                                                            <th scope="col" className="px-6 py-3">
+                                                            <th scope="col" className="px-3 py-3">
                                                                 Title
                                                             </th>
-                                                            <th scope="col" className="px-6 py-3">
+                                                            <th scope="col" className="px-3 py-3">
                                                                 Type
                                                             </th>
-                                                            <th scope="col" className="px-6 py-3">
+                                                            <th scope="col" className="px-3 py-3">
                                                                 Loan Amount
                                                             </th>
-                                                            <th scope="col" className="px-6 py-3">
+                                                            <th scope="col" className="px-3 py-3">
                                                                 Action
                                                             </th>
                                                         </tr>
@@ -672,15 +672,15 @@ const SetSallary = ({
                                                                 <tr key={index} className="bg-white opos opos1 border-b dark:bg-gray-800 dark:border-gray-700">
                                                                     <th
                                                                         scope="row"
-                                                                        className="px-6 py-4 oklo font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                                                                        className="px-3 py-4 oklo font-medium text-gray-900 whitespace-nowrap dark:text-white"
                                                                     >
                                                                         {user1?.fullName}
                                                                     </th>
-                                                                    <td className="px-6 py-4">{item?.LoanOption}</td>
-                                                                    <td className="px-6 py-4">{item?.title}</td>
-                                                                    <td className="px-6 py-4">{item?.type}</td>
-                                                                    <td className="px-6 py-4">{item?.loanAmount}</td>
-                                                                    <td className="px-6 py-4">
+                                                                    <td className="px-3 py-4">{item?.LoanOption}</td>
+                                                                    <td className="px-3 py-4">{item?.title}</td>
+                                                                    <td className="px-3 py-4">{item?.type}</td>
+                                                                    <td className="px-3 py-4">{item?.loanAmount}</td>
+                                                                    <td className="px-3 py-4">
                                                                         <div className="action_so">
                                                                             <img className="cursor-pointer" onClick={() => {
                                                                                 setShow3(true);

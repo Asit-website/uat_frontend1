@@ -204,30 +204,30 @@ const Assets = ({ pop, setPop, setAlert }) => {
 
                   <thead class="text-xs text-black uppercase  dark:text-black">
                     <tr>
-                      <th scope="col" class="px-6 py-3">
+                      <th scope="col" class="px-4 py-3">
                         EMPLOYEE
                       </th>
-                      <th scope="col" class="px-6 py-3">
+                      <th scope="col" class="px-4 py-3">
                         DESIGNATION
                       </th>
-                      <th scope="col" class="px-6 py-3">
+                      <th scope="col" class="px-4 py-3">
                         DEPARTMENT
                       </th>
-                      <th scope="col" class="px-6 py-3">
+                      <th scope="col" class="px-4 py-3">
                         PRODUCT
                       </th>
-                      <th scope="col" class="px-6 py-3">
+                      <th scope="col" class="px-4 py-3">
                         SUPPORTED DATE
                       </th>
-                      <th scope="col" class="px-6 py-3">
+                      <th scope="col" class="px-4 py-3">
                          ADDTIONAL PRODUCT
                       </th>
 
-                      <th scope="col" class="px-6 py-3">
+                      <th scope="col" class="px-4 py-3">
                          DESCRIPTION
                       </th>
 
-                      <th scope="col" class="px-6 py-3">
+                      <th scope="col" class="px-4 py-3">
                         ACTION
                       </th>
                     </tr>
@@ -240,33 +240,33 @@ const Assets = ({ pop, setPop, setAlert }) => {
                         data.map((item, index) => (
                           <tr key={index} class="bg-white asetr">
 
-                            <td class="px-6 py-4">
+                            <td class="px-4 py-4">
                               {item?.Employee}
                             </td>
-                            <td class="px-6 py-4">
+                            <td class="px-4 py-4">
                               {item?.designation}
                             </td>
-                            <td class="px-6 py-4">
+                            <td class="px-4 py-4">
                               {item?.department}
                             </td>
-                            <td class="px-6 py-4">
+                            <td class="px-4 py-4">
                               {item?.product}
                             </td>
 
-                            <td class="px-6 py-4">
+                            <td class="px-4 py-4">
                               {item?.purchaseDate}
                             </td>
-                            <td class="px-6 py-4">
+                            <td class="px-4 py-4">
                               {item?.additonal}
                             </td>
 
-                            <td class="px-6 py-4">
+                            <td class="px-4 py-4">
                               {item?.description}
                             </td>
 
 
                                    
-                            <td class="px-6 py-4 relative">
+                            <td class="px-4 py-4 relative">
                              
 
                                 <img onClick={()=>{
@@ -325,7 +325,6 @@ const Assets = ({ pop, setPop, setAlert }) => {
 
                 </table>
 
-                <p className='showText'>Showing 1 to 1 of 1 entries</p>
 
               </div>
 
@@ -440,6 +439,8 @@ const Assets = ({ pop, setPop, setAlert }) => {
               <hr />
 
               <div className="createBtn">
+             
+                <button type='submit' className='creteBtn'>{onEdit ? "Update" : "Create"}</button>
                 <button type='button' onClick={() => {
                   setOpenForm(false);
                   setOnEdit(false);
@@ -454,7 +455,6 @@ const Assets = ({ pop, setPop, setAlert }) => {
                     description:""
                   })
                 }} className='cancelBtn'>Cancel</button>
-                <button type='submit' className='creteBtn'>{onEdit ? "Update" : "Create"}</button>
               </div>
 
 

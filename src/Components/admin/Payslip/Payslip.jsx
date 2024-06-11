@@ -17,7 +17,6 @@ const Payslip = ({
 }) => {
     const { user, getUserSlip, togglePayslip, buildAPI } = useMain();
 
-
     const [loading, setLoading] = useState(false);
 
     const [show, setShow] = useState(false);
@@ -51,7 +50,6 @@ const Payslip = ({
 
     const fetchUserSlip = async (showLoading = true) => {
         if (showLoading) {
-
             setLoading(true);
         }
         const ans = await getUserSlip(formdata.month, formdata.year);
@@ -78,7 +76,6 @@ const Payslip = ({
         toast.dismiss(toastId);
         setShowToggle(null);
     }
-
 
     useEffect(() => {
         fetchUserSlip();

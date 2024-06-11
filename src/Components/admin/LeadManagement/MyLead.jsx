@@ -36,9 +36,12 @@ const MyLead = ({ setAlert, pop, setPop }) => {
 
     const [allLead, setAllLead] = useState([]);
 
+    const [allLeading , setAlleading] = useState([]);
+
     const fetchLead = async () => {
         const ans = await getLead2("", "", "", "");
         setAllLead(ans?.data);
+        setAlleading(ans?.data);
     }
 
     const [filterInput , setFilterInput ] = useState();
@@ -73,8 +76,6 @@ const MyLead = ({ setAlert, pop, setPop }) => {
 
     };
 
-    console.log("allleads ",allLead);
-
     const [currentPage, setCurrentPage] = useState(1);
 
     let itemsPerPage = 4;
@@ -95,9 +96,39 @@ const MyLead = ({ setAlert, pop, setPop }) => {
         setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
     };
 
-   const filterHandler = ()=>{
-    
-   }
+
+   const [ sortDate, setSortDate] = useState("");
+   
+    useEffect(()=>{
+
+         if(sortDate !== undefined && sortDate != "" && sortDate !== null){
+ 
+            const sortedData = allLeading.filter((l) => {
+                const { createAt } = l;
+
+                const date = new Date(createAt);
+
+const cyear = date.getFullYear(); 
+const cmonth = date.getMonth() + 1; 
+const cday = date.getDate(); 
+
+const [nyear, nmonth, nday] = sortDate.split("-");
+
+
+return cyear === parseInt(nyear) && cmonth === parseInt(nmonth) && cday === parseInt(nday);
+
+
+              });
+
+              setAllLead(sortedData);
+
+         }
+         else {
+      setAllLead(allLeading);
+         }
+
+    },[sortDate])
+
 
     return (
         <>
@@ -283,7 +314,6 @@ const MyLead = ({ setAlert, pop, setPop }) => {
                                                     return ;
                                                 }
 
-                                                filterHandler();
                                             }}>Apply</button>
                                         </div>
                                         <div className="cancel">
@@ -298,7 +328,7 @@ const MyLead = ({ setAlert, pop, setPop }) => {
                             <div className="leaftlead2">
 
                                 <span>Sort by</span>
-                                <input type="date" />
+                                <input type="date" value={sortDate} onChange={(e)=>setSortDate(e.target.value)} />
 
                             </div>
 

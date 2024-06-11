@@ -17,7 +17,7 @@ import ReactHTMLTableToExcel from "react-html-table-to-excel";
 import * as XLSX from "xlsx";
 import toast from "react-hot-toast";
 import edit from "../../images/edit.png";
-import delete4 from "../../images/delete.png";
+// import delete4 from "../../images/delete.png";
 import cutt from "../../images/cut.png"
 import { parse, format } from 'date-fns';
 
@@ -853,10 +853,10 @@ const MarkAttendance = ({
                                       <img src={edit} alt="" />
                                       <p>Edit</p>
                                     </div>
-                                    <div className="attposin">
+                                    {/* <div className="attposin">
                                       <img src={delete4} alt="" />
                                       <p onClick={()=>deleteHandler(item?._id)}>Delete</p>
-                                    </div>
+                                    </div> */}
                                   </div>
                                 )}
                               </td>
@@ -959,10 +959,10 @@ const MarkAttendance = ({
                                       <img src={edit} alt="" />
                                       <p>Edit</p>
                                     </div>
-                                    <div className="attposin">
+                                    {/* <div className="attposin">
                                       <img src={delete4} alt="" />
                                       <p onClick={()=>deleteHandler(item?._id)}>Delete</p>
-                                    </div>
+                                    </div> */}
                                   </div>
                                 )}
                               </td>
@@ -1085,10 +1085,10 @@ const MarkAttendance = ({
                                       <img src={edit} alt="" />
                                       <p>Edit</p>
                                     </div>
-                                    <div className="attposin">
+                                    {/* <div className="attposin">
                                       <img src={delete4} alt="" />
                                       <p onClick={()=>deleteHandler(item?._id)}>Delete</p>
-                                    </div>
+                                    </div> */}
                                   </div>
                                 )}
                               </td>

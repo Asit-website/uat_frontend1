@@ -2,25 +2,13 @@ import AdminNavbar from "../../admin/Navbar/AdminNavbar";
 import AdminSidebar from "../../admin/Sidebar/AdminSidebar";
 import "react-calendar/dist/Calendar.css";
 import { useMain } from "../../../hooks/useMain";
-import HrSidebar from "../../Hr/Sidebar/HrSidebar";
-import HrNavbar from "../../Hr/Navbar/HrNavbar";
-import moreVert from "../../images/more_vert.png";
 import { useEffect, useState } from "react";
-import upload2 from "../../images/upload_2.png"
-import frames from "../../images/Frame 1000010647.png"
-import bxsearch from "../../images/bx-search.png"
-import crosss from "../../images/crosss.png"
 import talent from '../../images/talent.svg';
 import { useNavigate } from "react-router-dom";
 const EmployeeSalary = ({
     pop,
     setPop
-    //   pop1,
-    //   setPop1,
-    //   pop,
-    //   setPop,
-    //   setAlert,
-    //   isHr = false,
+   
 }) => {
     const { user, getUsers } = useMain();
 
@@ -38,7 +26,21 @@ const EmployeeSalary = ({
 
     const navigate = useNavigate();
 
-    console.log("usedagta ",data);
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 10;
+    const indexOfLastItem = currentPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+
+    const currentItems = data.filter(x => x.designation !== "CEO" && x._id !== user._id).slice(indexOfFirstItem, indexOfLastItem);
+
+    const handleNextPage = () => {
+        setCurrentPage(currentPage + 1);
+    };
+
+    const handlePrevPage = () => {
+        setCurrentPage(currentPage - 1);
+    };
+
 
     return (
         <>
@@ -127,7 +129,7 @@ const EmployeeSalary = ({
                                         </thead>
                                         <tbody>
                                             {
-                                                data.filter(x => x.designation !== "CEO" && x._id !== user._id )?.map((val, index) => {
+                                                currentItems.filter(x => x.designation !== "CEO" && x._id !== user._id )?.map((val, index) => {
                                                     return <tr key={index} className="bg-white opos border-b dark:bg-gray-800 dark:border-gray-700">
                                                         <th
                                                             scope="row"
@@ -157,7 +159,7 @@ const EmployeeSalary = ({
                                 <div className="prev_next">
 
                                     <div className="next">
-                                        <button>
+                                        <button onClick={handlePrevPage} disabled={currentPage === 1}>
                                             <span>Prev</span>
                                             <svg width="8" height="10" viewBox="0 0 8 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <path d="M2.08748 0L0.912476 1.175L4.72914 5L0.912476 8.825L2.08748 10L7.08748 5L2.08748 0Z" fill="#666D76" />
@@ -167,11 +169,11 @@ const EmployeeSalary = ({
                                     </div>
 
                                     <div className="on1">
-                                        <p>1</p>
+                                        <p> <p>{currentPage}</p></p>
                                     </div>
 
                                     <div className="next">
-                                        <button><span>Next</span>
+                                        <button onClick={handleNextPage} disabled={currentItems.length < itemsPerPage}> <span>Next</span>
                                             <svg width="8" height="10" viewBox="0 0 8 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <path d="M2.08748 0L0.912476 1.175L4.72914 5L0.912476 8.825L2.08748 10L7.08748 5L2.08748 0Z" fill="#666D76" />
                                             </svg>

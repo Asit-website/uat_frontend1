@@ -65,7 +65,7 @@
     background-color: white;
     display: flex;
     flex-direction: column;
-    margin-top: 40px;
+    margin-top: 20px;
     padding: 10px 20px;
 }
 
@@ -263,12 +263,7 @@ text-align: left;
 
 }
 
-.createBtn {
-    width: 100%;
-    display: flex;
-    gap: 30px;
-    justify-content: flex-end;
-}
+
 
 .showText {
     padding: 50px 0px;

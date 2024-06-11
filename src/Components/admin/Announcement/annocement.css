@@ -61,8 +61,10 @@ color: #FFFFFF;
  background-color: white;
  display: flex;
  flex-direction: column;
- margin-top: 40px;
+ margin-top: 20px;
  padding: 10px 20px;
+ border-radius: 20px;
+ border-bottom: 1px solid #D8D8D8;
 }
 
 .anmainTop{
@@ -208,6 +210,7 @@ color: #293240;
     width: 100%;
     margin-top: 130px;
     padding: 15px 30px;
+    border-radius: 20px;
     gap: 15px;
 }
 .openform nav{
@@ -240,6 +243,7 @@ color: #293240;
     line-height: 20px;
     letter-spacing: 0.0025em;
     text-align: left;
+    
     
 }
 .fullLabel input{
@@ -345,7 +349,7 @@ color: #060606;
     width: 100%;
     display: flex;
     gap: 30px;
-    justify-content: flex-end;
+    justify-content: flex-start;
 }
 .createBtn .cancelBtn{
     width:86px;
@@ -374,7 +378,7 @@ color: #666D76;
     justify-content: center;
     border-radius: 10px;
     align-items: center;   
-    background-color: #019AFF;
+    background-color: #0B56E4;
     font-family: Inter;
     font-size: 16px;
     font-weight: 500;
