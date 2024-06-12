@@ -11,7 +11,7 @@ import redcancel from "../../images/redcancel.png"
 
 const AdminNavbar = ({ setAlert}) => {
   
-  const { fetchUserNotify , deleteNotification } = useMain();
+  const { fetchUserNotifyHR , deleteNotification } = useMain();
 
   let user = JSON?.parse(localStorage.getItem("hrms_user"));
 
@@ -54,7 +54,8 @@ const AdminNavbar = ({ setAlert}) => {
 
 
   const fetchNotification  = async()=>{
-    const ans = await fetchUserNotify();
+    const ans = await fetchUserNotifyHR();
+
      if(ans.status){
         setAllNotification(ans?.notifications);
 

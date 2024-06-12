@@ -235,6 +235,7 @@ const EmployeeNavbar = ({ user, setAlert, pop1, setPop1 }) => {
   
   const fetchNotification  = async()=>{
     const ans = await fetchUserNotify();
+    console.log("ansnn  ",ans);
      if(ans.status){
         setAllNotification(ans?.notifications);
 
