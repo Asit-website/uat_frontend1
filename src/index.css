@@ -4471,6 +4471,20 @@ input::-webkit-inner-spin-button {
   width: 200px;
   max-width: 100%;
 }
+.highlightOption{
+  background-color: #ffffff !important;
+  color: #000000 !important;
+  font-family: inter !important;
+}
+.option{
+  font-family: inter !important;
+  border-bottom: 1px solid #E8E9EB  !important;
+  padding: 4px 10px !important;
+}
+.option:hover{
+ background: white !important;
+ color: #000000 !important;
+}
 .next button:hover{
   border: 1px solid #0B56E4 !important;
   transition: .5s;
