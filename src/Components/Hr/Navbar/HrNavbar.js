@@ -1,19 +1,30 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import kushel1 from "../../images/kushel1.png";
 import notification from "../../images/notifications.png"
 import chatbot from "../../images/chat_bubble_outline.png"
 import lok from "../../images/lok.png";
 import bottom from "../../images/bottom.png";
 import { NavLink, useNavigate } from "react-router-dom";
+import notifyy from "../../images/notifyy.png"
+import redcancel from "../../images/redcancel.png"
+import { useMain } from '../../../hooks/useMain'
+
 
 
 const HrNavbar = ({ setAlert}) => {
   
   let user = JSON?.parse(localStorage.getItem("hrms_user"));
 
+  const { fetchUserNotifyHR , deleteNotification } = useMain();
+
+
   const updateUser = () => {
     document.getElementById("ty").classList.toggle("tys");
   };
+
+  const [allNotication , setAllNotification] = useState([]);
+
+  const [shownotify , setShownotify] = useState(false);
 
   // const {user} = useMain();
   const handleLogout = () => {
@@ -47,6 +58,19 @@ const HrNavbar = ({ setAlert}) => {
   else if (hours >= 17 && hours <= 24) greet = "Evening";
 
 
+  const fetchNotification  = async()=>{
+    const ans = await fetchUserNotifyHR();
+
+     if(ans.status){
+        setAllNotification(ans?.notifications);
+
+     }
+}
+
+useEffect(()=>{
+  fetchNotification();
+},[])
+
 
   return (
     <>
@@ -63,13 +87,7 @@ const HrNavbar = ({ setAlert}) => {
 
             <div className="second-logo flex items-center">
 
-              {/* <img src={thir} alt="" /> */}
-
-
-              {/* <p className="">Hi, {user?.fullName == null ? ("Shubham Gupta") : user?.fullName}!</p>
-
-              <span><img src={arrowDown} alt="" /></span> */}
-
+          
             </div>
 
           </NavLink>
@@ -79,9 +97,9 @@ const HrNavbar = ({ setAlert}) => {
 
         <div className="navProfiIcons">
 
-          <img onClick={()=> navigate("/hrDash/notification4")} src={notification} alt="" />
+          <img  onClick={()=>setShownotify(true)} src={notification} alt="" />
 
-          <img onClick={() => navigate("/hrDash/notification3")} src={chatbot} alt="" />
+          {/* <img onClick={() => navigate("/hrDash/notification3")} src={chatbot} alt="" /> */}
 
           {/* navitem  */}
           <div className="relative cursor-pointer" onClick={updateUser}>
@@ -112,6 +130,61 @@ const HrNavbar = ({ setAlert}) => {
 
 
       </div>
+
+        {/* this is notification sidebar  */}
+
+ {
+  shownotify && 
+  <div className="notifySidwrap">
+
+  <div className="notifcont">
+
+    <nav>
+     <h2>Notifications</h2>
+     <img onClick={()=>{
+      setShownotify(false);
+     }}  src={redcancel} alt="" />
+    </nav>
+
+    <hr />
+
+     <div className="allnotiftcont">
+
+         {
+
+          allNotication.length > 0 ?
+
+           allNotication?.map((item , index)=>(
+
+             <>
+             <div key={index} className="singlnotify">
+               <h2>{item?.title}</h2>
+
+              <p>{item?.description}</p>
+
+              <p>Date : {new Date(parseInt(item?.date)).toLocaleDateString()}</p>
+
+
+             </div>
+
+              <hr />
+             </>
+
+           ))
+
+           
+           :
+           <div className="nonotify">
+             <img src={notifyy} alt="" />
+           </div>
+         }
+
+     </div>
+
+  </div>
+
+</div>
+ }
     </>
   );
 };

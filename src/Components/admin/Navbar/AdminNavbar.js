@@ -4,14 +4,14 @@ import notification from "../../images/notifications.png"
 import lok from "../../images/lok.png";
 import bottom from "../../images/bottom.png";
 import { NavLink } from "react-router-dom";
-import notifyy from "../../images/notifyy.png"
 import { useMain } from '../../../hooks/useMain'
+import notifyy from "../../images/notifyy.png"
 import redcancel from "../../images/redcancel.png"
 
 
 const AdminNavbar = ({ setAlert}) => {
   
-  const { fetchUserNotify , deleteNotification } = useMain();
+  const { fetchUserNotifyHR , deleteNotification } = useMain();
 
   let user = JSON?.parse(localStorage.getItem("hrms_user"));
 
@@ -54,7 +54,8 @@ const AdminNavbar = ({ setAlert}) => {
 
 
   const fetchNotification  = async()=>{
-    const ans = await fetchUserNotify();
+    const ans = await fetchUserNotifyHR();
+
      if(ans.status){
         setAllNotification(ans?.notifications);
 
