@@ -145,7 +145,6 @@ const AdminEmplyee = ({
 
   const getData = async () => {
     const ans = await getActiveUsers();
-    console.log("ans ",ans);
     setData1(ans.data);
   };
 

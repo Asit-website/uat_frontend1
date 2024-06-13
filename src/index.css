@@ -497,16 +497,16 @@ text-align: left;
   gap: 16px;
   width:  308px;
   height:  48px;
-  padding: 8px 16px 8px 16px;
+  padding: 8px 16px ;
   gap: 8px;
-  border: 1px 0px 0px 0px;
   border-radius: 15px;  
   background-color: white;
+  border: 1px solid #D0D4DC;
   
 }
 .inptsearch input{
   width:  288px;
-  height:  48px;
+  height:  46px;
   padding: 8px 16px 8px 16px;
   gap: 8px;
   border: 1px 0px 0px 0px;
@@ -532,11 +532,16 @@ text-align: left;
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-  width: 136px;
+  width: 162px;
   border: 1px solid #0B56E4;
   height: 40px;
   border-radius: 10px;
   background: linear-gradient(131.78deg, #D1E8FD 6.87%, #EDEFFF 91.67%);
+}
+.thebuttn{
+  display: flex  !important;
+  justify-content: flex-start !important;
+  
 }
 .ref1{
   color: #0B56E4;
@@ -4430,7 +4435,7 @@ input::-webkit-inner-spin-button {
 }
 .felas th,
 .felas td{
-   width: 11.1% !important;
+   /* width: 11.1% !important; */
 }
 .sysok a{
   display: flex;
@@ -4538,8 +4543,8 @@ input::-webkit-inner-spin-button {
 .table11{
   width: 100%;
   background-color: white;
-  /* margin: 0px 7.5px; */
-  box-shadow: 0px 8px 32px -2px #1B25330F;
+  border: 1px solid #E8E9EB;
+    box-shadow: 0px 8px 32px -2px #1B25330F;
   padding: 15px 0px;
   border-radius: 10px;
 }
@@ -4572,6 +4577,28 @@ input::-webkit-inner-spin-button {
   font-weight: 500;
   font-size: 12px;
   font-family: "Inter", sans-serif !important;
+}
+
+.myleadtit2{
+font-family: Inter;
+color: #40444B;
+font-size: 12px;
+font-weight: 400;
+line-height: 16px;
+letter-spacing: 0.004em;
+text-align: left;
+
+}
+
+.leadti{
+  color: #2B2B2B;
+font-family: Inter;
+font-size: 14px;
+font-weight: 500;
+line-height: 20px;
+letter-spacing: 0.0025em;
+text-align: left;
+
 }
 .relt{
   color: #F58E07;
@@ -4928,23 +4955,44 @@ text-align: left;
   background-color: white;
 }
 
+.statussame{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 27px  !important;  
+  height: 28px !important;
+  font-size: 12px;
+  font-family: Inter;
+font-weight: 400;
 
+  }
+  
+  .followUp{
+    width: 87px !important;
+  border: 1px solid #46AD92  !important;
+  background: #E8F5F1  !important;
+  color: #189877 !important;
 
-.followUp{
-  /* width: 50px!important; */
-/* height: 20px !important;
-padding: 6px 10px 6px 10px !important;
-gap: 10px !important;
-border-radius: 27px !important;
-color: #189877 !important;
-background: #46AD92 !important;
-font-family: Inter !important;
-font-size: 12px !important;
-font-weight: 400 !important;
-line-height: 16px !important;
-letter-spacing: 0.004em !important; */
+}
 
+.Hot{
+  width: 41px !important;
+  background: #FCEBE6;
+  border: 1px solid #E45D3A;
+  color: #F58E07;
+}
 
+.Cold{
+  width: 47px !important;
+  background: #D2EBFB;
+  border: 1px solid #1CA4FC;
+    color: #1CA4FC;
+}
+.Warm{
+  width: 53px !important;
+  background: #FEF4E6;
+  border: 1px solid #F58E07;
+      color: #F58E07;
 }
 
 .LEADSsTunav{
@@ -5025,9 +5073,9 @@ font-weight: 400 !important;
   border-radius: 10px;
 }
 .saka{
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  /* display: flex; */
+  /* align-items: center; */
+  /* justify-content: space-between; */
 }
 .notePresent{
   display: flex;

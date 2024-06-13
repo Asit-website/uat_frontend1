@@ -29,7 +29,6 @@ const LeaveRequest = ({
     display: star1 ? "block" : "none",
   };
 
-  
   const { user, getUserLeaves , deleteLeave , updateLeave , acceptLeave , rejectLeave , postNotifyLeavereq } = useMain();
 
   const [data, setData] = useState([]);
@@ -124,17 +123,16 @@ const LeaveRequest = ({
     toast.dismiss(toastId);
   }
   
-  const acceptHandler = async(form)=>{   
-    
+  const acceptHandler = async(form)=>{  
+        
     const toastId =toast.loading("Loading...");
-    const {user ,_id} = form;
+    const {user ,_id ,from ,to } = form;
+    const userId = form?.user?._id;
     const userName = user.fullName;
-    
-    const ans = await acceptLeave(form , _id);
+
+    const ans = await acceptLeave(form , _id , userId , from , to);
 
     const notify = await postNotifyLeavereq(userName , "Accepted");
-
-    console.log(notify);
 
     window.prompt("notification reached successfully");
 
