@@ -839,7 +839,7 @@ const SetSallary = ({
                                                                 <option>Travel Allowance</option>
                                                             </select>
                                                         </div>
-                                                        <div className="w-full fggg mt-5">
+                                                        <div className="w-full fggg ">
                                                             <label
                                                                 htmlFor="email"
                                                                 className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
