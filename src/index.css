@@ -33,8 +33,12 @@ body {
 
 .employee_sal_card{
   background-color: #ffffff;
+  border: 1px solid #d8dbdf;
+
   border-radius: 10px;
-  padding: 5px 0px;
+  box-shadow: rgba(208, 212, 216, 0.2) 0px 8px 24px;
+
+  padding: 5px 0px 20px 0px;
 }
 .sklin th,
 .sklin tr,
@@ -4285,6 +4289,38 @@ text-decoration: underline;
   width: 50%;
 }
 
+.user_class_input{
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.user_class_input label{
+  font-family: Inter;
+  color: #1B2533;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: 0.0025em;
+  text-align: left;
+}
+.user_class_input input{
+  width:100%;
+  height: 48px;
+  padding: 8px 16px ;
+  border-radius: 10px;
+background-color: #FFFFFF;   
+border: 1px solid #D0D4DC;
+}
+.user_class_input textarea{
+  width:100%;
+  height: 100px;
+  resize: none;
+  padding: 8px 16px ;
+  border-radius: 10px;
+background-color: #FFFFFF;   
+border: 1px solid #D0D4DC;
+}
+
 .user_class_input3 label{
 font-family: Inter;
 color: #1B2533;
@@ -4445,6 +4481,11 @@ input::-webkit-inner-spin-button {
 .swer{
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
+.editleaFrom{
+  max-width: 600px !important;
+  margin:0 auto;
+  width: 100%;
+}
 .leave_ct{
   font-family: inter !important;
 }
@@ -4534,6 +4575,27 @@ input::-webkit-inner-spin-button {
   font-weight: 400;
   font-size: 12px;
   font-family: "Inter", sans-serif !important;
+}
+.editLeadreq{
+font-family: Inter;
+color: #1B2533;
+font-size: 16px;
+font-weight: 600;
+line-height: 24px;
+letter-spacing: 0.0015em;
+text-align: left;
+
+}
+
+.duedatest{
+font-family: Inter;
+color: #545962;
+font-size: 12px;
+font-weight: 400;
+line-height: 16px;
+letter-spacing: 0.004em;
+text-align: left;
+
 }
 .contactk{
   display: flex;

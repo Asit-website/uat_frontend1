@@ -100,7 +100,7 @@ const LeadDash = ({ setAlert, pop, setPop }) => {
 
                                     </div>
                                     <div className="lead_contens1">
-                                        <h3>My Leads</h3>
+                                        <h3>My Untouched Deals</h3>
                                         <h1>{totalMyLead}</h1>
                                     </div>
                                 </div>
@@ -240,13 +240,13 @@ const LeadDash = ({ setAlert, pop, setPop }) => {
                                             <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                                 <th
                                                     scope="row"
-                                                    className="px-4 aka py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white aka"
+                                                    className="px-4 aka py-4 font-medium text-gray-900 whitespace-nowrap  aka"
                                                 >
                                                     Follow up WhatsApp Message
                                                 </th>
-                                                <td className="px-4 py-4">31/05/2023</td>
-                                                <td className="px-4 py-4">Not Started</td>
-                                                <td className="px-4 py-4">High</td>
+                                                <td className="px-4 py-4 duedatest">31/05/2023</td>
+                                                <td className="px-4 py-4 duedatest">Not Started</td>
+                                                <td className="px-4 py-4 duedatest">High</td>
                                                 <td className="px-4 py-4 relt">Machi Gulinski</td>
                                                 <td className="px-4 py-4">
                                                     <div className="contactk">
@@ -258,13 +258,13 @@ const LeadDash = ({ setAlert, pop, setPop }) => {
                                             <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                                 <th
                                                     scope="row"
-                                                    className="px-4 aka py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white aka"
+                                                    className="px-4 aka py-4 font-medium text-gray-900 whitespace-nowrap aka"
                                                 >
                                                     Follow up WhatsApp Message
                                                 </th>
-                                                <td className="px-4 py-4">31/05/2023</td>
-                                                <td className="px-4 py-4">Not Started</td>
-                                                <td className="px-4 py-4">High</td>
+                                                <td className="px-4 py-4 duedatest">31/05/2023</td>
+                                                <td className="px-4 py-4 duedatest">Not Started</td>
+                                                <td className="px-4 py-4 duedatest">High</td>
                                                 <td className="px-4 py-4 relt">Machi Gulinski</td>
                                                 <td className="px-4 py-4">
                                                     <div className="contactk">
@@ -276,13 +276,13 @@ const LeadDash = ({ setAlert, pop, setPop }) => {
                                             <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                                 <th
                                                     scope="row"
-                                                    className="px-4 aka py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white aka"
+                                                    className="px-4 aka py-4 font-medium text-gray-900 whitespace-nowrap aka"
                                                 >
                                                     Follow up WhatsApp Message
                                                 </th>
-                                                <td className="px-4 py-4">31/05/2023</td>
-                                                <td className="px-4 py-4">Not Started</td>
-                                                <td className="px-4 py-4">High</td>
+                                                <td className="px-4 py-4 duedatest">31/05/2023</td>
+                                                <td className="px-4 py-4 duedatest">Not Started</td>
+                                                <td className="px-4 py-4 duedatest">High</td>
                                                 <td className="px-4 py-4 relt">Machi Gulinski</td>
                                                 <td className="px-4 py-4">
                                                     <div className="contactk">
@@ -404,13 +404,31 @@ const LeadDash = ({ setAlert, pop, setPop }) => {
                                             <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                                 <th
                                                     scope="row"
-                                                    className="px-4 aka py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white aka"
+                                                    className="px-4 aka py-4 font-medium text-gray-900 whitespace-nowrap  aka"
                                                 >
                                                     Follow up WhatsApp Message
                                                 </th>
-                                                <td className="px-4 py-4">31/05/2023</td>
-                                                <td className="px-4 py-4">Not Started</td>
-                                                <td className="px-4 py-4">High</td>
+                                                <td className="px-4 py-4 duedatest">31/05/2023</td>
+                                                <td className="px-4 py-4 duedatest">Not Started</td>
+                                                <td className="px-4 py-4 duedatest" >High</td>
+                                                <td className="px-4 py-4 relt ">Machi Gulinski</td>
+                                                <td className="px-4 py-4">
+                                                    <div className="contactk">
+                                                        <img src={siy} alt="siy" />
+                                                        <p>Kris Marrier</p>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                                <th
+                                                    scope="row"
+                                                    className="px-4 aka py-4 font-medium text-gray-900 whitespace-nowrap  aka"
+                                                >
+                                                    Follow up WhatsApp Message
+                                                </th>
+                                                <td className="px-4 py-4 duedatest">31/05/2023</td>
+                                                <td className="px-4 py-4 duedatest">Not Started</td>
+                                                <td className="px-4 py-4 duedatest">High</td>
                                                 <td className="px-4 py-4 relt">Machi Gulinski</td>
                                                 <td className="px-4 py-4">
                                                     <div className="contactk">
@@ -422,31 +440,13 @@ const LeadDash = ({ setAlert, pop, setPop }) => {
                                             <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                                 <th
                                                     scope="row"
-                                                    className="px-4 aka py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white aka"
+                                                    className="px-4 aka py-4 font-medium text-gray-900 whitespace-nowrap  aka"
                                                 >
                                                     Follow up WhatsApp Message
                                                 </th>
-                                                <td className="px-4 py-4">31/05/2023</td>
-                                                <td className="px-4 py-4">Not Started</td>
-                                                <td className="px-4 py-4">High</td>
-                                                <td className="px-4 py-4 relt">Machi Gulinski</td>
-                                                <td className="px-4 py-4">
-                                                    <div className="contactk">
-                                                        <img src={siy} alt="siy" />
-                                                        <p>Kris Marrier</p>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                                <th
-                                                    scope="row"
-                                                    className="px-4 aka py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white aka"
-                                                >
-                                                    Follow up WhatsApp Message
-                                                </th>
-                                                <td className="px-4 py-4">31/05/2023</td>
-                                                <td className="px-4 py-4">Not Started</td>
-                                                <td className="px-4 py-4">High</td>
+                                                <td className="px-4 py-4 duedatest">31/05/2023</td>
+                                                <td className="px-4 py-4 duedatest">Not Started</td>
+                                                <td className="px-4 py-4 duedatest">High</td>
                                                 <td className="px-4 py-4 relt">Machi Gulinski</td>
                                                 <td className="px-4 py-4">
                                                     <div className="contactk">
@@ -571,13 +571,13 @@ const LeadDash = ({ setAlert, pop, setPop }) => {
                                             <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                                 <th
                                                     scope="row"
-                                                    className="px-4 aka py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white aka"
+                                                    className="px-4 aka py-4 font-medium text-gray-900 whitespace-nowrap  aka"
                                                 >
                                                     Follow up WhatsApp Message
                                                 </th>
-                                                <td className="px-4 py-4">31/05/2023</td>
-                                                <td className="px-4 py-4">Not Started</td>
-                                                <td className="px-4 py-4">High</td>
+                                                <td className="px-4 py-4 duedatest">31/05/2023</td>
+                                                <td className="px-4 py-4 duedatest">Not Started</td>
+                                                <td className="px-4 py-4 duedatest" >High</td>
                                                 <td className="px-4 py-4 relt">Machi Gulinski</td>
                                                 <td className="px-4 py-4">
                                                     <div className="contactk">
@@ -589,13 +589,13 @@ const LeadDash = ({ setAlert, pop, setPop }) => {
                                             <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                                 <th
                                                     scope="row"
-                                                    className="px-4 aka py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white aka"
+                                                    className="px-4 aka py-4 font-medium text-gray-900 whitespace-nowrap  aka"
                                                 >
                                                     Follow up WhatsApp Message
                                                 </th>
-                                                <td className="px-4 py-4">31/05/2023</td>
-                                                <td className="px-4 py-4">Not Started</td>
-                                                <td className="px-4 py-4">High</td>
+                                                <td className="px-4 py-4 duedatest">31/05/2023</td>
+                                                <td className="px-4 py-4 duedatest">Not Started</td>
+                                                <td className="px-4 py-4 duedatest">High</td>
                                                 <td className="px-4 py-4 relt">Machi Gulinski</td>
                                                 <td className="px-4 py-4">
                                                     <div className="contactk">
@@ -607,13 +607,13 @@ const LeadDash = ({ setAlert, pop, setPop }) => {
                                             <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                                 <th
                                                     scope="row"
-                                                    className="px-4 aka py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white aka"
+                                                    className="px-4 aka py-4 font-medium text-gray-900 whitespace-nowrap  aka"
                                                 >
                                                     Follow up WhatsApp Message
                                                 </th>
-                                                <td className="px-4 py-4">31/05/2023</td>
-                                                <td className="px-4 py-4">Not Started</td>
-                                                <td className="px-4 py-4">High</td>
+                                                <td className="px-4 py-4 duedatest">31/05/2023</td>
+                                                <td className="px-4 py-4 duedatest">Not Started</td>
+                                                <td className="px-4 py-4 duedatest">High</td>
                                                 <td className="px-4 py-4 relt">Machi Gulinski</td>
                                                 <td className="px-4 py-4">
                                                     <div className="contactk">
@@ -735,13 +735,13 @@ const LeadDash = ({ setAlert, pop, setPop }) => {
                                             <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                                 <th
                                                     scope="row"
-                                                    className="px-4 aka py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white aka"
+                                                    className="px-4 aka py-4 font-medium text-gray-900 whitespace-nowrap  aka"
                                                 >
                                                     Follow up WhatsApp Message
                                                 </th>
-                                                <td className="px-4 py-4">31/05/2023</td>
-                                                <td className="px-4 py-4">Not Started</td>
-                                                <td className="px-4 py-4">High</td>
+                                                <td className="px-4 py-4 duedatest">31/05/2023</td>
+                                                <td className="px-4 py-4 duedatest">Not Started</td>
+                                                <td className="px-4 py-4 duedatest">High</td>
                                                 <td className="px-4 py-4 relt">Machi Gulinski</td>
                                                 <td className="px-4 py-4">
                                                     <div className="contactk">
@@ -753,13 +753,13 @@ const LeadDash = ({ setAlert, pop, setPop }) => {
                                             <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                                 <th
                                                     scope="row"
-                                                    className="px-4 aka py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white aka"
+                                                    className="px-4 aka py-4 font-medium text-gray-900 whitespace-nowrap  aka"
                                                 >
                                                     Follow up WhatsApp Message
                                                 </th>
-                                                <td className="px-4 py-4">31/05/2023</td>
-                                                <td className="px-4 py-4">Not Started</td>
-                                                <td className="px-4 py-4">High</td>
+                                                <td className="px-4 py-4 duedatest">31/05/2023</td>
+                                                <td className="px-4 py-4 duedatest">Not Started</td>
+                                                <td className="px-4 py-4 duedatest">High</td>
                                                 <td className="px-4 py-4 relt">Machi Gulinski</td>
                                                 <td className="px-4 py-4">
                                                     <div className="contactk">
@@ -771,13 +771,13 @@ const LeadDash = ({ setAlert, pop, setPop }) => {
                                             <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                                 <th
                                                     scope="row"
-                                                    className="px-4 aka py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white aka"
+                                                    className="px-4 aka py-4 font-medium text-gray-900 whitespace-nowrap  aka"
                                                 >
                                                     Follow up WhatsApp Message
                                                 </th>
-                                                <td className="px-4 py-4">31/05/2023</td>
-                                                <td className="px-4 py-4">Not Started</td>
-                                                <td className="px-4 py-4">High</td>
+                                                <td className="px-4 py-4 duedatest">31/05/2023</td>
+                                                <td className="px-4 py-4 duedatest">Not Started</td>
+                                                <td className="px-4 py-4 duedatest">High</td>
                                                 <td className="px-4 py-4 relt">Machi Gulinski</td>
                                                 <td className="px-4 py-4">
                                                     <div className="contactk">

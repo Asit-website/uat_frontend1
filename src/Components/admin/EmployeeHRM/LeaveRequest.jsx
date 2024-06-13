@@ -8,6 +8,7 @@ import chevron from "../../images/chevron_right.png";
 import "./hrm.css";
 import "./leaveReq.css";
 import { NavLink } from "react-router-dom";
+import cancel from "../../images/cancell.png"
 
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
@@ -79,6 +80,7 @@ const LeaveRequest = ({
    const [showPlay , setShowPlay] = useState(-1);
 
    const submitHandler = async()=>{
+    const toastId = toast.loading("Loading...");
     const startDate = new Date(formdata.start);
     const endDate = new Date(formdata.end);
     const timeDifference = Math.abs(endDate - startDate);
@@ -89,8 +91,10 @@ const LeaveRequest = ({
    if(ans.success){
     toast.success("Successfuly updated");
     setStar1(false);
-    getUserLeaves();
+    getData();
    }
+
+   toast.dismiss(toastId);
 
    }
 
@@ -446,14 +450,16 @@ const LeaveRequest = ({
             aria-hidden="true"
             class="user_class tuser_class hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center mt-10 md:inset-0 h-[calc(100%-1rem)] max-h-full"
           >
-            <div class="relative p-4 w-full max-w-md max-h-full">
+            <div class="relative p-4  editleaFrom max-h-full">
               {/* <!-- Modal content --> */}
               <div class="relative bg-white rounded-lg shadow dark:bg-gray-700 swer">
                 {/* <!-- Modal header --> */}
                 <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
-                  <h3 class="text-xl font-semibold ">
-                    Create Leave Request
+                  <h3 class="editLeadreq">
+                    Edit Leave Request
                   </h3>
+                  <img onClick={()=> setStar1(false)} src={cancel} alt="" />
+
                 </div>
                 {/* <!-- Modal body --> */}
                 <div class="p-4 md:p-5">
@@ -462,8 +468,7 @@ const LeaveRequest = ({
 
                     <div class="mt-2 user_class_input">
                       <label
-                        for="name"
-                        class="block mb-2 text-sm font-medium "
+
                       >
                         Employee Name
                       </label>
@@ -471,26 +476,23 @@ const LeaveRequest = ({
                       <input
            value={formdata.employeeName}
            onChange={changeHandler}
-             disabled
+             
                         type="text"
                         name="employeeName"
                         id="text"
-                        class="bg border text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 -gray-500 "
+                       className=""
                         placeholder="Enter the name"
                         required
                       />
                     </div>
 
                     <div class="mt-2 user_class_input">
-                      <label
-                        for="text"
-                        class="block mb-2 text-sm font-medium "
-                      >
+                      <label                  >
                         Leave type
                       </label>
                       <input
                       value={formdata.leaveType}
-                      disabled
+                      
                       onChange={changeHandler}
                         type="text"
                         name="leaveType"
@@ -515,10 +517,11 @@ const LeaveRequest = ({
                           type="date"
                           name="start"
                           id="text"
-                          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                         
                           required
                         />
                       </div>
+
                       <div class="user_class_input w-full ml-2  mt-2">
                         <label
                           for="text"
@@ -532,7 +535,7 @@ const LeaveRequest = ({
                           type="date"
                           name="end"
                           id="text"
-                          class="black bg-indigo-500 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                       
                           required
                         />
                       </div>
@@ -553,7 +556,7 @@ const LeaveRequest = ({
                         value={formdata.reason}
                           id="message"
                           rows="4"
-                          class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                         
                           placeholder="Enter your reason..."
                         ></textarea>
                       </div>

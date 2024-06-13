@@ -1,17 +1,17 @@
+
 import React, { useEffect, useState } from "react";
 import "react-calendar/dist/Calendar.css";
 import { useMain } from "../../../hooks/useMain";
 import siy from '../../images/siy.png';
-import EmployeeNavbar from "../../Employee/Navbar/EmployeeNavbar";
-import EmployeeSidebar from "../../Employee/Sidebar/EmployeeSidebar";
 import { NavLink } from "react-router-dom";
+import EmployeeSidebar from "../../Employee/Sidebar/EmployeeSidebar";
+import EmployeeNavbar from "../../Employee/Navbar/EmployeeNavbar";
 const LeadDash2 = ({ setAlert, pop, setPop }) => {
-    const { user  , getLead} = useMain();
+    const { user , getLead } = useMain();
     const [start, setStart] = useState(false);
     const [start1, setStart1] = useState(false);
     const [start2, setStart2] = useState(false);
     const [start3, setStart3] = useState(false);
-    const [start4, setStart4] = useState(false);
     const stylePeer1 = {
         display: start ? "block" : "none"
     }
@@ -24,28 +24,26 @@ const LeadDash2 = ({ setAlert, pop, setPop }) => {
     const stylePeer4 = {
         display: start3 ? "block" : "none"
     }
-    const stylePeer5 = {
-        display: start4 ? "block" : "none"
-    }
 
     const [totalMyLead , setTotalMyLead] = useState(0);
 
-    const fetchLead = async () => {
+const fetchLead = async () => {
 
-        const ans = await getLead("", "", "", "");
-        if(ans?.data){
-            setTotalMyLead(ans?.data?.length);
-        }
+    const ans = await getLead("", "", "", "");
+    if(ans?.data){
+        setTotalMyLead(ans?.data?.length);
     }
+}
 
-   useEffect(()=>{
+useEffect(()=>{
 fetchLead();
-   },[])
+},[])
+    
+
     return (
         <>
             <div className="employee-dash h-full">
                 <EmployeeSidebar pop={pop} setPop={setPop} />
-
                 <div className="tm">
                     <EmployeeNavbar user={user} setAlert={setAlert} />
 
@@ -61,7 +59,7 @@ fetchLead();
                                         <path d="M8 5.99999H5.101L5.102 5.99099C5.23257 5.35162 5.48813 4.74434 5.854 4.20399C6.39845 3.4018 7.16215 2.77315 8.054 2.39299C8.356 2.26499 8.671 2.16699 8.992 2.10199C9.65789 1.96698 10.3441 1.96698 11.01 2.10199C11.967 2.29808 12.8451 2.7714 13.535 3.46299L14.951 2.05099C14.3128 1.41262 13.5578 0.903028 12.727 0.549986C12.3033 0.370615 11.8628 0.233939 11.412 0.141986C10.4818 -0.0470031 9.52316 -0.0470031 8.593 0.141986C8.14185 0.23432 7.70101 0.371329 7.277 0.550986C6.02753 1.08109 4.95793 1.96108 4.197 3.08499C3.68489 3.84284 3.32676 4.69398 3.143 5.58999C3.115 5.72499 3.1 5.86299 3.08 5.99999H0L4 9.99999L8 5.99999ZM12 7.99999H14.899L14.898 8.00799C14.6367 9.28975 13.8812 10.4171 12.795 11.146C12.2548 11.5122 11.6475 11.7677 11.008 11.898C10.3424 12.033 9.65656 12.033 8.991 11.898C8.35163 11.7674 7.74435 11.5119 7.204 11.146C6.93862 10.9665 6.69085 10.7622 6.464 10.536L5.05 11.95C5.68851 12.5882 6.44392 13.0974 7.275 13.45C7.699 13.63 8.142 13.767 8.59 13.858C9.51982 14.0471 10.4782 14.0471 11.408 13.858C13.2005 13.4859 14.7773 12.4294 15.803 10.913C16.3146 10.1557 16.6724 9.30525 16.856 8.40999C16.883 8.27499 16.899 8.13699 16.919 7.99999H20L16 3.99999L12 7.99999Z" fill="#0B56E4" />
                                     </svg>
                                     </button>
-                                  <NavLink to="/employeeDash/myLead"><button className="lead_btn">My Leads</button></NavLink>
+                                   <NavLink to="/employeeDash/myLead"><button className="lead_btn">My Leads</button></NavLink>
                                 </div>
                             </div>
                         </div>
@@ -103,7 +101,7 @@ fetchLead();
 
                                     </div>
                                     <div className="lead_contens1">
-                                        <h3>My Leads</h3>
+                                        <h3>My Untouched Deals</h3>
                                         <h1>{totalMyLead}</h1>
                                     </div>
                                 </div>
@@ -243,13 +241,13 @@ fetchLead();
                                             <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                                 <th
                                                     scope="row"
-                                                    className="px-4 aka py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white aka"
+                                                    className="px-4 aka py-4 font-medium text-gray-900 whitespace-nowrap  aka"
                                                 >
                                                     Follow up WhatsApp Message
                                                 </th>
-                                                <td className="px-4 py-4">31/05/2023</td>
-                                                <td className="px-4 py-4">Not Started</td>
-                                                <td className="px-4 py-4">High</td>
+                                                <td className="px-4 py-4 duedatest">31/05/2023</td>
+                                                <td className="px-4 py-4 duedatest">Not Started</td>
+                                                <td className="px-4 py-4 duedatest">High</td>
                                                 <td className="px-4 py-4 relt">Machi Gulinski</td>
                                                 <td className="px-4 py-4">
                                                     <div className="contactk">
@@ -261,13 +259,13 @@ fetchLead();
                                             <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                                 <th
                                                     scope="row"
-                                                    className="px-4 aka py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white aka"
+                                                    className="px-4 aka py-4 font-medium text-gray-900 whitespace-nowrap aka"
                                                 >
                                                     Follow up WhatsApp Message
                                                 </th>
-                                                <td className="px-4 py-4">31/05/2023</td>
-                                                <td className="px-4 py-4">Not Started</td>
-                                                <td className="px-4 py-4">High</td>
+                                                <td className="px-4 py-4 duedatest">31/05/2023</td>
+                                                <td className="px-4 py-4 duedatest">Not Started</td>
+                                                <td className="px-4 py-4 duedatest">High</td>
                                                 <td className="px-4 py-4 relt">Machi Gulinski</td>
                                                 <td className="px-4 py-4">
                                                     <div className="contactk">
@@ -279,13 +277,13 @@ fetchLead();
                                             <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                                 <th
                                                     scope="row"
-                                                    className="px-4 aka py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white aka"
+                                                    className="px-4 aka py-4 font-medium text-gray-900 whitespace-nowrap aka"
                                                 >
                                                     Follow up WhatsApp Message
                                                 </th>
-                                                <td className="px-4 py-4">31/05/2023</td>
-                                                <td className="px-4 py-4">Not Started</td>
-                                                <td className="px-4 py-4">High</td>
+                                                <td className="px-4 py-4 duedatest">31/05/2023</td>
+                                                <td className="px-4 py-4 duedatest">Not Started</td>
+                                                <td className="px-4 py-4 duedatest">High</td>
                                                 <td className="px-4 py-4 relt">Machi Gulinski</td>
                                                 <td className="px-4 py-4">
                                                     <div className="contactk">
@@ -333,7 +331,7 @@ fetchLead();
                                             className="z-10 taning hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600"
                                         >
                                             <ul
-                                                className="py-1 lesar text-sm text-gray-700 dark:text-gray-200"
+                                                className="py-1 lesar  text-sm text-gray-700 dark:text-gray-200"
                                                 aria-labelledby="dropdownActionButton"
                                             >
                                                 <li className="sysok">
@@ -407,13 +405,31 @@ fetchLead();
                                             <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                                 <th
                                                     scope="row"
-                                                    className="px-4 aka py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white aka"
+                                                    className="px-4 aka py-4 font-medium text-gray-900 whitespace-nowrap  aka"
                                                 >
                                                     Follow up WhatsApp Message
                                                 </th>
-                                                <td className="px-4 py-4">31/05/2023</td>
-                                                <td className="px-4 py-4">Not Started</td>
-                                                <td className="px-4 py-4">High</td>
+                                                <td className="px-4 py-4 duedatest">31/05/2023</td>
+                                                <td className="px-4 py-4 duedatest">Not Started</td>
+                                                <td className="px-4 py-4 duedatest" >High</td>
+                                                <td className="px-4 py-4 relt ">Machi Gulinski</td>
+                                                <td className="px-4 py-4">
+                                                    <div className="contactk">
+                                                        <img src={siy} alt="siy" />
+                                                        <p>Kris Marrier</p>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                                <th
+                                                    scope="row"
+                                                    className="px-4 aka py-4 font-medium text-gray-900 whitespace-nowrap  aka"
+                                                >
+                                                    Follow up WhatsApp Message
+                                                </th>
+                                                <td className="px-4 py-4 duedatest">31/05/2023</td>
+                                                <td className="px-4 py-4 duedatest">Not Started</td>
+                                                <td className="px-4 py-4 duedatest">High</td>
                                                 <td className="px-4 py-4 relt">Machi Gulinski</td>
                                                 <td className="px-4 py-4">
                                                     <div className="contactk">
@@ -425,31 +441,13 @@ fetchLead();
                                             <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                                 <th
                                                     scope="row"
-                                                    className="px-4 aka py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white aka"
+                                                    className="px-4 aka py-4 font-medium text-gray-900 whitespace-nowrap  aka"
                                                 >
                                                     Follow up WhatsApp Message
                                                 </th>
-                                                <td className="px-4 py-4">31/05/2023</td>
-                                                <td className="px-4 py-4">Not Started</td>
-                                                <td className="px-4 py-4">High</td>
-                                                <td className="px-4 py-4 relt">Machi Gulinski</td>
-                                                <td className="px-4 py-4">
-                                                    <div className="contactk">
-                                                        <img src={siy} alt="siy" />
-                                                        <p>Kris Marrier</p>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                                <th
-                                                    scope="row"
-                                                    className="px-4 aka py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white aka"
-                                                >
-                                                    Follow up WhatsApp Message
-                                                </th>
-                                                <td className="px-4 py-4">31/05/2023</td>
-                                                <td className="px-4 py-4">Not Started</td>
-                                                <td className="px-4 py-4">High</td>
+                                                <td className="px-4 py-4 duedatest">31/05/2023</td>
+                                                <td className="px-4 py-4 duedatest">Not Started</td>
+                                                <td className="px-4 py-4 duedatest">High</td>
                                                 <td className="px-4 py-4 relt">Machi Gulinski</td>
                                                 <td className="px-4 py-4">
                                                     <div className="contactk">
@@ -574,13 +572,13 @@ fetchLead();
                                             <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                                 <th
                                                     scope="row"
-                                                    className="px-4 aka py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white aka"
+                                                    className="px-4 aka py-4 font-medium text-gray-900 whitespace-nowrap  aka"
                                                 >
                                                     Follow up WhatsApp Message
                                                 </th>
-                                                <td className="px-4 py-4">31/05/2023</td>
-                                                <td className="px-4 py-4">Not Started</td>
-                                                <td className="px-4 py-4">High</td>
+                                                <td className="px-4 py-4 duedatest">31/05/2023</td>
+                                                <td className="px-4 py-4 duedatest">Not Started</td>
+                                                <td className="px-4 py-4 duedatest" >High</td>
                                                 <td className="px-4 py-4 relt">Machi Gulinski</td>
                                                 <td className="px-4 py-4">
                                                     <div className="contactk">
@@ -592,13 +590,13 @@ fetchLead();
                                             <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                                 <th
                                                     scope="row"
-                                                    className="px-4 aka py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white aka"
+                                                    className="px-4 aka py-4 font-medium text-gray-900 whitespace-nowrap  aka"
                                                 >
                                                     Follow up WhatsApp Message
                                                 </th>
-                                                <td className="px-4 py-4">31/05/2023</td>
-                                                <td className="px-4 py-4">Not Started</td>
-                                                <td className="px-4 py-4">High</td>
+                                                <td className="px-4 py-4 duedatest">31/05/2023</td>
+                                                <td className="px-4 py-4 duedatest">Not Started</td>
+                                                <td className="px-4 py-4 duedatest">High</td>
                                                 <td className="px-4 py-4 relt">Machi Gulinski</td>
                                                 <td className="px-4 py-4">
                                                     <div className="contactk">
@@ -610,13 +608,13 @@ fetchLead();
                                             <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                                 <th
                                                     scope="row"
-                                                    className="px-4 aka py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white aka"
+                                                    className="px-4 aka py-4 font-medium text-gray-900 whitespace-nowrap  aka"
                                                 >
                                                     Follow up WhatsApp Message
                                                 </th>
-                                                <td className="px-4 py-4">31/05/2023</td>
-                                                <td className="px-4 py-4">Not Started</td>
-                                                <td className="px-4 py-4">High</td>
+                                                <td className="px-4 py-4 duedatest">31/05/2023</td>
+                                                <td className="px-4 py-4 duedatest">Not Started</td>
+                                                <td className="px-4 py-4 duedatest">High</td>
                                                 <td className="px-4 py-4 relt">Machi Gulinski</td>
                                                 <td className="px-4 py-4">
                                                     <div className="contactk">
@@ -738,13 +736,13 @@ fetchLead();
                                             <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                                 <th
                                                     scope="row"
-                                                    className="px-4 aka py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white aka"
+                                                    className="px-4 aka py-4 font-medium text-gray-900 whitespace-nowrap  aka"
                                                 >
                                                     Follow up WhatsApp Message
                                                 </th>
-                                                <td className="px-4 py-4">31/05/2023</td>
-                                                <td className="px-4 py-4">Not Started</td>
-                                                <td className="px-4 py-4">High</td>
+                                                <td className="px-4 py-4 duedatest">31/05/2023</td>
+                                                <td className="px-4 py-4 duedatest">Not Started</td>
+                                                <td className="px-4 py-4 duedatest">High</td>
                                                 <td className="px-4 py-4 relt">Machi Gulinski</td>
                                                 <td className="px-4 py-4">
                                                     <div className="contactk">
@@ -756,13 +754,13 @@ fetchLead();
                                             <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                                 <th
                                                     scope="row"
-                                                    className="px-4 aka py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white aka"
+                                                    className="px-4 aka py-4 font-medium text-gray-900 whitespace-nowrap  aka"
                                                 >
                                                     Follow up WhatsApp Message
                                                 </th>
-                                                <td className="px-4 py-4">31/05/2023</td>
-                                                <td className="px-4 py-4">Not Started</td>
-                                                <td className="px-4 py-4">High</td>
+                                                <td className="px-4 py-4 duedatest">31/05/2023</td>
+                                                <td className="px-4 py-4 duedatest">Not Started</td>
+                                                <td className="px-4 py-4 duedatest">High</td>
                                                 <td className="px-4 py-4 relt">Machi Gulinski</td>
                                                 <td className="px-4 py-4">
                                                     <div className="contactk">
@@ -774,13 +772,13 @@ fetchLead();
                                             <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                                 <th
                                                     scope="row"
-                                                    className="px-4 aka py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white aka"
+                                                    className="px-4 aka py-4 font-medium text-gray-900 whitespace-nowrap  aka"
                                                 >
                                                     Follow up WhatsApp Message
                                                 </th>
-                                                <td className="px-4 py-4">31/05/2023</td>
-                                                <td className="px-4 py-4">Not Started</td>
-                                                <td className="px-4 py-4">High</td>
+                                                <td className="px-4 py-4 duedatest">31/05/2023</td>
+                                                <td className="px-4 py-4 duedatest">Not Started</td>
+                                                <td className="px-4 py-4 duedatest">High</td>
                                                 <td className="px-4 py-4 relt">Machi Gulinski</td>
                                                 <td className="px-4 py-4">
                                                     <div className="contactk">
