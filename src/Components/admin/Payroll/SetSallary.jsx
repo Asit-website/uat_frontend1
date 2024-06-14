@@ -431,7 +431,7 @@ const SetSallary = ({
                 <div className="tm">
                     <AdminNavbar user={user} />
 
-                    <div className="em ">
+                    <div className="em">
 
                         <div className="flex-col emWraping">
 
