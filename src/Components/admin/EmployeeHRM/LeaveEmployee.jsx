@@ -5,56 +5,14 @@ import { useMain } from "../../../hooks/useMain";
 import HrSidebar from "../../Hr/Sidebar/HrSidebar";
 import HrNavbar from "../../Hr/Navbar/HrNavbar";
 import chevron from "../../images/chevron_right.png";
-
 import emplyee from "../../images/emplyProfile.png"
-import call from "../../images/call.png"
 import mail from "../../images/mail.png"
-
 import "./hrm.css";
 import "./leaveEmp.css";
 import { NavLink } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 
-const data = [
-    {
-        profile:emplyee,
-        name:"Surbhi Rajwanshi",
-        profession:"Jr.Developer",
-        mail:"Surbhi@kusheldigi.com",
-        phoneNumber:"9873******",
-        department:"Developer",
-        dateOfJoin:"02 March,2022"
-    },
-    {
-        profile:emplyee,
-        name:"Surbhi Rajwanshi",
-        profession:"Jr.Developer",
-        mail:"Surbhi@kusheldigi.com",
-        phoneNumber:"9873******",
-        department:"Developer",
-        dateOfJoin:"02 March,2022"
-    },
-    {
-        profile:emplyee,
-        name:"Surbhi Rajwanshi",
-        profession:"Jr.Developer",
-        mail:"Surbhi@kusheldigi.com",
-        phoneNumber:"9873******",
-        department:"Developer",
-        dateOfJoin:"02 March,2022"
-    },
-    {
-        profile:emplyee,
-        name:"Surbhi Rajwanshi",
-        profession:"Jr.Developer",
-        mail:"Surbhi@kusheldigi.com",
-        phoneNumber:"9873******",
-        department:"Developer",
-        dateOfJoin:"02 March,2022"
-    },
-   
-
-]
 
 const LeaveEmployee = ({
   pop1,
@@ -64,7 +22,23 @@ const LeaveEmployee = ({
   setAlert,
   isHr = false,
 }) => {
-  const { user } = useMain();
+  const { user , fetchTodayLeave } = useMain();
+
+  const [data , setData] = useState([]);
+
+  const getLeavesEmp = async()=>{
+
+         const ans = await fetchTodayLeave();
+
+          if(ans?.status){
+           setData(ans?.data);
+          }
+          
+  }
+
+  useEffect(()=>{
+    getLeavesEmp();
+  },[])
 
   return (
     <>
@@ -116,26 +90,25 @@ const LeaveEmployee = ({
 
                              <div className="singEmp_profileL">
 
-                        <img src={employ?.profile} alt="" />
-                           <h2>{employ?.name}</h2>
-                           <p>{employ?.profession}</p>
+                        <img src={employ?.user?.profileImage ? employ?.user?.profileImage : emplyee} alt="" />
+                           <h2>{employ?.user?.fullName}</h2>
+                           <p>{employ?.user?.department}</p>
 
                            <button className="inactBtn55"><span>Inactive</span></button>
                              </div>
 
                              <div className="empEmail_phnL">
-                                <p><img src={mail} alt="" /> <span>{employ?.mail}</span></p>
-                                <p><img src={call} alt="" /> <span>{employ?.phoneNumber}</span></p>
+                                <p><img src={mail} alt="" /> <span>{employ?.user?.email}</span></p>
                              </div>
 
                              <div className="empDep_joinL">
                                 <p>
                                     <span>Department</span>
-                                    <span className="snsL">{employ?.department}</span>
+                                    <span className="snsL">{employ?.user?.department}</span>
                                 </p>
                                 <p>
                                     <span>Date of Joining</span>
-                                    <span className="snsL">{employ?.dateOfJoin}</span>
+                                    <span className="snsL">{employ?.user?.joiningDate}</span>
                                 </p>
                              </div>
 

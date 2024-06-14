@@ -29,7 +29,7 @@ const EmployeeHRM = ({
   setAlert,
   isHr = false,
 }) => {
-  const { user, getUsers, getActiveUsersCount, postActivity, getTotalLeavesCount, fetchAnnoucement, getHoliday, postAttendence } = useMain();
+  const { user, getUsers, getActiveUsersCount, postActivity, getTotalLeavesCount, fetchAnnoucement, getHoliday, postAttendence , fetchTodayLeave } = useMain();
 
   const user2 = JSON.parse(localStorage.getItem("hrms_user"));
 
@@ -365,6 +365,21 @@ differenceText = `${hours}:${minutes}:${seconds}`;
     getHolidays();
   }, []);
 
+   const [leaveCount , setLeaveCount] = useState(0);
+
+  const getLeavesEmp = async()=>{
+
+    const ans = await fetchTodayLeave();
+     if(ans?.status){
+      setLeaveCount(ans?.data?.length);
+     }
+
+}
+
+useEffect(()=>{
+getLeavesEmp();
+},[])
+
 
   return (
     <>
@@ -441,7 +456,7 @@ differenceText = `${hours}:${minutes}:${seconds}`;
                       <div className="titWrap">
                         <h3>Employee on Leave</h3>
 
-                        <p className="hrmlRNu">{counts?.employeesLeaves}</p>
+                        <p className="hrmlRNu">{leaveCount}</p>
                       </div>
 
                     </div>

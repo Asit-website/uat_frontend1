@@ -11,6 +11,7 @@ import OutsideClickHandler from 'react-outside-click-handler';
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 import toast from "react-hot-toast";
+import download from "../../images/donwlaond.png"
 
 
 const MyLead = ({ setAlert, pop, setPop }) => {
@@ -95,7 +96,6 @@ const MyLead = ({ setAlert, pop, setPop }) => {
         setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
     };
 
-
    const [ sortDate, setSortDate] = useState("");
    
     useEffect(()=>{
@@ -128,8 +128,7 @@ return cyear === parseInt(nyear) && cmonth === parseInt(nmonth) && cday === pars
 
     },[sortDate])
 
-
-    return (
+  return (
         <>
             <div className="employee-dash h-full">
                 <AdminSidebar pop={pop} setPop={setPop} />
@@ -152,7 +151,8 @@ return cyear === parseInt(nyear) && cmonth === parseInt(nmonth) && cday === pars
                                     </button>
 
                                     <NavLink to="/adminDash/leadFile"><button className="refresh">
-                                        <span className="ref1">Import Leads</span>
+                                    <img src={download} alt="" />
+                                        <span className="ref1">  Import Leads</span>
                                     </button></NavLink>
                                     <button
                                         id="dropdownDefaultButton"
@@ -226,13 +226,13 @@ return cyear === parseInt(nyear) && cmonth === parseInt(nmonth) && cday === pars
 
                             <div>
                                 <div className="leftlead1">
+                                    <img src={fff} alt="" />
 
                                     <div onClick={() => setFilter(!filter)} className="inptsearch">
                                         <input type="text" placeholder="Search leads" />
                                         <span><img src={search} alt="" /></span>
                                     </div>
 
-                                    <img src={fff} alt="" />
 
                                 </div>
 
@@ -347,74 +347,77 @@ return cyear === parseInt(nyear) && cmonth === parseInt(nmonth) && cday === pars
 
                                         <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                             <tr className="thol saka">
-                                                <th scope="col" className="px-6 py-3">
+                                                <th scope="col" className="px-3 py-3">
                                                     <input type="checkbox" placeholder="" />
                                                 </th>
-                                                <th scope="col" className="px-6 py-3">
+                                                <th scope="col" className="px-3 py-3 leadti">
                                                     Lead Name
                                                 </th>
-                                                <th scope="col" className="px-6 py-3">
+                                                <th scope="col" className="px-3 py-3 leadti">
                                                     Company
                                                 </th>
-                                                <th scope="col" className="px-6 py-3">
+                                                <th scope="col" className="px-3 py-3 leadti">
                                                     Email
                                                 </th>
-                                                <th scope="col" className="px-6 py-3">
+                                                <th scope="col" className="px-3 py-3 leadti">
                                                     Phone
                                                 </th>
-                                                <th scope="col" className="px-6 py-3">
+                                                <th scope="col" className="px-3 py-3 leadti">
                                                     First Name
                                                 </th>
-                                                <th scope="col" className="px-6 py-3">
+                                                <th scope="col" className="px-3 py-3 leadti">
                                                     Last Name
                                                 </th>
-                                                <th scope="col" className="px-6 py-3">
+                                                <th scope="col" className="px-3 py-3 leadti">
                                                     Lead Status
                                                 </th>
-                                                <th scope="col" className="px-6 py-3">
+                                                <th scope="col" className="px-3 py-3 leadti">
                                                     Industry
                                                 </th>
-                                                <th scope="col" className="px-6 py-3">
+                                                <th scope="col" className="px-3 py-3 leadti">
                                                     Action
                                                 </th>
                                             </tr>
                                         </thead>
 
                                         <tbody>
- 
 
                                             {
                                                 currentItems?.map((item, index) => {
                                                     return (
-                                                        <tr className="thol saka felas">
-                                                            <th scope="col" className="px-6 py-3">
+                                                        <tr className="">
+                                                            <th scope="col" className="px-3 py-3">
                                                                 <input type="checkbox" placeholder="" />
                                                             </th>
-                                                            <td scope="col" className="px-6 py-3">
+                                                            <td scope="col" className="px-3 py-3 myleadtit2" >
                                                                 {item?.LeadOwner?.fullName}
                                                             </td>
-                                                            <td scope="col" className="px-6 py-3">
+                                                            <td scope="col" className="px-3 py-3 myleadtit2">
                                                                 {item?.Company}
                                                             </td>
-                                                            <td scope="col" className="px-6 py-3">
+                                                            <td scope="col" className="px-3 py-3 myleadtit2">
                                                                 {item?.Email}
                                                             </td>
-                                                            <td scope="col" className="px-6 py-3">
+                                                            <td scope="col" className="px-3 py-3 myleadtit2">
                                                                 {item?.Phone}
                                                             </td>
-                                                            <td scope="col" className="px-6 py-3">
+                                                            <td scope="col" className="px-3 py-3 myleadtit2">
                                                                 {item?.FirstName}
                                                             </td>
-                                                            <td scope="col" className="px-6 py-3">
+                                                            <td scope="col" className="px-3 py-3 myleadtit2">
                                                                 {item?.LastName}
                                                             </td>
-                                                            <td scope="col" className={`px-6 py-3 ${item?.LeadStatus === 'Follow-up' && "followUp"} ${item?.LeadStatus == 'Hot' && 'Hot'} ${item?.LeadStatus == 'Cold' && 'Cold'}  ${item?.LeadStatus == 'Warm' && 'Warm'}`}>
+                                                             <td scope="col" className="px-3 py-3">
+                                                             
+                                                            <div scope="col" className={`statussame ${item?.LeadStatus === 'Follow-up' && "followUp"} ${item?.LeadStatus == 'Hot' && 'Hot'} ${item?.LeadStatus == 'Cold'  && 'Cold'} ${item?.LeadStatus == 'cold'  && 'Cold'}  ${item?.LeadStatus == 'Warm' && 'Warm'}`}>
                                                                 {item?.LeadStatus}
+                                                            </div>
+
                                                             </td>
-                                                            <td scope="col" className="px-6 py-3">
+                                                            <td scope="col" className="px-3 py-3 myleadtit2">
                                                                 {item?.Industry}
                                                             </td>
-                                                            <td className="px-6 py-3">
+                                                            <td className="px-3 py-3 thebuttn">
                                                                 <OutsideClickHandler
                                                                     onOutsideClick={() => {
                                                                         if (!document.getElementById(`action_box${index}`).classList.contains('hidden')) {
@@ -488,6 +491,7 @@ return cyear === parseInt(nyear) && cmonth === parseInt(nmonth) && cday === pars
 
                                                                         </div>
                                                                     </div>
+
                                                                 </OutsideClickHandler>
                                                             </td>
                                                         </tr>

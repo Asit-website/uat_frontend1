@@ -11,6 +11,9 @@ import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 import EmployeeNavbar from "../../Employee/Navbar/EmployeeNavbar";
 import EmployeeSidebar from "../../Employee/Sidebar/EmployeeSidebar";
 import toast from "react-hot-toast";
+import download from "../../images/donwlaond.png"
+
+
 const MyLead2 = ({ setAlert, pop, setPop }) => {
 
 
@@ -368,34 +371,34 @@ return cyear === parseInt(nyear) && cmonth === parseInt(nmonth) && cday === pars
                                     <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                                         <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                             <tr className="thol saka">
-                                                <th scope="col" className="px-6 py-3">
+                                                <th scope="col" className="px-3 py-3">
                                                     <input type="checkbox" placeholder="" />
                                                 </th>
-                                                <th scope="col" className="px-6 py-3">
+                                                <th scope="col" className="px-3 py-3 leadti">
                                                     Lead Name
                                                 </th>
-                                                <th scope="col" className="px-6 py-3">
+                                                <th scope="col" className="px-3 py-3 leadti">
                                                     Company
                                                 </th>
-                                                <th scope="col" className="px-6 py-3">
+                                                <th scope="col" className="px-3 py-3 leadti">
                                                     Email
                                                 </th>
-                                                <th scope="col" className="px-6 py-3">
+                                                <th scope="col" className="px-3 py-3 leadti">
                                                     Phone
                                                 </th>
-                                                <th scope="col" className="px-6 py-3">
+                                                <th scope="col" className="px-3 py-3 leadti">
                                                     First Name
                                                 </th>
-                                                <th scope="col" className="px-6 py-3">
+                                                <th scope="col" className="px-3 py-3 leadti">
                                                     Last Name
                                                 </th>
-                                                <th scope="col" className="px-6 py-3">
+                                                <th scope="col" className="px-3 py-3 leadti">
                                                     Lead Status
                                                 </th>
-                                                <th scope="col" className="px-6 py-3">
+                                                <th scope="col" className="px-3 py-3 leadti">
                                                     Industry
                                                 </th>
-                                                <th scope="col" className="px-6 py-3">
+                                                <th scope="col" className="px-3 py-3 leadti">
                                                     Action
                                                 </th>
                                             </tr>
@@ -405,35 +408,40 @@ return cyear === parseInt(nyear) && cmonth === parseInt(nmonth) && cday === pars
 
                                            {
                                             currentItems?.map((item,index)=>{
-                                                return  <tr key={index} className="thol saka felas">
-                                                <th scope="col" className="px-6 py-3">
+                                                return  <tr key={index} className="">
+                                                <th scope="col" className="px-3 py-3">
                                                     <input type="checkbox" placeholder="" />
                                                 </th>
-                                                <td scope="col" className="px-6 py-3">
+                                                <td scope="col" className="px-3 py-3 myleadtit2">
                                                 {item?.LeadOwner?.fullName}
                                                 </td>
-                                                <td scope="col" className="px-6 py-3">
+                                                <td scope="col" className="px-3 py-3 myleadtit2">
                                                 {item?.Company}
                                                 </td>
-                                                <td scope="col" className="px-6 py-3">
+                                                <td scope="col" className="px-3 py-3 myleadtit2">
                                                 {item?.Email}
                                                 </td>
-                                                <td scope="col" className="px-6 py-3">
+                                                <td scope="col" className="px-3 py-3 myleadtit2">
                                                 {item?.Phone}
                                                 </td>
-                                                <td scope="col" className="px-6 py-3">
+                                                <td scope="col" className="px-3 py-3 myleadtit2">
                                                 {item?.FirstName}
                                                 </td>
-                                                <td scope="col" className="px-6 py-3">
+                                                <td scope="col" className="px-3 py-3 myleadtit2">
                                                 {item?.LastName}
                                                 </td>
-                                                <td scope="col" className="px-6 py-3">
-                                                {item?.LeadStatus}
-                                                </td>
-                                                <td scope="col" className="px-6 py-3">
+                                               
+                                                 <td scope="col" className="px-3 py-3">
+                                                             
+                                                             <div scope="col" className={`statussame ${item?.LeadStatus === 'Follow-up' && "followUp"} ${item?.LeadStatus == 'Hot' && 'Hot'} ${item?.LeadStatus == 'Cold'  && 'Cold'} ${item?.LeadStatus == 'cold'  && 'Cold'}  ${item?.LeadStatus == 'Warm' && 'Warm'}`}>
+                                                                 {item?.LeadStatus}
+                                                             </div>
+ 
+                                                             </td>
+                                                <td scope="col" className="px-3 py-3 myleadtit2">
                                                 {item?.Industry}
                                                 </td>
-                                                <td className="px-6 py-4">
+                                                <td className="thebuttn">
                                                             <OutsideClickHandler
                                                                onOutsideClick={()=>{
                                                                 if (!document.getElementById(`action_box${index}`).classList.contains('hidden')) {

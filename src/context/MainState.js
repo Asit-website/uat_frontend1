@@ -891,13 +891,14 @@ const MainState = (props) => {
    }
 
 
-   const acceptLeave = async (formdata , id) => {
+   const acceptLeave = async (formdata , id , userId , from , to) => {
 
       const { user, days } = formdata;
 
       let fullName = user.fullName;
 
-      const data = await post(`${baseUrl}/leave/acceptLeave/${id}`, { fullName, days }, true);
+      const data = await post(`${baseUrl}/leave/acceptLeave/${id}`, { fullName, days , userId , startDate:from ,endDate: to  }, true);
+
       return data;
    }
    const rejectLeave = async (formdata , id) => {
@@ -921,10 +922,8 @@ const MainState = (props) => {
    }
    const postNotifyLeavereq = async (name, title) => {
 
-
       const data = await post(`${baseUrl}/notification/createNotification`, { title: `${title} Leave Application`, description: `Leave Application ${title} By Admin `, users: [`${name}`] }, true);
-
-
+    
       return data;
 
    }
@@ -939,7 +938,15 @@ const MainState = (props) => {
       const data = await get(`${baseUrl}/notification/getNotification/${id}`, true);
       return data;
    }
+
    
+   const fetchTodayLeave = async()=>{
+
+      const data = await get(`${baseUrl}/leave/getTodayLeave`, true);
+      return data;
+
+      }    
+
    const fetchUserNotifyHR = async () => {
 
       const data = await get(`${baseUrl}/notification/getNotification`, true);
@@ -1763,7 +1770,8 @@ const MainState = (props) => {
          getSallary , 
          userSalaryFetch , salaryCreate , 
          createExcelLead,
-         updateQuotation,
+         updateQuotation, 
+         fetchTodayLeave  ,
          deleteQuotation
       }}>
          {props.children}
