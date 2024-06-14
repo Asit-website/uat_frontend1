@@ -36,6 +36,8 @@ const MyLead = ({ setAlert, pop, setPop }) => {
 
     const [allLead, setAllLead] = useState([]);
 
+    let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
+
     const [allLeading , setAlleading] = useState([]);
 
     const fetchLead = async () => {
@@ -127,6 +129,23 @@ return cyear === parseInt(nyear) && cmonth === parseInt(nmonth) && cday === pars
          }
 
     },[sortDate])
+
+   const[OwnerFilter , setOwnerFilter] = useState(false);
+
+   const handleCheckboxChange = (event) => {
+    setOwnerFilter(event.target.checked);
+  };
+  const applyHandler = () => {
+    if (OwnerFilter) {
+      const filterdata = allLeading.filter((lead) => {
+        const { LeadOwner } = lead;
+        return LeadOwner?._id === hrms_user?._id;
+      });
+      setAllLead(filterdata);
+    } else {
+      setAllLead(allLeading);
+    }
+  };
 
   return (
         <>
@@ -301,22 +320,25 @@ return cyear === parseInt(nyear) && cmonth === parseInt(nmonth) && cday === pars
                                             <span>Last Activity Time</span>
                                         </div>
                                         <div className="some_things">
-                                            <input type="checkbox" />
+                                            <input   checked={OwnerFilter}
+        onChange={handleCheckboxChange} type="checkbox" />
                                             <span>Lead Owner</span>
                                         </div>
                                     </div>
                                     <div className="apply_footer">
                                         <div className="apply">
                                             <button onClick={()=>{
-                                                if(filterInput === ""){
-                                                    toast.error("Select the number of Days");
-                                                    return ;
-                                                }
-
+                                                applyHandler();
+                                                setFilter(false);
                                             }}>Apply</button>
                                         </div>
                                         <div className="cancel">
-                                            <button>Clear</button>
+                                            <button onClick={()=>{
+                                                setOwnerFilter(false);
+                                                setAllLead(allLeading);
+                                                setFilter(false);
+
+                                            }}>Clear</button>
                                         </div>
                                     </div>
                                 </div>

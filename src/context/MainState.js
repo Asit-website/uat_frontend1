@@ -715,10 +715,15 @@ const MainState = (props) => {
    const createIndicator = async ({ Branch, Department, Designation, businessProcessRating, projectManagemntRating }) => {
       const data = await post(`${baseUrl}/admin/postIndi`, { Branch, Department, Designation, businessProcessRating, projectManagemntRating }, true);
 
-      console.log("resp ", data);
       return data;
    }
 
+
+   const departmentEmployee = async(department)=>{
+      const data = await post(`${baseUrl}/admin/departmentEmployee`, { department }, true);
+
+      return data;
+   }
    const createAppraisal = async ({ Branch,
       SelectMonth,
       Employee,
@@ -859,8 +864,6 @@ const MainState = (props) => {
       const data = await post(`${baseUrl}/admin/postAnnouncement`, { title, Branch, Department, Employee, startDate, endDate, description }, true);
       return data;
    }
-
-
 
    const updateAnnouncements = async ({ id, title, Branch, Department, Employee, startDate, endDate, description }) => {
       const data = await put(`${baseUrl}/admin/updateAnnouncement/${id}`, { title, Branch, Department, Employee, startDate, endDate, description }, true);
@@ -1769,7 +1772,8 @@ const MainState = (props) => {
          createExcelLead,
          updateQuotation, 
          fetchTodayLeave  ,
-         deleteQuotation
+         deleteQuotation  , 
+         departmentEmployee
       }}>
          {props.children}
       </MainContext.Provider>

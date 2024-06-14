@@ -5,13 +5,12 @@ import annPlus from "../../images/annPlus.png"
 import "./annocement.css"
 import { useState, useEffect } from 'react';
 import cross from "../../images/crossAn.png";
-import { confirmAlert } from 'react-confirm-alert'; // Import
-import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
+import { confirmAlert } from 'react-confirm-alert';
+import 'react-confirm-alert/src/react-confirm-alert.css'; 
 import toast from 'react-hot-toast';
-// import { useMain } from '../../../hooks/useMain';
 
 const AdminProfile = ({ pop, setPop, setAlert }) => {
-    const { user, createAnnouncement, fetchAnnoucement, allEmployee, allEmployeebyDep, getBranchs, getDepartments, deleteAnnouncements, updateAnnouncements } = useMain();
+    const { user, createAnnouncement, fetchAnnoucement, allEmployee, getBranchs, getDepartments, deleteAnnouncements, updateAnnouncements   , departmentEmployee} = useMain();
 
     const [openForm, setOpenForm] = useState(false);
     const [employee, setEmployee] = useState([]);
@@ -65,6 +64,7 @@ const AdminProfile = ({ pop, setPop, setAlert }) => {
     }, [editData])
 
     const submitHandler = async () => {
+        const toastId = toast.loading("Loading...");
         try {
 
             if (onEdit) {
@@ -81,12 +81,11 @@ const AdminProfile = ({ pop, setPop, setAlert }) => {
             getAnnoucement();
 
             setOpenForm(false);
+            toast.dismiss(toastId);
         } catch (error) {
             console.log(error);
         }
     }
-
-
 
     const getData1 = async () => {
         const ans = await getBranchs();
@@ -100,15 +99,9 @@ const AdminProfile = ({ pop, setPop, setAlert }) => {
     }, [refreshFlag])
 
 
-    const designationFetch = async () => {
-
-        const ans2 = await allEmployee({ department: formdata.Department });
-        setEmployee(ans2?.emp);
-
-    }
     const employeeFetch = async () => {
 
-        const ans2 = await allEmployeebyDep();
+        const ans2 = await allEmployee();
         setEmployee(ans2?.emp);
 
     }
@@ -141,13 +134,21 @@ const AdminProfile = ({ pop, setPop, setAlert }) => {
 
     };
 
+    const fetchDepartEmploye =async()=>{
+         const ans = await departmentEmployee(formdata?.Department);
+         if(ans?.status){
+            setEmployee(ans?.allUser);
+         }
+    }
+
     useEffect(() => {
 
         if (formdata.Department === "All Department") {
             employeeFetch();
         }
-        else if (formdata.Department !== "" && formdata.Department !== "Select Department")
-            designationFetch();
+        else if (formdata.Department !== "" && formdata.Department !== "Select Department"){
+         fetchDepartEmploye();
+        }
     }, [formdata.Department])
 
 
@@ -175,7 +176,7 @@ const AdminProfile = ({ pop, setPop, setAlert }) => {
 
                             </div>
 
-                            {/* rogth side  */}
+                            {/* right side  */}
                             <div onClick={() => setOpenForm(true)} className='plusImg'>
                                 <img src={annPlus} alt="" />
 

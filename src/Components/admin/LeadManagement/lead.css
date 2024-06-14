@@ -93,6 +93,18 @@ height: 40px;
     padding: 20px 30px;
   }
 
+  .fornotewrap{
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .doColumn{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
   .ehading{
   
     font-family: Inter;
@@ -221,3 +233,176 @@ padding: 0px 12px;
         display: flex;
         flex-direction: column;
     }
+
+    .imprtleadCont{
+        position: relative;
+    }
+    .createTaskWrap{
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        top: 0;
+        background-color: #4040404D ;
+        z-index: 2001;
+    }
+
+    .cretTaskCont{
+        width: 599px;
+height: 590px;
+position: fixed;
+top: 42px;
+left: 421px;
+padding: 12px ;
+border-radius: 18px ;
+background: #FFFFFF;
+display: flex;
+flex-direction: column;
+gap: 12px;
+
+    }
+    .cretTaskCont2{
+        width: 599px;
+height: 760px;
+position: absolute;
+top: 42px;
+left: 421px;
+padding: 12px ;
+border-radius: 18px ;
+background: #FFFFFF;
+display: flex;
+flex-direction: column;
+gap: 12px;
+
+    }
+    .addnewTx{
+font-family: Inter;
+width: 100%;
+color: #0B56E4;
+font-size: 14px;
+font-weight: 400;
+line-height: 20px;
+letter-spacing: 0.0025em;
+text-align: left;
+
+    }
+    .cretTaskCont nav{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+    }
+    .cretTaskCont nav p{
+        font-family: Inter;
+        color: #1B2533;
+        font-size: 16px;
+        font-weight: 600;
+        line-height: 24px;
+        letter-spacing: 0.0015em;
+        text-align: left;
+        
+
+    }
+    .cretTaskCont2 nav{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+    }
+    .cretTaskCont2 nav p{
+        font-family: Inter;
+        color: #1B2533;
+        font-size: 16px;
+        font-weight: 600;
+        line-height: 24px;
+        letter-spacing: 0.0015em;
+        text-align: left;
+        
+
+    }
+
+    .taskForm{
+        display: flex;
+        flex-direction: column;
+    gap: 16px;
+ margin-top: 14px;
+}
+    .taskForm label{
+        display: flex;
+        width: 100%;
+        flex-direction: column;
+        gap: 8px;
+}
+    .taskForm label p{
+        font-family: Inter;
+        color: #1B2533;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 20px;
+        letter-spacing: 0.0025em;
+        text-align: left;
+        
+}
+    .taskForm label input , select {
+        width: 100%;
+        height: 48px;
+        padding: 8px 16px ;
+        border-radius: 10px;
+        background: #FFFFFF;
+        border: 1px solid #D0D4DC;
+        
+}
+    .taskForm .twoTask {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        
+}
+
+.btnstask{
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+.btnstask .creattk{
+    width: 125px;
+    height: 40px;
+    border-radius: 10px;
+    background: #0B56E4;
+    font-family: Inter;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: 0.005em;
+color: #FFFFFF;    
+    
+}
+.btnstask .creatmt{
+    width: 152px;
+    height: 40px;
+    border-radius: 10px;
+    background: #0B56E4;
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    letter-spacing: 0.005em;
+    text-align: center;
+color: white;        
+    
+}
+.btnstask .tkCnacel{
+    width: 86px;
+    height: 40px;
+    border-radius: 10px;
+    background: #F8F9FB;
+    font-family: Inter;
+    border: 1px solid #B8BBC0;
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: 0.005em;
+color: #666D76;        
+}

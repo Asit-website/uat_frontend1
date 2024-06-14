@@ -48,6 +48,7 @@ const EmployeeDash = ({ setAlert, pop1, setPop1 }) => {
     postNotification,
     postAttendence,
     fetchAnnoucement
+    
   } = useMain();
 
   const [announce, setAnnounce] = useState([]);
