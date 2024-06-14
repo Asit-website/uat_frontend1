@@ -4,7 +4,7 @@ import AdminSidebar from "../../admin/Sidebar/AdminSidebar";
 import "react-calendar/dist/Calendar.css";
 import { useMain } from "../../../hooks/useMain";
 import uint from '../../images/uing.png';
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import upload from '../../images/upload.svg';
 import OutsideClickHandler from "react-outside-click-handler";
 import toast from "react-hot-toast";
@@ -133,7 +133,10 @@ const CreateLead = ({ setAlert, pop, setPop }) => {
                     <AdminNavbar user={user} setAlert={setAlert} />
 
                     <div className="em">
+                        <div className="ghj">
                         <h2 className="semik">Create Lead</h2>
+                       <NavLink to="/adminDash/myLead"><button>Back</button></NavLink>
+                        </div>
                         <form action="">
                             <div onClick={()=> setPop1(!pop1)} data-modal-target="default-modal"
                                 data-modal-toggle="default-modal" className="uint mt-5">
@@ -257,7 +260,9 @@ const CreateLead = ({ setAlert, pop, setPop }) => {
                                         <div className="lead_inp1 lead_inp11">
                                             <label htmlFor="">First Name</label>
                                             <select style={{ width: "91px !important" }} className="selr" name="" id="">
-                                                <option value="info">None</option>
+                                                <option>None</option>
+                                                <option>Mr</option>
+                                                <option>Mrs</option>
                                             </select>
                                         </div>
                                         <div className="lead_inp1">

@@ -4,7 +4,7 @@ import AdminSidebar from "../Sidebar/AdminSidebar";
 import "react-calendar/dist/Calendar.css";
 import { useMain } from "../../../hooks/useMain";
 import uploadFile from "../../images/upload-file.png";
-import { useNavigate, useParams } from "react-router-dom";
+import { NavLink, useNavigate, useParams } from "react-router-dom";
 import HrSidebar from "../../Hr/Sidebar/HrSidebar";
 import HrNavbar from "../../Hr/Navbar/HrNavbar";
 import toast from "react-hot-toast";
@@ -539,9 +539,9 @@ const EmployeeManage = ({
 
               {/* right side  */}
               <div className="adFrRIH">
-                <button className="calce">
+              <NavLink to="/adminDash/HRM/employeeManagement"><button className="calce">
                   <span>Cancel</span>
-                </button>
+                </button></NavLink>
                 <button className="register">
                   <span>Register New</span>
                 </button>

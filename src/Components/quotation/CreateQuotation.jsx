@@ -6,7 +6,7 @@ import { useMain } from "../../hooks/useMain";
 import EmployeeSidebar from "../Employee/Sidebar/EmployeeSidebar";
 import EmployeeNavbar from "../Employee/Navbar/EmployeeNavbar";
 import toast from "react-hot-toast";
-import { useNavigate  , useLocation} from "react-router-dom";
+import { useNavigate  , useLocation, NavLink} from "react-router-dom";
 
 const CreateQuotation = ({ setAlert, pop, setPop }) => {
   const { user , postQuotation } = useMain();
@@ -94,9 +94,9 @@ const CreateQuotation = ({ setAlert, pop, setPop }) => {
               <h2>Invoice Generate</h2>
 
               <div className="invoiceBtn">
-                <button className="invoiceCancel">
+               <NavLink to={`${user?.role === "ADMIN" && user?.role === "HR" ? '/adminDash/myLead' : user?.role === "/employeeDash/myLead"}`}><button className="invoiceCancel">
                   <span>Cancel</span>
-                </button>
+                </button></NavLink> 
               </div>
             </div>
 

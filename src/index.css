@@ -66,6 +66,22 @@ body {
   font-weight: 400;
   font-family: inter !important;
 }
+.ghj{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.ghj button{
+  background-color: #E8E9EB;
+  border: 1px solid #B8BBC0;
+  width: 70px;
+  height: 40px;
+  font-family: inter !important;
+  font-weight: 500 !important;
+  font-size: 16px;
+  color: #666D76;
+  border-radius: 5px;
+}
 .opos th,
 .opos td{
   color: #40444B;

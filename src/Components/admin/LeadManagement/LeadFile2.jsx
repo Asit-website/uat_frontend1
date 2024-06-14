@@ -7,6 +7,7 @@ import EmployeeSidebar from "../../Employee/Sidebar/EmployeeSidebar";
 import EmployeeNavbar from "../../Employee/Navbar/EmployeeNavbar";
 import * as XLSX from "xlsx";
 import toast from "react-hot-toast";
+import { NavLink } from "react-router-dom";
 
 const LeadFile2 = ({ setAlert, pop, setPop }) => {
     const { user, allEmployee, createExcelLead } = useMain();
@@ -131,9 +132,9 @@ const LeadFile2 = ({ setAlert, pop, setPop }) => {
                     <div className="em">
                         <div className="importB">
                             <h2>Import Leads</h2>
-                            <button className="refresh canlo">
+                           <NavLink to="/employeeDash/myLead"><button className="refresh canlo">
                                 <span className="ref1">Cancel</span>
-                            </button>
+                            </button></NavLink>
                         </div>
                         <div className="import_vhasa">
                             <div className="form_filel">

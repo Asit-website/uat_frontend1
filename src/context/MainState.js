@@ -229,9 +229,6 @@ const MainState = (props) => {
       const data = await post(`${baseUrl}/clock/attendencedetail` ,{type ,date , month,userId , department},true);
 
       return data;
-
-
-
    };
 
    const postActivity = async ({ clockIn, clockOut, late, overtime, total, message = '', date1 }) => {
