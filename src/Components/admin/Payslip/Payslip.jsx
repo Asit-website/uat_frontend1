@@ -289,7 +289,6 @@ const Payslip = ({
                                                                     <p onClick={() => {
                                                                         setOpenPayslip(true);
                                                                         setShowToggle(null);
-                                                                        console.log("item ", item);
                                                                         setPopData(item);
                                                                     }}>Payslip</p>
 

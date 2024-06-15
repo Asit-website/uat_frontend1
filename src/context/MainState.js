@@ -1584,7 +1584,6 @@ const MainState = (props) => {
    }
 
    const getQuotationAll = async(id)=>{
-      console.log('iddd ',id);
       const data = await get(`${baseUrl}/admin/getEveryUserInvoice/${id}`, true);
       return data;
    }
@@ -1700,31 +1699,80 @@ const MainState = (props) => {
       return data;
    
    }
-    const deleteDocSetup = async({id})=>{
+   const deleteDocSetup = async({id})=>{
       const data = await deleteReq(`${baseUrl}/system/deleteDocSetup/${id}`, true);
       return data;
-   
+      
    }
    const fetchAllDocs = async()=>{
       const data = await get(`${baseUrl}/system/fetchAllDocs`, true);
       return data;
-    }
-
-    const deleteAttendence = async(id)=>{
+   }
+   
+   const deleteAttendence = async(id)=>{
       const data = await deleteReq(`${baseUrl}/clock/deleteAttendence/${id}`, true);
       return data;
-   
+      
    }
-
+   
    const uploadOwnDocs = async({formData , id})=>{
       const resp = await postDocuments(`${baseUrl}/user/uploadDocument/${id}`, formData);
       return resp;
    }
 
+   // for task and meet 
+   
+   const  taskCreateApi  = async({ Subject, Priority ,  Status , DueDate ,  RelatedTo ,  ContactName ,  Note  , LeadId , userId})=>{
+     const data = await post(`${baseUrl}/openActivity/createTask`, { Subject, Priority ,  Status , DueDate ,  RelatedTo ,  ContactName ,  Note  , LeadId , userId }, true);
+     return data;
+  
+  }
+   const  taskEditApi  = async({ Subject, Priority ,  Status , DueDate ,  RelatedTo ,  ContactName ,  Note  , LeadId , userId , taskId})=>{
+     const data = await post(`${baseUrl}/openActivity/editTask/${taskId}`, { Subject, Priority ,  Status , DueDate ,  RelatedTo ,  ContactName ,  Note  , LeadId , userId }, true);
+     return data;
+  
+  }
 
+   const  deleteTaskapi  = async({ taskId})=>{
+     const data = await deleteReq(`${baseUrl}/openActivity/deleteTask/${taskId}`, true);
+     return data;
+  
+  }
+
+  const getTaskApi = async({userId})=>{
+   const data = await get(`${baseUrl}/openActivity/getTaskByUser/${userId}`, true);
+   return data;
+  }
+
+  const getMeetApi = async({userId})=>{
+   const data = await get(`${baseUrl}/openActivity/getMeetByUser/${userId}`, true);
+   return data;
+  }
+
+   
+   const  deleteMeetapi  = async({ meetId})=>{
+  
+     const data = await deleteReq(`${baseUrl}/openActivity/deleteMeet/${meetId}`, true);
+     return data;
+  
+  }
+   
+   const  meetCreateApi  = async({title , meetDateFrom ,  meetDateTo , Status , meetTimeFrom , meetTimeTo , Host , RelatedTo ,  Participant , Note , userId , LeadId})=>{
+      const data = await post(`${baseUrl}/openActivity/createMeet`, { title , meetDateFrom ,  meetDateTo , Status , meetTimeFrom , meetTimeTo , Host , RelatedTo ,  Participant , Note , userId,LeadId }, true);
+     return data;
+  
+  }
+
+   const  meetEditApi  = async({title , meetDateFrom ,  meetDateTo , Status , meetTimeFrom , meetTimeTo , Host , RelatedTo ,  Participant , Note , userId , meetId , LeadId})=>{
+      const data = await post(`${baseUrl}/openActivity/editMeet/${meetId}`, { title , meetDateFrom ,  meetDateTo , Status , meetTimeFrom , meetTimeTo , Host , RelatedTo ,  Participant , Note , userId , LeadId }, true);
+     return data;
+  
+  }
+   
+   
    return (
       <MainContext.Provider value={{
-         login, employeeLogin, employeeResetPassword, hrLogin, createHr, getHrs, deleteHr, createEmployee, getEmployees, getUsers, getActiveUsers, getActiveUsersCount, getAdminEmployees, postActivity, postActivityHr, getActivitiesByUser, getStatisticsByUser, postLeave, updateLeave, getUserLeaves, getUserLeaveById, deleteLeave, getTotalLeaves, postTotalLeaves, verifyEmployee, verifyHr, verifyAdmin, setUser,buildAPI, user, getProjects, postProject, getHolidays, postHoliday, updateProject, getProjectsByEmployee, getTasks, postTask, updateTask, deleteTask, setFlag, flag, changePassword, updateProfile, deleteHoliday, updateHoliday, deleteProject, getChats, createNewChat, postMessage, deleteChat, adminLogin, getChat, getChatByUser, setChatUser, chatUser, getEmployeesByEmployee, topDash, postAnnouncement, updateAnnouncement, getAnnouncements, getAnnouncementDates, deleteAnnouncement, getAttendance, getAttendanceByUser, createEmployee1, updateAdminProfile, changePassword1, verify, updateUser, forgetPassword, forgetPassword1, forgetPassword2, getBranchs, postBranch, updateBranch, deleteBranch, getDepartments, postDepartment, updateDepartment, deleteDepartment, getDesingation, postDesignation, updateDesignation, deleteDesignation, getAllActivities, postLeaveType, updateLeaveType, getLeaveTypes, deleteLeaveType,
+         login,taskCreateApi ,meetCreateApi ,taskEditApi , meetEditApi ,deleteTaskapi ,deleteMeetapi ,getTaskApi , getMeetApi , employeeLogin, employeeResetPassword, hrLogin, createHr, getHrs, deleteHr, createEmployee, getEmployees, getUsers, getActiveUsers, getActiveUsersCount, getAdminEmployees, postActivity, postActivityHr, getActivitiesByUser, getStatisticsByUser, postLeave, updateLeave, getUserLeaves, getUserLeaveById, deleteLeave, getTotalLeaves, postTotalLeaves, verifyEmployee, verifyHr, verifyAdmin, setUser,buildAPI, user, getProjects, postProject, getHolidays, postHoliday, updateProject, getProjectsByEmployee, getTasks, postTask, updateTask, deleteTask, setFlag, flag, changePassword, updateProfile, deleteHoliday, updateHoliday, deleteProject, getChats, createNewChat, postMessage, deleteChat, adminLogin, getChat, getChatByUser, setChatUser, chatUser, getEmployeesByEmployee, topDash, postAnnouncement, updateAnnouncement, getAnnouncements, getAnnouncementDates, deleteAnnouncement, getAttendance, getAttendanceByUser, createEmployee1, updateAdminProfile, changePassword1, verify, updateUser, forgetPassword, forgetPassword1, forgetPassword2, getBranchs, postBranch, updateBranch, deleteBranch, getDepartments, postDepartment, updateDepartment, deleteDepartment, getDesingation, postDesignation, updateDesignation, deleteDesignation, getAllActivities, postLeaveType, updateLeaveType, getLeaveTypes, deleteLeaveType,
          createIndicator, getIndicator, deleteIndicator, getDesignations, updateIndicator, getAppraisal, createAppraisal, allEmployee, deleteApprisal, updateApprisal, createAssets, getAssets, deleteAssets, updateAssets, deleteUser, createTracks, getTracks, deleteTracks, updateTracks, editComApi,  loanDeleteHandler,
          editAllowance, commisionDelteHandler,createLoan , editLoanApi,
          getTotalLeavesCount, uploadDocuments, createAnnouncement, deleteAnnouncement, updateAnnouncements, fetchAnnoucement, deleteAnnouncements, getEmp, allEmployeebyDep, notificationGet,

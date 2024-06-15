@@ -135,6 +135,7 @@ return cyear === parseInt(nyear) && cmonth === parseInt(nmonth) && cday === pars
    const handleCheckboxChange = (event) => {
     setOwnerFilter(event.target.checked);
   };
+
   const applyHandler = () => {
     if (OwnerFilter) {
       const filterdata = allLeading.filter((lead) => {

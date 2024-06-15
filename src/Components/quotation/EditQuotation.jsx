@@ -17,8 +17,6 @@ const EditQuotation = ({ setAlert, pop, setPop }) => {
 
   const item = location?.state;
 
-  console.log("item ", item);
-
   const [formdata , setFormdata] = useState({
     User: user?._id,
     InvoiceNo:"",

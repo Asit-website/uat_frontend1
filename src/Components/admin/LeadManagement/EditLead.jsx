@@ -24,10 +24,6 @@ const EditLead = ({ setAlert, pop, setPop }) => {
     const item = location?.state;
 
 
-    console.log("item ", item);
-
-
-
     const stylePeer = {
         display: pop1 ? "block" : "none"
     }

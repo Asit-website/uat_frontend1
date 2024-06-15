@@ -16,6 +16,8 @@ import "react-confirm-alert/src/react-confirm-alert.css";
 import leadEdit from "../../images/leadEdit.png"
 import leadDel from "../../images/leadDel.png"
 import cancel from "../../images/cancell.png"
+import { useLocation } from 'react-router-dom';
+
 
 const ImportLead = ({ setAlert, pop, setPop }) => {
   const {
@@ -25,9 +27,17 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
     updateLeadNote,
     getQuotationAll,
     deleteQuotation,
+    taskCreateApi  , 
+    meetCreateApi , taskEditApi , meetEditApi
   } = useMain();
 
   const { id } = useParams();
+
+  
+  const location = useLocation();
+  const { type , data1  } = location.state || {};
+
+  let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
 
   const [refreshFlag, setRefreshFlag] = useState(false);
 
@@ -46,10 +56,6 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
     setData(ans.data[0]);
     setLeadStatus(ans?.data[0]?.LeadStatus);
   };
-
-  useEffect(() => {
-    getData();
-  }, []);
 
   const updatingLeadStatus = async (leading) => {
     const { _id } = data;
@@ -116,6 +122,122 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
   const[openCreateTask  , setOpenCreateTask] = useState(false);
   const[openCreateMeet  , setOpenCreateMeet] = useState(false);
   const[opnAdNew  , setOpenAdNew] = useState(false);
+
+  const [taskData , setTaskData] = useState({
+    Subject:"", Priority:"" ,  Status:"" , DueDate:"" ,  RelatedTo:"" ,  ContactName:"" ,  Note:""  , LeadId:id , userId:hrms_user?._id
+  })
+
+  const [meetData , setMeetData] = useState({
+    title:"" , meetDateFrom:"" ,  meetDateTo:"" , Status:"" ,LeadId:id ,  meetTimeFrom:"" , meetTimeTo:"" , Host:"" , RelatedTo :"",  Participant:"" , Note :"", userId: hrms_user?._id
+  })
+
+  const taskHandler = (e)=>{
+    const {name , value} = e.target;
+    setTaskData((prev)=>({
+      ...prev ,
+      [name]:value
+    }))
+  }
+  const meetHandler = (e)=>{
+    const {name , value} = e.target;
+    setMeetData((prev)=>({
+      ...prev ,
+      [name]:value
+    }))
+  }
+
+  const TaskSubmitHandler =async(e)=>{
+    e.preventDefault();
+
+     const toastId = toast.loading("Loading...");
+
+     const ans = await taskCreateApi({...taskData});
+
+     if(ans?.status){
+      toast.success("Successfuly created");
+      setTaskData({
+        Subject:"", Priority:"" ,  Status:"" , DueDate:"" ,  RelatedTo:"" ,  ContactName:"" ,  Note:""  , LeadId:id , userId:hrms_user?._id
+      })
+      setOpenCreateTask(false);
+     }
+
+     toast.dismiss(toastId);
+
+  }
+
+  const taskUpdateHandler = async(e)=>{
+    e.preventDefault();
+
+    const toastId = toast.loading("Loading...");
+
+    const ans = await taskEditApi({...taskData ,taskId:data1?._id});
+
+    if(ans?.status){
+     toast.success("Successfuly updated");
+     setTaskData({
+       Subject:"", Priority:"" ,  Status:"" , DueDate:"" ,  RelatedTo:"" ,  ContactName:"" ,  Note:""  , LeadId:id , userId:hrms_user?._id
+     })
+     setOpenCreateTask(false);
+    }
+
+    toast.dismiss(toastId);
+
+  }
+
+
+  const meetSubmitHandler =async(e)=>{
+    e.preventDefault();
+
+     const toastId = toast.loading("Loading...");
+
+     const ans = await meetCreateApi({...meetData});
+
+     if(ans?.status){
+      toast.success("Successfuly created");
+      setOpenCreateMeet(false);
+      setMeetData({  title:"" , meetDateFrom:"" ,  meetDateTo:"" , Status:"" , meetTimeFrom:"" , meetTimeTo:"" , Host:"" , RelatedTo :"",  Participant:"" , Note :"", userId: hrms_user?._id})
+
+     }
+
+     toast.dismiss(toastId);
+
+  }
+
+  const meetUpdateHandler =async(e)=>{
+    e.preventDefault();
+
+     const toastId = toast.loading("Loading...");
+
+     const ans = await meetEditApi({...meetData , meetId:data1?._id});
+
+     if(ans?.status){
+      toast.success("Successfuly created");
+      setOpenCreateMeet(false);
+      setMeetData({  title:"" , meetDateFrom:"" , meetDateTo:"" , Status:"" , meetTimeFrom:"" , meetTimeTo:"" , Host:"" , RelatedTo :"",  Participant:"" , Note :"", userId: hrms_user?._id})
+
+     }
+
+     toast.dismiss(toastId);
+
+  }
+
+  useEffect(()=>{
+    getData();
+  },[])
+
+useEffect(() => {
+  if (type === 'meet' && data1) {
+    setMeetData(data1);
+    setOpenCreateMeet(true);
+  }
+}, [type, data1]);
+
+useEffect(() => {
+  if (type === 'task' && data1) {
+    setTaskData(data1);
+    setOpenCreateTask(true);
+  }
+}, [type, data1]);
 
   return (
     <div className="imprtleadCont">
@@ -543,6 +665,7 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
                   <p className="toyotoyo">No Attachment</p>
                 </div>
               </div>
+
             </div>
           </div>
         </div>
@@ -565,22 +688,28 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
 
           <label>
             <p>Subject</p>
-            <input type="text" placeholder="Subject" />
+            <input name="Subject" value={taskData?.Subject} onChange={taskHandler} type="text" placeholder="Subject" />
           </label>
 
             <div className="twoTask">
 
             <label>
             <p>Priority</p>
-           <select name="" id="">
+           <select name="Priority" value={taskData?.Priority} onChange={taskHandler} id="">
             <option value="select one">Select One</option>
+            <option value="High">High</option>
+            <option value="Medium">Medium</option>
+            <option value="Low">Low</option>
            </select>
           </label>
 
           <label>
             <p>Status</p>
-            <select name="" id="">
+            <select name="Status" value={taskData?.Status} onChange={taskHandler}  id="">
             <option value="select one">Select One</option>
+            <option value="Not Started">Not Started</option>
+            <option value="Started"> Started</option>
+
            </select>
                      </label>
 
@@ -591,12 +720,12 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
 
             <label>
             <p>Due Date</p>
-           <input type="date"  />
+           <input name="DueDate" value={taskData?.DueDate} onChange={taskHandler} type="date"  />
           </label>
 
           <label>
             <p>Related To</p>
-           <input type="text" />
+           <input name="RelatedTo" value={taskData?.RelatedTo} onChange={taskHandler} type="text" />
              </label>
 
               
@@ -604,18 +733,18 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
 
             <label>
             <p>Contact Name</p>
-            <input type="text" />
+            <input name="ContactName" value={taskData?.ContactName} onChange={taskHandler} type="text" />
           </label>
 
           <label>
             <p>Note</p>
-            <input type="text"  />
+            <input  name="Note" value={taskData?.Note} onChange={taskHandler}  type="text"  />
           </label>
 
 
           <div className="btnstask">
-            <button className="creattk">
-              Task Create
+            <button onClick={data1?taskUpdateHandler:TaskSubmitHandler} className="creattk">
+             {data1 ? "Task Update ":" Task Create"}
             </button>
             <button onClick={()=>setOpenCreateTask(false)} className="tkCnacel">
             Cancel
@@ -648,24 +777,24 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
 
           <label>
             <p>Title</p>
-            <input type="text" placeholder="Title" />
+            <input value={meetData.title} onChange={meetHandler} name="title" type="text" placeholder="Title" />
           </label>
 
           <label>
             <p>Status</p>
-            <input type="text" placeholder="Online" />
+            <input type="text"  value={meetData.Status} onChange={meetHandler} name="Status" placeholder="Online" />
           </label>
 
             <div className="twoTask">
 
             <label>
             <p>Meeting Date From</p>
-           <input type="date" />
+           <input value={meetData.meetDateFrom} onChange={meetHandler} name="meetDateFrom" type="date" />
           </label>
 
           <label>
             <p>Meeting Date To</p>
-           <input type="date" />
+           <input value={meetData.meetDateTo} onChange={meetHandler} name="meetDateTo" type="date" />
              </label>
 
               
@@ -675,12 +804,12 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
 
             <label>
             <p>Meeting Time From</p>
-           <input type="time"  />
+           <input value={meetData.meetTimeFrom} onChange={meetHandler} name="meetTimeFrom"  type="time"  />
           </label>
 
           <label>
             <p>Meeting Time To</p>
-           <input type="time" />
+           <input value={meetData.meetTimeTo} onChange={meetHandler} name="meetTimeTo" type="time" />
              </label>
 
             </div>
@@ -689,14 +818,16 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
 
             <label>
             <p>Host </p>
-          <select name="" id="">
+          <select  value={meetData.Host} onChange={meetHandler} name="Host"  id="">
             <option value="Host">Host</option>
+            <option value="Host1">Host1</option>
+            <option value="Host2">Host2</option>
           </select>
           </label>
 
           <label>
             <p>Related To</p>
-           <input type="text" />
+           <input  value={meetData.RelatedTo} onChange={meetHandler} name="RelatedTo"  type="text" />
              </label>
 
             </div>
@@ -705,22 +836,21 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
 
            <label>
             <p>Participants</p>
-            <input type="text" />
+            <input value={meetData.Participant} onChange={meetHandler} name="Participant" type="text" />
           </label>
 
             <span className="addnewTx"> Add new</span>
             </div>
 
-           
-
+          
           <label>
             <p>Note</p>
-            <input type="text"  />
+            <input value={meetData.Note} onChange={meetHandler} name="Note" type="text"  />
           </label>
 
           <div className="btnstask">
-            <button className="creatmt">
-              Create Meeting
+            <button onClick={data1?meetUpdateHandler:meetSubmitHandler} className="creatmt">
+             {data1?"Update meeting":"Create Meeting"}
             </button>
             <button onClick={()=>setOpenCreateMeet(false)} className="tkCnacel">
             Cancel

@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from "react";
-import AdminNavbar from "../../admin/Navbar/AdminNavbar";
-import AdminSidebar from "../../admin/Sidebar/AdminSidebar";
 import "react-calendar/dist/Calendar.css";
 import { useMain } from "../../../hooks/useMain";
 import leadProfile from "../../images/leadProfile.png";
@@ -15,14 +13,24 @@ import deli from '../../images/deli.svg';
 import semi from '../../images/simi.svg';
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
+import cancel from "../../images/cancell.png"
+import { useLocation } from 'react-router-dom';
+
+
 
 const ImportLead2 = ({ setAlert, pop, setPop }) => {
 
-  const { user, getLead2, updateLeadStatus, updateLeadNote , getQuotationAll,deleteQuotation } = useMain();
+  const { user, getLead2, updateLeadStatus, updateLeadNote , getQuotationAll,deleteQuotation ,   taskCreateApi  , 
+    meetCreateApi , taskEditApi,meetEditApi } = useMain();
 
   const { id } = useParams();
 
   const [data, setData] = useState({});
+  const location = useLocation();
+  const { type, data1 } = location.state || {};
+
+
+  let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
 
   const [refreshFlag,setRefreshFlag] = useState(false);
 
@@ -102,8 +110,126 @@ const ImportLead2 = ({ setAlert, pop, setPop }) => {
 
   };
 
+  
+
+  const[openCreateTask  , setOpenCreateTask] = useState(false);
+  const[openCreateMeet  , setOpenCreateMeet] = useState(false);
+  const[opnAdNew  , setOpenAdNew] = useState(false);
+
+  const [taskData , setTaskData] = useState({
+    Subject:"", Priority:"" ,  Status:"" , DueDate:"" ,  RelatedTo:"" ,  ContactName:"" ,  Note:""  , LeadId:id , userId:hrms_user?._id
+  })
+
+  const [meetData , setMeetData] = useState({
+    title:"" , meetDateFrom:"" ,  meetDateTo:"" , Status:"" , meetTimeFrom:"" , meetTimeTo:"" , Host:"" , RelatedTo :"",  Participant:"" , Note :"", userId: hrms_user?._id , LeadId:id
+  })
+
+  const taskHandler = (e)=>{
+    const {name , value} = e.target;
+    setTaskData((prev)=>({
+      ...prev ,
+      [name]:value
+    }))
+  }
+  const meetHandler = (e)=>{
+    const {name , value} = e.target;
+    setMeetData((prev)=>({
+      ...prev ,
+      [name]:value
+    }))
+  }
+
+  const TaskSubmitHandler =async(e)=>{
+    e.preventDefault();
+
+     const toastId = toast.loading("Loading...");
+
+     const ans = await taskCreateApi({...taskData});
+
+     if(ans?.status){
+      toast.success("Successfuly created");
+      setTaskData({
+        Subject:"", Priority:"" ,  Status:"" , DueDate:"" ,  RelatedTo:"" ,  ContactName:"" ,  Note:""  , LeadId:id , userId:hrms_user?._id
+      })
+      setOpenCreateTask(false);
+     }
+
+     toast.dismiss(toastId);
+
+  }
+
+  const taskUpdateHandler = async(e)=>{
+    e.preventDefault();
+
+    const toastId = toast.loading("Loading...");
+
+    const ans = await taskEditApi({...taskData ,taskId:data1?._id});
+
+    if(ans?.status){
+     toast.success("Successfuly updated");
+     setTaskData({
+       Subject:"", Priority:"" ,  Status:"" , DueDate:"" ,  RelatedTo:"" ,  ContactName:"" ,  Note:""  , LeadId:id , userId:hrms_user?._id
+     })
+     setOpenCreateTask(false);
+    }
+
+    toast.dismiss(toastId);
+
+  }
+
+
+  const meetSubmitHandler =async(e)=>{
+    e.preventDefault();
+
+     const toastId = toast.loading("Loading...");
+
+     const ans = await meetCreateApi({...meetData});
+
+     if(ans?.status){
+      toast.success("Successfuly created");
+      setOpenCreateMeet(false);
+      setMeetData({  title:"" , meetDateFrom:"" ,  meetDateTo:"" , Status:"" , meetTimeFrom:"" , meetTimeTo:"" , Host:"" , RelatedTo :"",  Participant:"" , Note :"", userId: hrms_user?._id})
+
+     }
+
+     toast.dismiss(toastId);
+
+  }
+
+  const meetUpdateHandler =async(e)=>{
+    e.preventDefault();
+
+     const toastId = toast.loading("Loading...");
+
+     const ans = await meetEditApi({...meetData , meetId:data1?._id});
+
+     if(ans?.status){
+      toast.success("Successfuly created");
+      setOpenCreateMeet(false);
+      setMeetData({  title:"" , meetDateFrom:"" , meetDateTo:"" , Status:"" , meetTimeFrom:"" , meetTimeTo:"" , Host:"" , RelatedTo :"",  Participant:"" , Note :"", userId: hrms_user?._id})
+
+     }
+
+     toast.dismiss(toastId);
+
+  }
+  useEffect(() => {
+    if (type === 'meet' && data1) {
+      setMeetData(data1);
+      setOpenCreateMeet(true);
+    }
+  }, [type, data1]);
+  
+  useEffect(() => {
+    if (type === 'task' && data1) {
+      setTaskData(data1);
+      setOpenCreateTask(true);
+    }
+  }, [type, data1]);
+  
   return (
-    <>
+    <div className="imprtleadCont">
+
       <div className="employee-dash h-full">
         <EmployeeSidebar pop={pop} setPop={setPop} />
 
@@ -376,6 +502,35 @@ const ImportLead2 = ({ setAlert, pop, setPop }) => {
 
               </div>
 
+                {/* secoond third   third  */}
+                <div className="leadFirs">
+                <div className="LEADSsTunav">
+                  <h2 className="ehading">Open Activities</h2>
+
+                    <div className="addNewCont">
+
+                      <div onClick={()=>setOpenAdNew((prev)=>!prev)} className="addneEW">
+                        <p>Add New</p>
+                      </div>
+
+                      {
+                        opnAdNew && 
+                        <div className="opeAnew">
+
+                          <p onClick={()=>setOpenCreateTask(true)}>Task</p>
+                          <hr />
+                          <p onClick={()=>setOpenCreateMeet(true)}>Meeting</p>
+
+                        </div>
+
+                      }
+                    </div>
+
+                </div>
+
+        
+              </div>
+
               {/* third third  */}
               <div className="leadFirs">
                 <div className="LEADSsTunav">
@@ -459,7 +614,204 @@ const ImportLead2 = ({ setAlert, pop, setPop }) => {
           </div>
         </div>
       </div>
-    </>
+
+      {
+    openCreateTask && 
+    <div className="createTaskWrap">
+
+      <div className="cretTaskCont">
+
+        <nav>
+          <p>Create Task</p>
+          <img onClick={()=>setOpenCreateTask(false)} className="cursor-pointer" src={cancel} alt="" />
+
+        </nav>
+
+        <form className="taskForm" >
+
+          <label>
+            <p>Subject</p>
+            <input name="Subject" value={taskData?.Subject} onChange={taskHandler} type="text" placeholder="Subject" />
+          </label>
+
+            <div className="twoTask">
+
+            <label>
+            <p>Priority</p>
+           <select name="Priority" value={taskData?.Priority} onChange={taskHandler} id="">
+            <option value="select one">Select One</option>
+            <option value="High">High</option>
+            <option value="Medium">Medium</option>
+            <option value="Low">Low</option>
+           </select>
+          </label>
+
+          <label>
+            <p>Status</p>
+            <select name="Status" value={taskData?.Status} onChange={taskHandler}  id="">
+            <option value="select one">Select One</option>
+            <option value="Not Started">Not Started</option>
+            <option value="Started"> Started</option>
+
+           </select>
+                     </label>
+
+              
+            </div>
+
+            <div className="twoTask">
+
+            <label>
+            <p>Due Date</p>
+           <input name="DueDate" value={taskData?.DueDate} onChange={taskHandler} type="date"  />
+          </label>
+
+          <label>
+            <p>Related To</p>
+           <input name="RelatedTo" value={taskData?.RelatedTo} onChange={taskHandler} type="text" />
+             </label>
+
+              
+            </div>
+
+            <label>
+            <p>Contact Name</p>
+            <input name="ContactName" value={taskData?.ContactName} onChange={taskHandler} type="text" />
+          </label>
+
+          <label>
+            <p>Note</p>
+            <input  name="Note" value={taskData?.Note} onChange={taskHandler}  type="text"  />
+          </label>
+
+
+          <div className="btnstask">
+            <button onClick={data1?taskUpdateHandler:TaskSubmitHandler} className="creattk">
+            {data1 ? "Task Update ":" Task Create"}
+            </button>
+            <button onClick={()=>setOpenCreateTask(false)} className="tkCnacel">
+            Cancel
+            </button>
+          </div>
+
+        </form>
+
+        <hr />
+
+      </div>
+
+    </div>
+  }
+
+   
+  {
+    openCreateMeet && 
+    <div className="createTaskWrap">
+
+      <div className="cretTaskCont2">
+
+        <nav>
+          <p>Create Meeting</p>
+          <img onClick={()=>setOpenCreateMeet(false)} className="cursor-pointer" src={cancel} alt="" />
+
+        </nav>
+
+        <form className="taskForm" >
+
+          <label>
+            <p>Title</p>
+            <input value={meetData.title} onChange={meetHandler} name="title" type="text" placeholder="Title" />
+          </label>
+
+          <label>
+            <p>Status</p>
+            <input type="text"  value={meetData.Status} onChange={meetHandler} name="Status" placeholder="Online" />
+          </label>
+
+            <div className="twoTask">
+
+            <label>
+            <p>Meeting Date From</p>
+           <input value={meetData.meetDateFrom} onChange={meetHandler} name="meetDateFrom" type="date" />
+          </label>
+
+          <label>
+            <p>Meeting Date To</p>
+           <input value={meetData.meetDateTo} onChange={meetHandler} name="meetDateTo" type="date" />
+             </label>
+
+              
+            </div>
+
+            <div className="twoTask">
+
+            <label>
+            <p>Meeting Time From</p>
+           <input value={meetData.meetTimeFrom} onChange={meetHandler} name="meetTimeFrom"  type="time"  />
+          </label>
+
+          <label>
+            <p>Meeting Time To</p>
+           <input value={meetData.meetTimeTo} onChange={meetHandler} name="meetTimeTo" type="time" />
+             </label>
+
+            </div>
+
+            <div className="twoTask">
+
+            <label>
+            <p>Host </p>
+          <select  value={meetData.Host} onChange={meetHandler} name="Host"  id="">
+            <option value="Host">Host</option>
+            <option value="Host1">Host1</option>
+            <option value="Host2">Host2</option>
+          </select>
+          </label>
+
+          <label>
+            <p>Related To</p>
+           <input  value={meetData.RelatedTo} onChange={meetHandler} name="RelatedTo"  type="text" />
+             </label>
+
+            </div>
+
+            <div className="twoTask">
+
+           <label>
+            <p>Participants</p>
+            <input value={meetData.Participant} onChange={meetHandler} name="Participant" type="text" />
+          </label>
+
+            <span className="addnewTx"> Add new</span>
+            </div>
+
+          
+          <label>
+            <p>Note</p>
+            <input value={meetData.Note} onChange={meetHandler} name="Note" type="text"  />
+          </label>
+
+          <div className="btnstask">
+            <button onClick={data1?meetUpdateHandler:meetSubmitHandler} className="creatmt">
+            {data1?"Update meeting":"Create Meeting"}
+            </button>
+            <button onClick={()=>setOpenCreateMeet(false)} className="tkCnacel">
+            Cancel
+            </button>
+          </div>
+
+        </form>
+
+        <hr />
+
+      </div>
+
+    </div>
+  }
+   
+
+
+    </div>
   );
 };
 
