@@ -3670,8 +3670,9 @@ text-decoration: underline;
 .total-timeCal .total {
   color: #000000;
   font-size: 19px;
-  font-family: "Bold" !important;
+  font-family: inter !important;
   padding: 0px 20px;
+  font-weight: bold;
 }
 
 .total-timeCal hr {
@@ -3687,7 +3688,8 @@ text-decoration: underline;
 
 .clock h3 {
   color: #707070 !important;
-  font-family: "Medium" !important;
+  font-family: inter !important;
+  font-weight: 500 !important;
   font-size: 15px;
 }
 .fan{
@@ -3702,7 +3704,8 @@ text-decoration: underline;
 
 .clock1 h2 {
   color: #000000;
-  font-family: "Semi Bold" !important;
+  font-family: inter !important;
+  font-weight: 600 !important;
   font-size: 22px;
 }
 

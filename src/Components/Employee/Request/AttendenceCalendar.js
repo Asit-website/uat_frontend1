@@ -143,7 +143,7 @@ getClock(formattedDate);
 
                 </div>
 
-                <div className="distinguish3 w-full">
+                {/* <div className="distinguish3 w-full">
                   <div className="distinguish-varding">
                     <h3 className='sasks'>Tasks</h3>
                     <hr />
@@ -187,7 +187,7 @@ getClock(formattedDate);
 
                     </div>
                   </div>
-                </div>
+                </div> */}
 
               </div>
             </div>
