@@ -124,12 +124,11 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
   const[opnAdNew  , setOpenAdNew] = useState(false);
 
   const [taskData , setTaskData] = useState({
-    Subject:"", Priority:"" ,  Status:"" , DueDate:"" ,  RelatedTo:"" ,  ContactName:"" ,  Note:""  , LeadId:id , 
-    userId: hrms_user?._id
+    Subject:"", Priority:"" ,  Status:"" , DueDate:"" ,  RelatedTo:"" ,  ContactName:"" ,  Note:""  , LeadId:id , userId:data?.LeadOwner?._id
   })
 
   const [meetData , setMeetData] = useState({
-    title:"" , meetDateFrom:"" ,  meetDateTo:"" , Status:"" ,LeadId:id ,  meetTimeFrom:"" , meetTimeTo:"" , Host:"" , RelatedTo :"",  Participant:"" , Note :"",userId: hrms_user?._id
+    title:"" , meetDateFrom:"" ,  meetDateTo:"" , Status:"" ,LeadId:id ,  meetTimeFrom:"" , meetTimeTo:"" , Host:"" , RelatedTo :"",  Participant:"" , Note :"", userId: data?.LeadOwner?._id
   })
 
 
