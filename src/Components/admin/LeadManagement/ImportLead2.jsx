@@ -1,44 +1,56 @@
+
 import React, { useEffect, useState } from "react";
 import "react-calendar/dist/Calendar.css";
 import { useMain } from "../../../hooks/useMain";
 import leadProfile from "../../images/leadProfile.png";
 import bx from "../../images/bx-purchase-tag.png";
 import "./lead.css";
-import { NavLink, useNavigate, useParams } from "react-router-dom";
-import EmployeeNavbar from "../../Employee/Navbar/EmployeeNavbar";
-import EmployeeSidebar from "../../Employee/Sidebar/EmployeeSidebar";
+import { useNavigate, useParams } from "react-router-dom";
 import toast from "react-hot-toast";
-import veci from '../../images/veci.svg';
-import deli from '../../images/deli.svg';
-import semi from '../../images/simi.svg';
-import { confirmAlert } from 'react-confirm-alert'; // Import
-import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
+import veci from "../../images/veci.svg";
+import deli from "../../images/deli.svg";
+import semi from "../../images/simi.svg";
+import { confirmAlert } from "react-confirm-alert"; 
+import "react-confirm-alert/src/react-confirm-alert.css"; 
+import leadEdit from "../../images/leadEdit.png"
+import leadDel from "../../images/leadDel.png"
 import cancel from "../../images/cancell.png"
 import { useLocation } from 'react-router-dom';
+import EmployeeSidebar from "../../Employee/Sidebar/EmployeeSidebar";
+import EmployeeNavbar from "../../Employee/Navbar/EmployeeNavbar";
 
 
-
-const ImportLead2 = ({ setAlert, pop, setPop }) => {
-
-  const { user, getLead2, updateLeadStatus, updateLeadNote , getQuotationAll,deleteQuotation ,   taskCreateApi  , 
-    meetCreateApi , taskEditApi,meetEditApi } = useMain();
+const ImportLead = ({ setAlert, pop, setPop }) => {
+  const {
+    user,
+    getLead2,
+    updateLeadStatus,
+    updateLeadNote,
+    getQuotationAll,
+    deleteQuotation,
+    taskCreateApi  , 
+    meetCreateApi , taskEditApi , meetEditApi
+  } = useMain();
 
   const { id } = useParams();
 
-  const [data, setData] = useState({});
+  
   const location = useLocation();
-  const { type, data1 } = location.state || {};
-
+  const { type , data1  } = location.state || {};
 
   let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
 
-  const [refreshFlag,setRefreshFlag] = useState(false);
+  const [refreshFlag, setRefreshFlag] = useState(false);
 
-  const navigate = useNavigate();
+  const [data, setData] = useState({});
+
+  const [notOpenEdit , setnotOpenEdit] = useState(false);
 
   const [LeadStatus, setLeadStatus] = useState("");
 
   const [Note, setNote] = useState("");
+
+  const navigate = useNavigate();
 
   const getData = async () => {
     let ans = await getLead2(id, "", "", "");
@@ -46,82 +58,79 @@ const ImportLead2 = ({ setAlert, pop, setPop }) => {
     setLeadStatus(ans?.data[0]?.LeadStatus);
   };
 
-  useEffect(() => {
-    getData();
-  }, []);
-
   const updatingLeadStatus = async (leading) => {
     const { _id } = data;
     const ans = await updateLeadStatus(_id, leading);
   };
 
-  const updatingNote = async () => {
+  const updatingNote = async (isDelete = false) => {
     const toastId = toast.loading("Loading...");
     const { _id } = data;
-    const ans = await updateLeadNote(_id, Note);
-    getData();
+     let whichNote = isDelete ? "" :Note;
+    const ans = await updateLeadNote(_id, whichNote);
 
-    if (ans?.message) {
-      toast.success("Successfully updated");
+     if(isDelete){
+        toast.success("Successfuly deleted");
+     }
+   else if (ans?.message) {
+      toast.success("Successfuly updated");
     } else {
-      toast.error("Something went wrong");
+        toast.error("Error while updating");
     }
-
+    
+    getData();
     toast.dismiss(toastId);
   };
 
-  const [userQuotation , setUserQu] = useState([]);
+  const [userQuotation, setUserQu] = useState([]);
 
-  const getQuotation = async()=>{
-   
-     const ans = await getQuotationAll(id);
-     if(ans?.status){
+  const getQuotation = async () => {
+    const ans = await getQuotationAll(id);
+    if (ans?.status) {
       setUserQu(ans?.data);
-     }
-  }
+    }
+  };
 
-  useEffect(()=>{
-     getQuotation();
-  },[refreshFlag])
+  useEffect(() => {
+    getQuotation();
+  }, [refreshFlag]);
 
   const deleteProject = async (id) => {
     confirmAlert({
-      title: 'Are you sure to delete this data?',
-      message: 'All related data to this will be deleted',
+      title: "Are you sure to delete this data?",
+      message: "All related data to this will be deleted",
       buttons: [
         {
-          label: 'Yes, Go Ahead!',
+          label: "Yes, Go Ahead!",
           style: {
-            background: "#FF5449"
+            background: "#FF5449",
           },
           onClick: async () => {
             await deleteQuotation(id);
             toast.success("delete Successfully");
             setRefreshFlag(!refreshFlag);
-          }
+          },
         },
         {
-          label: 'Cancel',
+          label: "Cancel",
 
-          onClick: () => null
-        }
-      ]
+          onClick: () => null,
+        },
+      ],
     });
-
   };
-
-  
 
   const[openCreateTask  , setOpenCreateTask] = useState(false);
   const[openCreateMeet  , setOpenCreateMeet] = useState(false);
   const[opnAdNew  , setOpenAdNew] = useState(false);
 
   const [taskData , setTaskData] = useState({
-    Subject:"", Priority:"" ,  Status:"" , DueDate:"" ,  RelatedTo:"" ,  ContactName:"" ,  Note:""  , LeadId:id , userId:hrms_user?._id
+    Subject:"", Priority:"" ,  Status:"" , DueDate:"" ,  RelatedTo:"" ,  ContactName:"" ,  Note:""  , LeadId:id , 
+    userId: hrms_user?._id
   })
 
   const [meetData , setMeetData] = useState({
-    title:"" , meetDateFrom:"" ,  meetDateTo:"" , Status:"" , meetTimeFrom:"" , meetTimeTo:"" , Host:"" , RelatedTo :"",  Participant:"" , Note :"", userId: hrms_user?._id , LeadId:id
+    title:"" , meetDateFrom:"" ,  meetDateTo:"" , Status:"" ,LeadId:id ,  meetTimeFrom:"" , meetTimeTo:"" , Host:"" , RelatedTo :"",  Participant:"" , Note :"",  userId: hrms_user?._id
   })
 
   const taskHandler = (e)=>{
@@ -149,7 +158,7 @@ const ImportLead2 = ({ setAlert, pop, setPop }) => {
      if(ans?.status){
       toast.success("Successfuly created");
       setTaskData({
-        Subject:"", Priority:"" ,  Status:"" , DueDate:"" ,  RelatedTo:"" ,  ContactName:"" ,  Note:""  , LeadId:id , userId:hrms_user?._id
+        Subject:"", Priority:"" ,  Status:"" , DueDate:"" ,  RelatedTo:"" ,  ContactName:"" ,  Note:""  , LeadId:id , userId:data?.LeadOwner?._id
       })
       setOpenCreateTask(false);
      }
@@ -168,7 +177,7 @@ const ImportLead2 = ({ setAlert, pop, setPop }) => {
     if(ans?.status){
      toast.success("Successfuly updated");
      setTaskData({
-       Subject:"", Priority:"" ,  Status:"" , DueDate:"" ,  RelatedTo:"" ,  ContactName:"" ,  Note:""  , LeadId:id , userId:hrms_user?._id
+       Subject:"", Priority:"" ,  Status:"" , DueDate:"" ,  RelatedTo:"" ,  ContactName:"" ,  Note:""  , LeadId:id , userId:data?.LeadOwner?._id
      })
      setOpenCreateTask(false);
     }
@@ -188,7 +197,7 @@ const ImportLead2 = ({ setAlert, pop, setPop }) => {
      if(ans?.status){
       toast.success("Successfuly created");
       setOpenCreateMeet(false);
-      setMeetData({  title:"" , meetDateFrom:"" ,  meetDateTo:"" , Status:"" , meetTimeFrom:"" , meetTimeTo:"" , Host:"" , RelatedTo :"",  Participant:"" , Note :"", userId: hrms_user?._id})
+      setMeetData({  title:"" , meetDateFrom:"" ,  meetDateTo:"" , Status:"" , meetTimeFrom:"" , meetTimeTo:"" , Host:"" , RelatedTo :"",  Participant:"" , Note :"",  userId:data?.LeadOwner?._id})
 
      }
 
@@ -206,31 +215,54 @@ const ImportLead2 = ({ setAlert, pop, setPop }) => {
      if(ans?.status){
       toast.success("Successfuly created");
       setOpenCreateMeet(false);
-      setMeetData({  title:"" , meetDateFrom:"" , meetDateTo:"" , Status:"" , meetTimeFrom:"" , meetTimeTo:"" , Host:"" , RelatedTo :"",  Participant:"" , Note :"", userId: hrms_user?._id})
+      setMeetData({  title:"" , meetDateFrom:"" , meetDateTo:"" , Status:"" , meetTimeFrom:"" , meetTimeTo:"" , Host:"" , RelatedTo :"",  Participant:"" , Note :"",  userId:data?.LeadOwner?._id})
 
      }
 
      toast.dismiss(toastId);
 
   }
-  useEffect(() => {
-    if (type === 'meet' && data1) {
-      setMeetData(data1);
-      setOpenCreateMeet(true);
-    }
-  }, [type, data1]);
-  
-  useEffect(() => {
-    if (type === 'task' && data1) {
-      setTaskData(data1);
-      setOpenCreateTask(true);
-    }
-  }, [type, data1]);
-  
+
+  useEffect(()=>{
+    getData();
+  },[])
+
+useEffect(() => {
+  if (type === 'meet' && data1) {
+    setMeetData(data1);
+    setOpenCreateMeet(true);
+  }
+}, [type, data1]);
+
+useEffect(() => {
+  if (type === 'task' && data1) {
+    setTaskData(data1);
+    setOpenCreateTask(true);
+  }
+}, [type, data1]);
+
+useEffect(() => {
+  if (data) {
+
+    setMeetData(prevMeetData => ({
+      ...prevMeetData,
+      userId: data?.LeadOwner?._id
+    }));
+
+    setTaskData(prev => ({
+      ...prev,
+      userId: data?.LeadOwner?._id
+    }));
+
+  }
+}, [data]);
+
   return (
     <div className="imprtleadCont">
 
+
       <div className="employee-dash h-full">
+
         <EmployeeSidebar pop={pop} setPop={setPop} />
 
         <div className="tm">
@@ -248,7 +280,7 @@ const ImportLead2 = ({ setAlert, pop, setPop }) => {
                 />
 
                 <div className="lTITL">
-                  <h2>{data?.LeadOwner?.fullName}</h2>
+                  <h2>Kanishka Tyagi</h2>
                   <p style={{ display: "flex" }}>
                     <img src={bx} /> <span> Add Tags</span>
                   </p>
@@ -266,7 +298,7 @@ const ImportLead2 = ({ setAlert, pop, setPop }) => {
 
                 <button
                   onClick={() =>
-                    navigate("/employeeDash/editLead", { state: data })
+                    navigate("/adminDash/editLead", { state: data })
                   }
                   className="refresh1"
                 >
@@ -441,9 +473,8 @@ const ImportLead2 = ({ setAlert, pop, setPop }) => {
                 </div>
               </div>
 
-              {/* third  */}
+              {/* second  third  */}
               <div className="leadFirs">
-
                 <div className="LEADSsTunav">
                   <h2 className="ehading">Lead Status</h2>
 
@@ -464,46 +495,72 @@ const ImportLead2 = ({ setAlert, pop, setPop }) => {
                   </select>
                 </div>
 
-                <div className="eladinfoWrap secondWRap">
-                  {LeadStatus ? (
-                    <span className="ladingstausw">{LeadStatus}</span>
-                  ) : (
-                    <span className="noRecord">No records found</span>
-                  )}
-                </div>
-
-                {data?.Note && (
-                  <div className="notePresent">
-                    <p>
-                      {new Date(data?.NoteDate).toLocaleDateString("en-US", {
-                        month: "long",
-                        day: "numeric",
-                        year: "numeric",
-                      })}
-                    </p>
-                    <span className="realNote">{data?.Note}</span>
+                <div className={ ` ${(notOpenEdit || data?.Note === undefined ||  data?.Note ==="") ?"doColumn":"fornotewrap"}  `}>
+                  <div className="eladinfoWrap secondWRap">
+                    {LeadStatus ? (
+                      <span className="ladingstausw">{LeadStatus}</span>
+                    ) : (
+                      <span className="noRecord">No records found</span>
+                    )}
                   </div>
-                )}
 
-                <label className="noteLabel">
-                  <p>Note:</p>
-                  <input
-                    onChange={(e) => {
-                     setNote(e.target.value);
-                    }}
-                    type="text"
-                  />
-                </label>
+                  {(data?.Note && data?.Note !== "" && !notOpenEdit ) ? 
+                    <div className="notePresent">
+                      <p>
+                        {new Date(data?.NoteDate).toLocaleDateString("en-US", {
+                          month: "long",
+                          day: "numeric",
+                          year: "numeric",
+                        })}
+                      </p>
+                        <div className="reatlnotecont">
+                      <span className="realNote">{data?.Note}  </span>
+                        </div>
+                          <div className="eidtdel">
+                            <img onClick={()=>{
+                                setnotOpenEdit(true);
+                                 setNote(data?.Note);
+                            }} src={leadEdit} alt="" />
+                            <img onClick={()=>{
+                                 setNote("");
+                                 updatingNote(true);
+                                 setnotOpenEdit(false);
+                            }} src={leadDel} alt="" />
+                          </div>
 
-                <div className="noteSaveBtn">
+                    </div>
+                    :
+                    <>
+                 
+                      <label className="noteLabel">
+                    <p>Note:</p>
+                    <input
+                     value={Note}
+                      onChange={(e) => {
+                        setNote(e.target.value);
+                        
+                      }}
+                      type="text"
+                    />
+                  </label>
 
-<button onClick={updatingNote}><span>Save</span></button>
-   </div>
+                  <div className="noteSaveBtn">
+                    <button onClick={()=>{
+                        updatingNote();
+                        setnotOpenEdit(false);
+                    }}>
+                      <span>Save</span>
+                    </button>
+                  </div>
+                    </>
+                  }
+                
+                </div>
 
               </div>
 
-                {/* secoond third   third  */}
-                <div className="leadFirs">
+              {/* secoond third   third  */}
+              <div className="leadFirs">
                 <div className="LEADSsTunav">
                   <h2 className="ehading">Open Activities</h2>
 
@@ -536,53 +593,69 @@ const ImportLead2 = ({ setAlert, pop, setPop }) => {
                 <div className="LEADSsTunav">
                   <h2 className="ehading">Quotation</h2>
 
-                  <button onClick={()=>{
-                    navigate("/employeeDash/createQuotation" , {state: {id}})
-                  }
-                   } className="createQquot">
+                  <button
+                    onClick={() =>
+                      navigate("/adminDash/createQuotation", { state: { id } })
+                    }
+                    className="createQquot"
+                  >
                     <span>Create Quotation</span>
                   </button>
                 </div>
 
                 <hr />
 
-                 {
-                  userQuotation?.length > 0 ?
+                {userQuotation?.length > 0 ? (
                   <div className="allQui">
-
-                    {
-                      userQuotation?.map((item ,index)=>(
-                        <div key={index} className="saka">
+                    {userQuotation?.map((item, index) => (
+                      <div key={index} className="sakacont">
                         <div className="singlquot" key={index}>
-                          
-                           <p className="invId">Invoice ID: {item?.InvoiceNo}</p>
-                           <p className="inName"> {item?.ClientName}</p>
-                           <p className="inName">{item?.Price}</p>
-                           <p className="date">{new Date(Number(item?.ts)).toLocaleDateString()} : {new Date(Number(item?.ts)).toLocaleTimeString()}</p>
-
+                          <p className="invId">Invoice ID: {item?.InvoiceNo}</p>
+                          <p className="inName"> {item?.ClientName}</p>
+                          <p className="inName">{item?.Price}</p>
+                          <p className="date">
+                            {new Date(Number(item?.ts)).toLocaleDateString()} :{" "}
+                            {new Date(Number(item?.ts)).toLocaleTimeString()}
+                          </p>
                         </div>
 
                         <div className="dj">
-                            <img onClick={()=>navigate("/employeeDash/editQuotation",{state:item})} className="cursor-pointer"  src={veci} alt="veci" />
-                            <img onClick={()=>{
-                              deleteProject(item?._id)
-                            }} className="dli cursor-pointer" src={deli} alt="deli" />
-                            <img onClick={()=>navigate("/invoicePage",{state:item})} className="dli cursor-pointer" src={semi} alt="semi" />
+                          <img
+                            onClick={() =>
+                              navigate("/adminDash/editQuotation", {
+                                state: item,
+                              })
+                            }
+                            className="cursor-pointer"
+                            src={veci}
+                            alt="veci"
+                          />
+                          <img
+                            onClick={() => {
+                              deleteProject(item?._id);
+                            }}
+                            className="dli cursor-pointer"
+                            src={deli}
+                            alt="deli"
+                          />
+                          <img
+                            onClick={() =>
+                              navigate("/invoicePage", { state: item })
+                            }
+                            className="dli cursor-pointer"
+                            src={semi}
+                            alt="semi"
+                          />
                         </div>
-                        </div>
-                      ))
-                    }
-
+                      </div>
+                    ))}
                   </div>
-                  :
+                ) : (
                   <span className="norecord">No records found</span>
-                 }
-
-
+                )}
               </div>
 
               {/* fourth  */}
-
               <div className="leadFirs">
                 <div className="attachment">
                   <h2 className="ehading">Description Information</h2>
@@ -610,12 +683,15 @@ const ImportLead2 = ({ setAlert, pop, setPop }) => {
                   <p className="toyotoyo">No Attachment</p>
                 </div>
               </div>
+
             </div>
+
           </div>
         </div>
+
       </div>
 
-      {
+  {
     openCreateTask && 
     <div className="createTaskWrap">
 
@@ -687,7 +763,7 @@ const ImportLead2 = ({ setAlert, pop, setPop }) => {
 
           <div className="btnstask">
             <button onClick={data1?taskUpdateHandler:TaskSubmitHandler} className="creattk">
-            {data1 ? "Task Update ":" Task Create"}
+             {data1 ? "Task Update ":" Task Create"}
             </button>
             <button onClick={()=>setOpenCreateTask(false)} className="tkCnacel">
             Cancel
@@ -793,7 +869,7 @@ const ImportLead2 = ({ setAlert, pop, setPop }) => {
 
           <div className="btnstask">
             <button onClick={data1?meetUpdateHandler:meetSubmitHandler} className="creatmt">
-            {data1?"Update meeting":"Create Meeting"}
+             {data1?"Update meeting":"Create Meeting"}
             </button>
             <button onClick={()=>setOpenCreateMeet(false)} className="tkCnacel">
             Cancel
@@ -810,9 +886,8 @@ const ImportLead2 = ({ setAlert, pop, setPop }) => {
   }
    
 
-
     </div>
   );
 };
 
-export default ImportLead2;
+export default ImportLead;

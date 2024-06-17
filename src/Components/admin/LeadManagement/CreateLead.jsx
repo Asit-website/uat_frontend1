@@ -369,7 +369,7 @@ const CreateLead = ({ setAlert, pop, setPop }) => {
                                             <input value={formdata.EmailOptOut} name="EmailOptOut" onChange={changeHandler}  className="seng" type="checkbox" />
                                         </div>
                                         <div className="lead_inp1">
-                                            <label htmlFor="">Skype ID</label>
+                                            <label htmlFor="">LinkedIn URL</label>
                                              <input value={formdata?.SkypeID} name="SkypeID" type="text" onChange={changeHandler} />
                                         </div>
                                     </div>

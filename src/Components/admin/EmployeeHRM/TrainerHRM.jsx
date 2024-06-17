@@ -170,7 +170,6 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
     }
     else {
       const ans = await createTrainer({ ...formdata });
-      console.log("rep ans ", ans);
       toast.success("Successfuly Created");
       setRefreshFlag(!refreshFlag);
     }

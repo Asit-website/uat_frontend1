@@ -131,7 +131,6 @@ const Indicator = ({ pop, setPop, setAlert }) => {
       }
       else {
         const ans = await createIndicator({ ...formdata });
-        console.log("rep ans ", ans);
         toast.success("Successfuly Created");
         setRefreshFlag(!refreshFlag);
       }

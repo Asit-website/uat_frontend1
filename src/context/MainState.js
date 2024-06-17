@@ -1449,19 +1449,35 @@ const MainState = (props) => {
    }
 
 
-   const createExcelLead = async({Company , Email , FirstName , Industry  , LastName , LeadOwner , LeadStatus , Phone})=>{
+   const createExcelLead = async({LeadOwner , 
+       City,
+      CompanyName,
+      Email,
+      FirstName,
+      LastName,
+      LinkedInURL,
+      Mobile,
+      Phone,
+      State , 
+      Title ,
+      Website  })=>{
 
          let data;
       
       data = await post(`${baseUrl}/lead/createLead`, {
          LeadOwner,
-         Company,
+         City,
+         Company:CompanyName,
+         Email,
          FirstName,
          LastName,
-         Email,
+         SkypeID:LinkedInURL,
+         Mobile,
          Phone,
-         Industry,
-         LeadStatus, 
+         State , 
+         Title ,
+         Website  
+        
       }, true);
    
    
@@ -1539,7 +1555,6 @@ const MainState = (props) => {
 
    const getLead = async(id,query,page,perPage)=>{
       let user = JSON.parse(localStorage.getItem("hrms_user"));
-      console.log("user ",user);
 
       const data = await post(`${baseUrl}/lead/getAllLead/?id=${id}&query=${query}&page=${page}&perPage=${perPage}`, {id: user?._id}, true);
       return data;
@@ -1550,6 +1565,20 @@ const MainState = (props) => {
       const data = await get(`${baseUrl}/lead/getAllLead/?id=${id}&query=${query}&page=${page}&perPage=${perPage}`, true);
       return data;
    }
+
+   
+   const getLead3 = async()=>{
+
+      let user = JSON.parse(localStorage.getItem("hrms_user"));
+
+      const data = await get(`${baseUrl}/lead/getAllLead2/${user?._id}`, true);
+      return data;
+   }
+   const getAllLeads = async()=>{
+      const data = await get(`${baseUrl}/lead/getAllLeadByAdmin`, true);
+      return data;
+   }
+
 
    const deleteLeads = async (id) => {
       const data = await deleteReq(`${baseUrl}/admin/deleteLead/${id}`, true);
@@ -1758,6 +1787,7 @@ const MainState = (props) => {
   }
    
    const  meetCreateApi  = async({title , meetDateFrom ,  meetDateTo , Status , meetTimeFrom , meetTimeTo , Host , RelatedTo ,  Participant , Note , userId , LeadId})=>{
+      console.log("useridmeet  ",userId);
       const data = await post(`${baseUrl}/openActivity/createMeet`, { title , meetDateFrom ,  meetDateTo , Status , meetTimeFrom , meetTimeTo , Host , RelatedTo ,  Participant , Note , userId,LeadId }, true);
      return data;
   
@@ -1778,6 +1808,7 @@ const MainState = (props) => {
          getTotalLeavesCount, uploadDocuments, createAnnouncement, deleteAnnouncement, updateAnnouncements, fetchAnnoucement, deleteAnnouncements, getEmp, allEmployeebyDep, notificationGet,
          acceptLeave, rejectLeave,
          uploadOwnDocs,
+         getAllLeads,
          updateDocSetup,
          fetchAllDocs,
          updateAttendance,
@@ -1821,7 +1852,8 @@ const MainState = (props) => {
          updateQuotation, 
          fetchTodayLeave  ,
          deleteQuotation  , 
-         departmentEmployee
+         departmentEmployee , 
+         getLead3
       }}>
          {props.children}
       </MainContext.Provider>

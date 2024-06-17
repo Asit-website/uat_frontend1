@@ -16,6 +16,9 @@ const LeadFile = ({ setAlert, pop, setPop }) => {
 
   //   this is for excel sheet
 
+  let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
+
+
   // Excel sheet
   const [excelFile, setExcelFile] = useState(null);
 
@@ -86,37 +89,37 @@ const LeadFile = ({ setAlert, pop, setPop }) => {
       setExcelData(data?.slice(0, 10));
 
       for (let i = 0; i < data?.length; i++) {
+
         const {
-          Company,
+          City,
+          CompanyName,
           Email,
           FirstName,
-          Industry,
           LastName,
-          LeadName,
-          LeadStatus,
+          LinkedInURL,
+          Mobile,
           Phone,
+          State , 
+          Title ,
+          Website
         } = data[i];
 
-        const filterdata = users.filter(
-          (item) => item?.fullName.toLowerCase() === LeadName.toLowerCase()
-        );
 
-        if (filterdata?.length > 0) {
-          let id = filterdata[0]?._id;
-          const ans = await createExcelLead({
-            LeadOwner: filterdata[0],
-            Email,
-            FirstName,
-            Industry,
-            LastName,
-            LeadName,
-            LeadStatus,
-            Phone,
-            Company,
-          });
-
-          console.log("ansss ", ans);
-        }
+        const ans = await createExcelLead({
+          LeadOwner: hrms_user?._id,
+          City,
+          CompanyName,
+          Email,
+          FirstName,
+          LastName,
+          LinkedInURL,
+          Mobile,
+          Phone,
+          State , 
+          Title ,
+          Website
+        });
+        
       }
 
       toast.success("Successfuly uploaded");

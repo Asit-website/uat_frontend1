@@ -33,15 +33,15 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
 
   const { id } = useParams();
 
-  
   const location = useLocation();
   const { type , data1  } = location.state || {};
-
-  let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
 
   const [refreshFlag, setRefreshFlag] = useState(false);
 
   const [data, setData] = useState({});
+
+  let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
+
 
   const [notOpenEdit , setnotOpenEdit] = useState(false);
 
@@ -124,12 +124,14 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
   const[opnAdNew  , setOpenAdNew] = useState(false);
 
   const [taskData , setTaskData] = useState({
-    Subject:"", Priority:"" ,  Status:"" , DueDate:"" ,  RelatedTo:"" ,  ContactName:"" ,  Note:""  , LeadId:id , userId:hrms_user?._id
+    Subject:"", Priority:"" ,  Status:"" , DueDate:"" ,  RelatedTo:"" ,  ContactName:"" ,  Note:""  , LeadId:id , 
+    userId: hrms_user?._id
   })
 
   const [meetData , setMeetData] = useState({
-    title:"" , meetDateFrom:"" ,  meetDateTo:"" , Status:"" ,LeadId:id ,  meetTimeFrom:"" , meetTimeTo:"" , Host:"" , RelatedTo :"",  Participant:"" , Note :"", userId: hrms_user?._id
+    title:"" , meetDateFrom:"" ,  meetDateTo:"" , Status:"" ,LeadId:id ,  meetTimeFrom:"" , meetTimeTo:"" , Host:"" , RelatedTo :"",  Participant:"" , Note :"",userId: hrms_user?._id
   })
+
 
   const taskHandler = (e)=>{
     const {name , value} = e.target;
@@ -156,7 +158,7 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
      if(ans?.status){
       toast.success("Successfuly created");
       setTaskData({
-        Subject:"", Priority:"" ,  Status:"" , DueDate:"" ,  RelatedTo:"" ,  ContactName:"" ,  Note:""  , LeadId:id , userId:hrms_user?._id
+        Subject:"", Priority:"" ,  Status:"" , DueDate:"" ,  RelatedTo:"" ,  ContactName:"" ,  Note:""  , LeadId:id ,  userId:data?.LeadOwner?._id
       })
       setOpenCreateTask(false);
      }
@@ -175,7 +177,7 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
     if(ans?.status){
      toast.success("Successfuly updated");
      setTaskData({
-       Subject:"", Priority:"" ,  Status:"" , DueDate:"" ,  RelatedTo:"" ,  ContactName:"" ,  Note:""  , LeadId:id , userId:hrms_user?._id
+       Subject:"", Priority:"" ,  Status:"" , DueDate:"" ,  RelatedTo:"" ,  ContactName:"" ,  Note:""  , LeadId:id ,  userId:data?.LeadOwner?._id
      })
      setOpenCreateTask(false);
     }
@@ -183,7 +185,6 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
     toast.dismiss(toastId);
 
   }
-
 
   const meetSubmitHandler =async(e)=>{
     e.preventDefault();
@@ -195,7 +196,7 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
      if(ans?.status){
       toast.success("Successfuly created");
       setOpenCreateMeet(false);
-      setMeetData({  title:"" , meetDateFrom:"" ,  meetDateTo:"" , Status:"" , meetTimeFrom:"" , meetTimeTo:"" , Host:"" , RelatedTo :"",  Participant:"" , Note :"", userId: hrms_user?._id})
+      setMeetData({  title:"" , meetDateFrom:"" ,  meetDateTo:"" , Status:"" , meetTimeFrom:"" , meetTimeTo:"" , Host:"" , RelatedTo :"",  Participant:"" , Note :"",  userId:data?.LeadOwner?._id})
 
      }
 
@@ -213,7 +214,7 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
      if(ans?.status){
       toast.success("Successfuly created");
       setOpenCreateMeet(false);
-      setMeetData({  title:"" , meetDateFrom:"" , meetDateTo:"" , Status:"" , meetTimeFrom:"" , meetTimeTo:"" , Host:"" , RelatedTo :"",  Participant:"" , Note :"", userId: hrms_user?._id})
+      setMeetData({  title:"" , meetDateFrom:"" , meetDateTo:"" , Status:"" , meetTimeFrom:"" , meetTimeTo:"" , Host:"" , RelatedTo :"",  Participant:"" , Note :"", userId:data?.LeadOwner?._id})
 
      }
 
@@ -238,6 +239,24 @@ useEffect(() => {
     setOpenCreateTask(true);
   }
 }, [type, data1]);
+
+useEffect(() => {
+  if (data) {
+
+    setMeetData(prevMeetData => ({
+      ...prevMeetData,
+      userId: data?.LeadOwner?._id
+    }));
+
+    setTaskData(prev => ({
+      ...prev,
+      userId: data?.LeadOwner?._id
+    }));
+
+  }
+}, [data]);
+
+
 
   return (
     <div className="imprtleadCont">

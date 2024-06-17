@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import AdminNavbar from "../../admin/Navbar/AdminNavbar";
+import AdminSidebar from "../../admin/Sidebar/AdminSidebar";
 import "react-calendar/dist/Calendar.css";
 import { useMain } from "../../../hooks/useMain";
 import pluss from "../../images/pluss.png"
@@ -8,17 +10,15 @@ import { NavLink, useNavigate } from "react-router-dom";
 import OutsideClickHandler from 'react-outside-click-handler';
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
-import EmployeeNavbar from "../../Employee/Navbar/EmployeeNavbar";
-import EmployeeSidebar from "../../Employee/Sidebar/EmployeeSidebar";
 import toast from "react-hot-toast";
+import download from "../../images/donwlaond.png";
 
 
-const MyLead2 = ({ setAlert, pop, setPop }) => {
-
+const UserLead = ({ setAlert, pop, setPop }) => {
 
     const navigate = useNavigate();
 
-    const { user, getLead, deleteLeads } = useMain();
+    const { user, getLead3, deleteLeads } = useMain();
 
     const [refreshFlag, setRefreshFlag] = useState(false);
 
@@ -34,25 +34,26 @@ const MyLead2 = ({ setAlert, pop, setPop }) => {
         display: filter ? "block" : "none"
     }
 
-     const [allLeading , setAllLeading] = useState([]);
     const [allLead, setAllLead] = useState([]);
 
-    const fetchLead = async () => {
+    let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
 
-        const ans = await getLead("", "", "", "");
-        setAllLead(ans?.data);
-        setAllLeading(ans?.data);
+    const [allLeading , setAlleading] = useState([]);
+
+    const fetchLead = async () => {
+        const ans = await getLead3();
+        console.log("anss ",ans);
+        setAllLead(ans?.allLead);
+        setAlleading(ans?.allLead );
     }
 
     const [filterInput , setFilterInput ] = useState();
-
 
     useEffect(() => {
         fetchLead();
     }, [refreshFlag])
 
     const deleteProject = async (id) => {
-
         confirmAlert({
             title: 'Are you sure to delete this data?',
             message: 'All related data to this will be deleted',
@@ -77,35 +78,20 @@ const MyLead2 = ({ setAlert, pop, setPop }) => {
         });
 
     };
- 
-    useEffect(() => {
-        if (filterInput) {
-          const filtered = allLeading.filter(lead => {
-            const leadDate = new Date(lead.createAt);
-            const currentDate = new Date();
-            const daysAgo = new Date(currentDate.setDate(currentDate.getDate() - filterInput));
-            return leadDate >= daysAgo;
-          });
 
-          setAllLead(filtered);
-        } else {
-          setAllLead(allLeading);
-        }
-      }, [filterInput, allLeading]);
+    const [currentPage, setCurrentPage] = useState(1);
 
-      const [currentPage, setCurrentPage] = useState(1);
+    let itemsPerPage = 10;
 
-      let itemsPerPage = 10;
+    const totalPages = Math.ceil(allLead?.length / itemsPerPage);
 
-      const totalPages = Math.ceil(allLead.length / itemsPerPage);
-  
-      const startIndex = (currentPage - 1) * itemsPerPage;
-  
-      const endIndex = Math.min(startIndex + itemsPerPage, allLead.length);
-  
-      const currentItems = allLead.slice(startIndex, endIndex);
+    const startIndex = (currentPage - 1) * itemsPerPage;
 
-      const nextPage = () => {
+    const endIndex = Math.min(startIndex + itemsPerPage, allLead?.length);
+
+    const currentItems = allLead?.slice(startIndex, endIndex);
+
+    const nextPage = () => {
         setCurrentPage((prevPage) => Math.min(prevPage + 1, totalPages));
     };
 
@@ -113,7 +99,7 @@ const MyLead2 = ({ setAlert, pop, setPop }) => {
         setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
     };
 
-    const [ sortDate, setSortDate] = useState("");
+   const [ sortDate, setSortDate] = useState("");
    
     useEffect(()=>{
 
@@ -145,14 +131,31 @@ return cyear === parseInt(nyear) && cmonth === parseInt(nmonth) && cday === pars
 
     },[sortDate])
 
+   const[OwnerFilter , setOwnerFilter] = useState(false);
 
-    return (
+   const handleCheckboxChange = (event) => {
+    setOwnerFilter(event.target.checked);
+  };
+
+  const applyHandler = () => {
+    if (OwnerFilter) {
+      const filterdata = allLeading.filter((lead) => {
+        const { LeadOwner } = lead;
+        return LeadOwner?._id === hrms_user?._id;
+      });
+      setAllLead(filterdata);
+    } else {
+      setAllLead(allLeading);
+    }
+  };
+
+  return (
         <>
             <div className="employee-dash h-full">
-                <EmployeeSidebar pop={pop} setPop={setPop} />
+                <AdminSidebar pop={pop} setPop={setPop} />
 
                 <div className="tm">
-                    <EmployeeNavbar user={user} setAlert={setAlert} />
+                    <AdminNavbar user={user} setAlert={setAlert} />
 
                     <div className="em">
 
@@ -165,11 +168,12 @@ return cyear === parseInt(nyear) && cmonth === parseInt(nmonth) && cday === pars
                                 <div className="leads_btn2">
 
                                     <button className="lead_btn2">
-                                        <NavLink className="such_thing" to="/employeeDash/createLead" >  <img src={pluss} alt="" /> <span className="colp"> Create New Lead </span> </NavLink>
+                                        <NavLink className="such_thing" to="/adminDash/createLead" >  <img src={pluss} alt="" /> <span className="colp"> Create New Lead </span> </NavLink>
                                     </button>
 
-                                    <NavLink to="/employeeDash/leadFile"><button className="refresh">
-                                        <span className="ref1">Import Leads</span>
+                                    <NavLink to="/adminDash/leadFile"><button className="refresh">
+                                    <img src={download} alt="" />
+                                        <span className="ref1">  Import Leads</span>
                                     </button></NavLink>
                                     <button
                                         id="dropdownDefaultButton"
@@ -184,6 +188,7 @@ return cyear === parseInt(nyear) && cmonth === parseInt(nmonth) && cday === pars
                                         </svg>
 
                                     </button>
+
                                     <OutsideClickHandler
                                         onOutsideClick={() => {
                                             setCard(false);
@@ -239,16 +244,16 @@ return cyear === parseInt(nyear) && cmonth === parseInt(nmonth) && cday === pars
 
                         <div className="laed1">
 
-                            {/* left side */}
+
                             <div>
                                 <div className="leftlead1">
+                                    <img src={fff} alt="" />
 
                                     <div onClick={() => setFilter(!filter)} className="inptsearch">
                                         <input type="text" placeholder="Search leads" />
                                         <span><img src={search} alt="" /></span>
                                     </div>
 
-                                    <img src={fff} alt="" />
 
                                 </div>
 
@@ -276,9 +281,8 @@ return cyear === parseInt(nyear) && cmonth === parseInt(nmonth) && cday === pars
                                                 <option value="In the last">In the last</option>
                                             </select>
                                             <div className="stoing">
-
-                                            <input type="text" onChange={(e)=>setFilterInput(e.target.value)} placeholder="2"  />                                            </div>
-
+                                               <input type="text" onChange={(e)=>setFilterInput(e.target.value)} placeholder="2"  />
+                                            </div>
                                             <select className="aloy2" name="" id="">
                                                 <option value="Days">Days</option>
                                             </select>
@@ -318,33 +322,36 @@ return cyear === parseInt(nyear) && cmonth === parseInt(nmonth) && cday === pars
                                             <span>Last Activity Time</span>
                                         </div>
                                         <div className="some_things">
-                                            <input type="checkbox" />
+                                            <input   checked={OwnerFilter}
+        onChange={handleCheckboxChange} type="checkbox" />
                                             <span>Lead Owner</span>
                                         </div>
                                     </div>
                                     <div className="apply_footer">
                                         <div className="apply">
                                             <button onClick={()=>{
-
-                                               if(filterInput === ""){
-                                                    toast.error("Select the number of Days");
-                                                    return ;
-                                                }
+                                                applyHandler();
+                                                setFilter(false);
                                             }}>Apply</button>
                                         </div>
                                         <div className="cancel">
-                                            <button>Clear</button>
+                                            <button onClick={()=>{
+                                                setOwnerFilter(false);
+                                                setAllLead(allLeading);
+                                                setFilter(false);
+
+                                            }}>Clear</button>
                                         </div>
                                     </div>
                                 </div>
 
                             </div>
 
-                            {/* right side  */}
+
                             <div className="leaftlead2">
 
                                 <span>Sort by</span>
-                                <input  type="date" value={sortDate} onChange={(e)=>setSortDate(e.target.value)} />
+                                <input type="date" value={sortDate} onChange={(e)=>setSortDate(e.target.value)} />
 
                             </div>
 
@@ -353,14 +360,17 @@ return cyear === parseInt(nyear) && cmonth === parseInt(nmonth) && cday === pars
                         <div>
 
                             <div className="table11">
+
                                 <div className="my_open my_open1">
                                     <h3>My Leads</h3>
-                                 
+
                                 </div>
+
                                 <div className="relative overflow-x-auto lonj">
                                     <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+
                                         <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                                            <tr className="thol saka">
+                                        <tr className="thol saka">
                                                 <th scope="col" className="px-3 py-3">
                                                     <input type="checkbox" placeholder="" />
                                                 </th>
@@ -404,9 +414,10 @@ return cyear === parseInt(nyear) && cmonth === parseInt(nmonth) && cday === pars
                                                 </th>
                                             </tr>
                                         </thead>
+
                                         <tbody>
-                                           
-                                           {
+
+                                        {
                                             currentItems?.map((item,index)=>{
                                                 return  <tr key={index} className="">
                                                 <th scope="col" className="px-3 py-3">
@@ -485,7 +496,7 @@ return cyear === parseInt(nyear) && cmonth === parseInt(nmonth) && cday === pars
                                                                         <li className="sysok">
 
                                                                             <a 
-                                                                            onClick={()=>navigate("/employeeDash/editLead",{state:item})}
+                                                                            onClick={()=>navigate("/adminDash/editLead",{state:item})}
                                                                                 className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                                                                             >
                                                                                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -498,7 +509,7 @@ return cyear === parseInt(nyear) && cmonth === parseInt(nmonth) && cday === pars
                                                                         <li  className="sysok">
                                                                             <a
                                                                                onClick={()=>{
-                                                                                navigate(`/employeeDash/importLead/${item._id}`);
+                                                                                navigate(`/adminDash/importLead/${item._id}`);
                                                                                }}
                                                                                 className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                                                                             >
@@ -533,37 +544,38 @@ return cyear === parseInt(nyear) && cmonth === parseInt(nmonth) && cday === pars
                                             </tr>
                                             })
                                            }
-                                            
+
 
                                         </tbody>
                                     </table>
 
                                 </div>
 
+
                                 <div className="prev_next">
 
-<div className="next">
-    <button onClick={prevPage} disabled={currentPage === 1}>
-        <span>Prev</span>
-        <svg width="8" height="10" viewBox="0 0 8 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M2.08748 0L0.912476 1.175L4.72914 5L0.912476 8.825L2.08748 10L7.08748 5L2.08748 0Z" fill="#666D76" />
-        </svg>
+                                    <div className="next">
+                                        <button onClick={prevPage} disabled={currentPage === 1}>
+                                            <span>Prev</span>
+                                            <svg width="8" height="10" viewBox="0 0 8 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M2.08748 0L0.912476 1.175L4.72914 5L0.912476 8.825L2.08748 10L7.08748 5L2.08748 0Z" fill="#666D76" />
+                                            </svg>
 
-    </button>
-</div>
+                                        </button>
+                                    </div>
 
-<div className="on1">
-    <p>{currentPage}</p>
-</div>
+                                    <div className="on1">
+                                        <p>{currentPage}</p>
+                                    </div>
 
-<div className="next">
-    <button onClick={nextPage} disabled={currentPage === totalPages}><span>Next</span>
-        <svg width="8" height="10" viewBox="0 0 8 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M2.08748 0L0.912476 1.175L4.72914 5L0.912476 8.825L2.08748 10L7.08748 5L2.08748 0Z" fill="#666D76" />
-        </svg>
-    </button>
-</div>
-</div>
+                                    <div className="next">
+                                        <button onClick={nextPage} disabled={currentPage === totalPages}><span>Next</span>
+                                            <svg width="8" height="10" viewBox="0 0 8 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M2.08748 0L0.912476 1.175L4.72914 5L0.912476 8.825L2.08748 10L7.08748 5L2.08748 0Z" fill="#666D76" />
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
 
                             </div>
 
@@ -576,4 +588,4 @@ return cyear === parseInt(nyear) && cmonth === parseInt(nmonth) && cday === pars
     );
 };
 
-export default MyLead2;
+export default UserLead;

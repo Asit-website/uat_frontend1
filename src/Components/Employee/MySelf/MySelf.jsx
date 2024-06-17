@@ -19,9 +19,6 @@ const MySelf = ({ setAlert, pop1, setPop1 }) => {
 
    let user1 = JSON?.parse(localStorage.getItem("hrms_user"));
 
-   console.log("user ", user1);
-
-
    return (
       <>
          <div className="employee-dash h-full">

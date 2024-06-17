@@ -561,7 +561,6 @@ fetchMeet();
                           </a>
                         </li>
                         <li onClick={()=>{
-                            console.log("fsdfdkfs");
                             deleteMeet(meet?._id);
                         }} className="sysok">
                           <a
