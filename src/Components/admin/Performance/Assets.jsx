@@ -295,10 +295,10 @@ const Assets = ({ pop, setPop, setAlert }) => {
 
                                     <hr />
 
-                                    <p onClick={()=>{
+                                    {/* <p onClick={()=>{
                                   deleteProject(item?._id);
                                   setShowdots(null);
-                                }}><img src={delete22} alt="" /> <span className='delettspan cursor-pointer'>Delete</span></p>
+                                }}><img src={delete22} alt="" /> <span className='delettspan cursor-pointer'>Delete</span></p> */}
 
                                   </div>
                                  }

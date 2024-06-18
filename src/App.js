@@ -81,6 +81,8 @@ import EmployeeSalary from "./Components/admin/Payroll/EmployeeSalary.jsx";
 import SetSallary from "./Components/admin/Payroll/SetSallary.jsx";
 import Payslip from "./Components/admin/Payslip/Payslip.jsx";
 import DocumentManagement from "./Components/admin/document/DocumentManagement.jsx";
+import TaskLead from "./Components/admin/LeadManagement/TaskLead.jsx";
+import MeetLead from "./Components/admin/LeadManagement/MeetLead.jsx";
 
 var tc;
 
@@ -177,6 +179,9 @@ function App() {
 
               <Route path="/employeeDash/createQuotation" element={<CreateQuotation />} />
               <Route path="/employeeDash/editQuotation" element={<EditQuotation />} />
+              
+              <Route path="/employeeDash/taskLead" element={<TaskLead />}  />      
+              <Route path="/employeeDash/meetLead" element={<MeetLead />}  />
 
 
             </Route>
@@ -305,6 +310,10 @@ function App() {
               <Route path="/adminDash/documentManagement" element={<DocumentManagement />} />
 
               <Route path="/invoicePage" element={<InvoicePage />} />
+              <Route path="/adminDash/taskLead" element={<TaskLead />}  />
+              <Route path="/adminDash/meetLead" element={<MeetLead />}  />
+
+           
 
             </Route>
 

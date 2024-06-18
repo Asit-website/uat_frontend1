@@ -623,6 +623,10 @@ text-align: left;
     background-color: #F8F9FD;
 }
 
+.textALLtITL th {
+   font-size: 12px;
+}
+
 .hrLefThi {
     background-color: #FFFFFF;
     border-radius: 10px;

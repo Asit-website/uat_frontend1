@@ -489,7 +489,7 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
                       <div className="hrmsystemsetup-container">
 
                         <div className="hrmsystemsetup-pagination">
-                               <img src={frame1} alt="" />
+                               {/* <img src={frame1} alt="" /> */}
                               <span>Branch</span>
                        
                         </div>
@@ -556,7 +556,7 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
                       <div className="hrmsystemsetup-container">
 
                       <div className="hrmsystemsetup-pagination">
-                               <img src={frame1} alt="" />
+                               {/* <img src={frame1} alt="" /> */}
                               <span>Department</span>
                        
                         </div>
@@ -611,7 +611,7 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
                     <div className="hrmsystemsetup-leftmenu">
                       <div className="hrmsystemsetup-container">
                       <div className="hrmsystemsetup-pagination">
-                               <img src={frame1} alt="" />
+                               {/* <img src={frame1} alt="" /> */}
                               <span>Designation</span>
                        
                         </div>
@@ -670,7 +670,7 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
                       <div className="hrmsystemsetup-container">
 
                       <div className="hrmsystemsetup-pagination">
-                               <img src={frame1} alt="" />
+                               {/* <img src={frame1} alt="" /> */}
                               <span>Leave Type</span>
                        
                         </div>
@@ -736,7 +736,7 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
                       <div className="hrmsystemsetup-container">
 
                         <div className="hrmsystemsetup-pagination">
-                               <img src={frame1} alt="" />
+                               {/* <img src={frame1} alt="" /> */}
                               <span>Documents Type</span>
                        
                         </div>

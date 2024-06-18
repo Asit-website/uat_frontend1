@@ -372,7 +372,6 @@ const MarkAttendance = ({
           });
 
           
-           console.log("ans ",ans);
         toast.success("Successfuly uploaded");
 
         }

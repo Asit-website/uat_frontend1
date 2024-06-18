@@ -42,7 +42,6 @@ const UserLead = ({ setAlert, pop, setPop }) => {
 
     const fetchLead = async () => {
         const ans = await getLead3();
-        console.log("anss ",ans);
         setAllLead(ans?.allLead);
         setAlleading(ans?.allLead );
     }
