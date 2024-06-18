@@ -616,14 +616,14 @@ fetchMeet();
                             <div className="table11">
                                 <div className="my_open">
                                     <h3>Today's Leads</h3>
-                                    <div>
+                                    {/* <div>
                                         <svg className="floyu" onClick={() => setStart2(!start2)} width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M0.5 4C0.5 2.067 2.067 0.5 4 0.5H28C29.933 0.5 31.5 2.067 31.5 4V28C31.5 29.933 29.933 31.5 28 31.5H4C2.067 31.5 0.5 29.933 0.5 28V4Z" fill="#F5F9FF" />
                                             <path d="M0.5 4C0.5 2.067 2.067 0.5 4 0.5H28C29.933 0.5 31.5 2.067 31.5 4V28C31.5 29.933 29.933 31.5 28 31.5H4C2.067 31.5 0.5 29.933 0.5 28V4Z" stroke="#B3CBF7" />
                                             <path d="M16 14C14.9 14 14 14.9 14 16C14 17.1 14.9 18 16 18C17.1 18 18 17.1 18 16C18 14.9 17.1 14 16 14ZM16 8C14.9 8 14 8.9 14 10C14 11.1 14.9 12 16 12C17.1 12 18 11.1 18 10C18 8.9 17.1 8 16 8ZM16 20C14.9 20 14 20.9 14 22C14 23.1 14.9 24 16 24C17.1 24 18 23.1 18 22C18 20.9 17.1 20 16 20Z" fill="#49515C" />
                                         </svg>
 
-                                        {/* Dropdown menu */}
+                                       
                                         <div
                                             id="dropdownAction"
 
@@ -674,8 +674,7 @@ fetchMeet();
                                             </ul>
 
                                         </div>
-                                    </div>
-
+                                    </div> */}
                                 </div>
                                 <div className="relative overflow-x-auto lonj">
                                     <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">

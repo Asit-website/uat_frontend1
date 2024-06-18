@@ -188,7 +188,7 @@ const EmployeeManagement = ({
                     <img src={pp} alt="" />
                     <span>Add Employee</span>
                   </button></NavLink>
-                  <img src={f} alt="" />
+                  {/* <img src={f} alt="" /> */}
                 </div>
 
               </div>

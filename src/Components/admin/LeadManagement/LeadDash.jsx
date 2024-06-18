@@ -805,7 +805,7 @@ const LeadDash = ({ setAlert, pop, setPop }) => {
               <div className="table11">
                 <div className="my_open">
                   <h3>Today's Leads</h3>
-                  <div>
+                  {/* <div>
                     <svg
                       className="floyu"
                       onClick={() => setStart2(!start2)}
@@ -829,7 +829,6 @@ const LeadDash = ({ setAlert, pop, setPop }) => {
                       />
                     </svg>
 
-                    {/* Dropdown menu */}
                     <div
                       id="dropdownAction"
                       style={stylePeer3}
@@ -904,7 +903,7 @@ const LeadDash = ({ setAlert, pop, setPop }) => {
                         </li>
                       </ul>
                     </div>
-                  </div>
+                  </div> */}
                 </div>
                 <div className="relative overflow-x-auto lonj">
                   <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
