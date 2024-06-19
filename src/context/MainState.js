@@ -1803,6 +1803,47 @@ const MainState = (props) => {
    const data = await get(`${baseUrl}/lead/getLeadById/${id}`, true);
    return data;
   }
+
+  const getLeadSources = async () => {
+   const data = await get(`${baseUrl}/system/getLeadSource`, true);
+   return data;
+};
+
+const postLeadSource = async ({ name }) => {
+   const data = await post(`${baseUrl}/system/postLeadSource`, { name }, true);
+   return data;
+};
+
+const updateLeadSource = async ({ id, name }) => {
+   const data = await put(`${baseUrl}/system/updateLeadSource/${id}`, { name }, true);
+   return data;
+};
+
+const deleteLeadSource = async (id) => {
+   const data = await deleteReq(`${baseUrl}/system/deleteLeadSource/${id}`, true);
+   return data;
+};
+
+
+const getIndustry = async () => {
+   const data = await get(`${baseUrl}/system/getIndustry`, true);
+   return data;
+};
+
+const postIndustry = async ({ name }) => {
+   const data = await post(`${baseUrl}/system/postIndustry`, { name }, true);
+   return data;
+};
+
+const updateIndustry = async ({ id, name }) => {
+   const data = await put(`${baseUrl}/system/updateIndustry/${id}`, { name }, true);
+   return data;
+};
+
+const deleteIndustry = async (id) => {
+   const data = await deleteReq(`${baseUrl}/system/deleteIndustry/${id}`, true);
+   return data;
+};
    
    
    return (
@@ -1858,7 +1899,16 @@ const MainState = (props) => {
          fetchTodayLeave  ,
          deleteQuotation  , 
          departmentEmployee , 
-         getLead3
+         getLead3,
+         getLeadSources,
+         postLeadSource,
+         updateLeadSource,
+         deleteLeadSource,
+         getIndustry,
+         postIndustry,
+         deleteIndustry,
+         updateIndustry
+
       }}>
          {props.children}
       </MainContext.Provider>

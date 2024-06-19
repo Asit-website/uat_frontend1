@@ -14,6 +14,10 @@ import  shop from "../../images/ShoppingBagOpen-d.png"
 
 const EmployeeSidebar = () => {
 
+  let user = JSON.parse(localStorage.getItem("hrms_user"));
+
+  console.log(user);
+
   const leadItem = [
     {
       title:"Lead Dashboard" , 
@@ -91,7 +95,8 @@ const EmployeeSidebar = () => {
             </NavLink>
 
            
-           <li className="mostwrap">
+           {
+             user?.designation === "Intern Digital Marketing" || user?.designation === "Business Development Manager"  ?   <li className="mostwrap">
 
             <h2 onClick={()=>setOpenLead((prev)=>!prev)} className="leadHead"> <img src={shopping} alt="" /> <span> Lead Management</span></h2>
 
@@ -110,22 +115,9 @@ const EmployeeSidebar = () => {
  
             }
 
-           </li>
-
-{/*            
-           <NavLink to="/"><li className="indefy">
-              <img src={identify} alt="" />
-              <a
-                href="#"
-                className=" "
-              >
-                <span  className="">Payroll Management</span>
-              </a>
-
-            </li>
-            </NavLink> */}
-
-
+           </li> : ""
+           }
+          
            <NavLink to="/employeeDash/update"><li className="indefy">
               <img src={userP} alt="" />
               <a

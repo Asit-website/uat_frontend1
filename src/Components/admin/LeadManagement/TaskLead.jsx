@@ -6,6 +6,8 @@ import { useMain } from "../../../hooks/useMain";
 import "./lead.css";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import { useLocation } from "react-router-dom";
+import EmployeeSidebar from "../../Employee/Sidebar/EmployeeSidebar";
+import EmployeeNavbar from "../../Employee/Navbar/EmployeeNavbar";
 
 const TaskLead = ({ setAlert, pop, setPop }) => {
 
@@ -19,6 +21,7 @@ const TaskLead = ({ setAlert, pop, setPop }) => {
 
   const fetchLead = async()=>{
   const ans = await getLeadById(state?.LeadId);
+  console.log(ans?.data);
    if(ans?.status){
  setLeadData(ans?.data);
    }
@@ -32,10 +35,17 @@ const TaskLead = ({ setAlert, pop, setPop }) => {
   return (
     <div className="imprtleadCont">
       <div className="employee-dash h-full">
-        <AdminSidebar pop={pop} setPop={setPop} />
+        {
+          user?.role === "ADMIN" && user?.role === "HR" ?  <AdminSidebar pop={pop} setPop={setPop} /> :
+          <EmployeeSidebar pop={pop} setPop={setPop}/>
+        }
+       
 
         <div className="tm">
-          <AdminNavbar user={user} setAlert={setAlert} />
+          {
+            user?.role === "ADMIN" && user?.role === "HR" ? <AdminNavbar user={user} setAlert={setAlert} /> : <EmployeeNavbar user={user}/>
+          }
+          
 
           <div className="em">
 

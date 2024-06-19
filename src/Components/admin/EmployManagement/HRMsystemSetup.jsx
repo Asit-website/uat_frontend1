@@ -79,7 +79,14 @@ const sidebarItem = [
 ];
 
 const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
-  const { user, getBranchs, postBranch, updateBranch, deleteBranch, getDepartments, postDepartment, updateDepartment, deleteDepartment, getDesignations, postDesignation, updateDesignation, deleteDesignation, postLeaveType, updateLeaveType, getLeaveTypes, deleteLeaveType , postDocSetup  , fetchAllDocs , deleteDocSetup , updateDocSetup} = useMain();
+  const { user, getBranchs, postBranch, updateBranch, deleteBranch, getDepartments, postDepartment, updateDepartment, deleteDepartment, getDesignations, postDesignation, updateDesignation, deleteDesignation, postLeaveType, updateLeaveType, getLeaveTypes, deleteLeaveType , postDocSetup  , fetchAllDocs , deleteDocSetup , updateDocSetup, getLeadSources,
+    postLeadSource,
+    updateLeadSource,
+    deleteLeadSource,
+    getIndustry,
+    postIndustry,
+    deleteIndustry,
+    updateIndustry } = useMain();
 
   const [open, setOpen] = useState(0);
 
@@ -109,8 +116,10 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
   const [designations1, setDesignations1] = useState([]);
   const [leaveTypes, setLeaveTypes] = useState([]);
   const [leaveTypes1, setLeaveTypes1] = useState([]);
+  const [leadSource,setLeadSource] = useState([]);
   const [branch, setBranch] = useState("");
   const [branch1, setBranch1] = useState("");
+
   const [departmentValue, setDepartmentValue] = useState({
     branch: "",
     name: "",

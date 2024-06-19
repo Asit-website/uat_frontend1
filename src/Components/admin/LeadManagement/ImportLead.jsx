@@ -857,7 +857,7 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
                   <input value={meetData.Participant} onChange={meetHandler} name="Participant" type="text" />
                 </label>
 
-                <span className="addnewTx"> Add new</span>
+                {/* <span className="addnewTx"> Add new</span> */}
               </div>
 
 

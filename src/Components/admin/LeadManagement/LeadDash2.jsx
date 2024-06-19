@@ -25,7 +25,7 @@ const LeadDash2 = ({ setAlert, pop, setPop }) => {
     deleteMeetapi,
     deleteLeads
   } = useMain();
-  
+
   const [start1, setStart1] = useState(false);
   const [start3, setStart3] = useState(false);
 
@@ -93,29 +93,29 @@ const LeadDash2 = ({ setAlert, pop, setPop }) => {
 
   const deleteProject = async (id) => {
     confirmAlert({
-        title: 'Are you sure to delete this data?',
-        message: 'All related data to this will be deleted',
-        buttons: [
-            {
-                label: 'Yes, Go Ahead!',
-                style: {
-                    background: "#FF5449"
-                },
-                onClick: async () => {
-                    await deleteLeads(id);
-                    toast.success("delete Successfully");
-                    fetchLead();
-                }
-            },
-            {
-                label: 'Cancel',
+      title: 'Are you sure to delete this data?',
+      message: 'All related data to this will be deleted',
+      buttons: [
+        {
+          label: 'Yes, Go Ahead!',
+          style: {
+            background: "#FF5449"
+          },
+          onClick: async () => {
+            await deleteLeads(id);
+            toast.success("delete Successfully");
+            fetchLead();
+          }
+        },
+        {
+          label: 'Cancel',
 
-                onClick: () => null
-            }
-        ]
+          onClick: () => null
+        }
+      ]
     });
 
-};
+  };
 
   useEffect(() => {
     fetchLead();
@@ -460,7 +460,7 @@ const LeadDash2 = ({ setAlert, pop, setPop }) => {
                                       <a
                                         onClick={() => {
                                           navigate(
-                                            `/adminDash/importLead/${task?.LeadId}`,
+                                            `/employeeDash/importLead/${task?.LeadId}`,
                                             {
                                               state: {
                                                 type: "task",
@@ -489,8 +489,8 @@ const LeadDash2 = ({ setAlert, pop, setPop }) => {
                                     </li>
                                     <li className="sysok">
                                       <a
-                                         onClick={() => {
-                                          navigate("/employeeDash/taskLead" , {state:task})
+                                        onClick={() => {
+                                          navigate("/employeeDash/taskLead", { state: task })
                                         }}
                                         className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                                       >
@@ -701,9 +701,9 @@ const LeadDash2 = ({ setAlert, pop, setPop }) => {
                                 </li>
                                 <li className="sysok">
                                   <a
-                                   onClick={()=>{
-                                    navigate("/employeeDash/meetLead" , {state:meet})
-                                   }}
+                                    onClick={() => {
+                                      navigate("/employeeDash/meetLead", { state: meet })
+                                    }}
                                     className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                                   >
                                     <svg
@@ -797,29 +797,29 @@ const LeadDash2 = ({ setAlert, pop, setPop }) => {
                     <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                       <tr className="thol">
                         <th scope="col" className="px-4 py-3">
-                          Subject
+                          Company
                         </th>
                         <th scope="col" className="px-4 py-3">
-                          Due Date
+                          Email
+                        </th>
+                        <th scope="col" className="px-4 py-3">
+                          FirstName
+                        </th>
+                        <th scope="col" className="px-4 py-3">
+                          LastName
                         </th>
                         <th scope="col" className="px-4 py-3">
                           Status
                         </th>
                         <th scope="col" className="px-4 py-3">
-                          Priority
-                        </th>
-                        <th scope="col" className="px-4 py-3">
-                          Related To
-                        </th>
-                        <th scope="col" className="px-4 py-3">
-                          Contact Name
+                          Action
                         </th>
                       </tr>
                     </thead>
 
                     <tbody>
 
-                     {allLeads.map((lead, index) => (
+                      {allLeads.map((lead, index) => (
                         <tr
                           key={index}
                           className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
@@ -832,55 +832,57 @@ const LeadDash2 = ({ setAlert, pop, setPop }) => {
                             {lead?.FirstName}
                           </td>
                           <td className="px-4 py-4 relt">{lead?.LastName}</td>
+                          <td className="px-4 py-4 relt">{lead?.LeadStatus}</td>
 
                           <td
-                                onClick={() => {
-                                  if (optionedit === index) {
-                                    setOptionEdit(null);
-                                  } else {
-                                    setOptionEdit(index);
-                                  }
+                            onClick={() => {
+                              if (optionedit === index) {
+                                setOptionEdit(null);
+                              } else {
+                                setOptionEdit(index);
+                              }
+                            }}
+                            className="px-6 py-4 relative cursor-pointer"
+                          >
+                            <img src={moreVert} alt="" />
+
+                            {optionedit === index && (
+                              <div className="attaedipop2">
+                                <div onClick={() => navigate("/employeeDash/editLead", { state: lead })} className="attposin" >
+                                  <img src={edit} alt="" />
+                                  <p>Edit</p>
+                                </div>
+                                <div onClick={() => {
+                                  navigate(`/employeeDash/importLead/${lead._id}`);
                                 }}
-                                className="px-6 py-4 relative cursor-pointer"
-                              >
-                                <img src={moreVert} alt="" />
+                                  className="attposin" >
+                                  <svg
+                                    width="20"
+                                    height="14"
+                                    viewBox="0 0 20 14"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      d="M10.0002 2.41667C13.1585 2.41667 15.9752 4.19167 17.3502 7C15.9752 9.80833 13.1585 11.5833 10.0002 11.5833C6.84183 11.5833 4.02516 9.80833 2.65016 7C4.02516 4.19167 6.84183 2.41667 10.0002 2.41667ZM10.0002 0.75C5.8335 0.75 2.27516 3.34167 0.833496 7C2.27516 10.6583 5.8335 13.25 10.0002 13.25C14.1668 13.25 17.7252 10.6583 19.1668 7C17.7252 3.34167 14.1668 0.75 10.0002 0.75ZM10.0002 4.91667C11.1502 4.91667 12.0835 5.85 12.0835 7C12.0835 8.15 11.1502 9.08333 10.0002 9.08333C8.85016 9.08333 7.91683 8.15 7.91683 7C7.91683 5.85 8.85016 4.91667 10.0002 4.91667ZM10.0002 3.25C7.9335 3.25 6.25016 4.93333 6.25016 7C6.25016 9.06667 7.9335 10.75 10.0002 10.75C12.0668 10.75 13.7502 9.06667 13.7502 7C13.7502 4.93333 12.0668 3.25 10.0002 3.25Z"
+                                      fill="#383838"
+                                    />
+                                  </svg>
 
-                                {optionedit === index && (
-                                  <div className="attaedipop2">
-                                    <div   onClick={()=>navigate("/adminDash/editLead",{state:lead})} className="attposin" >
-                                      <img src={edit} alt="" />
-                                      <p>Edit</p>
-                                    </div>
-                                    <div  onClick={()=>{    
-                                       navigate(`/adminDash/importLead/${lead._id}`);  }}
-                                     className="attposin" >
-                                    <svg
-                                      width="20"
-                                      height="14"
-                                      viewBox="0 0 20 14"
-                                      fill="none"
-                                      xmlns="http://www.w3.org/2000/svg"
-                                    >
-                                      <path
-                                        d="M10.0002 2.41667C13.1585 2.41667 15.9752 4.19167 17.3502 7C15.9752 9.80833 13.1585 11.5833 10.0002 11.5833C6.84183 11.5833 4.02516 9.80833 2.65016 7C4.02516 4.19167 6.84183 2.41667 10.0002 2.41667ZM10.0002 0.75C5.8335 0.75 2.27516 3.34167 0.833496 7C2.27516 10.6583 5.8335 13.25 10.0002 13.25C14.1668 13.25 17.7252 10.6583 19.1668 7C17.7252 3.34167 14.1668 0.75 10.0002 0.75ZM10.0002 4.91667C11.1502 4.91667 12.0835 5.85 12.0835 7C12.0835 8.15 11.1502 9.08333 10.0002 9.08333C8.85016 9.08333 7.91683 8.15 7.91683 7C7.91683 5.85 8.85016 4.91667 10.0002 4.91667ZM10.0002 3.25C7.9335 3.25 6.25016 4.93333 6.25016 7C6.25016 9.06667 7.9335 10.75 10.0002 10.75C12.0668 10.75 13.7502 9.06667 13.7502 7C13.7502 4.93333 12.0668 3.25 10.0002 3.25Z"
-                                        fill="#383838"
-                                      />
-                                    </svg>
-
-                                      <p>View</p>
-                                    </div>
-                                    <div 
-                                    onClick={()=>{  deleteProject(lead?._id)  }} 
-                                    className="attposin">
-                                      <img src={delete4} alt="" />
-                                      <p>Delete</p>
-                                    </div>
-                                  </div>
-                                )}
-                              </td>
+                                  <p>View</p>
+                                </div>
+                                <div
+                                  onClick={() => { deleteProject(lead?._id) }}
+                                  className="attposin">
+                                  <img src={delete4} alt="" />
+                                  <p>Delete</p>
+                                </div>
+                              </div>
+                            )}
+                          </td>
                         </tr>
                       ))}
-                      
+
                     </tbody>
 
                   </table>

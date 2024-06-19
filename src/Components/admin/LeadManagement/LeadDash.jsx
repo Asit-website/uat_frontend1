@@ -827,6 +827,9 @@ const LeadDash = ({ setAlert, pop, setPop }) => {
                         <th scope="col" className="px-4 py-3">
                           LastName
                         </th>
+                        <th scope="col" className="px-4 py-3">
+                          Status
+                        </th>
 
                         <th scope="col" className="px-4 py-3">
                           Action
@@ -847,6 +850,7 @@ const LeadDash = ({ setAlert, pop, setPop }) => {
                             {lead?.FirstName}
                           </td>
                           <td className="px-4 py-4 relt">{lead?.LastName}</td>
+                          <td className="px-4 py-4 relt">{lead?.LeadStatus}</td>
 
                           <td
                                 onClick={() => {
