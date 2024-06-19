@@ -20,11 +20,11 @@ import Selectmultidropdown from "./MultiSelect";
 const sidebarItem = [
 
   {
-    title: "Lead Status",
+    title: "Industry",
     img: hub3,
     tableData: [
       {
-        title: "Status",
+        title: "Industry",
       },
       {
         title: "ACTION",
@@ -32,11 +32,11 @@ const sidebarItem = [
     ],
   },
   {
-    title: "Industry",
+    title: "Lead Source",
     img: hub3,
     tableData: [
       {
-        title: "Industry",
+        title: "Source",
       },
      
       {
@@ -47,7 +47,7 @@ const sidebarItem = [
 ];
 
 const LeadSystemSetting = ({ setAlert, pop, setPop }) => {
-  const { user, getBranchs, deleteBranch, getDepartments, deleteDepartment, getDesignations, deleteDesignation, getLeaveTypes, deleteLeaveType   , fetchAllDocs  , postLeadStatus ,postLeadSource2 ,AllLeadStatus ,AllLeadSource} = useMain();
+  const { user, getBranchs, deleteBranch, getDepartments, deleteDepartment, getDesignations, deleteDesignation, getLeaveTypes, deleteLeaveType   , fetchAllDocs  , postLeadStatus ,postLeadSource2 ,AllLeadStatus ,AllLeadSource  ,DeleteLeadStatus ,DeleteLeadSouce  ,UpdateLeadStatus  ,UpdateLeadSource} = useMain();
 
   const [open, setOpen] = useState(0);
 
@@ -70,6 +70,17 @@ const LeadSystemSetting = ({ setAlert, pop, setPop }) => {
     setAllSource(ans?.data);
 
   }
+
+  // const deleteHandler = async(id)=>{
+  //   const toastId = toast.loading("Loading...");
+
+  //   const ans = await DeleteLeadSouce(id);
+  //    if(ans?.status){
+  //     toast.
+  //    }
+
+  //   toast.dismiss(toastId);
+  // }
 
   useEffect(()=>{
     fetchAllStatus();
@@ -263,7 +274,7 @@ const LeadSystemSetting = ({ setAlert, pop, setPop }) => {
 
                       <div className="hrmsystemsetup-pagination">
                                {/* <img src={frame1} alt="" /> */}
-                              <span>Lead Status</span>
+                              <span>Industry</span>
                        
                         </div>
 
@@ -317,7 +328,7 @@ const LeadSystemSetting = ({ setAlert, pop, setPop }) => {
                       <div className="hrmsystemsetup-container">
 
                       <div className="hrmsystemsetup-pagination">
-                              <span>Industry</span>
+                              <span>Lead Source</span>
                        
                         </div>
 
@@ -470,15 +481,15 @@ const LeadSystemSetting = ({ setAlert, pop, setPop }) => {
             <div className="popup1 popup5 pono2">
               <div className="popNav">
 
-<h2>Create New Lead Status</h2>
+<h2>Create New Industry</h2>
 <img onClick={() => setPopup5(false)} src={cross1} alt="" />
 
         </div>
               <hr />
               <label >
-                <p className="popTitl">Lead Status</p>
+                <p className="popTitl">Industry</p>
 
-                <input type="text" placeholder="Enter Lead Status" name="status" value={leadStatus?.status} onChange={(e) => {
+                <input type="text" placeholder="Enter Industry" name="status" value={leadStatus?.status} onChange={(e) => {
                   setLeadStatus({ ...leadStatus, [e.target.name]: e.target.value });
                 }} />
               
@@ -503,15 +514,15 @@ const LeadSystemSetting = ({ setAlert, pop, setPop }) => {
             <div className="popup1 popup5 pono2">
               <div className="popNav">
 
-<h2>Create New Industry</h2>
+<h2>Create New Lead Source</h2>
 <img onClick={() => setPopup6(false)} src={cross1} alt="" />
 
         </div>
               <hr />
               <label >
-                <p className="popTitl">Industry</p>
+                <p className="popTitl">Lead Source</p>
 
-                <input type="text" placeholder="Enter Industry" name="status" value={leadSource?.status} onChange={(e) => {
+                <input type="text" placeholder="Enter Lead Source" name="status" value={leadSource?.status} onChange={(e) => {
                   setLeadSource({ ...leadSource, [e.target.name]: e.target.value });
                 }} />
               
