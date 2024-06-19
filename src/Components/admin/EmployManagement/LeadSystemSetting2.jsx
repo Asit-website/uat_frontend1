@@ -166,10 +166,6 @@ const LeadSystemSetting2 = ({ setAlert, pop, setPop }) => {
    
     toast.dismiss(toastId);
   }
-  
-
-
-
 
 
   const handleDelete = async (id, type) => {
@@ -204,10 +200,6 @@ const LeadSystemSetting2 = ({ setAlert, pop, setPop }) => {
     const ans = await fetchAllDocs();
     setAllDocs(ans?.data);
      }
-
-
-
-
 
  useEffect(()=>{
     getDocs();

@@ -4,18 +4,12 @@ import AdminSidebar from "../../admin/Sidebar/AdminSidebar";
 import "react-calendar/dist/Calendar.css";
 import { useMain } from "../../../hooks/useMain";
 import "./HRMsystem.css";
-import bran from "../../images/hub_FILL0_wght400_GRAD0_opsz24 1.png"
 import deleted from "../../images/deleted.png";
 import edited from "../../images/edited.png";
 import textType from "../../images/Text Type.png";
-import hub  from "../../images/hub2.png"
-import hub2 from "../../images/work_FILL0_wght400_GRAD0_opsz24 1.png"
 import hub3 from "../../images/hub3.png"
-import frame1 from "../../images/Frame 9688.png"
 import cross1 from "../../images/cross1.png"
 import toast from "react-hot-toast";
-import plus from "../../images/pluss.png"
-import Selectmultidropdown from "./MultiSelect";
 
 const sidebarItem = [
 
@@ -47,7 +41,7 @@ const sidebarItem = [
 ];
 
 const LeadSystemSetting = ({ setAlert, pop, setPop }) => {
-  const { user, getBranchs, deleteBranch, getDepartments, deleteDepartment, getDesignations, deleteDesignation, getLeaveTypes, deleteLeaveType   , fetchAllDocs  , postLeadStatus ,postLeadSource2 ,AllLeadStatus ,AllLeadSource  ,DeleteLeadStatus ,DeleteLeadSouce  ,UpdateLeadStatus  ,UpdateLeadSource} = useMain();
+  const { user, getBranchs, getDepartments, getDesignations, getLeaveTypes   , fetchAllDocs  , postLeadStatus ,postLeadSource2 ,AllLeadStatus ,AllLeadSource   ,UpdateLeadStatus  ,UpdateLeadSource} = useMain();
 
   const [open, setOpen] = useState(0);
 
@@ -71,16 +65,7 @@ const LeadSystemSetting = ({ setAlert, pop, setPop }) => {
 
   }
 
-  // const deleteHandler = async(id)=>{
-  //   const toastId = toast.loading("Loading...");
 
-  //   const ans = await DeleteLeadSouce(id);
-  //    if(ans?.status){
-  //     toast.
-  //    }
-
-  //   toast.dismiss(toastId);
-  // }
 
   useEffect(()=>{
     fetchAllStatus();
@@ -138,8 +123,6 @@ const LeadSystemSetting = ({ setAlert, pop, setPop }) => {
     getData();
   }, [refreshFlag]);
 
-
-
   const handleCreateLeadStatus = async () => {
     const toastId = toast.loading("Loading...");
     const ans = await postLeadStatus({
@@ -155,15 +138,44 @@ const LeadSystemSetting = ({ setAlert, pop, setPop }) => {
    
     toast.dismiss(toastId);
   }
-  
+
+  const UpdateLeadStatus1 = async () => {
+    const toastId = toast.loading("Loading...");
+    const ans = await UpdateLeadStatus({
+      status: leadStatus?.status,
+    });
+
+    if (ans.status) {
+      toast.success("success");
+      fetchAllStatus();
+      setLeadStatus("");
+      setPopup5(false);
+    }
+   
+    toast.dismiss(toastId);
+  }
+
+  const UpdateLeadSource1 = async () => {
+    const toastId = toast.loading("Loading...");
+    const ans = await UpdateLeadSource({
+      status: leadStatus?.status,
+    });
+
+    if (ans.status) {
+      toast.success("success");
+      fetchAllStatus();
+      setLeadStatus("");
+      setPopup5(false);
+    }
+   
+    toast.dismiss(toastId);
+  }
 
   const handleCreateLeadSource = async () => {
     const toastId = toast.loading("Loading...");
     const ans = await postLeadSource2({
       status: leadSource?.status,
     });
-
-
 
     if (ans.status) {
       toast.success("success");
@@ -174,37 +186,7 @@ const LeadSystemSetting = ({ setAlert, pop, setPop }) => {
    
     toast.dismiss(toastId);
   }
-  
 
-
-
-
-
-  const handleDelete = async (id, type) => {
-    const toastId = toast.loading("Loading...");
-    let ans;
-    if (type === 'branch') {
-      ans = await deleteBranch(id);
-    }
-    else if (type === 'department') {
-      ans = await deleteDepartment(id);
-    }
-    else if (type === 'designation') {
-      ans = await deleteDesignation(id);
-    }
-    else if (type === 'leaveType') {
-      ans = await deleteLeaveType(id);
-    }
-
-    if (ans.success) {
-      toast.success(ans.message);
-      setRefreshFlag(!refreshFlag);
-    } else {
-      toast.success("something went wrong");
-    }
-
-    toast.dismiss(toastId);
-  };
 
   const [allDocs , setAllDocs] = useState([]);
 
@@ -213,17 +195,9 @@ const LeadSystemSetting = ({ setAlert, pop, setPop }) => {
     setAllDocs(ans?.data);
      }
 
-
-
- const [isUpdate , setIsUpdate] = useState(false);
-
-
-
  useEffect(()=>{
     getDocs();
  },[])
-
- console.log("op 5 ",popup5 , "6b " , popup6);
 
   return (
     <>
@@ -302,17 +276,8 @@ const LeadSystemSetting = ({ setAlert, pop, setPop }) => {
                                   <td className="px-6 py-4 tabl3Titl">{item?.name}</td>
                                   {/* <td className="px-6 py-4 tabl3Titl">{item?.days}</td> */}
                                   <td className="px-6 py-4 flex hrmActions">
-                                    <img className="cursor-pointer" onClick={() => {
-                                      setLeaveTypeValue1({
-                                        days: item?.days,
-                                        name: item?.name
-                                      });
-                                      setId(item?._id);
-                                      setPopup41(true);
-                                    }} src={edited} alt="" />
-                                    <img className="cursor-pointer" onClick={() => {
-                                      handleDelete(item._id, 'leaveType');
-                                    }} src={deleted} alt="" />
+                                    <img className="cursor-pointer"  src={edited} alt="" />
+                                    <img className="cursor-pointer" src={deleted} alt="" />
                                   </td>
                                 </tr>
                               ))}
@@ -354,19 +319,11 @@ const LeadSystemSetting = ({ setAlert, pop, setPop }) => {
                               {allSource?.length === 0 ? 'No data found' : allSource?.map((item, index) => (
                                 <tr key={index} className="bg-white ">
                                   <td className="px-6 py-4 tabl3Titl">{item?.name}</td>
-                                  {/* <td className="px-6 py-4 tabl3Titl">{item?.days}</td> */}
                                   <td className="px-6 py-4 flex hrmActions">
-                                    <img className="cursor-pointer" onClick={() => {
-                                      setLeaveTypeValue1({
-                                        days: item?.days,
-                                        name: item?.name
-                                      });
-                                      setId(item?._id);
-                                      setPopup41(true);
-                                    }} src={edited} alt="" />
-                                    <img className="cursor-pointer" onClick={() => {
-                                      handleDelete(item._id, 'leaveType');
-                                    }} src={deleted} alt="" />
+                                    <img className="cursor-pointer"  src={edited} alt="" />
+                                    <img className="cursor-pointer" 
+                                    //  onClick={()=>DeleteLeadSouce1(item?._id) }
+                                   src={deleted} alt="" />
                                   </td>
                                 </tr>
                               ))}
