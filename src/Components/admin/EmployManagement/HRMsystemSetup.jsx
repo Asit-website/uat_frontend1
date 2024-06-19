@@ -89,11 +89,11 @@ const sidebarItem = [
     ],
   },
   {
-    title: "Lead Source",
+    title: "Industry",
     img: hub3,
     tableData: [
       {
-        title: "Source",
+        title: "Industry",
       },
      
       {
@@ -124,7 +124,6 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
   }
   const fetchAllSource = async()=>{
     const ans  = await AllLeadSource();
-    console.log('ans',ans);
     setAllSource(ans?.data);
 
   }
@@ -879,7 +878,7 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
                       <div className="hrmsystemsetup-container">
 
                       <div className="hrmsystemsetup-pagination">
-                              <span>Lead Source</span>
+                              <span>Industry</span>
                        
                         </div>
 

@@ -318,19 +318,22 @@ const EditLead2 = ({ setAlert, pop, setPop }) => {
                                             <label htmlFor="Industry">Industry</label>
                                             <select  value={formdata?.Industry}  name="Industry" onChange={changeHandler} id="Industry">
                                                  <option disabled>Select Industry</option>
-                                                <option>IT_B2B</option>
-                                                <option>IT_B2C</option>
+                                                {
+                                                    allLeadStatus?.map((item ,index)=>(
+                                                        <option key={index} value={item?.name}>{item?.name}</option>
+                                                    ))
+                                                }
+
                                             </select>
                                         </div>
                                         <div className="lead_inp1">
                                             <label htmlFor="">Lead Status</label>
                                             <select value={formdata?.LeadStatus}  name="LeadStatus" onChange={changeHandler}  id="">
                                                 <option disabled>Select Status</option>
-                                                {
-                                                    allLeadStatus?.map((item ,index)=>(
-                                                        <option key={index} value={item?.name}>{item?.name}</option>
-                                                    ))
-                                                }
+                                                < option value="Cold">Cold</option>
+                                                <option value="Warm">Warm</option>
+                                                <option value="Follow-up">Follow-up</option>
+                                                <option value="Hot">Hot</option>
                                             </select>
                                         </div>
                                     </div>
