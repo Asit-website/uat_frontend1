@@ -83,6 +83,8 @@ import Payslip from "./Components/admin/Payslip/Payslip.jsx";
 import DocumentManagement from "./Components/admin/document/DocumentManagement.jsx";
 import TaskLead from "./Components/admin/LeadManagement/TaskLead.jsx";
 import MeetLead from "./Components/admin/LeadManagement/MeetLead.jsx";
+import LeadSystemSetting from "./Components/admin/EmployManagement/LeadSystemSetting.jsx";
+import LeadSystemSetting2 from "./Components/admin/EmployManagement/LeadSystemSetting2.jsx";
 
 var tc;
 
@@ -312,6 +314,8 @@ function App() {
               <Route path="/invoicePage" element={<InvoicePage />} />
               <Route path="/adminDash/taskLead" element={<TaskLead />}  />
               <Route path="/adminDash/meetLead" element={<MeetLead />}  />
+              <Route path="/adminDash/LeadSystemSetting" element={<LeadSystemSetting />}  />
+              <Route path="/employeeDash/LeadSystemSetting" element={<LeadSystemSetting2 />}  />
 
            
 

@@ -798,6 +798,15 @@ color: #FFFFFF;
 color: #DEDEE6;  
 }
 
+.systSset{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  height: 44px;
+  gap: 12px;
+  cursor: pointer;
+}
+
 .allDasCon .systSset{
   width: 100%;
   display: flex;
@@ -816,6 +825,15 @@ color: #DEDEE6;
 /* color: #7E8299;   */
 }
 
+.systSset span{
+  font-family: Inter;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 24px;
+  letter-spacing: 0px;
+  text-align: left;
+/* color: #7E8299;   */
+}
 
 .adDasWrap{
   display: flex;

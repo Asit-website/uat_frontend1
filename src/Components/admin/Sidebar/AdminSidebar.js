@@ -418,6 +418,19 @@ const AdminSidebar = ({ pop, setPop }) => {
 
               {/* =================payroll management end============ */}
 
+              {/*   lead system setting start */}
+
+
+              <NavLink to="/adminDash/LeadSystemSetting"><div className={`${window.location.pathname === "/adminDash/LeadSystemSetting"  ? "hh" : ""} setWrap`}>
+              {/* <p>Setting</p> */}
+              <div className="systSset">
+                <img src={`${window.location.pathname === "/adminDash/LeadSystemSetting"   ? perty : employee}`} alt="" />
+                <span className={`${window.location.pathname==="/adminDash/LeadSystemSetting" ? "fan" : ""}`}>Lead System Setting</span>
+              </div>
+            </div></NavLink>
+
+              {/*   lead system setting end */}
+
               {/* ===================performance setup start========= */}
               <div
                 onClick={() => setOpenPerform((prev) => !prev)}

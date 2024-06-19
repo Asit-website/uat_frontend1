@@ -1,22 +1,16 @@
 import React, { useState } from "react";
-import lokia from "../../images/lokia.png";
-import calling from "../../images/calling.png";
 import chakka from "../../images/chakka.png";
 import { NavLink, useNavigate } from "react-router-dom";
 import chart from "../../images/ChartPieSlice.png"
 import shopping from "../../images/ShoppingBagOpen-d.png"
-import identify from "../../images/IdentificationBadge-d.png"
 import userP from "../../images/userProfile.png"
-import usepp from "../../images/userPp.png"
-import user3d from "../../images/UsersThree-d.png"
-import chatd from "../../images/ChatsTeardrop-d.png"
+import employee from '../../images/employee.svg';
+import perty from '../../images/perty.svg';
 import  shop from "../../images/ShoppingBagOpen-d.png"
 
 const EmployeeSidebar = () => {
 
   let user = JSON.parse(localStorage.getItem("hrms_user"));
-
-  console.log(user);
 
   const leadItem = [
     {
@@ -81,6 +75,13 @@ const EmployeeSidebar = () => {
             </li>
             </NavLink>
 
+            <NavLink to="/employeeDash/LeadSystemSetting"><div className={`${window.location.pathname === "/employeeDash/LeadSystemSetting"  ? "hh" : ""} setWrap`}>
+              {/* <p>Setting</p> */}
+              <div className="systSset">
+                <img src={`${window.location.pathname === "/employeeDash/LeadSystemSetting"   ? perty : employee}`} alt="" />
+                <span className={`${window.location.pathname==="/employeeDash/LeadSystemSetting" ? "fan" : ""}`}>Lead System Setting</span>
+              </div>
+            </div></NavLink>
         
             <NavLink to="/employeeDash/mySelf"><li className="indefy">
               <img src={shop} alt="" />
