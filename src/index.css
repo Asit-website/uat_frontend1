@@ -4456,6 +4456,22 @@ input::-webkit-inner-spin-button {
 .my_open1{
   padding: 0px 20px !important;
 }
+.userFilterr{
+  width: 196px;
+  height: 34px;
+  padding: 8px 16px ;
+  border-radius: 10px;
+  background: white;
+font-family: Inter;
+color: #1B2533;
+font-size: 14px;
+font-weight: 400;
+line-height: 20px;
+letter-spacing: 0.0025em;
+text-align: left;
+
+  border: 1px solid #D0D4DC;  
+}
 .salay th,
 .salay td{
   color: #545962 !important ;

@@ -40,8 +40,7 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
 
   const [data, setData] = useState({});
 
-  let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
-
+   console.log('data ',data);
 
   const [notOpenEdit, setnotOpenEdit] = useState(false);
 
@@ -280,7 +279,7 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
                 />
 
                 <div className="lTITL">
-                  <h2>Kanishka Tyagi</h2>
+                  <h2>{data?.FirstName} {" "} {data?.LastName}</h2>
                   <p style={{ display: "flex" }}>
                     <img src={bx} /> <span> Add Tags</span>
                   </p>
