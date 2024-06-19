@@ -227,8 +227,8 @@ const EditLead2 = ({ setAlert, pop, setPop }) => {
                                     
                                     <div className="lead_inp">
                                         <div className="lead_inp1">
-                                            <label htmlFor="">Lead Owner</label>
-                                            <input type="LeadOwner" value={item?.LeadOwner?.fullName} disabled onChange={changeHandler}  />
+                                            <label htmlFor="">Lead Owner *</label>
+                                            <input required type="LeadOwner" value={item?.LeadOwner?.fullName} disabled onChange={changeHandler}  />
 
                                             {/* <select name="LeadOwner"  onChange={changeHandler} id="">
                                                 <option selected disabled value="info">Select Owner</option>
@@ -247,8 +247,8 @@ const EditLead2 = ({ setAlert, pop, setPop }) => {
 
                                     <div className="lead_inp">
                                         <div className="lead_inp1 lead_inp11">
-                                            <label htmlFor="">First Name</label>
-                                            <select style={{ width: "91px !important" }} className="selr" name="" id="">
+                                            <label htmlFor="">First Name *</label>
+                                            <select required style={{ width: "91px !important" }} className="selr" name="" id="">
                                                 <option value="info">None</option>
                                             </select>
                                         </div>
@@ -268,15 +268,15 @@ const EditLead2 = ({ setAlert, pop, setPop }) => {
                                             <input value={formdata.Title} name="Title" onChange={changeHandler}  type="text" />
                                         </div>
                                         <div className="lead_inp1">
-                                            <label htmlFor="">Email</label>
-                                            <input value={formdata.Email} name="Email" onChange={changeHandler} type="email" />
+                                            <label htmlFor="">Email *</label>
+                                            <input required value={formdata.Email} name="Email" onChange={changeHandler} type="email" />
                                         </div>
                                     </div>
 
                                     <div className="lead_inp">
                                         <div className="lead_inp1">
-                                            <label htmlFor="">Phone</label>
-                                            <input value={formdata.Phone} name="Phone" onChange={changeHandler} type="number" />
+                                            <label htmlFor="">Phone *</label>
+                                            <input required value={formdata.Phone} name="Phone" onChange={changeHandler} type="number" />
                                         </div>
                                         <div className="lead_inp1">
                                             <label htmlFor="">Fax</label>
@@ -327,8 +327,8 @@ const EditLead2 = ({ setAlert, pop, setPop }) => {
                                             </select>
                                         </div>
                                         <div className="lead_inp1">
-                                            <label htmlFor="">Lead Status</label>
-                                            <select value={formdata?.LeadStatus}  name="LeadStatus" onChange={changeHandler}  id="">
+                                            <label htmlFor="">Lead Status *</label>
+                                            <select required value={formdata?.LeadStatus}  name="LeadStatus" onChange={changeHandler}  id="">
                                                 <option disabled>Select Status</option>
                                                 < option value="Cold">Cold</option>
                                                 <option value="Warm">Warm</option>

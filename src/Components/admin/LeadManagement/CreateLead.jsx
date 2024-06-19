@@ -224,20 +224,20 @@ const CreateLead = ({ setAlert, pop, setPop }) => {
                                     
                                     <div className="lead_inp">
                                         <div className="lead_inp1">
-                                            <label htmlFor="">Lead Owner</label>
-                                            <input type="LeadOwner" value={userDetail?.fullName} disabled onChange={changeHandler}  />
+                                            <label htmlFor="">Lead Owner *</label>
+                                            <input required type="LeadOwner" value={userDetail?.fullName} disabled onChange={changeHandler}  />
 
                                         </div>
                                         <div className="lead_inp1">
-                                            <label htmlFor="">Company</label>
-                                            <input type="text" value={formdata.Company} name="Company" onChange={changeHandler} />
+                                            <label htmlFor="">Company *</label>
+                                            <input required type="text" value={formdata.Company} name="Company" onChange={changeHandler} />
                                         </div>
                                     </div>
 
                                     <div className="lead_inp">
                                         <div className="lead_inp1 lead_inp11">
-                                            <label htmlFor="">First Name</label>
-                                            <select style={{ width: "91px !important" }} className="selr" name="" id="">
+                                            <label htmlFor="">First Name *</label>
+                                            <select required style={{ width: "91px !important" }} className="selr" name="" id="">
                                                 <option>None</option>
                                                 <option>Mr</option>
                                                 <option>Mrs</option>
@@ -259,15 +259,15 @@ const CreateLead = ({ setAlert, pop, setPop }) => {
                                             <input value={formdata.Title} name="Title" onChange={changeHandler}  type="text" />
                                         </div>
                                         <div className="lead_inp1">
-                                            <label htmlFor="">Email</label>
-                                            <input value={formdata.Email} name="Email" onChange={changeHandler} type="email" />
+                                            <label htmlFor="">Email *</label>
+                                            <input required value={formdata.Email} name="Email" onChange={changeHandler} type="email" />
                                         </div>
                                     </div>
 
                                     <div className="lead_inp">
                                         <div className="lead_inp1">
-                                            <label htmlFor="">Phone</label>
-                                            <input value={formdata.Phone} name="Phone" onChange={changeHandler} type="number" />
+                                            <label htmlFor="">Phone *</label>
+                                            <input required value={formdata.Phone} name="Phone" onChange={changeHandler} type="number" />
                                         </div>
                                         <div className="lead_inp1">
                                             <label htmlFor="">Fax</label>
@@ -318,8 +318,8 @@ const CreateLead = ({ setAlert, pop, setPop }) => {
                                             </select>
                                         </div>
                                         <div className="lead_inp1">
-                                            <label htmlFor="">Lead Status</label>
-                                            <select value={formdata?.LeadStatus}  name="LeadStatus" onChange={changeHandler}  id="">
+                                            <label htmlFor="">Lead Status *</label>
+                                            <select required value={formdata?.LeadStatus}  name="LeadStatus" onChange={changeHandler}  id="">
                                                 <option >Select Status</option>
                                                 
                                               < option value="Cold">Cold</option>
