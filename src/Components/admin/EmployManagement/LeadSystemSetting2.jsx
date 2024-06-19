@@ -4,18 +4,12 @@ import AdminSidebar from "../../admin/Sidebar/AdminSidebar";
 import "react-calendar/dist/Calendar.css";
 import { useMain } from "../../../hooks/useMain";
 import "./HRMsystem.css";
-import bran from "../../images/hub_FILL0_wght400_GRAD0_opsz24 1.png"
 import deleted from "../../images/deleted.png";
 import edited from "../../images/edited.png";
 import textType from "../../images/Text Type.png";
-import hub  from "../../images/hub2.png"
-import hub2 from "../../images/work_FILL0_wght400_GRAD0_opsz24 1.png"
 import hub3 from "../../images/hub3.png"
-import frame1 from "../../images/Frame 9688.png"
 import cross1 from "../../images/cross1.png"
 import toast from "react-hot-toast";
-import plus from "../../images/pluss.png"
-import Selectmultidropdown from "./MultiSelect";
 import EmployeeSidebar from "../../Employee/Sidebar/EmployeeSidebar";
 import EmployeeNavbar from "../../Employee/Navbar/EmployeeNavbar";
 
@@ -49,7 +43,7 @@ const sidebarItem = [
 ];
 
 const LeadSystemSetting2 = ({ setAlert, pop, setPop }) => {
-  const { user, getBranchs, deleteBranch, getDepartments, deleteDepartment, getDesignations, deleteDesignation, getLeaveTypes, deleteLeaveType   , fetchAllDocs  , postLeadStatus ,postLeadSource2 ,AllLeadStatus ,AllLeadSource  ,DeleteLeadStatus ,DeleteLeadSouce  ,UpdateLeadStatus  ,UpdateLeadSource} = useMain();
+  const { user, getBranchs, getDepartments, getDesignations, getLeaveTypes   , fetchAllDocs  , postLeadStatus ,postLeadSource2 ,AllLeadStatus ,AllLeadSource   ,UpdateLeadStatus  ,UpdateLeadSource , deleteIndustry , deleteLeadSource} = useMain();
 
   const [open, setOpen] = useState(0);
 
@@ -72,6 +66,7 @@ const LeadSystemSetting2 = ({ setAlert, pop, setPop }) => {
     setAllSource(ans?.data);
 
   }
+
 
 
   useEffect(()=>{
@@ -104,10 +99,6 @@ const LeadSystemSetting2 = ({ setAlert, pop, setPop }) => {
    
   });
 
-  const [leaveTypeValue1, setLeaveTypeValue1] = useState({
-    name: "",
-    days: ""
-  });
   const [refreshFlag, setRefreshFlag] = useState(false);
 
 
@@ -130,8 +121,6 @@ const LeadSystemSetting2 = ({ setAlert, pop, setPop }) => {
     getData();
   }, [refreshFlag]);
 
-
-
   const handleCreateLeadStatus = async () => {
     const toastId = toast.loading("Loading...");
     const ans = await postLeadStatus({
@@ -147,15 +136,44 @@ const LeadSystemSetting2 = ({ setAlert, pop, setPop }) => {
    
     toast.dismiss(toastId);
   }
-  
+
+  const UpdateLeadStatus1 = async () => {
+    const toastId = toast.loading("Loading...");
+    const ans = await UpdateLeadStatus({
+      status: leadStatus?.status,
+    });
+
+    if (ans.status) {
+      toast.success("success");
+      fetchAllStatus();
+      setLeadStatus("");
+      setPopup5(false);
+    }
+   
+    toast.dismiss(toastId);
+  }
+
+  const UpdateLeadSource1 = async () => {
+    const toastId = toast.loading("Loading...");
+    const ans = await UpdateLeadSource({
+      status: leadStatus?.status,
+    });
+
+    if (ans.status) {
+      toast.success("success");
+      fetchAllStatus();
+      setLeadStatus("");
+      setPopup5(false);
+    }
+   
+    toast.dismiss(toastId);
+  }
 
   const handleCreateLeadSource = async () => {
     const toastId = toast.loading("Loading...");
     const ans = await postLeadSource2({
       status: leadSource?.status,
     });
-
-
 
     if (ans.status) {
       toast.success("success");
@@ -168,32 +186,6 @@ const LeadSystemSetting2 = ({ setAlert, pop, setPop }) => {
   }
 
 
-  const handleDelete = async (id, type) => {
-    const toastId = toast.loading("Loading...");
-    let ans;
-    if (type === 'branch') {
-      ans = await deleteBranch(id);
-    }
-    else if (type === 'department') {
-      ans = await deleteDepartment(id);
-    }
-    else if (type === 'designation') {
-      ans = await deleteDesignation(id);
-    }
-    else if (type === 'leaveType') {
-      ans = await deleteLeaveType(id);
-    }
-
-    if (ans.success) {
-      toast.success(ans.message);
-      setRefreshFlag(!refreshFlag);
-    } else {
-      toast.success("something went wrong");
-    }
-
-    toast.dismiss(toastId);
-  };
-
   const [allDocs , setAllDocs] = useState([]);
 
   const getDocs = async()=>{
@@ -205,12 +197,31 @@ const LeadSystemSetting2 = ({ setAlert, pop, setPop }) => {
     getDocs();
  },[])
 
+ const deleteIndustryHandler = async(id)=>{
+  const ans =await deleteIndustry(id);
+  if(ans?.success){
+    toast.success('Delete Succesfuly');
+    fetchAllStatus();
+
+  }
+ }
+
+ const deleteLeadSourceHandler = async(id)=>{
+  const ans =await deleteLeadSource(id);
+  if(ans?.success){
+    toast.success('Delete Succesfuly');
+    fetchAllSource();
+
+  }
+ }
+
   return (
     <>
       <div className="employee-dash h-full">
         <EmployeeSidebar pop={pop} setPop={setPop} />
 
         <div className="tm">
+          
           <EmployeeNavbar user={user} setAlert={setAlert} />
 
           <div className="em">
@@ -280,18 +291,10 @@ const LeadSystemSetting2 = ({ setAlert, pop, setPop }) => {
                               {allStatus.length === 0 ? 'No data found' : allStatus.map((item, index) => (
                                 <tr key={index} className="bg-white ">
                                   <td className="px-6 py-4 tabl3Titl">{item?.name}</td>
-                                  {/* <td className="px-6 py-4 tabl3Titl">{item?.days}</td> */}
                                   <td className="px-6 py-4 flex hrmActions">
-                                    <img className="cursor-pointer" onClick={() => {
-                                      setLeaveTypeValue1({
-                                        days: item?.days,
-                                        name: item?.name
-                                      });
-                                      setId(item?._id);
-                                      setPopup41(true);
-                                    }} src={edited} alt="" />
-                                    <img className="cursor-pointer" onClick={() => {
-                                      handleDelete(item._id, 'leaveType');
+                                    <img className="cursor-pointer"  src={edited} alt="" />
+                                    <img className="cursor-pointer" onClick={(e)=>{
+                                            deleteIndustryHandler(item?._id);
                                     }} src={deleted} alt="" />
                                   </td>
                                 </tr>
@@ -334,19 +337,9 @@ const LeadSystemSetting2 = ({ setAlert, pop, setPop }) => {
                               {allSource?.length === 0 ? 'No data found' : allSource?.map((item, index) => (
                                 <tr key={index} className="bg-white ">
                                   <td className="px-6 py-4 tabl3Titl">{item?.name}</td>
-                                  {/* <td className="px-6 py-4 tabl3Titl">{item?.days}</td> */}
                                   <td className="px-6 py-4 flex hrmActions">
-                                    <img className="cursor-pointer" onClick={() => {
-                                      setLeaveTypeValue1({
-                                        days: item?.days,
-                                        name: item?.name
-                                      });
-                                      setId(item?._id);
-                                      setPopup41(true);
-                                    }} src={edited} alt="" />
-                                    <img className="cursor-pointer" onClick={() => {
-                                      handleDelete(item._id, 'leaveType');
-                                    }} src={deleted} alt="" />
+                                    <img className="cursor-pointer"  src={edited} alt="" />
+                                    <img className="cursor-pointer" onClick={()=>{deleteLeadSourceHandler(item?._id)}} src={deleted} alt="" />
                                   </td>
                                 </tr>
                               ))}
@@ -380,47 +373,13 @@ const LeadSystemSetting2 = ({ setAlert, pop, setPop }) => {
                             Terms of Service
                           </h3>
 
-                          {/* <button
-                            type="button"
-                            className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
-                            data-modal-hide="default-modal"
-                          >
-                            <svg
-                              className="w-3 h-3"
-                              aria-hidden="true"
-                              xmlns="http://www.w3.org/2000/svg"
-                              fill="none"
-                              viewBox="0 0 14 14"
-                            >
-                              <path
-                                stroke="currentColor"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth={2}
-                                d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
-                              />
-                            </svg>
-                            <span className="sr-only">Close modal</span>
-                          </button> */}
+                        
                         </div>
                         {/* Modal body */}
                         <div className="p-4 md:p-5 space-y-4">
                           <label>Name:</label>
                           <input type="text" name="" id="" />
-                          {/* <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-                            With less than a month to go before the European
-                            Union enacts new consumer privacy laws for its
-                            citizens, companies around the world are updating
-                            their terms of service agreements to comply.
-                          </p>
-                          <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-                            The European Union’s General Data Protection
-                            Regulation (G.D.P.R.) goes into effect on May 25 and
-                            is meant to ensure a common set of data rights in
-                            the European Union. It requires organizations to
-                            notify users as soon as possible of high-risk data
-                            breaches that could personally affect them.
-                          </p> */}
+                      
                         </div>
                         {/* Modal footer */}
                         <div className="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
