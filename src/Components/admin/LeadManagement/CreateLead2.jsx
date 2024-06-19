@@ -10,7 +10,7 @@ import EmployeeNavbar from "../../Employee/Navbar/EmployeeNavbar";
 import toast from "react-hot-toast";
 
 const CreateLead2 = ({ setAlert, pop, setPop }) => {
-    const { user, createLead, getEmployees } = useMain();
+    const { user, createLead, getEmployees ,  AllLeadSource , AllLeadStatus  } = useMain();
     const [pop1, setPop1] = useState(false);
     const stylePeer = {
         display: pop1 ? "block" : "none"
@@ -125,6 +125,25 @@ const CreateLead2 = ({ setAlert, pop, setPop }) => {
     useEffect(() => {
         getOwner();
     }, [])
+
+    const [allLeadStatus , setAllLeadStatus] = useState([]);
+    const [allLeadSource , setAllLeadSource] = useState([]);
+
+
+    const fetchStatus = async()=>{
+        const ans = await AllLeadStatus();
+         setAllLeadStatus(ans?.data);
+    }
+
+    const fetchSource = async()=>{
+        const ans = await AllLeadSource();
+        setAllLeadSource(ans?.data);
+    }
+
+    useEffect(()=>{
+        fetchStatus();
+        fetchSource();
+    },[])
 
     return (
         <>
@@ -315,9 +334,12 @@ const CreateLead2 = ({ setAlert, pop, setPop }) => {
                                         <div className="lead_inp1">
                                             <label htmlFor="">Lead Source</label>
                                             <select name="LeadSource" onChange={changeHandler} id="">
-                                                <option disabled>Select lead source</option>
-                                                <option>Cold Call</option>
-                                                <option>Cold Email</option>
+                                                <option >Select lead source</option>
+                                                {
+                                                    allLeadSource?.map((item ,index)=>(
+                                                        <option key={index} value={item?.name}>{item?.name}</option>
+                                                    ))
+                                                }
                                             </select>
                                         </div>
                                         <div className="lead_inp1">
@@ -339,10 +361,11 @@ const CreateLead2 = ({ setAlert, pop, setPop }) => {
                                             <label htmlFor="">Lead Status</label>
                                             <select value={formdata?.LeadStatus} name="LeadStatus" onChange={changeHandler} id="">
                                                 <option >Select Status</option>
-                                                <option value="Cold">Cold</option>
-                                                <option value="Follow-up">Follow-up</option>
-                                                <option value="Hot">Hot</option>
-                                                <option value="Warm">Warm</option>
+                                                {
+                                                    allLeadStatus?.map((item ,index)=>(
+                                                        <option key={index} value={item?.name}>{item?.name}</option>
+                                                    ))
+                                                }
                                             </select>
                                         </div>
                                     </div>

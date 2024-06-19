@@ -76,17 +76,35 @@ const sidebarItem = [
       },
     ],
   },
+  {
+    title: "Lead Status",
+    img: hub3,
+    tableData: [
+      {
+        title: "Status",
+      },
+      {
+        title: "ACTION",
+      },
+    ],
+  },
+  {
+    title: "Lead Source",
+    img: hub3,
+    tableData: [
+      {
+        title: "Source",
+      },
+     
+      {
+        title: "ACTION",
+      },
+    ],
+  },
 ];
 
 const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
-  const { user, getBranchs, postBranch, updateBranch, deleteBranch, getDepartments, postDepartment, updateDepartment, deleteDepartment, getDesignations, postDesignation, updateDesignation, deleteDesignation, postLeaveType, updateLeaveType, getLeaveTypes, deleteLeaveType , postDocSetup  , fetchAllDocs , deleteDocSetup , updateDocSetup, getLeadSources,
-    postLeadSource,
-    updateLeadSource,
-    deleteLeadSource,
-    getIndustry,
-    postIndustry,
-    deleteIndustry,
-    updateIndustry } = useMain();
+  const { user, getBranchs, postBranch, updateBranch, deleteBranch, getDepartments, postDepartment, updateDepartment, deleteDepartment, getDesignations, postDesignation, updateDesignation, deleteDesignation, postLeaveType, updateLeaveType, getLeaveTypes, deleteLeaveType , postDocSetup  , fetchAllDocs , deleteDocSetup , updateDocSetup , postLeadStatus ,postLeadSource2 ,AllLeadStatus ,AllLeadSource} = useMain();
 
   const [open, setOpen] = useState(0);
 
@@ -96,6 +114,27 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
     display: popup ? "block" : "none",
   };
 
+   const [allStatus , setAllStatus] = useState([]);
+   const [allSource , setAllSource] = useState([]);
+
+  const fetchAllStatus = async()=>{
+    const ans  = await AllLeadStatus();
+    setAllStatus(ans?.data);
+
+  }
+  const fetchAllSource = async()=>{
+    const ans  = await AllLeadSource();
+    console.log('ans',ans);
+    setAllSource(ans?.data);
+
+  }
+
+  useEffect(()=>{
+    fetchAllStatus();
+    fetchAllSource();
+
+  },[])
+
   const [popup1, setPopup1] = useState(false);
   const [popup11, setPopup11] = useState(false);
   const [popup2, setPopup2] = useState(false);
@@ -103,6 +142,8 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
   const [popup3, setPopup3] = useState(false);
   const [popup31, setPopup31] = useState(false);
   const [popup4, setPopup4] = useState(false);
+  const [popup5, setPopup5] = useState(false);
+  const [popup6, setPopup6] = useState(false);
   const [popup41, setPopup41] = useState(false);
 
   const [docPop , setDocPop] = useState(false);
@@ -116,7 +157,6 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
   const [designations1, setDesignations1] = useState([]);
   const [leaveTypes, setLeaveTypes] = useState([]);
   const [leaveTypes1, setLeaveTypes1] = useState([]);
-  const [leadSource,setLeadSource] = useState([]);
   const [branch, setBranch] = useState("");
   const [branch1, setBranch1] = useState("");
 
@@ -127,6 +167,14 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
   const [leaveTypeValue, setLeaveTypeValue] = useState({
     name: "",
     days: ""
+  });
+  const [leadStatus, setLeadStatus] = useState({
+    status: "",
+   
+  });
+  const [leadSource, setLeadSource] = useState({
+    status: "",
+   
   });
   const [designationValue, setDesignationValue] = useState({
     department: "",
@@ -225,6 +273,42 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
 
     }
 
+    toast.dismiss(toastId);
+  }
+
+
+  const handleCreateLeadStatus = async () => {
+    const toastId = toast.loading("Loading...");
+    const ans = await postLeadStatus({
+      status: leadStatus?.status,
+    });
+
+    if (ans.status) {
+      toast.success("success");
+      fetchAllStatus();
+      setLeadStatus("");
+      setPopup5(false);
+    }
+   
+    toast.dismiss(toastId);
+  }
+  
+
+  const handleCreateLeadSource = async () => {
+    const toastId = toast.loading("Loading...");
+    const ans = await postLeadSource2({
+      status: leadSource?.status,
+    });
+
+
+
+    if (ans.status) {
+      toast.success("success");
+      fetchAllSource();
+      setLeadSource("");
+      setPopup6(false);
+    }
+   
     toast.dismiss(toastId);
   }
   
@@ -473,6 +557,12 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
                         setPopup3(true);
                       } else if (open === 3) {
                         setPopup4(true);
+                      }
+                      else if(open === 4){
+                        setPopup5(true);
+                      }
+                      else if(open === 5){
+                        setPopup6(true);
                       }
                     }}><img src={textType} alt="" /> <span>Add New</span></button>
                  </div>
@@ -729,6 +819,114 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
                     </div>
                   )}
 
+                  {open === 4 && (
+                    <div className="hrmsystemsetup-leftmenu">
+                      <div className="hrmsystemsetup-container">
+
+                      <div className="hrmsystemsetup-pagination">
+                               {/* <img src={frame1} alt="" /> */}
+                              <span>Lead Status</span>
+                       
+                        </div>
+
+                        <div className="relative overflow-x-auto">
+                          <table className="w-full table3 text-left   text-[#060606]">
+                            <thead className=" uppercase text-[#060606]">
+                              <tr>
+                                {sidebarItem[open].tableData.map(
+                                  (item, index) => (
+                                    <th
+                                      key={index}
+                                      scope="col"
+                                      className="px-6 py-3"
+                                    >
+                                      {item.title}
+                                    </th>
+                                  )
+                                )}
+                              </tr>
+                            </thead>
+
+                            <tbody>
+                              {allStatus.length === 0 ? 'No data found' : allStatus.map((item, index) => (
+                                <tr key={index} className="bg-white ">
+                                  <td className="px-6 py-4 tabl3Titl">{item?.name}</td>
+                                  {/* <td className="px-6 py-4 tabl3Titl">{item?.days}</td> */}
+                                  <td className="px-6 py-4 flex hrmActions">
+                                    <img className="cursor-pointer" onClick={() => {
+                                      setLeaveTypeValue1({
+                                        days: item?.days,
+                                        name: item?.name
+                                      });
+                                      setId(item?._id);
+                                      setPopup41(true);
+                                    }} src={edited} alt="" />
+                                    <img className="cursor-pointer" onClick={() => {
+                                      handleDelete(item._id, 'leaveType');
+                                    }} src={deleted} alt="" />
+                                  </td>
+                                </tr>
+                              ))}
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                    {open === 5 && (
+                    <div className="hrmsystemsetup-leftmenu">
+                      <div className="hrmsystemsetup-container">
+
+                      <div className="hrmsystemsetup-pagination">
+                              <span>Lead Source</span>
+                       
+                        </div>
+
+                        <div className="relative overflow-x-auto">
+                          <table className="w-full table3 text-left   text-[#060606]">
+                            <thead className=" uppercase text-[#060606]">
+                              <tr>
+                                {sidebarItem[open].tableData.map(
+                                  (item, index) => (
+                                    <th
+                                      key={index}
+                                      scope="col"
+                                      className="px-6 py-3"
+                                    >
+                                      {item.title}
+                                    </th>
+                                  )
+                                )}
+                              </tr>
+                            </thead>
+
+                            <tbody>
+                              {allSource?.length === 0 ? 'No data found' : allSource?.map((item, index) => (
+                                <tr key={index} className="bg-white ">
+                                  <td className="px-6 py-4 tabl3Titl">{item?.name}</td>
+                                  {/* <td className="px-6 py-4 tabl3Titl">{item?.days}</td> */}
+                                  <td className="px-6 py-4 flex hrmActions">
+                                    <img className="cursor-pointer" onClick={() => {
+                                      setLeaveTypeValue1({
+                                        days: item?.days,
+                                        name: item?.name
+                                      });
+                                      setId(item?._id);
+                                      setPopup41(true);
+                                    }} src={edited} alt="" />
+                                    <img className="cursor-pointer" onClick={() => {
+                                      handleDelete(item._id, 'leaveType');
+                                    }} src={deleted} alt="" />
+                                  </td>
+                                </tr>
+                              ))}
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  )}
               
                 </div>
 
@@ -1333,6 +1531,71 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
 
                 <button className="create" onClick={handleUpdateLeaveType}>
                   <span>Update</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
+{popup5 && (
+          <div className="allPopupWrap">
+            <div className="popup1 popup5 pono2">
+              <div className="popNav">
+
+<h2>Create New Lead Status</h2>
+<img onClick={() => setPopup5(false)} src={cross1} alt="" />
+
+        </div>
+              <hr />
+              <label >
+                <p className="popTitl">Lead Status</p>
+
+                <input type="text" placeholder="Enter Leave Type Name" name="status" value={leadStatus?.status} onChange={(e) => {
+                  setLeadStatus({ ...leadStatus, [e.target.name]: e.target.value });
+                }} />
+              
+              </label>
+
+              <div className="btnWrap">
+                <button className="cencel" onClick={() => setPopup5(false)}>
+                  <span>Cancel</span>
+                </button>
+
+                <button className="create" onClick={handleCreateLeadStatus}>
+                  <span>Create</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
+
+{popup6 && (
+          <div className="allPopupWrap">
+            <div className="popup1 popup5 pono2">
+              <div className="popNav">
+
+<h2>Create New Lead Source</h2>
+<img onClick={() => setPopup6(false)} src={cross1} alt="" />
+
+        </div>
+              <hr />
+              <label >
+                <p className="popTitl">Lead Source</p>
+
+                <input type="text" placeholder="Enter Leave Type Name" name="status" value={leadSource?.status} onChange={(e) => {
+                  setLeadSource({ ...leadSource, [e.target.name]: e.target.value });
+                }} />
+              
+              </label>
+
+              <div className="btnWrap">
+                <button className="cencel" onClick={() => setPopup6(false)}>
+                  <span>Cancel</span>
+                </button>
+
+                <button className="create" onClick={handleCreateLeadSource}>
+                  <span>Create</span>
                 </button>
               </div>
             </div>

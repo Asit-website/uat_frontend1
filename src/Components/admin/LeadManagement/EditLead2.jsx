@@ -14,7 +14,7 @@ import toast from "react-hot-toast";
 
 const EditLead2 = ({ setAlert, pop, setPop }) => {
     
-    const { user , updateLead , getEmployees } = useMain();
+    const { user , updateLead , getEmployees , AllLeadSource , AllLeadStatus } = useMain();
 
     const [pop1,setPop1] = useState(false);
 
@@ -129,6 +129,25 @@ const EditLead2 = ({ setAlert, pop, setPop }) => {
              Country: item?.Country ,
              DescriptionInfo: item?.DescriptionInfo
         })
+     },[])
+
+     const [allLeadStatus , setAllLeadStatus] = useState([]);
+     const [allLeadSource , setAllLeadSource] = useState([]);
+ 
+ 
+     const fetchStatus = async()=>{
+         const ans = await AllLeadStatus();
+          setAllLeadStatus(ans?.data);
+     }
+ 
+     const fetchSource = async()=>{
+         const ans = await AllLeadSource();
+         setAllLeadSource(ans?.data);
+     }
+ 
+     useEffect(()=>{
+         fetchStatus();
+         fetchSource();
      },[])
 
     return (
@@ -281,8 +300,11 @@ const EditLead2 = ({ setAlert, pop, setPop }) => {
                                             <label htmlFor="">Lead Source</label>
                                             <select  name="LeadSource" onChange={changeHandler} id="">
                                                 <option disabled>Select lead source</option>
-                                                <option>Cold Call</option>
-                                                <option>Cold Email</option>
+                                                {
+                                                    allLeadSource?.map((item ,index)=>(
+                                                        <option key={index} value={item?.name}>{item?.name}</option>
+                                                    ))
+                                                }
                                             </select>
                                         </div>
                                         <div className="lead_inp1">
@@ -304,8 +326,11 @@ const EditLead2 = ({ setAlert, pop, setPop }) => {
                                             <label htmlFor="">Lead Status</label>
                                             <select value={formdata?.LeadStatus}  name="LeadStatus" onChange={changeHandler}  id="">
                                                 <option disabled>Select Status</option>
-                                                <option>Active</option>
-                                                <option>Inactive</option>
+                                                {
+                                                    allLeadStatus?.map((item ,index)=>(
+                                                        <option key={index} value={item?.name}>{item?.name}</option>
+                                                    ))
+                                                }
                                             </select>
                                         </div>
                                     </div>

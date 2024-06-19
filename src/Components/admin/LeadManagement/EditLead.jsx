@@ -14,7 +14,7 @@ import toast from "react-hot-toast";
 
 const EditLead = ({ setAlert, pop, setPop }) => {
 
-    const { user, updateLead, getEmployees } = useMain();
+    const { user, updateLead, getEmployees  ,  AllLeadSource , AllLeadStatus} = useMain();
 
     const [pop1, setPop1] = useState(false);
 
@@ -131,6 +131,25 @@ const EditLead = ({ setAlert, pop, setPop }) => {
             DescriptionInfo: item?.DescriptionInfo
         })
     }, [])
+
+    const [allLeadStatus , setAllLeadStatus] = useState([]);
+    const [allLeadSource , setAllLeadSource] = useState([]);
+
+
+    const fetchStatus = async()=>{
+        const ans = await AllLeadStatus();
+         setAllLeadStatus(ans?.data);
+    }
+
+    const fetchSource = async()=>{
+        const ans = await AllLeadSource();
+        setAllLeadSource(ans?.data);
+    }
+
+    useEffect(()=>{
+        fetchStatus();
+        fetchSource();
+    },[])
 
     return (
         <>
@@ -274,8 +293,11 @@ const EditLead = ({ setAlert, pop, setPop }) => {
                                             <label htmlFor="">Lead Source</label>
                                             <select name="LeadSource" onChange={changeHandler} id="">
                                                 <option disabled>Select lead source</option>
-                                                <option>Cold Call</option>
-                                                <option>Cold Email</option>
+                                                {
+                                                    allLeadSource?.map((item ,index)=>(
+                                                        <option key={index} value={item?.name}>{item?.name}</option>
+                                                    ))
+                                                }
                                             </select>
                                         </div>
                                         <div className="lead_inp1">
@@ -297,10 +319,11 @@ const EditLead = ({ setAlert, pop, setPop }) => {
                                             <label htmlFor="">Lead Status</label>
                                             <select value={formdata?.LeadStatus} name="LeadStatus" onChange={changeHandler} id="">
                                                 <option >Select Status</option>
-                                                <option value="Cold">Cold</option>
-                                                <option value="Follow-up">Follow-up</option>
-                                                <option value="Hot">Hot</option>
-                                                <option value="Warm">Warm</option>
+                                                {
+                                                    allLeadStatus?.map((item ,index)=>(
+                                                        <option key={index} value={item?.name}>{item?.name}</option>
+                                                    ))
+                                                }
                                             </select>
                                         </div>
                                     </div>
