@@ -371,7 +371,7 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
                 />
 
                 <div className="lTITL">
-                  <h2>Kanishka Tyagi</h2>
+                <h2>{data?.FirstName} {" "} {data?.LastName}</h2>
                   <p style={{ display: "flex" }}>
                     <img src={bx} /> <span> Add Tags</span>
                   </p>

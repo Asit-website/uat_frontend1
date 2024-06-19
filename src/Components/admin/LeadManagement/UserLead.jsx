@@ -18,7 +18,7 @@ const UserLead = ({ setAlert, pop, setPop }) => {
 
     const navigate = useNavigate();
 
-    const { user, getLead3, deleteLeads } = useMain();
+    const { user, getLead3, deleteLeads , getUserByDesignation , getLeadByUser } = useMain();
 
     const [refreshFlag, setRefreshFlag] = useState(false);
 
@@ -45,6 +45,8 @@ const UserLead = ({ setAlert, pop, setPop }) => {
         setAllLead(ans?.allLead);
         setAlleading(ans?.allLead );
     }
+
+    
 
     const [filterInput , setFilterInput ] = useState();
 
@@ -148,6 +150,44 @@ return cyear === parseInt(nyear) && cmonth === parseInt(nmonth) && cday === pars
     }
   };
 
+  const [leadUser ,setLeadUser] =useState("");
+
+
+  const [desUsers , setDeUsers ] = useState([]);
+  
+  const fetchDesiUser = async()=>{
+    const ans = await getUserByDesignation();
+    if(ans?.status){
+        setDeUsers(ans?.data);
+    }
+ }
+
+
+  useEffect(()=>{
+    fetchDesiUser();
+  },[])
+
+  const getFilteLead = async()=>{
+    const ans =await getLeadByUser(leadUser);
+     console.log("ans ",ans);
+      if(ans?.status){
+         setAllLead(ans?.data);
+      }
+      else {
+        setAllLead(allLeading);
+      }
+  }
+
+  useEffect(()=>{
+        if(leadUser !== "" && leadUser !== "Select User" ){
+            getFilteLead();
+        }
+        else {
+            setAllLead(allLeading); 
+        }
+  },[leadUser])
+
+
   return (
         <>
             <div className="employee-dash h-full">
@@ -166,9 +206,6 @@ return cyear === parseInt(nyear) && cmonth === parseInt(nmonth) && cday === pars
                             <div className="lead_content2">
                                 <div className="leads_btn2">
 
-                                    <button className="lead_btn2">
-                                        <NavLink className="such_thing" to="/adminDash/createLead" >  <img src={pluss} alt="" /> <span className="colp"> Create New Lead </span> </NavLink>
-                                    </button>
 
                                     <NavLink to="/adminDash/leadFile"><button className="refresh">
                                     <img src={download} alt="" />
@@ -361,7 +398,19 @@ return cyear === parseInt(nyear) && cmonth === parseInt(nmonth) && cday === pars
                             <div className="table11">
 
                                 <div className="my_open my_open1">
-                                    <h3>My Leads</h3>
+                                    <h3>User Leads</h3>
+
+                                     <select className="userFilterr" name="leadUser" onChange={(e)=>{
+                                        setLeadUser(e.target.value);
+                                     }} id="">
+                                        <option value="Select User">Select User</option>
+                                        {
+                                            desUsers?.map((u , index)=>(
+                                                <option key={index} value={u._id}>{u?.fullName}</option>
+                                            ))
+                                        }
+                                    
+                                     </select>
 
                                 </div>
 
