@@ -51,8 +51,7 @@ const LeadSystemSetting = ({ setAlert, pop, setPop }) => {
     postLeadSource2,
     AllLeadStatus,
     AllLeadSource,
-    UpdateLeadStatus,
-    UpdateLeadSource,
+
     deleteIndustry,
     deleteLeadSource,
     updateLeadSource,
@@ -142,37 +141,6 @@ const LeadSystemSetting = ({ setAlert, pop, setPop }) => {
     toast.dismiss(toastId);
   };
 
-  const UpdateLeadStatus1 = async () => {
-    const toastId = toast.loading("Loading...");
-    const ans = await UpdateLeadStatus({
-      status: leadStatus?.status,
-    });
-
-    if (ans.status) {
-      toast.success("success");
-      fetchAllStatus();
-      setLeadStatus("");
-      setPopup5(false);
-    }
-
-    toast.dismiss(toastId);
-  };
-
-  const UpdateLeadSource1 = async () => {
-    const toastId = toast.loading("Loading...");
-    const ans = await UpdateLeadSource({
-      status: leadStatus?.status,
-    });
-
-    if (ans.status) {
-      toast.success("success");
-      fetchAllStatus();
-      setLeadStatus("");
-      setPopup5(false);
-    }
-
-    toast.dismiss(toastId);
-  };
 
   const handleCreateLeadSource = async () => {
     const toastId = toast.loading("Loading...");
