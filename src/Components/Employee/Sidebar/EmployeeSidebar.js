@@ -75,13 +75,17 @@ const EmployeeSidebar = () => {
             </li>
             </NavLink>
 
-            <NavLink to="/employeeDash/LeadSystemSetting"><div className={`${window.location.pathname === "/employeeDash/LeadSystemSetting"  ? "hh" : ""} setWrap`}>
+            {
+              user?.designation === "Intern Digital Marketing" || user?.designation === "Business Development Manager" ?  <NavLink to="/employeeDash/LeadSystemSetting"><div className={`${window.location.pathname === "/employeeDash/LeadSystemSetting"  ? "hh" : ""} setWrap`}>
               {/* <p>Setting</p> */}
               <div className="systSset">
                 <img src={`${window.location.pathname === "/employeeDash/LeadSystemSetting"   ? perty : employee}`} alt="" />
                 <span className={`${window.location.pathname==="/employeeDash/LeadSystemSetting" ? "fan" : ""}`}>Lead System Setting</span>
               </div>
-            </div></NavLink>
+            </div></NavLink> : ""
+            }
+
+           
         
             <NavLink to="/employeeDash/mySelf"><li className="indefy">
               <img src={shop} alt="" />
