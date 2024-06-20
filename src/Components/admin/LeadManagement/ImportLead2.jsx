@@ -11,26 +11,26 @@ import deli from "../../images/deli.svg";
 import semi from "../../images/simi.svg";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
-import leadEdit from "../../images/leadEdit.png";
-import leadDel from "../../images/leadDel.png";
 import cancel from "../../images/cancell.png";
 import { useLocation } from "react-router-dom";
 import EmployeeSidebar from "../../Employee/Sidebar/EmployeeSidebar";
 import EmployeeNavbar from "../../Employee/Navbar/EmployeeNavbar";
 import timeline from "../../images/timeline.png";
+import edit from "../../images/edit.png"
+import delete32 from "../../images/delete.png"
+
 
 const ImportLead = ({ setAlert, pop, setPop }) => {
   const {
     user,
     getLead2,
     updateLeadStatus,
-    updateLeadNote,
     getQuotationAll,
     deleteQuotation,
     taskCreateApi,
     meetCreateApi,
     taskEditApi,
-    meetEditApi,
+    meetEditApi,GetNoteApi , DeleteNoteApi , updateNoteApi , CreateNoteApi
   } = useMain();
 
   const { id } = useParams();
@@ -63,24 +63,6 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
     await updateLeadStatus(_id, leading);
   };
 
-  const updatingNote = async (isDelete = false) => {
-    const toastId = toast.loading("Loading...");
-    const { _id } = data;
-
-    let whichNote = isDelete ? "" : Note;
-    const ans = await updateLeadNote(_id, whichNote, LeadStatus);
-
-    if (isDelete) {
-      toast.success("Successfuly deleted");
-    } else if (ans?.message) {
-      toast.success("Successfuly updated");
-    } else {
-      toast.error("Error while updating");
-    }
-
-    getData();
-    toast.dismiss(toastId);
-  };
 
   const [userQuotation, setUserQu] = useState([]);
 
@@ -350,6 +332,53 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
       }));
     }
   }, [data]);
+
+  
+  const [isNoteEdit , setIsNoteEdit] = useState(false);
+  const [allNote , setAllNote] = useState([]);
+
+  const getNotes = async()=>{
+    const ans = await GetNoteApi(id);
+     if(ans?.status){
+      setAllNote(ans?.data);
+     }
+  }
+
+  const createNote = async () => {
+     const ans = await CreateNoteApi(id , Note , LeadStatus);
+       if(ans?.status){
+        toast.success("Successfuly created");
+        getNotes();
+        setNote("");
+        setLeadStatus("Status");
+       }
+
+  };
+
+  const updatingNote = async () => {
+    const ans = await updateNoteApi(isNoteEdit , Note , LeadStatus);
+    console.log("ans",ans);
+       if(ans?.status){
+        toast.success("Successfuly created");
+        getNotes();
+        setNote("");
+        setIsNoteEdit(false);
+    
+        setLeadStatus("Status");
+       }
+  };
+
+  const deleteNote = async(id)=>{
+    const ans = await DeleteNoteApi(id);
+    if(ans?.status){
+      toast.success("delleted ");
+    getNotes();
+    }
+  }
+
+  useEffect(()=>{
+    getNotes();
+  },[])
 
   return (
     <div className="imprtleadCont">
@@ -643,329 +672,86 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
                   </div>
                 </div>
 
-                {/* second  third  */}
-                <div className="leadFirs">
-                  <div className="LEADSsTunav">
-                    <h2 className="ehading">Lead Status</h2>
+              {/* second  third  */}
+              <div className="leadFirs">
 
-                    <select
-                      onChange={(e) => {
-                        setLeadStatus(e.target.value);
-                        updatingLeadStatus(e.target.value);
-                      }}
-                      value={LeadStatus}
-                      className="leadUPdateStsus"
-                      name="LeadStatus"
-                      id=""
-                    >
-                      <option> Status</option>
-                      <option value="Cold">Cold</option>
-                      <option value="Follow-up">Follow-up</option>
-                      <option value="Hot">Hot</option>
-                      <option value="Warm">Warm</option>
-                    </select>
-                  </div>
+                <div className="LEADSsTunav">
 
-                  <div
-                    className={` ${
-                      notOpenEdit ||
-                      data?.Note === undefined ||
-                      data?.Note === ""
-                        ? "doColumn"
-                        : "fornotewrap"
-                    }  `}
+                  <h2 className="ehading">Lead Status</h2>
+
+                  <hr />
+
+                  <select
+                    onChange={(e) => {
+                      setLeadStatus(e.target.value);
+                      updatingLeadStatus(e.target.value);
+                    }}
+                    className="leadUPdateStsus"
+                    name="LeadStatus"
+                    id=""
                   >
-                    <div className="eladinfoWrap secondWRap">
-                      {LeadStatus ? (
-                        <span className="ladingstausw">{LeadStatus}</span>
-                      ) : (
-                        <span className="noRecord">No records found</span>
-                      )}
-                    </div>
+                    <option> Status</option>
+                    <option value="Cold">Cold</option>
+                    <option value="Follow-up">Follow-up</option>
+                    <option value="Hot">Hot</option>
+                    <option value="Warm">Warm</option>
+                  </select>
 
-                    {/* this is for cold  */}
+                  <label className="noteLabel">
+                        <p>Note:</p>
+                        <textarea
+                          value={Note}
+                          onChange={(e) => {setNote(e.target.value)}}
+                          type="text"
+                        />
+                      </label>
 
-                    {noting.isCold && (
-                      <>
-                        {LeadStatus === "Cold" &&
-                        data?.ColdNote !== "" &&
-                        !notOpenEdit ? (
-                          <div className="notePresent">
-                            <p>
-                              {new Date(data?.NoteDate).toLocaleDateString(
-                                "en-US",
-                                {
-                                  month: "long",
-                                  day: "numeric",
-                                  year: "numeric",
-                                }
-                              )}
-                            </p>
-                            <div className="reatlnotecont">
-                              <span className="realNote">
-                                {data?.ColdNote}{" "}
-                              </span>
-                            </div>
-                            <div className="eidtdel">
-                              <img
-                                onClick={() => {
-                                  setnotOpenEdit(true);
-                                  setNote(data?.ColdNote);
-                                }}
-                                src={leadEdit}
-                                alt=""
-                              />
-                              <img
-                                onClick={() => {
-                                  setNote("");
-                                  updatingNote(true);
-                                  setnotOpenEdit(false);
-                                }}
-                                src={leadDel}
-                                alt=""
-                              />
-                            </div>
-                          </div>
-                        ) : (
-                          <>
-                            <label className="noteLabel">
-                              <p>Note:</p>
-                              <input
-                                value={Note}
-                                onChange={(e) => {
-                                  setNote(e.target.value);
-                                }}
-                                type="text"
-                              />
-                            </label>
+                  <div className="noteSaveBtn">
 
-                            <div className="noteSaveBtn">
-                              <button
-                                onClick={() => {
-                                  updatingNote();
-                                  setnotOpenEdit(false);
-                                }}
-                              >
-                                <span>Save</span>
-                              </button>
-                            </div>
-                          </>
-                        )}
-                      </>
-                    )}
+                            <button onClick={()=>{
+                              setNote("");
+                              setIsNoteEdit(false);
+                            }} className="canccfdl">Cancel</button>
 
-                    {/* this is for warm  */}
+                        <button className="noteSaveBtn2" onClick={isNoteEdit?updatingNote:createNote}>
+                          <span>{isNoteEdit?"Update":"Save"}</span>
+                        </button>
 
-                    {noting.isWarm && (
-                      <>
-                        {LeadStatus === "Warm" &&
-                        data?.WarmNote !== "" &&
-                        !notOpenEdit ? (
-                          <div className="notePresent">
-                            <p>
-                              {new Date(data?.NoteDate).toLocaleDateString(
-                                "en-US",
-                                {
-                                  month: "long",
-                                  day: "numeric",
-                                  year: "numeric",
-                                }
-                              )}
-                            </p>
-                            <div className="reatlnotecont">
-                              <span className="realNote">
-                                {data?.WarmNote}{" "}
-                              </span>
-                            </div>
-                            <div className="eidtdel">
-                              <img
-                                onClick={() => {
-                                  setnotOpenEdit(true);
-                                  setNote(data?.WarmNote);
-                                }}
-                                src={leadEdit}
-                                alt=""
-                              />
-                              <img
-                                onClick={() => {
-                                  setNote("");
-                                  updatingNote(true);
-                                  setnotOpenEdit(false);
-                                }}
-                                src={leadDel}
-                                alt=""
-                              />
-                            </div>
-                          </div>
-                        ) : (
-                          <>
-                            <label className="noteLabel">
-                              <p>Note:</p>
-                              <input
-                                value={Note}
-                                onChange={(e) => {
-                                  setNote(e.target.value);
-                                }}
-                                type="text"
-                              />
-                            </label>
 
-                            <div className="noteSaveBtn">
-                              <button
-                                onClick={() => {
-                                  updatingNote();
-                                  setnotOpenEdit(false);
-                                }}
-                              >
-                                <span>Save</span>
-                              </button>
-                            </div>
-                          </>
-                        )}
-                      </>
-                    )}
+                      </div>
 
-                    {/* this is for Hoot  */}
 
-                    {noting.isHot && (
-                      <>
-                        {LeadStatus === "Hot" &&
-                        data?.HotNote !== "" &&
-                        !notOpenEdit ? (
-                          <div className="notePresent">
-                            <p>
-                              {new Date(data?.NoteDate).toLocaleDateString(
-                                "en-US",
-                                {
-                                  month: "long",
-                                  day: "numeric",
-                                  year: "numeric",
-                                }
-                              )}
-                            </p>
-                            <div className="reatlnotecont">
-                              <span className="realNote">{data?.HotNote} </span>
-                            </div>
-                            <div className="eidtdel">
-                              <img
-                                onClick={() => {
-                                  setnotOpenEdit(true);
-                                  setNote(data?.HotNote);
-                                }}
-                                src={leadEdit}
-                                alt=""
-                              />
-                              <img
-                                onClick={() => {
-                                  setNote("");
-                                  updatingNote(true);
-                                  setnotOpenEdit(false);
-                                }}
-                                src={leadDel}
-                                alt=""
-                              />
-                            </div>
-                          </div>
-                        ) : (
-                          <>
-                            <label className="noteLabel">
-                              <p>Note:</p>
-                              <input
-                                value={Note}
-                                onChange={(e) => {
-                                  setNote(e.target.value);
-                                }}
-                                type="text"
-                              />
-                            </label>
+                      <div className="allNotes">
+                        {
+                          allNote?.map((note , index)=>(
+                            <div key={index} className="singlNoteDe">
 
-                            <div className="noteSaveBtn">
-                              <button
-                                onClick={() => {
-                                  updatingNote();
-                                  setnotOpenEdit(false);
-                                }}
-                              >
-                                <span>Save</span>
-                              </button>
-                            </div>
-                          </>
-                        )}
-                      </>
-                    )}
+                                   <div className="noteStaus">
 
-                    {/* this is for Foo=kkow  */}
+                                    <p>{note?.Status}</p>
+                                    
+                                   </div>
 
-                    {noting.isFollowUp && (
-                      <>
-                        {LeadStatus === "Follow-up" &&
-                        data?.FollowNote !== "" &&
-                        !notOpenEdit ? (
-                          <div className="notePresent">
-                            <p>
-                              {new Date(data?.NoteDate).toLocaleDateString(
-                                "en-US",
-                                {
-                                  month: "long",
-                                  day: "numeric",
-                                  year: "numeric",
-                                }
-                              )}
-                            </p>
-                            <div className="reatlnotecont">
-                              <span className="realNote">
-                                {data?.FollowNote}{" "}
-                              </span>
-                            </div>
-                            <div className="eidtdel">
-                              <img
-                                onClick={() => {
-                                  setnotOpenEdit(true);
-                                  setNote(data?.FollowNote);
-                                }}
-                                src={leadEdit}
-                                alt=""
-                              />
-                              <img
-                                onClick={() => {
-                                  setNote("");
-                                  updatingNote(true);
-                                  setnotOpenEdit(false);
-                                }}
-                                src={leadDel}
-                                alt=""
-                              />
-                            </div>
-                          </div>
-                        ) : (
-                          <>
-                            <label className="noteLabel">
-                              <p>Note:</p>
-                              <input
-                                value={Note}
-                                onChange={(e) => {
-                                  setNote(e.target.value);
-                                }}
-                                type="text"
-                              />
-                            </label>
+                                   <p className="notedate">{new Date(note?.Date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</p>
 
-                            <div className="noteSaveBtn">
-                              <button
-                                onClick={() => {
-                                  updatingNote();
-                                  setnotOpenEdit(false);
-                                }}
-                              >
-                                <span>Save</span>
-                              </button>
+                                 <p className="noteTExt">{note?.Note}</p>
+
+                                  <img onClick={()=>{
+                                    setIsNoteEdit(note?._id);
+                                  setNote(note?.Note);
+                                  }} src={edit} alt="" />
+                                  <img onClick={()=>{
+                                    deleteNote(note?._id)
+                                  }} src={delete32} alt="" />
+
                             </div>
-                          </>
-                        )}
-                      </>
-                    )}
-                  </div>
+                          ))
+                        }
+                      </div>
+
                 </div>
+
+              </div>
 
                 {/* secoond third   third  */}
                 <div className="leadFirs">
