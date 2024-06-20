@@ -13,10 +13,10 @@ import deli from "../../images/deli.svg";
 import semi from "../../images/simi.svg";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
-import leadEdit from "../../images/leadEdit.png"
-import leadDel from "../../images/leadDel.png"
 import cancel from "../../images/cancell.png"
 import { useLocation } from 'react-router-dom';
+import edit from "../../images/edit.png"
+import delete32 from "../../images/delete.png"
 
 
 const ImportLead = ({ setAlert, pop, setPop }) => {
@@ -24,11 +24,11 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
     user,
     getLead2,
     updateLeadStatus,
-    updateLeadNote,
+    CreateNoteApi,
     getQuotationAll,
     deleteQuotation,
     taskCreateApi,
-    meetCreateApi, taskEditApi, meetEditApi
+    meetCreateApi, taskEditApi, meetEditApi , GetNoteApi , DeleteNoteApi , updateNoteApi
   } = useMain();
 
   const { id } = useParams();
@@ -39,10 +39,6 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
   const [refreshFlag, setRefreshFlag] = useState(false);
 
   const [data, setData] = useState({});
-
-   console.log('data ',data);
-
-  const [notOpenEdit, setnotOpenEdit] = useState(false);
 
   const [LeadStatus, setLeadStatus] = useState("");
 
@@ -61,25 +57,52 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
     const ans = await updateLeadStatus(_id, leading);
   };
 
-  const updatingNote = async (isDelete = false) => {
-    const toastId = toast.loading("Loading...");
-    const { _id } = data;
-    let whichNote = isDelete ? "" : Note;
-    const ans = await updateLeadNote(_id, whichNote);
+  const [isNoteEdit , setIsNoteEdit] = useState(false);
+  const [allNote , setAllNote] = useState([]);
 
-    if (isDelete) {
-      toast.success("Successfuly deleted");
-    }
-    else if (ans?.message) {
-      toast.success("Successfuly updated");
-    } else {
-      toast.error("Error while updating");
-    }
+  const getNotes = async()=>{
+    const ans = await GetNoteApi(id);
+     if(ans?.status){
+      setAllNote(ans?.data);
+     }
+  }
 
-    getData();
-    toast.dismiss(toastId);
+  const createNote = async () => {
+
+    
+     const ans = await CreateNoteApi(id , Note , LeadStatus);
+       if(ans?.status){
+        toast.success("Successfuly created");
+        getNotes();
+        setNote("");
+        setLeadStatus("Status");
+       }
+
   };
 
+  const updatingNote = async () => {
+    const ans = await updateNoteApi(isNoteEdit , Note , LeadStatus);
+    console.log("ans",ans);
+       if(ans?.status){
+        toast.success("Successfuly created");
+        getNotes();
+        setNote("");
+        setIsNoteEdit(false);
+        setLeadStatus("Status");
+       }
+  };
+
+  const deleteNote = async(id)=>{
+    const ans = await DeleteNoteApi(id);
+    if(ans?.status){
+      toast.success("delleted ");
+    getNotes();
+    }
+  }
+
+  useEffect(()=>{
+    getNotes();
+  },[])
   const [userQuotation, setUserQu] = useState([]);
 
   const getQuotation = async () => {
@@ -220,6 +243,7 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
 
   }
 
+
   useEffect(() => {
     getData();
   }, [])
@@ -255,6 +279,7 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
   }, [data]);
 
 
+   
 
   return (
     <div className="imprtleadCont">
@@ -474,8 +499,12 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
 
               {/* second  third  */}
               <div className="leadFirs">
+
                 <div className="LEADSsTunav">
+
                   <h2 className="ehading">Lead Status</h2>
+
+                  <hr />
 
                   <select
                     onChange={(e) => {
@@ -492,67 +521,58 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
                     <option value="Hot">Hot</option>
                     <option value="Warm">Warm</option>
                   </select>
-                </div>
 
-                <div className={` ${(notOpenEdit || data?.Note === undefined || data?.Note === "") ? "doColumn" : "fornotewrap"}  `}>
-                  <div className="eladinfoWrap secondWRap">
-                    {LeadStatus ? (
-                      <span className="ladingstausw">{LeadStatus}</span>
-                    ) : (
-                      <span className="noRecord">No records found</span>
-                    )}
-                  </div>
-
-                  {(data?.Note && data?.Note !== "" && !notOpenEdit) ?
-                    <div className="notePresent">
-                      <p>
-                        {new Date(data?.NoteDate).toLocaleDateString("en-US", {
-                          month: "long",
-                          day: "numeric",
-                          year: "numeric",
-                        })}
-                      </p>
-                      <div className="reatlnotecont">
-                        <span className="realNote">{data?.Note}  </span>
-                      </div>
-                      <div className="eidtdel">
-                        <img onClick={() => {
-                          setnotOpenEdit(true);
-                          setNote(data?.Note);
-                        }} src={leadEdit} alt="" />
-                        <img onClick={() => {
-                          setNote("");
-                          updatingNote(true);
-                          setnotOpenEdit(false);
-                        }} src={leadDel} alt="" />
-                      </div>
-
-                    </div>
-                    :
-                    <>
-
-                      <label className="noteLabel">
+                  <label className="noteLabel">
                         <p>Note:</p>
-                        <input
+                        <textarea
                           value={Note}
-                          onChange={(e) => {
-                            setNote(e.target.value);
-
-                          }}
+                          onChange={(e) => {setNote(e.target.value)}}
                           type="text"
                         />
                       </label>
 
-                      <div className="noteSaveBtn">
-                        <button onClick={() => {
-                          updatingNote();
-                          setnotOpenEdit(false);
-                        }}>
-                          <span>Save</span>
+                  <div className="noteSaveBtn">
+
+                            <button onClick={()=>{
+                              setNote("");
+                              setIsNoteEdit(false);
+                            }} className="canccfdl">Cancel</button>
+
+                        <button className="noteSaveBtn2" onClick={isNoteEdit?updatingNote:createNote}>
+                          <span>{isNoteEdit?"Update":"Save"}</span>
                         </button>
+
+
                       </div>
-                    </>
-                  }
+
+
+                      <div className="allNotes">
+                        {
+                          allNote?.map((note , index)=>(
+                            <div key={index} className="singlNoteDe">
+
+                                   <div className="noteStaus">
+
+                                    <p>{note?.Status}</p>
+                                    
+                                   </div>
+
+                                   <p className="notedate">{new Date(note?.Date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</p>
+
+                                 <p className="noteTExt">{note?.Note}</p>
+
+                                  <img onClick={()=>{
+                                    setIsNoteEdit(note?._id);
+                                  setNote(note?.Note);
+                                  }} src={edit} alt="" />
+                                  <img onClick={()=>{
+                                    deleteNote(note?._id)
+                                  }} src={delete32} alt="" />
+
+                            </div>
+                          ))
+                        }
+                      </div>
 
                 </div>
 
