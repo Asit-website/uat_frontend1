@@ -13,7 +13,7 @@ const baseUrl = "http://localhost:5000";
 
 // this is production baseurl 
 
-//  const baseUrl = "https://hmsbackend.kusheldigi.com";
+// const baseUrl = "https://hmsbackend.kusheldigi.com";
 
 // const baseUrl = "https://hrms-backend-g3wt.onrender.com";
 
@@ -26,7 +26,7 @@ const MainState = (props) => {
    const [chatUser, setChatUser] = useState({});
 
    const login = async ({ email, employeeCode, password }) => {
-      
+
       const data = await post(`${baseUrl}/auth/login`, { email, employeeCode, password }, false);
 
       return data;
@@ -165,10 +165,10 @@ const MainState = (props) => {
       return data;
    };
 
-   const createEmployee1 = async ({ fullName, password, department, employeeId, gmail, reportingManager, designation, joiningDate, email, email1, mobile, gender, dob, pan, adhar, father, currentAddress, currentState, currentCity, currentPin, residence, perState, perCity, perPin, Martial, nationality, Mother, employeeCode, qualification, specialization, qualificationType, yearPass, university, college, percentage, previousCompany, previousDesignation, toDate, fromDate, numberOfMonth, Jobdescription, SalaryPay, SalaryBankName, BeneficiaryName, BankIfsc, AccountNumber, confirmAccount, Branch, adharCard, formData , employeeType }) => {
+   const createEmployee1 = async ({ fullName, password, department, employeeId, gmail, reportingManager, designation, joiningDate, email, email1, mobile, gender, dob, pan, adhar, father, currentAddress, currentState, currentCity, currentPin, residence, perState, perCity, perPin, Martial, nationality, Mother, employeeCode, qualification, specialization, qualificationType, yearPass, university, college, percentage, previousCompany, previousDesignation, toDate, fromDate, numberOfMonth, Jobdescription, SalaryPay, SalaryBankName, BeneficiaryName, BankIfsc, AccountNumber, confirmAccount, Branch, adharCard, formData, employeeType }) => {
 
 
-      const data = await post(`${baseUrl}/admin/createUser1`, { fullName, password, department, employeeId, gmail, reportingManager, designation, joiningDate, email, email1, mobile, gender, dob, pan, adhar, father, currentAddress, currentState, currentCity, currentPin, residence, perState, perCity, perPin, Martial, nationality, Mother, employeeCode, qualification, specialization, qualificationType, yearPass, university, college, percentage, previousCompany, previousDesignation, toDate, fromDate, numberOfMonth, Jobdescription, SalaryPay, SalaryBankName, BeneficiaryName, BankIfsc, AccountNumber, confirmAccount, Branch, adharCard , employeeType }, true);
+      const data = await post(`${baseUrl}/admin/createUser1`, { fullName, password, department, employeeId, gmail, reportingManager, designation, joiningDate, email, email1, mobile, gender, dob, pan, adhar, father, currentAddress, currentState, currentCity, currentPin, residence, perState, perCity, perPin, Martial, nationality, Mother, employeeCode, qualification, specialization, qualificationType, yearPass, university, college, percentage, previousCompany, previousDesignation, toDate, fromDate, numberOfMonth, Jobdescription, SalaryPay, SalaryBankName, BeneficiaryName, BankIfsc, AccountNumber, confirmAccount, Branch, adharCard, employeeType }, true);
 
       const { _id } = data?.data?.adminUser;
 
@@ -197,7 +197,7 @@ const MainState = (props) => {
       const data = await get(`${baseUrl}/user/getActiveUsersCount?userId=${userId}`, true);
       console.log(data);
       return data;
-   }; 
+   };
 
    const getEmployees = async (userId) => {
       const data = await get(`${baseUrl}/hr/getUsers?userId=${userId}`, true);
@@ -212,7 +212,7 @@ const MainState = (props) => {
    const getEmployeesByEmployee = async () => {
       const data = await get(`${baseUrl}/user/getEmployeesByEmployee`, true);
       return data;
-   }; 
+   };
 
    const getAllActivities = async () => {
 
@@ -223,16 +223,16 @@ const MainState = (props) => {
 
 
    };
-   
-   const getAllActivities2 = async (type, date, month , userId , department) => {
 
-      const data = await post(`${baseUrl}/clock/attendencedetail` ,{type ,date , month,userId , department},true);
+   const getAllActivities2 = async (type, date, month, userId, department) => {
+
+      const data = await post(`${baseUrl}/clock/attendencedetail`, { type, date, month, userId, department }, true);
 
       return data;
    };
 
    const postActivity = async ({ clockIn, clockOut, late, overtime, total, message = '', date1 }) => {
-      
+
       const data = await post(`${baseUrl}/activity/postActivity`, { clockIn, clockOut, date1, late, overtime, total, message }, true);
       return data;
    };
@@ -417,54 +417,54 @@ const MainState = (props) => {
 
    const updateProfile = async (
       {
-          fullName,
-      mobile,
-      email,
-      email1,
-      password,
-      gmail,
-      department,
-      designation,
-      joiningDate,
-      pan,
-      adhar,
-      father,
-      currentAddress,
-      currentState,
-      currentCity,
-      qualification,
-      currentPin,
-      residence,
-      perState,
-      perCity,
-      perPin,
-      Martial,
-      nationality,
-      Mother,
-      specialization,
-      qualificationType,
-      yearPass,
-      university,
-      college,
-      percentage,
-      previousCompany,
-      previousDesignation,
-      toDate,
-      fromDate,
-      numberOfMonth,
-      Jobdescription,
-      SalaryPay,
-      SalaryBankName,
-      BeneficiaryName,
-      BankIfsc,
-      AccountNumber,
-      confirmAccount,
-      Branch,
-      image,
-       _id , 
-      
-   
-   }) => {
+         fullName,
+         mobile,
+         email,
+         email1,
+         password,
+         gmail,
+         department,
+         designation,
+         joiningDate,
+         pan,
+         adhar,
+         father,
+         currentAddress,
+         currentState,
+         currentCity,
+         qualification,
+         currentPin,
+         residence,
+         perState,
+         perCity,
+         perPin,
+         Martial,
+         nationality,
+         Mother,
+         specialization,
+         qualificationType,
+         yearPass,
+         university,
+         college,
+         percentage,
+         previousCompany,
+         previousDesignation,
+         toDate,
+         fromDate,
+         numberOfMonth,
+         Jobdescription,
+         SalaryPay,
+         SalaryBankName,
+         BeneficiaryName,
+         BankIfsc,
+         AccountNumber,
+         confirmAccount,
+         Branch,
+         image,
+         _id,
+
+
+      }) => {
 
       const data = await put(`${baseUrl}/user/updateProfile`, {
          fullName,
@@ -522,7 +522,7 @@ const MainState = (props) => {
       return data;
    };
 
-   
+
    const updateAdminProfile = async ({ fullName, dob, mobile, email, password, employeeCode }) => {
       const data = await put(`${baseUrl}/admin/updateAdmin`, { fullName, dob, mobile, email, password, employeeCode }, true);
       return data;
@@ -719,7 +719,7 @@ const MainState = (props) => {
    }
 
 
-   const departmentEmployee = async(department)=>{
+   const departmentEmployee = async (department) => {
       const data = await post(`${baseUrl}/admin/departmentEmployee`, { department }, true);
 
       return data;
@@ -891,17 +891,17 @@ const MainState = (props) => {
    }
 
 
-   const acceptLeave = async (formdata , id , userId , from , to) => {
+   const acceptLeave = async (formdata, id, userId, from, to) => {
 
       const { user, days } = formdata;
 
       let fullName = user.fullName;
 
-      const data = await post(`${baseUrl}/leave/acceptLeave/${id}`, { fullName, days , userId , startDate:from ,endDate: to  }, true);
+      const data = await post(`${baseUrl}/leave/acceptLeave/${id}`, { fullName, days, userId, startDate: from, endDate: to }, true);
 
       return data;
    }
-   const rejectLeave = async (formdata , id) => {
+   const rejectLeave = async (formdata, id) => {
       const { user } = formdata;
       let fullName = user.fullName;
 
@@ -911,7 +911,7 @@ const MainState = (props) => {
    }
 
 
-   const postNotification = async (daysGap, name , username) => {
+   const postNotification = async (daysGap, name, username) => {
 
 
       const data = await post(`${baseUrl}/notification/createNotification`, { title: `Leave Application from ${username} `, description: `Leave of ${daysGap} days`, users: ["shubham gupta"] }, true);
@@ -923,7 +923,7 @@ const MainState = (props) => {
    const postNotifyLeavereq = async (name, title) => {
 
       const data = await post(`${baseUrl}/notification/createNotification`, { title: `${title} Leave Application`, description: `Leave Application ${title} By Admin `, users: [`${name}`] }, true);
-    
+
       return data;
 
    }
@@ -939,13 +939,13 @@ const MainState = (props) => {
       return data;
    }
 
-   
-   const fetchTodayLeave = async()=>{
+
+   const fetchTodayLeave = async () => {
 
       const data = await get(`${baseUrl}/leave/getTodayLeave`, true);
       return data;
 
-      }    
+   }
 
    const fetchUserNotifyHR = async () => {
 
@@ -1168,7 +1168,7 @@ const MainState = (props) => {
       return data;
    };
 
-   const updatePromotion = async ({ id,Employee, Designation, title, promotionDate, description }) => {
+   const updatePromotion = async ({ id, Employee, Designation, title, promotionDate, description }) => {
       const data = await put(`${baseUrl}/admin/updatePromotion/${id}`, {
          Employee, Designation, title, promotionDate, description
       }, true);
@@ -1341,48 +1341,8 @@ const MainState = (props) => {
       return data;
    };
 
-   const createLead = async(
+   const createLead = async (
       {
-          LeadOwner,
-      Company,
-      FirstName,
-      LastName,
-      Title,
-      Email,
-      Phone,
-      Fax,
-      Mobile,
-      Website,
-      LeadSource,
-      NoOfEmployee,
-      Industry,
-      LeadStatus,
-      AnnualRevenue,
-      Rating,
-      EmailOptOut,
-      SkypeID,
-      SecondaryEmail,
-      Twitter,
-       Street ,
-       City ,
-       State ,
-       ZipCode ,
-       Country ,
-       DescriptionInfo , 
-      image
-    })=>{
-
-         let data;
-
-          if(image){
-
-             const formdata = new FormData();
-         formdata.append("image" ,image);
-         
-         const imageUrl = await postDocuments(`${baseUrl}/lead/postImage`,formdata, true);
-      
-   
-       data = await post(`${baseUrl}/lead/createLead`, {
          LeadOwner,
          Company,
          FirstName,
@@ -1403,54 +1363,94 @@ const MainState = (props) => {
          SkypeID,
          SecondaryEmail,
          Twitter,
-          Street ,
-          City ,
-          State ,
-          ZipCode ,
-          Country ,
-          DescriptionInfo  , 
-          image: imageUrl?.data
-      }, true);
+         Street,
+         City,
+         State,
+         ZipCode,
+         Country,
+         DescriptionInfo,
+         image
+      }) => {
 
-   }
-   else {
-      data = await post(`${baseUrl}/lead/createLead`, {
-         LeadOwner,
-         Company,
-         FirstName,
-         LastName,
-         Title,
-         Email,
-         Phone,
-         Fax,
-         Mobile,
-         Website,
-         LeadSource,
-         NoOfEmployee,
-         Industry,
-         LeadStatus,
-         AnnualRevenue,
-         Rating,
-         EmailOptOut,
-         SkypeID,
-         SecondaryEmail,
-         Twitter,
-          Street ,
-          City ,
-          State ,
-          ZipCode ,
-          Country ,
-          DescriptionInfo  , 
-          
-      }, true);
-   }
-   
-    return data;
-   }
+      let data;
+
+      if (image) {
+
+         const formdata = new FormData();
+         formdata.append("image", image);
+
+         const imageUrl = await postDocuments(`${baseUrl}/lead/postImage`, formdata, true);
 
 
-   const createExcelLead = async({LeadOwner , 
-       City,
+         data = await post(`${baseUrl}/lead/createLead`, {
+            LeadOwner,
+            Company,
+            FirstName,
+            LastName,
+            Title,
+            Email,
+            Phone,
+            Fax,
+            Mobile,
+            Website,
+            LeadSource,
+            NoOfEmployee,
+            Industry,
+            LeadStatus,
+            AnnualRevenue,
+            Rating,
+            EmailOptOut,
+            SkypeID,
+            SecondaryEmail,
+            Twitter,
+            Street,
+            City,
+            State,
+            ZipCode,
+            Country,
+            DescriptionInfo,
+            image: imageUrl?.data
+         }, true);
+
+      }
+      else {
+         data = await post(`${baseUrl}/lead/createLead`, {
+            LeadOwner,
+            Company,
+            FirstName,
+            LastName,
+            Title,
+            Email,
+            Phone,
+            Fax,
+            Mobile,
+            Website,
+            LeadSource,
+            NoOfEmployee,
+            Industry,
+            LeadStatus,
+            AnnualRevenue,
+            Rating,
+            EmailOptOut,
+            SkypeID,
+            SecondaryEmail,
+            Twitter,
+            Street,
+            City,
+            State,
+            ZipCode,
+            Country,
+            DescriptionInfo,
+
+         }, true);
+      }
+
+      return data;
+   }
+
+
+   const createExcelLead = async ({ LeadOwner,
+      City,
       CompanyName,
       Email,
       FirstName,
@@ -1458,69 +1458,36 @@ const MainState = (props) => {
       LinkedInURL,
       Mobile,
       Phone,
-      State , 
-      Title ,
-      Website  })=>{
+      State,
+      Title,
+      Website }) => {
 
-         let data;
-      
+      let data;
+
       data = await post(`${baseUrl}/lead/createLead`, {
          LeadOwner,
          City,
-         Company:CompanyName,
+         Company: CompanyName,
          Email,
          FirstName,
          LastName,
-         SkypeID:LinkedInURL,
+         SkypeID: LinkedInURL,
          Mobile,
          Phone,
-         State , 
-         Title ,
-         Website  
-        
+         State,
+         Title,
+         Website
+
       }, true);
-   
-   
-    return data;
+
+
+      return data;
    }
 
 
 
-   const updateLead = async(
+   const updateLead = async (
       { LeadOwner,
-      Company,
-      FirstName,
-      LastName,
-      Title,
-      Email,
-      Phone,
-      Fax,
-      Mobile,
-      Website,
-      LeadSource,
-      NoOfEmployee,
-      Industry,
-      LeadStatus,
-      AnnualRevenue,
-      Rating,
-      EmailOptOut,
-      SkypeID,
-      SecondaryEmail,
-      Twitter,
-       Street ,
-       City ,
-       State ,
-       ZipCode ,
-       Country ,
-       DescriptionInfo  , id}
-
-   )=>{
-
-         let data;
-         
-      data = await post(`${baseUrl}/lead/editLead/${id}`,
-       {
-         LeadOwner,
          Company,
          FirstName,
          LastName,
@@ -1540,45 +1507,78 @@ const MainState = (props) => {
          SkypeID,
          SecondaryEmail,
          Twitter,
-          Street ,
-          City ,
-          State ,
-          ZipCode ,
-          Country ,
-          DescriptionInfo  , 
-          
-      }, true);
-   
-   
-    return data;
-   }
+         Street,
+         City,
+         State,
+         ZipCode,
+         Country,
+         DescriptionInfo, id }
 
-   const getLead = async(id,query,page,perPage)=>{
-      let user = JSON.parse(localStorage.getItem("hrms_user"));
+   ) => {
 
-      const data = await post(`${baseUrl}/lead/getAllLead/?id=${id}&query=${query}&page=${page}&perPage=${perPage}`, {id: user?._id}, true);
+      let data;
+
+      data = await post(`${baseUrl}/lead/editLead/${id}`,
+         {
+            LeadOwner,
+            Company,
+            FirstName,
+            LastName,
+            Title,
+            Email,
+            Phone,
+            Fax,
+            Mobile,
+            Website,
+            LeadSource,
+            NoOfEmployee,
+            Industry,
+            LeadStatus,
+            AnnualRevenue,
+            Rating,
+            EmailOptOut,
+            SkypeID,
+            SecondaryEmail,
+            Twitter,
+            Street,
+            City,
+            State,
+            ZipCode,
+            Country,
+            DescriptionInfo,
+
+         }, true);
+
+
       return data;
    }
 
-   const getLead2 = async(id,query,page,perPage)=>{
+   const getLead = async (id, query, page, perPage) => {
+      let user = JSON.parse(localStorage.getItem("hrms_user"));
+
+      const data = await post(`${baseUrl}/lead/getAllLead/?id=${id}&query=${query}&page=${page}&perPage=${perPage}`, { id: user?._id }, true);
+      return data;
+   }
+
+   const getLead2 = async (id, query, page, perPage) => {
 
       const data = await get(`${baseUrl}/lead/getAllLead/?id=${id}&query=${query}&page=${page}&perPage=${perPage}`, true);
       return data;
    }
 
-   
-   const getLead3 = async()=>{
+
+   const getLead3 = async () => {
 
       let user = JSON.parse(localStorage.getItem("hrms_user"));
 
       const data = await get(`${baseUrl}/lead/getAllLead2/${user?._id}`, true);
       return data;
    }
-   const getLeadByUser = async(id)=>{
+   const getLeadByUser = async (id) => {
       const data = await get(`${baseUrl}/lead/getLeadByUser/${id}`, true);
       return data;
    }
-   const getAllLeads = async()=>{
+   const getAllLeads = async () => {
       const data = await get(`${baseUrl}/lead/getAllLeadByAdmin`, true);
       return data;
    }
@@ -1590,51 +1590,51 @@ const MainState = (props) => {
    };
 
 
-   const uploadToCloudinaryImg = async({image})=>{
+   const uploadToCloudinaryImg = async ({ image }) => {
 
       const formdata = new FormData();
       formdata.append("image", image);
       const resp = await postDocuments(`${baseUrl}/user/uploadToCloudinary`, formdata);
-      return resp;  
+      return resp;
    }
 
-   const updateLeadStatus = async(id,LeadStatus)=>{
+   const updateLeadStatus = async (id, LeadStatus) => {
 
-      const data = await post(`${baseUrl}/lead/updateLeadStatus/${id}`, {LeadStatus}, true);
+      const data = await post(`${baseUrl}/lead/updateLeadStatus/${id}`, { LeadStatus }, true);
       return data;
    }
-   const updateLeadNote = async(id,Note , LeadStatus)=>{
+   const updateLeadNote = async (id, Note, LeadStatus) => {
 
-      const data = await post(`${baseUrl}/lead/updateLeadNote/${id}`, {Note,LeadStatus}, true);
+      const data = await post(`${baseUrl}/lead/updateLeadNote/${id}`, { Note, LeadStatus }, true);
       return data;
    }
 
-   const postQuotation = async({ User,InvoiceNo,GstNo,SacCode, PlacedSupply,BillTo,ShipTo,ClientName,Address,Mobile,Email,ItemDescription,Qty,Price,Amount,BalanceAmount,Note,currency , leadId})=>{
+   const postQuotation = async ({ User, InvoiceNo, GstNo, SacCode, PlacedSupply, BillTo, ShipTo, ClientName, Address, Mobile, Email, ItemDescription, Qty, Price, Amount, BalanceAmount, Note, currency, leadId }) => {
 
-      const data = await post(`${baseUrl}/admin/createInvoice`, {User,InvoiceNo,GstNo,SacCode, PlacedSupply,BillTo,ShipTo,ClientName,Address,Mobile,Email,ItemDescription,Qty,Price,Amount,BalanceAmount,Note,currency , leadId}, true);
+      const data = await post(`${baseUrl}/admin/createInvoice`, { User, InvoiceNo, GstNo, SacCode, PlacedSupply, BillTo, ShipTo, ClientName, Address, Mobile, Email, ItemDescription, Qty, Price, Amount, BalanceAmount, Note, currency, leadId }, true);
       return data;
-      
+
    }
 
-   const getQuotationAll = async(id)=>{
+   const getQuotationAll = async (id) => {
       const data = await get(`${baseUrl}/admin/getEveryUserInvoice/${id}`, true);
       return data;
    }
 
-   const updateQuotation = async(
-      { InvoiceNo,GstNo,SacCode, PlacedSupply,BillTo,ShipTo,ClientName,Address,Mobile,Email,ItemDescription,Qty,Price, Amount,BalanceAmount,Note,currency,id}
+   const updateQuotation = async (
+      { InvoiceNo, GstNo, SacCode, PlacedSupply, BillTo, ShipTo, ClientName, Address, Mobile, Email, ItemDescription, Qty, Price, Amount, BalanceAmount, Note, currency, id }
 
-   )=>{
+   ) => {
 
-         let data;
-         
+      let data;
+
       data = await post(`${baseUrl}/admin/updateInvoice/${id}`,
-       {
-         InvoiceNo,GstNo,SacCode, PlacedSupply,BillTo,ShipTo,ClientName,Address,Mobile,Email,ItemDescription,Qty,Price, Amount,BalanceAmount,Note,currency
-      }, true);
-   
-   
-    return data;
+         {
+            InvoiceNo, GstNo, SacCode, PlacedSupply, BillTo, ShipTo, ClientName, Address, Mobile, Email, ItemDescription, Qty, Price, Amount, BalanceAmount, Note, currency
+         }, true);
+
+
+      return data;
    }
 
    const deleteQuotation = async (id) => {
@@ -1642,256 +1642,256 @@ const MainState = (props) => {
       return data;
    };
 
-   const createSallary = async({salary,paySlipType})=>{
+   const createSallary = async ({ salary, paySlipType }) => {
 
-      const data = await post(`${baseUrl}/admin/createSallary`, {salary,paySlipType}, true);
+      const data = await post(`${baseUrl}/admin/createSallary`, { salary, paySlipType }, true);
       return data;
-      
+
    }
 
-   const getSallary = async()=>{
+   const getSallary = async () => {
       // console.log('iddd ',id);
       const data = await get(`${baseUrl}/admin/getSallary`, true);
       return data;
    }
 
-    const userSalaryFetch = async(id)=>{
+   const userSalaryFetch = async (id) => {
       const data = await get(`${baseUrl}/payroll/getAllUserPayroll/${id}`, true);
       return data;
-    }
+   }
 
-    const salaryCreate = async( paySlipType,salary, id )=>{
-      const data = await post(`${baseUrl}/payroll/editUserSalary/${id}`, {salary,paySlipType}, true);
+   const salaryCreate = async (paySlipType, salary, id) => {
+      const data = await post(`${baseUrl}/payroll/editUserSalary/${id}`, { salary, paySlipType }, true);
       return data;
-    }
+   }
 
-    const createAllowance = async( allowanceOption,amount, title , type,id )=>{
-      const data = await post(`${baseUrl}/payroll/createAllowance/${id}`, {allowanceOption,amount , title, type}, true);
+   const createAllowance = async (allowanceOption, amount, title, type, id) => {
+      const data = await post(`${baseUrl}/payroll/createAllowance/${id}`, { allowanceOption, amount, title, type }, true);
       return data;
-    }
-    const createCommision = async( amount , type, title, id )=>{
-      const data = await post(`${baseUrl}/payroll/createCommission/${id}`, {amount , title, type}, true);
+   }
+   const createCommision = async (amount, type, title, id) => {
+      const data = await post(`${baseUrl}/payroll/createCommission/${id}`, { amount, title, type }, true);
       return data;
-    }
-    const createLoan = async( LoanOption , loanAmount, title,type ,reason, id )=>{
-      const data = await post(`${baseUrl}/payroll/createLoan/${id}`, {LoanOption , loanAmount , title, reason,type}, true);
+   }
+   const createLoan = async (LoanOption, loanAmount, title, type, reason, id) => {
+      const data = await post(`${baseUrl}/payroll/createLoan/${id}`, { LoanOption, loanAmount, title, reason, type }, true);
       return data;
-    }
-    const allowDeleteHandler = async( allowId , id )=>{
+   }
+   const allowDeleteHandler = async (allowId, id) => {
       const data = await deleteReq(`${baseUrl}/payroll/deleteAllowance/${allowId}/${id}`, true);
       return data;
-    }
-    const loanDeleteHandler = async(loanId ,  id )=>{
+   }
+   const loanDeleteHandler = async (loanId, id) => {
       const data = await deleteReq(`${baseUrl}/payroll/deleteLoan/${loanId}/${id}`, true);
       return data;
-    }
-    const commisionDelteHandler = async(commId ,  id )=>{
+   }
+   const commisionDelteHandler = async (commId, id) => {
       const data = await deleteReq(`${baseUrl}/payroll/deleteCommission/${commId}/${id}`, true);
       return data;
-    }
-
-    const editAllowance = async( allowanceOption,amount, title , type,allowanceId , id )=>{
-      const data = await post(`${baseUrl}/payroll/editAllowance/${id}`, {allowanceOption,amount , title, type , allowanceId}, true);
-      return data;
-    }
-    const editComApi = async(amount, type , title,allowanceId  ,id)=>{
-      const data = await post(`${baseUrl}/payroll/editCommission/${id}`, {amount , title, type , allowanceId}, true);
-      return data;
-    }
-    const editLoanApi = async( LoanOption, title, type, loanAmount ,reason,allowanceId  ,id)=>{
-      const data = await post(`${baseUrl}/payroll/editLoan/${id}`, {LoanOption ,loanAmount, title, type ,reason, allowanceId}, true);
-      return data;
-    }
-    const getUserSlip = async(month , year )=>{
-      const data = await post(`${baseUrl}/payslip/getPlayslip`, {month , year}, true);
-      return data;
-    }
-    const togglePayslip = async(userId , month , year )=>{
-
-      const data = await post(`${baseUrl}/payslip/toglePayslip/${userId}`, {month , year}, true);
-      return data;
-    }
-    const buildAPI = async(  month , year )=>{
-
-      const data = await post(`${baseUrl}/payslip/bulkPayslip`, {month , year}, true);
-      return data;
-    }
-
-    const updateAttendance = async(id , Date , clockIn , clockOut , breakTime)=>{
-      const data = await post(`${baseUrl}/clock/updateAttendance/${id}`, { Date , clockIn , clockOut , breakTime}, true);
-      return data;
-   
    }
-    const postDocSetup = async({name , requiredField})=>{
-      const data = await post(`${baseUrl}/system/createDocSetup`, {name , requiredField }, true);
+
+   const editAllowance = async (allowanceOption, amount, title, type, allowanceId, id) => {
+      const data = await post(`${baseUrl}/payroll/editAllowance/${id}`, { allowanceOption, amount, title, type, allowanceId }, true);
       return data;
-   
    }
-    const updateDocSetup = async({id , name , requiredField})=>{
-      const data = await post(`${baseUrl}/system/updateDocSetup/${id}`, {name , requiredField }, true);
+   const editComApi = async (amount, type, title, allowanceId, id) => {
+      const data = await post(`${baseUrl}/payroll/editCommission/${id}`, { amount, title, type, allowanceId }, true);
       return data;
-   
    }
-   const deleteDocSetup = async({id})=>{
+   const editLoanApi = async (LoanOption, title, type, loanAmount, reason, allowanceId, id) => {
+      const data = await post(`${baseUrl}/payroll/editLoan/${id}`, { LoanOption, loanAmount, title, type, reason, allowanceId }, true);
+      return data;
+   }
+   const getUserSlip = async (month, year) => {
+      const data = await post(`${baseUrl}/payslip/getPlayslip`, { month, year }, true);
+      return data;
+   }
+   const togglePayslip = async (userId, month, year) => {
+
+      const data = await post(`${baseUrl}/payslip/toglePayslip/${userId}`, { month, year }, true);
+      return data;
+   }
+   const buildAPI = async (month, year) => {
+
+      const data = await post(`${baseUrl}/payslip/bulkPayslip`, { month, year }, true);
+      return data;
+   }
+
+   const updateAttendance = async (id, Date, clockIn, clockOut, breakTime) => {
+      const data = await post(`${baseUrl}/clock/updateAttendance/${id}`, { Date, clockIn, clockOut, breakTime }, true);
+      return data;
+
+   }
+   const postDocSetup = async ({ name, requiredField }) => {
+      const data = await post(`${baseUrl}/system/createDocSetup`, { name, requiredField }, true);
+      return data;
+
+   }
+   const updateDocSetup = async ({ id, name, requiredField }) => {
+      const data = await post(`${baseUrl}/system/updateDocSetup/${id}`, { name, requiredField }, true);
+      return data;
+
+   }
+   const deleteDocSetup = async ({ id }) => {
       const data = await deleteReq(`${baseUrl}/system/deleteDocSetup/${id}`, true);
       return data;
-      
+
    }
-   const fetchAllDocs = async()=>{
+   const fetchAllDocs = async () => {
       const data = await get(`${baseUrl}/system/fetchAllDocs`, true);
       return data;
    }
-   
-   const deleteAttendence = async(id)=>{
+
+   const deleteAttendence = async (id) => {
       const data = await deleteReq(`${baseUrl}/clock/deleteAttendence/${id}`, true);
       return data;
-      
+
    }
-   
-   const uploadOwnDocs = async({formData , id})=>{
+
+   const uploadOwnDocs = async ({ formData, id }) => {
       const resp = await postDocuments(`${baseUrl}/user/uploadDocument/${id}`, formData);
       return resp;
    }
 
    // for task and meet 
-   
-   const  taskCreateApi  = async({ Subject, Priority ,  Status , DueDate ,  RelatedTo ,  ContactName ,  Note  , LeadId , userId})=>{
-     const data = await post(`${baseUrl}/openActivity/createTask`, { Subject, Priority ,  Status , DueDate ,  RelatedTo ,  ContactName ,  Note  , LeadId , userId }, true);
-     return data;
-  
-  }
-   const  taskEditApi  = async({ Subject, Priority ,  Status , DueDate ,  RelatedTo ,  ContactName ,  Note  , LeadId , userId , taskId})=>{
-     const data = await post(`${baseUrl}/openActivity/editTask/${taskId}`, { Subject, Priority ,  Status , DueDate ,  RelatedTo ,  ContactName ,  Note  , LeadId , userId }, true);
-     return data;
-  
-  }
 
-   const  deleteTaskapi  = async({ taskId})=>{
-     const data = await deleteReq(`${baseUrl}/openActivity/deleteTask/${taskId}`, true);
-     return data;
-  
-  }
+   const taskCreateApi = async ({ Subject, Priority, Status, DueDate, RelatedTo, ContactName, Note, LeadId, userId }) => {
+      const data = await post(`${baseUrl}/openActivity/createTask`, { Subject, Priority, Status, DueDate, RelatedTo, ContactName, Note, LeadId, userId }, true);
+      return data;
 
-  const getTaskApi = async({userId})=>{
-   const data = await get(`${baseUrl}/openActivity/getTaskByUser/${userId}`, true);
-   return data;
-  }
+   }
+   const taskEditApi = async ({ Subject, Priority, Status, DueDate, RelatedTo, ContactName, Note, LeadId, userId, taskId }) => {
+      const data = await post(`${baseUrl}/openActivity/editTask/${taskId}`, { Subject, Priority, Status, DueDate, RelatedTo, ContactName, Note, LeadId, userId }, true);
+      return data;
 
-  const getMeetApi = async({userId})=>{
-   const data = await get(`${baseUrl}/openActivity/getMeetByUser/${userId}`, true);
-   return data;
-  }
+   }
 
-   
-   const  deleteMeetapi  = async({ meetId})=>{
-  
-     const data = await deleteReq(`${baseUrl}/openActivity/deleteMeet/${meetId}`, true);
-     return data;
-  
-  }
-   
-   const  meetCreateApi  = async({title , meetDateFrom ,  meetDateTo , Status , meetTimeFrom , meetTimeTo , Host , RelatedTo ,  Participant , Note , userId , LeadId})=>{
-      console.log("useridmeet  ",userId);
-      const data = await post(`${baseUrl}/openActivity/createMeet`, { title , meetDateFrom ,  meetDateTo , Status , meetTimeFrom , meetTimeTo , Host , RelatedTo ,  Participant , Note , userId,LeadId }, true);
-     return data;
-  
-  }
+   const deleteTaskapi = async ({ taskId }) => {
+      const data = await deleteReq(`${baseUrl}/openActivity/deleteTask/${taskId}`, true);
+      return data;
 
-   const  meetEditApi  = async({title , meetDateFrom ,  meetDateTo , Status , meetTimeFrom , meetTimeTo , Host , RelatedTo ,  Participant , Note , userId , meetId , LeadId})=>{
-      const data = await post(`${baseUrl}/openActivity/editMeet/${meetId}`, { title , meetDateFrom ,  meetDateTo , Status , meetTimeFrom , meetTimeTo , Host , RelatedTo ,  Participant , Note , userId , LeadId }, true);
-     return data;
-  
-  }
+   }
 
-  const getLeadById = async(id)=>{
-   const data = await get(`${baseUrl}/lead/getLeadById/${id}`, true);
-   return data;
-  }
+   const getTaskApi = async ({ userId }) => {
+      const data = await get(`${baseUrl}/openActivity/getTaskByUser/${userId}`, true);
+      return data;
+   }
 
-  const getLeadSources = async () => {
-   const data = await get(`${baseUrl}/system/getLeadSource`, true);
-   return data;
-};
-
-const postLeadSource = async ({ name }) => {
-   const data = await post(`${baseUrl}/system/postLeadSource`, { name }, true);
-   return data;
-};
-
-const updateLeadSource = async ({ id, name }) => {
-   const data = await put(`${baseUrl}/system/updateLeadSource/${id}`, { name }, true);
-   return data;
-};
-
-const deleteLeadSource = async (id) => {
-   const data = await deleteReq(`${baseUrl}/system/deleteLeadSource/${id}`, true);
-   return data;
-};
+   const getMeetApi = async ({ userId }) => {
+      const data = await get(`${baseUrl}/openActivity/getMeetByUser/${userId}`, true);
+      return data;
+   }
 
 
-const getIndustry = async () => {
-   const data = await get(`${baseUrl}/system/getIndustry`, true);
-   return data;
-};
+   const deleteMeetapi = async ({ meetId }) => {
 
-const postIndustry = async ({ name }) => {
-   const data = await post(`${baseUrl}/system/postIndustry`, { name }, true);
-   return data;
-};
+      const data = await deleteReq(`${baseUrl}/openActivity/deleteMeet/${meetId}`, true);
+      return data;
 
-const updateIndustry = async ({ id, name }) => {
-   const data = await put(`${baseUrl}/system/updateIndustry/${id}`, { name }, true);
-   return data;
-};
+   }
 
-const deleteIndustry = async (id) => {
-   const data = await deleteReq(`${baseUrl}/system/deleteIndustry/${id}`, true);
-   return data;
-};
-   
+   const meetCreateApi = async ({ title, meetDateFrom, meetDateTo, Status, meetTimeFrom, meetTimeTo, Host, RelatedTo, Participant, Note, userId, LeadId }) => {
+      console.log("useridmeet  ", userId);
+      const data = await post(`${baseUrl}/openActivity/createMeet`, { title, meetDateFrom, meetDateTo, Status, meetTimeFrom, meetTimeTo, Host, RelatedTo, Participant, Note, userId, LeadId }, true);
+      return data;
 
-const postLeadStatus = async({status})=>{
-   const data = await post(`${baseUrl}/lead/createLeadStatus`, { status }, true);
-   return data;
-}
-const postLeadSource2 = async({status})=>{
-   const data = await post(`${baseUrl}/lead/createLeadSource`, { status }, true);
-   return data;
-}
-   
-const AllLeadStatus = async()=>{
-   const data = await get(`${baseUrl}/lead/allLeadStatus`, true);
-   return data;
-}
-   
-const AllLeadSource = async()=>{
-   const data = await get(`${baseUrl}/lead/allLeadSource`, true);
-   return data;
- 
-}
+   }
 
+   const meetEditApi = async ({ title, meetDateFrom, meetDateTo, Status, meetTimeFrom, meetTimeTo, Host, RelatedTo, Participant, Note, userId, meetId, LeadId }) => {
+      const data = await post(`${baseUrl}/openActivity/editMeet/${meetId}`, { title, meetDateFrom, meetDateTo, Status, meetTimeFrom, meetTimeTo, Host, RelatedTo, Participant, Note, userId, LeadId }, true);
+      return data;
 
-const UpdateLeadStatus = async({status})=>{
-   const data = await post(`${baseUrl}/lead/updateLeadStatus`, { status }, true);
-   return data;
-}
-const UpdateLeadSource = async({status})=>{
-   const data = await post(`${baseUrl}/lead/updateLeadSource`, { status }, true);
-   return data;
-}
+   }
+
+   const getLeadById = async (id) => {
+      const data = await get(`${baseUrl}/lead/getLeadById/${id}`, true);
+      return data;
+   }
+
+   const getLeadSources = async () => {
+      const data = await get(`${baseUrl}/system/getLeadSource`, true);
+      return data;
+   };
+
+   const postLeadSource = async ({ name }) => {
+      const data = await post(`${baseUrl}/system/postLeadSource`, { name }, true);
+      return data;
+   };
+
+   const updateLeadSource = async ({ id, name }) => {
+      const data = await put(`${baseUrl}/system/updateLeadSource/${id}`, { name }, true);
+      return data;
+   };
+
+   const deleteLeadSource = async (id) => {
+      const data = await deleteReq(`${baseUrl}/system/deleteLeadSource/${id}`, true);
+      return data;
+   };
 
 
-const getUserByDesignation = async()=>{
-   const data = await get(`${baseUrl}/lead/getDesiUser`, true);
-   return data;
-}
+   const getIndustry = async () => {
+      const data = await get(`${baseUrl}/system/getIndustry`, true);
+      return data;
+   };
 
-   
+   const postIndustry = async ({ name }) => {
+      const data = await post(`${baseUrl}/system/postIndustry`, { name }, true);
+      return data;
+   };
+
+   const updateIndustry = async ({ id, name }) => {
+      const data = await put(`${baseUrl}/system/updateIndustry/${id}`, { name }, true);
+      return data;
+   };
+
+   const deleteIndustry = async (id) => {
+      const data = await deleteReq(`${baseUrl}/system/deleteIndustry/${id}`, true);
+      return data;
+   };
+
+
+   const postLeadStatus = async ({ status }) => {
+      const data = await post(`${baseUrl}/lead/createLeadStatus`, { status }, true);
+      return data;
+   }
+   const postLeadSource2 = async ({ status }) => {
+      const data = await post(`${baseUrl}/lead/createLeadSource`, { status }, true);
+      return data;
+   }
+
+   const AllLeadStatus = async () => {
+      const data = await get(`${baseUrl}/lead/allLeadStatus`, true);
+      return data;
+   }
+
+   const AllLeadSource = async () => {
+      const data = await get(`${baseUrl}/lead/allLeadSource`, true);
+      return data;
+
+   }
+
+
+   const UpdateLeadStatus = async ({ status }) => {
+      const data = await post(`${baseUrl}/lead/updateLeadStatus`, { status }, true);
+      return data;
+   }
+   const UpdateLeadSource = async ({ status }) => {
+      const data = await post(`${baseUrl}/lead/updateLeadSource`, { status }, true);
+      return data;
+   }
+
+
+   const getUserByDesignation = async () => {
+      const data = await get(`${baseUrl}/lead/getDesiUser`, true);
+      return data;
+   }
+
+
    return (
       <MainContext.Provider value={{
-         login,taskCreateApi ,getLeadById  ,getUserByDesignation  ,UpdateLeadStatus  ,UpdateLeadSource, AllLeadSource  , meetCreateApi ,AllLeadStatus  , taskEditApi , meetEditApi ,deleteTaskapi ,deleteMeetapi ,getTaskApi , getMeetApi , employeeLogin, employeeResetPassword, hrLogin, createHr, getHrs, deleteHr, createEmployee, getEmployees, getUsers, getActiveUsers, getActiveUsersCount,postLeadStatus ,postLeadSource2 ,   getAdminEmployees, postActivity, postActivityHr, getActivitiesByUser, getStatisticsByUser, postLeave, updateLeave, getUserLeaves, getUserLeaveById, deleteLeave, getTotalLeaves, postTotalLeaves, verifyEmployee, verifyHr, verifyAdmin, setUser,buildAPI, user, getProjects, postProject, getHolidays, postHoliday, updateProject, getProjectsByEmployee, getTasks, postTask, updateTask, deleteTask, setFlag, flag, changePassword, updateProfile, deleteHoliday, updateHoliday, deleteProject, getChats, createNewChat, postMessage, deleteChat, adminLogin, getChat, getChatByUser, setChatUser, chatUser, getEmployeesByEmployee, topDash, postAnnouncement, updateAnnouncement, getAnnouncements, getAnnouncementDates, deleteAnnouncement, getAttendance, getAttendanceByUser, createEmployee1, updateAdminProfile, changePassword1, verify, updateUser, forgetPassword, forgetPassword1, forgetPassword2, getBranchs, postBranch, updateBranch, deleteBranch, getDepartments, postDepartment, updateDepartment, deleteDepartment, getDesingation, postDesignation, updateDesignation, deleteDesignation, getAllActivities, postLeaveType, updateLeaveType, getLeaveTypes, deleteLeaveType,
-         createIndicator, getIndicator, deleteIndicator, getDesignations, updateIndicator, getAppraisal, createAppraisal, allEmployee, deleteApprisal, updateApprisal, createAssets, getAssets, deleteAssets, updateAssets, deleteUser, createTracks, getTracks, deleteTracks, updateTracks, editComApi,  loanDeleteHandler,
-         editAllowance, commisionDelteHandler,createLoan , editLoanApi,
+         login, taskCreateApi, getLeadById, getUserByDesignation, UpdateLeadStatus, UpdateLeadSource, AllLeadSource, meetCreateApi, AllLeadStatus, taskEditApi, meetEditApi, deleteTaskapi, deleteMeetapi, getTaskApi, getMeetApi, employeeLogin, employeeResetPassword, hrLogin, createHr, getHrs, deleteHr, createEmployee, getEmployees, getUsers, getActiveUsers, getActiveUsersCount, postLeadStatus, postLeadSource2, getAdminEmployees, postActivity, postActivityHr, getActivitiesByUser, getStatisticsByUser, postLeave, updateLeave, getUserLeaves, getUserLeaveById, deleteLeave, getTotalLeaves, postTotalLeaves, verifyEmployee, verifyHr, verifyAdmin, setUser, buildAPI, user, getProjects, postProject, getHolidays, postHoliday, updateProject, getProjectsByEmployee, getTasks, postTask, updateTask, deleteTask, setFlag, flag, changePassword, updateProfile, deleteHoliday, updateHoliday, deleteProject, getChats, createNewChat, postMessage, deleteChat, adminLogin, getChat, getChatByUser, setChatUser, chatUser, getEmployeesByEmployee, topDash, postAnnouncement, updateAnnouncement, getAnnouncements, getAnnouncementDates, deleteAnnouncement, getAttendance, getAttendanceByUser, createEmployee1, updateAdminProfile, changePassword1, verify, updateUser, forgetPassword, forgetPassword1, forgetPassword2, getBranchs, postBranch, updateBranch, deleteBranch, getDepartments, postDepartment, updateDepartment, deleteDepartment, getDesingation, postDesignation, updateDesignation, deleteDesignation, getAllActivities, postLeaveType, updateLeaveType, getLeaveTypes, deleteLeaveType,
+         createIndicator, getIndicator, deleteIndicator, getDesignations, updateIndicator, getAppraisal, createAppraisal, allEmployee, deleteApprisal, updateApprisal, createAssets, getAssets, deleteAssets, updateAssets, deleteUser, createTracks, getTracks, deleteTracks, updateTracks, editComApi, loanDeleteHandler,
+         editAllowance, commisionDelteHandler, createLoan, editLoanApi,
          getTotalLeavesCount, uploadDocuments, createAnnouncement, deleteAnnouncement, updateAnnouncements, fetchAnnoucement, deleteAnnouncements, getEmp, allEmployeebyDep, notificationGet,
          acceptLeave, rejectLeave,
          uploadOwnDocs,
@@ -1900,7 +1900,7 @@ const getUserByDesignation = async()=>{
          fetchAllDocs,
          updateAttendance,
          deleteDocSetup,
-         postDocSetup , 
+         postDocSetup,
          deleteAttendence,
          postNotification, fetchUserNotify,
          togglePayslip,
@@ -1920,26 +1920,26 @@ const getUserByDesignation = async()=>{
          getAward, fetchClock, deleteAward, updateAward,
          createTransfer, getTransfer,
          deleteTransfer, updateTransfer,
-         createTrainer, getTrainer, deleteTrainer, updateTrainer, createTrainingList, getTrainingList, updateTrainingList, deleteTrainingList, createHoliday, getHoliday, deleteHolidays, updateHolidays , 
+         createTrainer, getTrainer, deleteTrainer, updateTrainer, createTrainingList, getTrainingList, updateTrainingList, deleteTrainingList, createHoliday, getHoliday, deleteHolidays, updateHolidays,
          getAllActivities2,
-         createTrip,getTrip,deleteTrip,updateTrip,deletePromotion,updatePromotion , 
-         createLead  ,
+         createTrip, getTrip, deleteTrip, updateTrip, deletePromotion, updatePromotion,
+         createLead,
          getLead,
          getLead2,
          allowDeleteHandler,
-         deleteLeads , updateLead , 
-         uploadToCloudinaryImg , 
-         postQuotation , 
-         getQuotationAll , 
+         deleteLeads, updateLead,
+         uploadToCloudinaryImg,
+         postQuotation,
+         getQuotationAll,
          fetchUserNotifyHR,
          createSallary,
-         getSallary , 
-         userSalaryFetch , salaryCreate , 
+         getSallary,
+         userSalaryFetch, salaryCreate,
          createExcelLead,
-         updateQuotation, 
-         fetchTodayLeave  ,
-         deleteQuotation  , 
-         departmentEmployee , 
+         updateQuotation,
+         fetchTodayLeave,
+         deleteQuotation,
+         departmentEmployee,
          getLead3,
          getLeadSources,
          postLeadSource,
@@ -1948,7 +1948,7 @@ const getUserByDesignation = async()=>{
          getIndustry,
          postIndustry,
          deleteIndustry,
-         updateIndustry , 
+         updateIndustry,
          getLeadByUser
 
       }}>

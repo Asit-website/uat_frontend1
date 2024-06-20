@@ -13,6 +13,8 @@ import { useReactToPrint } from 'react-to-print'
 const InvoicePage = ({ setAlert, pop, setPop }) => {
   const { user } = useMain();
 
+  const user1 = JSON.parse(localStorage.getItem("hrms_user"));
+
   const location = useLocation();
   const invoiceData = location.state;
 
@@ -31,14 +33,14 @@ const InvoicePage = ({ setAlert, pop, setPop }) => {
   return (
     <>
       <div className="employee-dash h-full">
-        {user?.role === "ADMIN" ? (
+        {user1?.role === "ADMIN" ? (
           <AdminSidebar pop={pop} setPop={setPop} />
         ) : (
           <EmployeeSidebar pop={pop} setPop={setPop} />
         )}
 
         <div className="tm">
-          {user?.role === "ADMIN" ? (
+          {user1?.role === "ADMIN" ? (
             <AdminNavbar user={user} setAlert={setAlert} />
           ) : (
             <EmployeeNavbar user={user} setAlert={setAlert} />

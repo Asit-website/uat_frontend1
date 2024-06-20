@@ -611,7 +611,7 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
                         <div className="singlquot" key={index}>
                           <p className="invId">Invoice ID: {item?.InvoiceNo}</p>
                           <p className="inName"> {item?.ClientName}</p>
-                          <p className="inName">{item?.Price}</p>
+                          <p className="inName">{`${item.currency === "INR" ? "₹" : "$"}`} {item?.Price}</p>
                           <p className="date">
                             {new Date(Number(item?.ts)).toLocaleDateString()} :{" "}
                             {new Date(Number(item?.ts)).toLocaleTimeString()}

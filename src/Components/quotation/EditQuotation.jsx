@@ -11,6 +11,8 @@ import { useNavigate,useLocation } from "react-router-dom";
 const EditQuotation = ({ setAlert, pop, setPop }) => {
   const { user , updateQuotation } = useMain();
 
+  const user1 = JSON.parse(localStorage.getItem("hrms_user"));
+
   const location = useLocation();
 
   const navigate = useNavigate();
@@ -87,14 +89,14 @@ useEffect(() => {
   return (
     <>
       <div className="employee-dash h-full">
-        {user?.designation === "CEO" || user?.designation === "Manager" || user?.designation === "HR Admin" ? (
+        {user1?.designation === "CEO" || user1?.designation === "Manager" || user1?.designation === "HR Admin" ? (
           <AdminSidebar pop={pop} setPop={setPop} />
         ) : (
           <EmployeeSidebar pop={pop} setPop={setPop} />
         )}
 
         <div className="tm">
-          {user?.designation === "CEO" || user?.designation === "Manager" || user?.designation === "HR Admin" ? (
+          {user1?.designation === "CEO" || user1?.designation === "Manager" || user1?.designation === "HR Admin" ? (
             <AdminNavbar user={user} setAlert={setAlert} />
           ) : (
             <EmployeeNavbar user={user} setAlert={setAlert} />

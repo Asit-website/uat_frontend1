@@ -5,27 +5,40 @@ import "react-calendar/dist/Calendar.css";
 import { useMain } from "../../../hooks/useMain";
 import "./lead.css";
 import "react-confirm-alert/src/react-confirm-alert.css";
-import { useLocation } from "react-router-dom";
-
+import { NavLink, useLocation } from "react-router-dom";
+import EmployeeSidebar from "../../Employee/Sidebar/EmployeeSidebar";
+import EmployeeNavbar from "../../Employee/Navbar/EmployeeNavbar";
 const MeetLead = ({ setAlert, pop, setPop }) => {
   const {
     user } = useMain();
 
-    const location = useLocation();
+  const location = useLocation();
 
   const { state } = location;
 
-  console.log("staete ",state);
+  console.log("staete ", state);
+
+  const user1 = JSON.parse(localStorage.getItem("hrms_user"));
 
 
 
   return (
     <div className="imprtleadCont">
       <div className="employee-dash h-full">
-        <AdminSidebar pop={pop} setPop={setPop} />
+        {/* <AdminSidebar pop={pop} setPop={setPop} /> */}
+
+        {
+          user1?.role === "ADMIN" || user1?.role === "HR" ? <AdminSidebar pop={pop} setPop={setPop} /> :
+            <EmployeeSidebar pop={pop} setPop={setPop} />
+        }
 
         <div className="tm">
-          <AdminNavbar user={user} setAlert={setAlert} />
+          {/* <AdminNavbar user={user} setAlert={setAlert} /> */}
+
+          {
+            user1?.role === "ADMIN" || user1?.role === "HR" ? <AdminNavbar user={user} setAlert={setAlert} /> : <EmployeeNavbar user={user} />
+          }
+
 
           <div className="em">
 
@@ -41,14 +54,14 @@ const MeetLead = ({ setAlert, pop, setPop }) => {
 
               {/* right side  */}
               <div className="laedRight">
-                <button
+                <NavLink to={`${user1?.designation === "CEO" || user1?.designation === "Manager" ? "/adminDash/leadDash" : "/employeeDash/leadDash"}`}><button
                   id="dropdownDefaultButton"
                   data-dropdown-toggle="dropdown"
                   className="text-white silo   px-5 py-2.5 text-center inline-flex items-center"
                   type="button"
                 >
                   Back
-                </button>
+                </button></NavLink>
 
                 <button
                   type="button"
@@ -68,36 +81,36 @@ const MeetLead = ({ setAlert, pop, setPop }) => {
               <div className="leadFirs">
 
 
-                  <div className="lleaiFOlEFT">
+                <div className="lleaiFOlEFT">
 
-                   
+
                   <div className="subPart">
-                      <h3>Date :</h3>
-                      <p>{state?.meetDateFrom}</p>
-                    </div>
-
-                    <div className="subPart">
-                      <h3>Time :</h3>
-                      <p>{state?.meetTimeFrom} - {state?.meetTimeTo}</p>
-                    </div>
-
-                   <div className="subPart">
-                      <h3>Status :</h3>
-                      <p>{state?.Status}</p>
-                    </div>
-
-                    <div className="subPart">
-                      <h3>Related To :</h3>
-                      <p>{state?.RelatedTo}</p>
-                    </div>
-
-                    <div className="subPart">
-                      <h3>Host :</h3>
-                      <p>{state?.Host}</p>
-                    </div>
-
+                    <h3>Date :</h3>
+                    <p>{state?.meetDateFrom}</p>
                   </div>
- 
+
+                  <div className="subPart">
+                    <h3>Time :</h3>
+                    <p>{state?.meetTimeFrom} - {state?.meetTimeTo}</p>
+                  </div>
+
+                  <div className="subPart">
+                    <h3>Status :</h3>
+                    <p>{state?.Status}</p>
+                  </div>
+
+                  <div className="subPart">
+                    <h3>Related To :</h3>
+                    <p>{state?.RelatedTo}</p>
+                  </div>
+
+                  <div className="subPart">
+                    <h3>Host :</h3>
+                    <p>{state?.Host}</p>
+                  </div>
+
+                </div>
+
 
               </div>
 
@@ -113,7 +126,7 @@ const MeetLead = ({ setAlert, pop, setPop }) => {
                 <hr />
 
                 <div className="eladinfoWrap">
-                <p>No records found</p>
+                  <p>No records found</p>
                 </div>
 
               </div>
@@ -128,18 +141,18 @@ const MeetLead = ({ setAlert, pop, setPop }) => {
 
                 <hr />
 
-             <div className="noteInpuCont">
+                <div className="noteInpuCont">
 
-                 <textarea name="" id="" placeholder="Add a note..."> </textarea>
+                  <textarea name="" id="" placeholder="Add a note..."> </textarea>
 
-                 <div className="noBtns">
+                  <div className="noBtns">
 
                     <button className="ccnel"><span>Cancel</span></button>
                     <button className="ssave"><span>Save</span></button>
 
-                 </div>
-             </div>
-              
+                  </div>
+                </div>
+
               </div>
 
               {/* fourth  */}
@@ -180,7 +193,7 @@ const MeetLead = ({ setAlert, pop, setPop }) => {
           </div>
         </div>
       </div>
-   
+
     </div>
   );
 };

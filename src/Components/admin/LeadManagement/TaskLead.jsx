@@ -5,47 +5,49 @@ import "react-calendar/dist/Calendar.css";
 import { useMain } from "../../../hooks/useMain";
 import "./lead.css";
 import "react-confirm-alert/src/react-confirm-alert.css";
-import { useLocation } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import EmployeeSidebar from "../../Employee/Sidebar/EmployeeSidebar";
 import EmployeeNavbar from "../../Employee/Navbar/EmployeeNavbar";
 
 const TaskLead = ({ setAlert, pop, setPop }) => {
 
-  const {user,getLeadById} = useMain();
+  const { user, getLeadById } = useMain();
 
   const location = useLocation();
 
   const { state } = location;
 
-  const [leadData , setLeadData] = useState();
+  const user1 = JSON.parse(localStorage.getItem("hrms_user"));
 
-  const fetchLead = async()=>{
-  const ans = await getLeadById(state?.LeadId);
-  console.log(ans?.data);
-   if(ans?.status){
- setLeadData(ans?.data);
-   }
+  const [leadData, setLeadData] = useState();
+
+  const fetchLead = async () => {
+    const ans = await getLeadById(state?.LeadId);
+    console.log(ans?.data);
+    if (ans?.status) {
+      setLeadData(ans?.data);
+    }
   }
 
-  useEffect(()=>{
-  fetchLead();
-  },[])
+  useEffect(() => {
+    fetchLead();
+  }, [])
 
 
   return (
     <div className="imprtleadCont">
       <div className="employee-dash h-full">
         {
-          user?.role === "ADMIN" && user?.role === "HR" ?  <AdminSidebar pop={pop} setPop={setPop} /> :
-          <EmployeeSidebar pop={pop} setPop={setPop}/>
+          user1?.role === "ADMIN" || user1?.role === "HR" ? <AdminSidebar pop={pop} setPop={setPop} /> :
+            <EmployeeSidebar pop={pop} setPop={setPop} />
         }
-       
+
 
         <div className="tm">
           {
-            user?.role === "ADMIN" && user?.role === "HR" ? <AdminNavbar user={user} setAlert={setAlert} /> : <EmployeeNavbar user={user}/>
+            user1?.role === "ADMIN" || user1?.role === "HR" ? <AdminNavbar user={user} setAlert={setAlert} /> : <EmployeeNavbar user={user} />
           }
-          
+
 
           <div className="em">
 
@@ -61,14 +63,14 @@ const TaskLead = ({ setAlert, pop, setPop }) => {
 
               {/* right side  */}
               <div className="laedRight">
-                <button
+                <NavLink to={`${user?.designation === "CEO" || user?.designation === "Manager" ? "/adminDash/leadDash" : "/employeeDash/leadDash"}`}><button
                   id="dropdownDefaultButton"
                   data-dropdown-toggle="dropdown"
                   className="text-white silo   px-5 py-2.5 text-center inline-flex items-center"
                   type="button"
                 >
                   Back
-                </button>
+                </button></NavLink>
 
                 <button
                   type="button"
@@ -117,7 +119,7 @@ const TaskLead = ({ setAlert, pop, setPop }) => {
                     </div>
 
                   </div>
- 
+
                 </div>
 
               </div>
@@ -140,7 +142,7 @@ const TaskLead = ({ setAlert, pop, setPop }) => {
 
                     <div className="subPart">
                       <h3>Lead Owner :</h3>
-                      <p>{leadData?.LeadOwner?.fullName }</p>
+                      <p>{leadData?.LeadOwner?.fullName}</p>
                     </div>
 
                     <div className="subPart">
@@ -168,7 +170,7 @@ const TaskLead = ({ setAlert, pop, setPop }) => {
                       <p>{leadData?.AnnualRevenue}</p>
                     </div>
 
-                   
+
                   </div>
 
                   {/* right side  */}
@@ -205,7 +207,7 @@ const TaskLead = ({ setAlert, pop, setPop }) => {
                       <h3>Lead Status :</h3>
                       <p>{leadData?.LeadStatus}</p>
                     </div>
-                  
+
                   </div>
                 </div>
 
@@ -222,18 +224,18 @@ const TaskLead = ({ setAlert, pop, setPop }) => {
 
                 <hr />
 
-             <div className="noteInpuCont">
+                <div className="noteInpuCont">
 
-                 <textarea name="" id="" placeholder="Add a note..."> </textarea>
+                  <textarea name="" id="" placeholder="Add a note..."> </textarea>
 
-                 <div className="noBtns">
+                  <div className="noBtns">
 
                     <button className="ccnel"><span>Cancel</span></button>
                     <button className="ssave"><span>Save</span></button>
 
-                 </div>
-             </div>
-              
+                  </div>
+                </div>
+
               </div>
 
               {/* fourth  */}
@@ -275,9 +277,9 @@ const TaskLead = ({ setAlert, pop, setPop }) => {
         </div>
       </div>
 
- 
 
- 
+
+
     </div>
   );
 };
