@@ -736,13 +736,13 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
 
                                  <p className="noteTExt">{note?.Note}</p>
 
-                                  <img onClick={()=>{
+                                  {/* <img onClick={()=>{
                                     setIsNoteEdit(note?._id);
                                   setNote(note?.Note);
-                                  }} src={edit} alt="" />
+                                  }} src={veci} alt="" /> */}
                                   <img onClick={()=>{
                                     deleteNote(note?._id)
-                                  }} src={delete32} alt="" />
+                                  }} src={deli} alt="" />
 
                             </div>
                           ))

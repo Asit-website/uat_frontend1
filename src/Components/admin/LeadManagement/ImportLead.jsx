@@ -551,6 +551,10 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
                           allNote?.map((note , index)=>(
                             <div key={index} className="singlNoteDe">
 
+                              <div className="line_danda">
+
+                              </div>
+
                                    <div className="noteStaus">
 
                                     <p>{note?.Status}</p>
@@ -561,13 +565,13 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
 
                                  <p className="noteTExt">{note?.Note}</p>
 
-                                  <img onClick={()=>{
+                                  {/* <img onClick={()=>{
                                     setIsNoteEdit(note?._id);
                                   setNote(note?.Note);
-                                  }} src={edit} alt="" />
+                                  }} src={veci} alt="" /> */}
                                   <img onClick={()=>{
                                     deleteNote(note?._id)
-                                  }} src={delete32} alt="" />
+                                  }} src={deli} alt="" />
 
                             </div>
                           ))
@@ -580,7 +584,7 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
 
               {/* secoond third   third  */}
               <div className="leadFirs">
-                <div className="LEADSsTunav">
+                <div className="LEADSsTunav litu">
                   <h2 className="ehading">Open Activities</h2>
 
                   <div className="addNewCont">
@@ -609,7 +613,7 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
 
               {/* third third  */}
               <div className="leadFirs">
-                <div className="LEADSsTunav">
+                <div className="LEADSsTunav litu">
                   <h2 className="ehading">Quotation</h2>
 
                   <button

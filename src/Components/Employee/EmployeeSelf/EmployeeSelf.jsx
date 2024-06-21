@@ -143,7 +143,75 @@ const EmployeeSelf = ({ setAlert, pop1, setPop1 }) => {
                            <span>{user1?.gender}</span>
                         </div>
 
+                        <div className="singfirst">
+                           <p>Pan Number :</p>
+                           <span>{user1?.pan}</span>
+                        </div>
 
+                        <div className="singfirst">
+                           <p>Adhar Number :</p>
+                           <span>{user1?.adhar}</span>
+                        </div>
+
+                        <div className="singfirst">
+                           <p>Father Name :</p>
+                           <span>{user1?.father}</span>
+                        </div>
+
+                        <div className="singfirst">
+                           <p>Current  Address :</p>
+                           <span>{user1?.currentAddress}</span>
+                        </div>
+
+                        <div className="singfirst">
+                           <p>Current State :</p>
+                           <span>{user1?.currentState}</span>
+                        </div>
+
+                        <div className="singfirst">
+                           <p>Current City :</p>
+                           <span>{user1?.currentCity}</span>
+                        </div>
+
+                        <div className="singfirst">
+                           <p>Area Pincode :</p>
+                           <span>{user1?.currentPin}</span>
+                        </div>
+
+                        <div className="singfirst">
+                           <p>Permanent Address :</p>
+                           <span>{user1?.residence}</span>
+                        </div>
+
+                        <div className="singfirst">
+                           <p>Permanent State :</p>
+                           <span>{user1?.perState}</span>
+                        </div>
+
+                        <div className="singfirst">
+                           <p>Permanent City :</p>
+                           <span>{user1?.perCity}</span>
+                        </div>
+
+                        <div className="singfirst">
+                           <p>Permanent Pin :</p>
+                           <span>{user1?.perPin}</span>
+                        </div>
+
+                        <div className="singfirst">
+                           <p>Marital status :</p>
+                           <span>{user1?.Martial}</span>
+                        </div>
+
+                        <div className="singfirst">
+                           <p>Nationality :</p>
+                           <span>{user1?.nationality}</span>
+                        </div>
+
+                        <div className="singfirst">
+                           <p>Mother name :</p>
+                           <span>{user1?.Mother}</span>
+                        </div>
 
                      </div>
 
@@ -157,14 +225,42 @@ const EmployeeSelf = ({ setAlert, pop1, setPop1 }) => {
 
                      <hr />
 
+                     {/* <div className="allFristDe3tail2">
+
+                        {
+                           user1?.document?.map((item, index) => (
+                              <div className="singleDoc" key={index}>
+
+                                <a target="_blank" href={`${item?.url}`}><h2>{item?.name}</h2></a>
+                                <a target="_blank" href={`${item?.url}`}><img src={item?.url} className="docuImgages" alt="" /></a>
+
+                              </div>
+                           ))
+                        }
+
+
+                     </div> */}
+                     
                      <div className="allFristDe3tail2">
 
                         {
                            user1?.document?.map((item, index) => (
                               <div className="singleDoc" key={index}>
 
-                                 <h2>{item?.name}</h2>
-                                 <img src={item?.url} className="docuImgages" alt="" />
+                                 {/* left */}
+                                 <div className="sidocLeft">
+
+                                  <a target="_blank" href={`${item?.url}`}><img src={doc} alt="" /></a>
+
+                                    <div className="ffwrap">
+                                     <a target="_blank" href={`${item?.url}`}><p className="ff"> {item?.name}</p></a>
+                                      <a target="_blank" href={`${item?.url}`}> <p className="dd">{(item?.url).slice(50,80)}</p></a>
+                                    </div>
+
+                                 </div>
+
+                                 {/* right  */}
+                                 {/* <p className="singDocRight">{new Date().now()}</p> */}
 
                               </div>
                            ))

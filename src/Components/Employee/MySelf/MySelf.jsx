@@ -128,6 +128,76 @@ const MySelf = ({ setAlert, pop1, setPop1 }) => {
                            <span>{user1?.gender}</span>
                         </div>
 
+                        <div className="singfirst">
+                           <p>Pan Number :</p>
+                           <span>{user1?.pan}</span>
+                        </div>
+
+                        <div className="singfirst">
+                           <p>Adhar Number :</p>
+                           <span>{user1?.adhar}</span>
+                        </div>
+
+                        <div className="singfirst">
+                           <p>Father Name :</p>
+                           <span>{user1?.father}</span>
+                        </div>
+
+                        <div className="singfirst">
+                           <p>Current  Address :</p>
+                           <span>{user1?.currentAddress}</span>
+                        </div>
+
+                        <div className="singfirst">
+                           <p>Current State :</p>
+                           <span>{user1?.currentState}</span>
+                        </div>
+
+                        <div className="singfirst">
+                           <p>Current City :</p>
+                           <span>{user1?.currentCity}</span>
+                        </div>
+
+                        <div className="singfirst">
+                           <p>Area Pincode :</p>
+                           <span>{user1?.currentPin}</span>
+                        </div>
+
+                        <div className="singfirst">
+                           <p>Permanent Address :</p>
+                           <span>{user1?.residence}</span>
+                        </div>
+
+                        <div className="singfirst">
+                           <p>Permanent State :</p>
+                           <span>{user1?.perState}</span>
+                        </div>
+
+                        <div className="singfirst">
+                           <p>Permanent City :</p>
+                           <span>{user1?.perCity}</span>
+                        </div>
+
+                        <div className="singfirst">
+                           <p>Permanent Pin :</p>
+                           <span>{user1?.perPin}</span>
+                        </div>
+
+                        <div className="singfirst">
+                           <p>Marital status :</p>
+                           <span>{user1?.Martial}</span>
+                        </div>
+
+                        <div className="singfirst">
+                           <p>Nationality :</p>
+                           <span>{user1?.nationality}</span>
+                        </div>
+
+                        <div className="singfirst">
+                           <p>Mother name :</p>
+                           <span>{user1?.Mother}</span>
+                        </div>
+
 
 
                      </div>
@@ -151,17 +221,17 @@ const MySelf = ({ setAlert, pop1, setPop1 }) => {
                                  {/* left */}
                                  <div className="sidocLeft">
 
-                                    <img src={doc} alt="" />
+                                  <a target="_blank" href={`${item?.url}`}><img src={doc} alt="" /></a> 
 
                                     <div className="ffwrap">
-                                       <p className="ff"> Tech requirment :</p>
-                                       <p className="dd">200KB</p>
+                                     <a target="_blank" href={`${item?.url}`}><p className="ff"> {item?.name}</p></a>
+                                      <a target="_blank" href={`${item?.url}`}> <p className="dd">{(item?.url).slice(50,80)}</p></a>
                                     </div>
 
                                  </div>
 
                                  {/* right  */}
-                                 <p className="singDocRight">Jan 4, 2024</p>
+                                 {/* <p className="singDocRight">{new Date().now()}</p> */}
 
                               </div>
                            ))

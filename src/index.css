@@ -5379,19 +5379,20 @@ input::-webkit-inner-spin-button {
   gap: 24px;
 }
 
-.canccfdl{
+.canccfdl {
   width: 86px;
-height: 40px;
-border-radius: 10px;
-border: 1px solid #B8BBC0;
-background-color: white;
-font-family: Inter;
-font-size: 16px;
-font-weight: 500;
-line-height: 24px;
-letter-spacing: 0.005em;
-color: #666D76;
+  height: 40px;
+  border-radius: 10px;
+  border: 1px solid #B8BBC0;
+  background-color: white;
+  font-family: Inter;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+  letter-spacing: 0.005em;
+  color: #666D76;
 }
+
 .leadUPdateStsus {
   width: 110px;
   height: 40px;
@@ -5435,6 +5436,38 @@ color: #666D76;
   letter-spacing: 0.005em;
   text-align: left;
 
+}
+
+.litu {
+  display: flex;
+  flex-direction: row !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+}
+
+.noteStaus {
+  border: 1px solid #46AD92 !important;
+  width: 77px;
+  height: 28px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #E8F5F1;
+}
+
+.noteStaus p {
+  color: #189877;
+  font-size: 12px;
+  font-family: inter !important;
+  font-weight: 400 !important;
+}
+
+.notedate {
+  color: #666D76;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: inter !important;
 }
 
 .opeAnew {
@@ -5492,20 +5525,41 @@ color: #666D76;
 
 }
 
-.allNotes{
+.allNotes {
   display: flex;
   flex-direction: column;
   gap: 14px;
 }
-.singlNoteDe{
+
+.singlNoteDe {
   display: flex;
   align-items: center;
   gap: 24px;
 }
 
-.noteTExt{
+.line_danda {
+  height: 40px;
+  border-left: 2px solid #189877 !important;
+}
+
+.noteTExt {
   max-width: 543px;
-     width: 543px;
+  width: 543px;
+  color: #1B2533;
+  font-weight: 500;
+  font-family: inter !important;
+  font-size: 16px;
+  line-height: 22px;
+}
+#fentar{
+  width: 265px;
+  max-width: 100%;
+
+}
+.test_filter{
+  display: flex;
+  align-items: center;
+  justify-content: end;
 }
 .noteLabel {
   display: flex;

@@ -237,7 +237,7 @@ const UpdateProfile = ({ setAlert, pop1, setPop1 }) => {
                     Mobile Number
                   </label>
                   <input
-                    type="text"
+                    type="number"
                     name="mobile"
                     onChange={handleChange}
                     value={value.mobile}

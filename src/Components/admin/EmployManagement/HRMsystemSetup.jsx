@@ -76,31 +76,31 @@ const sidebarItem = [
       },
     ],
   },
-  {
-    title: "Lead Status",
-    img: hub3,
-    tableData: [
-      {
-        title: "Status",
-      },
-      {
-        title: "ACTION",
-      },
-    ],
-  },
-  {
-    title: "Industry",
-    img: hub3,
-    tableData: [
-      {
-        title: "Industry",
-      },
+  // {
+  //   title: "Lead Status",
+  //   img: hub3,
+  //   tableData: [
+  //     {
+  //       title: "Status",
+  //     },
+  //     {
+  //       title: "ACTION",
+  //     },
+  //   ],
+  // },
+  // {
+  //   title: "Industry",
+  //   img: hub3,
+  //   tableData: [
+  //     {
+  //       title: "Industry",
+  //     },
      
-      {
-        title: "ACTION",
-      },
-    ],
-  },
+  //     {
+  //       title: "ACTION",
+  //     },
+  //   ],
+  // },
 ];
 
 const HRMsystemSetup = ({ setAlert, pop, setPop }) => {

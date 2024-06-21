@@ -141,7 +141,7 @@ const AdminProfile = ({ pop, setPop, setAlert }) => {
                     Mobile Number
                   </label>
                   <input
-                    type="text"
+                    type="number"
                     name="mobile"
                     onChange={handleChange}
                     value={value.mobile}
