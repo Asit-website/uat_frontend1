@@ -28,7 +28,7 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
     getQuotationAll,
     deleteQuotation,
     taskCreateApi,
-    meetCreateApi, taskEditApi, meetEditApi , GetNoteApi , DeleteNoteApi , updateNoteApi
+    meetCreateApi, taskEditApi, meetEditApi , GetNoteApi , DeleteNoteApi , updateNoteApi , FetchFollowApi
   } = useMain();
 
   const { id } = useParams();
@@ -36,15 +36,26 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
   const location = useLocation();
   const { type, data1 } = location.state || {};
 
+  
   const [refreshFlag, setRefreshFlag] = useState(false);
-
+  
   const [data, setData] = useState({});
-
+  
   const [LeadStatus, setLeadStatus] = useState("");
 
   const [Note, setNote] = useState("");
 
   const navigate = useNavigate();
+
+  const [allFollowUp , setAllFollowUp] = useState([]);
+
+  const fetchFollowUp = async()=>{
+    const ans = await FetchFollowApi(id);
+      if(ans?.status){
+        setAllFollowUp(ans?.data);
+      }
+  }
+
 
   const getData = async () => {
     let ans = await getLead2(id, "", "", "");
@@ -82,7 +93,6 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
 
   const updatingNote = async () => {
     const ans = await updateNoteApi(isNoteEdit , Note , LeadStatus);
-    console.log("ans",ans);
        if(ans?.status){
         toast.success("Successfuly created");
         getNotes();
@@ -100,9 +110,6 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
     }
   }
 
-  useEffect(()=>{
-    getNotes();
-  },[])
   const [userQuotation, setUserQu] = useState([]);
 
   const getQuotation = async () => {
@@ -146,13 +153,26 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
   const [opnAdNew, setOpenAdNew] = useState(false);
 
   const [taskData, setTaskData] = useState({
-    Subject: "", Priority: "", Status: "", DueDate: "", RelatedTo: "", ContactName: "", Note: "", LeadId: id, userId: data?.LeadOwner?._id
+    LeadName: `${data?.FirstName || ''} ${data?.LastName || ''}`,
+    FollowUpType: "",
+       Date: "",
+       Time: "",
+       Remark: "",
+       LeadId: id,
+   userId: data?.LeadOwner?._id
   })
+
+  useEffect(()=>{
+     setTaskData((prev)=>({
+      ...prev ,
+      LeadName: `${data?.FirstName || ''} ${data?.LastName || ''}`,
+     }))
+  },[data])
+
 
   const [meetData, setMeetData] = useState({
-    title: "", meetDateFrom: "", meetDateTo: "", Status: "", LeadId: id, meetTimeFrom: "", meetTimeTo: "", Host: "", RelatedTo: "", Participant: "", Note: "", userId: data?.LeadOwner?._id
+    title: "", meetDateFrom: "", meetDateTo: "", Status: "", LeadId: id, meetTimeFrom: "", meetTimeTo: "", Host: "", RelatedTo: "", Participant: "", Note: "", userId: data?.LeadOwner?._id 
   })
-
 
   const taskHandler = (e) => {
     const { name, value } = e.target;
@@ -179,8 +199,17 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
     if (ans?.status) {
       toast.success("Successfuly created");
       setTaskData({
-        Subject: "", Priority: "", Status: "", DueDate: "", RelatedTo: "", ContactName: "", Note: "", LeadId: id, userId: data?.LeadOwner?._id
+        LeadName: `${data?.FirstName || ''} ${data?.LastName || ''}`,
+        FollowUpType: "",
+          Status: "",
+           Date: "",
+           Time: "",
+           Remark: "",
+           LeadId: id,
+       userId: data?.LeadOwner?._id
+       
       })
+      fetchFollowUp();
       setOpenCreateTask(false);
     }
 
@@ -198,7 +227,15 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
     if (ans?.status) {
       toast.success("Successfuly updated");
       setTaskData({
-        Subject: "", Priority: "", Status: "", DueDate: "", RelatedTo: "", ContactName: "", Note: "", LeadId: id, userId: data?.LeadOwner?._id
+        LeadName: `${data?.FirstName || ''} ${data?.LastName || ''}`,
+        FollowUpType: "",
+          Status: "",
+           Date: "",
+           Time: "",
+           Remark: "",
+           LeadId: id,
+       userId: data?.LeadOwner?._id
+       
       })
       setOpenCreateTask(false);
     }
@@ -217,7 +254,7 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
     if (ans?.status) {
       toast.success("Successfuly created");
       setOpenCreateMeet(false);
-      setMeetData({ title: "", meetDateFrom: "", meetDateTo: "", Status: "", meetTimeFrom: "", meetTimeTo: "", Host: "", RelatedTo: "", Participant: "", Note: "", userId: data?.LeadOwner?._id })
+      setMeetData({ title: "", meetDateFrom: "", meetDateTo: "", Status: "", meetTimeFrom: "", meetTimeTo: "", Host: "", RelatedTo: "", Participant: "", Note: "", userId: data?.LeadOwner?._id   })
 
     }
 
@@ -235,7 +272,7 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
     if (ans?.status) {
       toast.success("Successfuly created");
       setOpenCreateMeet(false);
-      setMeetData({ title: "", meetDateFrom: "", meetDateTo: "", Status: "", meetTimeFrom: "", meetTimeTo: "", Host: "", RelatedTo: "", Participant: "", Note: "", userId: data?.LeadOwner?._id })
+      setMeetData({ title: "", meetDateFrom: "", meetDateTo: "", Status: "", meetTimeFrom: "", meetTimeTo: "", Host: "", RelatedTo: "", Participant: "", Note: "", userId: data?.LeadOwner?._id  })
 
     }
 
@@ -243,10 +280,6 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
 
   }
 
-
-  useEffect(() => {
-    getData();
-  }, [])
 
   useEffect(() => {
     if (type === 'meet' && data1) {
@@ -279,6 +312,11 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
   }, [data]);
 
 
+  useEffect(()=>{
+    getData();
+    getNotes();
+    fetchFollowUp();
+  },[])
    
 
   return (
@@ -584,7 +622,10 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
 
               {/* secoond third   third  */}
               <div className="leadFirs">
+
                 <div className="LEADSsTunav litu">
+
+
                   <h2 className="ehading">Open Activities</h2>
 
                   <div className="addNewCont">
@@ -597,7 +638,7 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
                       opnAdNew &&
                       <div className="opeAnew">
 
-                        <p onClick={() => setOpenCreateTask(true)}>Task</p>
+                        <p onClick={() => setOpenCreateTask(true)}>Follow Up</p>
                         <hr />
                         <p onClick={() => setOpenCreateMeet(true)}>Meeting</p>
 
@@ -608,7 +649,26 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
 
                 </div>
 
+                     <div className="allFolowup">
+ 
+                 <h2>My Next Follow Up : </h2>
+                       
+                        {
+                          allFollowUp?.map((fol , index)=>(
+                            <div key={index} className="singFol">
 
+                               <p className="notedate">{new Date(fol?.Date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</p>
+
+                               <p>{fol?.FollowUpType}</p>
+
+                                <p>{fol?.Remark}</p>
+                               
+                            </div>
+                          ))
+                        }
+
+                     </div>
+                  
               </div>
 
               {/* third third  */}
@@ -728,58 +788,40 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
             <form className="taskForm" >
 
               <label>
-                <p>Subject</p>
-                <input name="Subject" value={taskData?.Subject} onChange={taskHandler} type="text" placeholder="Subject" />
+                <p>LeadName</p>
+                <input name="LeadName" value={taskData?.LeadName} onChange={taskHandler} type="text" placeholder="Subject" />
               </label>
+
+              <label>
+                  <p>Follow-Up type</p>
+
+                  <select name="FollowUpType" value={taskData?.FollowUpType} onChange={taskHandler} id="">
+                    <option value="select one">Select One</option>
+                    <option value="Email Follow Up">Email Follow Up</option>
+                    <option value="Call Follow Up">Call Follow Up</option>
+                    <option value="Whatsapp Follow Up">Whatsapp Follow Up</option>
+                  </select>
+
+                </label>
+
 
               <div className="twoTask">
 
                 <label>
-                  <p>Priority</p>
-                  <select name="Priority" value={taskData?.Priority} onChange={taskHandler} id="">
-                    <option value="select one">Select One</option>
-                    <option value="High">High</option>
-                    <option value="Medium">Medium</option>
-                    <option value="Low">Low</option>
-                  </select>
+                  <p>Date</p>
+                  <input name="Date" value={taskData?.Date} onChange={taskHandler} type="date" />
                 </label>
 
                 <label>
-                  <p>Status</p>
-                  <select name="Status" value={taskData?.Status} onChange={taskHandler} id="">
-                    <option value="select one">Select One</option>
-                    <option value="Not Started">Not Started</option>
-                    <option value="Started"> Started</option>
-
-                  </select>
+                  <p>Time</p>
+                  <input  name="Time" value={taskData?.Time} onChange={taskHandler} type="time" />
                 </label>
-
 
               </div>
-
-              <div className="twoTask">
-
-                <label>
-                  <p>Due Date</p>
-                  <input name="DueDate" value={taskData?.DueDate} onChange={taskHandler} type="date" />
-                </label>
-
-                <label>
-                  <p>Related To</p>
-                  <input name="RelatedTo" value={taskData?.RelatedTo} onChange={taskHandler} type="text" />
-                </label>
-
-
-              </div>
-
+          
               <label>
-                <p>Contact Name</p>
-                <input name="ContactName" value={taskData?.ContactName} onChange={taskHandler} type="text" />
-              </label>
-
-              <label>
-                <p>Note</p>
-                <input name="Note" value={taskData?.Note} onChange={taskHandler} type="text" />
+                <p>Remark</p>
+                <input name="Remark" value={taskData?.Remark} onChange={taskHandler} type="text" />
               </label>
 
 
@@ -880,7 +922,6 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
                   <input value={meetData.Participant} onChange={meetHandler} name="Participant" type="text" />
                 </label>
 
-                {/* <span className="addnewTx"> Add new</span> */}
               </div>
 
 

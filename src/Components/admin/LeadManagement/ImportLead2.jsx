@@ -11,26 +11,22 @@ import deli from "../../images/deli.svg";
 import semi from "../../images/simi.svg";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
-import cancel from "../../images/cancell.png";
-import { useLocation } from "react-router-dom";
+import cancel from "../../images/cancell.png"
+import { useLocation } from 'react-router-dom';
 import EmployeeSidebar from "../../Employee/Sidebar/EmployeeSidebar";
 import EmployeeNavbar from "../../Employee/Navbar/EmployeeNavbar";
-import timeline from "../../images/timeline.png";
-import edit from "../../images/edit.png"
-import delete32 from "../../images/delete.png"
 
 
-const ImportLead = ({ setAlert, pop, setPop }) => {
+const ImportLead2 = ({ setAlert, pop, setPop }) => {
   const {
     user,
     getLead2,
     updateLeadStatus,
+    CreateNoteApi,
     getQuotationAll,
     deleteQuotation,
     taskCreateApi,
-    meetCreateApi,
-    taskEditApi,
-    meetEditApi,GetNoteApi , DeleteNoteApi , updateNoteApi , CreateNoteApi
+    meetCreateApi, taskEditApi, meetEditApi , GetNoteApi , DeleteNoteApi , updateNoteApi , FetchFollowApi
   } = useMain();
 
   const { id } = useParams();
@@ -38,17 +34,26 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
   const location = useLocation();
   const { type, data1 } = location.state || {};
 
+  
   const [refreshFlag, setRefreshFlag] = useState(false);
-
+  
   const [data, setData] = useState({});
-
-  const [notOpenEdit, setnotOpenEdit] = useState(false);
-
+  
   const [LeadStatus, setLeadStatus] = useState("");
 
   const [Note, setNote] = useState("");
 
   const navigate = useNavigate();
+
+  const [allFollowUp , setAllFollowUp] = useState([]);
+
+  const fetchFollowUp = async()=>{
+    const ans = await FetchFollowApi(id);
+      if(ans?.status){
+        setAllFollowUp(ans?.data);
+      }
+  }
+
 
   const getData = async () => {
     let ans = await getLead2(id, "", "", "");
@@ -56,13 +61,52 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
     setLeadStatus(ans?.data[0]?.LeadStatus);
   };
 
-  console.log("leastatus ", LeadStatus);
-
   const updatingLeadStatus = async (leading) => {
     const { _id } = data;
-    await updateLeadStatus(_id, leading);
+    const ans = await updateLeadStatus(_id, leading);
   };
 
+  const [isNoteEdit , setIsNoteEdit] = useState(false);
+  const [allNote , setAllNote] = useState([]);
+
+  const getNotes = async()=>{
+    const ans = await GetNoteApi(id);
+     if(ans?.status){
+      setAllNote(ans?.data);
+     }
+  }
+
+  const createNote = async () => {
+
+    
+     const ans = await CreateNoteApi(id , Note , LeadStatus);
+       if(ans?.status){
+        toast.success("Successfuly created");
+        getNotes();
+        setNote("");
+        setLeadStatus("Status");
+       }
+
+  };
+
+  const updatingNote = async () => {
+    const ans = await updateNoteApi(isNoteEdit , Note , LeadStatus);
+       if(ans?.status){
+        toast.success("Successfuly created");
+        getNotes();
+        setNote("");
+        setIsNoteEdit(false);
+        setLeadStatus("Status");
+       }
+  };
+
+  const deleteNote = async(id)=>{
+    const ans = await DeleteNoteApi(id);
+    if(ans?.status){
+      toast.success("delleted ");
+    getNotes();
+    }
+  }
 
   const [userQuotation, setUserQu] = useState([]);
 
@@ -106,49 +150,42 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
   const [openCreateMeet, setOpenCreateMeet] = useState(false);
   const [opnAdNew, setOpenAdNew] = useState(false);
 
-  const [isTimeLine, setIsTimeLine] = useState(false);
-
   const [taskData, setTaskData] = useState({
-    Subject: "",
-    Priority: "",
-    Status: "",
-    DueDate: "",
-    RelatedTo: "",
-    ContactName: "",
-    Note: "",
-    LeadId: id,
-    userId: data?.LeadOwner?._id,
-  });
+    LeadName: `${data?.FirstName || ''} ${data?.LastName || ''}`,
+    FollowUpType: "",
+       Date: "",
+       Time: "",
+       Remark: "",
+       LeadId: id,
+   userId: data?.LeadOwner?._id
+  })
+
+  useEffect(()=>{
+     setTaskData((prev)=>({
+      ...prev ,
+      LeadName: `${data?.FirstName || ''} ${data?.LastName || ''}`,
+     }))
+  },[data])
+
 
   const [meetData, setMeetData] = useState({
-    title: "",
-    meetDateFrom: "",
-    meetDateTo: "",
-    Status: "",
-    LeadId: id,
-    meetTimeFrom: "",
-    meetTimeTo: "",
-    Host: "",
-    RelatedTo: "",
-    Participant: "",
-    Note: "",
-    userId: data?.LeadOwner?._id,
-  });
+    title: "", meetDateFrom: "", meetDateTo: "", Status: "", LeadId: id, meetTimeFrom: "", meetTimeTo: "", Host: "", RelatedTo: "", Participant: "", Note: "", userId: data?.LeadOwner?._id 
+  })
 
   const taskHandler = (e) => {
     const { name, value } = e.target;
     setTaskData((prev) => ({
       ...prev,
-      [name]: value,
-    }));
-  };
+      [name]: value
+    }))
+  }
   const meetHandler = (e) => {
     const { name, value } = e.target;
     setMeetData((prev) => ({
       ...prev,
-      [name]: value,
-    }));
-  };
+      [name]: value
+    }))
+  }
 
   const TaskSubmitHandler = async (e) => {
     e.preventDefault();
@@ -160,21 +197,23 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
     if (ans?.status) {
       toast.success("Successfuly created");
       setTaskData({
-        Subject: "",
-        Priority: "",
-        Status: "",
-        DueDate: "",
-        RelatedTo: "",
-        ContactName: "",
-        Note: "",
-        LeadId: id,
-        userId: data?.LeadOwner?._id,
-      });
+        LeadName: `${data?.FirstName || ''} ${data?.LastName || ''}`,
+        FollowUpType: "",
+          Status: "",
+           Date: "",
+           Time: "",
+           Remark: "",
+           LeadId: id,
+       userId: data?.LeadOwner?._id
+       
+      })
+      fetchFollowUp();
       setOpenCreateTask(false);
     }
 
     toast.dismiss(toastId);
-  };
+
+  }
 
   const taskUpdateHandler = async (e) => {
     e.preventDefault();
@@ -186,21 +225,22 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
     if (ans?.status) {
       toast.success("Successfuly updated");
       setTaskData({
-        Subject: "",
-        Priority: "",
-        Status: "",
-        DueDate: "",
-        RelatedTo: "",
-        ContactName: "",
-        Note: "",
-        LeadId: id,
-        userId: data?.LeadOwner?._id,
-      });
+        LeadName: `${data?.FirstName || ''} ${data?.LastName || ''}`,
+        FollowUpType: "",
+          Status: "",
+           Date: "",
+           Time: "",
+           Remark: "",
+           LeadId: id,
+       userId: data?.LeadOwner?._id
+       
+      })
       setOpenCreateTask(false);
     }
 
     toast.dismiss(toastId);
-  };
+
+  }
 
   const meetSubmitHandler = async (e) => {
     e.preventDefault();
@@ -212,23 +252,13 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
     if (ans?.status) {
       toast.success("Successfuly created");
       setOpenCreateMeet(false);
-      setMeetData({
-        title: "",
-        meetDateFrom: "",
-        meetDateTo: "",
-        Status: "",
-        meetTimeFrom: "",
-        meetTimeTo: "",
-        Host: "",
-        RelatedTo: "",
-        Participant: "",
-        Note: "",
-        userId: data?.LeadOwner?._id,
-      });
+      setMeetData({ title: "", meetDateFrom: "", meetDateTo: "", Status: "", meetTimeFrom: "", meetTimeTo: "", Host: "", RelatedTo: "", Participant: "", Note: "", userId: data?.LeadOwner?._id  })
+
     }
 
     toast.dismiss(toastId);
-  };
+
+  }
 
   const meetUpdateHandler = async (e) => {
     e.preventDefault();
@@ -240,80 +270,24 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
     if (ans?.status) {
       toast.success("Successfuly created");
       setOpenCreateMeet(false);
-      setMeetData({
-        title: "",
-        meetDateFrom: "",
-        meetDateTo: "",
-        Status: "",
-        meetTimeFrom: "",
-        meetTimeTo: "",
-        Host: "",
-        RelatedTo: "",
-        Participant: "",
-        Note: "",
-        userId: data?.LeadOwner?._id,
-      });
+      setMeetData({ title: "", meetDateFrom: "", meetDateTo: "", Status: "", meetTimeFrom: "", meetTimeTo: "", Host: "", RelatedTo: "", Participant: "", Note: "", userId: data?.LeadOwner?._id })
+
     }
 
     toast.dismiss(toastId);
-  };
 
-  const [noting, setNoting] = useState({
-    isCold: false,
-    isWarm: false,
-    isFollowUp: false,
-    isHot: false,
-  });
+  }
+
 
   useEffect(() => {
-    if (LeadStatus === "Cold") {
-      setNoting((prev) => ({
-        ...prev,
-        isCold: true,
-        isWarm: false,
-        isHot: false,
-        isFollowUp: false,
-      }));
-    } else if (LeadStatus === "Warm") {
-      setNoting((prev) => ({
-        ...prev,
-        isCold: false,
-        isWarm: true,
-        isHot: false,
-        isFollowUp: false,
-      }));
-    } else if (LeadStatus === "Hot") {
-      setNoting((prev) => ({
-        ...prev,
-        isCold: false,
-        isHot: true,
-        isWarm: false,
-        isFollowUp: false,
-      }));
-    } else {
-      setNoting((prev) => ({
-        ...prev,
-        isCold: false,
-        isHot: false,
-        isWarm: false,
-        isFollowUp: true,
-      }));
-    }
-  }, [LeadStatus]);
-
-  useEffect(() => {
-    getData();
-  }, []);
-
-  useEffect(() => {
-    if (type === "meet" && data1) {
+    if (type === 'meet' && data1) {
       setMeetData(data1);
       setOpenCreateMeet(true);
     }
   }, [type, data1]);
 
   useEffect(() => {
-    if (type === "task" && data1) {
+    if (type === 'task' && data1) {
       setTaskData(data1);
       setOpenCreateTask(true);
     }
@@ -321,68 +295,34 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
 
   useEffect(() => {
     if (data) {
-      setMeetData((prevMeetData) => ({
+
+      setMeetData(prevMeetData => ({
         ...prevMeetData,
-        userId: data?.LeadOwner?._id,
+        userId: data?.LeadOwner?._id
       }));
 
-      setTaskData((prev) => ({
+      setTaskData(prev => ({
         ...prev,
-        userId: data?.LeadOwner?._id,
+        userId: data?.LeadOwner?._id
       }));
+
     }
   }, [data]);
 
-  
-  const [isNoteEdit , setIsNoteEdit] = useState(false);
-  const [allNote , setAllNote] = useState([]);
-
-  const getNotes = async()=>{
-    const ans = await GetNoteApi(id);
-     if(ans?.status){
-      setAllNote(ans?.data);
-     }
-  }
-
-  const createNote = async () => {
-     const ans = await CreateNoteApi(id , Note , LeadStatus);
-       if(ans?.status){
-        toast.success("Successfuly created");
-        getNotes();
-        setNote("");
-        setLeadStatus("Status");
-       }
-
-  };
-
-  const updatingNote = async () => {
-    const ans = await updateNoteApi(isNoteEdit , Note , LeadStatus);
-    console.log("ans",ans);
-       if(ans?.status){
-        toast.success("Successfuly created");
-        getNotes();
-        setNote("");
-        setIsNoteEdit(false);
-    
-        setLeadStatus("Status");
-       }
-  };
-
-  const deleteNote = async(id)=>{
-    const ans = await DeleteNoteApi(id);
-    if(ans?.status){
-      toast.success("delleted ");
-    getNotes();
-    }
-  }
 
   useEffect(()=>{
+    getData();
     getNotes();
+    fetchFollowUp();
   },[])
+   
 
   return (
     <div className="imprtleadCont">
+
+
       <div className="employee-dash h-full">
+
         <EmployeeSidebar pop={pop} setPop={setPop} />
 
         <div className="tm">
@@ -400,7 +340,7 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
                 />
 
                 <div className="lTITL">
-                <h2>{data?.FirstName} {" "} {data?.LastName}</h2>
+                  <h2>{data?.FirstName} {" "} {data?.LastName}</h2>
                   <p style={{ display: "flex" }}>
                     <img src={bx} /> <span> Add Tags</span>
                   </p>
@@ -449,228 +389,149 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
               </div>
             </section>
 
-            {/*time line section   */}
-            <div className="timeLineCont">
-              {/* left side */}
-              <div className="timeLOverBtns">
-                <div
-                  onClick={() => setIsTimeLine(false)}
-                  className={`${isTimeLine ? "noTimeline" : "timeline"}`}
-                >
-                  <p>Overview</p>
-                </div>
+            {/* second sect */}
 
-                <div
-                  onClick={() => setIsTimeLine(true)}
-                  className={`${isTimeLine ? "timelin12" : "timelin1"}`}
-                >
-                  <p>Timeline</p>
+            {/* third secttion  */}
+            <div className="leadWRAP">
+              {/* first part  */}
+              <div className="leadFirs">
+                <h2 className="ehading">Lead Information</h2>
+
+                <div className="eladinfoWrap">
+                  {/* left side  */}
+                  <div className="lleaiFOlEFT">
+                    <div className="subPart">
+                      <h3>Lead Owner :</h3>
+                      <p>{data?.LeadOwner?.email}</p>
+                    </div>
+
+                    <div className="subPart">
+                      <h3>{data?.title}</h3>
+                      <p>-</p>
+                    </div>
+
+                    <div className="subPart">
+                      <h3>Phone :</h3>
+                      <p>{data?.Phone}</p>
+                    </div>
+
+                    <div className="subPart">
+                      <h3>Mobile :</h3>
+                      <p>{data?.Mobile}</p>
+                    </div>
+
+                    <div className="subPart">
+                      <h3>Industry :</h3>
+                      <p>{data?.Industry}</p>
+                    </div>
+
+                    <div className="subPart">
+                      <h3>Annual Revenue :</h3>
+                      <p>${data?.AnnualRevenue}</p>
+                    </div>
+
+                    <div className="subPart">
+                      <h3>Annual Revenue :</h3>
+                      <p>${data?.AnnualRevenue}</p>
+                    </div>
+
+                    <div className="subPart">
+                      <h3>Annual Revenue :</h3>
+                      <p>${data?.AnnualRevenue}</p>
+                    </div>
+                  </div>
+
+                  {/* right side  */}
+                  <div className="lleaiFOlEFT">
+                    <div className="subPart">
+                      <h3>Company :</h3>
+                      <p>{data?.Company}</p>
+                    </div>
+
+                    <div className="subPart">
+                      <h3>Lead Name :</h3>
+                      <p>
+                        {data?.FirstName} {data?.LastName}
+                      </p>
+                    </div>
+
+                    <div className="subPart">
+                      <h3>Email :</h3>
+                      <p>{data?.Email}</p>
+                    </div>
+
+                    <div className="subPart">
+                      <h3>Fax :</h3>
+                      <p>{data?.Fax}</p>
+                    </div>
+                    <div className="subPart">
+                      <h3>No. of Employees :</h3>
+                      <p>{data?.NoOfEmployee}</p>
+                    </div>
+                    <div className="subPart">
+                      <h3>Lead Status :</h3>
+                      <p>{data?.LeadStatus}</p>
+                    </div>
+                    <div className="subPart">
+                      <h3>Lead Status :</h3>
+                      <p>{data?.LeadStatus}</p>
+                    </div>
+                    <div className="subPart">
+                      <h3>Lead Status :</h3>
+                      <p>{data?.LeadStatus}</p>
+                    </div>
+                  </div>
                 </div>
               </div>
 
-              {/* right side */}
-              <button className="leadClonse">
-                <span>Lead Close</span>
-              </button>
-            </div>
+              {/* second part  */}
+              <div className="leadFirs">
+                <h2 className="ehading">Address Information</h2>
 
-            {isTimeLine ? (
-              <div className="timeelineWrap">
-                <h2>Timeline History</h2>
-
-                <hr />
-
-                <div className="timeCount">
-                  {/* singl */}
-                  <div className="singleTimeline">
-                    {/* left side */}
-                    <div className="tiemLeft">
-                      <p className="timeDate">Apr 27, 2024</p>
-                      <p className="timelineTime">03:48PM</p>
+                <div className="eladinfoWrap">
+                  {/* left side  */}
+                  <div className="lleaiFOlEFT">
+                    <div className="subPart">
+                      <h3>Street :</h3>
+                      <p>{data?.Street}</p>
                     </div>
 
-                    <img src={timeline} alt="" />
+                    <div className="subPart">
+                      <h3>State</h3>
+                      <p>{data?.State}</p>
+                    </div>
 
-                    <div className="leadCreate">
-                      <p className="timeLeadcREA">Lead Created</p>
-                      <p className="timeByINFO">by info</p>
+                    <div className="subPart">
+                      <h3>Country :</h3>
+                      <p>{data?.Country}</p>
                     </div>
                   </div>
 
-                  {/* singl */}
-                  <div className="singleTimeline">
-                    {/* left side */}
-                    <div className="tiemLeft">
-                      <p className="timeDate">Apr 27, 2024</p>
-                      <p className="timelineTime">03:48PM</p>
+                  {/* right side  */}
+                  <div className="lleaiFOlEFT">
+                    <div className="subPart">
+                      <h3>city :</h3>
+                      <p>{data?.City}</p>
                     </div>
 
-                    <img src={timeline} alt="" />
-
-                    <div className="leadCreate">
-                      <p className="timeLeadcREA">Lead Created</p>
-                      <p className="timeByINFO">by info</p>
-                    </div>
-                  </div>
-
-                  {/* singl */}
-                  <div className="singleTimeline">
-                    {/* left side */}
-                    <div className="tiemLeft">
-                      <p className="timeDate">Apr 27, 2024</p>
-                      <p className="timelineTime">03:48PM</p>
-                    </div>
-
-                    <img src={timeline} alt="" />
-
-                    <div className="leadCreate">
-                      <p className="timeLeadcREA">Lead Created</p>
-                      <p className="timeByINFO">by info</p>
+                    <div className="subPart">
+                      <h3>zip code :</h3>
+                      <p>{data?.ZipCode}</p>
                     </div>
                   </div>
                 </div>
               </div>
-            ) : (
-              <div className="leadWRAP">
-                {/* first part  */}
-                <div className="leadFirs">
-                  <h2 className="ehading">Lead Information</h2>
 
-                  <div className="eladinfoWrap">
-                    {/* left side  */}
-                    <div className="lleaiFOlEFT">
-                      <div className="subPart">
-                        <h3>Lead Owner :</h3>
-                        <p>{data?.LeadOwner?.email}</p>
-                      </div>
+              {/* third  */}
+              <div className="leadFirs">
+                <h2 className="ehading">Description Information</h2>
 
-                      <div className="subPart">
-                        <h3>{data?.title}</h3>
-                        <p>-</p>
-                      </div>
-
-                      <div className="subPart">
-                        <h3>Phone :</h3>
-                        <p>{data?.Phone}</p>
-                      </div>
-
-                      <div className="subPart">
-                        <h3>Mobile :</h3>
-                        <p>{data?.Mobile}</p>
-                      </div>
-
-                      <div className="subPart">
-                        <h3>Industry :</h3>
-                        <p>{data?.Industry}</p>
-                      </div>
-
-                      <div className="subPart">
-                        <h3>Annual Revenue :</h3>
-                        <p>${data?.AnnualRevenue}</p>
-                      </div>
-
-                      <div className="subPart">
-                        <h3>Annual Revenue :</h3>
-                        <p>${data?.AnnualRevenue}</p>
-                      </div>
-
-                      <div className="subPart">
-                        <h3>Annual Revenue :</h3>
-                        <p>${data?.AnnualRevenue}</p>
-                      </div>
-                    </div>
-
-                    {/* right side  */}
-                    <div className="lleaiFOlEFT">
-                      <div className="subPart">
-                        <h3>Company :</h3>
-                        <p>{data?.Company}</p>
-                      </div>
-
-                      <div className="subPart">
-                        <h3>Lead Name :</h3>
-                        <p>
-                          {data?.FirstName} {data?.LastName}
-                        </p>
-                      </div>
-
-                      <div className="subPart">
-                        <h3>Email :</h3>
-                        <p>{data?.Email}</p>
-                      </div>
-
-                      <div className="subPart">
-                        <h3>Fax :</h3>
-                        <p>{data?.Fax}</p>
-                      </div>
-                      <div className="subPart">
-                        <h3>No. of Employees :</h3>
-                        <p>{data?.NoOfEmployee}</p>
-                      </div>
-                      <div className="subPart">
-                        <h3>Lead Status :</h3>
-                        <p>{data?.LeadStatus}</p>
-                      </div>
-                      <div className="subPart">
-                        <h3>Lead Status :</h3>
-                        <p>{data?.LeadStatus}</p>
-                      </div>
-                      <div className="subPart">
-                        <h3>Lead Status :</h3>
-                        <p>{data?.LeadStatus}</p>
-                      </div>
-                    </div>
-                  </div>
+                <div className="eladinfoWrap secondWRap">
+                  <p>
+                    Description: <span>{data?.DescriptionInfo}</span>
+                  </p>
                 </div>
-
-                {/* second part  */}
-                <div className="leadFirs">
-                  <h2 className="ehading">Address Information</h2>
-
-                  <div className="eladinfoWrap">
-                    {/* left side  */}
-                    <div className="lleaiFOlEFT">
-                      <div className="subPart">
-                        <h3>Street :</h3>
-                        <p>{data?.Street}</p>
-                      </div>
-
-                      <div className="subPart">
-                        <h3>State</h3>
-                        <p>{data?.State}</p>
-                      </div>
-
-                      <div className="subPart">
-                        <h3>Country :</h3>
-                        <p>{data?.Country}</p>
-                      </div>
-                    </div>
-
-                    {/* right side  */}
-                    <div className="lleaiFOlEFT">
-                      <div className="subPart">
-                        <h3>city :</h3>
-                        <p>{data?.City}</p>
-                      </div>
-
-                      <div className="subPart">
-                        <h3>zip code :</h3>
-                        <p>{data?.ZipCode}</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* third  */}
-                <div className="leadFirs">
-                  <h2 className="ehading">Description Information</h2>
-
-                  <div className="eladinfoWrap secondWRap">
-                    <p>
-                      Description: <span>{data?.DescriptionInfo}</span>
-                    </p>
-                  </div>
-                </div>
+              </div>
 
               {/* second  third  */}
               <div className="leadFirs">
@@ -726,6 +587,10 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
                           allNote?.map((note , index)=>(
                             <div key={index} className="singlNoteDe">
 
+                              <div className="line_danda">
+
+                              </div>
+
                                    <div className="noteStaus">
 
                                     <p>{note?.Status}</p>
@@ -753,344 +618,288 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
 
               </div>
 
-                {/* secoond third   third  */}
-                <div className="leadFirs">
-                  <div className="LEADSsTunav">
-                    <h2 className="ehading">Open Activities</h2>
+              {/* secoond third   third  */}
+              <div className="leadFirs">
 
-                    <div className="addNewCont">
-                      <div
-                        onClick={() => setOpenAdNew((prev) => !prev)}
-                        className="addneEW"
-                      >
-                        <p>Add New</p>
+                <div className="LEADSsTunav litu">
+
+
+                  <h2 className="ehading">Open Activities</h2>
+
+                  <div className="addNewCont">
+
+                    <div onClick={() => setOpenAdNew((prev) => !prev)} className="addneEW">
+                      <p>Add New</p>
+                    </div>
+
+                    {
+                      opnAdNew &&
+                      <div className="opeAnew">
+
+                        <p onClick={() => setOpenCreateTask(true)}>Follow Up</p>
+                        <hr />
+                        <p onClick={() => setOpenCreateMeet(true)}>Meeting</p>
+
                       </div>
 
-                      {opnAdNew && (
-                        <div className="opeAnew">
-                          <p onClick={() => setOpenCreateTask(true)}>Task</p>
-                          <hr />
-                          <p onClick={() => setOpenCreateMeet(true)}>Meeting</p>
-                        </div>
-                      )}
-                    </div>
+                    }
                   </div>
+
                 </div>
 
-                {/* third third  */}
-                <div className="leadFirs">
-                  <div className="LEADSsTunav">
-                    <h2 className="ehading">Quotation</h2>
+                     <div className="allFolowup">
+ 
+                 <h2>My Next Follow Up : </h2>
+                       
+                        {
+                          allFollowUp?.map((fol , index)=>(
+                            <div key={index} className="singFol">
 
-                    <button
-                      onClick={() =>
-                        navigate("/adminDash/createQuotation", {
-                          state: { id },
-                        })
-                      }
-                      className="createQquot"
+                               <p className="notedate">{new Date(fol?.Date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</p>
+
+                               <p>{fol?.FollowUpType}</p>
+
+                                <p>{fol?.Remark}</p>
+                               
+                            </div>
+                          ))
+                        }
+
+                     </div>
+                  
+              </div>
+
+              {/* third third  */}
+              <div className="leadFirs">
+                <div className="LEADSsTunav litu">
+                  <h2 className="ehading">Quotation</h2>
+
+                  <button
+                    onClick={() =>
+                      navigate("/adminDash/createQuotation", { state: { id } })
+                    }
+                    className="createQquot"
+                  >
+                    <span>Create Quotation</span>
+                  </button>
+                </div>
+
+                <hr />
+
+                {userQuotation?.length > 0 ? (
+                  <div className="allQui">
+                    {userQuotation?.map((item, index) => (
+                      <div key={index} className="sakacont">
+                        <div className="singlquot" key={index}>
+                          <p className="invId">Invoice ID: {item?.InvoiceNo}</p>
+                          <p className="inName"> {item?.ClientName}</p>
+                          <p className="inName">{`${item.currency === "INR" ? "₹" : "$"}`} {item?.Price}</p>
+                          <p className="date">
+                            {new Date(Number(item?.ts)).toLocaleDateString()} :{" "}
+                            {new Date(Number(item?.ts)).toLocaleTimeString()}
+                          </p>
+                        </div>
+
+                        <div className="dj">
+                          <img
+                            onClick={() =>
+                              navigate("/adminDash/editQuotation", {
+                                state: item,
+                              })
+                            }
+                            className="cursor-pointer"
+                            src={veci}
+                            alt="veci"
+                          />
+                          <img
+                            onClick={() => {
+                              deleteProject(item?._id);
+                            }}
+                            className="dli cursor-pointer"
+                            src={deli}
+                            alt="deli"
+                          />
+                          <img
+                            onClick={() =>
+                              navigate("/invoicePage", { state: item })
+                            }
+                            className="dli cursor-pointer"
+                            src={semi}
+                            alt="semi"
+                          />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <span className="norecord">No records found</span>
+                )}
+              </div>
+
+              {/* fourth  */}
+              <div className="leadFirs">
+                <div className="attachment">
+                  <h2 className="ehading">Description Information</h2>
+                  <div className="saya">
+                    <p>Upload File</p>
+                    <svg
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
                     >
-                      <span>Create Quotation</span>
-                    </button>
+                      <path
+                        d="M13 19V15H16L12 10L8 15H11V19H13Z"
+                        fill="#0B56E4"
+                      />
+                      <path
+                        d="M7 19H9V17H7C5.346 17 4 15.654 4 14C4 12.596 5.199 11.244 6.673 10.985L7.254 10.883L7.446 10.325C8.149 8.274 9.895 7 12 7C14.757 7 17 9.243 17 12V13H18C19.103 13 20 13.897 20 15C20 16.103 19.103 17 18 17H15V19H18C20.206 19 22 17.206 22 15C21.9985 14.1036 21.6966 13.2336 21.1427 12.5288C20.5888 11.8241 19.8147 11.3253 18.944 11.112C18.507 7.67 15.56 5 12 5C9.244 5 6.85 6.611 5.757 9.15C3.609 9.792 2 11.82 2 14C2 16.757 4.243 19 7 19Z"
+                        fill="#0B56E4"
+                      />
+                    </svg>
                   </div>
-
-                  <hr />
-
-                  {userQuotation?.length > 0 ? (
-                    <div className="allQui">
-                      {userQuotation?.map((item, index) => (
-                        <div key={index} className="sakacont">
-                          <div className="singlquot" key={index}>
-                            <p className="invId">
-                              Invoice ID: {item?.InvoiceNo}
-                            </p>
-                            <p className="inName"> {item?.ClientName}</p>
-                            <p className="inName">{`${item.currency === "INR" ? "₹" : "$"}`}{item?.Price}</p>
-                            <p className="date">
-                              {new Date(Number(item?.ts)).toLocaleDateString()}{" "}
-                              :{" "}
-                              {new Date(Number(item?.ts)).toLocaleTimeString()}
-                            </p>
-                          </div>
-
-                          <div className="dj">
-                            <img
-                              onClick={() =>
-                                navigate("/adminDash/editQuotation", {
-                                  state: item,
-                                })
-                              }
-                              className="cursor-pointer"
-                              src={veci}
-                              alt="veci"
-                            />
-                            <img
-                              onClick={() => {
-                                deleteProject(item?._id);
-                              }}
-                              className="dli cursor-pointer"
-                              src={deli}
-                              alt="deli"
-                            />
-                            <img
-                              onClick={() =>
-                                navigate("/invoicePage", { state: item })
-                              }
-                              className="dli cursor-pointer"
-                              src={semi}
-                              alt="semi"
-                            />
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  ) : (
-                    <span className="norecord">No records found</span>
-                  )}
                 </div>
-
-                {/* fourth  */}
-                <div className="leadFirs">
-                  <div className="attachment">
-                    <h2 className="ehading">Description Information</h2>
-                    <div className="saya">
-                      <p>Upload File</p>
-                      <svg
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M13 19V15H16L12 10L8 15H11V19H13Z"
-                          fill="#0B56E4"
-                        />
-                        <path
-                          d="M7 19H9V17H7C5.346 17 4 15.654 4 14C4 12.596 5.199 11.244 6.673 10.985L7.254 10.883L7.446 10.325C8.149 8.274 9.895 7 12 7C14.757 7 17 9.243 17 12V13H18C19.103 13 20 13.897 20 15C20 16.103 19.103 17 18 17H15V19H18C20.206 19 22 17.206 22 15C21.9985 14.1036 21.6966 13.2336 21.1427 12.5288C20.5888 11.8241 19.8147 11.3253 18.944 11.112C18.507 7.67 15.56 5 12 5C9.244 5 6.85 6.611 5.757 9.15C3.609 9.792 2 11.82 2 14C2 16.757 4.243 19 7 19Z"
-                          fill="#0B56E4"
-                        />
-                      </svg>
-                    </div>
-                  </div>
-                  <div className="eladinfoWrap secondWRap lion">
-                    <p className="toyotoyo">No Attachment</p>
-                  </div>
+                <div className="eladinfoWrap secondWRap lion">
+                  <p className="toyotoyo">No Attachment</p>
                 </div>
               </div>
-            )}
+
+            </div>
           </div>
         </div>
+
       </div>
 
-      {openCreateTask && (
+      {
+        openCreateTask &&
         <div className="createTaskWrap">
+
           <div className="cretTaskCont">
+
             <nav>
               <p>Create Task</p>
-              <img
-                onClick={() => setOpenCreateTask(false)}
-                className="cursor-pointer"
-                src={cancel}
-                alt=""
-              />
+              <img onClick={() => setOpenCreateTask(false)} className="cursor-pointer" src={cancel} alt="" />
+
             </nav>
 
-            <form className="taskForm">
+            <form className="taskForm" >
+
               <label>
-                <p>Subject</p>
-                <input
-                  name="Subject"
-                  value={taskData?.Subject}
-                  onChange={taskHandler}
-                  type="text"
-                  placeholder="Subject"
-                />
+                <p>LeadName</p>
+                <input name="LeadName" value={taskData?.LeadName} onChange={taskHandler} type="text" placeholder="Subject" />
               </label>
+
+              <label>
+                  <p>Follow-Up type</p>
+
+                  <select name="FollowUpType" value={taskData?.FollowUpType} onChange={taskHandler} id="">
+                    <option value="select one">Select One</option>
+                    <option value="Email Follow Up">Email Follow Up</option>
+                    <option value="Call Follow Up">Call Follow Up</option>
+                    <option value="Whatsapp Follow Up">Whatsapp Follow Up</option>
+                  </select>
+
+                </label>
+
 
               <div className="twoTask">
+
                 <label>
-                  <p>Priority</p>
-                  <select
-                    name="Priority"
-                    value={taskData?.Priority}
-                    onChange={taskHandler}
-                    id=""
-                  >
-                    <option value="select one">Select One</option>
-                    <option value="High">High</option>
-                    <option value="Medium">Medium</option>
-                    <option value="Low">Low</option>
-                  </select>
+                  <p>Date</p>
+                  <input name="Date" value={taskData?.Date} onChange={taskHandler} type="date" />
                 </label>
 
                 <label>
-                  <p>Status</p>
-                  <select
-                    name="Status"
-                    value={taskData?.Status}
-                    onChange={taskHandler}
-                    id=""
-                  >
-                    <option value="select one">Select One</option>
-                    <option value="Not Started">Not Started</option>
-                    <option value="Started"> Started</option>
-                  </select>
+                  <p>Time</p>
+                  <input  name="Time" value={taskData?.Time} onChange={taskHandler} type="time" />
                 </label>
+
               </div>
-
-              <div className="twoTask">
-                <label>
-                  <p>Due Date</p>
-                  <input
-                    name="DueDate"
-                    value={taskData?.DueDate}
-                    onChange={taskHandler}
-                    type="date"
-                  />
-                </label>
-
-                <label>
-                  <p>Related To</p>
-                  <input
-                    name="RelatedTo"
-                    value={taskData?.RelatedTo}
-                    onChange={taskHandler}
-                    type="text"
-                  />
-                </label>
-              </div>
-
+          
               <label>
-                <p>Contact Name</p>
-                <input
-                  name="ContactName"
-                  value={taskData?.ContactName}
-                  onChange={taskHandler}
-                  type="text"
-                />
+                <p>Remark</p>
+                <input name="Remark" value={taskData?.Remark} onChange={taskHandler} type="text" />
               </label>
 
-              <label>
-                <p>Note</p>
-                <input
-                  name="Note"
-                  value={taskData?.Note}
-                  onChange={taskHandler}
-                  type="text"
-                />
-              </label>
 
               <div className="btnstask">
-                <button
-                  onClick={data1 ? taskUpdateHandler : TaskSubmitHandler}
-                  className="creattk"
-                >
+                <button onClick={data1 ? taskUpdateHandler : TaskSubmitHandler} className="creattk">
                   {data1 ? "Task Update " : " Task Create"}
                 </button>
-                <button
-                  onClick={() => setOpenCreateTask(false)}
-                  className="tkCnacel"
-                >
+                <button onClick={() => setOpenCreateTask(false)} className="tkCnacel">
                   Cancel
                 </button>
               </div>
+
             </form>
 
             <hr />
-          </div>
-        </div>
-      )}
 
-      {openCreateMeet && (
+          </div>
+
+        </div>
+      }
+
+
+      {
+        openCreateMeet &&
         <div className="createTaskWrap">
+
           <div className="cretTaskCont2">
+
             <nav>
               <p>Create Meeting</p>
-              <img
-                onClick={() => setOpenCreateMeet(false)}
-                className="cursor-pointer"
-                src={cancel}
-                alt=""
-              />
+              <img onClick={() => setOpenCreateMeet(false)} className="cursor-pointer" src={cancel} alt="" />
+
             </nav>
 
-            <form className="taskForm">
+            <form className="taskForm" >
+
               <label>
                 <p>Title</p>
-                <input
-                  value={meetData.title}
-                  onChange={meetHandler}
-                  name="title"
-                  type="text"
-                  placeholder="Title"
-                />
+                <input value={meetData.title} onChange={meetHandler} name="title" type="text" placeholder="Title" />
               </label>
 
               <label>
                 <p>Status</p>
-                <input
-                  type="text"
-                  value={meetData.Status}
-                  onChange={meetHandler}
-                  name="Status"
-                  placeholder="Online"
-                />
+                <input type="text" value={meetData.Status} onChange={meetHandler} name="Status" placeholder="Online" />
               </label>
 
               <div className="twoTask">
+
                 <label>
                   <p>Meeting Date From</p>
-                  <input
-                    value={meetData.meetDateFrom}
-                    onChange={meetHandler}
-                    name="meetDateFrom"
-                    type="date"
-                  />
+                  <input value={meetData.meetDateFrom} onChange={meetHandler} name="meetDateFrom" type="date" />
                 </label>
 
                 <label>
                   <p>Meeting Date To</p>
-                  <input
-                    value={meetData.meetDateTo}
-                    onChange={meetHandler}
-                    name="meetDateTo"
-                    type="date"
-                  />
+                  <input value={meetData.meetDateTo} onChange={meetHandler} name="meetDateTo" type="date" />
                 </label>
+
+
               </div>
 
               <div className="twoTask">
+
                 <label>
                   <p>Meeting Time From</p>
-                  <input
-                    value={meetData.meetTimeFrom}
-                    onChange={meetHandler}
-                    name="meetTimeFrom"
-                    type="time"
-                  />
+                  <input value={meetData.meetTimeFrom} onChange={meetHandler} name="meetTimeFrom" type="time" />
                 </label>
 
                 <label>
                   <p>Meeting Time To</p>
-                  <input
-                    value={meetData.meetTimeTo}
-                    onChange={meetHandler}
-                    name="meetTimeTo"
-                    type="time"
-                  />
+                  <input value={meetData.meetTimeTo} onChange={meetHandler} name="meetTimeTo" type="time" />
                 </label>
+
               </div>
 
               <div className="twoTask">
+
                 <label>
                   <p>Host </p>
-                  <select
-                    value={meetData.Host}
-                    onChange={meetHandler}
-                    name="Host"
-                    id=""
-                  >
+                  <select value={meetData.Host} onChange={meetHandler} name="Host" id="">
                     <option value="Host">Host</option>
                     <option value="Host1">Host1</option>
                     <option value="Host2">Host2</option>
@@ -1099,61 +908,47 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
 
                 <label>
                   <p>Related To</p>
-                  <input
-                    value={meetData.RelatedTo}
-                    onChange={meetHandler}
-                    name="RelatedTo"
-                    type="text"
-                  />
+                  <input value={meetData.RelatedTo} onChange={meetHandler} name="RelatedTo" type="text" />
                 </label>
+
               </div>
 
               <div className="twoTask">
+
                 <label>
                   <p>Participants</p>
-                  <input
-                    value={meetData.Participant}
-                    onChange={meetHandler}
-                    name="Participant"
-                    type="text"
-                  />
+                  <input value={meetData.Participant} onChange={meetHandler} name="Participant" type="text" />
                 </label>
 
-                <span className="addnewTx"> Add new</span>
               </div>
+
 
               <label>
                 <p>Note</p>
-                <input
-                  value={meetData.Note}
-                  onChange={meetHandler}
-                  name="Note"
-                  type="text"
-                />
+                <input value={meetData.Note} onChange={meetHandler} name="Note" type="text" />
               </label>
 
               <div className="btnstask">
-                <button
-                  onClick={data1 ? meetUpdateHandler : meetSubmitHandler}
-                  className="creatmt"
-                >
+                <button onClick={data1 ? meetUpdateHandler : meetSubmitHandler} className="creatmt">
                   {data1 ? "Update meeting" : "Create Meeting"}
                 </button>
-                <button
-                  onClick={() => setOpenCreateMeet(false)}
-                  className="tkCnacel"
-                >
+                <button onClick={() => setOpenCreateMeet(false)} className="tkCnacel">
                   Cancel
                 </button>
               </div>
+
             </form>
 
             <hr />
+
           </div>
+
         </div>
-      )}
+      }
+
+
     </div>
   );
 };
 
-export default ImportLead;
+export default ImportLead2;

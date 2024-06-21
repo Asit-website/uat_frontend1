@@ -564,7 +564,7 @@ padding: 0px 12px;
 
     .cretTaskCont{
         width: 599px;
-height: 590px;
+height: 490px;
 position: fixed;
 top: 50%;
 left: 50%;
@@ -577,12 +577,36 @@ flex-direction: column;
 gap: 12px;
 
     }
+    .allFolowup{
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+
+    }
+    .allFolowup h2{
+        font-family: Inter;
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 32px;
+        
+    }
+
+    .singFol{
+        display: flex;
+        align-items: center;
+        gap: 20px;
+    }
+    .singFol p{
+font-family: Inter;
+font-size: 14px;
+font-weight: 500;
+line-height: 32px;
+
+    }
     .cretTaskCont2{
         width: 599px;
-height: 760px;
+height: 850px;
 position: absolute;
-/* top: 42px;
-left: 421px; */
 top: 50%;
 left: 50%;
 transform: translate(-50%,-50%);

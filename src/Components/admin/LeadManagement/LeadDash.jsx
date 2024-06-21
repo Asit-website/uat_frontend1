@@ -53,6 +53,8 @@ const LeadDash = ({ setAlert, pop, setPop }) => {
   let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
 
   const [allTask, setAllTask] = useState([]);
+
+  console.log('all ',allTask);
   const [allMeet, setAllMeet] = useState([]);
 
   const deleteProject = async (id) => {
@@ -358,29 +360,26 @@ const LeadDash = ({ setAlert, pop, setPop }) => {
             <div className="my_things">
               <div className="table11">
                 <div className="my_open">
-                  <h3>My Open Tasks</h3>
+                  <h3>My Follow Up </h3>
                 </div>
                 <div className="relative overflow-x-auto lonj">
                   <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                     <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                       <tr className="thol">
                         <th scope="col" className="px-4 py-3">
-                          Subject
+                        LeadName
                         </th>
                         <th scope="col" className="px-4 py-3">
-                          Due Date
+                           Date
                         </th>
                         <th scope="col" className="px-4 py-3">
-                          Status
+                        FollowUpType
                         </th>
                         <th scope="col" className="px-4 py-3">
-                          Priority
+                        Remark
                         </th>
                         <th scope="col" className="px-4 py-3">
-                          Related To
-                        </th>
-                        <th scope="col" className="px-4 py-3">
-                          Contact Name
+                        Time 
                         </th>
                         <th scope="col" className="px-4 py-3">
                           Action
@@ -397,27 +396,20 @@ const LeadDash = ({ setAlert, pop, setPop }) => {
                             scope="row"
                             className="px-4 aka py-4 font-medium text-gray-900 whitespace-nowrap  aka"
                           >
-                            {task?.Subject}
+                            {task?.LeadName}
                           </th>
                           <td className="px-4 py-4 duedatest">
-                            {new Date(task?.DueDate).toLocaleDateString(
+                            {new Date(task?.Date).toLocaleDateString(
                               "en-GB"
                             )}
                           </td>
                           <td className="px-4 py-4 duedatest">
-                            {task?.Status}
+                            {task?.FollowUpType}
                           </td>
                           <td className="px-4 py-4 duedatest">
-                            {task?.Priority}
+                            {task?.FollowUpType}
                           </td>
-                          <td className="px-4 py-4 relt">{task?.RelatedTo}</td>
-
-                          <td className="px-4 py-4">
-                            <div className="contactk">
-                              <img src={siy} alt="siy" />
-                              <p>{task?.ContactName}</p>
-                            </div>
-                          </td>
+                          <td className="px-4 py-4 relt">{task?.Time}</td>
 
                           <td className="px-3 py-3 thebuttn">
                             <OutsideClickHandler

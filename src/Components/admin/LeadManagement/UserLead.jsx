@@ -3,7 +3,6 @@ import AdminNavbar from "../../admin/Navbar/AdminNavbar";
 import AdminSidebar from "../../admin/Sidebar/AdminSidebar";
 import "react-calendar/dist/Calendar.css";
 import { useMain } from "../../../hooks/useMain";
-import pluss from "../../images/pluss.png"
 import search from "../../images/bx-search.png"
 import fff from "../../images/fff.png"
 import { NavLink, useNavigate } from "react-router-dom";
@@ -24,7 +23,12 @@ const UserLead = ({ setAlert, pop, setPop }) => {
 
     const [card, setCard] = useState(false);
 
+    const [leadUser, setLeadUser] = useState("Select User");
+
+    const [desUsers, setDeUsers] = useState([]);
+
     const [Filter1, setFilter1] = useState("Select");
+
 
     const stylepeer2 = {
         display: card ? "block" : "none"
@@ -38,8 +42,9 @@ const UserLead = ({ setAlert, pop, setPop }) => {
 
     const [allLead, setAllLead] = useState([]);
 
+    
     let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
-
+    
     const [allLeading, setAlleading] = useState([]);
 
     const fetchLead = async () => {
@@ -47,10 +52,6 @@ const UserLead = ({ setAlert, pop, setPop }) => {
         setAllLead(ans?.allLead);
         setAlleading(ans?.allLead);
     }
-
-
-
-    const [filterInput, setFilterInput] = useState();
 
     useEffect(() => {
         fetchLead();
@@ -104,6 +105,42 @@ const UserLead = ({ setAlert, pop, setPop }) => {
 
     const [sortDate, setSortDate] = useState("");
 
+    const [OwnerFilter, setOwnerFilter] = useState(false);
+
+    const handleCheckboxChange = (event) => {
+        setOwnerFilter(event.target.checked);
+    };
+
+    const applyHandler = () => {
+        if (OwnerFilter) {
+            const filterdata = allLeading.filter((lead) => {
+                const { LeadOwner } = lead;
+                return LeadOwner?._id === hrms_user?._id;
+            });
+            setAllLead(filterdata);
+        } else {
+            setAllLead(allLeading);
+        }
+    };
+
+    const fetchDesiUser = async () => {
+        const ans = await getUserByDesignation();
+        if (ans?.status) {
+            setDeUsers(ans?.data);
+        }
+    }
+
+    const getFilteLead = async () => {
+        const ans = await getLeadByUser(leadUser);
+        if (ans?.status) {
+            setAllLead(ans?.data);
+        }
+        else {
+            setAllLead(allLeading);
+        }
+    }
+
+
     useEffect(() => {
 
         if (sortDate !== undefined && sortDate != "" && sortDate !== null) {
@@ -134,52 +171,6 @@ const UserLead = ({ setAlert, pop, setPop }) => {
 
     }, [sortDate])
 
-    const [OwnerFilter, setOwnerFilter] = useState(false);
-
-    const handleCheckboxChange = (event) => {
-        setOwnerFilter(event.target.checked);
-    };
-
-    const applyHandler = () => {
-        if (OwnerFilter) {
-            const filterdata = allLeading.filter((lead) => {
-                const { LeadOwner } = lead;
-                return LeadOwner?._id === hrms_user?._id;
-            });
-            setAllLead(filterdata);
-        } else {
-            setAllLead(allLeading);
-        }
-    };
-
-    const [leadUser, setLeadUser] = useState("");
-
-
-    const [desUsers, setDeUsers] = useState([]);
-
-    const fetchDesiUser = async () => {
-        const ans = await getUserByDesignation();
-        if (ans?.status) {
-            setDeUsers(ans?.data);
-        }
-    }
-
-
-    useEffect(() => {
-        fetchDesiUser();
-    }, [])
-
-    const getFilteLead = async () => {
-        const ans = await getLeadByUser(leadUser);
-        console.log("ans ", ans);
-        if (ans?.status) {
-            setAllLead(ans?.data);
-        }
-        else {
-            setAllLead(allLeading);
-        }
-    }
-
     useEffect(() => {
         if (leadUser !== "" && leadUser !== "Select User") {
             getFilteLead();
@@ -188,82 +179,69 @@ const UserLead = ({ setAlert, pop, setPop }) => {
             setAllLead(allLeading);
         }
     }, [leadUser])
-
-    const adjustFilterData = async () => {
-
-        let dummyArray = [...allLead];
-
-        if (Filter1 === "This Week") {
-
-
-            // filter with week
-            const oneWeekAgo = new Date();
-            oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
-
-            const filteredData = dummyArray.filter(item => {
-                return new Date(item.createAt) >= oneWeekAgo;
-            });
-
-            setAllLead(filteredData);
-
-        }
-
-        else if (Filter1 === "Last 14 Days") {
-            // filter with week
-            const twoWeekAgo = new Date();
-            twoWeekAgo.setDate(twoWeekAgo.getDate() - 14);
-
-            const filteredData = dummyArray.filter(item => {
-                return new Date(item.createAt) >= twoWeekAgo;
-            });
-
-            setAllLead(filteredData);
-        }
-
-        else if (Filter1 === "This Month") {
-
-            const oneMonthAgo = new Date();
-            oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1);
-            const filteredData = dummyArray.filter(item => {
-                const itemDate = new Date(item.createAt);
-                return itemDate >= oneMonthAgo;
-            });
-
-            setAllLead(filteredData);
-
-        }
-        else if (Filter1 === "Per Day") {
-            const targetDate = new Date(); // Get the current date
-            const targetYear = targetDate.getFullYear();
-            const targetMonth = targetDate.getMonth();
-            const targetDay = targetDate.getDate();
-
-            const filteredData = dummyArray.filter(item => {
-                const itemDate = new Date(item.createAt);
-                const itemYear = itemDate.getFullYear();
-                const itemMonth = itemDate.getMonth();
-                const itemDay = itemDate.getDate();
-
-                return itemYear === targetYear && itemMonth === targetMonth && itemDay === targetDay;
-            });
-
-            setAllLead(filteredData);
-
-        }
-
-
-
-    }
+ 
+    useEffect(() => {
+        fetchDesiUser();
+    }, [])
 
     useEffect(() => {
+        if (leadUser === "Select User" || leadUser === "") {
+             setAllLead(allLeading);
+            return;
+        } else {
+            const userLead = allLeading.filter((ld) => ld?.LeadOwner === leadUser);
 
-        if (Filter1 !== 'Select') {
-            adjustFilterData();
+            let FiltData;
+
+            const today = new Date();
+            today.setHours(0, 0, 0, 0); 
+
+            if (Filter1 === "Per Day") {
+                const tomorrow = new Date(today);
+                tomorrow.setDate(tomorrow.getDate() + 1); 
+
+                FiltData = userLead.filter((ld) => {
+                    const createdAt = new Date(ld.createAt);
+                    return createdAt >= today && createdAt < tomorrow;
+                });  
+
+            } 
+            
+            else if (Filter1 === "This Week") {
+                const firstDayOfWeek = new Date(today);
+                firstDayOfWeek.setDate(today.getDate() - today.getDay()); 
+                firstDayOfWeek.setHours(0, 0, 0, 0); 
+                const lastDayOfWeek = new Date(firstDayOfWeek);
+                lastDayOfWeek.setDate(firstDayOfWeek.getDate() + 7); 
+                lastDayOfWeek.setHours(0, 0, 0, 0); 
+               
+
+                FiltData = userLead.filter((ld) => {
+                    const createdAt = new Date(ld.createAt);
+                    return createdAt >= firstDayOfWeek && createdAt < lastDayOfWeek;
+                });
+            }
+             else if (Filter1 === "Last 14 Days") {
+                const fourteenDaysAgo = new Date(today);
+                fourteenDaysAgo.setDate(today.getDate() - 14); 
+
+                FiltData = userLead.filter((ld) => {
+                    const createdAt = new Date(ld.createAt);
+                    return createdAt >= fourteenDaysAgo && createdAt < today;
+                });
+            } else if (Filter1 === "This Month") {
+                const firstDayOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+                const firstDayOfNextMonth = new Date(today.getFullYear(), today.getMonth() + 1, 1); 
+
+                FiltData = userLead.filter((ld) => {
+                    const createdAt = new Date(ld.createAt);
+                    return createdAt >= firstDayOfMonth && createdAt < firstDayOfNextMonth;
+                });
+            }
+
+              setAllLead(FiltData);
         }
-        else {
-            fetchLead();
-        }
-    }, [Filter1])
+    }, [Filter1]);
 
 
     return (
@@ -395,7 +373,7 @@ const UserLead = ({ setAlert, pop, setPop }) => {
                                                 <option value="In the last">In the last</option>
                                             </select>
                                             <div className="stoing">
-                                                <input type="text" onChange={(e) => setFilterInput(e.target.value)} placeholder="2" />
+                                                <input type="text" placeholder="2" />
                                             </div>
                                             <select className="aloy2" name="" id="">
                                                 <option value="Days">Days</option>
@@ -473,6 +451,7 @@ const UserLead = ({ setAlert, pop, setPop }) => {
 
                         <div>
 
+{/* apply currnt filter  */}
                             <div className="test_filter">
                                 <select onChange={(e) => setFilter1(e.target.value)} value={Filter1} name="thisFilter" id="fentar">
                                     <option value="Select" disabled selected >Select</option>

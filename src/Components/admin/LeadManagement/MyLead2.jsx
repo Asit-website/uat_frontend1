@@ -576,7 +576,7 @@ const MyLead2 = ({ setAlert, pop, setPop }) => {
                                                                             <li className="sysok">
 
                                                                                 <a
-                                                                                    onClick={() => navigate("/adminDash/editLead", { state: item })}
+                                                                                    onClick={() => navigate("/employeeDash/editLead", { state: item })}
                                                                                     className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                                                                                 >
                                                                                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -590,7 +590,7 @@ const MyLead2 = ({ setAlert, pop, setPop }) => {
                                                                             <li className="sysok">
                                                                                 <a
                                                                                     onClick={() => {
-                                                                                        navigate(`/adminDash/importLead/${item._id}`);
+                                                                                        navigate(`/employeeDash/importLead/${item._id}`);
                                                                                     }}
                                                                                     className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                                                                                 >

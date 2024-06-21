@@ -1755,13 +1755,14 @@ const MainState = (props) => {
 
    // for task and meet 
 
-   const taskCreateApi = async ({ Subject, Priority, Status, DueDate, RelatedTo, ContactName, Note, LeadId, userId }) => {
-      const data = await post(`${baseUrl}/openActivity/createTask`, { Subject, Priority, Status, DueDate, RelatedTo, ContactName, Note, LeadId, userId }, true);
+
+   const taskCreateApi = async ({ LeadName, FollowUpType, Date, Time, Remark, LeadId, userId }) => {
+      const data = await post(`${baseUrl}/openActivity/createTask`, { LeadName, FollowUpType, Date, Time, Remark, LeadId, userId }, true);
       return data;
 
    }
-   const taskEditApi = async ({ Subject, Priority, Status, DueDate, RelatedTo, ContactName, Note, LeadId, userId, taskId }) => {
-      const data = await post(`${baseUrl}/openActivity/editTask/${taskId}`, { Subject, Priority, Status, DueDate, RelatedTo, ContactName, Note, LeadId, userId }, true);
+   const taskEditApi = async ({  LeadName, FollowUpType, Date, Time, Remark, LeadId, userId , taskId}) => {
+      const data = await post(`${baseUrl}/openActivity/editTask/${taskId}`, {  LeadName, FollowUpType, Date, Time, Remark, LeadId, userId }, true);
       return data;
 
    }
@@ -1790,15 +1791,14 @@ const MainState = (props) => {
 
    }
 
-   const meetCreateApi = async ({ title, meetDateFrom, meetDateTo, Status, meetTimeFrom, meetTimeTo, Host, RelatedTo, Participant, Note, userId, LeadId }) => {
-      console.log("useridmeet  ", userId);
-      const data = await post(`${baseUrl}/openActivity/createMeet`, { title, meetDateFrom, meetDateTo, Status, meetTimeFrom, meetTimeTo, Host, RelatedTo, Participant, Note, userId, LeadId }, true);
+   const meetCreateApi = async ({ title , meetDateFrom, meetDateTo, Status, meetTimeFrom, meetTimeTo, Host, RelatedTo, Participant, Note, userId, LeadId  }) => {
+      const data = await post(`${baseUrl}/openActivity/createMeet`, { title, meetDateFrom, meetDateTo, Status, meetTimeFrom, meetTimeTo, Host, RelatedTo, Participant, Note, userId, LeadId  }, true);
       return data;
 
    }
 
-   const meetEditApi = async ({ title, meetDateFrom, meetDateTo, Status, meetTimeFrom, meetTimeTo, Host, RelatedTo, Participant, Note, userId, meetId, LeadId }) => {
-      const data = await post(`${baseUrl}/openActivity/editMeet/${meetId}`, { title, meetDateFrom, meetDateTo, Status, meetTimeFrom, meetTimeTo, Host, RelatedTo, Participant, Note, userId, LeadId }, true);
+   const meetEditApi = async ({ title ,  meetDateFrom, meetDateTo, Status, meetTimeFrom, meetTimeTo, Host, RelatedTo, Participant, Note, userId, meetId, LeadId }) => {
+      const data = await post(`${baseUrl}/openActivity/editMeet/${meetId}`, { title, meetDateFrom, meetDateTo, Status, meetTimeFrom, meetTimeTo, Host, RelatedTo, Participant, Note, userId, LeadId  }, true);
       return data;
 
    }
@@ -1905,12 +1905,15 @@ const MainState = (props) => {
       return data;
    }
 
-   
+   const FetchFollowApi = async(id)=>{
+      const data = await get(`${baseUrl}/openActivity/fetchFollow/${id}`, true);
+      return data;
+   }
 
 
    return (
       <MainContext.Provider value={{
-         login, taskCreateApi, getLeadById,CreateNoteApi  , updateNoteApi,DeleteNoteApi ,  getUserByDesignation, UpdateLeadStatus, UpdateLeadSource, AllLeadSource, meetCreateApi, AllLeadStatus, taskEditApi, meetEditApi,GetNoteApi ,  deleteTaskapi, deleteMeetapi, getTaskApi, getMeetApi, employeeLogin, employeeResetPassword, hrLogin, createHr, getHrs, deleteHr, createEmployee, getEmployees, getUsers, getActiveUsers, getActiveUsersCount, postLeadStatus, postLeadSource2, getAdminEmployees, postActivity, postActivityHr, getActivitiesByUser, getStatisticsByUser, postLeave, updateLeave, getUserLeaves, getUserLeaveById, deleteLeave, getTotalLeaves, postTotalLeaves, verifyEmployee, verifyHr, verifyAdmin, setUser, buildAPI, user, getProjects, postProject, getHolidays, postHoliday, updateProject, getProjectsByEmployee, getTasks, postTask, updateTask, deleteTask, setFlag, flag, changePassword, updateProfile, deleteHoliday, updateHoliday, deleteProject, getChats, createNewChat, postMessage, deleteChat, adminLogin, getChat, getChatByUser, setChatUser, chatUser, getEmployeesByEmployee, topDash, postAnnouncement, updateAnnouncement, getAnnouncements, getAnnouncementDates, deleteAnnouncement, getAttendance, getAttendanceByUser, createEmployee1, updateAdminProfile, changePassword1, verify, updateUser, forgetPassword, forgetPassword1, forgetPassword2, getBranchs, postBranch, updateBranch, deleteBranch, getDepartments, postDepartment, updateDepartment, deleteDepartment, getDesingation, postDesignation, updateDesignation, deleteDesignation, getAllActivities, postLeaveType, updateLeaveType, getLeaveTypes, deleteLeaveType,
+         login, taskCreateApi,FetchFollowApi ,  getLeadById,CreateNoteApi  , updateNoteApi,DeleteNoteApi ,  getUserByDesignation, UpdateLeadStatus, UpdateLeadSource, AllLeadSource, meetCreateApi, AllLeadStatus, taskEditApi, meetEditApi,GetNoteApi ,  deleteTaskapi, deleteMeetapi, getTaskApi, getMeetApi, employeeLogin, employeeResetPassword, hrLogin, createHr, getHrs, deleteHr, createEmployee, getEmployees, getUsers, getActiveUsers, getActiveUsersCount, postLeadStatus, postLeadSource2, getAdminEmployees, postActivity, postActivityHr, getActivitiesByUser, getStatisticsByUser, postLeave, updateLeave, getUserLeaves, getUserLeaveById, deleteLeave, getTotalLeaves, postTotalLeaves, verifyEmployee, verifyHr, verifyAdmin, setUser, buildAPI, user, getProjects, postProject, getHolidays, postHoliday, updateProject, getProjectsByEmployee, getTasks, postTask, updateTask, deleteTask, setFlag, flag, changePassword, updateProfile, deleteHoliday, updateHoliday, deleteProject, getChats, createNewChat, postMessage, deleteChat, adminLogin, getChat, getChatByUser, setChatUser, chatUser, getEmployeesByEmployee, topDash, postAnnouncement, updateAnnouncement, getAnnouncements, getAnnouncementDates, deleteAnnouncement, getAttendance, getAttendanceByUser, createEmployee1, updateAdminProfile, changePassword1, verify, updateUser, forgetPassword, forgetPassword1, forgetPassword2, getBranchs, postBranch, updateBranch, deleteBranch, getDepartments, postDepartment, updateDepartment, deleteDepartment, getDesingation, postDesignation, updateDesignation, deleteDesignation, getAllActivities, postLeaveType, updateLeaveType, getLeaveTypes, deleteLeaveType,
          createIndicator, getIndicator, deleteIndicator, getDesignations, updateIndicator, getAppraisal, createAppraisal, allEmployee, deleteApprisal, updateApprisal, createAssets, getAssets, deleteAssets, updateAssets, deleteUser, createTracks, getTracks, deleteTracks, updateTracks, editComApi, loanDeleteHandler,
          editAllowance, commisionDelteHandler, createLoan, editLoanApi,
          getTotalLeavesCount, uploadDocuments, createAnnouncement, deleteAnnouncement, updateAnnouncements, fetchAnnoucement, deleteAnnouncements, getEmp, allEmployeebyDep, notificationGet,
