@@ -171,7 +171,7 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
 
 
   const [meetData, setMeetData] = useState({
-    title: "", meetDateFrom: "", meetDateTo: "", Status: "", LeadId: id, meetTimeFrom: "", meetTimeTo: "", Host: "", RelatedTo: "", Participant: "", Note: "", userId: data?.LeadOwner?._id 
+    title: "", meetDateFrom: "", meetDateTo: "", Status: "", LeadId: id, meetTimeFrom: "", meetTimeTo: "", Host: "", RelatedTo: "", Participant: "", Note: "", userId: data?.LeadOwner?._id , MeetingLink:""
   })
 
   const taskHandler = (e) => {
@@ -254,7 +254,7 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
     if (ans?.status) {
       toast.success("Successfuly created");
       setOpenCreateMeet(false);
-      setMeetData({ title: "", meetDateFrom: "", meetDateTo: "", Status: "", meetTimeFrom: "", meetTimeTo: "", Host: "", RelatedTo: "", Participant: "", Note: "", userId: data?.LeadOwner?._id   })
+      setMeetData({ title: "", meetDateFrom: "", meetDateTo: "", Status: "", meetTimeFrom: "", meetTimeTo: "", Host: "", RelatedTo: "", Participant: "", Note: "", userId: data?.LeadOwner?._id , MeetingLink:"" })
 
     }
 
@@ -272,7 +272,7 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
     if (ans?.status) {
       toast.success("Successfuly created");
       setOpenCreateMeet(false);
-      setMeetData({ title: "", meetDateFrom: "", meetDateTo: "", Status: "", meetTimeFrom: "", meetTimeTo: "", Host: "", RelatedTo: "", Participant: "", Note: "", userId: data?.LeadOwner?._id  })
+      setMeetData({ title: "", meetDateFrom: "", meetDateTo: "", Status: "", meetTimeFrom: "", meetTimeTo: "", Host: "", RelatedTo: "", Participant: "", Note: "", userId: data?.LeadOwner?._id })
 
     }
 
@@ -924,6 +924,11 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
 
               </div>
 
+
+              <label>
+                <p>Meeting Link</p>
+                <input value={meetData.MeetingLink} onChange={meetHandler} name="MeetingLink" type="text" />
+              </label>
 
               <label>
                 <p>Note</p>
