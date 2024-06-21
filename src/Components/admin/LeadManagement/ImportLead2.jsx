@@ -279,6 +279,14 @@ const ImportLead2 = ({ setAlert, pop, setPop }) => {
 
   }
 
+  const convertTo12HourFormat = (time) => {
+    const [hours, minutes] = time.split(':');
+    const intHours = parseInt(hours, 10);
+    const amPm = intHours >= 12 ? 'PM' : 'AM';
+    const adjustedHours = intHours % 12 || 12; // Convert 0 to 12 for 12 AM
+    return `${adjustedHours}:${minutes} ${amPm}`;
+  };
+  
 
   useEffect(() => {
     if (type === 'meet' && data1) {
@@ -657,6 +665,9 @@ const ImportLead2 = ({ setAlert, pop, setPop }) => {
                             <div key={index} className="singFol">
 
                                <p className="notedate">{new Date(fol?.Date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</p>
+
+                               <p>{fol?.Time && convertTo12HourFormat(fol.Time)}</p>
+
 
                                <p>{fol?.FollowUpType}</p>
 

@@ -317,6 +317,15 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
     getNotes();
     fetchFollowUp();
   },[])
+
+  const convertTo12HourFormat = (time) => {
+    const [hours, minutes] = time.split(':');
+    const intHours = parseInt(hours, 10);
+    const amPm = intHours >= 12 ? 'PM' : 'AM';
+    const adjustedHours = intHours % 12 || 12; // Convert 0 to 12 for 12 AM
+    return `${adjustedHours}:${minutes} ${amPm}`;
+  };
+  
    
 
   return (
@@ -659,6 +668,8 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
 
                                <p className="notedate">{new Date(fol?.Date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</p>
 
+                               <p>{fol?.Time && convertTo12HourFormat(fol.Time)}</p>
+
                                <p>{fol?.FollowUpType}</p>
 
                                 <p>{fol?.Remark}</p>
@@ -814,7 +825,7 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
 
                 <label>
                   <p>Time</p>
-                  <input  name="Time" value={taskData?.Time} onChange={taskHandler} type="time" />
+                  <input  name="Time" value={taskData?.Time} onChange={(e)=>console.log('e' , e.target.value)} type="time" />
                 </label>
 
               </div>
