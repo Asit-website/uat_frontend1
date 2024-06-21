@@ -658,6 +658,7 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
                             <div key={index} className="singFol">
 
                                <p className="notedate">{new Date(fol?.Date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</p>
+                               <p>{fol?.time}</p>
 
                                <p>{fol?.FollowUpType}</p>
 

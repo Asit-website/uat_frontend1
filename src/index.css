@@ -5566,7 +5566,13 @@ input::-webkit-inner-spin-button {
   flex-direction: column;
   gap: 8px;
 }
-
+.testok{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* gap: 3px; */
+  gap: 10px;
+}
 .noteLabel p {
   font-family: Inter;
   color: #1B2533;
