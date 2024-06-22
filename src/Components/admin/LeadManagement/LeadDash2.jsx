@@ -23,7 +23,8 @@ const LeadDash2 = ({ setAlert, pop, setPop }) => {
     getMeetApi,
     deleteTaskapi,
     deleteMeetapi,
-    deleteLeads
+    deleteLeads , 
+    GetOpenLeadsApi
   } = useMain();
 
   const [start1, setStart1] = useState(false);
@@ -40,6 +41,23 @@ const LeadDash2 = ({ setAlert, pop, setPop }) => {
   const [totalMyLead, setTotalMyLead] = useState(0);
 
   let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
+
+  const [totalOpenLead , setTotalOpenLead] = useState(0);
+  const [totalCloseLead , setTotalCloseLead] = useState(0);
+
+  const GetOpenLeads = async()=>{
+
+    const ans = await GetOpenLeadsApi({id:hrms_user?._id});
+
+     if(ans?.status){
+      setTotalOpenLead(ans?.openLead?.length);
+      setTotalCloseLead(ans?.closeLead?.length);
+     }
+
+
+  }
+
+
   const [allTask, setAllTask] = useState([]);
   const [allMeet, setAllMeet] = useState([]);
 
@@ -121,6 +139,7 @@ const LeadDash2 = ({ setAlert, pop, setPop }) => {
     fetchLead();
     fetchTask();
     fetchMeet();
+    GetOpenLeads();
   }, []);
 
   return (
@@ -204,7 +223,7 @@ const LeadDash2 = ({ setAlert, pop, setPop }) => {
                   </div>
                   <div className="lead_contens1">
                     <h3>My Open Deals</h3>
-                    <h1>120</h1>
+                    <h1>{totalOpenLead}</h1>
                   </div>
                 </div>
                 <div className="lead_dash_box sing111">
@@ -248,7 +267,7 @@ const LeadDash2 = ({ setAlert, pop, setPop }) => {
                   </div>
                   <div className="lead_contens1">
                     <h3>My Untouched Deals</h3>
-                    <h1>{totalMyLead}</h1>
+                    <h1>{totalCloseLead}</h1>
                   </div>
                 </div>
                 <div className="lead_dash_box sing1111">
