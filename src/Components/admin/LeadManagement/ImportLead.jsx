@@ -869,7 +869,7 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
 
                 <label>
                   <p>Time</p>
-                  <input name="Time" value={taskData?.Time} onChange={(e) => console.log('e', e.target.value)} type="time" />
+                  <input name="Time" value={taskData?.Time} onChange={taskHandler} type="time" />
                 </label>
 
               </div>
