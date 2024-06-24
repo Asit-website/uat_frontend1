@@ -116,7 +116,7 @@ const ImportLead2 = ({ setAlert, pop, setPop }) => {
   const deleteNote = async (id) => {
     const ans = await DeleteNoteApi(id);
     if (ans?.status) {
-      toast.success("delleted ");
+      toast.success("delleted");
       getNotes();
     }
   }
