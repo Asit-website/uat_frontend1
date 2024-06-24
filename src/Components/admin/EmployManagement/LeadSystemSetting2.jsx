@@ -10,8 +10,9 @@ import textType from "../../images/Text Type.png";
 import hub3 from "../../images/hub3.png";
 import cross1 from "../../images/cross1.png";
 import toast from "react-hot-toast";
-import EmployeeSidebar from '../../Employee/Sidebar/EmployeeSidebar';
-import EmployeeNavbar from '../../Employee/Navbar/EmployeeNavbar'
+import EmployeeSidebar from "../../Employee/Sidebar/EmployeeSidebar";
+import EmployeeNavbar from "../../Employee/Navbar/EmployeeNavbar";
+
 const sidebarItem = [
   {
     title: "Industry",
@@ -51,21 +52,29 @@ const sidebarItem = [
       },
     ],
   },
+  {
+    title: "Follow Up",
+    img: hub3,
+    tableData: [
+      {
+        title: "Follow-up",
+      },
+
+      {
+        title: "ACTION",
+      },
+    ],
+  },
 ];
 
-const LeadSystemSetting2 = ({ setAlert, pop, setPop }) => {
+const LeadSystemSetting = ({ setAlert, pop, setPop }) => {
+
   const {
     user,
-    getBranchs,
-    getDepartments,
-    getDesignations,
-    getLeaveTypes,
-    fetchAllDocs,
     postLeadStatus,
     postLeadSource2,
     AllLeadStatus,
     AllLeadSource,
-
     deleteIndustry,
     deleteLeadSource,
     updateLeadSource,
@@ -73,7 +82,8 @@ const LeadSystemSetting2 = ({ setAlert, pop, setPop }) => {
     getLeadStat,
     postLeadStat,
     updateLeadStat,
-    deleteLeadStat
+    deleteLeadStat , 
+    postFollowUp, updateFollowUp , deleteFollowUp , getFollowUp , 
   } = useMain();
 
   const [open, setOpen] = useState(0);
@@ -112,18 +122,9 @@ const LeadSystemSetting2 = ({ setAlert, pop, setPop }) => {
   const [popup5, setPopup5] = useState(false);
   const [popup6, setPopup6] = useState(false);
   const [popup7, setPopup7] = useState(false);
-
-  const [popup41, setPopup41] = useState(false);
+  const [popup8, setPopup8] = useState(false);
 
   const [id, setId] = useState("");
-  const [branches, setBranches] = useState([]);
-  const [branches1, setBranches1] = useState([]);
-  const [departments, setDepartments] = useState([]);
-  const [departments1, setDepartments1] = useState([]);
-  const [designations, setDesignations] = useState([]);
-  const [designations1, setDesignations1] = useState([]);
-  const [leaveTypes, setLeaveTypes] = useState([]);
-  const [leaveTypes1, setLeaveTypes1] = useState([]);
 
   const [leadStatus, setLeadStatus] = useState({
     status: "",
@@ -137,26 +138,6 @@ const LeadSystemSetting2 = ({ setAlert, pop, setPop }) => {
   })
 
   
-
-  const getData = async () => {
-    const ans1 = await getBranchs();
-    const ans2 = await getDepartments();
-    const ans3 = await getDesignations();
-    const ans4 = await getLeaveTypes();
-    setBranches(ans1?.data);
-    setBranches1(ans1?.data);
-    setDepartments(ans2?.data);
-    setDepartments1(ans2?.data);
-    setDesignations(ans3?.data);
-    setDesignations1(ans3?.data);
-    setLeaveTypes(ans4?.data);
-    setLeaveTypes1(ans4?.data);
-  };
-
-  useEffect(() => {
-    getData();
-  }, [refreshFlag]);
-
   const handleCreateLeadStatus = async () => {
     const toastId = toast.loading("Loading...");
     const ans = await postLeadStatus({
@@ -210,16 +191,6 @@ const LeadSystemSetting2 = ({ setAlert, pop, setPop }) => {
    
   };
 
-  const [allDocs, setAllDocs] = useState([]);
-
-  const getDocs = async () => {
-    const ans = await fetchAllDocs();
-    setAllDocs(ans?.data);
-  };
-
-  useEffect(() => {
-    getDocs();
-  }, []);
 
   const deleteIndustryHandler = async (id) => {
     const ans = await deleteIndustry(id);
@@ -247,8 +218,60 @@ const LeadSystemSetting2 = ({ setAlert, pop, setPop }) => {
 
   const [isIndusUpat, setIsInuP] = useState(false);
   const [isLeSrc, setIsLdSrc] = useState(false);
+  const [allFollow , setAllFollow] = useState([]);
 
   const [isStat, setIsStat] = useState(false);
+
+  const getFollow = async()=>{
+    const ans = await getFollowUp();
+     if(ans?.success){
+      setAllFollow(ans?.data);
+     }
+  }
+
+
+  const CreateFollow = async()=>{
+    const ans = await postFollowUp({name:leadStat.name});
+     if(ans?.success){
+      toast.success("Successfuly created");
+     }
+     getFollow();
+     setIsStat(false);
+     setLeadStat((prev) => ({
+       ...prev,
+       name: ""
+     }))
+     setPopup8(false);
+  }
+
+  const deleteFollowHandler = async(id)=>{
+    const ans = await deleteFollowUp(id);
+     if(ans?.success){
+      toast.success('Successfult deleted');
+     }
+     getFollow();
+     setIsStat(false);
+     setLeadStat((prev) => ({
+       ...prev,
+       name: ""
+     }))
+     setPopup8(false);
+  }
+
+  const updateFollow = async()=>{
+    const ans = await updateFollowUp({id:isStat , name:leadStat.name});
+    if(ans?.success){
+      toast.success("Successfuly updated");
+    }
+    getFollow();
+    setIsStat(false);
+    setLeadStat((prev) => ({
+      ...prev,
+      name: ""
+    }))
+    setPopup8(false);
+
+  }
 
   const updateLeadSourceHandler = async () => {
     const ans = await updateLeadSource({
@@ -301,6 +324,10 @@ const LeadSystemSetting2 = ({ setAlert, pop, setPop }) => {
     }
   };
 
+  useEffect(()=>{
+    getFollow();
+    },[])
+
   return (
     <>
       <div className="employee-dash h-full">
@@ -312,6 +339,7 @@ const LeadSystemSetting2 = ({ setAlert, pop, setPop }) => {
           <div className="em">
             <div className="flex-col">
               <div className="admin-main">
+
                 <div className="plusSec">
                   <h3>Lead System Setting</h3>
                   <button
@@ -325,6 +353,9 @@ const LeadSystemSetting2 = ({ setAlert, pop, setPop }) => {
                       }
                       else if (open === 2) {
                         setPopup7(true);
+                      }
+                      else if (open === 3) {
+                        setPopup8(true);
                       }
                     }}
                   >
@@ -542,6 +573,72 @@ const LeadSystemSetting2 = ({ setAlert, pop, setPop }) => {
                       </div>
                     </div>
                   )}
+
+                  {open === 3 && (
+                    <div className="hrmsystemsetup-leftmenu">
+                      <div className="hrmsystemsetup-container">
+                        <div className="hrmsystemsetup-pagination">
+                          <span>Follow-up</span>
+                        </div>
+
+                        <div className="relative overflow-x-auto">
+                          <table className="w-full table3 text-left   text-[#060606]">
+                            <thead className=" uppercase text-[#060606]">
+                              <tr>
+                                {sidebarItem[open].tableData.map(
+                                  (item, index) => (
+                                    <th
+                                      key={index}
+                                      scope="col"
+                                      className="px-6 py-3"
+                                    >
+                                      {item.title}
+                                    </th>
+                                  )
+                                )}
+                              </tr>
+                            </thead>
+
+                            <tbody>
+                              {allFollow?.length === 0
+                                ? "No data found"
+                                : allFollow?.map((item, index) => (
+                                  <tr key={index} className="bg-white ">
+                                    <td className="px-6 py-4 tabl3Titl">
+                                      {item?.name}
+                                    </td>
+                                    <td className="px-6 py-4 flex hrmActions">
+                                      <img
+                                        className="cursor-pointer"
+                                        onClick={() => {
+                                          setPopup8(true);
+                                          setIsStat(item?._id);
+                                          setLeadStat((prev) => ({
+                                            ...prev,
+                                            name: item?.name,
+                                          }));
+                                        }}
+                                        src={edited}
+                                        alt=""
+                                      />
+                                      <img
+                                        className="cursor-pointer"
+                                        onClick={() => {
+                                          deleteFollowHandler(item?._id);
+                                        }}
+                                        src={deleted}
+                                        alt=""
+                                      />
+                                    </td>
+                                  </tr>
+                                ))}
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
                 </div>
                 <>
                   {/* Main modal */}
@@ -825,8 +922,75 @@ const LeadSystemSetting2 = ({ setAlert, pop, setPop }) => {
             </div>
           </div>
         )}
+
+        {popup8 && (
+          <div className="allPopupWrap">
+            <div className="popup1 popup5 pono2">
+              <div className="popNav">
+                <h2>Create New Follow Up</h2>
+                <img
+                  onClick={() => {
+                    setPopup8(false);
+                    setIsStat(false);
+                    setLeadStat((prev) => ({
+                      ...prev,
+                      name: "",
+                    }));
+                  }}
+                  src={cross1}
+                  alt=""
+                />
+              </div>
+              <hr />
+              <label>
+                <p className="popTitl">Follow-up</p>
+
+                <input
+                  type="text"
+                  placeholder="Enter FollowUp"
+                  name="name"
+                  value={leadStat?.name}
+                  onChange={(e) => {
+                    setLeadStat({
+                      ...leadStat,
+                      [e.target.name]: e.target.value,
+                    });
+                  }}
+                />
+              </label>
+
+              <div className="btnWrap">
+                <button
+                  className="cencel"
+                  onClick={() => {
+                    setPopup7(false);
+                    setIsStat(false);
+                    setLeadStat((prev) => ({
+                      ...prev,
+                      name: "",
+                    }));
+                  }}
+                >
+                  <span>Cancel</span>
+                </button>
+
+                <button
+                  className="create"
+                  onClick={ 
+                    isStat ? updateFollow : CreateFollow
+                  }
+                >
+                  <span onClick={()=>{
+                    setIsStat(false)
+                    setPopup8(false)
+                  }}>{isStat ? "Update" : "Create"}</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </>
   );
 };
-export default LeadSystemSetting2;
+export default LeadSystemSetting;

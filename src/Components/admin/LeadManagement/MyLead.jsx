@@ -8,8 +8,6 @@ import { NavLink, useNavigate } from "react-router-dom";
 import OutsideClickHandler from "react-outside-click-handler";
 import { confirmAlert } from "react-confirm-alert"; // Import
 import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
-import EmployeeNavbar from "../../Employee/Navbar/EmployeeNavbar";
-import EmployeeSidebar from "../../Employee/Sidebar/EmployeeSidebar";
 import toast from "react-hot-toast";
 import AdminSidebar from "../Sidebar/AdminSidebar";
 import AdminNavbar from "../Navbar/AdminNavbar";
@@ -225,8 +223,26 @@ const MyLead2 = ({ setAlert, pop, setPop }) => {
     
 }, [Filter1]);
 
-console.log("all",allLead);
 
+const [searchText , setSrchText] = useState("");
+
+
+useEffect(()=>{
+
+   if(searchText === ""){
+    setAllLead(allLeading);
+   }
+   else {
+
+    const filterData = allLeading.filter((lead) => {
+      const leadName = `${lead.FirstName} ${lead.LastName}`.toLowerCase();
+      return leadName.includes(searchText.toLowerCase());
+  });
+  setAllLead(filterData);
+
+   }
+
+},[searchText])
 
   return (
     <>
@@ -340,19 +356,19 @@ console.log("all",allLead);
               <div>
                 <div className="leftlead1">
                   <div
-                    onClick={() => setFilter(!filter)}
+                  
                     className="inptsearch"
                   >
-                    <input type="text" placeholder="Search leads" />
+                    <input value={searchText} onChange={(e)=>setSrchText(e.target.value)} type="text" placeholder="Search leads" />
                     <span>
-                      <img src={search} alt="" />
+                      <img className="cursor-pointer" src={search} alt="" />
                     </span>
                   </div>
 
                   <img src={fff} alt="" />
                 </div>
 
-                <div
+                {/* <div
                   id="dropdown"
                   className="z-10 dart hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700"
                   style={stylePeer3}
@@ -443,16 +459,10 @@ console.log("all",allLead);
                       <button>Clear</button>
                     </div>
                   </div>
-                </div>
+                </div> */}
               </div>
 
-              {/* right side  */}
-              {/* <div className="leaftlead2">
-
-                                <span>Sort by</span>
-                                <input type="date" value={sortDate} onChange={(e) => setSortDate(e.target.value)} />
-
-                            </div> */}
+          
 
               <div className="leaftlead2">
                 <span>Sort by</span>
@@ -509,31 +519,14 @@ console.log("all",allLead);
                           {/* First Name */}
                           LeadName
                         </th>
-                        {/* <th scope="col" className="px-3 py-3 leadti">
-            Last name
-
-        </th> */}
-                        {/* <th scope="col" className="px-3 py-3 leadti">
-            Title
-        </th>
-        <th scope="col" className="px-3 py-3 leadti">
-            Phone
-        </th>
-        <th scope="col" className="px-3 py-3 leadti">
-            Mobile
-        </th> */}
+                        
                         <th scope="col" className="px-3 py-3 leadti">
                           Email
                         </th>
                         <th scope="col" className="px-3 py-3 leadti">
                           Website
                         </th>
-                        {/* <th scope="col" className="px-3 py-3 leadti">
-                                                    City
-                                                </th>
-                                                <th scope="col" className="px-3 py-3 leadti">
-                                                    State
-                                                </th> */}
+                       
                         <th scope="col" className="px-3 py-3 leadti">
                           {/* LinkedIn URL */}
                           Status
@@ -555,7 +548,7 @@ console.log("all",allLead);
                               {item?.Company}
                             </td>
                             <td scope="col" className="px-3 py-3 myleadtit2">
-                              {item?.FirstName}
+                              {item?.FirstName} {" "}
                               {item?.LastName}
                             </td>
           

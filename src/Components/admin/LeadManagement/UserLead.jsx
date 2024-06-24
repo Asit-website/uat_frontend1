@@ -244,6 +244,25 @@ const UserLead = ({ setAlert, pop, setPop }) => {
         }
     }, [Filter1]);
 
+    const [searchText , setSrchText] = useState("");
+
+
+useEffect(()=>{
+
+   if(searchText === ""){
+    setAllLead(allLeading);
+   }
+   else {
+
+    const filterData = allLeading.filter((lead) => {
+      const leadName = `${lead.FirstName} ${lead.LastName}`.toLowerCase();
+      return leadName.includes(searchText.toLowerCase());
+  });
+  setAllLead(filterData);
+
+   }
+
+},[searchText])
 
 
     return (
@@ -343,15 +362,15 @@ const UserLead = ({ setAlert, pop, setPop }) => {
                                 <div className="leftlead1">
                                     <img src={fff} alt="" />
 
-                                    <div onClick={() => setFilter(!filter)} className="inptsearch">
-                                        <input type="text" placeholder="Search leads" />
+                                    <div  className="inptsearch">
+                                        <input value={searchText} onChange={(e)=>setSrchText(e.target.value)}  type="text" placeholder="Search leads" />
                                         <span><img src={search} alt="" /></span>
                                     </div>
 
 
                                 </div>
 
-                                <div
+                                {/* <div
                                     id="dropdown"
                                     className="z-10 dart hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700"
                                     style={stylePeer3}
@@ -437,7 +456,7 @@ const UserLead = ({ setAlert, pop, setPop }) => {
                                             }}>Clear</button>
                                         </div>
                                     </div>
-                                </div>
+                                </div> */}
 
                             </div>
 

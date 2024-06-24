@@ -223,6 +223,26 @@ const MyLead2 = ({ setAlert, pop, setPop }) => {
     
 }, [Filter1]);
 
+const [searchText , setSrchText] = useState("");
+
+
+useEffect(()=>{
+
+   if(searchText === ""){
+    setAllLead(allLeading);
+   }
+   else {
+
+    const filterData = allLeading.filter((lead) => {
+      const leadName = `${lead.FirstName} ${lead.LastName}`.toLowerCase();
+      return leadName.includes(searchText.toLowerCase());
+  });
+  setAllLead(filterData);
+
+   }
+
+},[searchText])
+
 
   return (
     <>
@@ -336,10 +356,9 @@ const MyLead2 = ({ setAlert, pop, setPop }) => {
               <div>
                 <div className="leftlead1">
                   <div
-                    onClick={() => setFilter(!filter)}
                     className="inptsearch"
                   >
-                    <input type="text" placeholder="Search leads" />
+                    <input value={searchText} onChange={(e)=>setSrchText(e.target.value)}  type="text" placeholder="Search leads" />
                     <span>
                       <img src={search} alt="" />
                     </span>
@@ -348,7 +367,7 @@ const MyLead2 = ({ setAlert, pop, setPop }) => {
                   <img src={fff} alt="" />
                 </div>
 
-                <div
+                {/* <div
                   id="dropdown"
                   className="z-10 dart hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700"
                   style={stylePeer3}
@@ -439,16 +458,10 @@ const MyLead2 = ({ setAlert, pop, setPop }) => {
                       <button>Clear</button>
                     </div>
                   </div>
-                </div>
+                </div> */}
               </div>
 
-              {/* right side  */}
-              {/* <div className="leaftlead2">
-
-                                <span>Sort by</span>
-                                <input type="date" value={sortDate} onChange={(e) => setSortDate(e.target.value)} />
-
-                            </div> */}
+             
 
               <div className="leaftlead2">
                 <span>Sort by</span>
