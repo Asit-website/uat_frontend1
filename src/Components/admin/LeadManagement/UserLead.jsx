@@ -104,6 +104,7 @@ const UserLead = ({ setAlert, pop, setPop }) => {
     };
 
     const [sortDate, setSortDate] = useState("");
+    const [sortDate2 , setSortDate2] = useState("");
 
     const [OwnerFilter, setOwnerFilter] = useState(false);
 
@@ -143,7 +144,7 @@ const UserLead = ({ setAlert, pop, setPop }) => {
 
     useEffect(() => {
 
-        if (sortDate !== undefined && sortDate != "" && sortDate !== null) {
+        if (sortDate !== undefined && sortDate2 !== undefined && sortDate != "" && sortDate !== null && sortDate2 != "" && sortDate2 !== null) {
 
             const sortedData = allLeading.filter((l) => {
                 const { createAt } = l;
@@ -155,21 +156,20 @@ const UserLead = ({ setAlert, pop, setPop }) => {
                 const cday = date.getDate();
 
                 const [nyear, nmonth, nday] = sortDate.split("-");
+                const [nyear2, nmonth2, nday2] = sortDate2.split("-");
 
-
-                return cyear === parseInt(nyear) && cmonth === parseInt(nmonth) && cday === parseInt(nday);
-
+                return (cyear >= parseInt(nyear) && cyear <= parseInt(nyear2)) && (cmonth >= parseInt(nmonth) && cmonth <= parseInt(nmonth2)) && (cday >= parseInt(nday) && cday <= parseInt(nday2));
 
             });
 
             setAllLead(sortedData);
-
         }
         else {
             setAllLead(allLeading);
         }
 
-    }, [sortDate])
+    }, [sortDate , sortDate2])
+
 
     useEffect(() => {
         if (leadUser !== "" && leadUser !== "Select User") {
@@ -183,6 +183,7 @@ const UserLead = ({ setAlert, pop, setPop }) => {
     useEffect(() => {
         fetchDesiUser();
     }, [])
+
 
     useEffect(() => {
         if (leadUser === "Select User" || leadUser === "") {
@@ -443,7 +444,12 @@ const UserLead = ({ setAlert, pop, setPop }) => {
                             <div className="leaftlead2">
 
                                 <span>Sort by</span>
+                                
                                 <input type="date" value={sortDate} onChange={(e) => setSortDate(e.target.value)} />
+
+                               <span>TO</span>
+
+                                <input type="date" value={sortDate2} onChange={(e) => setSortDate2(e.target.value)} />
 
                             </div>
 
