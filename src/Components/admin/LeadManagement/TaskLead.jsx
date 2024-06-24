@@ -19,11 +19,12 @@ const TaskLead = ({ setAlert, pop, setPop }) => {
 
   const user1 = JSON.parse(localStorage.getItem("hrms_user"));
 
+
   const [leadData, setLeadData] = useState();
+
 
   const fetchLead = async () => {
     const ans = await getLeadById(state?.LeadId);
-    console.log(ans?.data);
     if (ans?.status) {
       setLeadData(ans?.data);
     }
@@ -94,29 +95,30 @@ const TaskLead = ({ setAlert, pop, setPop }) => {
                   <div className="lleaiFOlEFT">
 
                     <div className="subPart">
-                      <h3>Priority :</h3>
-                      <p>{state?.Priority}</p>
+                      <h3>LeadName :</h3>
+                      <p>{state?.LeadName}</p>
                     </div>
 
                     <div className="subPart">
-                      <h3>Due Date :</h3>
-                      <p>{state?.DueDate}</p>
+    <h3>Date:</h3>
+    <p>{new Date(state?.Date).toLocaleDateString('en-GB', { day: '2-digit', month: 'long', year: 'numeric' })}</p>
+</div>
+
+
+                    <div className="subPart">
+                      <h3>FollowUpType :</h3>
+                      <p>{state?.FollowUpType}</p>
                     </div>
 
                     <div className="subPart">
-                      <h3>Status :</h3>
-                      <p>{state?.Status}</p>
+                      <h3>Remark :</h3>
+                      <p>{state?.Remark}</p>
                     </div>
 
                     <div className="subPart">
-                      <h3>Related To :</h3>
-                      <p>{state?.RelatedTo}</p>
-                    </div>
-
-                    <div className="subPart">
-                      <h3>Contact Name :</h3>
-                      <p>{state?.ContactName}</p>
-                    </div>
+    <h3>Time:</h3>
+    <p>{new Date(`1970-01-01T${state?.Time}:00Z`).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true })}</p>
+</div>
 
                   </div>
 

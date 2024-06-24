@@ -27,7 +27,7 @@ const ImportLead2 = ({ setAlert, pop, setPop }) => {
     getQuotationAll,
     deleteQuotation,
     taskCreateApi,
-    meetCreateApi, taskEditApi, meetEditApi, GetNoteApi, DeleteNoteApi, updateNoteApi, FetchFollowApi, getLeadStat
+    meetCreateApi, taskEditApi, meetEditApi, GetNoteApi, DeleteNoteApi, updateNoteApi, FetchFollowApi, getLeadStat , getFollowUp
   } = useMain();
 
   const { id } = useParams();
@@ -68,10 +68,22 @@ const ImportLead2 = ({ setAlert, pop, setPop }) => {
   },[])
 
 
+  const [allFollow2 ,setAllFollow2] = useState([]);
+
+  const getFollow = async()=>{
+    const ans = await getFollowUp();
+     if(ans?.success){
+      setAllFollow2(ans?.data);
+     }
+  }
+
+  useEffect(()=>{
+    getFollow();
+  },[])
+
   const getData = async () => {
     let ans = await getLead2(id, "", "", "");
     setData(ans.data[0]);
-    // setLeadStatus(ans?.data[0]?.LeadStatus);
   };
 
   const updatingLeadStatus = async (leading) => {
@@ -835,9 +847,13 @@ const ImportLead2 = ({ setAlert, pop, setPop }) => {
 
                 <select name="FollowUpType" value={taskData?.FollowUpType} onChange={taskHandler} id="">
                   <option value="select one">Select One</option>
-                  <option value="Email Follow Up">Email Follow Up</option>
-                  <option value="Call Follow Up">Call Follow Up</option>
-                  <option value="Whatsapp Follow Up">Whatsapp Follow Up</option>
+                
+                  {
+                    allFollow2?.map((f , index)=>(
+
+                      <option key={index} value={f?.name}>{f?.name}</option>
+                    ))
+                  }
                 </select>
 
               </label>

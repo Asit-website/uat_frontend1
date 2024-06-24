@@ -2000,6 +2000,7 @@ const MainState = (props) => {
          uploadToCloudinaryImg,
          postQuotation,
          getQuotationAll,
+         postFollowUp, updateFollowUp , deleteFollowUp , getFollowUp , 
          fetchUserNotifyHR,
          createSallary,
          getSallary,
