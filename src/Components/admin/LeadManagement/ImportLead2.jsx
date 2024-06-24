@@ -71,7 +71,7 @@ const ImportLead2 = ({ setAlert, pop, setPop }) => {
   const getData = async () => {
     let ans = await getLead2(id, "", "", "");
     setData(ans.data[0]);
-    setLeadStatus(ans?.data[0]?.LeadStatus);
+    // setLeadStatus(ans?.data[0]?.LeadStatus);
   };
 
   const updatingLeadStatus = async (leading) => {
@@ -337,6 +337,19 @@ const ImportLead2 = ({ setAlert, pop, setPop }) => {
     fetchFollowUp();
   }, [])
 
+  useEffect(()=>{
+   
+    const size = allNote.length;
+      if(size){
+       let lastNote = allNote[size-1];
+         const {Status} = lastNote;
+         setLeadStatus(Status);
+      }
+      
+ 
+},[allNote])
+
+
 
   return (
     <div className="imprtleadCont">
@@ -568,6 +581,7 @@ const ImportLead2 = ({ setAlert, pop, setPop }) => {
                       setLeadStatus(e.target.value);
                       updatingLeadStatus(e.target.value);
                     }}
+                    value={LeadStatus}
                     className="leadUPdateStsus"
                     name="LeadStatus"
                     id=""
@@ -578,10 +592,7 @@ const ImportLead2 = ({ setAlert, pop, setPop }) => {
                         return <option key={index} value={val?.name}>{val?.name}</option>
                       })
                     }
-                    {/* <option value="Cold">Cold</option>
-                    <option value="Follow-up">Follow-up</option>
-                    <option value="Hot">Hot</option>
-                    <option value="Warm">Warm</option> */}
+                 
                   </select>
 
                   <label className="noteLabel">

@@ -195,11 +195,13 @@ const UserLead = ({ setAlert, pop, setPop }) => {
             let FiltData;
 
             const today = new Date();
-            today.setHours(0, 0, 0, 0);
 
             if (Filter1 === "Per Day") {
+                let today = new Date();
+                  today.setHours(0, 0, 0, 0);
                 const tomorrow = new Date(today);
                 tomorrow.setDate(tomorrow.getDate() + 1);
+
 
                 FiltData = userLead.filter((ld) => {
                     const createdAt = new Date(ld.createAt);
@@ -209,20 +211,15 @@ const UserLead = ({ setAlert, pop, setPop }) => {
             }
 
             else if (Filter1 === "This Week") {
-                // const firstDayOfWeek = new Date(today);
-                // firstDayOfWeek.setDate(today.getDate() - today.getDay());
-                // firstDayOfWeek.setHours(0, 0, 0, 0);
-                // const lastDayOfWeek = new Date(firstDayOfWeek);
-                // lastDayOfWeek.setDate(firstDayOfWeek.getDate() + 7);
-                // lastDayOfWeek.setHours(0, 0, 0, 0);
 
                 const firstDayOfWeek = new Date(today);
                 firstDayOfWeek.setDate(today.getDate() - 7);
 
+                 const lastDayOfWeek = new Date(today);        
 
                 FiltData = userLead.filter((ld) => {
                     const createdAt = new Date(ld.createAt);
-                    return createdAt >= firstDayOfWeek && createdAt < today;
+                    return createdAt >= firstDayOfWeek && createdAt <= lastDayOfWeek;
                 });
             }
             else if (Filter1 === "Last 14 Days") {
@@ -231,7 +228,7 @@ const UserLead = ({ setAlert, pop, setPop }) => {
 
                 FiltData = userLead.filter((ld) => {
                     const createdAt = new Date(ld.createAt);
-                    return createdAt >= fourteenDaysAgo && createdAt < today;
+                    return createdAt >= fourteenDaysAgo && createdAt <= today;
                 });
             } else if (Filter1 === "This Month") {
                 const firstDayOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
@@ -239,13 +236,14 @@ const UserLead = ({ setAlert, pop, setPop }) => {
 
                 FiltData = userLead.filter((ld) => {
                     const createdAt = new Date(ld.createAt);
-                    return createdAt >= firstDayOfMonth && createdAt < firstDayOfNextMonth;
+                    return createdAt >= firstDayOfMonth && createdAt <= firstDayOfNextMonth;
                 });
             }
 
             setAllLead(FiltData);
         }
     }, [Filter1]);
+
 
 
     return (
