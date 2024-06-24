@@ -792,7 +792,7 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
           <div className="cretTaskCont">
 
             <nav>
-              <p>Create Task</p>
+              <p>Create Follow Up</p>
               <img onClick={() => setOpenCreateTask(false)} className="cursor-pointer" src={cancel} alt="" />
 
             </nav>
