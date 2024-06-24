@@ -10,7 +10,7 @@ import EmployeeNavbar from "../../Employee/Navbar/EmployeeNavbar";
 import toast from "react-hot-toast";
 
 const CreateLead2 = ({ setAlert, pop, setPop }) => {
-    const { user, createLead, getEmployees ,  AllLeadSource , AllLeadStatus  } = useMain();
+    const { user, createLead, getEmployees ,  AllLeadSource , AllLeadStatus,getLeadStat  } = useMain();
     const [pop1, setPop1] = useState(false);
     const stylePeer = {
         display: pop1 ? "block" : "none"
@@ -127,6 +127,7 @@ const CreateLead2 = ({ setAlert, pop, setPop }) => {
 
     const [allLeadStatus , setAllLeadStatus] = useState([]);
     const [allLeadSource , setAllLeadSource] = useState([]);
+    const [allleadStat,setAllLeadStat] = useState([]);
 
 
     const fetchStatus = async()=>{
@@ -139,9 +140,15 @@ const CreateLead2 = ({ setAlert, pop, setPop }) => {
         setAllLeadSource(ans?.data);
     }
 
+    const fetchStat = async()=>{
+        const ans = await getLeadStat();
+        setAllLeadStat(ans?.data);
+    }
+
     useEffect(()=>{
         fetchStatus();
         fetchSource();
+        fetchStat();
     },[])
 
     return (
@@ -321,10 +328,17 @@ const CreateLead2 = ({ setAlert, pop, setPop }) => {
                                             <label htmlFor="">Lead Status *</label>
                                             <select required value={formdata?.LeadStatus} name="LeadStatus" onChange={changeHandler} id="">
                                                 <option >Select Status</option>
-                                                < option value="Cold">Cold</option>
+                                                {
+                                                    allleadStat?.map((val,index)=>{
+                                                        return (
+                                                            <option key={index} value={val?.name}>{val?.name}</option>
+                                                        )
+                                                    })
+                                                }
+                                                {/* < option value="Cold">Cold</option>
                                                 <option value="Warm">Warm</option>
                                                 <option value="Follow-up">Follow-up</option>
-                                                <option value="Hot">Hot</option>
+                                                <option value="Hot">Hot</option> */}
 
                                             </select>
                                         </div>

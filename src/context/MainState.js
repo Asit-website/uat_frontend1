@@ -3,7 +3,7 @@ import MainContext from './MainContext';
 import { deleteReq, get, post, put, postDocuments } from '../Api/api'
 import { useState } from 'react';
 
-// const baseUrl = "http://localhost:5000";
+const baseUrl = "http://localhost:5000";
 
 // const baseUrl = "https://hrms-backend-code.onrender.com"
 
@@ -13,7 +13,7 @@ import { useState } from 'react';
 
 // this is production baseurl 
 
-const baseUrl = "https://hmsbackend.kusheldigi.com";
+// const baseUrl = "https://hmsbackend.kusheldigi.com";
 
 // const baseUrl = "https://hrms-backend-g3wt.onrender.com";
 
@@ -1915,6 +1915,46 @@ const MainState = (props) => {
       return data;
    }
 
+   const getLeadStat = async () => {
+      const data = await get(`${baseUrl}/system/getLeadStat`, true);
+      return data;
+   };
+
+   const postLeadStat = async ({ name }) => {
+      const data = await post(`${baseUrl}/system/postLeadStat`, { name }, true);
+      return data;
+   };
+
+   const updateLeadStat = async ({ id, name }) => {
+      const data = await put(`${baseUrl}/system/updateLeadStat/${id}`, { name }, true);
+      return data;
+   };
+
+   const deleteLeadStat = async (id) => {
+      const data = await deleteReq(`${baseUrl}/system/deleteLeadStat/${id}`, true);
+      return data;
+   };
+
+   const getFollowUp = async () => {
+      const data = await get(`${baseUrl}/system/getFollow`, true);
+      return data;
+   };
+
+   const postFollowUp = async ({ name }) => {
+      const data = await post(`${baseUrl}/system/postFollow`, { name }, true);
+      return data;
+   };
+
+   const updateFollowUp = async ({ id, name }) => {
+      const data = await put(`${baseUrl}/system/updateFollow/${id}`, { name }, true);
+      return data;
+   };
+
+   const deleteFollowUp = async (id) => {
+      const data = await deleteReq(`${baseUrl}/system/deleteFollow/${id}`, true);
+      return data;
+   };
+
 
    return (
       <MainContext.Provider value={{
@@ -1978,7 +2018,11 @@ const MainState = (props) => {
          postIndustry,
          deleteIndustry,
          updateIndustry,
-         getLeadByUser
+         getLeadByUser,
+         getLeadStat,
+         postLeadStat,
+         updateLeadStat,
+         deleteLeadStat
 
       }}>
          {props.children}

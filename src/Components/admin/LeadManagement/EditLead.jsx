@@ -14,7 +14,7 @@ import toast from "react-hot-toast";
 
 const EditLead = ({ setAlert, pop, setPop }) => {
 
-    const { user, updateLead, getEmployees  ,  AllLeadSource , AllLeadStatus} = useMain();
+    const { user, updateLead, getEmployees  ,  AllLeadSource , AllLeadStatus,getLeadStat} = useMain();
 
     const [pop1, setPop1] = useState(false);
 
@@ -134,7 +134,7 @@ const EditLead = ({ setAlert, pop, setPop }) => {
 
     const [allLeadStatus , setAllLeadStatus] = useState([]);
     const [allLeadSource , setAllLeadSource] = useState([]);
-
+    const [allleadStat,setAllLeadStat] = useState([]);
 
     const fetchStatus = async()=>{
         const ans = await AllLeadStatus();
@@ -146,9 +146,15 @@ const EditLead = ({ setAlert, pop, setPop }) => {
         setAllLeadSource(ans?.data);
     }
 
+    const fetchStat = async () =>{
+        const ans = await getLeadStat();
+        setAllLeadStat(ans?.data);
+    }
+
     useEffect(()=>{
         fetchStatus();
         fetchSource();
+        fetchStat();
     },[])
 
     return (
@@ -323,10 +329,15 @@ const EditLead = ({ setAlert, pop, setPop }) => {
                                             <label htmlFor="">Lead Status *</label>
                                             <select required value={formdata?.LeadStatus} name="LeadStatus" onChange={changeHandler} id="">
                                                 <option >Select Status</option>
-                                                < option value="Cold">Cold</option>
+                                                {
+                                                    allleadStat?.map((val,index)=>{
+                                                        return <option key={index} value={val?.name}>{val?.name}</option>
+                                                    })
+                                                }
+                                                {/* < option value="Cold">Cold</option>
                                                 <option value="Warm">Warm</option>
                                                 <option value="Follow-up">Follow-up</option>
-                                                <option value="Hot">Hot</option>
+                                                <option value="Hot">Hot</option> */}
                                             </select>
                                         </div>
                                     </div>

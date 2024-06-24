@@ -4674,6 +4674,7 @@ input::-webkit-inner-spin-button {
   text-align: left;
 
   border: 1px solid #D0D4DC;
+  height: 48px;
 }
 
 .salay th,
