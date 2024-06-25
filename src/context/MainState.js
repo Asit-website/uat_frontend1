@@ -1791,15 +1791,15 @@ const MainState = (props) => {
 
    }
 
-   const meetCreateApi = async ({ title , meetDateFrom, meetDateTo, Status, meetTimeFrom, meetTimeTo, Host, RelatedTo, Participant, Note, userId, LeadId  }) => {
-      const data = await post(`${baseUrl}/openActivity/createMeet`, { title, meetDateFrom, meetDateTo, Status, meetTimeFrom, meetTimeTo, Host, RelatedTo, Participant, Note, userId, LeadId  }, true);
+   const meetCreateApi = async ({ title , meetDateFrom, meetDateTo, Status, meetTimeFrom, meetTimeTo, Host, RelatedTo, Participant, Note, userId, LeadId,MeetingLink  }) => {
+      const data = await post(`${baseUrl}/openActivity/createMeet`, { title, meetDateFrom, meetDateTo, Status, meetTimeFrom, meetTimeTo, Host, RelatedTo, Participant, Note, userId, LeadId,MeetingLink  }, true);
       return data;
 
    }
 
-   const meetEditApi = async ({ title ,  meetDateFrom, meetDateTo, Status, meetTimeFrom, meetTimeTo, Host, RelatedTo, Participant, Note, userId, meetId, LeadId }) => {
-      const data = await post(`${baseUrl}/openActivity/editMeet/${meetId}`, { title, meetDateFrom, meetDateTo, Status, meetTimeFrom, meetTimeTo, Host, RelatedTo, Participant, Note, userId, LeadId  }, true);
-      return data;
+   const meetEditApi = async ({ title ,  meetDateFrom, meetDateTo, Status, meetTimeFrom, meetTimeTo, Host, RelatedTo, Participant, Note, userId, meetId, LeadId,MeetingLink }) => {
+      const data = await post(`${baseUrl}/openActivity/editMeet/${meetId}`, { title, meetDateFrom, meetDateTo, Status, meetTimeFrom, meetTimeTo, Host, RelatedTo, Participant, Note, userId, LeadId, MeetingLink  }, true);
+      return data;  
 
    }
 
@@ -1883,6 +1883,11 @@ const MainState = (props) => {
 
    const getUserByDesignation = async () => {
       const data = await get(`${baseUrl}/lead/getDesiUser`, true);
+      return data;
+   }
+
+   const getUserByDesignation1 = async () => {
+      const data = await get(`${baseUrl}/lead/getDesiUser1`, true);
       return data;
    }
 
@@ -2023,7 +2028,8 @@ const MainState = (props) => {
          getLeadStat,
          postLeadStat,
          updateLeadStat,
-         deleteLeadStat
+         deleteLeadStat,
+         getUserByDesignation1
 
       }}>
          {props.children}

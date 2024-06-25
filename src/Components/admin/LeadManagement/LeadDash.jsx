@@ -107,6 +107,14 @@ const LeadDash = ({ setAlert, pop, setPop }) => {
     }
   };
 
+  const convertTo12HourFormat = (time) => {
+    const [hours, minutes] = time.split(':');
+    const intHours = parseInt(hours, 10);
+    const amPm = intHours >= 12 ? 'PM' : 'AM';
+    const adjustedHours = intHours % 12 || 12; // Convert 0 to 12 for 12 AM
+    return `${adjustedHours}:${minutes} ${amPm}`;
+  };
+
   const fetchMeet = async () => {
     const data = await getMeetApi({ userId: hrms_user?._id });
     if (data?.status) {
@@ -427,7 +435,7 @@ const LeadDash = ({ setAlert, pop, setPop }) => {
                           <td className="px-4 py-4 duedatest">
                             {task?.FollowUpType}
                           </td>
-                          <td className="px-4 py-4 relt">{task?.Time}</td>
+                          <td className="px-4 py-4 relt">{task?.Time && convertTo12HourFormat(task.Time)}</td>
 
                           <td className="px-3 py-3 thebuttn">
                             <OutsideClickHandler

@@ -28,7 +28,7 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
     getQuotationAll,
     deleteQuotation,
     taskCreateApi,
-    meetCreateApi, taskEditApi, meetEditApi, GetNoteApi, DeleteNoteApi, updateNoteApi, FetchFollowApi, getLeadStat , getFollowUp
+    meetCreateApi, taskEditApi, meetEditApi, GetNoteApi, DeleteNoteApi, updateNoteApi, FetchFollowApi, getLeadStat , getFollowUp,getUserByDesignation1
   } = useMain();
 
   const { id } = useParams();
@@ -45,6 +45,8 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
 
   const [leadStat, setLeadStat] = useState([]);
 
+  const [userDeg,setUserDeg] = useState([]);
+
   const [Note, setNote] = useState("");
 
   const navigate = useNavigate();
@@ -57,6 +59,15 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
       setAllFollowUp(ans?.data);
     }
   }
+
+  const fetchUserDesignation = async () =>{
+     const ans = await getUserByDesignation1();
+     setUserDeg(ans?.data);
+  }
+
+  useEffect(()=>{
+      fetchUserDesignation();
+  },[])
 
   const fetchLeadStat = async () => {
     const ans = await getLeadStat();
@@ -957,9 +968,14 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
                 <label>
                   <p>Host </p>
                   <select value={meetData.Host} onChange={meetHandler} name="Host" id="">
-                    <option value="Host">Host</option>
-                    <option value="Host1">Host1</option>
-                    <option value="Host2">Host2</option>
+                    <option value="Host">Chose Host</option>
+                    {
+                      userDeg?.map((val,index)=>{
+                        return <option key={index} value={val?._id}>{val?.fullName}</option>
+                      })
+                    }
+                    {/* <option value="Host1">Host1</option>
+                    <option value="Host2">Host2</option> */}
                   </select>
                 </label>
 
