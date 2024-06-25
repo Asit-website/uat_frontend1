@@ -4,6 +4,7 @@ import { useMain } from "../../../hooks/useMain";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import "./permission.css"
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 const Permission = ({ pop, setPop, setAlert }) => {
 
@@ -46,8 +47,11 @@ const Permission = ({ pop, setPop, setAlert }) => {
 
 
  const applyPermission = async()=>{
+     const toastId = toast.loading("Loading...");
   const ans = await ProvidePermission({Designation:formdata?.Designation , userId:formdata?.userId , Service:formdata?.Service});
 
+        toast.success("Successfuly done");
+    toast.dismiss(toastId);
  }
 
   return (
