@@ -8,6 +8,8 @@ import docSub from "../../images/docSubfir.png"
 import JoditEditor from 'jodit-react';
 
 import "./document.css";
+import EmployeeSidebar from "../../Employee/Sidebar/EmployeeSidebar";
+import EmployeeNavbar from "../../Employee/Navbar/EmployeeNavbar";
 
 
 
@@ -29,6 +31,11 @@ const DocumentManagement = ({ setAlert, pop, setPop }) => {
 
   const [currEmp, setCurrEmp] = useState(0);
 
+  let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
+
+  const {role} = hrms_user;
+
+
   const editor = useRef(null);
 
   const [content, setContent] = useState('');
@@ -41,10 +48,20 @@ const DocumentManagement = ({ setAlert, pop, setPop }) => {
   return (
     <>
       <div className="employee-dash h-full">
+      {
+          role=== "EMPLOYEE" ?
+          <EmployeeSidebar pop={pop} setPop={setPop} />
+           :
         <AdminSidebar pop={pop} setPop={setPop} />
+        }
 
         <div className="tm">
+        {
+            role === "EMPLOYEE" ?
+             <EmployeeNavbar user={user} setAlert={setAlert}  />:
+
           <AdminNavbar user={user} setAlert={setAlert} />
+          } 
 
           <div className="em">
             <div className="flex-col">

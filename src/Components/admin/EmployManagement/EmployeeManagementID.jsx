@@ -8,6 +8,8 @@ import chevron from "../../images/chevron_right.png";
 
 import "./employeManage.css";
 import { useNavigate, useParams } from "react-router-dom";
+import EmployeeSidebar from "../../Employee/Sidebar/EmployeeSidebar";
+import EmployeeNavbar from "../../Employee/Navbar/EmployeeNavbar";
 
 const EmployeeManagementID = ({
   pop1,
@@ -23,10 +25,22 @@ const EmployeeManagementID = ({
 
   const navigate = useNavigate();
 
+  let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
+
+   const {role} = hrms_user;
+
   return (
     <>
       <div className="employee-dash h-full">
-        {isHr ? <HrSidebar /> : <AdminSidebar pop={pop} setPop={setPop} />}
+        {isHr ? <HrSidebar /> :
+        
+      
+          role=== "EMPLOYEE" ?
+          <EmployeeSidebar pop={pop} setPop={setPop} />
+           :
+        <AdminSidebar pop={pop} setPop={setPop} />
+        
+        }
         <div className="tm">
           {isHr ? (
             <HrNavbar
@@ -36,7 +50,13 @@ const EmployeeManagementID = ({
               setPop1={setPop1}
             />
           ) : (
+            
+              role === "EMPLOYEE" ?
+               <EmployeeNavbar user={user} setAlert={setAlert}  />:
+  
             <AdminNavbar user={user} setAlert={setAlert} />
+            
+  
           )}
 
           <div className="em">

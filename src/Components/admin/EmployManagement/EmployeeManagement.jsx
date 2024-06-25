@@ -17,6 +17,8 @@ import edit22 from "../../images/edit22.png"
 import pp from "../../images/pp.png"
 import OutsideClickHandler from "react-outside-click-handler";
 import toast from "react-hot-toast";
+import EmployeeSidebar from "../../Employee/Sidebar/EmployeeSidebar";
+import EmployeeNavbar from "../../Employee/Navbar/EmployeeNavbar";
 
 
 const EmployeeManagement = ({
@@ -54,6 +56,10 @@ const EmployeeManagement = ({
       setCurrentPage(newPage);
     }
   };
+
+  let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
+
+   const {role} = hrms_user;
 
   const [allData , setAllData] = useState([]);
 
@@ -160,7 +166,14 @@ const EmployeeManagement = ({
   return (
     <>
       <div className="employee-dash h-full">
-        {isHr ? <HrSidebar /> : <AdminSidebar pop={pop} setPop={setPop} />}
+        {isHr ? <HrSidebar /> : 
+        
+          role=== "EMPLOYEE" ?
+          <EmployeeSidebar pop={pop} setPop={setPop} />
+           :
+        <AdminSidebar pop={pop} setPop={setPop} />
+        
+        }
         <div className="tm">
           {isHr ? (
             <HrNavbar
@@ -170,7 +183,13 @@ const EmployeeManagement = ({
               setPop1={setPop1}
             />
           ) : (
+            
+              role === "EMPLOYEE" ?
+               <EmployeeNavbar user={user} setAlert={setAlert}  />:
+  
             <AdminNavbar user={user} setAlert={setAlert} />
+            
+  
           )}
 
           <div className="em">

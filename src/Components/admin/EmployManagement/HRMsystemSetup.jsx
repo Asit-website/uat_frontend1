@@ -17,6 +17,8 @@ import cross1 from "../../images/cross1.png"
 import toast from "react-hot-toast";
 import plus from "../../images/pluss.png"
 import Selectmultidropdown from "./MultiSelect";
+import EmployeeSidebar from "../../Employee/Sidebar/EmployeeSidebar";
+import EmployeeNavbar from "../../Employee/Navbar/EmployeeNavbar";
 
 const sidebarItem = [
   {
@@ -107,6 +109,10 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
   const { user, getBranchs, postBranch, updateBranch, deleteBranch, getDepartments, postDepartment, updateDepartment, deleteDepartment, getDesignations, postDesignation, updateDesignation, deleteDesignation, postLeaveType, updateLeaveType, getLeaveTypes, deleteLeaveType , postDocSetup  , fetchAllDocs , deleteDocSetup , updateDocSetup , postLeadStatus ,postLeadSource2 ,AllLeadStatus ,AllLeadSource} = useMain();
 
   const [open, setOpen] = useState(0);
+
+  let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
+
+   const {role} = hrms_user;
 
   const [popup, setPopup] = useState(false);
 
@@ -533,13 +539,26 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
     getDocs();
  },[])
 
+
+
   return (
     <>
       <div className="employee-dash h-full">
+
+        {
+          role=== "EMPLOYEE" ?
+          <EmployeeSidebar pop={pop} setPop={setPop} />
+           :
         <AdminSidebar pop={pop} setPop={setPop} />
+        }
 
         <div className="tm">
+          {
+            role === "EMPLOYEE" ?
+             <EmployeeNavbar user={user} setAlert={setAlert}  />:
+
           <AdminNavbar user={user} setAlert={setAlert} />
+          } 
 
           <div className="em">
             <div className="flex-col">

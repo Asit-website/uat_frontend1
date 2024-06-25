@@ -1950,8 +1950,8 @@ const MainState = (props) => {
       return data;
    };
 
-   const ProvidePermission = async ({ Designation , userId ,Service}) => {
-      const data = await post(`${baseUrl}/permission/providePermission`, { Designation , userId ,Service }, true);
+   const ProvidePermission = async ({ Designation , userId ,Service , SubPermission}) => {
+      const data = await post(`${baseUrl}/permission/providePermission`, { Designation , userId ,Service  , SubPermission}, true);
       return data;
    };
    const RemovePermission = async ({  }) => {

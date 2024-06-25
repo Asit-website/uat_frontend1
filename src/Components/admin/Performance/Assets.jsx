@@ -12,12 +12,18 @@ import thedots from "../../images/thedots.png"
 import editsss from "../../images/editss.svg"
 import delete22 from "../../images/delete22.png"
 import ccc from "../../images/ccc.png"
+import EmployeeSidebar from '../../Employee/Sidebar/EmployeeSidebar';
+import EmployeeNavbar from '../../Employee/Navbar/EmployeeNavbar';
 
 
 const Assets = ({ pop, setPop, setAlert }) => {
   const { user, createAssets, allEmployee, getAssets,deleteAssets,updateAssets  , getDepartments , getDesignations } = useMain();
 
   const [openForm, setOpenForm] = useState(false);
+
+  let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
+
+  const {role} = hrms_user;
 
   const [employee, setEmployee] = useState([]);
 
@@ -154,10 +160,20 @@ const Assets = ({ pop, setPop, setAlert }) => {
     <>
       <div className="annDash relative h-full">
 
+      {
+          role=== "EMPLOYEE" ?
+          <EmployeeSidebar pop={pop} setPop={setPop} />
+           :
         <AdminSidebar pop={pop} setPop={setPop} />
+        }
 
         <div className="tm">
+        {
+            role === "EMPLOYEE" ?
+             <EmployeeNavbar user={user} setAlert={setAlert}  />:
+
           <AdminNavbar user={user} setAlert={setAlert} />
+          } 
           <div className="em">
 
             <div className='anNav'>

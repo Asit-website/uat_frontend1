@@ -12,6 +12,8 @@ import cancel from "../../images/cancell.png"
 
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import EmployeeSidebar from "../../Employee/Sidebar/EmployeeSidebar";
+import EmployeeNavbar from "../../Employee/Navbar/EmployeeNavbar";
 
 const LeaveRequest = ({
   pop1,
@@ -32,6 +34,11 @@ const LeaveRequest = ({
   const { user, getUserLeaves , deleteLeave , updateLeave , acceptLeave , rejectLeave , postNotifyLeavereq } = useMain();
 
   const [data, setData] = useState([]);
+
+  let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
+
+  const {role} = hrms_user;
+
 
   const [accept,setAccept] = useState("reject",user);
 
@@ -153,7 +160,15 @@ const LeaveRequest = ({
   return (
     <>
       <div className="employee-dash h-full">
-        {isHr ? <HrSidebar /> : <AdminSidebar pop={pop} setPop={setPop} />}
+        {isHr ? <HrSidebar /> :
+
+        
+  role=== "EMPLOYEE" ?
+  <EmployeeSidebar pop={pop} setPop={setPop} />
+   :
+<AdminSidebar pop={pop} setPop={setPop} />
+                
+        }
         <div className="tm">
           {isHr ? (
             <HrNavbar
@@ -163,7 +178,12 @@ const LeaveRequest = ({
               setPop1={setPop1}
             />
           ) : (
+            
+              role === "EMPLOYEE" ?
+               <EmployeeNavbar user={user} setAlert={setAlert}  />:
+  
             <AdminNavbar user={user} setAlert={setAlert} />
+            
           )}
 
           <div className="em">

@@ -13,7 +13,8 @@ const Permission = ({ pop, setPop, setAlert }) => {
   const [formdata , setFormdata] = useState({
     Service:"" , 
     userId:"" , 
-    Designation:""
+    Designation:"" , 
+    SubPermission:"" , 
   })
 
   const [allEmp , setAllEmp] = useState([]);
@@ -48,7 +49,7 @@ const Permission = ({ pop, setPop, setAlert }) => {
 
  const applyPermission = async()=>{
      const toastId = toast.loading("Loading...");
-  const ans = await ProvidePermission({Designation:formdata?.Designation , userId:formdata?.userId , Service:formdata?.Service});
+  const ans = await ProvidePermission({Designation:formdata?.Designation , userId:formdata?.userId , Service:formdata?.Service , SubPermission: formdata?.SubPermission});
 
         toast.success("Successfuly done");
     toast.dismiss(toastId);
@@ -68,8 +69,16 @@ const Permission = ({ pop, setPop, setAlert }) => {
                  <label >
                     <p>Service</p>
                      <select onChange={changeHandler} name="Service" value={formdata.Service} >
+                  
                         <option value="leadPermission">leadPermission</option>
                         <option value="hrmsSetUpPermission">hrmsSetUpPermission</option>
+                        <option value="leadSystemPermission">leadSystemPermission</option>
+                        <option value="attendencePermission">attendencePermission</option>
+                        <option value="assetsPermission">assetsPermission</option>
+                        <option value="documentPermission">documentPermission</option>
+                        <option value="leaveManagePermission">leaveManagePermission</option>
+                        <option value="performancePermission">performancePermission</option>
+                        <option value="employeeManagePermission">employeeManagePermission</option>
                         <option value="payrollPermission">payrollPermission</option>
                      </select>
                  </label>
@@ -83,6 +92,16 @@ const Permission = ({ pop, setPop, setAlert }) => {
                         ))
                      }
                 </select>
+              </label>
+
+              <label >
+                 <p>choose for leadPermission</p>
+                 <select name="SubPermission" onChange={changeHandler} value={formdata?.SubPermission}>
+                    <option value="">Select Permission</option>
+                    <option value="leadEditPermission">leadEditPermission</option>
+                    <option value="leadDeletePermission">leadDeletePermission</option>
+                    <option value="leadCreatePermission">leadCreatePermission</option>
+                 </select>
               </label>
               
               <label >

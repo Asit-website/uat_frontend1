@@ -10,12 +10,18 @@ import ReactHTMLTableToExcel from 'react-html-table-to-excel';
 import cancell from "../../images/cancell.png"
 import kdslogo from "../../images/kdslogo.png"
 import { useReactToPrint } from 'react-to-print'
+import EmployeeSidebar from "../../Employee/Sidebar/EmployeeSidebar";
+import EmployeeNavbar from "../../Employee/Navbar/EmployeeNavbar";
 
 const Payslip = ({
     pop,
     setPop
 }) => {
     const { user, getUserSlip, togglePayslip, buildAPI } = useMain();
+
+    let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
+
+    const {role} = hrms_user;
 
     const [loading, setLoading] = useState(false);
 
@@ -124,9 +130,20 @@ const Payslip = ({
     return (
         <>
             <div className={`employee-dash  h-full`}>
-                <AdminSidebar pop={pop} setPop={setPop} />
+            {
+          role=== "EMPLOYEE" ?
+          <EmployeeSidebar pop={pop} setPop={setPop} />
+           :
+        <AdminSidebar pop={pop} setPop={setPop} />
+        }
                 <div className="tm">
-                    <AdminNavbar user={user} />
+                {
+            role === "EMPLOYEE" ?
+             <EmployeeNavbar />:
+
+          <AdminNavbar user={user}  />
+          } 
+
 
                     <div className={`em ${openPayslip ? "hidenOverflow" : ""} `}>
 

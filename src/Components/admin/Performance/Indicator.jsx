@@ -15,6 +15,8 @@ import edit22 from "../../images/edit22.png"
 import deleted from "../../images/deletedd.svg";
 import happy from "../../images/bx-happy-heart-eyes.png"
 import { useNavigate } from 'react-router-dom';
+import EmployeeNavbar from '../../Employee/Navbar/EmployeeNavbar';
+import EmployeeSidebar from '../../Employee/Sidebar/EmployeeSidebar';
 
 
 
@@ -62,6 +64,10 @@ const Indicator = ({ pop, setPop, setAlert }) => {
   useEffect(()=>{
      getData1();
   },[refreshFlag])
+
+  let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
+
+   const {role} = hrms_user;
 
   const getData1 = async () =>{
     const ans = await getBranchs();
@@ -169,10 +175,21 @@ const Indicator = ({ pop, setPop, setAlert }) => {
     <>
       <div className="annDash relative h-full">
 
+      {
+          role=== "EMPLOYEE" ?
+          <EmployeeSidebar pop={pop} setPop={setPop} />
+           :
         <AdminSidebar pop={pop} setPop={setPop} />
+        }
+
 
         <div className="tm">
+        {
+            role === "EMPLOYEE" ?
+             <EmployeeNavbar user={user} setAlert={setAlert}  />:
+
           <AdminNavbar user={user} setAlert={setAlert} />
+          } 
           <div className="em">
 
             <div className='anNav'>

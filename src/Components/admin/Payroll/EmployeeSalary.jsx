@@ -5,12 +5,19 @@ import { useMain } from "../../../hooks/useMain";
 import { useEffect, useState } from "react";
 import talent from '../../images/talent.svg';
 import { useNavigate } from "react-router-dom";
+import EmployeeSidebar from "../../Employee/Sidebar/EmployeeSidebar";
+import EmployeeNavbar from "../../Employee/Navbar/EmployeeNavbar";
 const EmployeeSalary = ({
     pop,
     setPop
    
 }) => {
     const { user, getUsers } = useMain();
+
+    let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
+
+    const {role} = hrms_user;
+
 
     const [data, setData] = useState([]);
 
@@ -45,9 +52,20 @@ const EmployeeSalary = ({
     return (
         <>
             <div className="employee-dash h-full">
-                <AdminSidebar pop={pop} setPop={setPop} />
+            {
+          role=== "EMPLOYEE" ?
+          <EmployeeSidebar pop={pop} setPop={setPop} />
+           :
+        <AdminSidebar pop={pop} setPop={setPop} />
+        }
                 <div className="tm">
-                    <AdminNavbar user={user} />
+                {
+            role === "EMPLOYEE" ?
+             <EmployeeNavbar />:
+
+          <AdminNavbar user={user} />
+          } 
+
 
                     <div className="em ">
 

@@ -20,6 +20,8 @@ import edit from "../../images/edit.png";
 // import delete4 from "../../images/delete.png";
 import cutt from "../../images/cut.png"
 import { parse, format } from 'date-fns';
+import EmployeeNavbar from "../../Employee/Navbar/EmployeeNavbar";
+import EmployeeSidebar from "../../Employee/Sidebar/EmployeeSidebar";
 
 
 const MarkAttendance = ({
@@ -45,6 +47,10 @@ const MarkAttendance = ({
   const [users, setUsers] = useState([]);
   const [departments, setDepartments] = useState([]);
   const [allDash, setAllDash] = useState([]);
+
+  let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
+
+  const {role} = hrms_user;
 
   const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 10;
@@ -447,7 +453,14 @@ const MarkAttendance = ({
     <>
       <h1>Hello Dinesh</h1>
       <div className="employee-dash h-full">
-        {isHr ? <HrSidebar /> : <AdminSidebar pop={pop} setPop={setPop} />}
+        {isHr ? <HrSidebar /> : 
+  role=== "EMPLOYEE" ?
+  <EmployeeSidebar pop={pop} setPop={setPop} />
+   :
+<AdminSidebar pop={pop} setPop={setPop} />
+
+        
+      }
         <div className="tm relative">
           {isHr ? (
             <HrNavbar
@@ -457,7 +470,12 @@ const MarkAttendance = ({
               setPop1={setPop1}
             />
           ) : (
+            
+              role === "EMPLOYEE" ?
+               <EmployeeNavbar />:
+  
             <AdminNavbar user={user} setAlert={setAlert} />
+            
           )}
 
           <div className="em ">

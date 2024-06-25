@@ -42,6 +42,8 @@ const LeadDash2 = ({ setAlert, pop, setPop }) => {
 
   let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
 
+
+
   const [totalOpenLead , setTotalOpenLead] = useState(0);
   const [totalCloseLead , setTotalCloseLead] = useState(0);
 
