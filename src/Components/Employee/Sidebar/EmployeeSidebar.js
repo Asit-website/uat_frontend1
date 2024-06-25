@@ -7,10 +7,28 @@ import userP from "../../images/userProfile.png"
 import employee from '../../images/employee.svg';
 import perty from '../../images/perty.svg';
 import  shop from "../../images/ShoppingBagOpen-d.png"
+import leaderboard from '../../images/leaderboard.svg';
+import leaderboard1 from '../../images/leaderboard1.svg';
+import anal from '../../images/anal.svg';
+import vect from '../../images/vect.svg';
+import tyming from '../../images/tyming.svg';
+import fiber from '../../images/fiber.svg';
+
+const payrols = [
+  {
+    title:"Set Salary",
+    link:"/adminDash/setSallary"
+  },
+  {
+    title:"Payslip",
+    link:"/adminDash/payslip"
+  },
+]
 
 const EmployeeSidebar = () => {
 
   let user = JSON.parse(localStorage.getItem("hrms_user"));
+
 
   const leadItem = [
     {
@@ -23,6 +41,14 @@ const EmployeeSidebar = () => {
     },
   
   ]
+
+  const {hrmsSetUpPermission , leadPermission , payrollPermission} = user;
+
+  const [openPayroll,setOpenPayroll] = useState(false);
+
+  const [payrollItem,setPayrollItem] = useState(0);
+
+
 
    const [openLead , setOpenLead] = useState(false);
 
@@ -83,6 +109,82 @@ const EmployeeSidebar = () => {
                 <span className={`${window.location.pathname==="/employeeDash/LeadSystemSetting" ? "fan" : ""}`}>Lead System Setting</span>
               </div>
             </div></NavLink> : ""
+            }
+
+            {
+              hrmsSetUpPermission && 
+              <NavLink to="/adminDash/HRM/HRMsystemSetup"><div className={`${window.location.pathname === "/adminDash/HRM/HRMsystemSetup"  ? "hh" : ""} setWrap`}>
+              <div className="systSset">
+                <img src={`${window.location.pathname === "/adminDash/HRM/HRMsystemSetup"   ? perty : employee}`} alt="" />
+                <span className={`${window.location.pathname==="/adminDash/HRM/HRMsystemSetup" ? "fan" : ""}`}>Hrm System Setup</span>
+              </div>
+            </div></NavLink>
+
+            }
+
+            {
+              leadPermission && 
+
+          <NavLink to="/adminDash/leadDash"><div className={`${window.location.pathname === "/adminDash/leadDash" || window.location.pathname === "/adminDash/myLead" || window.location.pathname === "/adminDash/editLead" || window.location.pathname === "/adminDash/createLead" || window.location.pathname === "/adminDash/importLead/:id" || window.location.pathname === "/adminDash/createQuotation" || window.location.pathname === "/adminDash/editQuotation" ? "hh" : ""} setWrap`}>
+          {/* <p>Setting</p> */}
+          <div className="systSset">
+            <img src={`${window.location.pathname === "/adminDash/leadDash" || window.location.pathname === "/adminDash/myLead" || window.location.pathname === "/adminDash/editLead" || window.location.pathname === "/adminDash/createLead" || window.location.pathname === "/adminDash/importLead/:id" || window.location.pathname === "/adminDash/createQuotation" || window.location.pathname === "/adminDash/editQuotation" ? leaderboard1 : leaderboard}`} alt="" />
+            <span className={`${window.location.pathname==="/adminDash/leadDash" || window.location.pathname === "/adminDash/myLead" || window.location.pathname === "/adminDash/editLead" || window.location.pathname === "/adminDash/createLead" || window.location.pathname === "/adminDash/importLead/:id" || window.location.pathname === "/adminDash/createQuotation" || window.location.pathname === "/adminDash/editQuotation" ? "fan" : ""}`}>Lead Management</span>
+          </div>
+        </div></NavLink>
+
+            }
+            {
+              payrollPermission && 
+            <>
+             {/* =================payroll management start============ */}
+
+          <div
+                onClick={() => setOpenPayroll((prev) => !prev)}
+                className="side-dash-box"
+              >
+                <div className="dash-wrap">
+                  <img src={anal} alt="dasg" />
+                  <p>Payroll Management</p>
+                </div>
+
+                <img src={vect} alt="" />
+              </div>
+
+              {openPayroll && (
+                <div className="alladminDash-item">
+                  {payrols?.map((item, index) => (
+                    <div
+                      onClick={() => {
+                        setPayrollItem(index);
+                        navigate(item?.link);
+                        setOpenPayroll(true);
+                      }
+
+                      }
+                      className="sinADDasItem"
+                      key={index}
+                    >
+                      {payrollItem == index ? (
+                        <img src={`${window.location.pathname === `${item?.link}` ? fiber : tyming}`} alt="" />
+                      ) : (
+                        <img src={`${window.location.pathname === `${item?.link}` ? fiber : tyming}`} alt="" />
+                      )}
+                      <p
+                        className={` ${payrollItem === index ? "dashItemp" : "dITitl"
+                          } ${window.location.pathname === `${item?.link}` ? "fan" : ""}`}
+                      >
+                        {item?.title}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {/* =================payroll management end============ */}
+
+            </>
+
             }
 
            

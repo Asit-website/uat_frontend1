@@ -85,6 +85,7 @@ import TaskLead from "./Components/admin/LeadManagement/TaskLead.jsx";
 import MeetLead from "./Components/admin/LeadManagement/MeetLead.jsx";
 import LeadSystemSetting from "./Components/admin/EmployManagement/LeadSystemSetting.jsx";
 import LeadSystemSetting2 from "./Components/admin/EmployManagement/LeadSystemSetting2.jsx";
+import Permission from "./Components/admin/Permission/Permission.jsx";
 
 var tc;
 
@@ -265,6 +266,7 @@ function App() {
               <Route path="/adminDash/profile-management" element={<ProfileManagement pop={pop} setPop={setPop} setAlert={setAlert} />} />
 
               <Route path="/adminDash/HrManage" element={<HrManage pop={pop} setAlert={setAlert} setPop={setPop} />} />
+              <Route path="/adminDash/Permission" element={<Permission pop={pop} setAlert={setAlert} setPop={setPop} />} />
               <Route path="/adminDash/profile" element={<AdminProfile pop={pop} setPop={setPop} setAlert={setAlert} />} />
               <Route path="/adminDash/announcement" element={<AdminAnnoncement pop={pop} setPop={setPop} setAlert={setAlert} />} />
               <Route path="/performance/indicator" element={<Indicator pop={pop} setPop={setPop} setAlert={setAlert} />} />

@@ -19,15 +19,15 @@ import saka from '../../images/saka.svg';
 import adminSetting from "../../images/adminSetting.png"
 import { IoIosArrowDown } from "react-icons/io";
 import soulmate from '../../images/solumate.svg';
-import tyming from '../../images/tyming.svg';
 import leaderboard from '../../images/leaderboard.svg';
 import leaderboard1 from '../../images/leaderboard1.svg';
 import employee from '../../images/employee.svg';
 import perty from '../../images/perty.svg';
 import anal from '../../images/anal.svg';
+import vect from '../../images/vect.svg';
+import tyming from '../../images/tyming.svg';
 import fiber from '../../images/fiber.svg';
 import reading from '../../images/reading.svg';
-import vect from '../../images/vect.svg';
 import cel from '../../images/cal.svg';
 import cel1 from '../../images/cal1.svg';
 import webAsseting from '../../images/webAsseting.svg';
@@ -341,7 +341,17 @@ const AdminSidebar = ({ pop, setPop }) => {
 
             </div>
 
-           {/* ================lead management start============= */}
+           {/* ================persmission  start============= */}
+          <NavLink to="/adminDash/permission"><div className={`${window.location.pathname === "/adminDash/leadDash" || window.location.pathname === "/adminDash/myLead" || window.location.pathname === "/adminDash/editLead" || window.location.pathname === "/adminDash/createLead" || window.location.pathname === "/adminDash/importLead/:id" || window.location.pathname === "/adminDash/createQuotation" || window.location.pathname === "/adminDash/editQuotation" ? "hh" : ""} setWrap`}>
+              {/* <p>Setting</p> */}
+              <div className="systSset">
+                <img src={`${window.location.pathname === "/adminDash/leadDash" || window.location.pathname === "/adminDash/myLead" || window.location.pathname === "/adminDash/editLead" || window.location.pathname === "/adminDash/createLead" || window.location.pathname === "/adminDash/importLead/:id" || window.location.pathname === "/adminDash/createQuotation" || window.location.pathname === "/adminDash/editQuotation" ? leaderboard1 : leaderboard}`} alt="" />
+                <span className={`${window.location.pathname==="/adminDash/leadDash" || window.location.pathname === "/adminDash/myLead" || window.location.pathname === "/adminDash/editLead" || window.location.pathname === "/adminDash/createLead" || window.location.pathname === "/adminDash/importLead/:id" || window.location.pathname === "/adminDash/createQuotation" || window.location.pathname === "/adminDash/editQuotation" ? "fan" : ""}`}>Permission </span>
+              </div>
+            </div></NavLink>
+
+{/* lead management start  */}
+
           <NavLink to="/adminDash/leadDash"><div className={`${window.location.pathname === "/adminDash/leadDash" || window.location.pathname === "/adminDash/myLead" || window.location.pathname === "/adminDash/editLead" || window.location.pathname === "/adminDash/createLead" || window.location.pathname === "/adminDash/importLead/:id" || window.location.pathname === "/adminDash/createQuotation" || window.location.pathname === "/adminDash/editQuotation" ? "hh" : ""} setWrap`}>
               {/* <p>Setting</p> */}
               <div className="systSset">

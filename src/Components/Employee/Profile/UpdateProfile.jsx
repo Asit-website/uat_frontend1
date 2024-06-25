@@ -154,8 +154,6 @@ const UpdateProfile = ({ setAlert, pop1, setPop1 }) => {
       documents.ExperienceLetter !== ""
     ) {
        const uploadans = await uploadOwnDocs({formData , id:user?._id});
-
-       console.log("uploadans ",uploadans);
     }
 
   
