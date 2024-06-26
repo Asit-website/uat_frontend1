@@ -4676,7 +4676,21 @@ input::-webkit-inner-spin-button {
   border: 1px solid #D0D4DC;
   height: 48px;
 }
-
+.permiCont select{
+  font-family: inter !important;
+  width: 100% !important;
+}
+.applyBtn{
+  display: block;
+  margin: 50px auto;
+  height: 40px;
+  width: 200px;
+  border-radius: 5px;
+}
+.applyBtn span{
+  font-family: inter !important;
+  font-weight: 400;
+}
 .salay th,
 .salay td {
   color: #545962 !important;

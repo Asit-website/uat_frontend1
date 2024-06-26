@@ -41,8 +41,8 @@ const MyLead2 = ({ setAlert, pop, setPop }) => {
 
   let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
 
-  console.log('user ',hrms_user);
-  const {leadEditPermission , leadDeletePermission , leadCreatePermission} = hrms_user;
+  console.log('user ', hrms_user);
+  const { leadEditPermission, leadDeletePermission, leadCreatePermission } = hrms_user;
 
   const fetchLead = async () => {
     const ans = await getLead("", "", "", "");
@@ -167,86 +167,86 @@ const MyLead2 = ({ setAlert, pop, setPop }) => {
     }
   }, [sortDate, sortDate2]);
 
-  
+
   useEffect(() => {
     fetchDesiUser();
   }, []);
-  
+
   // this is for filter per day one 
   useEffect(() => {
-   
-
-        let FiltData;
-
-        const today = new Date();
-
-        if (Filter1 === "Per Day") {
-            let today = new Date();
-              today.setHours(0, 0, 0, 0);
-            const tomorrow = new Date(today);
-            tomorrow.setDate(tomorrow.getDate() + 1);
 
 
-            FiltData = allLeading.filter((ld) => {
-                const createdAt = new Date(ld.createAt);
-                return createdAt >= today && createdAt < tomorrow;
-            });
+    let FiltData;
 
-        }
+    const today = new Date();
 
-        else if (Filter1 === "This Week") {
-
-            const firstDayOfWeek = new Date(today);
-            firstDayOfWeek.setDate(today.getDate() - 7);
-
-             const lastDayOfWeek = new Date(today);        
-
-            FiltData = allLeading.filter((ld) => {
-                const createdAt = new Date(ld.createAt);
-                return createdAt >= firstDayOfWeek && createdAt <= lastDayOfWeek;
-            });
-        }
-        else if (Filter1 === "Last 14 Days") {
-            const fourteenDaysAgo = new Date(today);
-            fourteenDaysAgo.setDate(today.getDate() - 14);
-
-            FiltData = allLeading.filter((ld) => {
-                const createdAt = new Date(ld.createAt);
-                return createdAt >= fourteenDaysAgo && createdAt <= today;
-            });
-        } else if (Filter1 === "This Month") {
-            const firstDayOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
-            const firstDayOfNextMonth = new Date(today.getFullYear(), today.getMonth() + 1, 1);
-
-            FiltData = allLeading.filter((ld) => {
-                const createdAt = new Date(ld.createAt);
-                return createdAt >= firstDayOfMonth && createdAt <= firstDayOfNextMonth;
-            });
-        }
-
-        setAllLead(FiltData);
-    
-}, [Filter1]);
-
-const [searchText , setSrchText] = useState("");
+    if (Filter1 === "Per Day") {
+      let today = new Date();
+      today.setHours(0, 0, 0, 0);
+      const tomorrow = new Date(today);
+      tomorrow.setDate(tomorrow.getDate() + 1);
 
 
-useEffect(()=>{
+      FiltData = allLeading.filter((ld) => {
+        const createdAt = new Date(ld.createAt);
+        return createdAt >= today && createdAt < tomorrow;
+      });
 
-   if(searchText === ""){
-    setAllLead(allLeading);
-   }
-   else {
+    }
 
-    const filterData = allLeading.filter((lead) => {
-      const leadName = `${lead.FirstName} ${lead.LastName}`.toLowerCase();
-      return leadName.includes(searchText.toLowerCase());
-  });
-  setAllLead(filterData);
+    else if (Filter1 === "This Week") {
 
-   }
+      const firstDayOfWeek = new Date(today);
+      firstDayOfWeek.setDate(today.getDate() - 7);
 
-},[searchText])
+      const lastDayOfWeek = new Date(today);
+
+      FiltData = allLeading.filter((ld) => {
+        const createdAt = new Date(ld.createAt);
+        return createdAt >= firstDayOfWeek && createdAt <= lastDayOfWeek;
+      });
+    }
+    else if (Filter1 === "Last 14 Days") {
+      const fourteenDaysAgo = new Date(today);
+      fourteenDaysAgo.setDate(today.getDate() - 14);
+
+      FiltData = allLeading.filter((ld) => {
+        const createdAt = new Date(ld.createAt);
+        return createdAt >= fourteenDaysAgo && createdAt <= today;
+      });
+    } else if (Filter1 === "This Month") {
+      const firstDayOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+      const firstDayOfNextMonth = new Date(today.getFullYear(), today.getMonth() + 1, 1);
+
+      FiltData = allLeading.filter((ld) => {
+        const createdAt = new Date(ld.createAt);
+        return createdAt >= firstDayOfMonth && createdAt <= firstDayOfNextMonth;
+      });
+    }
+
+    setAllLead(FiltData);
+
+  }, [Filter1]);
+
+  const [searchText, setSrchText] = useState("");
+
+
+  useEffect(() => {
+
+    if (searchText === "") {
+      setAllLead(allLeading);
+    }
+    else {
+
+      const filterData = allLeading.filter((lead) => {
+        const leadName = `${lead.FirstName} ${lead.LastName}`.toLowerCase();
+        return leadName.includes(searchText.toLowerCase());
+      });
+      setAllLead(filterData);
+
+    }
+
+  }, [searchText])
 
 
   return (
@@ -266,18 +266,18 @@ useEffect(()=>{
               <div className="lead_content2">
                 <div className="leads_btn2">
                   {
-                    leadCreatePermission && 
-                  <button className="lead_btn2">
-                    <NavLink
-                      className="such_thing"
-                      to="/employeeDash/createLead"
+                    leadCreatePermission &&
+                    <button className="lead_btn2">
+                      <NavLink
+                        className="such_thing"
+                        to="/employeeDash/createLead"
                       >
-                     
-                      <img src={pluss} alt="" />{" "}
-                      <span className="colp"> Create New Lead </span>{" "}
-                    </NavLink>
-                  </button>
-                    }
+
+                        <img src={pluss} alt="" />{" "}
+                        <span className="colp"> Create New Lead </span>{" "}
+                      </NavLink>
+                    </button>
+                  }
 
                   <NavLink to="/employeeDash/leadFile">
                     <button className="refresh">
@@ -366,7 +366,7 @@ useEffect(()=>{
                   <div
                     className="inptsearch"
                   >
-                    <input value={searchText} onChange={(e)=>setSrchText(e.target.value)}  type="text" placeholder="Search leads" />
+                    <input value={searchText} onChange={(e) => setSrchText(e.target.value)} type="text" placeholder="Search leads" />
                     <span>
                       <img src={search} alt="" />
                     </span>
@@ -469,7 +469,7 @@ useEffect(()=>{
                 </div> */}
               </div>
 
-             
+
 
               <div className="leaftlead2">
                 <span>Sort by</span>
@@ -575,56 +575,53 @@ useEffect(()=>{
                               {item?.FirstName}
                               {item?.LastName}
                             </td>
-                          
+
                             <td scope="col" className="px-3 py-3 myleadtit2">
                               {item?.Email}
                             </td>
                             <td scope="col" className="px-3 py-3 myleadtit2">
                               {item?.Website}
                             </td>
-                          
+
 
                             <td scope="col" className="px-3 py-3">
                               <div
                                 scope="col"
-                                className={`statussame ${
-                                  item?.LeadStatus === "Follow-up" && "followUp"
-                                } ${item?.LeadStatus == "Hot" && "Hot"} ${
-                                  item?.LeadStatus == "Cold" && "Cold"
-                                } ${item?.LeadStatus == "cold" && "Cold"}  ${
-                                  item?.LeadStatus == "Warm" && "Warm"
-                                }`}
+                                className={`statussame ${item?.LeadStatus === "Follow-up" && "followUp"
+                                  } ${item?.LeadStatus == "Hot" && "Hot"} ${item?.LeadStatus == "Cold" && "Cold"
+                                  } ${item?.LeadStatus == "cold" && "Cold"}  ${item?.LeadStatus == "Warm" && "Warm"
+                                  }`}
                               >
                                 {item?.LeadStatus}
                               </div>
                             </td>
 
                             <td className="thebuttn">
-                              
+
                               <div className="testok">
                                 {
-                                  leadEditPermission && 
-                                
-                                <svg
-                                  className="cursor-pointer"
-                                  onClick={() =>
-                                    navigate("/employeeDash/editLead", {
-                                      state: item,
-                                    })
-                                  }
-                                  width="16"
-                                  height="16"
-                                  viewBox="0 0 16 16"
-                                  fill="none"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                >
-                                  <path
-                                    d="M9.71569 5.51667L10.4824 6.28333L2.93236 13.8333H2.16569V13.0667L9.71569 5.51667ZM12.7157 0.5C12.5074 0.5 12.2907 0.583333 12.1324 0.741667L10.6074 2.26667L13.7324 5.39167L15.2574 3.86667C15.5824 3.54167 15.5824 3.01667 15.2574 2.69167L13.3074 0.741667C13.1407 0.575 12.9324 0.5 12.7157 0.5ZM9.71569 3.15833L0.499023 12.375V15.5H3.62402L12.8407 6.28333L9.71569 3.15833Z"
-                                    fill="#383838"
-                                  />
-                                </svg>
+                                  leadEditPermission &&
 
-                      }
+                                  <svg
+                                    className="cursor-pointer"
+                                    onClick={() =>
+                                      navigate("/employeeDash/editLead", {
+                                        state: item,
+                                      })
+                                    }
+                                    width="16"
+                                    height="16"
+                                    viewBox="0 0 16 16"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      d="M9.71569 5.51667L10.4824 6.28333L2.93236 13.8333H2.16569V13.0667L9.71569 5.51667ZM12.7157 0.5C12.5074 0.5 12.2907 0.583333 12.1324 0.741667L10.6074 2.26667L13.7324 5.39167L15.2574 3.86667C15.5824 3.54167 15.5824 3.01667 15.2574 2.69167L13.3074 0.741667C13.1407 0.575 12.9324 0.5 12.7157 0.5ZM9.71569 3.15833L0.499023 12.375V15.5H3.62402L12.8407 6.28333L9.71569 3.15833Z"
+                                      fill="#383838"
+                                    />
+                                  </svg>
+
+                                }
 
 
                                 <svg
@@ -646,27 +643,27 @@ useEffect(()=>{
                                   />
                                 </svg>
 
-{
-  leadDeletePermission && 
+                                {
+                                  leadDeletePermission &&
 
-                                <svg
-                                  className="cursor-pointer"
-                                  onClick={() => {
-                                    deleteProject(item?._id);
-                                  }}
-                                  width="12"
-                                  height="16"
-                                  viewBox="0 0 12 16"
-                                  fill="none"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                >
-                                  <path
-                                    d="M9.33317 5.5V13.8333H2.6665V5.5H9.33317ZM8.08317 0.5H3.9165L3.08317 1.33333H0.166504V3H11.8332V1.33333H8.9165L8.08317 0.5ZM10.9998 3.83333H0.999837V13.8333C0.999837 14.75 1.74984 15.5 2.6665 15.5H9.33317C10.2498 15.5 10.9998 14.75 10.9998 13.8333V3.83333Z"
-                                    fill="#DE3730"
-                                  />
-                                </svg>
+                                  <svg
+                                    className="cursor-pointer"
+                                    onClick={() => {
+                                      deleteProject(item?._id);
+                                    }}
+                                    width="12"
+                                    height="16"
+                                    viewBox="0 0 12 16"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      d="M9.33317 5.5V13.8333H2.6665V5.5H9.33317ZM8.08317 0.5H3.9165L3.08317 1.33333H0.166504V3H11.8332V1.33333H8.9165L8.08317 0.5ZM10.9998 3.83333H0.999837V13.8333C0.999837 14.75 1.74984 15.5 2.6665 15.5H9.33317C10.2498 15.5 10.9998 14.75 10.9998 13.8333V3.83333Z"
+                                      fill="#DE3730"
+                                    />
+                                  </svg>
 
-                      }
+                                }
                               </div>
                             </td>
                           </tr>

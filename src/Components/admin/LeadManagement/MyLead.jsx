@@ -162,87 +162,87 @@ const MyLead2 = ({ setAlert, pop, setPop }) => {
     }
   }, [sortDate, sortDate2]);
 
-  
+
   useEffect(() => {
     fetchDesiUser();
   }, []);
-  
+
   // this is for filter per day one 
   useEffect(() => {
-   
-
-        let FiltData;
-
-        const today = new Date();
-
-        if (Filter1 === "Per Day") {
-            let today = new Date();
-              today.setHours(0, 0, 0, 0);
-            const tomorrow = new Date(today);
-            tomorrow.setDate(tomorrow.getDate() + 1);
 
 
-            FiltData = allLeading.filter((ld) => {
-                const createdAt = new Date(ld.createAt);
-                return createdAt >= today && createdAt < tomorrow;
-            });
+    let FiltData;
 
-        }
+    const today = new Date();
 
-        else if (Filter1 === "This Week") {
-
-            const firstDayOfWeek = new Date(today);
-            firstDayOfWeek.setDate(today.getDate() - 7);
-
-             const lastDayOfWeek = new Date(today);        
-
-            FiltData = allLeading.filter((ld) => {
-                const createdAt = new Date(ld.createAt);
-                return createdAt >= firstDayOfWeek && createdAt <= lastDayOfWeek;
-            });
-        }
-        else if (Filter1 === "Last 14 Days") {
-            const fourteenDaysAgo = new Date(today);
-            fourteenDaysAgo.setDate(today.getDate() - 14);
-
-            FiltData = allLeading.filter((ld) => {
-                const createdAt = new Date(ld.createAt);
-                return createdAt >= fourteenDaysAgo && createdAt <= today;
-            });
-        } else if (Filter1 === "This Month") {
-            const firstDayOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
-            const firstDayOfNextMonth = new Date(today.getFullYear(), today.getMonth() + 1, 1);
-
-            FiltData = allLeading.filter((ld) => {
-                const createdAt = new Date(ld.createAt);
-                return createdAt >= firstDayOfMonth && createdAt <= firstDayOfNextMonth;
-            });
-        }
-
-        setAllLead(FiltData);
-    
-}, [Filter1]);
+    if (Filter1 === "Per Day") {
+      let today = new Date();
+      today.setHours(0, 0, 0, 0);
+      const tomorrow = new Date(today);
+      tomorrow.setDate(tomorrow.getDate() + 1);
 
 
-const [searchText , setSrchText] = useState("");
+      FiltData = allLeading.filter((ld) => {
+        const createdAt = new Date(ld.createAt);
+        return createdAt >= today && createdAt < tomorrow;
+      });
+
+    }
+
+    else if (Filter1 === "This Week") {
+
+      const firstDayOfWeek = new Date(today);
+      firstDayOfWeek.setDate(today.getDate() - 7);
+
+      const lastDayOfWeek = new Date(today);
+
+      FiltData = allLeading.filter((ld) => {
+        const createdAt = new Date(ld.createAt);
+        return createdAt >= firstDayOfWeek && createdAt <= lastDayOfWeek;
+      });
+    }
+    else if (Filter1 === "Last 14 Days") {
+      const fourteenDaysAgo = new Date(today);
+      fourteenDaysAgo.setDate(today.getDate() - 14);
+
+      FiltData = allLeading.filter((ld) => {
+        const createdAt = new Date(ld.createAt);
+        return createdAt >= fourteenDaysAgo && createdAt <= today;
+      });
+    } else if (Filter1 === "This Month") {
+      const firstDayOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+      const firstDayOfNextMonth = new Date(today.getFullYear(), today.getMonth() + 1, 1);
+
+      FiltData = allLeading.filter((ld) => {
+        const createdAt = new Date(ld.createAt);
+        return createdAt >= firstDayOfMonth && createdAt <= firstDayOfNextMonth;
+      });
+    }
+
+    setAllLead(FiltData);
+
+  }, [Filter1]);
 
 
-useEffect(()=>{
+  const [searchText, setSrchText] = useState("");
 
-   if(searchText === ""){
-    setAllLead(allLeading);
-   }
-   else {
 
-    const filterData = allLeading.filter((lead) => {
-      const leadName = `${lead.FirstName} ${lead.LastName}`.toLowerCase();
-      return leadName.includes(searchText.toLowerCase());
-  });
-  setAllLead(filterData);
+  useEffect(() => {
 
-   }
+    if (searchText === "") {
+      setAllLead(allLeading);
+    }
+    else {
 
-},[searchText])
+      const filterData = allLeading.filter((lead) => {
+        const leadName = `${lead.FirstName} ${lead.LastName}`.toLowerCase();
+        return leadName.includes(searchText.toLowerCase());
+      });
+      setAllLead(filterData);
+
+    }
+
+  }, [searchText])
 
   return (
     <>
@@ -356,10 +356,10 @@ useEffect(()=>{
               <div>
                 <div className="leftlead1">
                   <div
-                  
+
                     className="inptsearch"
                   >
-                    <input value={searchText} onChange={(e)=>setSrchText(e.target.value)} type="text" placeholder="Search leads" />
+                    <input value={searchText} onChange={(e) => setSrchText(e.target.value)} type="text" placeholder="Search leads" />
                     <span>
                       <img className="cursor-pointer" src={search} alt="" />
                     </span>
@@ -462,7 +462,7 @@ useEffect(()=>{
                 </div> */}
               </div>
 
-          
+
 
               <div className="leaftlead2">
                 <span>Sort by</span>
@@ -519,14 +519,14 @@ useEffect(()=>{
                           {/* First Name */}
                           LeadName
                         </th>
-                        
+
                         <th scope="col" className="px-3 py-3 leadti">
                           Email
                         </th>
                         <th scope="col" className="px-3 py-3 leadti">
                           Website
                         </th>
-                       
+
                         <th scope="col" className="px-3 py-3 leadti">
                           {/* LinkedIn URL */}
                           Status
@@ -551,32 +551,29 @@ useEffect(()=>{
                               {item?.FirstName} {" "}
                               {item?.LastName}
                             </td>
-          
+
                             <td scope="col" className="px-3 py-3 myleadtit2">
                               {item?.Email}
                             </td>
                             <td scope="col" className="px-3 py-3 myleadtit2">
                               {item?.Website}
                             </td>
-               
+
 
                             <td scope="col" className="px-3 py-3">
                               <div
                                 scope="col"
-                                className={`statussame ${
-                                  item?.LeadStatus === "Follow-up" && "followUp"
-                                } ${item?.LeadStatus == "Hot" && "Hot"} ${
-                                  item?.LeadStatus == "Cold" && "Cold"
-                                } ${item?.LeadStatus == "cold" && "Cold"}  ${
-                                  item?.LeadStatus == "Warm" && "Warm"
-                                }`}
+                                className={`statussame ${item?.LeadStatus === "Follow-up" && "followUp"
+                                  } ${item?.LeadStatus == "Hot" && "Hot"} ${item?.LeadStatus == "Cold" && "Cold"
+                                  } ${item?.LeadStatus == "cold" && "Cold"}  ${item?.LeadStatus == "Warm" && "Warm"
+                                  }`}
                               >
                                 {item?.LeadStatus}
                               </div>
                             </td>
 
                             <td className="thebuttn">
-                           
+
                               <div className="testok">
                                 <svg
                                   className="cursor-pointer"

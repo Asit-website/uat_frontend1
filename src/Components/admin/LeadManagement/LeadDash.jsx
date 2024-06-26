@@ -61,7 +61,7 @@ const LeadDash = ({ setAlert, pop, setPop }) => {
 
     console.log('ans ',ans);
 
-     if(ans?.status){
+     if(ans?.status){ 
       setTotalOpenLead(ans?.openLead?.length);
       setTotalCloseLead(ans?.closeLead?.length);
      }
