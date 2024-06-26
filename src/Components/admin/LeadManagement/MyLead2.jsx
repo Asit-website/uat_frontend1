@@ -32,17 +32,13 @@ const MyLead2 = ({ setAlert, pop, setPop }) => {
 
   const [filter, setFilter] = useState(false);
 
-  const stylePeer3 = {
-    display: filter ? "block" : "none",
-  };
-
   const [allLeading, setAllLeading] = useState([]);
   const [allLead, setAllLead] = useState([]);
 
   let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
 
-  console.log('user ', hrms_user);
-  const { leadEditPermission, leadDeletePermission, leadCreatePermission } = hrms_user;
+
+  const { leadEditPermission, leadDeletePermission, leadCreatePermission  } = hrms_user;
 
   const fetchLead = async () => {
     const ans = await getLead("", "", "", "");

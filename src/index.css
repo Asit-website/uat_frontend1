@@ -794,7 +794,6 @@ body {
   align-items: center;
   justify-content: space-between;
   max-width: 260px;
-  padding: 0px 20px;
   width: 100%;
   height: 44px;
   cursor: pointer;
@@ -919,7 +918,7 @@ body {
 }
 
 
-.alladminDash-item .sinADDasItem {
+ .sinADDasItem {
   display: flex;
   align-items: center;
   width: 100%;
@@ -928,8 +927,7 @@ body {
   padding: 0px 20px;
   cursor: pointer;
 }
-
-.alladminDash-item .dITitl {
+ .dITitl {
   font-family: Inter;
   font-size: 14px;
   font-weight: 500;
@@ -938,8 +936,7 @@ body {
   text-align: left;
   /* color: #7E8299; */
 }
-
-.alladminDash-item .dashItemp {
+ .dashItemp {
   /* color: #F3F6F8; */
   font-family: Inter;
   font-size: 14px;

@@ -41,12 +41,6 @@ const Permission = ({ pop, setPop, setAlert }) => {
       setAllDesig(ans?.data);
    }
 
-   useEffect(() => {
-      allEmployeFetch();
-      alldesinationFetch();
-   }, [])
-
-
    const applyPermission = async () => {
       const toastId = toast.loading("Loading...");
       const ans = await ProvidePermission({ Designation: formdata?.Designation, userId: formdata?.userId, Service: formdata?.Service, SubPermission: formdata?.SubPermission });
@@ -54,6 +48,12 @@ const Permission = ({ pop, setPop, setAlert }) => {
       toast.success("Successfuly done");
       toast.dismiss(toastId);
    }
+
+   
+   useEffect(() => {
+      allEmployeFetch();
+      alldesinationFetch();
+   }, [])
 
    return (
       <>
@@ -80,6 +80,14 @@ const Permission = ({ pop, setPop, setAlert }) => {
                            <option value="performancePermission">performancePermission</option>
                            <option value="employeeManagePermission">employeeManagePermission</option>
                            <option value="payrollPermission">payrollPermission</option>
+                           <option value="hrAdminSetupPermission">hrAdminSetupPermission</option>
+                           <option value="trainingSetupPermission">trainingSetupPermission</option>
+                           <option value="activeEmployeePermission">activeEmployeePermission</option>
+                           <option value="leaveRequestPermission">leaveRequestPermission</option>
+                           <option value="employeeOnLeavePermission">employeeOnLeavePermission</option>
+                           <option value="totalEmployeePermission">totalEmployeePermission</option>
+                           <option value="createLeadPermission">createLeadPermission</option>
+
                         </select>
                      </label>
 

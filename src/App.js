@@ -155,7 +155,7 @@ function App() {
             <Route
               element={<PrivateRoute role={[ROLES.EMPLOYEE, ROLES.ADMIN]} />}
             >
-              <Route
+              {/* <Route
                 path="/employeeDash"
                 element={
                   <EmployeeDash
@@ -164,7 +164,7 @@ function App() {
                     setPop1={setPop1}
                   />
                 }
-              />
+              /> */}
 
               <Route path="/employeeDash/request" element={<Request pop1={pop1}
                 setPop1={setPop1} setAlert={setAlert} />} />
@@ -237,6 +237,8 @@ function App() {
               />
               <Route path="/adminDash/EmployeeMan" element={<EmployeeManage pop={pop} setPop={setPop} setAlert={setAlert} />} />
               <Route path="/adminDash/HRM" element={<EmployeeHRM pop={pop} setPop={setPop} setAlert={setAlert} />} />
+              {/* this is employee dashboard  */}
+              <Route path="/employeeDash" element={<EmployeeHRM pop={pop} setPop={setPop} setAlert={setAlert} />} />
 
               <Route path="/adminDash/HRM/createEmployee" element={<CreateEmployee pop={pop} setPop={setPop} setAlert={setAlert} />} />
               <Route path="/adminDash/HRM/EmployeeManagement" element={<EmployeeManagement pop={pop} setPop={setPop} setAlert={setAlert} />} />

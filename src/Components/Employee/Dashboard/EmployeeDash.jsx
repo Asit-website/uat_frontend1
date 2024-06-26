@@ -4,7 +4,6 @@ import EmployeeSidebar from "../Sidebar/EmployeeSidebar";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import { useMain } from "../../../hooks/useMain";
-import goals from "../../images/goals.png";
 import { NavLink } from "react-router-dom";
 import lighting from "../../images/ligting.svg";
 import "./dashboard.css";
@@ -12,6 +11,7 @@ import cel1 from "../../images/cel1.png";
 import cap from "../../images/cap.png";
 import peo1 from "../../images/peo1.png";
 import meeting from "../../images/meeting.svg"
+import goals from "../../images/goals.png";
 import timeLog from "../../images/timeLog.png"
 import clock2 from "../../images/clock2.png"
 import leavimg from "../../images/leaveImg.png"
@@ -909,9 +909,8 @@ toast.dismiss(toastId);
                   </div>
                 </div>
 
-                {/* =============================== */}
                 <>
-                  {/* <!-- Main modal --> */}
+                
                   <div
                     style={styleThing}
                     id="authentication-modal"
@@ -920,7 +919,7 @@ toast.dismiss(toastId);
                     class="user_class  hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center mt-10 md:inset-0 h-[calc(100%-1rem)] max-h-full "
                   >
                     <div class="relative  p-4 w-full wrapping max-w-md max-h-full">
-                      {/* <!-- Modal content --> */}
+                   
                       <div class="relative createLeaveWrap bg-white rounded-lg shadow dark:bg-gray-700">
                         {/* <!-- Modal header --> */}
 
@@ -940,27 +939,7 @@ toast.dismiss(toastId);
                         <div class="">
                           <form className=" mainModel" action="#">
 
-                            {/* <div class=" user_class_input">
-
-                              <label
-                                for="name"
-                                class="block mb-2 text-sm font-medium text-gray-900 employName"
-                              >
-                                Employee Name
-                              </label>
-
-                              <input
-                                value={formdata.employeeName}
-                                onChange={changeHandler}
-                                type="text"
-                                name="employeeName"
-                                id="text"
-                                class=" employeInput "
-                                placeholder="Enter the name"
-                                required
-                              />
-                            </div> */}
-
+                           
                             <div class="user_class_input2">
 
                               <label
@@ -1043,27 +1022,7 @@ toast.dismiss(toastId);
                               ></textarea>
                             </div>
 
-                            {/*
-                             <button
-                              onClick={(e) => {
-                                e.preventDefault();
-
-                                submitHandler(e);
-                              }}
-                              type="button"
-                              class="w-full mt-5 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                            >
-                              send
-                            </button>
-
-                            <button
-                              onClick={() => setStar1(false)}
-                              type="button"
-                              class="w-full mt-5 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                            >
-                              Cancel
-                            </button> */}
-
+                           
 
                             <div className="sendReBtn">
 
@@ -1091,7 +1050,9 @@ toast.dismiss(toastId);
 
                           </form>
                         </div>
+
                       </div>
+
                     </div>
                   </div>
                 </>
