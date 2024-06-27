@@ -17,6 +17,8 @@ import cel from '../../images/cal.svg';
 import cel1 from '../../images/cal1.svg';
 import webAsseting from '../../images/webAsseting.svg';
 import reading from '../../images/reading.svg';
+import "../../admin/Sidebar/sidebar.css"
+
 
 const LeaveManItem = [
   {
@@ -29,6 +31,19 @@ const LeaveManItem = [
   },
 
 
+]
+
+
+const trainingItems = [
+  {
+    title: "Training list",
+    link: "/training/TrainingList"
+  },
+  {
+    title: "Trainer",
+    link: "/training/TrainerHRM"
+  },
+ 
 ]
 
 const payrols = [
@@ -73,11 +88,15 @@ const EmployeeSidebar = () => {
 
   ]
 
-  const { leadPermission, hrmsSetUpPermission, payrollPermission, leadSystemPermission, attendencePermission, assetsPermission, documentPermission, leaveManagePermission, performancePermission, employeeManagePermission } = user;
+  const { leadPermission, hrmsSetUpPermission, payrollPermission, leadSystemPermission, attendencePermission, assetsPermission, documentPermission, leaveManagePermission, performancePermission, employeeManagePermission  , hrAdminSetupPermission , trainingSetupPermission} = user;
 
   const [openPayroll, setOpenPayroll] = useState(false);
 
   const [payrollItem, setPayrollItem] = useState(0);
+  const [trainingItem,setTrainingItem] = useState(0);
+
+  const [openTraining,setOpenTraining] = useState(false);
+
 
   const [openLeaveMan, setOpenLeaveMan] = useState(false);
   const [openPerform, setOpenPerform] = useState(false);
@@ -116,9 +135,9 @@ const EmployeeSidebar = () => {
       </button>
 
       <aside
-        id="sidebar-multi-level-sidebar"
-        className="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0 sidebars"
-        aria-label="Sidebar"
+         id="sidebar-multi-level-sidebar"
+         className="fixed top-0 olo left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0 sidebars"
+         aria-label="Sidebar"
       >
 
         <div className="h-full px-3 py-4 overflow-y-auto  sidebars sidebars1">
@@ -386,6 +405,68 @@ const EmployeeSidebar = () => {
               </>
             }
 
+            
+{
+                    employeeManagePermission &&
+                    <>
+                      <NavLink to="/employeeDash/HRM/employeeManagement"><div className={`${window.location.pathname === "/employeeDash/HRM/employeeManagement" || window.location.pathname === "/employeeDash/EmployeeDetails" || window.location.pathname === "/employeeDash/EmployeeMan" || window.location.pathname === "/employeeDash/EmployeeMan/:id" ? "hh" : ""} setWrap`}>
+                        {/* <p>Setting</p> */}
+                        <div className="systSset">
+                          <img src={`${window.location.pathname === "/employeeDash/HRM/employeeManagement" || window.location.pathname === "/employeeDash/EmployeeDetails" || window.location.pathname === "/employeeDash/EmployeeMan" || window.location.pathname === "/employeeDash/EmployeeMan/:id" ? perty : employee}`} alt="" />
+                          <span className={`${window.location.pathname === "/employeeDash/HRM/employeeManagement" || window.location.pathname === "/employeeDash/EmployeeDetails" || window.location.pathname === "/employeeDash/EmployeeMan" || window.location.pathname === "/employeeDash/EmployeeMan/:id" ? "fan" : ""}`}>Employee Management</span>
+                        </div>
+                      </div></NavLink>
+                    </>
+                  }
+
+                  {
+                    trainingSetupPermission && 
+                    <>
+
+                     <div
+                onClick={() => setOpenTraining((prev) => !prev)}
+                className="side-dash-box"
+              >
+                <div className="dash-wrap">
+                  <img src={reading} alt="dasg" />
+                  <p>Training Setup</p>
+                </div>
+
+                <img src={vect} alt="vect" />
+              </div>
+
+              {openTraining && (
+                <div className="alladminDash-item">
+                  {trainingItems?.map((item, index) => (
+                    <div
+                      onClick={() => {
+                        setTrainingItem(index);
+                        navigate(item?.link);
+                        setOpenTraining(true);
+                      }
+
+                      }
+                      className="sinADDasItem"
+                      key={index}
+                    >
+                      {trainingItem == index ? (
+                        <img src={`${window.location.pathname === `${item?.link}` ? fiber : tyming}`} alt="" />
+                      ) : (
+                        <img src={`${window.location.pathname === `${item?.link}` ? fiber : tyming}`} alt="" />
+                      )}
+                      <p
+                        className={` ${performanceItem === index ? "dashItemp" : "dITitl"
+                          } ${window.location.pathname === `${item?.link}` ? "fan" : ""}`}
+                      >
+                        {item?.title}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              )}
+                    </>
+                  }
+
 
             <NavLink to="/employeeDash/mySelf"><li className="indefy">
               <img src={shop} alt="" />
@@ -435,164 +516,7 @@ const EmployeeSidebar = () => {
             </li>
             </NavLink>
 
-            {/* <NavLink to="/"><li className="indefy">
-              <img src={usepp} alt="" />
-              <a
-                href="#"
-                className=" "
-              >
-                <span  className="">Account</span>
-              </a>
-
-            </li>
-            </NavLink> */}
-
-            {/* <NavLink to="/"><li className="indefy">
-              <img src={user3d} alt="" />
-              <a
-                href="#"
-                className=" "
-              >
-                <span  className="">Corporate</span>
-              </a>
-
-            </li>
-            </NavLink> */}
-
-            {/* <NavLink to="/"><li className="indefy">
-              <img src={chatd} alt="" />
-              <a
-                href="#"
-                className=" "
-              >
-                <span  className="">Social</span>
-              </a>
-
-            </li>
-            </NavLink> */}
-
-
-
-            {/* <li className="most">
-              <button
-                type="button"
-                className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg group"
-                aria-controls="dropdown-example"
-                data-collapse-toggle="dropdown-example"
-              >
-                <img width={16} src={lokia} alt="lokia" />
-                <span
-                  className="flex-1 ml-3 text-left whitespace-nowrap"
-                  sidebar-toggle-item
-                >
-                  Requests
-                </span>
-                <svg
-                  sidebar-toggle-item
-                  className="w-6 h-6"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                    clipRule="evenodd"
-                  ></path>
-                </svg>
-              </button>
-              <ul id="dropdown-example" className="hidden py-2 space-y-2">
-                <li>
-                  <a
-                    href="#"
-                    className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100  dark:hover:bg-gray-700"
-                  >
-                    Products
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100  dark:hover:bg-gray-700"
-                  >
-                    Billing
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100  dark:hover:bg-gray-700"
-                  >
-                    Invoice
-                  </a>
-                </li>
-              </ul>
-            </li>
-
-            <li className="most">
-              <button
-                type="button"
-                className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg group"
-                aria-controls="dropdown-example"
-                data-collapse-toggle="dropdown-example"
-              >
-                <img width={16} src={calling} alt="lokia" />
-
-                <span
-                  className="flex-1 ml-3 text-left whitespace-nowrap"
-                  sidebar-toggle-item
-                >
-                  Inbox
-                </span>
-
-                <svg
-                  sidebar-toggle-item
-                  className="w-6 h-6"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                    clipRule="evenodd"
-                  ></path>
-                </svg>
-
-              </button>
-
-              <ul id="dropdown-example" className="hidden py-2 space-y-2">
-
-                <li>
-                  <a
-                    href="#"
-                    className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100  dark:hover:bg-gray-700"
-                  >
-                    Products
-                  </a>
-                </li>
-
-                <li>
-                  <a
-                    href="#"
-                    className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100  dark:hover:bg-gray-700"
-                  >
-                    Billing
-                  </a>
-                </li>
-
-                <li>
-                  <a
-                    href="#"
-                    className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100  dark:hover:bg-gray-700"
-                  >
-                    Invoice
-                  </a>
-                </li>
-
-              </ul>
-
-            </li> */}
+       
 
             <div className="red-box">
               <div className="white-box">
