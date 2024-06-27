@@ -37,7 +37,7 @@ const LeaveRequest = ({
 
   let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
 
-  const {role} = hrms_user;
+  const {role , leaveReqestEditPermission , leaveReqestActionPermission} = hrms_user;
 
 
   const [accept,setAccept] = useState("reject",user);
@@ -270,6 +270,9 @@ const LeaveRequest = ({
 
                           <td className="px-3 py-3  flex items-center hiii_gap">
                             
+                            {
+                              (leaveReqestEditPermission || role === "ADMIN") && 
+                          
                              <div className="relative">
 
                            
@@ -319,6 +322,10 @@ const LeaveRequest = ({
                                </div>
 
                               </div>
+                      }       
+
+{
+  (leaveReqestEditPermission || role === "ADMIN") && 
 
                               <button
                                 onClick={()=>{
@@ -355,6 +362,8 @@ const LeaveRequest = ({
                                   />
                                 </svg>
                               </button>
+
+    }
 
                     
                               <div

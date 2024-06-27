@@ -59,10 +59,8 @@ const LeadDash = ({ setAlert, pop, setPop }) => {
 
     const ans = await GetOpenLeadsApi({id:hrms_user?._id});
 
-    console.log('ans ',ans);
-
      if(ans?.status){ 
-      setTotalOpenLead(ans?.openLead?.length);
+      setTotalOpenLead(ans?.openLeads?.length);
       setTotalCloseLead(ans?.closeLead?.length);
      }
 

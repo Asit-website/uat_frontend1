@@ -87,6 +87,18 @@ const Permission = ({ pop, setPop, setAlert }) => {
                            <option value="employeeOnLeavePermission">employeeOnLeavePermission</option>
                            <option value="totalEmployeePermission">totalEmployeePermission</option>
                            <option value="createLeadPermission">createLeadPermission</option>
+                           <option value="hrmsSetupEditPermission">hrmsSetupEditPermission</option>
+                           <option value="hrmsSetupDeletePermission">hrmsSetupDeletePermission</option>
+                           <option value="hrmsSetupCreatePermission">hrmsSetupCreatePermission</option>
+                           <option value="paySlipActionPermission">paySlipActionPermission</option>
+                           <option value="leadSystemSettingEditPermission">leadSystemSettingEditPermission</option>
+                           <option value="leadSystemSettingDeletePermission">leadSystemSettingDeletePermission</option>
+                           <option value="leadSystemSettingCreatePermission">leadSystemSettingCreatePermission</option>
+                           <option value="leaveReqestEditPermission">leaveReqestEditPermission</option>
+                           <option value="leaveReqestActionPermission">leaveReqestActionPermission</option>
+                           {/* do for them  */}  
+                           <option value="employeeManageEditPermission">employeeManageEditPermission</option>
+                           <option value="employeeManageActivatePermission">employeeManageActivatePermission</option>
 
                         </select>
                      </label>

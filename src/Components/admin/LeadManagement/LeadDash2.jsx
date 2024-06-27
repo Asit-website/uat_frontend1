@@ -13,8 +13,6 @@ import delete4 from "../../images/delete.png";
 import { confirmAlert } from 'react-confirm-alert'; // Import
 
 
-
-
 const LeadDash2 = ({ setAlert, pop, setPop }) => {
   const {
     user,
@@ -52,13 +50,12 @@ const LeadDash2 = ({ setAlert, pop, setPop }) => {
     const ans = await GetOpenLeadsApi({id:hrms_user?._id});
 
      if(ans?.status){
-      setTotalOpenLead(ans?.openLead?.length);
+      setTotalOpenLead(ans?.openLeads?.length);
       setTotalCloseLead(ans?.closeLead?.length);
      }
 
 
   }
-
 
   const [allTask, setAllTask] = useState([]);
   const [allMeet, setAllMeet] = useState([]);

@@ -4,18 +4,16 @@ import AdminSidebar from "../../admin/Sidebar/AdminSidebar";
 import "react-calendar/dist/Calendar.css";
 import { useMain } from "../../../hooks/useMain";
 import "./HRMsystem.css";
-import bran from "../../images/hub_FILL0_wght400_GRAD0_opsz24 1.png"
-import srchIcon from "../../images/srchIcon.png";
+import bran from "../../images/hub_FILL0_wght400_GRAD0_opsz24 1.png";
 import deleted from "../../images/deleted.png";
 import edited from "../../images/edited.png";
 import textType from "../../images/Text Type.png";
-import hub  from "../../images/hub2.png"
-import hub2 from "../../images/work_FILL0_wght400_GRAD0_opsz24 1.png"
-import hub3 from "../../images/hub3.png"
-import frame1 from "../../images/Frame 9688.png"
-import cross1 from "../../images/cross1.png"
+import hub from "../../images/hub2.png";
+import hub2 from "../../images/work_FILL0_wght400_GRAD0_opsz24 1.png";
+import hub3 from "../../images/hub3.png";
+import cross1 from "../../images/cross1.png";
 import toast from "react-hot-toast";
-import plus from "../../images/pluss.png"
+import plus from "../../images/pluss.png";
 import Selectmultidropdown from "./MultiSelect";
 import EmployeeSidebar from "../../Employee/Sidebar/EmployeeSidebar";
 import EmployeeNavbar from "../../Employee/Navbar/EmployeeNavbar";
@@ -23,7 +21,7 @@ import EmployeeNavbar from "../../Employee/Navbar/EmployeeNavbar";
 const sidebarItem = [
   {
     title: "Branch",
-    img: bran ,
+    img: bran,
     tableData: [
       {
         title: "TYPE",
@@ -35,7 +33,7 @@ const sidebarItem = [
   },
   {
     title: "Department",
-    img:hub,
+    img: hub,
     tableData: [
       {
         title: "BRANCH",
@@ -50,7 +48,7 @@ const sidebarItem = [
   },
   {
     title: "Designation",
-    img:hub2 ,
+    img: hub2,
     tableData: [
       {
         title: "DEPARTMENT",
@@ -78,41 +76,71 @@ const sidebarItem = [
       },
     ],
   },
-  // {
-  //   title: "Lead Status",
-  //   img: hub3,
-  //   tableData: [
-  //     {
-  //       title: "Status",
-  //     },
-  //     {
-  //       title: "ACTION",
-  //     },
-  //   ],
-  // },
-  // {
-  //   title: "Industry",
-  //   img: hub3,
-  //   tableData: [
-  //     {
-  //       title: "Industry",
-  //     },
-     
-  //     {
-  //       title: "ACTION",
-  //     },
-  //   ],
-  // },
+  {
+    title: "Lead Status",
+    img: hub3,
+    tableData: [
+      {
+        title: "Leave Status",
+      },
+      {
+        title: "ACTION",
+      },
+    ],
+  },
+  {
+    title: "Industry",
+    img: hub3,
+    tableData: [
+      {
+        title: "Industry",
+      },
+      {
+        title: "ACTION",
+      },
+    ],
+  },
 ];
 
 const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
-  const { user, getBranchs, postBranch, updateBranch, deleteBranch, getDepartments, postDepartment, updateDepartment, deleteDepartment, getDesignations, postDesignation, updateDesignation, deleteDesignation, postLeaveType, updateLeaveType, getLeaveTypes, deleteLeaveType , postDocSetup  , fetchAllDocs , deleteDocSetup , updateDocSetup , postLeadStatus ,postLeadSource2 ,AllLeadStatus ,AllLeadSource} = useMain();
+  const {
+    user,
+    getBranchs,
+    postBranch,
+    updateBranch,
+    deleteBranch,
+    getDepartments,
+    postDepartment,
+    updateDepartment,
+    deleteDepartment,
+    getDesignations,
+    postDesignation,
+    updateDesignation,
+    deleteDesignation,
+    postLeaveType,
+    updateLeaveType,
+    getLeaveTypes,
+    deleteLeaveType,
+    postDocSetup,
+    fetchAllDocs,
+    deleteDocSetup,
+    updateDocSetup,
+    postLeadStatus,
+    postLeadSource2,
+    AllLeadStatus,
+    AllLeadSource,
+  } = useMain();
 
   const [open, setOpen] = useState(0);
 
   let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
 
-   const {role} = hrms_user;
+  const {
+    role,
+    hrmsSetupEditPermission,
+    hrmsSetupDeletePermission,
+    hrmsSetupCreatePermission,
+  } = hrms_user;
 
   const [popup, setPopup] = useState(false);
 
@@ -120,25 +148,22 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
     display: popup ? "block" : "none",
   };
 
-   const [allStatus , setAllStatus] = useState([]);
-   const [allSource , setAllSource] = useState([]);
+  const [allStatus, setAllStatus] = useState([]);
+  const [allSource, setAllSource] = useState([]);
 
-  const fetchAllStatus = async()=>{
-    const ans  = await AllLeadStatus();
+  const fetchAllStatus = async () => {
+    const ans = await AllLeadStatus();
     setAllStatus(ans?.data);
-
-  }
-  const fetchAllSource = async()=>{
-    const ans  = await AllLeadSource();
+  };
+  const fetchAllSource = async () => {
+    const ans = await AllLeadSource();
     setAllSource(ans?.data);
+  };
 
-  }
-
-  useEffect(()=>{
+  useEffect(() => {
     fetchAllStatus();
     fetchAllSource();
-
-  },[])
+  }, []);
 
   const [popup1, setPopup1] = useState(false);
   const [popup11, setPopup11] = useState(false);
@@ -151,9 +176,9 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
   const [popup6, setPopup6] = useState(false);
   const [popup41, setPopup41] = useState(false);
 
-  const [docPop , setDocPop] = useState(false);
+  const [docPop, setDocPop] = useState(false);
 
-  const [id, setId] = useState('');
+  const [id, setId] = useState("");
   const [branches, setBranches] = useState([]);
   const [branches1, setBranches1] = useState([]);
   const [departments, setDepartments] = useState([]);
@@ -171,15 +196,13 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
   });
   const [leaveTypeValue, setLeaveTypeValue] = useState({
     name: "",
-    days: ""
+    days: "",
   });
   const [leadStatus, setLeadStatus] = useState({
     status: "",
-   
   });
   const [leadSource, setLeadSource] = useState({
     status: "",
-   
   });
   const [designationValue, setDesignationValue] = useState({
     department: "",
@@ -195,10 +218,9 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
   });
   const [leaveTypeValue1, setLeaveTypeValue1] = useState({
     name: "",
-    days: ""
+    days: "",
   });
   const [refreshFlag, setRefreshFlag] = useState(false);
-
 
   const getData = async () => {
     const ans1 = await getBranchs();
@@ -255,32 +277,29 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
     const toastId = toast.loading("Loading...");
     const ans = await postDepartment({
       name: departmentValue.name,
-      branch: branches.find(x => x._id === departmentValue.branch),
+      branch: branches.find((x) => x._id === departmentValue.branch),
     });
 
     if (ans.status) {
       toast.success("success");
-      setBranch('');
+      setBranch("");
       setRefreshFlag(!refreshFlag);
       setPopup1(false);
     }
     if (ans.success) {
       setDepartmentValue({
-        name: '',
-        branch: ''
+        name: "",
+        branch: "",
       });
       toast.success(ans.message);
       setRefreshFlag(!refreshFlag);
       setPopup2(false);
-    }
-     else {
+    } else {
       toast.error("Department name alreday exist");
-
     }
 
     toast.dismiss(toastId);
-  }
-
+  };
 
   const handleCreateLeadStatus = async () => {
     const toastId = toast.loading("Loading...");
@@ -294,10 +313,9 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
       setLeadStatus("");
       setPopup5(false);
     }
-   
+
     toast.dismiss(toastId);
-  }
-  
+  };
 
   const handleCreateLeadSource = async () => {
     const toastId = toast.loading("Loading...");
@@ -305,30 +323,30 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
       status: leadSource?.status,
     });
 
-
-
     if (ans.status) {
       toast.success("success");
       fetchAllSource();
       setLeadSource("");
       setPopup6(false);
     }
-   
+
     toast.dismiss(toastId);
-  }
-  
+  };
+
   const handleCreateDesignation = async () => {
     const toastId = toast.loading("Loading...");
 
     const ans = await postDesignation({
       name: designationValue.name,
-      department: departments.find(x => x._id === designationValue.department)
+      department: departments.find(
+        (x) => x._id === designationValue.department
+      ),
     });
     if (ans.success) {
       toast.success(ans.message);
       setDesignationValue({
-        name: '',
-        department: ''
+        name: "",
+        department: "",
       });
       setRefreshFlag(!refreshFlag);
       setPopup3(false);
@@ -344,13 +362,13 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
 
     const ans = await postLeaveType({
       days: leaveTypeValue?.days,
-      name: leaveTypeValue?.name
+      name: leaveTypeValue?.name,
     });
     if (ans.success) {
       toast.success(ans.message);
       setLeaveTypeValue({
-        name: '',
-        days: ''
+        name: "",
+        days: "",
       });
       setRefreshFlag(!refreshFlag);
       setPopup4(false);
@@ -366,12 +384,12 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
     const ans = await updateDepartment({
       id,
       name: departmentValue1?.name,
-      branch: branches?.find(x => x?._id === departmentValue1?.branch),
+      branch: branches?.find((x) => x?._id === departmentValue1?.branch),
     });
     if (ans.success) {
       setDepartmentValue1({
-        name: '',
-        branch: ''
+        name: "",
+        branch: "",
       });
       toast.success(ans.message);
       setRefreshFlag(!refreshFlag);
@@ -389,13 +407,15 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
     const ans = await updateDesignation({
       id,
       name: designationValue1?.name,
-      department: departments?.find(x => x?._id === designationValue1?.department)
+      department: departments?.find(
+        (x) => x?._id === designationValue1?.department
+      ),
     });
     if (ans.success) {
       toast.success(ans.message);
       setDesignationValue1({
-        name: '',
-        department: ''
+        name: "",
+        department: "",
       });
       setRefreshFlag(!refreshFlag);
       setPopup31(false);
@@ -411,13 +431,13 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
     const ans = await updateLeaveType({
       id,
       days: leaveTypeValue1?.days,
-      name: leaveTypeValue1?.name
+      name: leaveTypeValue1?.name,
     });
     if (ans.success) {
       toast.success(ans.message);
       setLeaveTypeValue1({
-        name: '',
-        days: ''
+        name: "",
+        days: "",
       });
       setRefreshFlag(!refreshFlag);
       setPopup41(false);
@@ -431,16 +451,13 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
   const handleDelete = async (id, type) => {
     const toastId = toast.loading("Loading...");
     let ans;
-    if (type === 'branch') {
+    if (type === "branch") {
       ans = await deleteBranch(id);
-    }
-    else if (type === 'department') {
+    } else if (type === "department") {
       ans = await deleteDepartment(id);
-    }
-    else if (type === 'designation') {
+    } else if (type === "designation") {
       ans = await deleteDesignation(id);
-    }
-    else if (type === 'leaveType') {
+    } else if (type === "leaveType") {
       ans = await deleteLeaveType(id);
     }
 
@@ -454,136 +471,136 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
     toast.dismiss(toastId);
   };
 
-  const [allDocs , setAllDocs] = useState([]);
+  const [allDocs, setAllDocs] = useState([]);
 
-  const [docData , setDocdata] = useState({
+  const [docData, setDocdata] = useState({
     id: "",
-    name:"" , 
-    requiredField:[]
-  })
-  const getDocs = async()=>{
+    name: "",
+    requiredField: [],
+  });
+  const getDocs = async () => {
     const ans = await fetchAllDocs();
     setAllDocs(ans?.data);
-     }
+  };
 
- const handleDocSave = async()=>{
-   const  toastId = toast.loading("Loding...");
-   try{
+  const handleDocSave = async () => {
+    const toastId = toast.loading("Loding...");
+    try {
+      const ans = await postDocSetup({
+        name: docData?.name,
+        requiredField: docData?.requiredField,
+      });
+      console.log(ans);
+      if (ans?.status) {
+        toast.success("Successfuly created ");
+        setDocPop(false);
+        setDocdata({
+          name: "",
+          requiredField: [],
+        });
+        setIsUpdate(false);
 
-    const ans = await postDocSetup({name: docData?.name , requiredField:docData?.requiredField});
-    console.log(ans);
-   if(ans?.status){
-    toast.success("Successfuly created ");
-    setDocPop(false);
-    setDocdata({
-      name:"" , 
-      requiredField:[]
-    })
-    setIsUpdate(false);
+        getDocs();
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("Something went wrong");
+    }
 
+    toast.dismiss(toastId);
+  };
 
-    getDocs();
-
-   }
-
-   } catch(error){
-    console.log(error);
-    toast.error("Something went wrong");
-   }
-
-   toast.dismiss(toastId);
- }
-
- const deleteDoc = async(id)=>{
-       const toastId = toast.loading("Loading...");
-
-       const ans = await deleteDocSetup({id});
-         if(ans?.status){
-          toast.success("Successfuly deleted");
-          getDocs();
-         }
-         else {
-          toast.error("Something went wrong");
-         }
-
-         toast.dismiss(toastId);
- }
-
- const [isUpdate , setIsUpdate] = useState(false);
-
- const docUpdateHandler = async()=>{
+  const deleteDoc = async (id) => {
     const toastId = toast.loading("Loading...");
 
-    const ans = await updateDocSetup({id:docData?.id , name: docData?.name , requiredField: docData?.requiredField});
+    const ans = await deleteDocSetup({ id });
+    if (ans?.status) {
+      toast.success("Successfuly deleted");
+      getDocs();
+    } else {
+      toast.error("Something went wrong");
+    }
 
-    if(ans?.status){
+    toast.dismiss(toastId);
+  };
+
+  const [isUpdate, setIsUpdate] = useState(false);
+
+  const docUpdateHandler = async () => {
+    const toastId = toast.loading("Loading...");
+
+    const ans = await updateDocSetup({
+      id: docData?.id,
+      name: docData?.name,
+      requiredField: docData?.requiredField,
+    });
+
+    if (ans?.status) {
       toast.success("Successfuly updated");
       setDocPop(false);
-    setDocdata({
-      name:"" , 
-      requiredField:[]
-    })
+      setDocdata({
+        name: "",
+        requiredField: [],
+      });
 
-    getDocs();
-    setIsUpdate(false);
-    }
-    else {
+      getDocs();
+      setIsUpdate(false);
+    } else {
       toast.error("Something went wrong ");
     }
 
     toast.dismiss(toastId);
-     
- }
+  };
 
- useEffect(()=>{
+  useEffect(() => {
     getDocs();
- },[])
-
-
+  }, []);
 
   return (
     <>
       <div className="employee-dash h-full">
-
-        {
-          role=== "EMPLOYEE" ?
+        {role === "EMPLOYEE" ? (
           <EmployeeSidebar pop={pop} setPop={setPop} />
-           :
-        <AdminSidebar pop={pop} setPop={setPop} />
-        }
+        ) : (
+          <AdminSidebar pop={pop} setPop={setPop} />
+        )}
 
         <div className="tm">
-          {
-            role === "EMPLOYEE" ?
-             <EmployeeNavbar user={user} setAlert={setAlert}  />:
-
-          <AdminNavbar user={user} setAlert={setAlert} />
-          } 
+          {role === "EMPLOYEE" ? (
+            <EmployeeNavbar user={user} setAlert={setAlert} />
+          ) : (
+            <AdminNavbar user={user} setAlert={setAlert} />
+          )}
 
           <div className="em">
             <div className="flex-col">
               <div className="admin-main">
-
-                 <div className="plusSec">
+                <div className="plusSec">
                   <h3>HRM System Setup</h3>
-                  <button  onClick={() => {
-                      if (open === 0) {
-                        setPopup1(true);
-                      } else if (open === 1) {
-                        setPopup2(true);
-                      } else if (open === 2) {
-                        setPopup3(true);
-                      } else if (open === 3) {
-                        setPopup4(true);
-                      }
-                      else if(open === 4){
-                        setPopup5(true);
-                      }
-                      else if(open === 5){
-                        setPopup6(true);
-                      }
-                    }}><img src={textType} alt="" /> <span>Add New</span></button>
-                 </div>
+
+                  {(hrmsSetupCreatePermission || role === "ADMIN") && (
+                    <button
+                      onClick={() => {
+                        if (open === 0) {
+                          setPopup1(true);
+                        } else if (open === 1) {
+                          setPopup2(true);
+                        } else if (open === 2) {
+                          setPopup3(true);
+                        } else if (open === 3) {
+                          setPopup4(true);
+                        } else if (open === 4) {
+                          setPopup5(true);
+                        } else if (open === 5) {
+                          setPopup6(true);
+                        }
+                      }}
+                    >
+                      <img src={textType} alt="" />
+                      <span>Add New</span>
+                    </button>
+                  )}
+                </div>
 
                 <div className="hrmssystemsetup-parents">
                   <div className="hrmssystemsetup-rightmenu">
@@ -591,30 +608,26 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
                       <div
                         key={index}
                         onClick={() => setOpen(index)}
-                        className={`hrmsystemsetup-subrightmenu ${open === index && "openItem"
-                          } `}
+                        className={`hrmsystemsetup-subrightmenu ${
+                          open === index && "openItem"
+                        } `}
                       >
-                         <img src={item.img} alt="" />
+                        <img src={item.img} alt="" />
                         <span>{item.title}</span>
                       </div>
                     ))}
                   </div>
 
                   {open === 0 && (
-
                     <div className="hrmsystemsetup-leftmenu">
                       <div className="hrmsystemsetup-container">
-
                         <div className="hrmsystemsetup-pagination">
-                               {/* <img src={frame1} alt="" /> */}
-                              <span>Branch</span>
-                       
+                          {/* <img src={frame1} alt="" /> */}
+                          <span>Branch</span>
                         </div>
 
                         <div className="relative overflow-x-auto">
-
                           <table className="w-full table3 text-left text-[#060606]">
-
                             <thead className=" uppercase text-[#060606]">
                               <tr>
                                 {sidebarItem[open].tableData.map(
@@ -632,38 +645,45 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
                             </thead>
 
                             <tbody>
+                              {branches?.length === 0
+                                ? "No Branches Added"
+                                : branches.map((item, index) => (
+                                    <tr key={index} className="bg-white ">
+                                      <td className="px-6 py-4 tabl3Titl">
+                                        {item?.name}
+                                      </td>
 
-                              {branches?.length === 0 ? 'No Branches Added' : branches.map((item, index) => (
-                                <tr key={index} className="bg-white ">
-                                  <td className="px-6 py-4 tabl3Titl">{item?.name}</td>
-
-                                  <td className="px-6 py-4 flex hrmActions">
-                                    <img
-                                      className={'cursor-pointer'}
-                                      onClick={() => {
-                                        setId(item?._id);
-                                        setBranch1(item?.name);
-                                        setPopup11(true);
-                                      }}
-                                      src={edited}
-                                      alt=""
-                                    />
-                                    <img
-                                      className="cursor-pointer"
-                                      onClick={() => {
-                                        handleDelete(item._id, 'branch');
-                                      }}
-                                      src={deleted}
-                                      alt=""
-                                    />
-                                  </td>
-                                </tr>
-                              ))}
+                                      <td className="px-6 py-4 flex hrmActions">
+                                        {(hrmsSetupEditPermission ||
+                                          role === "ADMIN") && (
+                                          <img
+                                            className={"cursor-pointer"}
+                                            onClick={() => {
+                                              setId(item?._id);
+                                              setBranch1(item?.name);
+                                              setPopup11(true);
+                                            }}
+                                            src={edited}
+                                            alt=""
+                                          />
+                                        )}
+                                        {(hrmsSetupDeletePermission ||
+                                          role === "ADMIN") && (
+                                          <img
+                                            className="cursor-pointer"
+                                            onClick={() => {
+                                              handleDelete(item._id, "branch");
+                                            }}
+                                            src={deleted}
+                                            alt=""
+                                          />
+                                        )}
+                                      </td>
+                                    </tr>
+                                  ))}
                             </tbody>
-
                           </table>
                         </div>
-
                       </div>
                     </div>
                   )}
@@ -671,11 +691,9 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
                   {open === 1 && (
                     <div className="hrmsystemsetup-leftmenu">
                       <div className="hrmsystemsetup-container">
-
-                      <div className="hrmsystemsetup-pagination">
-                               {/* <img src={frame1} alt="" /> */}
-                              <span>Department</span>
-                       
+                        <div className="hrmsystemsetup-pagination">
+                          {/* <img src={frame1} alt="" /> */}
+                          <span>Department</span>
                         </div>
 
                         <div className="relative overflow-x-auto">
@@ -689,7 +707,7 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
                                       scope="col"
                                       className="px-6 tabl3had py-3"
                                     >
-                                      {item.title} 
+                                      {item.title}
                                     </th>
                                   )
                                 )}
@@ -697,28 +715,52 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
                             </thead>
 
                             <tbody>
-                              {departments.length === 0 ? 'No Departments Added' : departments.map((item, index) => (
-                                <tr key={index} className="bg-white ">
-                                  <td className="px-6 py-4 tabl3Titl ">
-                                    {item?.branch?.name}
-                                  </td>
-                                  <td className="px-6 py-4 tabl3Titl ">{item?.name}</td>
-                                  <td className="px-6 py-4 flex hrmActions">
-                                    <img src={edited} className="cursor-pointer" onClick={() => {
-                                      setDepartmentValue1({
-                                        branch: item?.branch?._id,
-                                        name: item?.name
-                                      });
-                                      setId(item?._id);
-                                      setPopup21(true);
-                                    }} alt="" />
-                                    <img src={deleted} className="cursor-pointer" onClick={() => { handleDelete(item._id, 'department') }} alt="" />
-                                  </td>
-                                </tr>
-                              ))}
+                              {departments.length === 0
+                                ? "No Departments Added"
+                                : departments.map((item, index) => (
+                                    <tr key={index} className="bg-white ">
+                                      <td className="px-6 py-4 tabl3Titl ">
+                                        {item?.branch?.name}
+                                      </td>
+                                      <td className="px-6 py-4 tabl3Titl ">
+                                        {item?.name}
+                                      </td>
+                                      <td className="px-6 py-4 flex hrmActions">
+                                        {(hrmsSetupEditPermission ||
+                                          role === "ADMIN") && (
+                                          <img
+                                            src={edited}
+                                            className="cursor-pointer"
+                                            onClick={() => {
+                                              setDepartmentValue1({
+                                                branch: item?.branch?._id,
+                                                name: item?.name,
+                                              });
+                                              setId(item?._id);
+                                              setPopup21(true);
+                                            }}
+                                            alt=""
+                                          />
+                                        )}
+                                        {(hrmsSetupDeletePermission ||
+                                          role === "ADMIN") && (
+                                          <img
+                                            src={deleted}
+                                            className="cursor-pointer"
+                                            onClick={() => {
+                                              handleDelete(
+                                                item._id,
+                                                "department"
+                                              );
+                                            }}
+                                            alt=""
+                                          />
+                                        )}
+                                      </td>
+                                    </tr>
+                                  ))}
                             </tbody>
                           </table>
-
                         </div>
                       </div>
                     </div>
@@ -727,10 +769,9 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
                   {open === 2 && (
                     <div className="hrmsystemsetup-leftmenu">
                       <div className="hrmsystemsetup-container">
-                      <div className="hrmsystemsetup-pagination">
-                               {/* <img src={frame1} alt="" /> */}
-                              <span>Designation</span>
-                       
+                        <div className="hrmsystemsetup-pagination">
+                          {/* <img src={frame1} alt="" /> */}
+                          <span>Designation</span>
                         </div>
 
                         <div className="relative overflow-x-auto">
@@ -752,29 +793,53 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
                             </thead>
 
                             <tbody>
-                              {designations.length === 0 ? 'No Designations Added' : designations.map((item, index) => (
-                                <tr key={index} className="bg-white ">
-                                  <td className="px-6 py-4  tabl3Titl">
-                                    {item?.department?.name}
-                                  </td>
+                              {designations.length === 0
+                                ? "No Designations Added"
+                                : designations.map((item, index) => (
+                                    <tr key={index} className="bg-white ">
+                                      <td className="px-6 py-4  tabl3Titl">
+                                        {item?.department?.name}
+                                      </td>
 
-                                  <td className="px-6 py-4  tabl3Titl">{item?.name}</td>
+                                      <td className="px-6 py-4  tabl3Titl">
+                                        {item?.name}
+                                      </td>
 
-                                  <td className="px-6 py-4 flex hrmActions">
-                                    <img src={edited} className="cursor-pointer" onClick={() => {
-                                      setDesignationValue1({
-                                        department: item?.department?._id,
-                                        name: item?.name
-                                      });
-                                      setId(item?._id);
-                                      setPopup31(true);
-                                    }} alt="" />
-                                    <img src={deleted} className="cursor-pointer" onClick={() => {
-                                      handleDelete(item._id, 'designation');
-                                    }} alt="" />
-                                  </td>
-                                </tr>
-                              ))}
+                                      <td className="px-6 py-4 flex hrmActions">
+                                        {(hrmsSetupEditPermission ||
+                                          role === "ADMIN") && (
+                                          <img
+                                            src={edited}
+                                            className="cursor-pointer"
+                                            onClick={() => {
+                                              setDesignationValue1({
+                                                department:
+                                                  item?.department?._id,
+                                                name: item?.name,
+                                              });
+                                              setId(item?._id);
+                                              setPopup31(true);
+                                            }}
+                                            alt=""
+                                          />
+                                        )}
+                                        {(hrmsSetupDeletePermission ||
+                                          role === "ADMIN") && (
+                                          <img
+                                            src={deleted}
+                                            className="cursor-pointer"
+                                            onClick={() => {
+                                              handleDelete(
+                                                item._id,
+                                                "designation"
+                                              );
+                                            }}
+                                            alt=""
+                                          />
+                                        )}
+                                      </td>
+                                    </tr>
+                                  ))}
                             </tbody>
                           </table>
                         </div>
@@ -785,11 +850,9 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
                   {open === 3 && (
                     <div className="hrmsystemsetup-leftmenu">
                       <div className="hrmsystemsetup-container">
-
-                      <div className="hrmsystemsetup-pagination">
-                               {/* <img src={frame1} alt="" /> */}
-                              <span>Leave Type</span>
-                       
+                        <div className="hrmsystemsetup-pagination">
+                          {/* <img src={frame1} alt="" /> */}
+                          <span>Leave Type</span>
                         </div>
 
                         <div className="relative overflow-x-auto">
@@ -811,25 +874,50 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
                             </thead>
 
                             <tbody>
-                              {leaveTypes.length === 0 ? 'No data found' : leaveTypes.map((item, index) => (
-                                <tr key={index} className="bg-white ">
-                                  <td className="px-6 py-4 tabl3Titl">{item?.name}</td>
-                                  <td className="px-6 py-4 tabl3Titl">{item?.days}</td>
-                                  <td className="px-6 py-4 flex hrmActions">
-                                    <img className="cursor-pointer" onClick={() => {
-                                      setLeaveTypeValue1({
-                                        days: item?.days,
-                                        name: item?.name
-                                      });
-                                      setId(item?._id);
-                                      setPopup41(true);
-                                    }} src={edited} alt="" />
-                                    <img className="cursor-pointer" onClick={() => {
-                                      handleDelete(item._id, 'leaveType');
-                                    }} src={deleted} alt="" />
-                                  </td>
-                                </tr>
-                              ))}
+                              {leaveTypes.length === 0
+                                ? "No data found"
+                                : leaveTypes.map((item, index) => (
+                                    <tr key={index} className="bg-white ">
+                                      <td className="px-6 py-4 tabl3Titl">
+                                        {item?.name}
+                                      </td>
+                                      <td className="px-6 py-4 tabl3Titl">
+                                        {item?.days}
+                                      </td>
+                                      <td className="px-6 py-4 flex hrmActions">
+                                        {(hrmsSetupEditPermission ||
+                                          role === "ADMIN") && (
+                                          <img
+                                            className="cursor-pointer"
+                                            onClick={() => {
+                                              setLeaveTypeValue1({
+                                                days: item?.days,
+                                                name: item?.name,
+                                              });
+                                              setId(item?._id);
+                                              setPopup41(true);
+                                            }}
+                                            src={edited}
+                                            alt=""
+                                          />
+                                        )}
+                                        {(hrmsSetupDeletePermission ||
+                                          role === "ADMIN") && (
+                                          <img
+                                            className="cursor-pointer"
+                                            onClick={() => {
+                                              handleDelete(
+                                                item._id,
+                                                "leaveType"
+                                              );
+                                            }}
+                                            src={deleted}
+                                            alt=""
+                                          />
+                                        )}
+                                      </td>
+                                    </tr>
+                                  ))}
                             </tbody>
                           </table>
                         </div>
@@ -840,11 +928,8 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
                   {open === 4 && (
                     <div className="hrmsystemsetup-leftmenu">
                       <div className="hrmsystemsetup-container">
-
-                      <div className="hrmsystemsetup-pagination">
-                               {/* <img src={frame1} alt="" /> */}
-                              <span>Lead Status</span>
-                       
+                        <div className="hrmsystemsetup-pagination">
+                          <span>Lead Status</span>
                         </div>
 
                         <div className="relative overflow-x-auto">
@@ -866,25 +951,48 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
                             </thead>
 
                             <tbody>
-                              {allStatus.length === 0 ? 'No data found' : allStatus.map((item, index) => (
-                                <tr key={index} className="bg-white ">
-                                  <td className="px-6 py-4 tabl3Titl">{item?.name}</td>
-                                  {/* <td className="px-6 py-4 tabl3Titl">{item?.days}</td> */}
-                                  <td className="px-6 py-4 flex hrmActions">
-                                    <img className="cursor-pointer" onClick={() => {
-                                      setLeaveTypeValue1({
-                                        days: item?.days,
-                                        name: item?.name
-                                      });
-                                      setId(item?._id);
-                                      setPopup41(true);
-                                    }} src={edited} alt="" />
-                                    <img className="cursor-pointer" onClick={() => {
-                                      handleDelete(item._id, 'leaveType');
-                                    }} src={deleted} alt="" />
-                                  </td>
-                                </tr>
-                              ))}
+                              {allStatus.length === 0
+                                ? "No data found"
+                                : allStatus.map((item, index) => (
+                                    <tr key={index} className="bg-white ">
+                                      <td className="px-6 py-4 tabl3Titl">
+                                        {item?.name}
+                                      </td>
+                                      <td className="px-6 py-4 flex hrmActions">
+                                        {(hrmsSetupEditPermission ||
+                                          role === "ADMIN") && (
+                                          <img
+                                            className="cursor-pointer"
+                                            onClick={() => {
+                                              setLeaveTypeValue1({
+                                                days: item?.days,
+                                                name: item?.name,
+                                              });
+                                              setId(item?._id);
+                                              setPopup41(true);
+                                            }}
+                                            src={edited}
+                                            alt=""
+                                          />
+                                        )}
+
+                                        {(hrmsSetupDeletePermission ||
+                                          role === "ADMIN") && (
+                                          <img
+                                            className="cursor-pointer"
+                                            onClick={() => {
+                                              handleDelete(
+                                                item._id,
+                                                "leaveType"
+                                              );
+                                            }}
+                                            src={deleted}
+                                            alt=""
+                                          />
+                                        )}
+                                      </td>
+                                    </tr>
+                                  ))}
                             </tbody>
                           </table>
                         </div>
@@ -892,13 +1000,11 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
                     </div>
                   )}
 
-                    {open === 5 && (
+                  {open === 5 && (
                     <div className="hrmsystemsetup-leftmenu">
                       <div className="hrmsystemsetup-container">
-
-                      <div className="hrmsystemsetup-pagination">
-                              <span>Industry</span>
-                       
+                        <div className="hrmsystemsetup-pagination">
+                          <span>Industry</span>
                         </div>
 
                         <div className="relative overflow-x-auto">
@@ -920,130 +1026,144 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
                             </thead>
 
                             <tbody>
-                              {allSource?.length === 0 ? 'No data found' : allSource?.map((item, index) => (
-                                <tr key={index} className="bg-white ">
-                                  <td className="px-6 py-4 tabl3Titl">{item?.name}</td>
-                                  {/* <td className="px-6 py-4 tabl3Titl">{item?.days}</td> */}
-                                  <td className="px-6 py-4 flex hrmActions">
-                                    <img className="cursor-pointer" onClick={() => {
-                                      setLeaveTypeValue1({
-                                        days: item?.days,
-                                        name: item?.name
-                                      });
-                                      setId(item?._id);
-                                      setPopup41(true);
-                                    }} src={edited} alt="" />
-                                    <img className="cursor-pointer" onClick={() => {
-                                      handleDelete(item._id, 'leaveType');
-                                    }} src={deleted} alt="" />
-                                  </td>
-                                </tr>
-                              ))}
+                              {allSource?.length === 0
+                                ? "No data found"
+                                : allSource?.map((item, index) => (
+                                    <tr key={index} className="bg-white ">
+                                      <td className="px-6 py-4 tabl3Titl">
+                                        {item?.name}
+                                      </td>
+                                      <td className="px-6 py-4 flex hrmActions">
+                                        {(hrmsSetupEditPermission ||
+                                          role === "ADMIN") && (
+                                          <img
+                                            className="cursor-pointer"
+                                            onClick={() => {
+                                              setLeaveTypeValue1({
+                                                days: item?.days,
+                                                name: item?.name,
+                                              });
+                                              setId(item?._id);
+                                              setPopup41(true);
+                                            }}
+                                            src={edited}
+                                            alt=""
+                                          />
+                                        )}
+                                        {(hrmsSetupDeletePermission ||
+                                          role === "ADMIN") && (
+                                          <img
+                                            className="cursor-pointer"
+                                            onClick={() => {
+                                              handleDelete(
+                                                item._id,
+                                                "leaveType"
+                                              );
+                                            }}
+                                            src={deleted}
+                                            alt=""
+                                          />
+                                        )}
+                                      </td>
+                                    </tr>
+                                  ))}
                             </tbody>
                           </table>
                         </div>
                       </div>
                     </div>
                   )}
-              
                 </div>
 
+                <div className="docSetupWrap">
+                  <nav>
+                    <h2>Documents Type</h2>
+                    <button onClick={() => setDocPop(true)}>
+                      <img src={plus} alt="" /> <span>Add New</span>
+                    </button>
+                  </nav>
 
-                 <div className="docSetupWrap">
+                  <div className="hrmsystemsetup-leftmenu">
+                    <div className="hrmsystemsetup-container">
+                      <div className="hrmsystemsetup-pagination">
+                        {/* <img src={frame1} alt="" /> */}
+                        <span>Documents Type</span>
+                      </div>
 
-                     <nav>
-                      <h2>Documents Type</h2>
-                      <button onClick={()=>setDocPop(true)}><img src={plus} alt="" /> <span>Add New</span></button>
+                      <div className="relative overflow-x-auto">
+                        <table className="w-full table3 text-left text-[#060606]">
+                          <thead className=" uppercase text-[#060606]">
+                            <tr>
+                              <th scope="col" className="px-6 tabl3had py-3">
+                                {" "}
+                                Documents{" "}
+                              </th>
+                              <th scope="col" className="px-6 tabl3had py-3">
+                                {" "}
+                                Required Field{" "}
+                              </th>
+                              <th scope="col" className="px-6 tabl3had py-3">
+                                {" "}
+                                Action{" "}
+                              </th>
+                            </tr>
+                          </thead>
 
-                     </nav>
+                          <tbody>
+                            {allDocs?.map((item, index) => (
+                              <tr className="bg-white " key={index}>
+                                <td className="px-6 py-4 tabl3Titl4">
+                                  {item?.name}{" "}
+                                </td>
 
-                     <div className="hrmsystemsetup-leftmenu">
-                      <div className="hrmsystemsetup-container">
+                                <td className="px-6 py-4">
+                                  <div className="seri">
+                                    {item?.requiredField?.map((fi, index) => (
+                                      <div
+                                        className="px-6 py-4 requiFild"
+                                        key={index}
+                                      >
+                                        {" "}
+                                        <span>{fi}</span>{" "}
+                                      </div>
+                                    ))}
+                                  </div>
+                                </td>
 
-                        <div className="hrmsystemsetup-pagination">
-                               {/* <img src={frame1} alt="" /> */}
-                              <span>Documents Type</span>
-                       
-                        </div>
-
-                        <div className="relative overflow-x-auto">
-
-                          <table className="w-full table3 text-left text-[#060606]">
-
-                            <thead className=" uppercase text-[#060606]">
-                              <tr>
-
-                                    <th   scope="col" className="px-6 tabl3had py-3" > Documents   </th>
-                                    <th   scope="col" className="px-6 tabl3had py-3" > Required Field   </th>
-                                    <th   scope="col" className="px-6 tabl3had py-3" > Action   </th>
-                                  
+                                <td className="px-6 py-4 flex hrmActions">
+                                  <img
+                                    className={"cursor-pointer"}
+                                    onClick={() => {
+                                      setDocPop(true);
+                                      setDocdata({
+                                        name: item?.name,
+                                        requiredField: item?.requiredField,
+                                        id: item?._id,
+                                      });
+                                      setIsUpdate(true);
+                                    }}
+                                    src={edited}
+                                    alt=""
+                                  />
+                                  <img
+                                    className="cursor-pointer"
+                                    onClick={() => {
+                                      deleteDoc(item?._id);
+                                    }}
+                                    src={deleted}
+                                    alt=""
+                                  />
+                                </td>
                               </tr>
-                            </thead>
-
-                            <tbody>
-
- {
-  allDocs?.map((item , index)=>(
-    <tr  className="bg-white " key={index}>
-
-    <td className="px-6 py-4 tabl3Titl4">{item?.name} </td>
-
-
-    <td className="px-6 py-4">
-      
-      <div className="seri">
-    {item?.requiredField?.map((fi , index)=>(
-      <div className="px-6 py-4 requiFild" key={index}> <span>{fi}</span> </div>
-    ))}
-    </div>
-
-       </td>
-
-        
-    <td className="px-6 py-4 flex hrmActions">
-      <img
-        className={'cursor-pointer'}
-
-         onClick={()=>{
-          setDocPop(true);
-          setDocdata({
-            name: item?.name , 
-             requiredField: item?.requiredField ,
-             id: item?._id
-          })
-          setIsUpdate(true);
-         }
-
-}
-        src={edited}
-        alt=""
-      />
-      <img
-        className="cursor-pointer"
-        onClick={()=>{
-          deleteDoc(item?._id);
-        }}
-        src={deleted}
-        alt=""
-      />
-    </td>
-
-  </tr>
-  ))
- }
-                    
-                            </tbody>
-
-                          </table>
-                        </div>
-
+                            ))}
+                          </tbody>
+                        </table>
                       </div>
                     </div>
-
-                 </div>
+                  </div>
+                </div>
 
                 <>
-              
                   {/* Main modal */}
 
                   <div
@@ -1053,8 +1173,9 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
                     className=" overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full"
                   >
                     <div className="relative p-4 w-full max-w-2xl max-h-full">
-=                      <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
-=
+                      ={" "}
+                      <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                        =
                         <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
                           <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
                             Terms of Service
@@ -1124,26 +1245,19 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
                       </div>
                     </div>
                   </div>
-
                 </>
-
               </div>
             </div>
           </div>
-          
         </div>
 
         {popup1 && (
           <div className="allPopupWrap">
-
             <div className="popup1 pono0">
-
-                      <div className="popNav">
-
-              <h2>New Branch</h2>
-              <img onClick={() => setPopup1(false)} src={cross1} alt="" />
-
-                      </div>
+              <div className="popNav">
+                <h2>New Branch</h2>
+                <img onClick={() => setPopup1(false)} src={cross1} alt="" />
+              </div>
               <hr />
 
               <label>
@@ -1159,9 +1273,7 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
                 />
               </label>
 
-
               <div className="btnWrap">
-            
                 <button className="create" onClick={handleCreateBranch}>
                   <span>Save</span>
                 </button>
@@ -1170,101 +1282,92 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
                   <span>Cancel</span>
                 </button>
               </div>
-
             </div>
-
           </div>
         )}
 
         {docPop && (
           <div className="allPopupWrap">
-
             <div className="popup1 pono10">
-
-                      <div className="popNav">
-
-              <h2>Create New Document</h2>
-              <img onClick={() => {
-                setDocPop(false);
-                setIsUpdate(false);
-                 setDocdata({
-                  name:"" , 
-                  requiredField:[]
-                })
-              }
-              } src={cross1} alt="" />
-
-                      </div>
+              <div className="popNav">
+                <h2>Create New Document</h2>
+                <img
+                  onClick={() => {
+                    setDocPop(false);
+                    setIsUpdate(false);
+                    setDocdata({
+                      name: "",
+                      requiredField: [],
+                    });
+                  }}
+                  src={cross1}
+                  alt=""
+                />
+              </div>
               <hr />
 
               <label>
                 <p className="popTitl">Document Name</p>
                 <input
-                
                   type="text"
                   name="name"
-                   
-                  onChange={(e)=>{
-                    setDocdata((prev)=>({
-                      ...prev ,
-                      name:e.target.value
-                    }))
+                  onChange={(e) => {
+                    setDocdata((prev) => ({
+                      ...prev,
+                      name: e.target.value,
+                    }));
                   }}
                   value={docData.name}
-                  
                 />
               </label>
 
               <label>
                 <p className="popTitl">Required Field</p>
-                <Selectmultidropdown setDocdata={setDocdata} docData={docData} />
+                <Selectmultidropdown
+                  setDocdata={setDocdata}
+                  docData={docData}
+                />
               </label>
 
-
               <div className="btnWrap">
-            
-                <button className="create" onClick={
-                  ()=>{
-                     if(isUpdate){
+                <button
+                  className="create"
+                  onClick={() => {
+                    if (isUpdate) {
                       docUpdateHandler();
-                     }
-                     else {
+                    } else {
                       handleDocSave();
-                     }
-                  } 
-                    }>
-                  <span>{isUpdate ? "Update":"Save"}</span>
+                    }
+                  }}
+                >
+                  <span>{isUpdate ? "Update" : "Save"}</span>
                 </button>
 
-                <button className="cencel" onClick={() => {
-                setDocPop(false);
-                setIsUpdate(false);
-                 setDocdata({
-                  name:"" , 
-                  requiredField:[]
-                })
-              }
-              }>
+                <button
+                  className="cencel"
+                  onClick={() => {
+                    setDocPop(false);
+                    setIsUpdate(false);
+                    setDocdata({
+                      name: "",
+                      requiredField: [],
+                    });
+                  }}
+                >
                   <span>Cancel</span>
                 </button>
               </div>
-
             </div>
-
           </div>
         )}
 
         {popup11 && (
           <div className="allPopupWrap">
-
             <div className="popup1 pono0">
-
               <div className="popNav">
-
-<h2>Edit Branch</h2>
-<img onClick={() => setPopup11(false)} src={cross1} alt="" />
-
-        </div>
+                <h2>Edit Branch</h2>
+                <img onClick={() => setPopup11(false)} src={cross1} alt="" />
+              </div>
 
               <hr />
 
@@ -1281,7 +1384,6 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
                 />
               </label>
 
-
               <div className="btnWrap">
                 <button className="cencel" onClick={() => setPopup11(false)}>
                   <span>Cancel</span>
@@ -1292,24 +1394,31 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
                 </button>
               </div>
             </div>
-
           </div>
         )}
 
         {popup2 && (
           <div className="allPopupWrap">
             <div className="popup1 pono2">
-
               <div className="popNav">
-
-<h2> New Department</h2>
-<img onClick={() => setPopup2(false)} src={cross1} alt="" />
-
-        </div>
+                <h2> New Department</h2>
+                <img onClick={() => setPopup2(false)} src={cross1} alt="" />
+              </div>
 
               <hr />
-              
-              <select className="selectBRANCH" value={departmentValue.branch} onChange={(e) => { setDepartmentValue({ ...departmentValue, branch: e.target.value }); }} name="branch1" id="branch1">
+
+              <select
+                className="selectBRANCH"
+                value={departmentValue.branch}
+                onChange={(e) => {
+                  setDepartmentValue({
+                    ...departmentValue,
+                    branch: e.target.value,
+                  });
+                }}
+                name="branch1"
+                id="branch1"
+              >
                 <option value="">select Branch</option>
 
                 {branches.map((e, index) => {
@@ -1323,9 +1432,19 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
 
               <label>
                 <p className="popTitl">Name</p>
-                <input type="text" name="department1" value={departmentValue.name} onChange={(e) => { setDepartmentValue({ ...departmentValue, name: e.target.value }); }} placeholder="Enter Department Name" />
+                <input
+                  type="text"
+                  name="department1"
+                  value={departmentValue.name}
+                  onChange={(e) => {
+                    setDepartmentValue({
+                      ...departmentValue,
+                      name: e.target.value,
+                    });
+                  }}
+                  placeholder="Enter Department Name"
+                />
               </label>
-
 
               <div className="btnWrap">
                 <button className="cencel" onClick={() => setPopup2(false)}>
@@ -1336,7 +1455,6 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
                   <span>Create</span>
                 </button>
               </div>
-
             </div>
           </div>
         )}
@@ -1345,13 +1463,22 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
           <div className="allPopupWrap">
             <div className="popup1 pono2">
               <div className="popNav">
-
-<h2>Edit Department</h2>
-<img onClick={() => setPopup21(false)} src={cross1} alt="" />
-
-        </div>
+                <h2>Edit Department</h2>
+                <img onClick={() => setPopup21(false)} src={cross1} alt="" />
+              </div>
               <hr />
-              <select className="selectBRANCH" value={departmentValue1.branch} onChange={(e) => { setDepartmentValue1({ ...departmentValue1, branch: e.target.value }); }} name="branch1" id="branch1">
+              <select
+                className="selectBRANCH"
+                value={departmentValue1.branch}
+                onChange={(e) => {
+                  setDepartmentValue1({
+                    ...departmentValue1,
+                    branch: e.target.value,
+                  });
+                }}
+                name="branch1"
+                id="branch1"
+              >
                 <option value="">select Branch</option>
 
                 {branches.map((e, index) => {
@@ -1365,9 +1492,19 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
 
               <label>
                 <p className="popTitl">Name</p>
-                <input type="text" name="department1" value={departmentValue1.name} onChange={(e) => { setDepartmentValue1({ ...departmentValue1, name: e.target.value }); }} placeholder="Enter Department Name" />
+                <input
+                  type="text"
+                  name="department1"
+                  value={departmentValue1.name}
+                  onChange={(e) => {
+                    setDepartmentValue1({
+                      ...departmentValue1,
+                      name: e.target.value,
+                    });
+                  }}
+                  placeholder="Enter Department Name"
+                />
               </label>
-
 
               <div className="btnWrap">
                 <button className="cencel" onClick={() => setPopup21(false)}>
@@ -1385,35 +1522,50 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
         {popup3 && (
           <div className="allPopupWrap">
             <div className="popup1 pono2">
-              
               <div className="popNav">
-
-<h2>Create New Designation</h2>
-<img onClick={() => setPopup3(false)} src={cross1} alt="" />
-
-        </div>
+                <h2>Create New Designation</h2>
+                <img onClick={() => setPopup3(false)} src={cross1} alt="" />
+              </div>
 
               <hr />
-              <label >
+              <label>
                 <p className="popTitl">Department</p>
-                <select className="selectBRANCH" value={designationValue?.department} onChange={(e) => {
-                  setDesignationValue({ ...designationValue, department: e.target.value });
-                }}>
-                  <option value="" disabled>Choose Department</option>
+                <select
+                  className="selectBRANCH"
+                  value={designationValue?.department}
+                  onChange={(e) => {
+                    setDesignationValue({
+                      ...designationValue,
+                      department: e.target.value,
+                    });
+                  }}
+                >
+                  <option value="" disabled>
+                    Choose Department
+                  </option>
                   {departments?.map((e, index) => {
                     return (
-                      <option key={index} value={e?._id}>{e?.name}</option>
+                      <option key={index} value={e?._id}>
+                        {e?.name}
+                      </option>
                     );
                   })}
                 </select>
               </label>
               <label htmlFor="">
                 <p className="popTitl">Name</p>
-                <input type="text" placeholder="Enter Designation Name" value={designationValue?.name} onChange={(e) => {
-                  setDesignationValue({ ...designationValue, name: e.target.value });
-                }} />
+                <input
+                  type="text"
+                  placeholder="Enter Designation Name"
+                  value={designationValue?.name}
+                  onChange={(e) => {
+                    setDesignationValue({
+                      ...designationValue,
+                      name: e.target.value,
+                    });
+                  }}
+                />
               </label>
-
 
               <div className="btnWrap">
                 <button className="cencel" onClick={() => setPopup3(false)}>
@@ -1431,35 +1583,50 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
         {popup31 && (
           <div className="allPopupWrap">
             <div className="popup1 pono2">
-              
               <div className="popNav">
-
-<h2>Edit Designation</h2>
-<img onClick={() => setPopup31(false)} src={cross1} alt="" />
-
-        </div>
+                <h2>Edit Designation</h2>
+                <img onClick={() => setPopup31(false)} src={cross1} alt="" />
+              </div>
 
               <hr />
               <label htmlFor>
                 <p className="popTitl">Department</p>
-                <select className="selectBRANCH" value={designationValue1?.department} onChange={(e) => {
-                  setDesignationValue1({ ...designationValue1, department: e.target.value });
-                }}>
-                  <option value="" disabled>Choose Department</option>
+                <select
+                  className="selectBRANCH"
+                  value={designationValue1?.department}
+                  onChange={(e) => {
+                    setDesignationValue1({
+                      ...designationValue1,
+                      department: e.target.value,
+                    });
+                  }}
+                >
+                  <option value="" disabled>
+                    Choose Department
+                  </option>
                   {departments?.map((e, index) => {
                     return (
-                      <option key={index} value={e?._id}>{e?.name}</option>
+                      <option key={index} value={e?._id}>
+                        {e?.name}
+                      </option>
                     );
                   })}
                 </select>
               </label>
               <label htmlFor="">
                 <p className="popTitl">Name</p>
-                <input type="text" placeholder="Enter Designation Name" value={designationValue1?.name} onChange={(e) => {
-                  setDesignationValue1({ ...designationValue1, name: e.target.value });
-                }} />
+                <input
+                  type="text"
+                  placeholder="Enter Designation Name"
+                  value={designationValue1?.name}
+                  onChange={(e) => {
+                    setDesignationValue1({
+                      ...designationValue1,
+                      name: e.target.value,
+                    });
+                  }}
+                />
               </label>
-
 
               <div className="btnWrap">
                 <button className="cencel" onClick={() => setPopup31(false)}>
@@ -1470,7 +1637,6 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
                   <span>Update</span>
                 </button>
               </div>
-
             </div>
           </div>
         )}
@@ -1479,27 +1645,41 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
           <div className="allPopupWrap">
             <div className="popup1 pono2">
               <div className="popNav">
-
-<h2>Create New Leave Type</h2>
-<img onClick={() => setPopup4(false)} src={cross1} alt="" />
-
-        </div>
+                <h2>Create New Leave Type</h2>
+                <img onClick={() => setPopup4(false)} src={cross1} alt="" />
+              </div>
               <hr />
               <label htmlFor>
                 <p className="popTitl">Leave Type</p>
-                <input type="text" placeholder="Enter Leave Type Name" name="name" value={leaveTypeValue?.name} onChange={(e) => {
-                  setLeaveTypeValue({ ...leaveTypeValue, [e.target.name]: e.target.value });
-                }} />
-              
+                <input
+                  type="text"
+                  placeholder="Enter Leave Type Name"
+                  name="name"
+                  value={leaveTypeValue?.name}
+                  onChange={(e) => {
+                    setLeaveTypeValue({
+                      ...leaveTypeValue,
+                      [e.target.name]: e.target.value,
+                    });
+                  }}
+                />
               </label>
 
               <label htmlFor="">
                 <p className="popTitl">Days Per Year</p>
-                <input type="text" placeholder="Enter Days / Year" name="days" value={leaveTypeValue?.days} onChange={(e) => {
-                  setLeaveTypeValue({ ...leaveTypeValue, [e.target.name]: e.target.value });
-                }} />
+                <input
+                  type="text"
+                  placeholder="Enter Days / Year"
+                  name="days"
+                  value={leaveTypeValue?.days}
+                  onChange={(e) => {
+                    setLeaveTypeValue({
+                      ...leaveTypeValue,
+                      [e.target.name]: e.target.value,
+                    });
+                  }}
+                />
               </label>
-
 
               <div className="btnWrap">
                 <button className="cencel" onClick={() => setPopup4(false)}>
@@ -1517,30 +1697,43 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
         {popup41 && (
           <div className="allPopupWrap">
             <div className="popup1 pono2">
-
               <div className="popNav">
-
-<h2>Edit Leave Type </h2>
-<img onClick={() => setPopup41(false)} src={cross1} alt="" />
-
-        </div>
+                <h2>Edit Leave Type </h2>
+                <img onClick={() => setPopup41(false)} src={cross1} alt="" />
+              </div>
 
               <hr />
               <label htmlFor>
                 <p className="popTitl">Leave Type</p>
-                <input type="text" placeholder="Enter Leave Type Name" name="name" value={leaveTypeValue1?.name} onChange={(e) => {
-                  setLeaveTypeValue1({ ...leaveTypeValue1, [e.target.name]: e.target.value });
-                }} />
-             
+                <input
+                  type="text"
+                  placeholder="Enter Leave Type Name"
+                  name="name"
+                  value={leaveTypeValue1?.name}
+                  onChange={(e) => {
+                    setLeaveTypeValue1({
+                      ...leaveTypeValue1,
+                      [e.target.name]: e.target.value,
+                    });
+                  }}
+                />
               </label>
 
               <label htmlFor="">
                 <p className="popTitl">Days Per Year</p>
-                <input type="text" placeholder="Enter Days / Year" name="days" value={leaveTypeValue1?.days} onChange={(e) => {
-                  setLeaveTypeValue1({ ...leaveTypeValue1, [e.target.name]: e.target.value });
-                }} />
+                <input
+                  type="text"
+                  placeholder="Enter Days / Year"
+                  name="days"
+                  value={leaveTypeValue1?.days}
+                  onChange={(e) => {
+                    setLeaveTypeValue1({
+                      ...leaveTypeValue1,
+                      [e.target.name]: e.target.value,
+                    });
+                  }}
+                />
               </label>
-
 
               <div className="btnWrap">
                 <button className="cencel" onClick={() => setPopup41(false)}>
@@ -1555,23 +1748,29 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
           </div>
         )}
 
-{popup5 && (
+        {popup5 && (
           <div className="allPopupWrap">
             <div className="popup1 popup5 pono2">
               <div className="popNav">
-
-<h2>Create New Lead Status</h2>
-<img onClick={() => setPopup5(false)} src={cross1} alt="" />
-
-        </div>
+                <h2>Create New Lead Status</h2>
+                <img onClick={() => setPopup5(false)} src={cross1} alt="" />
+              </div>
               <hr />
-              <label >
+              <label>
                 <p className="popTitl">Lead Status</p>
 
-                <input type="text" placeholder="Enter Leave Type Name" name="status" value={leadStatus?.status} onChange={(e) => {
-                  setLeadStatus({ ...leadStatus, [e.target.name]: e.target.value });
-                }} />
-              
+                <input
+                  type="text"
+                  placeholder="Enter Leave Type Name"
+                  name="status"
+                  value={leadStatus?.status}
+                  onChange={(e) => {
+                    setLeadStatus({
+                      ...leadStatus,
+                      [e.target.name]: e.target.value,
+                    });
+                  }}
+                />
               </label>
 
               <div className="btnWrap">
@@ -1587,24 +1786,29 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
           </div>
         )}
 
-
-{popup6 && (
+        {popup6 && (
           <div className="allPopupWrap">
             <div className="popup1 popup5 pono2">
               <div className="popNav">
-
-<h2>Create New Lead Source</h2>
-<img onClick={() => setPopup6(false)} src={cross1} alt="" />
-
-        </div>
+                <h2>Create New Lead Source</h2>
+                <img onClick={() => setPopup6(false)} src={cross1} alt="" />
+              </div>
               <hr />
-              <label >
+              <label>
                 <p className="popTitl">Lead Source</p>
 
-                <input type="text" placeholder="Enter Leave Type Name" name="status" value={leadSource?.status} onChange={(e) => {
-                  setLeadSource({ ...leadSource, [e.target.name]: e.target.value });
-                }} />
-              
+                <input
+                  type="text"
+                  placeholder="Enter Leave Type Name"
+                  name="status"
+                  value={leadSource?.status}
+                  onChange={(e) => {
+                    setLeadSource({
+                      ...leadSource,
+                      [e.target.name]: e.target.value,
+                    });
+                  }}
+                />
               </label>
 
               <div className="btnWrap">
@@ -1619,10 +1823,8 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
             </div>
           </div>
         )}
-
       </div>
     </>
   );
-
-}
+};
 export default HRMsystemSetup;

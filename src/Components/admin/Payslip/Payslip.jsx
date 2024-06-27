@@ -21,7 +21,7 @@ const Payslip = ({
 
     let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
 
-    const {role} = hrms_user;
+    const {role , paySlipActionPermission} = hrms_user;
 
     const [loading, setLoading] = useState(false);
 
@@ -283,6 +283,9 @@ const Payslip = ({
 
                                                         {/*  */}
 
+{
+(paySlipActionPermission || role === "ADMIN") && 
+
 
                                                         <div className="toglwCont">
                                                             <td onClick={() => {
@@ -314,6 +317,8 @@ const Payslip = ({
                                                                 </div>
                                                             }
                                                         </div>
+
+}
 
                                                     </tr>
                                                 ))

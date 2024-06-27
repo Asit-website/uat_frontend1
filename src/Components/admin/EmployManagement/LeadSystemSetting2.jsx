@@ -88,6 +88,11 @@ const LeadSystemSetting = ({ setAlert, pop, setPop }) => {
 
   const [open, setOpen] = useState(0);
 
+  let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
+
+    const {role ,leadSystemSettingEditPermission , leadSystemSettingDeletePermission , leadSystemSettingCreatePermission} = hrms_user;
+
+
   const [popup, setPopup] = useState(false);
 
   const styleing = {
@@ -229,7 +234,6 @@ const LeadSystemSetting = ({ setAlert, pop, setPop }) => {
      }
   }
 
-
   const CreateFollow = async()=>{
     const ans = await postFollowUp({name:leadStat.name});
      if(ans?.success){
@@ -342,6 +346,10 @@ const LeadSystemSetting = ({ setAlert, pop, setPop }) => {
 
                 <div className="plusSec">
                   <h3>Lead System Setting</h3>
+
+                  {
+                    (leadSystemSettingCreatePermission || role === "ADMIN") && 
+                  
                   <button
                     onClick={() => {
                       console.log("optin", open);
@@ -361,9 +369,12 @@ const LeadSystemSetting = ({ setAlert, pop, setPop }) => {
                   >
                     <img src={textType} alt="" /> <span>Add New</span>
                   </button>
+
+}
                 </div>
 
                 <div className="hrmssystemsetup-parents">
+
                   <div className="hrmssystemsetup-rightmenu">
                     {sidebarItem.map((item, index) => (
                       <div
@@ -412,8 +423,11 @@ const LeadSystemSetting = ({ setAlert, pop, setPop }) => {
                                     <td className="px-6 py-4 tabl3Titl">
                                       {item?.name}
                                     </td>
-                                    <td className="px-6 py-4 flex hrmActions">
-                                      <img
+                                    <td className="px-6 py-4 flex hrmActions">       
+                                 
+                                 {
+                                  (leadSystemSettingEditPermission || role === "ADMIN") && 
+                                    <img
                                         className="cursor-pointer"
                                         onClick={() => {
                                           setPopup5(true);
@@ -426,6 +440,13 @@ const LeadSystemSetting = ({ setAlert, pop, setPop }) => {
                                         src={edited}
                                         alt=""
                                       />
+
+}
+
+{
+  (leadSystemSettingDeletePermission || role === "ADMIN") && 
+
+
                                       <img
                                         className="cursor-pointer"
                                         onClick={(e) => {
@@ -434,6 +455,8 @@ const LeadSystemSetting = ({ setAlert, pop, setPop }) => {
                                         src={deleted}
                                         alt=""
                                       />
+
+}
                                     </td>
                                   </tr>
                                 ))}
@@ -478,6 +501,9 @@ const LeadSystemSetting = ({ setAlert, pop, setPop }) => {
                                       {item?.name}
                                     </td>
                                     <td className="px-6 py-4 flex hrmActions">
+                                    {
+                                (leadSystemSettingEditPermission || role === "ADMIN") &&
+                                    
                                       <img
                                         className="cursor-pointer"
                                         onClick={() => {
@@ -491,6 +517,11 @@ const LeadSystemSetting = ({ setAlert, pop, setPop }) => {
                                         src={edited}
                                         alt=""
                                       />
+
+}
+{
+   (leadSystemSettingDeletePermission || role ==="ADMIN") && 
+
                                       <img
                                         className="cursor-pointer"
                                         onClick={() => {
@@ -499,6 +530,7 @@ const LeadSystemSetting = ({ setAlert, pop, setPop }) => {
                                         src={deleted}
                                         alt=""
                                       />
+}
                                     </td>
                                   </tr>
                                 ))}
@@ -543,6 +575,9 @@ const LeadSystemSetting = ({ setAlert, pop, setPop }) => {
                                       {item?.name}
                                     </td>
                                     <td className="px-6 py-4 flex hrmActions">
+                                    {
+                                      (leadSystemSettingEditPermission || role === "ADMIN") && 
+                                    
                                       <img
                                         className="cursor-pointer"
                                         onClick={() => {
@@ -556,6 +591,11 @@ const LeadSystemSetting = ({ setAlert, pop, setPop }) => {
                                         src={edited}
                                         alt=""
                                       />
+}
+
+{
+  (leadSystemSettingDeletePermission || role === "ADMIN") && 
+
                                       <img
                                         className="cursor-pointer"
                                         onClick={() => {
@@ -564,6 +604,7 @@ const LeadSystemSetting = ({ setAlert, pop, setPop }) => {
                                         src={deleted}
                                         alt=""
                                       />
+}
                                     </td>
                                   </tr>
                                 ))}
@@ -608,6 +649,9 @@ const LeadSystemSetting = ({ setAlert, pop, setPop }) => {
                                       {item?.name}
                                     </td>
                                     <td className="px-6 py-4 flex hrmActions">
+{
+  (leadSystemSettingEditPermission || role === "ADMIN") && 
+
                                       <img
                                         className="cursor-pointer"
                                         onClick={() => {
@@ -621,6 +665,10 @@ const LeadSystemSetting = ({ setAlert, pop, setPop }) => {
                                         src={edited}
                                         alt=""
                                       />
+}
+{
+  (leadSystemSettingDeletePermission || role === "ADMIN") && 
+
                                       <img
                                         className="cursor-pointer"
                                         onClick={() => {
@@ -629,6 +677,7 @@ const LeadSystemSetting = ({ setAlert, pop, setPop }) => {
                                         src={deleted}
                                         alt=""
                                       />
+}
                                     </td>
                                   </tr>
                                 ))}

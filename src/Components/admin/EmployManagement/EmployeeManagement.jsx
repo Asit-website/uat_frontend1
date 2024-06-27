@@ -59,7 +59,7 @@ const EmployeeManagement = ({
 
   let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
 
-   const {role} = hrms_user;
+   const {role , employeeManageEditPermission , employeeManageActivatePermission} = hrms_user;
 
   const [allData , setAllData] = useState([]);
 
@@ -356,6 +356,9 @@ const EmployeeManagement = ({
                                   <hr />
 
                                   {/* second */}
+                                  {
+                                     (employeeManageEditPermission || role === "ADMIN") && 
+                                  
                                   <div onClick={() => {
                                     navigate(`/adminDash/EmployeeMan/${item._id}`);
                                   }} className="subView">
@@ -363,15 +366,21 @@ const EmployeeManagement = ({
                                     <p>Edit </p>
                                   </div>
 
+                                }
+
                                   <hr />
 
                                   {/* third */}
+                                  {
+                                    (employeeManageActivatePermission || role === "ADMIN") && 
+                                  
                                   <div onClick={() => {
                                     deleteUser1(item?._id , item?.isDeactivated === "Yes");
                                   }} className="subView">
                                     <img src={deleted} alt="" />
                                     <p className="deel"> {item?.isDeactivated === "Yes"?"Activate":"Deactivate"} </p>
                                   </div>
+}
                                 </div>
 
                               }
