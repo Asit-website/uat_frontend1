@@ -616,15 +616,15 @@ const AdminSidebar = ({ pop, setPop }) => {
                   </li>
                   </NavLink>
       
-                  {
+                  {/* {
                     user?.designation === "Intern Digital Marketing" || user?.designation === "Business Development Manager" ? <NavLink to="/employeeDash/LeadSystemSetting"><div className={`${window.location.pathname === "/employeeDash/LeadSystemSetting" ? "hh" : ""} setWrap`}>
-                      {/* <p>Setting</p> */}
+                     
                       <div className="systSset">
                         <img src={`${window.location.pathname === "/employeeDash/LeadSystemSetting" ? perty : employee}`} alt="" />
                         <span className={`${window.location.pathname === "/employeeDash/LeadSystemSetting" ? "fan" : ""}`}>Lead System Setting</span>
                       </div>
                     </div></NavLink> : ""
-                  }
+                  } */}
       
                   {
                     hrmsSetUpPermission &&
@@ -976,7 +976,7 @@ const AdminSidebar = ({ pop, setPop }) => {
                   </NavLink>
       
       
-                  {
+                  {/* {
                     user?.designation === "Intern Digital Marketing" || user?.designation === "Business Development Manager" ? <li className="mostwrap">
       
                       <h2 onClick={() => setOpenLead((prev) => !prev)} className="leadHead"> <img src={shopping} alt="" /> <span> Lead Management</span></h2>
@@ -997,7 +997,7 @@ const AdminSidebar = ({ pop, setPop }) => {
                       }
       
                     </li> : ""
-                  }
+                  } */}
       
                   <NavLink to="/employeeDash/update"><li className="indefy">
                     <img src={userP} alt="" />

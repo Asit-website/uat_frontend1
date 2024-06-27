@@ -43,7 +43,7 @@ const trainingItems = [
     title: "Trainer",
     link: "/training/TrainerHRM"
   },
- 
+
 ]
 
 const payrols = [
@@ -88,14 +88,14 @@ const EmployeeSidebar = () => {
 
   ]
 
-  const { leadPermission, hrmsSetUpPermission, payrollPermission, leadSystemPermission, attendencePermission, assetsPermission, documentPermission, leaveManagePermission, performancePermission, employeeManagePermission  , hrAdminSetupPermission , trainingSetupPermission} = user;
+  const { leadPermission, hrmsSetUpPermission, payrollPermission, leadSystemPermission, attendencePermission, assetsPermission, documentPermission, leaveManagePermission, performancePermission, employeeManagePermission, hrAdminSetupPermission, trainingSetupPermission } = user;
 
   const [openPayroll, setOpenPayroll] = useState(false);
 
   const [payrollItem, setPayrollItem] = useState(0);
-  const [trainingItem,setTrainingItem] = useState(0);
+  const [trainingItem, setTrainingItem] = useState(0);
 
-  const [openTraining,setOpenTraining] = useState(false);
+  const [openTraining, setOpenTraining] = useState(false);
 
 
   const [openLeaveMan, setOpenLeaveMan] = useState(false);
@@ -135,9 +135,9 @@ const EmployeeSidebar = () => {
       </button>
 
       <aside
-         id="sidebar-multi-level-sidebar"
-         className="fixed top-0 olo left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0 sidebars"
-         aria-label="Sidebar"
+        id="sidebar-multi-level-sidebar"
+        className="fixed top-0 olo left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0 sidebars"
+        aria-label="Sidebar"
       >
 
         <div className="h-full px-3 py-4 overflow-y-auto  sidebars sidebars1">
@@ -156,15 +156,15 @@ const EmployeeSidebar = () => {
             </li>
             </NavLink>
 
-            {
+            {/* {
               user?.designation === "Intern Digital Marketing" || user?.designation === "Business Development Manager" ? <NavLink to="/employeeDash/LeadSystemSetting"><div className={`${window.location.pathname === "/employeeDash/LeadSystemSetting" ? "hh" : ""} setWrap`}>
-                {/* <p>Setting</p> */}
+               
                 <div className="systSset">
                   <img src={`${window.location.pathname === "/employeeDash/LeadSystemSetting" ? perty : employee}`} alt="" />
                   <span className={`${window.location.pathname === "/employeeDash/LeadSystemSetting" ? "fan" : ""}`}>Lead System Setting</span>
                 </div>
               </div></NavLink> : ""
-            }
+            } */}
 
             {
               hrmsSetUpPermission &&
@@ -392,6 +392,8 @@ const EmployeeSidebar = () => {
             }
 
 
+
+
             {
               employeeManagePermission &&
               <>
@@ -405,67 +407,53 @@ const EmployeeSidebar = () => {
               </>
             }
 
-            
-{
-                    employeeManagePermission &&
-                    <>
-                      <NavLink to="/employeeDash/HRM/employeeManagement"><div className={`${window.location.pathname === "/employeeDash/HRM/employeeManagement" || window.location.pathname === "/employeeDash/EmployeeDetails" || window.location.pathname === "/employeeDash/EmployeeMan" || window.location.pathname === "/employeeDash/EmployeeMan/:id" ? "hh" : ""} setWrap`}>
-                        {/* <p>Setting</p> */}
-                        <div className="systSset">
-                          <img src={`${window.location.pathname === "/employeeDash/HRM/employeeManagement" || window.location.pathname === "/employeeDash/EmployeeDetails" || window.location.pathname === "/employeeDash/EmployeeMan" || window.location.pathname === "/employeeDash/EmployeeMan/:id" ? perty : employee}`} alt="" />
-                          <span className={`${window.location.pathname === "/employeeDash/HRM/employeeManagement" || window.location.pathname === "/employeeDash/EmployeeDetails" || window.location.pathname === "/employeeDash/EmployeeMan" || window.location.pathname === "/employeeDash/EmployeeMan/:id" ? "fan" : ""}`}>Employee Management</span>
-                        </div>
-                      </div></NavLink>
-                    </>
-                  }
+            {
+              trainingSetupPermission &&
+              <>
 
-                  {
-                    trainingSetupPermission && 
-                    <>
+                <div
+                  onClick={() => setOpenTraining((prev) => !prev)}
+                  className="side-dash-box"
+                >
+                  <div className="dash-wrap">
+                    <img src={reading} alt="dasg" />
+                    <p>Training Setup</p>
+                  </div>
 
-                     <div
-                onClick={() => setOpenTraining((prev) => !prev)}
-                className="side-dash-box"
-              >
-                <div className="dash-wrap">
-                  <img src={reading} alt="dasg" />
-                  <p>Training Setup</p>
+                  <img src={vect} alt="vect" />
                 </div>
 
-                <img src={vect} alt="vect" />
-              </div>
+                {openTraining && (
+                  <div className="alladminDash-item">
+                    {trainingItems?.map((item, index) => (
+                      <div
+                        onClick={() => {
+                          setTrainingItem(index);
+                          navigate(item?.link);
+                          setOpenTraining(true);
+                        }
 
-              {openTraining && (
-                <div className="alladminDash-item">
-                  {trainingItems?.map((item, index) => (
-                    <div
-                      onClick={() => {
-                        setTrainingItem(index);
-                        navigate(item?.link);
-                        setOpenTraining(true);
-                      }
-
-                      }
-                      className="sinADDasItem"
-                      key={index}
-                    >
-                      {trainingItem == index ? (
-                        <img src={`${window.location.pathname === `${item?.link}` ? fiber : tyming}`} alt="" />
-                      ) : (
-                        <img src={`${window.location.pathname === `${item?.link}` ? fiber : tyming}`} alt="" />
-                      )}
-                      <p
-                        className={` ${performanceItem === index ? "dashItemp" : "dITitl"
-                          } ${window.location.pathname === `${item?.link}` ? "fan" : ""}`}
+                        }
+                        className="sinADDasItem"
+                        key={index}
                       >
-                        {item?.title}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              )}
-                    </>
-                  }
+                        {trainingItem == index ? (
+                          <img src={`${window.location.pathname === `${item?.link}` ? fiber : tyming}`} alt="" />
+                        ) : (
+                          <img src={`${window.location.pathname === `${item?.link}` ? fiber : tyming}`} alt="" />
+                        )}
+                        <p
+                          className={` ${performanceItem === index ? "dashItemp" : "dITitl"
+                            } ${window.location.pathname === `${item?.link}` ? "fan" : ""}`}
+                        >
+                          {item?.title}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </>
+            }
 
 
             <NavLink to="/employeeDash/mySelf"><li className="indefy">
@@ -481,7 +469,7 @@ const EmployeeSidebar = () => {
             </NavLink>
 
 
-            {
+            {/* {
               user?.designation === "Intern Digital Marketing" || user?.designation === "Business Development Manager" ? <li className="mostwrap">
 
                 <h2 onClick={() => setOpenLead((prev) => !prev)} className="leadHead"> <img src={shopping} alt="" /> <span> Lead Management</span></h2>
@@ -502,7 +490,7 @@ const EmployeeSidebar = () => {
                 }
 
               </li> : ""
-            }
+            } */}
 
             <NavLink to="/employeeDash/update"><li className="indefy">
               <img src={userP} alt="" />
@@ -516,7 +504,7 @@ const EmployeeSidebar = () => {
             </li>
             </NavLink>
 
-       
+
 
             <div className="red-box">
               <div className="white-box">
