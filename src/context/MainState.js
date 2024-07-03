@@ -3,7 +3,7 @@ import MainContext from './MainContext';
 import { deleteReq, get, post, put, postDocuments } from '../Api/api'
 import { useState } from 'react';
 
-const baseUrl = "http://localhost:5000";
+// const baseUrl = "http://localhost:5000";
 
 // const baseUrl = "https://hrms-backend-code.onrender.com"
 
@@ -13,7 +13,7 @@ const baseUrl = "http://localhost:5000";
 
 // this is production baseurl 
 
-// const baseUrl = "https://hmsbackend.kusheldigi.com";
+const baseUrl = "https://hmsbackend.kusheldigi.com";
 
 // const baseUrl = "https://hrms-backend-g3wt.onrender.com";
 
@@ -1642,6 +1642,41 @@ const MainState = (props) => {
       return data;
    };
 
+   // ======================quatation api fething start===================
+   const postQuotation1 = async ({ User, QuatationNo, GstNo, SacCode, PlacedSupply, BillTo, ShipTo, ClientName, Address, Mobile, Email, ItemDescription, Qty, Price, Amount, BalanceAmount, Note, currency, leadId }) => {
+
+      const data = await post(`${baseUrl}/admin/createQuatation`, { User, QuatationNo, GstNo, SacCode, PlacedSupply, BillTo, ShipTo, ClientName, Address, Mobile, Email, ItemDescription, Qty, Price, Amount, BalanceAmount, Note, currency, leadId }, true);
+      return data;
+
+   }
+
+   const getQuotationAll1 = async (id) => {
+      const data = await get(`${baseUrl}/admin/getEveryUserQuatation/${id}`, true);
+      return data;
+   }
+
+   const updateQuotation1 = async (
+      { QuatationNo, GstNo, SacCode, PlacedSupply, BillTo, ShipTo, ClientName, Address, Mobile, Email, ItemDescription, Qty, Price, Amount, BalanceAmount, Note, currency, id }
+
+   ) => {
+
+      let data;
+
+      data = await post(`${baseUrl}/admin/updateQuatation/${id}`,
+         {
+            QuatationNo, GstNo, SacCode, PlacedSupply, BillTo, ShipTo, ClientName, Address, Mobile, Email, ItemDescription, Qty, Price, Amount, BalanceAmount, Note, currency
+         }, true);
+
+
+      return data;
+   }
+
+   const deleteQuotation1 = async (id) => {
+      const data = await deleteReq(`${baseUrl}/admin/deleteQuatation/${id}`, true);
+      return data;
+   };
+   // ==================================quatation api fetching end=================
+
    const createSallary = async ({ salary, paySlipType }) => {
 
       const data = await post(`${baseUrl}/admin/createSallary`, { salary, paySlipType }, true);
@@ -2038,8 +2073,11 @@ const MainState = (props) => {
          postLeadStat,
          updateLeadStat,
          deleteLeadStat,
-         getUserByDesignation1
-
+         getUserByDesignation1,
+         postQuotation1,
+         getQuotationAll1,
+         updateQuotation1,
+         deleteQuotation1
       }}>
          {props.children}
       </MainContext.Provider>

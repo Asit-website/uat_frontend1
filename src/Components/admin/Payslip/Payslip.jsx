@@ -3,7 +3,7 @@ import AdminSidebar from "../../admin/Sidebar/AdminSidebar";
 import "react-calendar/dist/Calendar.css";
 import { useMain } from "../../../hooks/useMain";
 import acy from '../../images/acy.svg';
-import { useEffect, useState,useRef } from "react";
+import { useEffect, useState, useRef } from "react";
 import toast from "react-hot-toast";
 import oot from "../../images/oot.svg";
 import ReactHTMLTableToExcel from 'react-html-table-to-excel';
@@ -21,7 +21,7 @@ const Payslip = ({
 
     let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
 
-    const {role , paySlipActionPermission} = hrms_user;
+    const { role, paySlipActionPermission } = hrms_user;
 
     const [loading, setLoading] = useState(false);
 
@@ -35,7 +35,7 @@ const Payslip = ({
 
     const [formdata, setFormdata] = useState({
         month: "January",
-        year: "2024"
+        year: "2024",
     })
 
 
@@ -59,6 +59,7 @@ const Payslip = ({
             setLoading(true);
         }
         const ans = await getUserSlip(formdata.month, formdata.year);
+        console.log(ans);
         if (ans?.status) {
             setData(ans?.payslipDetails);
         }
@@ -70,6 +71,7 @@ const Payslip = ({
 
         const toastId = toast.loading("Loading...");
         const ans = await togglePayslip(userId, formdata.month, formdata.year);
+        console.log(ans);
         if (ans?.status) {
             fetchUserSlip(false);
             toast.success('Successfuly updated');
@@ -124,25 +126,27 @@ const Payslip = ({
                 display: 'block'
             },
         },
-        onAfterPrint: () => alert("already saved")
+        onAfterPrint: () => alert("already saved"),
+
+
     })
 
     return (
         <>
             <div className={`employee-dash  h-full`}>
-            {
-          role=== "EMPLOYEE" ?
-          <EmployeeSidebar pop={pop} setPop={setPop} />
-           :
-        <AdminSidebar pop={pop} setPop={setPop} />
-        }
-                <div className="tm">
                 {
-            role === "EMPLOYEE" ?
-             <EmployeeNavbar />:
+                    role === "EMPLOYEE" ?
+                        <EmployeeSidebar pop={pop} setPop={setPop} />
+                        :
+                        <AdminSidebar pop={pop} setPop={setPop} />
+                }
+                <div className="tm">
+                    {
+                        role === "EMPLOYEE" ?
+                            <EmployeeNavbar /> :
 
-          <AdminNavbar user={user}  />
-          } 
+                            <AdminNavbar user={user} />
+                    }
 
 
                     <div className={`em ${openPayslip ? "hidenOverflow" : ""} `}>
@@ -270,7 +274,7 @@ const Payslip = ({
                                         <tbody>
 
                                             {
-                                                data.filter(x => x.user.designation !== "CEO" && x.user._id !== user._id )?.map((item, index) => (
+                                                data.filter(x => x.user.designation !== "CEO" && x.user._id !== user._id)?.map((item, index) => (
                                                     <tr key={index} className="bg-white opos border-b dark:bg-gray-800 dark:border-gray-700">
 
                                                         <td className="px-6 py-4">#KDS{item?.user?.employeeCode}</td>
@@ -283,42 +287,42 @@ const Payslip = ({
 
                                                         {/*  */}
 
-{
-(paySlipActionPermission || role === "ADMIN") && 
+                                                        {
+                                                            (paySlipActionPermission || role === "ADMIN") &&
 
 
-                                                        <div className="toglwCont">
-                                                            <td onClick={() => {
-                                                                if (showToggle === index) {
-                                                                    setShowToggle(null);
-                                                                }
-                                                                else {
-                                                                    setShowToggle(index);
-                                                                }
-                                                            }} className="px-6 py-4">
-                                                                <img src={acy} alt="acy" />
-                                                            </td>
-                                                            {
-                                                                showToggle === index &&
-                                                                <div className="togglewrap">
-
-                                                                    <p onClick={() => {
-                                                                        toggleStatus(item?.user?._id)
-                                                                    }}>Click to {item?.status === "Unpaid" ? "Paid" : "Unpaid"}</p>
-
-                                                                    <p onClick={() => {
-                                                                        setOpenPayslip(true);
+                                                            <div className="toglwCont">
+                                                                <td onClick={() => {
+                                                                    if (showToggle === index) {
                                                                         setShowToggle(null);
-                                                                        setPopData(item);
-                                                                    }}>Payslip</p>
+                                                                    }
+                                                                    else {
+                                                                        setShowToggle(index);
+                                                                    }
+                                                                }} className="px-6 py-4">
+                                                                    <img src={acy} alt="acy" />
+                                                                </td>
+                                                                {
+                                                                    showToggle === index &&
+                                                                    <div className="togglewrap">
 
-                                                                    <p>Delete </p>
+                                                                        <p onClick={() => {
+                                                                            toggleStatus(item?.user?._id)
+                                                                        }}>Click to {item?.status === "Unpaid" ? "Paid" : "Unpaid"}</p>
 
-                                                                </div>
-                                                            }
-                                                        </div>
+                                                                        <p onClick={() => {
+                                                                            setOpenPayslip(true);
+                                                                            setShowToggle(null);
+                                                                            setPopData(item);
+                                                                        }}>Payslip</p>
 
-}
+                                                                        <p>Delete </p>
+
+                                                                    </div>
+                                                                }
+                                                            </div>
+
+                                                        }
 
                                                     </tr>
                                                 ))
@@ -423,116 +427,135 @@ const Payslip = ({
             {
                 openPayslip &&
 
-                <div  className="openPaywrap">
+                <div className="openPaywrap">
 
-                    <div className="openPayCont">
-
+                    <div ref={contonentPDF} className="openPayCont">
                         <nav>
-                            <h2>Employee Payslip</h2>
-                             
-                             {/* <button onClick={generatePdf}>Print</button> */}
-                             <button onClick={generatePdf} type="button" className="text-white bg-blue-700 genrt hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Print</button>
+                            <img src={kdslogo} alt="" className="kdslogo" />
 
-                            <img onClick={() => setOpenPayslip(false)} className="cursor-pointer" src={cancell} alt="" />
-                        </nav>
+                            {/* <button onClick={generatePdf}>Print</button> */}
 
 
-                        <hr />
-
-                        <img src={kdslogo} alt="" className="kdslogo" />
-
-
-                        <hr />
-
-                        <div ref={contonentPDF}>
-                        <div  className="paydetails">
-
-                            {/* left side */}
-                            <div className="paydetailLeft">
-
-                                <label >
-                                    <p>Name :</p>
-                                    <p>{popdata?.user?.fullName}</p>
-                                </label>
-
-                                <label >
-                                    <p>Position :</p>
-                                    <p>{popdata?.user?.department}</p>
-                                </label>
-
-                                <label >
-                                    <p>Salary Date :</p>
-                                    <p>{popdata?.user?.salarydate}</p>
-                                </label>
-
-                            </div>
-
-                            {/* rigth side */}
                             <div className="paydetailRight">
                                 <h3>Kushel Digi Solutions</h3>
                                 <p>G-9, first Floor, Sector 63, Noida, Noida, <br />
                                     Uttar pradesh-251352</p>
                             </div>
 
+                            <img onClick={() => setOpenPayslip(false)} className="cursor-pointer" src={cancell} alt="" />
+                        </nav>
+                        <div className="print_button">
+                            <button id="test_print" onClick={() => {
+                                generatePdf();
+                            }} type="button" className="text-white bg-blue-700 genrt hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 print_slip">Print</button>
                         </div>
+                        <hr />
+                        <h3 className="text-center payslip_text">Payslip for the month of {popdata?.month} - {popdata?.year}</h3>
+                        <hr />
+                        <div>
+                            <div className="paydetails">
 
-                        <div className="payform">
-                            <div class="relative overflow-x-auto">
-                                <table class="w-full text-sm text-left rtl:text-right  ">
-                                    <thead class="text-xs  uppercase bg-gray-50 dark:bg-gray-700 ">
-                                        <tr>
-                                            <th scope="col" class="px-6 py-3">
-                                                Earning
-                                            </th>
-                                            <th scope="col" class="px-6 py-3">
-                                                Title
-                                            </th>
-                                            <th scope="col" class="px-6 py-3">
-                                                Type
-                                            </th>
-                                            <th scope="col" class="px-6 py-3">
-                                                Amount
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
+                                {/* left side */}
+                                <div className="paydetailLeft">
 
+                                    <label >
+                                        <p>Employee Name :</p>
+                                        <p>{popdata?.user?.fullName}</p>
+                                    </label>
 
-                                        <tr class="bg-white ">
+                                    <label >
+                                        <p>Designation :</p>
+                                        <p>{popdata?.user?.designation}</p>
+                                    </label>
 
-                                            <td class="px-6 py-4">
-                                                Basic Salary
-                                            </td>
-                                            <td class="px-6 py-4">
-                                            </td>
-                                            <td class="px-6 py-4">
-                                            </td>
-                                            <td class="px-6 py-4">
-                                                {popdata?.user?.netSalary}
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                    <label >
+                                        <p>Joining Date :</p>
+                                        <p>{popdata?.user?.joiningDate}</p>
+                                    </label>
+
+                                </div>
+
+                                {/* rigth side */}
+                                <div className="paydetailRight">
+                                    {/* <h3>Kushel Digi Solutions</h3>
+                                <p>G-9, first Floor, Sector 63, Noida, Noida, <br />
+                                    Uttar pradesh-251352</p> */}
+                                    <label className="d_slip" >
+                                        <p>Employee Code : </p>
+                                        <p>KDS{popdata?.user?.employeeCode}</p>
+                                    </label>
+                                    <label className="d_slip" >
+                                        <p>Father Name : </p>
+                                        <p>{popdata?.user?.father}</p>
+                                    </label>
+
+                                    <label className="d_slip">
+                                        <p>Pan no : </p>
+                                        <p>{popdata?.user?.pan}</p>
+                                    </label>
+                                </div>
+
                             </div>
 
-                            <div className="totalErWrap">
-                                <div className="enrcont">
-                                    <p>Total Earning :</p>
-                                    <p>  {popdata?.user?.netSalary}</p>
+                            <div className="payform">
+                                <div class="relative overflow-x-auto">
+                                    <table class="w-full text-sm text-left rtl:text-right  ">
+                                        <thead class="text-xs vhg  uppercase bg-gray-50 dark:bg-gray-700 ">
+                                            <tr>
+                                                <th scope="col" class="px-6 py-3">
+                                                    Earning Type
+                                                </th>
+                                                <th scope="col" class="px-6 py-3">
+                                                    Pay Rate
+                                                </th>
+                                                <th scope="col" class="px-6 py-3">
+                                                    Type
+                                                </th>
+                                                <th scope="col" class="px-6 py-3">
+                                                    Amount
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody className="vhg">
+
+
+                                            <tr class="bg-white ">
+
+                                                <td class="px-6 py-4">
+                                                    Basic Salary
+                                                </td>
+                                                <td class="px-6 py-4">
+                                                    {popdata?.user?.salary}
+                                                </td>
+                                                <td class="px-6 py-4">
+                                                    Monthly Payslip
+                                                </td>
+                                                <td class="px-6 py-4">
+                                                    {popdata?.user?.netSalary}
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
-                                <div className="enrcont">
-                                    <p>Total Deduction :</p>
-                                    <p>{popdata?.user?.netSalary - popdata?.user?.salary || "00"}</p>
+
+                                <div className="totalErWrap">
+                                    <div className="enrcont">
+                                        <p>Total Earning :</p>
+                                        <p>  {popdata?.user?.netSalary}</p>
+                                    </div>
+                                    <div className="enrcont">
+                                        <p>Total Deduction :</p>
+                                        <p>{popdata?.user?.netSalary - popdata?.user?.salary || "00"}</p>
+                                    </div>
                                 </div>
+
+
                             </div>
 
-
-                        </div>
-
-                        <div className="paidWrap">
-                            <h3>Employee Signature</h3>
-                            <p>Paid By</p>
-                        </div>
+                            <div className="paidWrap">
+                                <h3>Employee Signature</h3>
+                                <p>Paid By</p>
+                            </div>
                         </div>
 
 

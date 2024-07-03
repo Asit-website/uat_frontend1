@@ -1315,7 +1315,11 @@ body {
   flex-direction: column;
   gap: 24px;
   background: #FFFFFF;
-  transform: translateX(300px) translateY(100px);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  /* transform: translateX(300px) translateY(100px); */
 }
 
 .kdslogo {
@@ -1421,7 +1425,7 @@ body {
 
 }
 
-.paydetails .paydetailRight h3 {
+ .paydetailRight h3 {
   font-family: Inter;
   font-size: 16px;
   font-weight: 600;
@@ -1431,7 +1435,27 @@ body {
 
   color: #2B2B2B;
 }
-
+.d_slip{
+  display: flex !important;
+  gap: 10px;
+}
+.print_button{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.print_slip{
+  width: 150px;
+  max-width: 100%;
+  display: block;
+  margin: auto;
+}
+.payslip_text{
+  font-family: inter !important;
+  font-weight: 600;
+  font-size: 14px;
+  text-transform: uppercase;
+}
 .paydetails .paydetailRight p {
   font-family: Inter;
   color: #2B2B2B;
@@ -1440,9 +1464,11 @@ body {
   line-height: 16px;
   letter-spacing: 0.004em;
   text-align: left;
-
 }
-
+.vhg th,
+.vhg td{
+  font-family: inter !important;
+}
 .loader54 {
   width: 48px;
   height: 48px;
