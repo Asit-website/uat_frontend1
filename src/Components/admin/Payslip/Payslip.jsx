@@ -588,10 +588,10 @@ return 0;
                                         <p>Total Earning :</p>
                                         <p>  {popdata?.user?.netSalary - deductionData()}</p>
                                     </div>
-                                    <div className="enrcont">
+                                    {/* <div className="enrcont">
                                         <p>Total Deduction :</p>
                                         <p>{popdata?.user?.netSalary - popdata?.user?.salary || "00"}</p>
-                                    </div>
+                                    </div> */}
                                 </div>
 
 
