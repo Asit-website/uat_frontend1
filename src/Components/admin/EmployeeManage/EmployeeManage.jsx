@@ -32,7 +32,6 @@ const EmployeeManage = ({
 }) => {
   const { id } = useParams();
 
-    // this is new code
     const [currEmp, setCurrEmp] = useState(0);
 
   const navigate = useNavigate();
@@ -340,6 +339,8 @@ const EmployeeManage = ({
       if (documents.ExperienceLetter) {
         formData.append("ExperienceLetter", ExperienceLetter);
       }
+
+       console.log("formda ",formData);
 
       if (
         documents.adharCard !== "" ||

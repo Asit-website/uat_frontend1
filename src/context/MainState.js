@@ -170,11 +170,11 @@ const MainState = (props) => {
 
       const data = await post(`${baseUrl}/admin/createUser1`, { fullName, password, department, employeeId, gmail, reportingManager, designation, joiningDate, email, email1, mobile, gender, dob, pan, adhar, father, currentAddress, currentState, currentCity, currentPin, residence, perState, perCity, perPin, Martial, nationality, Mother, employeeCode, qualification, specialization, qualificationType, yearPass, university, college, percentage, previousCompany, previousDesignation, toDate, fromDate, numberOfMonth, Jobdescription, SalaryPay, SalaryBankName, BeneficiaryName, BankIfsc, AccountNumber, confirmAccount, Branch, adharCard, employeeType }, true);
 
-      const { _id } = data?.data?.adminUser;
+      const id = data?.data?._id;
 
       if (formData) {
 
-         const resp = await postDocuments(`${baseUrl}/user/uploadDocument/${_id}`, formData);
+         const resp = await postDocuments(`${baseUrl}/user/uploadDocument/${id}`, formData);
 
       }
 
