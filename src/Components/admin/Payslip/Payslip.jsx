@@ -13,15 +13,13 @@ import { useReactToPrint } from 'react-to-print'
 import EmployeeSidebar from "../../Employee/Sidebar/EmployeeSidebar";
 import EmployeeNavbar from "../../Employee/Navbar/EmployeeNavbar";
 
-const Payslip = ({
-    pop,
-    setPop
-}) => {
-    const { user, getUserSlip, togglePayslip, buildAPI } = useMain();
+const Payslip = ({ pop,  setPop}) => { 
+    
+    const { user, getUserSlip, togglePayslip, buildAPI , setUserTotalLeaveApi } = useMain();
 
     let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
 
-    const { role, paySlipActionPermission } = hrms_user;
+    const { role, paySlipActionPermission  } = hrms_user;
 
     const [loading, setLoading] = useState(false);
 
@@ -53,6 +51,8 @@ const Payslip = ({
     const [showToggle, setShowToggle] = useState(null);
 
     const [popdata, setPopData] = useState(null);
+
+    console.log("podata ",popdata);
 
     const fetchUserSlip = async (showLoading = true) => {
         if (showLoading) {
@@ -118,6 +118,7 @@ const Payslip = ({
     }
 
     const contonentPDF = useRef()
+
     const generatePdf = useReactToPrint({
         content: () => contonentPDF.current,
         documentTitle: "Order",
@@ -130,6 +131,34 @@ const Payslip = ({
 
 
     })
+
+    const deductionData = ()=>{
+          if(parseInt(popdata?.totalLeaves) > 2){
+              
+             let leftLeave;
+              if(popdata?.user?.totalLeaves > 15){
+                leftLeave = parseInt(popdata?.totalLeaves)
+              }
+              else{
+                  leftLeave = parseInt(popdata?.totalLeaves) - 2;
+                }
+              let netsalary = popdata?.user?.netSalary;
+               let perdaySalary = parseInt(netsalary/30);
+               return perdaySalary* leftLeave;
+
+          }
+          else {
+return 0;
+        }
+    }
+
+  const setUsersTotalLeaves = async()=>{
+    const ans = await  setUserTotalLeaveApi();
+  }
+
+  useEffect(()=>{
+    setUsersTotalLeaves();
+  },[])
 
     return (
         <>
@@ -261,6 +290,9 @@ const Payslip = ({
                                                     Salary
                                                 </th>
                                                 <th scope="col" className="px-6 py-3">
+                                                    Month Leave
+                                                </th>
+                                                <th scope="col" className="px-6 py-3">
                                                     Net Salary
                                                 </th>
                                                 <th scope="col" className="px-6 py-3">
@@ -281,6 +313,8 @@ const Payslip = ({
                                                         <td className="px-6 py-4">{item?.user?.fullName}</td>
                                                         <td className="px-6 py-4">{item?.user?.paySlipType}</td>
                                                         <td className="px-6 py-4">{item?.user?.salary ? item?.user?.salary : "00"}</td>
+                                                        
+                                                        <td className="px-6 py-4">{item?.totalLeaves}</td>
                                                         <td className="px-6 py-4">{item?.user?.netSalary}</td>
 
                                                         <td className={`px-6 py-4 `}> <span className={`${item?.status === "Unpaid" ? "unpaid" : "paid"} `}>{item?.status}</span> </td>
@@ -358,6 +392,7 @@ const Payslip = ({
                                 </div>
 
                             </div>
+
                         </div>
                     </div>
                 </div>
@@ -512,6 +547,9 @@ const Payslip = ({
                                                     Type
                                                 </th>
                                                 <th scope="col" class="px-6 py-3">
+                                                    Month Leave
+                                                </th>
+                                                <th scope="col" class="px-6 py-3">
                                                     Amount
                                                 </th>
                                             </tr>
@@ -531,6 +569,9 @@ const Payslip = ({
                                                     Monthly Payslip
                                                 </td>
                                                 <td class="px-6 py-4">
+                                                    {popdata?.totalLeaves}
+                                                </td>
+                                                <td class="px-6 py-4">
                                                     {popdata?.user?.netSalary}
                                                 </td>
                                             </tr>
@@ -540,8 +581,12 @@ const Payslip = ({
 
                                 <div className="totalErWrap">
                                     <div className="enrcont">
+                                        <p>Deduction :</p>
+                                        <p> {deductionData()}</p>
+                                    </div>
+                                    <div className="enrcont">
                                         <p>Total Earning :</p>
-                                        <p>  {popdata?.user?.netSalary}</p>
+                                        <p>  {popdata?.user?.netSalary - deductionData()}</p>
                                     </div>
                                     <div className="enrcont">
                                         <p>Total Deduction :</p>
