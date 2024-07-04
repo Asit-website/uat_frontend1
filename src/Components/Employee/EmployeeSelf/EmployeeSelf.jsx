@@ -81,7 +81,7 @@ const EmployeeSelf = ({ setAlert, pop1, setPop1 }) => {
 
                         <div className="singfirst">
                            <p>Employee ID :</p>
-                           <span>{user1?.employeeCode}</span>
+                           <span>KDS{user1?.employeeCode}</span>
                         </div>
 
                         <div className="singfirst">
