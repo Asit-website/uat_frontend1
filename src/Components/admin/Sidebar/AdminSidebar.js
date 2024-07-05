@@ -411,7 +411,22 @@ const AdminSidebar = ({ pop, setPop }) => {
                 <span className={`${window.location.pathname==="/performance/Assets" ? "fan" : ""}`}>Assets Management</span>
               </div>
             </div></NavLink>
+
+
               {/* ====================assets management end==================== */}
+
+{/* ==== Quoation form start ==== */}
+              <NavLink to="/adminDash/HRM/QuotationForm"><div className={`${window.location.pathname === "/adminDash/HRM/QuotationForm"  ? "hh" : ""} setWrap`}>
+              {/* <p>Setting</p> */}
+              <div className="systSset">
+              <img src={`${window.location.pathname === "/adminDash/HRM/QuotationForm"   ? webAsseting : webAsseting}`} alt="" />
+                <span className={`${window.location.pathname==="/adminDash/HRM/QuotationForm" ? "fan" : ""}`}>Quotation Form</span>
+              </div>
+            </div></NavLink>
+
+            {/* ==== Quoation form end ==== */}
+
+
               {/* ==================document  start================ */}
               <NavLink to="/adminDash/documentManagement"><div className={`${window.location.pathname === "/adminDash/documentManagement"  ? "hh" : ""} setWrap`}>
               {/* <p>Setting</p> */}

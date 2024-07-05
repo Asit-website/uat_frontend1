@@ -1989,6 +1989,10 @@ const MainState = (props) => {
       const data = await post(`${baseUrl}/permission/providePermission`, { Designation , userId ,Service  , SubPermission}, true);
       return data;
    };
+   const ProvideRemovePermission = async ({ Designation , userId ,Service , SubPermission}) => {
+      const data = await post(`${baseUrl}/permission/ProvideRemovePermission`, { Designation , userId ,Service  , SubPermission}, true);
+      return data;
+   };
    const RemovePermission = async ({  }) => {
       const data = await post(`${baseUrl}/permission/removePermission`, {  }, true);
       return data;
@@ -2016,6 +2020,7 @@ const MainState = (props) => {
          editAllowance, commisionDelteHandler, createLoan, editLoanApi,
          getTotalLeavesCount, uploadDocuments, createAnnouncement, deleteAnnouncement, updateAnnouncements, fetchAnnoucement, deleteAnnouncements, getEmp, allEmployeebyDep, notificationGet,
          acceptLeave, rejectLeave,
+         ProvideRemovePermission , 
          uploadOwnDocs,
          getAllLeads,
          updateDocSetup,
