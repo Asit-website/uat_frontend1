@@ -4870,7 +4870,29 @@ input::-webkit-inner-spin-button {
   border: 1px solid #E8E9EB;
   box-shadow: 0px 8px 32px -2px #1B25330F;
   padding: 15px 0px;
+  min-height: 250px;
+  max-height: 250px;
+  overflow-y: scroll;
   border-radius: 10px;
+}
+
+.table11::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge, and Firefox */
+.table11 {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+.table22::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge, and Firefox */
+.table22 {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }
 
 .saka th {}
@@ -4879,6 +4901,9 @@ input::-webkit-inner-spin-button {
   width: 100%;
   background-color: white;
   margin-left: 15px;
+  overflow-y: scroll;
+  min-height: 250px;
+  max-height: 250px;
   box-shadow: 0px 8px 32px -2px #1B25330F;
   border-radius: 15px;
   padding: 15px 0px;

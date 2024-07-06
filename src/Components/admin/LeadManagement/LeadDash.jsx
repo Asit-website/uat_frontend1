@@ -382,6 +382,7 @@ const LeadDash = ({ setAlert, pop, setPop }) => {
             </div>
 
             <div className="my_things">
+
               <div className="table11">
                 <div className="my_open">
                   <h3>My Follow Up </h3>
@@ -822,6 +823,7 @@ const LeadDash = ({ setAlert, pop, setPop }) => {
 
             {/* this is lastest */}
             <div className="my_things">
+              
               <div className="table11">
                 <div className="my_open">
                   <h3>Today's Leads</h3>
@@ -1159,6 +1161,7 @@ const LeadDash = ({ setAlert, pop, setPop }) => {
                   </div>
                 </div>
               </div>
+
             </div>
 
           </div>

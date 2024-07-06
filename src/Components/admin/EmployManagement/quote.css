@@ -23,6 +23,8 @@
 .qutaRight{
     max-width: 670px;
     width: 100%;
+    background-color: white;
+    padding: 20px;
 }
 
 .qutLTo{
@@ -136,6 +138,11 @@ gap: 10px;
     width: 100%;
 }
 
+.quotablle2{
+    max-width: 600px;
+    width: 100%;
+}
+
 .theadqu{
     background: #ECF2FF;
 
@@ -146,7 +153,20 @@ gap: 10px;
 font-size: 16px;
 font-weight: 500;
 line-height: 32px;
-color: #000000 !important;
+color:black !important;
+}
+.theadqu2{
+    background: #0B56E3;
+
+}
+
+.theadqu2 th{
+    background: #0B56E3  !important;
+    font-family: Inter;
+font-size: 16px;
+font-weight: 500;
+line-height: 32px;
+color: white !important;
 
 }
 
@@ -156,6 +176,20 @@ height: 34px;
 border-radius: 5px ;
 border: 1px solid #6A6A6A;
 padding: 0px 10px;
+font-family: Inter;
+font-size: 14px;
+font-weight: 500;
+line-height: 20px;
+text-align: left;
+color: #101820;
+}
+.tabletr2 td{
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 32px;
+    text-align: left;
+color: #101820;    
 }
 .tabletr .inpu11{
     width:140px;
@@ -198,6 +232,13 @@ color: #101820;
     text-align: left;
     color: #101820;
     
+}
+
+.hdquot img{
+    max-width: 128px;
+    width: 100%;
+    max-height: 30px;
+    height: 100%;
 }
 
 .cust{
@@ -318,12 +359,14 @@ color: #101820;
 .rigthfot{
     display: flex;
     justify-content: space-between;
+    gap: 20px;
 }
 
 .rigthfotleft{
     display: flex;
     flex-direction: column;
     gap: 10px;
+    max-width: 270px;
 }
 
 .rigthfotleft .leftfist{
@@ -347,6 +390,7 @@ font-size: 15px;
 font-weight: 500;
 text-align: left;
 color: #101820;    
+max-width: 250px;
 
 }
 .rigthfotleft .thirleft span{
@@ -362,6 +406,7 @@ color: #101820;
     display: flex;
     flex-direction: column;
     gap: 10px;
+    max-width: 300px;
 }
 .rigthfotright p{
     font-family: Inter;

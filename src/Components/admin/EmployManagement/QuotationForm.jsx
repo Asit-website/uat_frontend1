@@ -11,16 +11,41 @@ import cutting from "../../images/cutting.png";
 import kdsquto from "../../images/KdsQuto.png";
 import "./quote.css";
 import JoditEditor from "jodit-react";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import toast from "react-hot-toast";
 
 const QuotationForm = ({ setAlert, pop, setPop }) => {
-  const { user } = useMain();
+  const { user, uploadSingleImage } = useMain();
 
   let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
 
+  const [formdata, setFormdata] = useState({
+    quotationNum: "",
+    customerName: "",
+    customerReq: "",
+    mobileNum: "",
+    quotationDate: "",
+    validUntil: "",
+    customerId: "",
+    companyName: "",
+    companyAddress: "",
+    companyGSTIN: "",
+    companyWebsite: "",
+  });
+
+  const textChangeHandler = (e) => {
+    const { name, value } = e.target;
+    setFormdata((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
   const editor = useRef(null);
 
-  const [content, setContent] = useState("");
+  const [content, setContent] = useState(
+    `<h3 style="box-sizing: border-box; border-width: 0px; border-style: solid; border-color: rgb(229, 231, 235); --tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / 0.5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; padding: 0px; margin: 0px; font-family: Inter; font-size: 18px; font-weight: 500; line-height: 32px; text-align: left; color: rgb(16, 24, 32); font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;">User App(android/iOS)</h3><ul class="ulist" style="box-sizing: border-box; border-width: 0px; border-style: solid; border-color: rgb(229, 231, 235); --tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / 0.5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; padding: 0px; margin: 0px; font-family: gilroy; list-style: none; color: rgb(0, 0, 0); font-size: medium; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;"><li style="box-sizing: border-box; border-width: 0px; border-style: solid; border-color: rgb(229, 231, 235); --tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / 0.5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; padding: 0px; margin: 0px; font-family: Inter; font-size: 18px; font-weight: 500; line-height: 32px; text-align: left; color: rgb(16, 24, 32);">Login with</li></ul><ol class="ollist" style="box-sizing: border-box; border-width: 0px; border-style: solid; border-color: rgb(229, 231, 235); --tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / 0.5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; padding: 0px; margin: 0px; font-family: gilroy; list-style: none; color: rgb(0, 0, 0); font-size: medium; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;"><li style="box-sizing: border-box; border-width: 0px; border-style: solid; border-color: rgb(229, 231, 235); --tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / 0.5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; padding: 0px; margin: 0px; font-family: Inter; font-size: 18px; font-weight: 400; line-height: 32px; text-align: left; color: rgb(16, 24, 32);">1. Email address</li><li style="box-sizing: border-box; border-width: 0px; border-style: solid; border-color: rgb(229, 231, 235); --tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / 0.5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; padding: 0px; margin: 0px; font-family: Inter; font-size: 18px; font-weight: 400; line-height: 32px; text-align: left; color: rgb(16, 24, 32);">2. Password</li></ol><ul class="ulist" style="box-sizing: border-box; border-width: 0px; border-style: solid; border-color: rgb(229, 231, 235); --tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / 0.5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; padding: 0px; margin: 0px; font-family: gilroy; list-style: none; color: rgb(0, 0, 0); font-size: medium; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;"><li style="box-sizing: border-box; border-width: 0px; border-style: solid; border-color: rgb(229, 231, 235); --tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / 0.5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; padding: 0px; margin: 0px; font-family: Inter; font-size: 18px; font-weight: 500; line-height: 32px; text-align: left; color: rgb(16, 24, 32);">Sign Up</li></ul><ol class="ollist" style="box-sizing: border-box; border-width: 0px; border-style: solid; border-color: rgb(229, 231, 235); --tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / 0.5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; padding: 0px; margin: 0px; font-family: gilroy; list-style: none; color: rgb(0, 0, 0); font-size: medium; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;"><li style="box-sizing: border-box; border-width: 0px; border-style: solid; border-color: rgb(229, 231, 235); --tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / 0.5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; padding: 0px; margin: 0px; font-family: Inter; font-size: 18px; font-weight: 400; line-height: 32px; text-align: left; color: rgb(16, 24, 32);"><span style="box-sizing: border-box; border-width: 0px; border-style: solid; border-color: rgb(229, 231, 235); --tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / 0.5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; padding: 0px; margin: 0px; font-family: Inter; font-size: 18px; font-weight: 600; line-height: 26px; text-align: left;">Name:</span><span>&nbsp;</span>You’ll likely be asked to enter your first and last name.</li><li style="box-sizing: border-box; border-width: 0px; border-style: solid; border-color: rgb(229, 231, 235); --tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / 0.5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; padding: 0px; margin: 0px; font-family: Inter; font-size: 18px; font-weight: 400; line-height: 32px; text-align: left; color: rgb(16, 24, 32);"><span style="box-sizing: border-box; border-width: 0px; border-style: solid; border-color: rgb(229, 231, 235); --tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / 0.5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; padding: 0px; margin: 0px; font-family: Inter; font-size: 18px; font-weight: 600; line-height: 26px; text-align: left;">Email address:<span>&nbsp;</span></span>You’ll need to provide a valid email address to create an account.</li></ol>`
+  );
 
   const {
     role,
@@ -35,13 +60,40 @@ const QuotationForm = ({ setAlert, pop, setPop }) => {
     fileInputRef.current.click();
   };
 
-  const handleFileChange = (event) => {
+  const [logoImage, setLogoImage] = useState("");
+
+  const handleFileChange = async (event) => {
     const file = event.target.files[0];
     if (file) {
-      console.log("Selected file:", file);
-      // You can also handle the selected file here, e.g., uploading it to a server
+      const formdata2 = new FormData();
+      formdata2.append("Image", file);
+
+      const ans = await uploadSingleImage(formdata2);
+      if (ans?.status) {
+        sessionStorage.setItem("quotationLogoLink", ans?.link);
+        toast.success("Successfuly uploaded");
+        setLogoImage(ans?.link);
+      } else {
+        toast.error("Something went wrong , please try again");
+      }
     }
   };
+
+  const [rows, setRows] = useState([
+    { description: "", quantity: "", price: "", total: "" },
+  ]);
+
+  const addRow = () => {
+    setRows([...rows, { description: "", quantity: "", price: "", total: "" }]);
+  };
+
+  useEffect(() => {
+    const quotationLogoLink = sessionStorage.getItem("quotationLogoLink");
+    if (quotationLogoLink) {
+      setLogoImage(quotationLogoLink);
+    }
+  }, []);
+
   return (
     <>
       <div className="employee-dash h-full">
@@ -59,55 +111,96 @@ const QuotationForm = ({ setAlert, pop, setPop }) => {
           )}
 
           <div className="em">
+
             <div className="qutaWrap">
+
               {/* lefft side  */}
 
               <div className="qutaLeft">
+
                 <div className="qutLTo">
+
                   <h2>Quotation Form</h2>
-                  <button>
+                  {/* <button>
                     <span>Preview</span>
-                  </button>
+                  </button> */}
+
                 </div>
 
                 <div className="allwhitebg">
                   <form className="qtoform">
                     <label>
                       <p>Quotation No*</p>
-                      <input type="text" placeholder="#01" />
+                      <input
+                        value={formdata.quotationNum}
+                        name="quotationNum"
+                        onChange={textChangeHandler}
+                        type="text"
+                        placeholder="#01"
+                      />
                     </label>
 
                     <label>
                       <p>Customer Name*</p>
-                      <input type="text" placeholder="Akash Negi" />
+                      <input
+                        value={formdata.customerName}
+                        name="customerName"
+                        onChange={textChangeHandler}
+                        type="text"
+                        placeholder="Akash Negi"
+                      />
                     </label>
 
                     <label>
                       <p>Customer Requirement</p>
                       <input
                         type="text"
+                        value={formdata.customerReq}
+                        name="customerReq"
+                        onChange={textChangeHandler}
                         placeholder="Mobile App - diet care app"
                       />
                     </label>
 
                     <label>
                       <p>Mobile Number*</p>
-                      <input type="text" placeholder="+918595046368" />
+                      <input
+                        value={formdata.mobileNum}
+                        name="mobileNum"
+                        onChange={textChangeHandler}
+                        type="text"
+                        placeholder="+918595046368"
+                      />
                     </label>
 
                     <label>
                       <p>Quotation Date*</p>
-                      <input type="date" />
+                      <input
+                        value={formdata.quotationDate}
+                        name="quotationDate"
+                        onChange={textChangeHandler}
+                        type="date"
+                      />
                     </label>
 
                     <label>
                       <p>Valid Until*</p>
-                      <input type="date" />
+                      <input
+                        value={formdata.validUntil}
+                        name="validUntil"
+                        onChange={textChangeHandler}
+                        type="date"
+                      />
                     </label>
 
                     <label>
                       <p>Customer ID*</p>
-                      <input type="date" />
+                      <input
+                        value={formdata.customerId}
+                        name="customerId"
+                        onChange={textChangeHandler}
+                        type="text"
+                      />
                     </label>
 
                     <div className="admorewrap">
@@ -130,47 +223,78 @@ const QuotationForm = ({ setAlert, pop, setPop }) => {
                   </form>
 
                   <div class="relative ">
-                    <table class="quotablle text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                      <thead class="theadqu">
+                    <table className="quotablle text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                      <thead className="theadqu">
                         <tr>
-                          <th scope="col" class="px-2 py-3">
+                          <th scope="col" className="px-2 py-3">
                             Description
                           </th>
-                          <th scope="col" class="px-2 py-3">
+                          <th scope="col" className="px-2 py-3">
                             Quantity
                           </th>
-                          <th scope="col" class="px-2 py-3">
+                          <th scope="col" className="px-2 py-3">
                             Price
                           </th>
-                          <th scope="col" class="px-2 py-3">
+                          <th scope="col" className="px-2 py-3">
                             Total
                           </th>
                         </tr>
                       </thead>
-
                       <tbody>
-                        <tr class="bg-white tabletr ">
-                          <td class="px-2 py-4">
-                            <input type="text" className="inpu11" />
-                          </td>
-
-                          <td class="px-2 py-4">
-                            <input type="number" />
-                          </td>
-
-                          <td class="px-2 py-4">
-                            <input type="number" />
-                          </td>
-
-                          <td class="px-2 py-4">
-                            <input type="number" />
-                          </td>
-                        </tr>
+                        {rows.map((row, index) => (
+                          <tr className="bg-white tabletr" key={index}>
+                            <td className="px-2 py-4">
+                              <input
+                                type="text"
+                                className="inpu11"
+                                value={row.description}
+                                onChange={(e) => {
+                                  const newRows = [...rows];
+                                  newRows[index].description = e.target.value;
+                                  setRows(newRows);
+                                }}
+                              />
+                            </td>
+                            <td className="px-2 py-4">
+                              <input
+                                type="number"
+                                value={row.quantity}
+                                onChange={(e) => {
+                                  const newRows = [...rows];
+                                  newRows[index].quantity = e.target.value;
+                                  setRows(newRows);
+                                }}
+                              />
+                            </td>
+                            <td className="px-2 py-4">
+                              <input
+                                type="number"
+                                value={row.price}
+                                onChange={(e) => {
+                                  const newRows = [...rows];
+                                  newRows[index].price = e.target.value;
+                                  setRows(newRows);
+                                }}
+                              />
+                            </td>
+                            <td className="px-2 py-4">
+                              <input
+                                type="number"
+                                value={row.total}
+                                onChange={(e) => {
+                                  const newRows = [...rows];
+                                  newRows[index].total = e.target.value;
+                                  setRows(newRows);
+                                }}
+                              />
+                            </td>
+                          </tr>
+                        ))}
                       </tbody>
                     </table>
                   </div>
 
-                  <div className="admorCont">
+                  <div onClick={addRow} className="admorCont">
                     <img src={plussing} alt="" />
                     <span>Add Item</span>
                   </div>
@@ -184,7 +308,7 @@ const QuotationForm = ({ setAlert, pop, setPop }) => {
                       ref={editor}
                       value={content}
                       tabIndex={1}
-                      // onBlur={(newContent) => setContent(newContent)}
+                      onBlur={(newContent) => setContent(newContent)}
                       onChange={(newContent) => {
                         setContent(newContent);
                       }}
@@ -197,22 +321,44 @@ const QuotationForm = ({ setAlert, pop, setPop }) => {
                     <form className="qtoform">
                       <label>
                         <p>Company Name*</p>
-                        <input type="text" placeholder="" />
+                        <input
+                          value={formdata.companyName}
+                          name="companyName"
+                          onChange={textChangeHandler}
+                          type="text"
+                          placeholder=""
+                        />
                       </label>
 
                       <label>
                         <p>Company Address*</p>
-                        <input type="text" placeholder="" />
+                        <input
+                          value={formdata.companyAddress}
+                          name="companyAddress"
+                          onChange={textChangeHandler}
+                          type="text"
+                          placeholder=""
+                        />
                       </label>
 
                       <label>
                         <p>Company GSTIN*</p>
-                        <input type="text" />
+                        <input
+                          value={formdata.companyGSTIN}
+                          name="companyGSTIN"
+                          onChange={textChangeHandler}
+                          type="text"
+                        />
                       </label>
 
                       <label>
                         <p>Company Website*</p>
-                        <input type="text" />
+                        <input
+                          value={formdata.companyWebsite}
+                          name="companyWebsite"
+                          onChange={textChangeHandler}
+                          type="text"
+                        />
                       </label>
                     </form>
                   </div>
@@ -221,81 +367,66 @@ const QuotationForm = ({ setAlert, pop, setPop }) => {
 
               {/* right side  */}
               <div className="qutaRight">
-                <div className="qrTop">
+                
+                {/* <div className="qrTop">
                   <h3>Preview</h3>
                   <img src={cutting} alt="" />
                 </div>
 
-                <hr />
+                <hr /> */}
 
                 <div className="hdquot">
-                  <p>Quotation #01</p>
-                  <img src={kdsquto} alt="" />
+                  <p>Quotation {formdata?.quotationNum}</p>
+                  {/* <img src={kdsquto} alt="" /> */}
+                  <img src={logoImage} alt="" />
                 </div>
 
                 <p className="cust">Customer</p>
 
                 <div className="gridView">
-                  <p>Mr. Akash Negi</p>
-                  <p>Date: 05/07/2024</p>
-                  <p>Mobile App - diet cure app</p>
-                  <p>Valid Until: 05/08/2024</p>
-                  <p>+918595046368</p>
-                  <p>Customer ID: 001</p>
+                  <p>{formdata?.customerName}</p>
+                  <p>Date: {formdata?.quotationDate}</p>
+                  <p>{formdata?.customerReq}</p>
+                  <p>Valid Until: {formdata?.validUntil}</p>
+                  <p>{formdata?.mobileNum}</p>
+                  <p>Customer ID: {formdata?.customerId}</p>
                 </div>
 
                 {/* talble */}
 
                 <div className="talbeLike">
-                  <nav>
-                    <p>Description</p>
-                    <p>Quantity</p>
-                    <p>Price</p>
-                    <p>Total</p>
-                  </nav>
 
-                  <div className="tabledata">
-                    <p>Featured Services</p>
-                    <p>1</p>
-                    <p>0</p>
-                    <p>0</p>
+                 
+                <div class="relative ">
+                <table className="quotablle2 text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+        <thead className="theadqu2">
+          <tr>
+            <th scope="col" className="px-2 py-3">Description</th>
+            <th scope="col" className="px-2 py-3">Quantity</th>
+            <th scope="col" className="px-2 py-3">Price</th>
+            <th scope="col" className="px-2 py-3">Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((row, index) => (
+            <tr className="bg-white tabletr2" key={index}>
+              <td className="px-2 py-4">{row.description}</td>
+              <td className="px-2 py-4">{row.quantity}</td>
+              <td className="px-2 py-4">{row.price}</td>
+              <td className="px-2 py-4">{row.total}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
                   </div>
 
-                  <ol className="services">
-                    <li>1. User App(android/iOS)</li>
-                    <li>2. Portfolio Website</li>
-                    <li>3. Admin Pannel</li>
-                  </ol>
+
                 </div>
 
                 <hr />
 
                 <div className="userApp">
-                  <h3>User App(android/iOS)</h3>
-
-                  <ul className="ulist">
-                    <li>Login with</li>
-                  </ul>
-
-                  <ol className="ollist">
-                    <li>1. Email address</li>
-                    <li>2. Password</li>
-                  </ol>
-
-                  <ul className="ulist">
-                    <li>Sign Up</li>
-                  </ul>
-
-                  <ol className="ollist">
-                    <li>
-                      <span>Name:</span> You’ll likely be asked to enter your
-                      first and last name.
-                    </li>
-                    <li>
-                      <span>Email address: </span>You’ll need to provide a valid
-                      email address to create an account.{" "}
-                    </li>
-                  </ol>
+                  <div dangerouslySetInnerHTML={{ __html: content }} />
                 </div>
 
                 <hr />
@@ -303,23 +434,21 @@ const QuotationForm = ({ setAlert, pop, setPop }) => {
                 <div className="rigthfot">
                   {/* right side */}
                   <div className="rigthfotleft">
-                    <p className="leftfist">Kushel Digi Solutions</p>
+                    <p className="leftfist">{formdata.companyName}</p>
                     <p className="seconle">
                       IT and e-Commerce Development Company
                     </p>
                     <p className="thirleft">
-                      <span>GST No. </span> 07BKIPG8876K1ZG
+                      <span>GST No. </span> {formdata.companyGSTIN}
                     </p>
                   </div>
 
                   {/* eleft  */}
                   <div className="rigthfotright">
                     <p>Reach us at</p>
-                    <p>
-                      G9, Sector 63 Rd, Noida, Chotpur, Uttar Pradesh 201301
-                    </p>
+                    <p>{formdata?.companyAddress}</p>
                     <p>+91-9045301702 / +1-585-566-2070</p>
-                    <p>www.kusheldigi.com</p>
+                    <p>{formdata?.companyWebsite}</p>
                   </div>
 
                   <hr />
@@ -331,7 +460,9 @@ const QuotationForm = ({ setAlert, pop, setPop }) => {
                   </button>
                 </div>
               </div>
+
             </div>
+
           </div>
         </div>
       </div>

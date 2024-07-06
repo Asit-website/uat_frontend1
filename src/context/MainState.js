@@ -175,12 +175,18 @@ const MainState = (props) => {
       if (formData) {
 
          const resp = await postDocuments(`${baseUrl}/user/uploadDocument/${id}`, formData);
-
+         
       }
-
+      
       return data;
-
+      
    };
+   
+   const uploadSingleImage = async(formData)=>{
+      const resp = await postDocuments(`${baseUrl}/user/uploadSingleImg`, formData);
+      return resp;
+
+   }
 
    const getUsers = async (userId) => {
       const data = await get(`${baseUrl}/user/getUsers?userId=${userId}`, true);
@@ -2086,7 +2092,8 @@ const MainState = (props) => {
          postQuotation1,
          getQuotationAll1,
          updateQuotation1,
-         deleteQuotation1
+         deleteQuotation1 , 
+         uploadSingleImage
       }}>
          {props.children}
       </MainContext.Provider>
