@@ -13,11 +13,10 @@ import deli from "../../images/deli.svg";
 import semi from "../../images/simi.svg";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
-import cancel from "../../images/cancell.png"
-import { useLocation } from 'react-router-dom';
-import edit from "../../images/edit.png"
-import delete32 from "../../images/delete.png"
-
+import cancel from "../../images/cancell.png";
+import { useLocation } from "react-router-dom";
+import edit from "../../images/edit.png";
+import delete32 from "../../images/delete.png";
 
 const ImportLead = ({ setAlert, pop, setPop }) => {
   const {
@@ -28,14 +27,24 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
     getQuotationAll,
     deleteQuotation,
     taskCreateApi,
-    meetCreateApi, taskEditApi, meetEditApi, GetNoteApi, DeleteNoteApi, updateNoteApi, FetchFollowApi, getLeadStat , getFollowUp,getUserByDesignation1
+    meetCreateApi,
+    taskEditApi,
+    meetEditApi,
+    GetNoteApi,
+    DeleteNoteApi,
+    updateNoteApi,
+    FetchFollowApi,
+    getLeadStat,
+    getFollowUp,
+    getUserByDesignation1,
+    getQuotationApi,
+    deleteQuotationapi
   } = useMain();
 
   const { id } = useParams();
 
   const location = useLocation();
   const { type, data1 } = location.state || {};
-
 
   const [refreshFlag, setRefreshFlag] = useState(false);
 
@@ -45,7 +54,7 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
 
   const [leadStat, setLeadStat] = useState([]);
 
-  const [userDeg,setUserDeg] = useState([]);
+  const [userDeg, setUserDeg] = useState([]);
 
   const [Note, setNote] = useState("");
 
@@ -58,45 +67,43 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
     if (ans?.status) {
       setAllFollowUp(ans?.data);
     }
-  }
+  };
 
-  const fetchUserDesignation = async () =>{
-     const ans = await getUserByDesignation1();
-     setUserDeg(ans?.data);
-  }
+  const fetchUserDesignation = async () => {
+    const ans = await getUserByDesignation1();
+    setUserDeg(ans?.data);
+  };
 
-  useEffect(()=>{
-      fetchUserDesignation();
-  },[])
+  useEffect(() => {
+    fetchUserDesignation();
+  }, []);
 
   const fetchLeadStat = async () => {
     const ans = await getLeadStat();
     setLeadStat(ans?.data);
-
-  }
+  };
 
   useEffect(() => {
     fetchLeadStat();
-  }, [])
-
+  }, []);
 
   const getData = async () => {
     let ans = await getLead2(id, "", "", "");
     setData(ans.data[0]);
   };
 
-  const [allFollow2 ,setAllFollow2] = useState([]);
+  const [allFollow2, setAllFollow2] = useState([]);
 
-  const getFollow = async()=>{
+  const getFollow = async () => {
     const ans = await getFollowUp();
-     if(ans?.success){
+    if (ans?.success) {
       setAllFollow2(ans?.data);
-     }
-  }
+    }
+  };
 
-  useEffect(()=>{
+  useEffect(() => {
     getFollow();
-  },[])
+  }, []);
 
   const updatingLeadStatus = async (leading) => {
     const { _id } = data;
@@ -111,12 +118,9 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
     if (ans?.status) {
       setAllNote(ans?.data);
     }
-  }
-
+  };
 
   const createNote = async () => {
-
-
     const ans = await CreateNoteApi(id, Note, LeadStatus);
     if (ans?.status) {
       toast.success("Successfuly created");
@@ -124,7 +128,6 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
       setNote("");
       setLeadStatus("Status");
     }
-
   };
 
   const updatingNote = async () => {
@@ -144,7 +147,7 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
       toast.success("delleted ");
       getNotes();
     }
-  }
+  };
 
   const [userQuotation, setUserQu] = useState([]);
 
@@ -154,10 +157,6 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
       setUserQu(ans?.data);
     }
   };
-
-  useEffect(() => {
-    getQuotation();
-  }, [refreshFlag]);
 
   const deleteProject = async (id) => {
     confirmAlert({
@@ -189,41 +188,45 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
   const [opnAdNew, setOpenAdNew] = useState(false);
 
   const [taskData, setTaskData] = useState({
-    LeadName: `${data?.FirstName || ''} ${data?.LastName || ''}`,
+    LeadName: `${data?.FirstName || ""} ${data?.LastName || ""}`,
     FollowUpType: "",
     Date: "",
     Time: "",
     Remark: "",
     LeadId: id,
-    userId: data?.LeadOwner?._id
-  })
-
-  useEffect(() => {
-    setTaskData((prev) => ({
-      ...prev,
-      LeadName: `${data?.FirstName || ''} ${data?.LastName || ''}`,
-    }))
-  }, [data])
-
+    userId: data?.LeadOwner?._id,
+  });
 
   const [meetData, setMeetData] = useState({
-    title: "", meetDateFrom: "", meetDateTo: "", Status: "", LeadId: id, meetTimeFrom: "", meetTimeTo: "", Host: "", RelatedTo: "", Participant: "", Note: "", userId: data?.LeadOwner?._id, MeetingLink: ""
-  })
+    title: "",
+    meetDateFrom: "",
+    meetDateTo: "",
+    Status: "",
+    LeadId: id,
+    meetTimeFrom: "",
+    meetTimeTo: "",
+    Host: "",
+    RelatedTo: "",
+    Participant: "",
+    Note: "",
+    userId: data?.LeadOwner?._id,
+    MeetingLink: "",
+  });
 
   const taskHandler = (e) => {
     const { name, value } = e.target;
     setTaskData((prev) => ({
       ...prev,
-      [name]: value
-    }))
-  }
+      [name]: value,
+    }));
+  };
   const meetHandler = (e) => {
     const { name, value } = e.target;
     setMeetData((prev) => ({
       ...prev,
-      [name]: value
-    }))
-  }
+      [name]: value,
+    }));
+  };
 
   const TaskSubmitHandler = async (e) => {
     e.preventDefault();
@@ -235,23 +238,21 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
     if (ans?.status) {
       toast.success("Successfuly created");
       setTaskData({
-        LeadName: `${data?.FirstName || ''} ${data?.LastName || ''}`,
+        LeadName: `${data?.FirstName || ""} ${data?.LastName || ""}`,
         FollowUpType: "",
         Status: "",
         Date: "",
         Time: "",
         Remark: "",
         LeadId: id,
-        userId: data?.LeadOwner?._id
-
-      })
+        userId: data?.LeadOwner?._id,
+      });
       fetchFollowUp();
       setOpenCreateTask(false);
     }
 
     toast.dismiss(toastId);
-
-  }
+  };
 
   const taskUpdateHandler = async (e) => {
     e.preventDefault();
@@ -263,22 +264,20 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
     if (ans?.status) {
       toast.success("Successfuly updated");
       setTaskData({
-        LeadName: `${data?.FirstName || ''} ${data?.LastName || ''}`,
+        LeadName: `${data?.FirstName || ""} ${data?.LastName || ""}`,
         FollowUpType: "",
         Status: "",
         Date: "",
         Time: "",
         Remark: "",
         LeadId: id,
-        userId: data?.LeadOwner?._id
-
-      })
+        userId: data?.LeadOwner?._id,
+      });
       setOpenCreateTask(false);
     }
 
     toast.dismiss(toastId);
-
-  }
+  };
 
   const meetSubmitHandler = async (e) => {
     e.preventDefault();
@@ -290,13 +289,24 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
     if (ans?.status) {
       toast.success("Successfuly created");
       setOpenCreateMeet(false);
-      setMeetData({ title: "", meetDateFrom: "", meetDateTo: "", Status: "", meetTimeFrom: "", meetTimeTo: "", Host: "", RelatedTo: "", Participant: "", Note: "", userId: data?.LeadOwner?._id, MeetingLink: "" })
-
+      setMeetData({
+        title: "",
+        meetDateFrom: "",
+        meetDateTo: "",
+        Status: "",
+        meetTimeFrom: "",
+        meetTimeTo: "",
+        Host: "",
+        RelatedTo: "",
+        Participant: "",
+        Note: "",
+        userId: data?.LeadOwner?._id,
+        MeetingLink: "",
+      });
     }
 
     toast.dismiss(toastId);
-
-  }
+  };
 
   const meetUpdateHandler = async (e) => {
     e.preventDefault();
@@ -308,24 +318,61 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
     if (ans?.status) {
       toast.success("Successfuly created");
       setOpenCreateMeet(false);
-      setMeetData({ title: "", meetDateFrom: "", meetDateTo: "", Status: "", meetTimeFrom: "", meetTimeTo: "", Host: "", RelatedTo: "", Participant: "", Note: "", userId: data?.LeadOwner?._id })
-
+      setMeetData({
+        title: "",
+        meetDateFrom: "",
+        meetDateTo: "",
+        Status: "",
+        meetTimeFrom: "",
+        meetTimeTo: "",
+        Host: "",
+        RelatedTo: "",
+        Participant: "",
+        Note: "",
+        userId: data?.LeadOwner?._id,
+      });
     }
 
     toast.dismiss(toastId);
+  };
 
+  const convertTo12HourFormat = (time) => {
+    const [hours, minutes] = time.split(":");
+    const intHours = parseInt(hours, 10);
+    const amPm = intHours >= 12 ? "PM" : "AM";
+    const adjustedHours = intHours % 12 || 12; // Convert 0 to 12 for 12 AM
+    return `${adjustedHours}:${minutes} ${amPm}`;
+  };
+
+  const [allQuota, setAllQuota] = useState([]);
+
+  const getQuotationOfLead = async () => {
+    const ans = await getQuotationApi(id);
+    setAllQuota(ans);
+  };
+
+  const deleteQuotationApi = async(id)=>{
+    const toastId = toast.loading("Loading...");
+    const ans = await deleteQuotationapi(id);
+      if(ans?.status){
+         getQuotationOfLead();
+        toast.success("Successfuly deleted");
+      }
+      else {
+        toast.error("Something went wrong");
+      }
+      toast.dismiss(toastId);
   }
 
-
   useEffect(() => {
-    if (type === 'meet' && data1) {
+    if (type === "meet" && data1) {
       setMeetData(data1);
       setOpenCreateMeet(true);
     }
   }, [type, data1]);
 
   useEffect(() => {
-    if (type === 'task' && data1) {
+    if (type === "task" && data1) {
       setTaskData(data1);
       setOpenCreateTask(true);
     }
@@ -333,54 +380,50 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
 
   useEffect(() => {
     if (data) {
-
-      setMeetData(prevMeetData => ({
+      setMeetData((prevMeetData) => ({
         ...prevMeetData,
-        userId: data?.LeadOwner?._id
+        userId: data?.LeadOwner?._id,
       }));
 
-      setTaskData(prev => ({
+      setTaskData((prev) => ({
         ...prev,
-        userId: data?.LeadOwner?._id
+        userId: data?.LeadOwner?._id,
       }));
-
     }
   }, [data]);
+
+  useEffect(() => {
+    setTaskData((prev) => ({
+      ...prev,
+      LeadName: `${data?.FirstName || ""} ${data?.LastName || ""}`,
+    }));
+  }, [data]);
+
+  useEffect(() => {
+    getQuotation();
+  }, [refreshFlag]);
+
+  useEffect(() => {
+    const size = allNote.length;
+    if (size) {
+      let lastNote = allNote[size - 1];
+      const { Status } = lastNote;
+      setLeadStatus(Status);
+    }
+  }, [allNote]);
+
 
 
   useEffect(() => {
     getData();
     getNotes();
     fetchFollowUp();
-  }, [])
-
-  const convertTo12HourFormat = (time) => {
-    const [hours, minutes] = time.split(':');
-    const intHours = parseInt(hours, 10);
-    const amPm = intHours >= 12 ? 'PM' : 'AM';
-    const adjustedHours = intHours % 12 || 12; // Convert 0 to 12 for 12 AM
-    return `${adjustedHours}:${minutes} ${amPm}`;
-  };
-
-  useEffect(()=>{
-   
-       const size = allNote.length;
-         if(size){
-          let lastNote = allNote[size-1];
-            const {Status} = lastNote;
-            setLeadStatus(Status);
-         }
-         
-    
-  },[allNote])
-
+    getQuotationOfLead();
+  }, []);
 
   return (
     <div className="imprtleadCont">
-
-
       <div className="employee-dash h-full">
-
         <AdminSidebar pop={pop} setPop={setPop} />
 
         <div className="tm">
@@ -398,7 +441,9 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
                 />
 
                 <div className="lTITL">
-                  <h2>{data?.FirstName} {" "} {data?.LastName}</h2>
+                  <h2>
+                    {data?.FirstName} {data?.LastName}
+                  </h2>
                   <p style={{ display: "flex" }}>
                     <img src={bx} /> <span> Add Tags</span>
                   </p>
@@ -593,9 +638,7 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
 
               {/* second  third  */}
               <div className="leadFirs">
-
                 <div className="LEADSsTunav">
-
                   <h2 className="ehading">Lead Status</h2>
 
                   <hr />
@@ -611,126 +654,126 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
                     id=""
                   >
                     <option> Status</option>
-                    {
-                      leadStat?.map((val, index) => {
-                        return <option key={index} value={val?.name}>{val?.name}</option>
-                      })
-                    }
-                   
+                    {leadStat?.map((val, index) => {
+                      return (
+                        <option key={index} value={val?.name}>
+                          {val?.name}
+                        </option>
+                      );
+                    })}
                   </select>
 
                   <label className="noteLabel">
                     <p>Note:</p>
                     <textarea
                       value={Note}
-                      onChange={(e) => { setNote(e.target.value) }}
+                      onChange={(e) => {
+                        setNote(e.target.value);
+                      }}
                       type="text"
                     />
                   </label>
 
                   <div className="noteSaveBtn">
-
-                    <button onClick={() => {
-                      setNote("");
-                      setIsNoteEdit(false);
-                    }} className="canccfdl">Cancel</button>
-
-                    <button className="noteSaveBtn2" onClick={isNoteEdit ? updatingNote : createNote}>
-                      <span>{isNoteEdit ? "Update" : "Save"}</span>
+                    <button
+                      onClick={() => {
+                        setNote("");
+                        setIsNoteEdit(false);
+                      }}
+                      className="canccfdl"
+                    >
+                      Cancel
                     </button>
 
-
+                    <button
+                      className="noteSaveBtn2"
+                      onClick={isNoteEdit ? updatingNote : createNote}
+                    >
+                      <span>{isNoteEdit ? "Update" : "Save"}</span>
+                    </button>
                   </div>
 
-
                   <div className="allNotes">
-                    {
-                      allNote?.map((note, index) => (
-                        <div key={index} className="singlNoteDe">
+                    {allNote?.map((note, index) => (
+                      <div key={index} className="singlNoteDe">
+                        <div className="line_danda"></div>
 
-                          <div className="line_danda">
+                        <div className="noteStaus">
+                          <p>{note?.Status}</p>
+                        </div>
 
-                          </div>
+                        <p className="notedate">
+                          {new Date(note?.Date).toLocaleDateString("en-US", {
+                            month: "long",
+                            day: "numeric",
+                            year: "numeric",
+                          })}
+                        </p>
 
-                          <div className="noteStaus">
+                        <p className="noteTExt">{note?.Note}</p>
 
-                            <p>{note?.Status}</p>
-
-                          </div>
-
-                          <p className="notedate">{new Date(note?.Date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</p>
-
-                          <p className="noteTExt">{note?.Note}</p>
-
-                          {/* <img onClick={()=>{
+                        {/* <img onClick={()=>{
                                     setIsNoteEdit(note?._id);
                                   setNote(note?.Note);
                                   }} src={veci} alt="" /> */}
-                          <img onClick={() => {
-                            deleteNote(note?._id)
-                          }} src={deli} alt="" />
-
-                        </div>
-                      ))
-                    }
+                        <img
+                          onClick={() => {
+                            deleteNote(note?._id);
+                          }}
+                          src={deli}
+                          alt=""
+                        />
+                      </div>
+                    ))}
                   </div>
-
                 </div>
-
               </div>
 
               {/* secoond third   third  */}
               <div className="leadFirs">
-
                 <div className="LEADSsTunav litu">
-
-
                   <h2 className="ehading">Open Activities</h2>
 
                   <div className="addNewCont">
-
-                    <div onClick={() => setOpenAdNew((prev) => !prev)} className="addneEW">
+                    <div
+                      onClick={() => setOpenAdNew((prev) => !prev)}
+                      className="addneEW"
+                    >
                       <p>Add New</p>
                     </div>
 
-                    {
-                      opnAdNew &&
+                    {opnAdNew && (
                       <div className="opeAnew">
-
                         <p onClick={() => setOpenCreateTask(true)}>Follow Up</p>
                         <hr />
                         <p onClick={() => setOpenCreateMeet(true)}>Meeting</p>
-
                       </div>
-
-                    }
+                    )}
                   </div>
-
                 </div>
 
                 <div className="allFolowup">
-
                   <h2>My Next Follow Up : </h2>
 
-                  {
-                    allFollowUp?.map((fol, index) => (
-                      <div key={index} className="singFol">
+                  {allFollowUp?.map((fol, index) => (
+                    <div key={index} className="singFol">
+                      <p className="notedate">
+                        {new Date(fol?.Date).toLocaleDateString("en-US", {
+                          month: "long",
+                          day: "numeric",
+                          year: "numeric",
+                        })}
+                      </p>
+                      <p>{fol?.time}</p>
 
-                        <p className="notedate">{new Date(fol?.Date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</p>
-                        <p>{fol?.time}</p>
+                      <p>{fol?.Time && convertTo12HourFormat(fol.Time)}</p>
 
-                        <p>{fol?.Time && convertTo12HourFormat(fol.Time)}</p>
+                      <p>{fol?.FollowUpType}</p>
 
-                        <p>{fol?.FollowUpType}</p>
-
-                        <p>{fol?.Remark}</p>
-
-                      </div>
-                    ))
-                  }
-
+                      <p>{fol?.Remark}</p>
+                    </div>
+                  ))}
                 </div>
-
               </div>
 
               {/* third third  */}
@@ -740,7 +783,10 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
 
                   <button
                     onClick={() =>
-                      navigate("/adminDash/createQuotation", { state: { id } })
+                      // navigate("/adminDash/createQuotation", { state: { id } })
+                      navigate("/adminDash/HRM/QuotationForm", {
+                        state: { id },
+                      })
                     }
                     className="createQquot"
                   >
@@ -750,47 +796,52 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
 
                 <hr />
 
-                {userQuotation?.length > 0 ? (
+                {allQuota?.length > 0 ? (
                   <div className="allQui">
-                    {userQuotation?.map((item, index) => (
+                    {allQuota?.map((item, index) => (
                       <div key={index} className="sakacont">
                         <div className="singlquot" key={index}>
-                          <p className="invId">Invoice ID: {item?.InvoiceNo}</p>
-                          <p className="inName"> {item?.ClientName}</p>
-                          <p className="inName">{`${item.currency === "INR" ? "₹" : "$"}`} {item?.Price}</p>
+                          <p className="invId">
+                            customer ID: {item?.customerId}
+                          </p>
+                          <p className="inName">{item?.customerName}</p>
                           <p className="date">
-                            {new Date(Number(item?.ts)).toLocaleDateString()} :{" "}
-                            {new Date(Number(item?.ts)).toLocaleTimeString()}
+                            {new Date(item?.createdAt).toLocaleDateString(
+                              "en-GB"
+                            )}
                           </p>
                         </div>
 
                         <div className="dj">
                           <img
-                            onClick={() =>
-                              navigate("/adminDash/editQuotation", {
-                                state: item,
-                              })
-                            }
+                            // onClick={() =>
+                            //   navigate("/adminDash/editQuotation", {
+                            //     state: item,
+                            //   })
+                            // }
+                            onClick={()=>{
+                              navigate("/adminDash/HRM/QuotationForm" , {state:{item}})
+                            }}
                             className="cursor-pointer"
                             src={veci}
                             alt="veci"
                           />
                           <img
                             onClick={() => {
-                              deleteProject(item?._id);
+                              deleteQuotationApi(item?._id);
                             }}
                             className="dli cursor-pointer"
                             src={deli}
                             alt="deli"
                           />
-                          <img
+                          {/* <img
                             onClick={() =>
                               navigate("/invoicePage", { state: item })
                             }
                             className="dli cursor-pointer"
                             src={semi}
                             alt="semi"
-                          />
+                          /> */}
                         </div>
                       </div>
                     ))}
@@ -828,152 +879,205 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
                   <p className="toyotoyo">No Attachment</p>
                 </div>
               </div>
-
             </div>
           </div>
         </div>
-
       </div>
 
-      {
-        openCreateTask &&
+      {openCreateTask && (
         <div className="createTaskWrap">
-
           <div className="cretTaskCont">
-
             <nav>
               <p>Create Follow Up</p>
-              <img onClick={() => setOpenCreateTask(false)} className="cursor-pointer" src={cancel} alt="" />
-
+              <img
+                onClick={() => setOpenCreateTask(false)}
+                className="cursor-pointer"
+                src={cancel}
+                alt=""
+              />
             </nav>
 
-            <form className="taskForm" >
-
+            <form className="taskForm">
               <label>
                 <p>LeadName</p>
-                <input name="LeadName" value={taskData?.LeadName} onChange={taskHandler} type="text" placeholder="Subject" />
+                <input
+                  name="LeadName"
+                  value={taskData?.LeadName}
+                  onChange={taskHandler}
+                  type="text"
+                  placeholder="Subject"
+                />
               </label>
 
               <label>
                 <p>Follow-Up type</p>
 
-                <select name="FollowUpType" value={taskData?.FollowUpType} onChange={taskHandler} id="">
-                <option value="select one">Select One</option>
-                
-                {
-                  allFollow2?.map((f , index)=>(
+                <select
+                  name="FollowUpType"
+                  value={taskData?.FollowUpType}
+                  onChange={taskHandler}
+                  id=""
+                >
+                  <option value="select one">Select One</option>
 
-                    <option key={index} value={f?.name}>{f?.name}</option>
-                  ))
-                }
+                  {allFollow2?.map((f, index) => (
+                    <option key={index} value={f?.name}>
+                      {f?.name}
+                    </option>
+                  ))}
                 </select>
-
               </label>
 
-
               <div className="twoTask">
-
                 <label>
                   <p>Date</p>
-                  <input name="Date" value={taskData?.Date} onChange={taskHandler} type="date" />
+                  <input
+                    name="Date"
+                    value={taskData?.Date}
+                    onChange={taskHandler}
+                    type="date"
+                  />
                 </label>
 
                 <label>
                   <p>Time</p>
-                  <input name="Time" value={taskData?.Time} onChange={taskHandler} type="time" />
+                  <input
+                    name="Time"
+                    value={taskData?.Time}
+                    onChange={taskHandler}
+                    type="time"
+                  />
                 </label>
-
               </div>
 
               <label>
                 <p>Remark</p>
-                <input name="Remark" value={taskData?.Remark} onChange={taskHandler} type="text" />
+                <input
+                  name="Remark"
+                  value={taskData?.Remark}
+                  onChange={taskHandler}
+                  type="text"
+                />
               </label>
 
-
               <div className="btnstask">
-                <button onClick={data1 ? taskUpdateHandler : TaskSubmitHandler} className="creattk">
+                <button
+                  onClick={data1 ? taskUpdateHandler : TaskSubmitHandler}
+                  className="creattk"
+                >
                   {data1 ? "Task Update " : " Task Create"}
                 </button>
-                <button onClick={() => setOpenCreateTask(false)} className="tkCnacel">
+                <button
+                  onClick={() => setOpenCreateTask(false)}
+                  className="tkCnacel"
+                >
                   Cancel
                 </button>
               </div>
-
             </form>
 
             <hr />
-
           </div>
-
         </div>
-      }
+      )}
 
-
-      {
-        openCreateMeet &&
+      {openCreateMeet && (
         <div className="createTaskWrap">
-
           <div className="cretTaskCont2">
-
             <nav>
               <p>Create Meeting</p>
-              <img onClick={() => setOpenCreateMeet(false)} className="cursor-pointer" src={cancel} alt="" />
-
+              <img
+                onClick={() => setOpenCreateMeet(false)}
+                className="cursor-pointer"
+                src={cancel}
+                alt=""
+              />
             </nav>
 
-            <form className="taskForm" >
-
+            <form className="taskForm">
               <label>
                 <p>Title</p>
-                <input value={meetData.title} onChange={meetHandler} name="title" type="text" placeholder="Title" />
+                <input
+                  value={meetData.title}
+                  onChange={meetHandler}
+                  name="title"
+                  type="text"
+                  placeholder="Title"
+                />
               </label>
 
               <label>
                 <p>Status</p>
-                <input type="text" value={meetData.Status} onChange={meetHandler} name="Status" placeholder="Online" />
+                <input
+                  type="text"
+                  value={meetData.Status}
+                  onChange={meetHandler}
+                  name="Status"
+                  placeholder="Online"
+                />
               </label>
 
               <div className="twoTask">
-
                 <label>
                   <p>Meeting Date From</p>
-                  <input value={meetData.meetDateFrom} onChange={meetHandler} name="meetDateFrom" type="date" />
+                  <input
+                    value={meetData.meetDateFrom}
+                    onChange={meetHandler}
+                    name="meetDateFrom"
+                    type="date"
+                  />
                 </label>
 
                 <label>
                   <p>Meeting Date To</p>
-                  <input value={meetData.meetDateTo} onChange={meetHandler} name="meetDateTo" type="date" />
+                  <input
+                    value={meetData.meetDateTo}
+                    onChange={meetHandler}
+                    name="meetDateTo"
+                    type="date"
+                  />
                 </label>
-
-
               </div>
 
               <div className="twoTask">
-
                 <label>
                   <p>Meeting Time From</p>
-                  <input value={meetData.meetTimeFrom} onChange={meetHandler} name="meetTimeFrom" type="time" />
+                  <input
+                    value={meetData.meetTimeFrom}
+                    onChange={meetHandler}
+                    name="meetTimeFrom"
+                    type="time"
+                  />
                 </label>
 
                 <label>
                   <p>Meeting Time To</p>
-                  <input value={meetData.meetTimeTo} onChange={meetHandler} name="meetTimeTo" type="time" />
+                  <input
+                    value={meetData.meetTimeTo}
+                    onChange={meetHandler}
+                    name="meetTimeTo"
+                    type="time"
+                  />
                 </label>
-
               </div>
 
               <div className="twoTask">
-
                 <label>
                   <p>Host </p>
-                  <select value={meetData.Host} onChange={meetHandler} name="Host" id="">
+                  <select
+                    value={meetData.Host}
+                    onChange={meetHandler}
+                    name="Host"
+                    id=""
+                  >
                     <option value="Host">Chose Host</option>
-                    {
-                      userDeg?.map((val,index)=>{
-                        return <option key={index} value={val?._id}>{val?.fullName}</option>
-                      })
-                    }
+                    {userDeg?.map((val, index) => {
+                      return (
+                        <option key={index} value={val?._id}>
+                          {val?.fullName}
+                        </option>
+                      );
+                    })}
                     {/* <option value="Host1">Host1</option>
                     <option value="Host2">Host2</option> */}
                   </select>
@@ -981,50 +1085,67 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
 
                 <label>
                   <p>Related To</p>
-                  <input value={meetData.RelatedTo} onChange={meetHandler} name="RelatedTo" type="text" />
+                  <input
+                    value={meetData.RelatedTo}
+                    onChange={meetHandler}
+                    name="RelatedTo"
+                    type="text"
+                  />
                 </label>
-
               </div>
 
               <div className="twoTask">
-
                 <label>
                   <p>Participants</p>
-                  <input value={meetData.Participant} onChange={meetHandler} name="Participant" type="text" />
+                  <input
+                    value={meetData.Participant}
+                    onChange={meetHandler}
+                    name="Participant"
+                    type="text"
+                  />
                 </label>
-
               </div>
-
 
               <label>
                 <p>Meeting Link</p>
-                <input value={meetData.MeetingLink} onChange={meetHandler} name="MeetingLink" type="text" />
+                <input
+                  value={meetData.MeetingLink}
+                  onChange={meetHandler}
+                  name="MeetingLink"
+                  type="text"
+                />
               </label>
 
               <label>
                 <p>Note</p>
-                <input value={meetData.Note} onChange={meetHandler} name="Note" type="text" />
+                <input
+                  value={meetData.Note}
+                  onChange={meetHandler}
+                  name="Note"
+                  type="text"
+                />
               </label>
 
               <div className="btnstask">
-                <button onClick={data1 ? meetUpdateHandler : meetSubmitHandler} className="creatmt">
+                <button
+                  onClick={data1 ? meetUpdateHandler : meetSubmitHandler}
+                  className="creatmt"
+                >
                   {data1 ? "Update meeting" : "Create Meeting"}
                 </button>
-                <button onClick={() => setOpenCreateMeet(false)} className="tkCnacel">
+                <button
+                  onClick={() => setOpenCreateMeet(false)}
+                  className="tkCnacel"
+                >
                   Cancel
                 </button>
               </div>
-
             </form>
 
             <hr />
-
           </div>
-
         </div>
-      }
-
-
+      )}
     </div>
   );
 };

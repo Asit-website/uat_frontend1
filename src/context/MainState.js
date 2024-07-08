@@ -1647,6 +1647,10 @@ const MainState = (props) => {
       const data = await deleteReq(`${baseUrl}/admin/deleteInvoice/${id}`, true);
       return data;
    };
+   const deleteQuotationapi = async (id) => {
+      const data = await deleteReq(`${baseUrl}/lead/deleteQuotationapi/${id}`, true);
+      return data;
+   };
 
    // ======================quatation api fething start===================
    const postQuotation1 = async ({ User, QuatationNo, GstNo, SacCode, PlacedSupply, BillTo, ShipTo, ClientName, Address, Mobile, Email, ItemDescription, Qty, Price, Amount, BalanceAmount, Note, currency, leadId }) => {
@@ -1986,6 +1990,11 @@ const MainState = (props) => {
       return data;
    };
 
+   const getQuotationApi = async (leadId) => {
+      const data = await get(`${baseUrl}/lead/getQuotationApi/${leadId}`, true);
+      return data;
+   };
+
    const postFollowUp = async ({ name }) => {
       const data = await post(`${baseUrl}/system/postFollow`, { name }, true);
       return data;
@@ -2007,6 +2016,14 @@ const MainState = (props) => {
       const data = await post(`${baseUrl}/payslip/setUserTotalLeave`, {  }, true);
       return data;
    };
+   const postQuotationFormApi = async ({  quotationNum, customerName, customerReq,mobileNum,  quotationDate, validUntil, customerId,companyName,companyAddress,   companyGSTIN,companyWebsite , content , items, userId , leadId}) => {
+      const data = await post(`${baseUrl}/lead/postQuotationForm`, {  quotationNum, customerName, customerReq,mobileNum,  quotationDate, validUntil, customerId,companyName,companyAddress,content ,   items,  companyGSTIN,companyWebsite , userId , leadId  }, true);
+      return data;
+   };
+   const updateQuotationFormApi = async ({  quotationNum, customerName, customerReq,mobileNum,  quotationDate, validUntil, customerId,companyName,companyAddress,   companyGSTIN,companyWebsite , content , items, userId , leadId , id}) => {
+      const data = await post(`${baseUrl}/lead/updateQuotationForm/${id}`, {  quotationNum, customerName, customerReq,mobileNum,  quotationDate, validUntil, customerId,companyName,companyAddress,content ,   items,  companyGSTIN,companyWebsite , userId , leadId  }, true);
+      return data;
+   };
 
    const updateFollowUp = async ({ id, name }) => {
       const data = await put(`${baseUrl}/system/updateFollow/${id}`, { name }, true);
@@ -2021,12 +2038,13 @@ const MainState = (props) => {
 
    return (
       <MainContext.Provider value={{
-         login, taskCreateApi,FetchFollowApi ,   ProvidePermission , RemovePermission ,   GetOpenLeadsApi ,   getLeadById,CreateNoteApi  , updateNoteApi,DeleteNoteApi ,  getUserByDesignation, UpdateLeadStatus, UpdateLeadSource, AllLeadSource, meetCreateApi, AllLeadStatus, taskEditApi, meetEditApi,GetNoteApi ,  deleteTaskapi, deleteMeetapi, getTaskApi, getMeetApi, employeeLogin, employeeResetPassword, hrLogin, createHr, getHrs, deleteHr, createEmployee, getEmployees, getUsers, getActiveUsers, getActiveUsersCount, postLeadStatus, postLeadSource2, getAdminEmployees, postActivity, postActivityHr, getActivitiesByUser, getStatisticsByUser, postLeave, updateLeave, getUserLeaves, getUserLeaveById, deleteLeave, getTotalLeaves, postTotalLeaves, verifyEmployee, verifyHr, verifyAdmin, setUser, buildAPI, user, getProjects, postProject, getHolidays, postHoliday, updateProject, getProjectsByEmployee, getTasks, postTask, updateTask, deleteTask, setFlag, flag, changePassword, updateProfile, deleteHoliday, updateHoliday, deleteProject, getChats, createNewChat, postMessage, deleteChat, adminLogin, getChat, getChatByUser, setUserTotalLeaveApi ,  setChatUser, chatUser, getEmployeesByEmployee, topDash, postAnnouncement, updateAnnouncement, getAnnouncements, getAnnouncementDates, deleteAnnouncement, getAttendance, getAttendanceByUser, createEmployee1, updateAdminProfile, changePassword1, verify, updateUser, forgetPassword, forgetPassword1, forgetPassword2, getBranchs, postBranch, updateBranch, deleteBranch, getDepartments, postDepartment, updateDepartment, deleteDepartment, getDesingation, postDesignation, updateDesignation, deleteDesignation, getAllActivities, postLeaveType, updateLeaveType, getLeaveTypes, deleteLeaveType,
+         login,deleteQuotationapi ,  taskCreateApi,FetchFollowApi ,getQuotationApi ,    ProvidePermission , RemovePermission ,   GetOpenLeadsApi ,   getLeadById,CreateNoteApi  , updateNoteApi,DeleteNoteApi ,  getUserByDesignation, UpdateLeadStatus, UpdateLeadSource, AllLeadSource, meetCreateApi, AllLeadStatus, taskEditApi, meetEditApi,GetNoteApi ,  deleteTaskapi, deleteMeetapi, getTaskApi, getMeetApi, employeeLogin, employeeResetPassword, hrLogin, createHr, getHrs, deleteHr, createEmployee, getEmployees, getUsers, getActiveUsers, getActiveUsersCount, postLeadStatus, postLeadSource2, getAdminEmployees, postActivity, postActivityHr, getActivitiesByUser, getStatisticsByUser, postLeave, updateLeave, getUserLeaves, getUserLeaveById, deleteLeave, getTotalLeaves, postTotalLeaves, verifyEmployee, verifyHr, verifyAdmin, setUser, buildAPI, user, getProjects, postProject, getHolidays, postHoliday, updateProject, getProjectsByEmployee, getTasks, postTask, updateTask, deleteTask, setFlag, flag, changePassword, updateProfile, deleteHoliday, updateHoliday, deleteProject, getChats, createNewChat, postMessage, deleteChat, adminLogin, getChat, getChatByUser, setUserTotalLeaveApi ,  setChatUser, chatUser, getEmployeesByEmployee, topDash, postAnnouncement, updateAnnouncement, getAnnouncements, getAnnouncementDates, deleteAnnouncement, getAttendance, getAttendanceByUser, createEmployee1, updateAdminProfile, changePassword1, verify, updateUser, forgetPassword, forgetPassword1, forgetPassword2, getBranchs, postBranch, updateBranch, deleteBranch, getDepartments, postDepartment, updateDepartment, deleteDepartment, getDesingation, postDesignation, updateDesignation, deleteDesignation, getAllActivities, postLeaveType, updateLeaveType, getLeaveTypes, deleteLeaveType,
          createIndicator, getIndicator, deleteIndicator, getDesignations, updateIndicator, getAppraisal, createAppraisal, allEmployee, deleteApprisal, updateApprisal, createAssets, getAssets, deleteAssets, updateAssets, deleteUser, createTracks, getTracks, deleteTracks, updateTracks, editComApi, loanDeleteHandler,
          editAllowance, commisionDelteHandler, createLoan, editLoanApi,
          getTotalLeavesCount, uploadDocuments, createAnnouncement, deleteAnnouncement, updateAnnouncements, fetchAnnoucement, deleteAnnouncements, getEmp, allEmployeebyDep, notificationGet,
          acceptLeave, rejectLeave,
-         ProvideRemovePermission , 
+         ProvideRemovePermission , postQuotationFormApi , 
+         updateQuotationFormApi , 
          uploadOwnDocs,
          getAllLeads,
          updateDocSetup,

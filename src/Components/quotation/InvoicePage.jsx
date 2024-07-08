@@ -20,7 +20,8 @@ const InvoicePage = ({ setAlert, pop, setPop }) => {
   const location = useLocation();
   const invoiceData = location.state;
 
-  const contonentPDF = useRef()
+  const contonentPDF = useRef();
+
   const generatePdf = useReactToPrint({
     content: () => contonentPDF.current,
     documentTitle: "Order",
