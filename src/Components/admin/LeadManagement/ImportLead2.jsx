@@ -27,7 +27,7 @@ const ImportLead2 = ({ setAlert, pop, setPop }) => {
     getQuotationAll,
     deleteQuotation,
     taskCreateApi,
-    meetCreateApi, taskEditApi, meetEditApi, GetNoteApi, DeleteNoteApi, updateNoteApi, FetchFollowApi, getLeadStat , getFollowUp,getUserByDesignation1
+    meetCreateApi, taskEditApi, meetEditApi, GetNoteApi, DeleteNoteApi, updateNoteApi, FetchFollowApi, getLeadStat , getFollowUp,getUserByDesignation1 , getQuotationApi , deleteQuotationapi
   } = useMain();
 
   const { id } = useParams();
@@ -277,6 +277,26 @@ const ImportLead2 = ({ setAlert, pop, setPop }) => {
 
   }
 
+  const [allQuota, setAllQuota] = useState([]);
+
+  const getQuotationOfLead = async () => {
+    const ans = await getQuotationApi(id);
+    setAllQuota(ans);
+  };
+
+  const deleteQuotationApi = async(id)=>{
+    const toastId = toast.loading("Loading...");
+    const ans = await deleteQuotationapi(id);
+      if(ans?.status){
+         getQuotationOfLead();
+        toast.success("Successfuly deleted");
+      }
+      else {
+        toast.error("Something went wrong");
+      }
+      toast.dismiss(toastId);
+  }
+
   const meetSubmitHandler = async (e) => {
     e.preventDefault();
 
@@ -357,6 +377,8 @@ const ImportLead2 = ({ setAlert, pop, setPop }) => {
     getData();
     getNotes();
     fetchFollowUp();
+    getQuotationOfLead();
+
   }, [])
 
   useEffect(()=>{
@@ -738,7 +760,8 @@ const ImportLead2 = ({ setAlert, pop, setPop }) => {
 
                   <button
                     onClick={() =>
-                      navigate("/adminDash/createQuotation", { state: { id } })
+                      // navigate("/adminDash/createQuotation", { state: { id } })
+                      navigate("/employeeDash/HRM/QuotationForm", { state: { id } })
                     }
                     className="createQquot"
                   >
@@ -748,47 +771,52 @@ const ImportLead2 = ({ setAlert, pop, setPop }) => {
 
                 <hr />
 
-                {userQuotation?.length > 0 ? (
+                {allQuota?.length > 0 ? (
                   <div className="allQui">
-                    {userQuotation?.map((item, index) => (
+                    {allQuota?.map((item, index) => (
                       <div key={index} className="sakacont">
                         <div className="singlquot" key={index}>
-                          <p className="invId">Invoice ID: {item?.InvoiceNo}</p>
-                          <p className="inName"> {item?.ClientName}</p>
-                          <p className="inName">{`${item.currency === "INR" ? "₹" : "$"}`} {item?.Price}</p>
+                          <p className="invId">
+                            customer ID: {item?.customerId}
+                          </p>
+                          <p className="inName">{item?.customerName}</p>
                           <p className="date">
-                            {new Date(Number(item?.ts)).toLocaleDateString()} :{" "}
-                            {new Date(Number(item?.ts)).toLocaleTimeString()}
+                            {new Date(item?.createdAt).toLocaleDateString(
+                              "en-GB"
+                            )}
                           </p>
                         </div>
 
                         <div className="dj">
                           <img
-                            onClick={() =>
-                              navigate("/adminDash/editQuotation", {
-                                state: item,
-                              })
-                            }
+                            // onClick={() =>
+                            //   navigate("/adminDash/editQuotation", {
+                            //     state: item,
+                            //   })
+                            // }
+                            onClick={()=>{
+                              navigate("/adminDash/HRM/QuotationForm" , {state:{item}})
+                            }}
                             className="cursor-pointer"
                             src={veci}
                             alt="veci"
                           />
                           <img
                             onClick={() => {
-                              deleteProject(item?._id);
+                              deleteQuotationApi(item?._id);
                             }}
                             className="dli cursor-pointer"
                             src={deli}
                             alt="deli"
                           />
-                          <img
+                          {/* <img
                             onClick={() =>
                               navigate("/invoicePage", { state: item })
                             }
                             className="dli cursor-pointer"
                             src={semi}
                             alt="semi"
-                          />
+                          /> */}
                         </div>
                       </div>
                     ))}

@@ -22,6 +22,8 @@ const QuotationForm = ({ setAlert, pop, setPop }) => {
 
   let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
 
+  console.log("hrms ",hrms_user);
+
   const location = useLocation();
 
   const { id  , item} = location.state; 
@@ -456,7 +458,7 @@ const QuotationForm = ({ setAlert, pop, setPop }) => {
               </div>
 
               {/* right side  */}
-              <div className="qutaRight">
+              <div ref={contonentPDF} className="qutaRight">
                 
               
 
