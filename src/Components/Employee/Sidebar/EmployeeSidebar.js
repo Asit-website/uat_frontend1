@@ -76,18 +76,6 @@ const EmployeeSidebar = () => {
   let user = JSON.parse(localStorage.getItem("hrms_user"));
 
 
-  const leadItem = [
-    {
-      title: "Lead Dashboard",
-      link: "/employeeDash/leadDash",
-    },
-    {
-      title: "My Lead",
-      link: "/employeeDash/myLead",
-    },
-
-  ]
-
   const { leadPermission, hrmsSetUpPermission, payrollPermission, leadSystemPermission, attendencePermission, assetsPermission, documentPermission, leaveManagePermission, performancePermission, employeeManagePermission, hrAdminSetupPermission, trainingSetupPermission } = user;
 
   const [openPayroll, setOpenPayroll] = useState(false);
@@ -104,8 +92,6 @@ const EmployeeSidebar = () => {
   const [leveItem, setLeveItem] = useState(0);
 
   const [performanceItem, setPerformanceItem] = useState(0);
-
-  const [openLead, setOpenLead] = useState(false);
 
   const navigate = useNavigate();
 
@@ -156,16 +142,7 @@ const EmployeeSidebar = () => {
             </li>
             </NavLink>
 
-            {/* {
-              user?.designation === "Intern Digital Marketing" || user?.designation === "Business Development Manager" ? <NavLink to="/employeeDash/LeadSystemSetting"><div className={`${window.location.pathname === "/employeeDash/LeadSystemSetting" ? "hh" : ""} setWrap`}>
-               
-                <div className="systSset">
-                  <img src={`${window.location.pathname === "/employeeDash/LeadSystemSetting" ? perty : employee}`} alt="" />
-                  <span className={`${window.location.pathname === "/employeeDash/LeadSystemSetting" ? "fan" : ""}`}>Lead System Setting</span>
-                </div>
-              </div></NavLink> : ""
-            } */}
-
+          
             {
               hrmsSetUpPermission &&
               <NavLink to="/employeeDash/HRM/HRMsystemSetup"><div className={`${window.location.pathname === "/employeeDash/HRM/HRMsystemSetup" ? "hh" : ""} setWrap`}>
@@ -468,29 +445,6 @@ const EmployeeSidebar = () => {
             </li>
             </NavLink>
 
-
-            {/* {
-              user?.designation === "Intern Digital Marketing" || user?.designation === "Business Development Manager" ? <li className="mostwrap">
-
-                <h2 onClick={() => setOpenLead((prev) => !prev)} className="leadHead"> <img src={shopping} alt="" /> <span> Lead Management</span></h2>
-
-                {
-                  openLead &&
-                  <div className="leadWrapp2">
-                    {
-
-                      leadItem?.map((item, index) => (
-                        <p key={index} className="leadHead2" onClick={() => navigate(item?.link)}>{item.title}</p>
-                      ))
-
-                    }
-
-                  </div>
-
-                }
-
-              </li> : ""
-            } */}
 
             <NavLink to="/employeeDash/update"><li className="indefy">
               <img src={userP} alt="" />
