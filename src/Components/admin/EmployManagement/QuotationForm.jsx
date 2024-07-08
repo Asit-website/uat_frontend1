@@ -22,8 +22,6 @@ const QuotationForm = ({ setAlert, pop, setPop }) => {
 
   let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
 
-  const navigate = useNavigate();
-
   const location = useLocation();
 
   const { id  , item} = location.state; 
@@ -465,7 +463,9 @@ const QuotationForm = ({ setAlert, pop, setPop }) => {
                 <div className="hdquot">
                   <p>Quotation {formdata?.quotationNum}</p>
                   {/* <img src={kdsquto} alt="" /> */}
-                  <img src={logoImage} alt="" />
+                  {logoImage ? <img src={logoImage} alt="Logo" /> : <p></p>}
+
+                  {/* <img src={logoImage} alt="" /> */}
                 </div>
 
                 <p className="cust">Customer</p>

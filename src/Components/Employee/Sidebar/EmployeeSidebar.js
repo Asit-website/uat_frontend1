@@ -173,7 +173,7 @@ const EmployeeSidebar = () => {
 
                 <div
                   onClick={() => setOpenPayroll((prev) => !prev)}
-                  className="side-dash-box"
+                  className="side-dash-box sidemargin"
                 >
                   <div className="dash-wrap">
                     <img src={anal} alt="dasg" />
@@ -278,7 +278,7 @@ const EmployeeSidebar = () => {
               <>
                 <div
                   onClick={() => setOpenLeaveMan((prev) => !prev)}
-                  className="side-dash-box"
+                  className="side-dash-box sidemargin"
                 >
                   <div className="dash-wrap">
                     <img src={reading} alt="dasg" />
@@ -326,7 +326,7 @@ const EmployeeSidebar = () => {
               <>
                 <div
                   onClick={() => setOpenPerform((prev) => !prev)}
-                  className="side-dash-box"
+                  className="side-dash-box sidemargin"
                 >
                   <div className="dash-wrap">
                     <img src={reading} alt="dasg" />
@@ -390,7 +390,7 @@ const EmployeeSidebar = () => {
 
                 <div
                   onClick={() => setOpenTraining((prev) => !prev)}
-                  className="side-dash-box"
+                  className="side-dash-box sidemargin"
                 >
                   <div className="dash-wrap">
                     <img src={reading} alt="dasg" />

@@ -804,7 +804,10 @@ body {
   width: 100%;
   height: 44px;
   cursor: pointer;
-  /* margin-left: 20px; */
+  margin-left: 20px;
+}
+.sidemargin {
+  margin-left: -0px;
 }
 
 .HRMS-dash-box {
