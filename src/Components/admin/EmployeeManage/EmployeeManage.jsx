@@ -700,7 +700,7 @@ const EmployeeManage = ({
                             </label>
 
                             <label htmlFor="">
-                              <p>Date</p>
+                              <p>Joining Date</p>
 
                               <input
                                 onChange={(e) => {

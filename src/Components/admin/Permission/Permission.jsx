@@ -256,7 +256,7 @@ const Permission = ({ pop, setPop, setAlert }) => {
 
           <h2 className="removePermsion">Remove Permission</h2>
 
-          <div className="em">
+          <div className="em22">
             <div className="permiCont">
               <label>
                 <p>Service</p>
