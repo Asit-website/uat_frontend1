@@ -23,8 +23,9 @@
 .qutaRight{
     max-width: 670px;
     width: 100%;
+    height: fit-content;
+    padding-bottom: 30px;
     background-color: white;
-    padding: 20px;
 }
 
 .qutLTo{
@@ -74,6 +75,8 @@ color: #FFFFFF;
     letter-spacing: 0.0015em;
     text-align: left;
 color: #1B2533;    
+border-bottom: 2px dotted #0B1015;
+padding-bottom: 10px; 
 }
 
 .comapnydetail{
@@ -199,10 +202,13 @@ border: 1px solid #6A6A6A;
 }
 
 
-.qutaRight{
+.qutaRightcont{
     display: flex;
     flex-direction: column;
     gap: 20px;
+    padding: 20px;
+
+
 }
 
 .qrTop{
@@ -420,6 +426,7 @@ color: #101820;
 .prntBtn{
     width: 100%;
     display: flex;
+    margin: 20px 0px 0px -20px;
     justify-content: flex-end;
     
 }
@@ -437,4 +444,517 @@ color: #101820;
     line-height: 24px;
     letter-spacing: 0.005em;
 color: #FFFFFF;    
+}
+
+/* for task management  */
+.tclwrap{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.tclwrap nav{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.tclwrap nav h2{
+    font-family: Inter;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 32px;
+    text-align: left;
+    
+}
+.tclwrap nav .clibtns{
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    
+}
+ .clibtns .newcli{
+    width: 137px;
+    height: 40px;
+     display: flex;
+    align-items: center; 
+    justify-content: center;
+    gap: 10px;
+    border-radius: 10px;
+    background: #0B56E4;
+      
+    
+}
+ .clibtns .impcli{
+    width: 133px;
+    height: 40px;
+    border-radius: 10px;
+    background: linear-gradient(131.78deg, #D1E8FD 6.87%, #EDEFFF 91.67%);
+    border: 1px solid #0B56E4;
+        
+}
+ .clibtns .expoclient{
+    width: 133px;
+    height: 40px;
+    background: #E8E9EB;
+    border-radius: 8px ;
+    border: 1px solid #B8BBC0;
+        
+    
+}
+ .clibtns .expoclient span{
+     font-family: Inter;
+     color: #1B2533;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    letter-spacing: 0.005em;
+    
+}
+ .clibtns .impcli span{
+     font-family: Inter;
+     color: #0B56E4;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    letter-spacing: 0.005em;    
+}
+ .clibtns .newcli span{
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    letter-spacing: 0.005em;
+ color: #FFFFFF;    
+}
+
+.allClients{
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+}
+
+.avatarclient{
+ font-family: Inter;
+ font-size: 24px;
+ font-weight: 600;
+ line-height: 32px;
+ color: #F3F3F4 !important;
+
+}
+
+.singleProject{
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
+    width: 373px;
+    padding: 10px 16px ;
+    background: #FFFFFF;
+    border: 1px solid #E8E9EB;
+    border-radius: 12px;
+    position: relative ;
+}
+
+.singleclient2{
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
+    width: 275px;
+    padding: 12px 30px ;
+    background: #FFFFFF;
+    border: 1px solid #E8E9EB;
+    border-radius: 12px;
+    position: relative ;
+}
+.singleclient2 .navdiv{
+   display: flex;
+   justify-content: flex-end;
+   width: 100%;
+}
+.singleclient2 h3{
+    font-family: Inter;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 32px;
+color: #1B2533;    
+}
+.singleclient2 p{
+    font-family: Inter;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: 0.0015em;
+ color: #666D76;    
+}
+
+.showIndexcont{
+    position: absolute;
+    z-index: 1000;
+     display: flex;
+     flex-direction: column;
+     gap: 13px;
+      left: 60px;
+      top: 20px;
+    width: 161px;
+height: 148px;
+padding: 8px ;
+border-radius: 8px ;
+background: #FFFFFF;
+border: 1px solid #E3E3E3;
+box-shadow: 0px 4px 12px 0px #1A1A1A33;
+
+}
+.showIndexcont2{
+    position: absolute;
+    z-index: 1000;
+     display: flex;
+     flex-direction: column;
+     gap: 13px;
+      right: 30px;
+      top: 20px;
+    width: 201px;
+height: 240px;
+padding: 8px ;
+border-radius: 8px ;
+background: #FFFFFF;
+border: 1px solid #E3E3E3;
+box-shadow: 0px 4px 12px 0px #1A1A1A33;
+
+}
+
+.singlinpro{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+}
+.singlinpro span{
+    font-family: Inter;
+    color: #2B2B2B;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    letter-spacing: 0.0025em;
+    
+}
+.singlinpro .delspan{
+   color: #DD3409;
+    
+}
+
+.addCliWrap{
+    background: #40404066;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    z-index: 3000;
+    width: 100%;
+    min-height: 130vh;
+    padding: 20px 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.addClieCont{
+    width: 599px;
+padding: 24px ;
+height: 700px;
+ display: flex;
+ flex-direction: column;
+gap: 16px;
+border-radius: 18px ;
+background-color: white;
+
+}
+
+.addheight{
+    height: 452px  !important;
+}
+
+.addClieCont nav{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.addClieCont nav p{
+     font-family: Inter;
+     color: #1B2533;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 24px;
+    letter-spacing: 0.0015em;
+    text-align: left;
+    
+}
+
+.addClieCont label{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+    
+}
+.addClieCont label select{
+    width: 100%;
+    height: 48px;
+    padding: 8px 16px ;
+    border-radius: 10px;
+    background: #FFFFFF;
+    border: 1px solid #D0D4DC;
+        
+    
+}
+.addClieCont label textarea{
+    width: 100%;
+    height: 64px;
+     resize: none;
+    padding: 8px 16px ;
+    border-radius: 10px;
+    background: #FFFFFF;
+    border: 1px solid #D0D4DC;
+       outline:none ;  
+    
+}
+.addClieCont form{
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    
+}
+
+.addClieCont label p{
+    font-family: Inter;
+    color: #1B2533;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    letter-spacing: 0.0025em;
+    
+}
+
+.addClieCont label input{
+   width: 100%;
+height: 48px;
+padding: 8px 16px ;
+border-radius: 10px;
+background: #FFFFFF;
+border: 1px solid #D0D4DC;
+    
+}
+
+.addClieCont .citstateCont{
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+}
+.addClieCont .btnsss{
+   
+ display: flex;
+ align-items: center;
+ gap: 16px;
+ margin: 20px 0px;
+}
+.addClieCont .btnsss .saveclient{
+    width: 119px;
+    height: 40px;
+    border-radius: 10px;
+    background: #0B56E4;
+    
+}
+.addClieCont .btnsss .saveclient span{
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    letter-spacing: 0.005em;
+ color: #FFFFFF;    
+    
+}
+.addClieCont .btnsss .cancel{
+    width: 86px;
+    height: 40px;
+    border-radius: 10px;
+    border: 1px solid #B8BBC0;    
+    
+}
+.addClieCont .btnsss .cancel span{
+    font-family: Inter;
+font-size: 16px;
+font-weight: 500;
+line-height: 24px;
+letter-spacing: 0.005em;
+color: #666D76;
+    
+}
+
+.selectOption{
+    width: 338px;
+height: 42px;
+ display: flex;
+ align-items: center;
+
+}
+
+.singelPr{
+    width: fit-content;
+    height: 100%;
+    padding: 10px 16px ;
+    background: #FFFFFF;
+    border: 1px solid #E8E9EB;    
+}
+.singelPr span{
+color: #777777;
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    letter-spacing: 0.005em;
+    text-align: center;
+    
+}
+
+.addBorder{
+    border-radius: 0px 8px 8px 0px;
+}
+
+.addlefborder{
+    border-radius: 8px 0px 0px 8px;
+}
+
+.adddbg{
+    background: #3C78E9;
+    border: 1px solid #0B56E4;
+}
+.adddbg span{
+color: #FFFFFF;
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    letter-spacing: 0.005em;
+    text-align: center;
+    
+}
+
+.projnav{
+     width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.projnav .leftnav{
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+.projnav .leftnav p{
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 32px;
+ color: #1B2533;    
+}
+
+.statusdue{
+     display: flex;
+     align-items: center;
+     justify-content: space-between;
+     width: 100%;
+}
+.statusdue .stapro{
+    width: 68px;
+    height: 28px;
+    border-radius: 27px ;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+.statusdue .stapro span{
+    font-family: Inter;
+    color: #121212;
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0.004em;
+    
+}
+
+.finibg{
+    background-color: #30D158;
+}
+
+.OnHoldbg{
+    background-color: #B7B7B7;
+}
+
+.Ongoingbg{
+    background-color: #F7A539;
+}
+
+.duedate{
+    font-family: Inter;
+font-size: 14px;
+font-weight: 400;
+line-height: 24px;
+letter-spacing: 0.0015em;
+text-align: left;
+color: #1B2533;
+
+}
+
+.duedate span{
+    font-family: Inter;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 24px;
+    letter-spacing: 0.0015em;
+    text-align: left;
+    
+
+}
+
+.propara{
+
+    font-family: Inter;
+font-size: 14px;
+font-weight: 400;
+line-height: 16.8px;
+letter-spacing: 0.0015em;
+text-align: left;
+ color: #666D76;
+ max-width: 340px;
+}
+
+.protasjwon{
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+}
+.mem{
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+}
+.mem p{
+    font-family: Inter;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 16.8px;
+    letter-spacing: 0.0015em;
+    text-align: left;
+color: #1B2533;    
+}
+.proteast{
+    font-family: Inter;
+font-size: 14px;
+font-weight: 500;
+line-height: 16.8px;
+letter-spacing: 0.0015em;
+text-align: left;
+color: #1B2533;
 }

@@ -455,13 +455,15 @@ const QuotationForm = ({ setAlert, pop, setPop }) => {
                     </form>
                   </div>
                 </div>
+                
               </div>
 
               {/* right side  */}
-              <div ref={contonentPDF} className="qutaRight">
+              <div  className="qutaRight">
                 
-              
+             <div ref={contonentPDF} className="qutaRightcont">
 
+            
                 <div className="hdquot">
                   <p>Quotation {formdata?.quotationNum}</p>
                   {/* <img src={kdsquto} alt="" /> */}
@@ -543,6 +545,10 @@ const QuotationForm = ({ setAlert, pop, setPop }) => {
                   <hr />
                 </div>
 
+                </div>
+
+                 <hr />
+                 
                 <div className="prntBtn">
                   <button onClick={()=>{
                       if(item){
@@ -556,6 +562,8 @@ const QuotationForm = ({ setAlert, pop, setPop }) => {
                     <span>Print</span>
                   </button>
                 </div>
+                
+
               </div>
 
             </div>

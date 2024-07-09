@@ -450,7 +450,9 @@ const EmployeeHRM = ({
 
   const getAnnoucement = async () => {
     const ans = await fetchAnnoucement();
-    setAnnounce(ans?.data);
+    // setAnnounce(ans?.data);
+    const reversedArray = ans.data.reverse();
+    setAnnounce(reversedArray);
   };
 
   const getHolidays = async () => {

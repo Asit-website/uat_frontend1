@@ -87,6 +87,9 @@ import LeadSystemSetting from "./Components/admin/EmployManagement/LeadSystemSet
 import LeadSystemSetting2 from "./Components/admin/EmployManagement/LeadSystemSetting2.jsx";
 import Permission from "./Components/admin/Permission/Permission.jsx";
 import QuotationForm from "./Components/admin/EmployManagement/QuotationForm.jsx";
+import TaskClients from "./Components/admin/EmployManagement/TaskClients.jsx";
+import TaskProjects from "./Components/admin/EmployManagement/TaskProjects.jsx";
+import Tasks from "./Components/admin/EmployManagement/Tasks.jsx";
 
 var tc;
 
@@ -251,6 +254,15 @@ function App() {
               <Route path="/employeeDash/HRM/HRMsystemSetup" element={<HRMsystemSetup />} />
               <Route path="/adminDash/HRM/QuotationForm" element={<QuotationForm />} />
               <Route path="/employeeDash/HRM/QuotationForm" element={<QuotationForm />} />
+
+
+              <Route path="/employeeDash/HRM/taskClients" element={<TaskClients />} />
+              <Route path="/employeeDash/HRM/taskProjects" element={<TaskProjects />} />
+              <Route path="/employeeDash/HRM/Tasks" element={<Tasks />} />
+
+
+
+
               <Route path="/adminDash/HRM/AwardHRM" element={<AwardHRM />} />
               <Route path="/adminDash/HRM/trip" element={<Trip />} />
               <Route path="/adminDash/HRM/TransferHRM" element={<TransferHRM />} />

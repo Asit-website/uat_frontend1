@@ -115,6 +115,21 @@ const payrols = [
   },
 ]
 
+const payrols2 = [
+  {
+    title:"Clients",
+    link:"/employeeDash/HRM/taskClients"
+  },
+  {
+    title:"Projects",
+    link:"/employeeDash/HRM/taskProjects"
+  },
+  {
+    title:"Tasks",
+    link:"/employeeDash/HRM/Tasks"
+  },
+]
+
 const performances = [
   {
     title:"Indicator",
@@ -137,7 +152,6 @@ const AdminSidebar = ({ pop, setPop }) => {
 
   let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
   const { role } = hrms_user;
-  const [openLead, setOpenLead] = useState(false);
    
   const { leadPermission, hrmsSetUpPermission, payrollPermission, leadSystemPermission, attendencePermission, assetsPermission, documentPermission, leaveManagePermission, performancePermission, employeeManagePermission , hrAdminSetupPermission , trainingSetupPermission } = user;
 
@@ -153,6 +167,7 @@ const AdminSidebar = ({ pop, setPop }) => {
 
   const [openDashItem, setOpenDashItem] = useState(false);
   const [openPayroll,setOpenPayroll] = useState(false);
+  const [openPayroll2,setOpenPayroll2] = useState(false);
 
   const [openLeaveMan, setOpenLeaveMan] = useState(false);
 
@@ -336,6 +351,52 @@ const AdminSidebar = ({ pop, setPop }) => {
 
               {/* =================payroll management end============ */}
 
+                 {/* =================task start============ */}
+
+          <div
+                onClick={() => setOpenPayroll2((prev) => !prev)}
+                className="side-dash-box"
+              >
+                <div className="dash-wrap">
+                  <img src={anal} alt="dasg" />
+                  <p>Task Management</p>
+                </div>
+
+                <img src={vect} alt="" />
+              </div>
+
+              {openPayroll2 && (
+                <div className="alladminDash-item">
+                  {payrols2?.map((item, index) => (
+                    <div
+                      onClick={() => {
+                        setPayrollItem(index);
+                        navigate(item?.link);
+                        setOpenPayroll2(true);
+                      }
+
+                      }
+                      className="sinADDasItem"
+                      key={index}
+                    >
+                      {payrollItem == index ? (
+                        <img src={`${window.location.pathname === `${item?.link}` ? fiber : tyming}`} alt="" />
+                      ) : (
+                        <img src={`${window.location.pathname === `${item?.link}` ? fiber : tyming}`} alt="" />
+                      )}
+                      <p
+                        className={` ${payrollItem === index ? "dashItemp" : "dITitl"
+                          } ${window.location.pathname === `${item?.link}` ? "fan" : ""}`}
+                      >
+                        {item?.title}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {/* ================= tak end============ */}
+
               {/*   lead system setting start */}
 
 
@@ -415,16 +476,6 @@ const AdminSidebar = ({ pop, setPop }) => {
 
               {/* ====================assets management end==================== */}
 
-{/* ==== Quoation form start ==== */}
-              <NavLink to="/adminDash/HRM/QuotationForm"><div className={`${window.location.pathname === "/adminDash/HRM/QuotationForm"  ? "hh" : ""} setWrap`}>
-              {/* <p>Setting</p> */}
-              <div className="systSset">
-              <img src={`${window.location.pathname === "/adminDash/HRM/QuotationForm"   ? webAsseting : webAsseting}`} alt="" />
-                <span className={`${window.location.pathname==="/adminDash/HRM/QuotationForm" ? "fan" : ""}`}>Quotation Form</span>
-              </div>
-            </div></NavLink>
-
-            {/* ==== Quoation form end ==== */}
 
 
               {/* ==================document  start================ */}
