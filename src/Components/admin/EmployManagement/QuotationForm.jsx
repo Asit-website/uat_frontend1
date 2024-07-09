@@ -204,7 +204,7 @@ const QuotationForm = ({ setAlert, pop, setPop }) => {
 
           <div className="em">
 
-            <div ref={contonentPDF} className="qutaWrap">
+            <div  className="qutaWrap">
 
               {/* lefft side  */}
 
