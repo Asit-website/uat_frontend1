@@ -533,7 +533,10 @@ toast.dismiss(toastId);
         {isHr ? (
           <HrSidebar />
         ) :
-          <AdminSidebar pop={pop} setPop={setPop} />
+         role === "EMPLOYEE" ?
+          <EmployeeSidebar pop={pop} setPop={setPop} /> 
+          :
+         <AdminSidebar pop={pop} setPop={setPop} />
         }
 
         <div className="tm">

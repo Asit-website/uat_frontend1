@@ -807,7 +807,7 @@ body {
   margin-left: 20px;
 }
 .sidemargin {
-  margin-left: -0px;
+  margin-left: 0px !important;
 }
 
 .HRMS-dash-box {
