@@ -627,6 +627,7 @@ box-shadow: 0px 4px 12px 0px #1A1A1A33;
     display: flex;
     align-items: center;
     gap: 10px;
+    cursor: pointer;
 
 }
 .singlinpro span{
@@ -671,6 +672,17 @@ background-color: white;
 
 }
 
+.addClieCont3{
+    width: 599px;
+    padding: 24px ;
+    height: 464px;
+     display: flex;
+     flex-direction: column;
+    gap: 16px;
+    border-radius: 18px ;
+    background-color: white;
+}
+
 .addheight{
     height: 452px  !important;
 }
@@ -680,7 +692,22 @@ background-color: white;
     align-items: center;
     justify-content: space-between;
 }
+.addClieCont3 nav{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
 .addClieCont nav p{
+     font-family: Inter;
+     color: #1B2533;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 24px;
+    letter-spacing: 0.0015em;
+    text-align: left;
+    
+}
+.addClieCont3 nav p{
      font-family: Inter;
      color: #1B2533;
     font-size: 16px;
@@ -957,4 +984,103 @@ line-height: 16.8px;
 letter-spacing: 0.0015em;
 text-align: left;
 color: #1B2533;
+}
+
+.uploadClient{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+}
+.uploadClient .topUpclien{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.uploadClient .topUpclien span{
+    font-family: Inter;
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 32px;
+ color: #2B2B2B;    
+}
+
+.chosefilesec{
+    width: 100%;
+height: 184px;
+padding: 40px 0px ;
+border-radius: 12px ;
+background: #F8F9FB;
+border: 1px solid #8FB1F3;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+gap: 10px;
+
+}
+.chosefilesec p{
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: 0.005em;
+    text-align: center;
+color: #666D76;    
+}
+.chosefilesec button {
+    width: 164px;
+    height: 40px;
+    border-radius: 10px;
+    background: #0B56E4;
+    
+}
+.chosefilesec button  span{
+font-family: Inter;
+color: white;
+font-size: 16px;
+font-weight: 500;
+line-height: 24px;
+letter-spacing: 0.005em;
+
+}
+
+.uplbtns{
+     display: flex;
+     align-items: center;
+     gap: 16px;
+     margin-top: 32px;
+}
+.uplbtns .up{
+    width: 87px;
+    height: 40px;
+    border-radius: 10px;
+    background: #0B56E4;
+    
+}
+.uplbtns .up span{
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    letter-spacing: 0.005em;
+    color: white;
+    
+}
+.uplbtns .clos{
+    width: 76px;
+    height: 40px;
+    border-radius: 10px;
+    border: 1px solid #B8BBC0;
+    border-radius: 10px;
+    
+}
+.uplbtns .clos span{
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    letter-spacing: 0.005em;
+color: #666D76;    
 }

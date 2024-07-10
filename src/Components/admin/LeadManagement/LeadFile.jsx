@@ -44,8 +44,6 @@ const LeadFile = ({ setAlert, pop, setPop }) => {
       "text/csv",
     ];
 
-   
-
     let selectedFile = e.target.files[0];
 
     if (selectedFile) {
@@ -127,6 +125,7 @@ const LeadFile = ({ setAlert, pop, setPop }) => {
       toast.dismiss(toastId);
     }
   };
+
 
   return (
     <>

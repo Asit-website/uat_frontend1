@@ -1128,7 +1128,8 @@ const UpdateProfile = ({ setAlert, pop1, setPop1 }) => {
                       value?.document?.map((item, index) => (
                         <div key={index} style={{ display: "flex", flexDirection: "column", gap: "5px", alignItems: "center", maxWidth: "200px" }}>
                           <img src={item.url} alt="" />
-                          <p style={{ margin: "4px auto", fontWeight: "600" }}>{item.name}</p>
+                          {/* twevelCert , tenCert , cancelCheque */}
+                          <p style={{ margin: "4px auto", fontWeight: "600" }}>{item.name === "twevelCert" ?"twelveth Certificate" : item?.name ==="tenCert" ?"Tenth Certicate" : item?.name }</p>
                         </div>
                       ))
                     }

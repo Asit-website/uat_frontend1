@@ -253,7 +253,7 @@ const EmployeeSelf = ({ setAlert, pop1, setPop1 }) => {
                                   <a target="_blank" href={`${item?.url}`}><img src={doc} alt="" /></a>
 
                                     <div className="ffwrap">
-                                     <a target="_blank" href={`${item?.url}`}><p className="ff"> {item?.name}</p></a>
+                                     <a target="_blank" href={`${item?.url}`}><p className="ff"> {item.name === "twevelCert" ?"twelveth Certificate" : item?.name ==="tenCert" ?"Tenth Certicate" : item?.name }</p></a>
                                       <a target="_blank" href={`${item?.url}`}> <p className="dd">{(item?.url).slice(50,80)}</p></a>
                                     </div>
 

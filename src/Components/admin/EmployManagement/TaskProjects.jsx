@@ -279,7 +279,7 @@ const TaskProjects = ({ setAlert, pop, setPop }) => {
 
               <div className="btnsss">
                 <button className="saveclient">
-                  <span>Save Client</span>
+                  <span>Add Project</span>
                 </button>
                 <button
                   onClick={() => {
