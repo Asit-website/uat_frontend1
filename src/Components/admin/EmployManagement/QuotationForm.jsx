@@ -22,8 +22,6 @@ const QuotationForm = ({ setAlert, pop, setPop }) => {
 
   let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
 
-  console.log("hrms ",hrms_user);
-
   const location = useLocation();
 
   const { id  , item} = location.state; 
@@ -551,13 +549,29 @@ const QuotationForm = ({ setAlert, pop, setPop }) => {
                  
                 <div className="prntBtn">
                   <button onClick={()=>{
-                      if(item){
-                        updateQuotationForm();
+                     if( formdata.quotationNum !== "" &&
+                      formdata.customerName !==  "" &&
+                      formdata.customerReq !==  "" &&
+                      formdata.mobileNum !==  "" &&
+                      formdata.quotationDate !== "" &&
+                      formdata.validUntil!=="" &&
+                      formdata.customerId!== "" &&
+                      formdata.companyName!== "" &&
+                      formdata.companyAddress!== "" &&
+                      formdata.companyGSTIN!== "" && 
+                      formdata.companyWebsite!== "" && content !== "" ){
+
+                       if(item){
+                         updateQuotationForm();
+                        }
+                        else {
+                          postQuotationForm();
+                        }
+                        generatePdf();
                       }
                       else {
-                        postQuotationForm();
+                        toast.error("Please fill All The Details")
                       }
-                      generatePdf();
                   }}>
                     <span>Print</span>
                   </button>

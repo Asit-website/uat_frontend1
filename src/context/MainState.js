@@ -2039,6 +2039,20 @@ const MainState = (props) => {
       const data = await post(`${baseUrl}/task/editClient/${clientId}`, {  Name , Email , City , State , ZipCode , PhoneNumber , Country , Address}, true);
       return data;
    }
+   const createProjectapi = async ({ Name , Description , Employee , Status , DueDate , Members}) => {
+      const data = await post(`${baseUrl}/task/createProject`, {  Name , Description , Employee , Status , DueDate , Members}, true);
+      return data;
+   };
+
+   const getAllProjectApi = async () => {
+      const data = await get(`${baseUrl}/task/getAllProject`, true);
+      return data;
+   };
+
+   const editProjectapi = async({ Name , Description , Employee , Status , DueDate , Members , projectId})=>{
+      const data = await post(`${baseUrl}/task/editProject/${projectId}`, {  Name , Description , Employee , Status , DueDate , Members}, true);
+      return data;
+   }
    const disableClientapi = async(clientId)=>{
       const data = await post(`${baseUrl}/task/disableClient/${clientId}`, { }, true);
       return data;
@@ -2054,11 +2068,16 @@ const MainState = (props) => {
       const data = await deleteReq(`${baseUrl}/system/deleteFollow/${id}`, true);
       return data;
    };
+   const deleteTaskProject = async (id) => {
+      const data = await deleteReq(`${baseUrl}/task/deleteProject/${id}`, true);
+      return data;
+   };
 
 
    return (
       <MainContext.Provider value={{
-         login,deleteQuotationapi ,  taskCreateApi,FetchFollowApi ,getQuotationApi ,    ProvidePermission , RemovePermission ,   GetOpenLeadsApi ,   getLeadById,CreateNoteApi  , updateNoteApi,DeleteNoteApi ,  getUserByDesignation, UpdateLeadStatus, UpdateLeadSource, AllLeadSource, meetCreateApi, AllLeadStatus, taskEditApi, meetEditApi,GetNoteApi ,  deleteTaskapi, deleteMeetapi, getTaskApi, getMeetApi, employeeLogin, employeeResetPassword, hrLogin, createHr, getHrs, deleteHr, createEmployee, getEmployees, getUsers, getActiveUsers, getActiveUsersCount, postLeadStatus, postLeadSource2, getAdminEmployees, postActivity,editTaskapi ,  postActivityHr, getActivitiesByUser, getStatisticsByUser, postLeave, updateLeave, getUserLeaves, getUserLeaveById, deleteLeave, getTotalLeaves, postTotalLeaves, verifyEmployee, verifyHr, verifyAdmin, setUser, buildAPI, user,disableClientapi ,  getProjects, postProject, getHolidays, postHoliday, updateProject, getProjectsByEmployee, getTasks, postTask, updateTask, deleteTask, setFlag, flag, changePassword, updateProfile, deleteHoliday, updateHoliday, deleteProject, getChats, createNewChat, postMessage, deleteChat,getClientapi ,  adminLogin, getChat, getChatByUser, setUserTotalLeaveApi ,  setChatUser, chatUser, getEmployeesByEmployee, topDash, postAnnouncement, updateAnnouncement, getAnnouncements, getAnnouncementDates, deleteAnnouncement, getAttendance, getAttendanceByUser, createEmployee1, updateAdminProfile, changePassword1, verify, updateUser, forgetPassword, forgetPassword1, forgetPassword2, getBranchs, postBranch, updateBranch, deleteBranch, getDepartments, postDepartment, updateDepartment, deleteDepartment, getDesingation, postDesignation, updateDesignation, deleteDesignation, getAllActivities, postLeaveType, updateLeaveType, getLeaveTypes, deleteLeaveType,
+         login,deleteQuotationapi ,  taskCreateApi,FetchFollowApi ,getQuotationApi ,    ProvidePermission , RemovePermission ,   GetOpenLeadsApi ,   getLeadById,CreateNoteApi  , updateNoteApi,DeleteNoteApi ,  getUserByDesignation, UpdateLeadStatus, UpdateLeadSource, AllLeadSource, meetCreateApi, AllLeadStatus, taskEditApi, meetEditApi,GetNoteApi ,  deleteTaskapi, deleteMeetapi, getTaskApi, getMeetApi, employeeLogin, employeeResetPassword, hrLogin, createHr, getHrs, deleteHr, createEmployee, getEmployees, getUsers, getActiveUsers, getActiveUsersCount, postLeadStatus, postLeadSource2, getAdminEmployees, postActivity,editTaskapi ,deleteProject ,   postActivityHr, getActivitiesByUser, getStatisticsByUser, postLeave, updateLeave, getUserLeaves, getUserLeaveById, deleteLeave, getTotalLeaves, postTotalLeaves, verifyEmployee, verifyHr, verifyAdmin, setUser, buildAPI, user,disableClientapi ,  getProjects, postProject, getHolidays, postHoliday, updateProject, getProjectsByEmployee, getTasks, postTask, updateTask, deleteTask, setFlag, flag, changePassword, updateProfile, deleteHoliday, updateHoliday, deleteTaskProject, getChats, createNewChat, postMessage, deleteChat,getClientapi ,  adminLogin, getChat, getChatByUser, setUserTotalLeaveApi ,  setChatUser, chatUser, getEmployeesByEmployee, topDash, postAnnouncement, updateAnnouncement, getAnnouncements, getAnnouncementDates, deleteAnnouncement, getAttendance, getAttendanceByUser, createEmployee1, updateAdminProfile,   createProjectapi , getAllProjectApi , editProjectapi
+ ,          changePassword1, verify, updateUser, forgetPassword, forgetPassword1, forgetPassword2, getBranchs, postBranch, updateBranch, deleteBranch, getDepartments, postDepartment, updateDepartment, deleteDepartment, getDesingation, postDesignation, updateDesignation, deleteDesignation, getAllActivities, postLeaveType, updateLeaveType, getLeaveTypes, deleteLeaveType,
          createIndicator, getIndicator, deleteIndicator, getDesignations, updateIndicator, getAppraisal, createAppraisal, allEmployee, deleteApprisal, updateApprisal, createAssets, getAssets, deleteAssets, updateAssets, deleteUser, createTracks, getTracks, deleteTracks, updateTracks, editComApi, loanDeleteHandler,
          editAllowance, commisionDelteHandler, createLoan, editLoanApi,
          getTotalLeavesCount, uploadDocuments, createAnnouncement, deleteAnnouncement, updateAnnouncements, fetchAnnoucement, deleteAnnouncements, getEmp, allEmployeebyDep, notificationGet,

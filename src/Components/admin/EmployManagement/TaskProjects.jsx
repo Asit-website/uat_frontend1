@@ -10,77 +10,158 @@ import pluss from "../../images/pluss.png";
 import { Avatar } from "react-profile-avatar";
 import "react-profile-avatar/dist/index.css";
 import threedots from "../../images/thredonts.png";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import happy from "../../images/bx-happy-heart-eyes.png";
 import edit from "../../images/edit.png";
 import disable from "../../images/delete1.png";
 import cut from "../../images/cutt.png";
-import invidd from "../../images/invide.png"
-import share from "../../images/bx-share-alt.png"
-import bxcopy from "../../images/bx-copy.png"
+import invidd from "../../images/invide.png";
+import share from "../../images/bx-share-alt.png";
+import bxcopy from "../../images/bx-copy.png";
+import toast from "react-hot-toast";
 
-const allProjects = [
-  {
-    projectName: "App Development",
-    name: "A D",
-    Status: "Finished",
-    DueDate: "14-09-2024",
-    para: "Install Business Systems Manager and appropriate patches on test or QA servers",
-    member: "7",
-    task: "7",
-  },
-  {
-    projectName: "App Development",
-    name: "A D",
-    Status: "Finished",
-    DueDate: "14-09-2024",
-    para: "Install Business Systems Manager and appropriate patches on test or QA servers",
-    member: "7",
-    task: "7",
-  },
-  {
-    projectName: "App Development",
-    name: "A D",
-    Status: "Finished",
-    DueDate: "14-09-2024",
-    para: "Install Business Systems Manager and appropriate patches on test or QA servers",
-    member: "7",
-    task: "7",
-  },
-  {
-    projectName: "App Development",
-    name: "A D",
-    Status: "Finished",
-    DueDate: "14-09-2024",
-    para: "Install Business Systems Manager and appropriate patches on test or QA servers",
-    member: "7",
-    task: "7",
-  },
-  {
-    projectName: "App Development",
-    name: "A D",
-    Status: "Finished",
-    DueDate: "14-09-2024",
-    para: "Install Business Systems Manager and appropriate patches on test or QA servers",
-    member: "7",
-    task: "7",
-  },
-];
 
 const projectOpt = ["All", "Ongoing", "Finished", "OnHold"];
 
 const TaskProjects = ({ setAlert, pop, setPop }) => {
-  const { user } = useMain();
+  const { user , allEmployee  , editProjectapi , getAllProjectApi , createProjectapi , deleteTaskProject} = useMain();
 
   let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
 
   const { role } = hrms_user;
 
+  const [formdata, setFormdata] = useState({
+    Name: "",
+    Description: "",
+    Members: "",
+    Status: "Ongoing",
+    DueDate: "",
+    Members: "",
+  });
+
+  const changeHandler = (e) => {
+    const { name, value } = e.target;
+    setFormdata((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
   const [showIndex, setShowIndex] = useState(null);
+
+  const [isEdit , setIsEdit] = useState(false);
 
   const [addClientPop, setAddClientPop] = useState(false);
 
   const [optIndex, setOptIndex] = useState(0);
+
+  const [allProjects , setAllProjects] = useState([]);
+
+   const [storeProject , setStorePro] = useState([]);
+
+  const [allEmp , setAllEmp] = useState([]);
+
+  const getAllProject =async()=>{
+ const ans = await getAllProjectApi();
+   if(ans?.status){
+     setAllProjects(ans?.data);
+      setStorePro(ans?.data);
+   }
+  }
+
+  const editHandler = async(e)=>{
+    e.preventDefault();
+    const toastId = toast.loading("Loading...");
+    try {
+      const ans = await editProjectapi({ ...formdata, projectId: isEdit });
+      if (ans?.status) {
+        toast.success("Successfuly updated");
+        getAllProject();
+        setFormdata({
+          Name: "",
+    Description: "",
+    Members: "",
+    Status: "Ongoing",
+    DueDate: "",
+    Members: "",
+        });
+        setAddClientPop(false);
+        setIsEdit(false);
+        setShowIndex(null);
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("sometinng went wrong ,please try agin");
+    }
+
+    toast.dismiss(toastId);
+  }
+
+  const submitHandler = async(e)=>{
+    e.preventDefault();
+    setShowIndex(null);
+    const toastId = toast.loading("Loading...");
+    try {
+      const ans = await createProjectapi({ ...formdata });
+      if (ans?.status) {
+        toast.success("Successfuly created");
+        getAllProject();
+        setFormdata({
+          Name: "",
+          Description: "",
+          Members: "",
+          Status: "Ongoing",
+          DueDate: "",
+          Members: "",
+        });
+        setAddClientPop(false);
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("sometinng went wrong ,please try agin");
+    }
+
+    toast.dismiss(toastId);
+  }
+
+  const fetchemp = async()=>{
+     const ans = await allEmployee();
+      setAllEmp(ans?.emp);
+  }
+
+  const deleteApi = async(id)=>{
+    const  toastId = toast.loading("Loading...");
+     setShowIndex(null);
+      const ans = await deleteTaskProject(id);
+       toast.success("Successfuly deleted");
+       toast.dismiss(toastId);
+       getAllProject();
+  }
+
+  useEffect(()=>{
+    fetchemp();
+    getAllProject();
+  },[])
+
+  useEffect(()=>{
+
+     if(optIndex === 0){
+      setAllProjects([...storeProject]);
+     }
+     else if(optIndex === 1){
+      const fitlerdata = storeProject.filter((pro)=> pro.Status === "Ongoing");
+       setAllProjects(fitlerdata);
+     }
+     else if(optIndex === 2){
+      const fitlerdata = storeProject.filter((pro)=> pro.Status === "Finished");
+       setAllProjects(fitlerdata);
+     }
+     else{
+      const fitlerdata = storeProject.filter((pro)=> pro.Status === "OnHold");
+       setAllProjects(fitlerdata);
+     }
+
+  },[optIndex]);
 
   return (
     <>
@@ -110,7 +191,7 @@ const TaskProjects = ({ setAlert, pop, setPop }) => {
                     }}
                     className="newcli"
                   >
-                    <img src={pluss} alt="" /> <span>Add Project</span>
+                    <img src={pluss} /> <span>Add Project</span>
                   </button>
                   <button className="impcli">
                     <span>Import Project</span>
@@ -141,7 +222,6 @@ const TaskProjects = ({ setAlert, pop, setPop }) => {
               <div className="allClients">
                 {allProjects.map((client, index) => (
                   <div key={index} className="singleProject">
-
                     <div
                       onClick={() => {
                         if (showIndex === index) {
@@ -154,7 +234,7 @@ const TaskProjects = ({ setAlert, pop, setPop }) => {
                     >
                       <div className="leftnav">
                         <Avatar
-                          name={client?.name}
+                          name={client?.Name}
                           colour={
                             index % 3 == 0
                               ? "#3C78E9"
@@ -163,37 +243,45 @@ const TaskProjects = ({ setAlert, pop, setPop }) => {
                           size={32}
                           className="avatarclient"
                         />
-                        <p>{client.projectName}</p>
+                        <p>{client.Name}</p>
                       </div>
                       <img src={threedots} alt="" />
                     </div>
 
-                     <hr />
+                    <hr />
 
-                      <div className="statusdue">
-
-                        <div className={`stapro ${client.Status === "Finished"  && "finibg"} ${client.Status === "Ongoing"  && "Ongoingbg"} ${client.Status === "OnHold"  && "OnHoldbg"}`}>
-                          <span >{client.Status}</span>
-                        </div>
-
-                          <p className="duedate"> <span>Due Date:</span>{client.DueDate}</p>
-
+                    <div className="statusdue">
+                      <div
+                        className={`stapro ${
+                          client.Status === "Finished" && "finibg"
+                        } ${client.Status === "Ongoing" && "Ongoingbg"} ${
+                          client.Status === "OnHold" && "OnHoldbg"
+                        }`}
+                      >
+                        <span>{client.Status}</span>
                       </div>
 
-                    <p className="propara">{client?.para}</p>
-
-                    <div className="mem">
-                       <p>Members</p>
+                      <p className="duedate">
+                        {" "}
+                        <span>Due Date:</span>
+                        {client?.DueDate}
+                      </p>
                     </div>
 
-                <div className="protasjwon">
+               <div className="propara">
+                    <p className="">{client?.Description}</p>
+               </div>
 
-                    <p className="proteast">{client.task} Tasks</p>
-                </div>
+                    <div className="mem">
+                      <p>Members</p>
+                    </div>
+
+                    <div className="protasjwon">
+                      <p className="proteast">{client.task} Tasks</p>
+                    </div>
 
                     {showIndex === index && (
                       <div className="showIndexcont2">
-
                         <div className="singlinpro">
                           <img src={invidd} alt="" />
                           <span>Invite Employee</span>
@@ -201,7 +289,11 @@ const TaskProjects = ({ setAlert, pop, setPop }) => {
 
                         <hr />
 
-                        <div className="singlinpro">
+                        <div onClick={()=>{
+                          setIsEdit(client?._id);
+                          setFormdata(client);
+                           setAddClientPop(true);
+                        }} className="singlinpro">
                           <img src={edit} alt="" />
                           <span>Edit</span>
                         </div>
@@ -213,21 +305,19 @@ const TaskProjects = ({ setAlert, pop, setPop }) => {
                           <span>Share to Clients</span>
                         </div>
 
- <hr />
+                        <hr />
 
                         <div className="singlinpro">
                           <img src={bxcopy} alt="" />
                           <span>Duplicate</span>
                         </div>
 
- <hr />
+                        <hr />
 
-
-                        <div className="singlinpro">
+                        <div onClick={()=>deleteApi(client?._id)} className="singlinpro">
                           <img src={disable} alt="" />
                           <span className="delspan">Delete</span>
                         </div>
-
                       </div>
                     )}
                   </div>
@@ -254,31 +344,73 @@ const TaskProjects = ({ setAlert, pop, setPop }) => {
 
             <hr />
 
-            <form>
+            <form onSubmit={isEdit? editHandler : submitHandler}>
+
               <label>
                 <p>Name</p>
-                <input type="text" name="Name" placeholder="Name" />
+                <input
+                  name="Name"
+                  value={formdata.Name}
+                  onChange={changeHandler}
+                  type="text"
+                  placeholder="Name"
+                />
               </label>
 
               <label>
                 <p>Employee </p>
-                {/* <input type="text" name="Email" placeholder="Email" /> */}
-                <select name="" id=""></select>
+                <select
+                  name="Members"
+                  value={formdata.Members}
+                  onChange={changeHandler}
+                
+                >
+                  <option value="Select">Select Employee</option>
+                  {
+                    allEmp?.map((emp , index)=>(
+                      <option value={emp?._id} key={index}>{emp?.fullName}</option>
+                    ))
+                  }
+
+                </select>
               </label>
 
+              <label>
+                <p>Status </p>
+                <select
+                  name="Status"
+                  value={formdata.Status}
+                  onChange={changeHandler}
+                >
+                  <option value="Ongoing">Ongoing</option>
+                  <option value="OnHold">OnHold</option>
+                  <option value="Finished">Finished</option>
+                </select>
+              </label>
 
-          
+              <label>
+                <p>Due Date</p>
+                <input
+                  name="DueDate"
+                  value={formdata.DueDate}
+                  onChange={changeHandler}
+                  type="date"
+                />
+              </label>
+
               <label>
                 <p>Description</p>
                 <textarea
                   type="text"
                   name="Description"
+                  value={formdata.Description}
+                  onChange={changeHandler}
                   placeholder="Description"
                 />
               </label>
 
               <div className="btnsss">
-                <button className="saveclient">
+                <button type="submit" className="saveclient">
                   <span>Add Project</span>
                 </button>
                 <button
@@ -287,9 +419,10 @@ const TaskProjects = ({ setAlert, pop, setPop }) => {
                   }}
                   className="cancel"
                 >
-                  <span>Cancel</span>
+                  <span >Cancel</span>
                 </button>
               </div>
+
             </form>
           </div>
         </div>

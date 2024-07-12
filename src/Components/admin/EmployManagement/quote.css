@@ -684,7 +684,7 @@ background-color: white;
 }
 
 .addheight{
-    height: 452px  !important;
+    height: 622px  !important;
 }
 
 .addClieCont nav{
@@ -946,16 +946,20 @@ color: #1B2533;
 }
 
 .propara{
+text-align: left;
+max-width: 340px;
+width: 100%;
+}
+.propara p{
 
     font-family: Inter;
 font-size: 14px;
 font-weight: 400;
 line-height: 16.8px;
 letter-spacing: 0.0015em;
-text-align: left;
+width: 100%;
  color: #666D76;
- max-width: 340px;
-}
+ }
 
 .protasjwon{
     width: 100%;

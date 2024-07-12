@@ -59,8 +59,6 @@ const TaskClients = ({ setAlert, pop, setPop }) => {
     }));
   };
 
-
-
   const [allClient, setAllClient] = useState([]);
   const [isEdit, setIsEdit] = useState(false);
 
