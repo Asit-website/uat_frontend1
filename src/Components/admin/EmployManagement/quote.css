@@ -501,7 +501,30 @@ color: #FFFFFF;
         
     
 }
+ .clibtns .backpro{
+    width: 70px;
+    height: 40px;
+    background: #E8E9EB;
+    border-radius: 8px ;
+    border: 1px solid #B8BBC0;
+        
+    
+}
  .clibtns .expoclient span{
+     font-family: Inter;
+     color: #1B2533;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    letter-spacing: 0.005em;
+    
+}
+.pronaheading{
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+ .clibtns .backpro span{
      font-family: Inter;
      color: #1B2533;
     font-size: 16px;
@@ -893,7 +916,7 @@ color: #FFFFFF;
      justify-content: space-between;
      width: 100%;
 }
-.statusdue .stapro{
+ .stapro{
     width: 68px;
     height: 28px;
     border-radius: 27px ;
@@ -902,7 +925,7 @@ color: #FFFFFF;
     justify-content: center;
     
 }
-.statusdue .stapro span{
+ .stapro span{
     font-family: Inter;
     color: #121212;
     font-size: 12px;
@@ -943,6 +966,61 @@ color: #1B2533;
     text-align: left;
     
 
+}
+
+.prodlefriwrap{
+    width: 100%;
+height: 96px;
+padding: 24px 24px;
+border-radius: 12px ;
+background: var(--Green-Green-40, #DEF8E4);
+display: flex;
+align-items: center;
+justify-content: space-between;
+}
+
+.leftprodetail{
+    display: flex;
+    align-items: center;
+    gap: 60px;
+}
+.leftprodetail label{
+    display: flex;
+    flex-direction: column;
+    gap:6px ;
+}
+.leftprodetail label .filn{
+    font-family: Inter;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 18px;
+    letter-spacing: 0.0015em;
+    text-align: left;
+color: #666D76;    
+}
+.leftprodetail label .proand{
+    font-family: Inter;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 24px;
+    letter-spacing: 0.005em;
+    text-align: left;
+    color: #1B2533;
+}
+
+.righprodetail{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.righprodetail div{
+    width: 32px;
+    height: 32px;
+    background: var(--General-General-White, #FFFFFF);
+border-radius: 50%;    
+display: flex;
+align-items: center;
+justify-content: center;
 }
 
 .propara{

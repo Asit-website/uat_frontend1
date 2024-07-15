@@ -90,6 +90,7 @@ import QuotationForm from "./Components/admin/EmployManagement/QuotationForm.jsx
 import TaskClients from "./Components/admin/EmployManagement/TaskClients.jsx";
 import TaskProjects from "./Components/admin/EmployManagement/TaskProjects.jsx";
 import Tasks from "./Components/admin/EmployManagement/Tasks.jsx";
+import ProjectDetails from "./Components/admin/EmployManagement/ProjectDetails.jsx";
 
 var tc;
 
@@ -258,6 +259,7 @@ function App() {
 
               <Route path="/employeeDash/HRM/taskClients" element={<TaskClients />} />
               <Route path="/employeeDash/HRM/taskProjects" element={<TaskProjects />} />
+              <Route path="/employeeDash/HRM/projectDetails" element={<ProjectDetails />} />
               <Route path="/employeeDash/HRM/Tasks" element={<Tasks />} />
 
 

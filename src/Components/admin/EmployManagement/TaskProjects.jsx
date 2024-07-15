@@ -36,7 +36,6 @@ const TaskProjects = ({ setAlert, pop, setPop }) => {
     Members: "",
     Status: "Ongoing",
     DueDate: "",
-    Members: "",
   });
 
   const changeHandler = (e) => {
