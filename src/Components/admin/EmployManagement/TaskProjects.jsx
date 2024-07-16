@@ -11,7 +11,6 @@ import { Avatar } from "react-profile-avatar";
 import "react-profile-avatar/dist/index.css";
 import threedots from "../../images/thredonts.png";
 import { useEffect, useState } from "react";
-import happy from "../../images/bx-happy-heart-eyes.png";
 import edit from "../../images/edit.png";
 import disable from "../../images/delete1.png";
 import cut from "../../images/cutt.png";
@@ -20,11 +19,17 @@ import share from "../../images/bx-share-alt.png";
 import bxcopy from "../../images/bx-copy.png";
 import toast from "react-hot-toast";
 
-
 const projectOpt = ["All", "Ongoing", "Finished", "OnHold"];
 
 const TaskProjects = ({ setAlert, pop, setPop }) => {
-  const { user , allEmployee  , editProjectapi , getAllProjectApi , createProjectapi , deleteTaskProject} = useMain();
+  const {
+    user,
+    allEmployee,
+    editProjectapi,
+    getAllProjectApi,
+    createProjectapi,
+    deleteTaskProject,
+  } = useMain();
 
   let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
 
@@ -33,10 +38,13 @@ const TaskProjects = ({ setAlert, pop, setPop }) => {
   const [formdata, setFormdata] = useState({
     Name: "",
     Description: "",
-    Members: "",
+    Members: [],
     Status: "Ongoing",
     DueDate: "",
   });
+
+  const [proUser, setProUser] = useState([]);
+
 
   const changeHandler = (e) => {
     const { name, value } = e.target;
@@ -46,29 +54,45 @@ const TaskProjects = ({ setAlert, pop, setPop }) => {
     }));
   };
 
+  const changeHandler2 = (e) => {
+    const selectedEmpId = e.target.value;
+    if (selectedEmpId === 'Select' || formdata.Members.includes(selectedEmpId)) return;
+
+    const selectedEmp = allEmp.find((emp) => emp._id === selectedEmpId);
+    setProUser([...proUser, selectedEmp.fullName]);
+    setFormdata({ ...formdata, Members: [...formdata.Members, selectedEmpId] });
+  };
+
+  const removeUser = (index) => {
+    const newProUser = proUser.filter((_, i) => i !== index);
+    const newMembers = formdata.Members.filter((_, i) => i !== index);
+    setProUser(newProUser);
+    setFormdata({ ...formdata, Members: newMembers });
+  };
+
   const [showIndex, setShowIndex] = useState(null);
 
-  const [isEdit , setIsEdit] = useState(false);
+  const [isEdit, setIsEdit] = useState(false);
 
   const [addClientPop, setAddClientPop] = useState(false);
 
   const [optIndex, setOptIndex] = useState(0);
 
-  const [allProjects , setAllProjects] = useState([]);
+  const [allProjects, setAllProjects] = useState([]);
 
-   const [storeProject , setStorePro] = useState([]);
+  const [storeProject, setStorePro] = useState([]);
 
-  const [allEmp , setAllEmp] = useState([]);
+  const [allEmp, setAllEmp] = useState([]);
 
-  const getAllProject =async()=>{
- const ans = await getAllProjectApi();
-   if(ans?.status){
-     setAllProjects(ans?.data);
+  const getAllProject = async () => {
+    const ans = await getAllProjectApi();
+    if (ans?.status) {
+      setAllProjects(ans?.data);
       setStorePro(ans?.data);
-   }
-  }
+    }
+  };
 
-  const editHandler = async(e)=>{
+  const editHandler = async (e) => {
     e.preventDefault();
     const toastId = toast.loading("Loading...");
     try {
@@ -78,13 +102,14 @@ const TaskProjects = ({ setAlert, pop, setPop }) => {
         getAllProject();
         setFormdata({
           Name: "",
-    Description: "",
-    Members: "",
-    Status: "Ongoing",
-    DueDate: "",
-    Members: "",
+          Description: "",
+          Members: [],
+          Status: "Ongoing",
+          DueDate: "",
+          Members: "",
         });
         setAddClientPop(false);
+        setProUser([]);
         setIsEdit(false);
         setShowIndex(null);
       }
@@ -94,9 +119,9 @@ const TaskProjects = ({ setAlert, pop, setPop }) => {
     }
 
     toast.dismiss(toastId);
-  }
+  };
 
-  const submitHandler = async(e)=>{
+  const submitHandler = async (e) => {
     e.preventDefault();
     setShowIndex(null);
     const toastId = toast.loading("Loading...");
@@ -114,6 +139,7 @@ const TaskProjects = ({ setAlert, pop, setPop }) => {
           Members: "",
         });
         setAddClientPop(false);
+        setProUser([]);
       }
     } catch (error) {
       console.log(error);
@@ -121,46 +147,55 @@ const TaskProjects = ({ setAlert, pop, setPop }) => {
     }
 
     toast.dismiss(toastId);
-  }
+  };
 
-  const fetchemp = async()=>{
-     const ans = await allEmployee();
-      setAllEmp(ans?.emp);
-  }
+  const fetchemp = async () => {
+    const ans = await allEmployee();
+    setAllEmp(ans?.emp);
+  };
 
-  const deleteApi = async(id)=>{
-    const  toastId = toast.loading("Loading...");
-     setShowIndex(null);
-      const ans = await deleteTaskProject(id);
-       toast.success("Successfuly deleted");
-       toast.dismiss(toastId);
-       getAllProject();
-  }
+  const deleteApi = async (id) => {
+    const toastId = toast.loading("Loading...");
+    setShowIndex(null);
+    const ans = await deleteTaskProject(id);
+    toast.success("Successfuly deleted");
+    toast.dismiss(toastId);
+    getAllProject();
+  };
 
-  useEffect(()=>{
+  const handleEditClick = (client) => {
+    const membersNames = client.Members.map(memberId => {
+      const member = allEmp.find(emp => emp._id === memberId?._id);
+      return member ? member.fullName : '';
+    });
+
+    setIsEdit(client._id);
+    setFormdata(client);
+    setProUser(membersNames);
+    setAddClientPop(true);
+  };
+
+  useEffect(() => {
     fetchemp();
     getAllProject();
-  },[])
+  }, []);
 
-  useEffect(()=>{
-
-     if(optIndex === 0){
+  useEffect(() => {
+    if (optIndex === 0) {
       setAllProjects([...storeProject]);
-     }
-     else if(optIndex === 1){
-      const fitlerdata = storeProject.filter((pro)=> pro.Status === "Ongoing");
-       setAllProjects(fitlerdata);
-     }
-     else if(optIndex === 2){
-      const fitlerdata = storeProject.filter((pro)=> pro.Status === "Finished");
-       setAllProjects(fitlerdata);
-     }
-     else{
-      const fitlerdata = storeProject.filter((pro)=> pro.Status === "OnHold");
-       setAllProjects(fitlerdata);
-     }
-
-  },[optIndex]);
+    } else if (optIndex === 1) {
+      const fitlerdata = storeProject.filter((pro) => pro.Status === "Ongoing");
+      setAllProjects(fitlerdata);
+    } else if (optIndex === 2) {
+      const fitlerdata = storeProject.filter(
+        (pro) => pro.Status === "Finished"
+      );
+      setAllProjects(fitlerdata);
+    } else {
+      const fitlerdata = storeProject.filter((pro) => pro.Status === "OnHold");
+      setAllProjects(fitlerdata);
+    }
+  }, [optIndex]);
 
   return (
     <>
@@ -267,12 +302,13 @@ const TaskProjects = ({ setAlert, pop, setPop }) => {
                       </p>
                     </div>
 
-               <div className="propara">
-                    <p className="">{client?.Description}</p>
-               </div>
+                    <div className="propara">
+                      <p className="">{client?.Description}</p>
+                    </div>
 
                     <div className="mem">
                       <p>Members</p>
+                       <p>{client?.Members?.length}</p>
                     </div>
 
                     <div className="protasjwon">
@@ -288,11 +324,13 @@ const TaskProjects = ({ setAlert, pop, setPop }) => {
 
                         <hr />
 
-                        <div onClick={()=>{
-                          setIsEdit(client?._id);
-                          setFormdata(client);
-                           setAddClientPop(true);
-                        }} className="singlinpro">
+                        <div
+                          onClick={() => {
+                        
+                            handleEditClick(client);
+                          }}
+                          className="singlinpro"
+                        >
                           <img src={edit} alt="" />
                           <span>Edit</span>
                         </div>
@@ -313,7 +351,10 @@ const TaskProjects = ({ setAlert, pop, setPop }) => {
 
                         <hr />
 
-                        <div onClick={()=>deleteApi(client?._id)} className="singlinpro">
+                        <div
+                          onClick={() => deleteApi(client?._id)}
+                          className="singlinpro"
+                        >
                           <img src={disable} alt="" />
                           <span className="delspan">Delete</span>
                         </div>
@@ -335,6 +376,15 @@ const TaskProjects = ({ setAlert, pop, setPop }) => {
               <img
                 onClick={() => {
                   setAddClientPop(false);
+                  setProUser([]);
+                  setFormdata({
+                   Name: "",
+                   Description: "",
+                   Members: "",
+                   Status: "Ongoing",
+                   DueDate: "",
+                   Members: "",
+                  })
                 }}
                 src={cut}
                 alt=""
@@ -343,8 +393,7 @@ const TaskProjects = ({ setAlert, pop, setPop }) => {
 
             <hr />
 
-            <form onSubmit={isEdit? editHandler : submitHandler}>
-
+            <form onSubmit={isEdit ? editHandler : submitHandler}>
               <label>
                 <p>Name</p>
                 <input
@@ -358,19 +407,31 @@ const TaskProjects = ({ setAlert, pop, setPop }) => {
 
               <label>
                 <p>Employee </p>
+
+                <div className="allempid">
+                  {proUser.map((pro, index) => (
+                    <div key={index} className="sinproid">
+                      <p >{pro}</p>
+                      <img
+                        src={cut}
+                        alt="Remove"
+                        onClick={() => removeUser(index)}
+                      />
+                    </div>
+                  ))}
+                </div>
+
                 <select
                   name="Members"
                   value={formdata.Members}
-                  onChange={changeHandler}
-                
+                  onChange={changeHandler2}
                 >
                   <option value="Select">Select Employee</option>
-                  {
-                    allEmp?.map((emp , index)=>(
-                      <option value={emp?._id} key={index}>{emp?.fullName}</option>
-                    ))
-                  }
-
+                  {allEmp?.map((emp, index) => (
+                    <option value={emp?._id} key={index}>
+                      {emp?.fullName}
+                    </option>
+                  ))}
                 </select>
               </label>
 
@@ -415,14 +476,23 @@ const TaskProjects = ({ setAlert, pop, setPop }) => {
                 <button
                   onClick={() => {
                     setAddClientPop(false);
+                    setProUser([]);
+                     setFormdata({
+                      Name: "",
+                      Description: "",
+                      Members: "",
+                      Status: "Ongoing",
+                      DueDate: "",
+                      Members: "",
+                     })
                   }}
                   className="cancel"
                 >
-                  <span >Cancel</span>
+                  <span>Cancel</span>
                 </button>
               </div>
-
             </form>
+
           </div>
         </div>
       )}

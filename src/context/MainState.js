@@ -2048,6 +2048,12 @@ const MainState = (props) => {
       const data = await get(`${baseUrl}/task/getAllProject`, true);
       return data;
    };
+   const getAllProjectUserApi = async () => {
+      let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
+
+      const data = await get(`${baseUrl}/task/getProjectByUser/${hrms_user?._id}`, true);
+      return data;
+   };
 
    const editProjectapi = async({ Name , Description , Employee , Status , DueDate , Members , projectId})=>{
       const data = await post(`${baseUrl}/task/editProject/${projectId}`, {  Name , Description , Employee , Status , DueDate , Members}, true);
@@ -2150,7 +2156,8 @@ const MainState = (props) => {
          getQuotationAll1,
          updateQuotation1,
          deleteQuotation1 , 
-         uploadSingleImage
+         uploadSingleImage , 
+         getAllProjectUserApi
       }}>
          {props.children}
       </MainContext.Provider>

@@ -118,15 +118,15 @@ const payrols = [
 const payrols2 = [
   {
     title:"Clients",
-    link:"/employeeDash/HRM/taskClients"
+    link:"/adminDash/HRM/taskClients"
   },
   {
     title:"Projects",
-    link:"/employeeDash/HRM/taskProjects"
+    link:"/adminDash/HRM/taskProjects"
   },
   {
     title:"Tasks",
-    link:"/employeeDash/HRM/Tasks"
+    link:"/adminDash/HRM/Tasks"
   },
 ]
 
@@ -232,36 +232,6 @@ const AdminSidebar = ({ pop, setPop }) => {
 
                 {/* <img src={`${window.location.pathname === "/adminDash/HRM" ? null : expand_more}`} alt="" /> */}
               </div></NavLink>
-
-              {/* {openDashItem && (
-                <div className="alladminDash-item">
-                  {dashboardItem?.map((item, index) => (
-                    <div
-                      onClick={() => {
-                        setDashItem(index)
-                        navigate(item?.link)
-                      }
-
-                      }
-                      className="sinADDasItem"
-                      key={index}
-                    >
-                      {dashItem == index ? (
-                        <img src={chooseDash} alt="" />
-                      ) : (
-                        <img src={unchosedash} alt="" />
-                      )}
-                      <p
-                        className={` ${dashItem === index ? "dashItemp" : "dITitl"
-                          }`}
-                      >
-                        {item?.title}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              )} */}
-
             </div>
 
            {/* ================persmission  start============= */}

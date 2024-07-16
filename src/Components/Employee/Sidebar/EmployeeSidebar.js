@@ -71,6 +71,15 @@ const performances = [
   }
 ]
 
+const payrols2 = [
+  
+  {
+    title:"My Projects",
+    link:"/employeeDash/HRM/myProjects"
+  },
+ 
+]
+
 const EmployeeSidebar = () => {
 
   let user = JSON.parse(localStorage.getItem("hrms_user"));
@@ -88,6 +97,8 @@ const EmployeeSidebar = () => {
 
   const [openLeaveMan, setOpenLeaveMan] = useState(false);
   const [openPerform, setOpenPerform] = useState(false);
+  const [openPayroll2,setOpenPayroll2] = useState(false);
+
 
   const [leveItem, setLeveItem] = useState(0);
 
@@ -368,9 +379,6 @@ const EmployeeSidebar = () => {
               </>
             }
 
-
-
-
             {
               employeeManagePermission &&
               <>
@@ -432,6 +440,51 @@ const EmployeeSidebar = () => {
               </>
             }
 
+ {/* =================task start============ */}
+
+ <div
+                onClick={() => setOpenPayroll2((prev) => !prev)}
+                className="side-dash-box sidemargin"
+              >
+                <div className="dash-wrap">
+                  <img src={anal} alt="dasg" />
+                  <p>Task Management</p>
+                </div>
+
+                <img src={vect} alt="" />
+              </div>
+
+              {openPayroll2 && (
+                <div className="alladminDash-item">
+                  {payrols2?.map((item, index) => (
+                    <div
+                      onClick={() => {
+                        setPayrollItem(index);
+                        navigate(item?.link);
+                        setOpenPayroll2(true);
+                      }
+
+                      }
+                      className="sinADDasItem"
+                      key={index}
+                    >
+                      {payrollItem == index ? (
+                        <img src={`${window.location.pathname === `${item?.link}` ? fiber : tyming}`} alt="" />
+                      ) : (
+                        <img src={`${window.location.pathname === `${item?.link}` ? fiber : tyming}`} alt="" />
+                      )}
+                      <p
+                        className={` ${payrollItem === index ? "dashItemp" : "dITitl"
+                          } ${window.location.pathname === `${item?.link}` ? "fan" : ""}`}
+                      >
+                        {item?.title}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {/* ================= tak end============ */}
 
             <NavLink to="/employeeDash/mySelf"><li className="indefy">
               <img src={shop} alt="" />
