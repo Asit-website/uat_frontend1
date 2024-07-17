@@ -11,9 +11,11 @@ import redcancel from "../../images/redcancel.png"
 
 const AdminNavbar = ({ setAlert}) => {
   
-  const { fetchUserNotifyHR , deleteNotification } = useMain();
+  const { fetchUserNotifyHR  } = useMain();
 
-  let user = JSON?.parse(localStorage.getItem("hrms_user"));
+  // let user = JSON?.parse(localStorage.getItem("hrms_user"));
+
+   const [user , setUser] = useState({});
 
   const [allNotication , setAllNotification] = useState([]);
 
@@ -43,6 +45,11 @@ const AdminNavbar = ({ setAlert}) => {
     setAlert("success", "logout successfully");
   };
 
+  useEffect(()=>{
+    let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
+     setUser(hrms_user);
+  },[])
+
   // ===============logic for good morning, good afternoon and evening accorroding to time====
   let myDate = new Date();
   let hours = myDate.getHours();
@@ -60,11 +67,6 @@ const AdminNavbar = ({ setAlert}) => {
         setAllNotification(ans?.notifications);
 
      }
-}
-
-const deleteNotify = async(id)=>{
-  const ans = await deleteNotification(id);
-  fetchNotification();
 }
 
 useEffect(()=>{

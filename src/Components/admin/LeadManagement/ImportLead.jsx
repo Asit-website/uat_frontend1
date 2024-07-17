@@ -10,13 +10,11 @@ import { useNavigate, useParams } from "react-router-dom";
 import toast from "react-hot-toast";
 import veci from "../../images/veci.svg";
 import deli from "../../images/deli.svg";
-import semi from "../../images/simi.svg";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import cancel from "../../images/cancell.png";
 import { useLocation } from "react-router-dom";
-import edit from "../../images/edit.png";
-import delete32 from "../../images/delete.png";
+
 
 const ImportLead = ({ setAlert, pop, setPop }) => {
   const {
@@ -533,15 +531,6 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
                       <p>${data?.AnnualRevenue}</p>
                     </div>
 
-                    <div className="subPart">
-                      <h3>Annual Revenue :</h3>
-                      <p>${data?.AnnualRevenue}</p>
-                    </div>
-
-                    <div className="subPart">
-                      <h3>Annual Revenue :</h3>
-                      <p>${data?.AnnualRevenue}</p>
-                    </div>
                   </div>
 
                   {/* right side  */}
@@ -575,14 +564,7 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
                       <h3>Lead Status :</h3>
                       <p>{data?.LeadStatus}</p>
                     </div>
-                    <div className="subPart">
-                      <h3>Lead Status :</h3>
-                      <p>{data?.LeadStatus}</p>
-                    </div>
-                    <div className="subPart">
-                      <h3>Lead Status :</h3>
-                      <p>{data?.LeadStatus}</p>
-                    </div>
+                  
                   </div>
                 </div>
               </div>

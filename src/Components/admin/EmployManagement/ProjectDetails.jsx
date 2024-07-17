@@ -8,9 +8,9 @@ import EmployeeNavbar from "../../Employee/Navbar/EmployeeNavbar";
 import "./quote.css";
 import pluss from "../../images/pluss.png";
 import "react-profile-avatar/dist/index.css";
-import predit from "../../images/Frame 9740.png"
-import predel from "../../images/Frame 9741.png"
-
+import predit from "../../images/Frame 9740.png";
+import predel from "../../images/Frame 9741.png";
+import { useLocation } from "react-router-dom";
 
 const allProject = {
   Name: "App Development",
@@ -22,6 +22,11 @@ const allProject = {
 
 const ProjectDetails = ({ setAlert, pop, setPop }) => {
   const { user } = useMain();
+
+  const location = useLocation();
+
+  const data = location?.state;
+  console.log("locat", data);
 
   let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
 
@@ -45,16 +50,18 @@ const ProjectDetails = ({ setAlert, pop, setPop }) => {
 
           <div className="em">
             <div className="tclwrap">
-
-
               <nav>
                 <div className="pronaheading">
                   <h2>App Development</h2>
-                  <p    className={`stapro ${
-                          allProject.Status === "Finished" && "finibg"
-                        } ${allProject.Status === "Ongoing" && "Ongoingbg"} ${
-                            allProject.Status === "OnHold" && "OnHoldbg"
-                        }`}>{allProject?.Status}</p>
+                  <p
+                    className={`stapro ${
+                      allProject.Status === "Finished" && "finibg"
+                    } ${allProject.Status === "Ongoing" && "Ongoingbg"} ${
+                      allProject.Status === "OnHold" && "OnHoldbg"
+                    }`}
+                  >
+                    {allProject?.Status}
+                  </p>
                 </div>
 
                 <div className="clibtns">
@@ -67,42 +74,33 @@ const ProjectDetails = ({ setAlert, pop, setPop }) => {
                 </div>
               </nav>
 
-               <div className="prodlefriwrap">
+              <div className="prodlefriwrap">
+                {/* left side */}
+                <div className="leftprodetail">
+                  <label>
+                    <p className="filn">Start Date:</p>
+                    <p className="proand">{new Date(data?.createdAt).toLocaleDateString('en-GB')}</p>
+                  </label>
+                  <label>
+                    <p className="filn">Due Date:</p>
+                    <p className="proand">{data?.DueDate}</p>
+                  </label>
+                  <label>
+                    <p className="filn">Total Members</p>
+                    <p className="proand">{data.Members?.length}</p>
+                  </label>
+                </div>
 
-
-        {/* left side */}
-        <div className="leftprodetail">
-
-            <label >
-                <p className="filn">Start Date:</p>
-                <p className="proand">07 Jul 2024</p>
-            </label>
-            <label >
-                <p className="filn">Due Date:</p>
-                <p className="proand">{allProject?.DueDate}</p>
-            </label>
-            <label >
-                <p className="filn">Total Members</p>
-                <p className="proand">{allProject.Members}</p>
-            </label>
-
-        </div>
-
-        {/* right side */}
-        <div className="righprodetail">
-
-            <div>
-                <img src={predit} alt="" />
-            </div>
-            <div>
-                <img src={predel} alt="" />
-            </div>
-
-        </div>
-
-               </div>
-
-
+                {/* right side */}
+                <div className="righprodetail">
+                  <div>
+                    <img src={predit} alt="" />
+                  </div>
+                  <div>
+                    <img src={predel} alt="" />
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>

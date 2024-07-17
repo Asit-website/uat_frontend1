@@ -508,15 +508,6 @@ const ImportLead2 = ({ setAlert, pop, setPop }) => {
                       <p>${data?.AnnualRevenue}</p>
                     </div>
 
-                    <div className="subPart">
-                      <h3>Annual Revenue :</h3>
-                      <p>${data?.AnnualRevenue}</p>
-                    </div>
-
-                    <div className="subPart">
-                      <h3>Annual Revenue :</h3>
-                      <p>${data?.AnnualRevenue}</p>
-                    </div>
                   </div>
 
                   {/* right side  */}
@@ -550,14 +541,7 @@ const ImportLead2 = ({ setAlert, pop, setPop }) => {
                       <h3>Lead Status :</h3>
                       <p>{data?.LeadStatus}</p>
                     </div>
-                    <div className="subPart">
-                      <h3>Lead Status :</h3>
-                      <p>{data?.LeadStatus}</p>
-                    </div>
-                    <div className="subPart">
-                      <h3>Lead Status :</h3>
-                      <p>{data?.LeadStatus}</p>
-                    </div>
+                
                   </div>
                 </div>
               </div>

@@ -18,6 +18,7 @@ import invidd from "../../images/invide.png";
 import share from "../../images/bx-share-alt.png";
 import bxcopy from "../../images/bx-copy.png";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const projectOpt = ["All", "Ongoing", "Finished", "OnHold"];
 
@@ -77,6 +78,8 @@ const TaskProjects = ({ setAlert, pop, setPop }) => {
   const [addClientPop, setAddClientPop] = useState(false);
 
   const [optIndex, setOptIndex] = useState(0);
+
+  const navigate = useNavigate();
 
   const [allProjects, setAllProjects] = useState([]);
 
@@ -257,17 +260,12 @@ const TaskProjects = ({ setAlert, pop, setPop }) => {
                 {allProjects.map((client, index) => (
                   <div key={index} className="singleProject">
                     <div
-                      onClick={() => {
-                        if (showIndex === index) {
-                          setShowIndex(null);
-                        } else {
-                          setShowIndex(index);
-                        }
-                      }}
-                      className="projnav cursor-pointer"
+                     
+                      className="projnav"
                     >
-                      <div className="leftnav">
+                      <div  onClick={()=>navigate("/adminDash/HRM/projectDetails" , {state: client})} className="leftnav">
                         <Avatar
+                        
                           name={client?.Name}
                           colour={
                             index % 3 == 0
@@ -279,7 +277,13 @@ const TaskProjects = ({ setAlert, pop, setPop }) => {
                         />
                         <p>{client.Name}</p>
                       </div>
-                      <img src={threedots} alt="" />
+                      <img  className="cursor-pointer" onClick={() => {
+                        if (showIndex === index) {
+                          setShowIndex(null);
+                        } else {
+                          setShowIndex(index);
+                        }
+                      }} src={threedots} alt="" />
                     </div>
 
                     <hr />

@@ -15,15 +15,20 @@ import notifyy from "../../images/notifyy.png"
 var tc;
 var tc2;
 
-const EmployeeNavbar = ({ user, setAlert, pop1, setPop1 }) => {
+const EmployeeNavbar = ({ setAlert, pop1, setPop1 }) => {
 
   const { postActivity, getActivitiesByUser , fetchUserNotify , deleteNotification   } = useMain();
 
 
   let todayDate = new Date().toLocaleDateString('en-GB');
   const [pass, setPass] = useState(false);
+  const [user , setUser] = useState({});
 
-  const navigate = useNavigate();
+  
+  useEffect(()=>{
+    let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
+     setUser(hrms_user);
+  },[])
 
   const updateUser = () => {
     document.getElementById("ty").classList.toggle("tys");
