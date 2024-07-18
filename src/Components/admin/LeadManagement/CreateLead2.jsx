@@ -285,7 +285,7 @@ const CreateLead2 = ({ setAlert, pop, setPop }) => {
                                     <div className="lead_inp">
                                         <div className="lead_inp1">
                                             <label htmlFor="">Mobile</label>
-                                            <input value={formdata.Mobile} name="Mobile" onChange={changeHandler} type="text" />
+                                            <input value={formdata.Mobile} name="Mobile" onChange={changeHandler} type="number" />
                                         </div>
                                         <div className="lead_inp1">
                                             <label htmlFor="">Website</label>

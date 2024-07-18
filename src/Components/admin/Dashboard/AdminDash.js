@@ -11,11 +11,6 @@ import person2 from "../../images/person2.png";
 import { NavLink } from "react-router-dom";
 const AdminDash = ({ setAlert, pop, setPop }) => {
   const { user } = useMain();
-  const [value, onChange] = useState(new Date());
-  const [gen, setGen] = useState([]);
-  const [flag, setFlag] = useState();
-
-
 
   return (
     <>

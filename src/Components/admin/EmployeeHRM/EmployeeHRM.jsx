@@ -117,7 +117,6 @@ const EmployeeHRM = ({
 
   const [leaveType, setLeaveType] = useState([]);
 
-
   const [value, onChange] = useState(new Date());
 
   const [announce, setAnnounce] = useState([]);
@@ -236,9 +235,7 @@ const EmployeeHRM = ({
     localStorage.setItem("date1", new Date().toLocaleDateString("en-GB"));
 
     if (!t) {
-      localStorage.setItem(
-        "clockInTime",
-        new Date().toLocaleTimeString("en-US", {
+      localStorage.setItem( "clockInTime", new Date().toLocaleTimeString("en-US", {
           hour: "numeric",
           minute: "2-digit",
           second: "2-digit",
