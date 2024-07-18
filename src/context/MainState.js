@@ -2079,8 +2079,8 @@ const MainState = (props) => {
       return data;
    };
 
-   const CreateProjectTask = async({  Title, Description, Members, StartDate ,DueDate,Project , Priority})=>{
-      const data = await post(`${baseUrl}/task/createProjectTask`, {  Title, Description, Members, StartDate ,DueDate,Project,Priority}, true);
+   const CreateProjectTask = async({  Title, Description, Members, StartDate ,Github , DueDate,Project , Priority})=>{
+      const data = await post(`${baseUrl}/task/createProjectTask`, {  Title,Github ,  Description, Members, StartDate ,DueDate,Project,Priority}, true);
       return data;
    }
 

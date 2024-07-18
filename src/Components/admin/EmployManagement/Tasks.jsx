@@ -37,7 +37,8 @@ const Tasks = ({ setAlert, pop, setPop }) => {
     StartDate:"" ,
     DueDate: "",
     Project:"" , 
-    Priority:""
+    Priority:"" , 
+    Github:""
 
   });
 
@@ -67,6 +68,7 @@ const Tasks = ({ setAlert, pop, setPop }) => {
 
   const getAllProjectAllTask = async()=>{
     const ans = await getAllProjectAllTaskApi();
+    console.log("ans ",ans);
      setAllTasks(ans?.data);
 
  }
@@ -95,7 +97,8 @@ const Tasks = ({ setAlert, pop, setPop }) => {
           Members: "",
           StartDate:"" ,
           DueDate: "",
-          Project:""
+          Project:"" , 
+          Github:""
       
         })
 
@@ -183,6 +186,9 @@ const Tasks = ({ setAlert, pop, setPop }) => {
                 Priority
                 </th>
                 <th scope="col" class="px-6 py-3">
+                Github
+                </th>
+                <th scope="col" class="px-6 py-3">
                 Description
                 </th>
             </tr>
@@ -210,6 +216,9 @@ const Tasks = ({ setAlert, pop, setPop }) => {
       </td>
       <td class="px-6 py-4">
           {task?.Priority}
+      </td>
+      <td class="px-6 py-4">
+          {task?.Github}
       </td>
       <td class="px-6 py-4">
           {task?.Description}
@@ -335,6 +344,16 @@ const Tasks = ({ setAlert, pop, setPop }) => {
                   value={formdata.DueDate}
                   onChange={changeHandler}
                   type="date"
+                />
+              </label>
+
+              <label>
+                <p>Github</p>
+                <input
+                  name="Github"
+                  value={formdata.Github}
+                  onChange={changeHandler}
+                  type="text"
                 />
               </label>
 

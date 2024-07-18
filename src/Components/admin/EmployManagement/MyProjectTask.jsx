@@ -83,6 +83,9 @@ const MyProjectTask = ({ setAlert, pop, setPop }) => {
                         Priority
                       </th>
                       <th scope="col" class="px-6 py-3">
+                      Github
+                      </th>
+                      <th scope="col" class="px-6 py-3">
                         Description
                       </th>
                     </tr>
@@ -99,6 +102,7 @@ const MyProjectTask = ({ setAlert, pop, setPop }) => {
                         <td class="px-6 py-4">{task?.DueDate}</td>
                         <td class="px-6 py-4">{task?.Project?.Name}</td>
                         <td class="px-6 py-4">{task?.Priority}</td>
+                        <td class="px-6 py-4">{task?.Github}</td>
                         <td class="px-6 py-4">{task?.Description}</td>
                       </tr>
                     ))}
