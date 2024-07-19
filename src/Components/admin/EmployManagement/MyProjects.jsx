@@ -10,14 +10,15 @@ import { Avatar } from "react-profile-avatar";
 import "react-profile-avatar/dist/index.css";
 import threedots from "../../images/thredonts.png";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-
-const projectOpt = ["All", "Ongoing", "Finished", "OnHold"];
 
 const MyProjects = ({ setAlert, pop, setPop }) => {
   const { user  , getAllProjectUserApi} = useMain();
 
   const [allProjects, setAllProject] = useState([]);
+
+  const navigate = useNavigate();
 
   let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
 
@@ -50,14 +51,20 @@ const MyProjects = ({ setAlert, pop, setPop }) => {
 
           <div className="em">
             <div className="tclwrap">
+
               <nav>
                 <h2> My Projects</h2>
               </nav>
 
               <div className="allClients">
                 {allProjects.map((client, index) => (
+
                   <div key={index} className="singleProject">
-                    <div className="projnav cursor-pointer">
+                    
+                    <div onClick={()=>{
+                       navigate("/employeeDash/HRM/projectDetails" , {state:client})
+                    }} className="projnav cursor-pointer">
+
                       <div className="leftnav">
                         <Avatar
                           name={client?.Name}
@@ -71,7 +78,8 @@ const MyProjects = ({ setAlert, pop, setPop }) => {
                         />
                         <p>{client.Name}</p>
                       </div>
-                      <img src={threedots} alt="" />
+
+                      {/* <img src={threedots} alt="" /> */}
                     </div>
 
                     <hr />

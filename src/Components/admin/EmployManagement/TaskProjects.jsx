@@ -263,7 +263,7 @@ const TaskProjects = ({ setAlert, pop, setPop }) => {
                      
                       className="projnav"
                     >
-                      <div  onClick={()=>navigate("/adminDash/HRM/projectDetails" , {state: client})} className="leftnav">
+                      <div  onClick={()=>navigate("/adminDash/HRM/projectDetails" , {state: client})} className="leftnav cursor-pointer">
                         <Avatar
                         
                           name={client?.Name}

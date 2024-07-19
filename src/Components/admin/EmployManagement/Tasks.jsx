@@ -9,7 +9,6 @@ import "./quote.css";
 import pluss from "../../images/pluss.png";
 import { Avatar } from "react-profile-avatar";
 import "react-profile-avatar/dist/index.css";
-import threedots from "../../images/thredonts.png";
 import { useEffect, useState } from "react";
 import edit from "../../images/edit.png";
 import disable from "../../images/delete1.png";
@@ -68,7 +67,6 @@ const Tasks = ({ setAlert, pop, setPop }) => {
 
   const getAllProjectAllTask = async()=>{
     const ans = await getAllProjectAllTaskApi();
-    console.log("ans ",ans);
      setAllTasks(ans?.data);
 
  }

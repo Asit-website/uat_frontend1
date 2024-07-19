@@ -77,10 +77,10 @@ const payrols2 = [
     title:"My Projects",
     link:"/employeeDash/HRM/myProjects"
   },
-  {
-    title:"My Tasks",
-    link:"/employeeDash/HRM/myProjectTask"
-  },
+  // {
+  //   title:"My Tasks",
+  //   link:"/employeeDash/HRM/myProjectTask"
+  // },
  
 ]
 

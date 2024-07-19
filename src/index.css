@@ -770,6 +770,30 @@ body {
   color: #666D76 !important;
 }
 
+.prodetailTable th , td{
+  background: #FFFFFF;
+  border-bottom: 1px solid #E8E9EB !important;
+  border-top: 1px solid #E8E9EB !important;
+}
+.prodetailTable th {
+  font-family: Inter;
+  color: #2B2B2B;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  letter-spacing: 0.0025em;
+  
+}
+.prodetailTable td {
+  font-family: Inter;
+  color: #40444B;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+  letter-spacing: 0.004em;
+  
+}
+
 .custom-field input.dirty+.placeholder,
 .custom-field input:focus+.placeholder,
 .custom-field input:not(:placeholder-shown)+.placeholder {

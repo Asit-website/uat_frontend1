@@ -124,10 +124,10 @@ const payrols2 = [
     title:"Projects",
     link:"/adminDash/HRM/taskProjects"
   },
-  {
-    title:"Tasks",
-    link:"/adminDash/HRM/Tasks"
-  },
+  // {
+  //   title:"Tasks",
+  //   link:"/adminDash/HRM/Tasks"
+  // },
 ]
 
 const performances = [

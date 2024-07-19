@@ -3,7 +3,7 @@ import MainContext from './MainContext';
 import { deleteReq, get, post, put, postDocuments } from '../Api/api'
 import { useState } from 'react';
 
-// const baseUrl = "http://localhost:5000";
+const baseUrl = "http://localhost:5000";
 
 // const baseUrl = "https://hrms-backend-code.onrender.com"
 
@@ -13,7 +13,7 @@ import { useState } from 'react';
 
 // this is production baseurl 
 
-const baseUrl = "https://hmsbackend.kusheldigi.com";
+// const baseUrl = "https://hmsbackend.kusheldigi.com";
 
 // const baseUrl = "https://hrms-backend-g3wt.onrender.com";
 
@@ -1490,6 +1490,13 @@ const MainState = (props) => {
       return data;
    }
 
+   const uploadToCloudinaryImg = async ({ image }) => {
+
+      const formdata = new FormData();
+      formdata.append("image", image);
+      const resp = await postDocuments(`${baseUrl}/user/uploadToCloudinary`, formdata);
+      return resp;
+   }
 
 
    const updateLead = async (
@@ -1518,11 +1525,51 @@ const MainState = (props) => {
          State,
          ZipCode,
          Country,
-         DescriptionInfo, id }
+         DescriptionInfo, id , image }
 
    ) => {
 
       let data;
+      let imageUrl;
+
+      if(image){
+        const ans = await uploadToCloudinaryImg({image});
+        imageUrl = ans?.data;
+
+        data = await post(`${baseUrl}/lead/editLead/${id}`,
+         {
+            LeadOwner,
+            Company,
+            FirstName,
+            LastName,
+            image:imageUrl , 
+            Title,
+            Email,
+            Phone,
+            Fax,
+            Mobile,
+            Website,
+            LeadSource,
+            NoOfEmployee,
+            Industry,
+            LeadStatus,
+            AnnualRevenue,
+            Rating,
+            EmailOptOut,
+            SkypeID,
+            SecondaryEmail,
+            Twitter,
+            Street,
+            City,
+            State,
+            ZipCode,
+            Country,
+            DescriptionInfo,
+
+         }, true);
+
+      }
+      else {
 
       data = await post(`${baseUrl}/lead/editLead/${id}`,
          {
@@ -1555,6 +1602,7 @@ const MainState = (props) => {
 
          }, true);
 
+      }
 
       return data;
    }
@@ -1596,13 +1644,7 @@ const MainState = (props) => {
    };
 
 
-   const uploadToCloudinaryImg = async ({ image }) => {
 
-      const formdata = new FormData();
-      formdata.append("image", image);
-      const resp = await postDocuments(`${baseUrl}/user/uploadToCloudinary`, formdata);
-      return resp;
-   }
 
    const updateLeadStatus = async (id, LeadStatus) => {
 
@@ -2079,8 +2121,12 @@ const MainState = (props) => {
       return data;
    };
 
-   const CreateProjectTask = async({  Title, Description, Members, StartDate ,Github , DueDate,Project , Priority})=>{
-      const data = await post(`${baseUrl}/task/createProjectTask`, {  Title,Github ,  Description, Members, StartDate ,DueDate,Project,Priority}, true);
+   const CreateProjectTask = async({  Title, Description, Members, StartDate ,Github , DueDate , Priority , projectId})=>{
+      const data = await post(`${baseUrl}/task/createProjectTask/${projectId}`, {  Title,Github ,  Description, Members, StartDate ,DueDate,Priority}, true);
+      return data;
+   }
+   const changeTaskStatusApi = async(taskStatus , taskId)=>{
+      const data = await post(`${baseUrl}/task/changeTaskStatus/${taskId}`, { taskStatus}, true);
       return data;
    }
 
@@ -2090,6 +2136,19 @@ const MainState = (props) => {
       const data = await get(`${baseUrl}/task/getTaskByUser/${hrms_user?._id}`, true);
       return data;
    };
+
+   const getAllProjectUserTaskApi2 = async (projectId) => {
+      
+      let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
+      const data = await get(`${baseUrl}/task/getTaskByUserProject/${hrms_user?._id}/${projectId}`, true);
+      return data;
+   };
+   const getProjectTask = async (projectId) => {
+      
+      const data = await get(`${baseUrl}/task/getProjectTask/${projectId}`, true);
+      return data;
+   };
+
    const getAllProjectAllTaskApi = async () => {
       
       const data = await get(`${baseUrl}/task/getAllTask`, true);
@@ -2099,7 +2158,7 @@ const MainState = (props) => {
 
    return (
       <MainContext.Provider value={{
-         login,deleteQuotationapi ,getAllProjectAllTaskApi , getAllProjectUserTaskApi ,  CreateProjectTask ,  taskCreateApi,FetchFollowApi ,getQuotationApi ,    ProvidePermission , RemovePermission ,   GetOpenLeadsApi ,   getLeadById,CreateNoteApi  , updateNoteApi,DeleteNoteApi ,  getUserByDesignation, UpdateLeadStatus, UpdateLeadSource, AllLeadSource, meetCreateApi, AllLeadStatus, taskEditApi, meetEditApi,GetNoteApi ,  deleteTaskapi, deleteMeetapi, getTaskApi, getMeetApi, employeeLogin, employeeResetPassword, hrLogin, createHr, getHrs, deleteHr, createEmployee, getEmployees, getUsers, getActiveUsers, getActiveUsersCount, postLeadStatus, postLeadSource2, getAdminEmployees, postActivity,editTaskapi ,deleteProject ,   postActivityHr, getActivitiesByUser, getStatisticsByUser, postLeave, updateLeave, getUserLeaves, getUserLeaveById, deleteLeave, getTotalLeaves, postTotalLeaves, verifyEmployee, verifyHr, verifyAdmin, setUser, buildAPI, user,disableClientapi ,  getProjects, postProject, getHolidays, postHoliday, updateProject, getProjectsByEmployee, getTasks, postTask, updateTask, deleteTask, setFlag, flag, changePassword, updateProfile, deleteHoliday, updateHoliday, deleteTaskProject, getChats, createNewChat, postMessage, deleteChat,getClientapi ,  adminLogin, getChat, getChatByUser, setUserTotalLeaveApi ,  setChatUser, chatUser, getEmployeesByEmployee, topDash, postAnnouncement, updateAnnouncement, getAnnouncements, getAnnouncementDates, deleteAnnouncement, getAttendance, getAttendanceByUser, createEmployee1, updateAdminProfile,   createProjectapi , getAllProjectApi , editProjectapi
+         login,deleteQuotationapi  , changeTaskStatusApi ,getAllProjectUserTaskApi2  , getProjectTask,getAllProjectAllTaskApi , getAllProjectUserTaskApi ,  CreateProjectTask ,  taskCreateApi,FetchFollowApi ,getQuotationApi ,    ProvidePermission , RemovePermission ,   GetOpenLeadsApi ,   getLeadById,CreateNoteApi  , updateNoteApi,DeleteNoteApi ,  getUserByDesignation, UpdateLeadStatus, UpdateLeadSource, AllLeadSource, meetCreateApi, AllLeadStatus, taskEditApi, meetEditApi,GetNoteApi ,  deleteTaskapi, deleteMeetapi, getTaskApi, getMeetApi, employeeLogin, employeeResetPassword, hrLogin, createHr, getHrs, deleteHr, createEmployee, getEmployees, getUsers, getActiveUsers, getActiveUsersCount, postLeadStatus, postLeadSource2, getAdminEmployees, postActivity,editTaskapi ,deleteProject ,   postActivityHr, getActivitiesByUser, getStatisticsByUser, postLeave, updateLeave, getUserLeaves, getUserLeaveById, deleteLeave, getTotalLeaves, postTotalLeaves, verifyEmployee, verifyHr, verifyAdmin, setUser, buildAPI, user,disableClientapi ,  getProjects, postProject, getHolidays, postHoliday, updateProject, getProjectsByEmployee, getTasks, postTask, updateTask, deleteTask, setFlag, flag, changePassword, updateProfile, deleteHoliday, updateHoliday, deleteTaskProject, getChats, createNewChat, postMessage, deleteChat,getClientapi ,  adminLogin, getChat, getChatByUser, setUserTotalLeaveApi ,  setChatUser, chatUser, getEmployeesByEmployee, topDash, postAnnouncement, updateAnnouncement, getAnnouncements, getAnnouncementDates, deleteAnnouncement, getAttendance, getAttendanceByUser, createEmployee1, updateAdminProfile,   createProjectapi , getAllProjectApi , editProjectapi
  ,          changePassword1, verify, updateUser, forgetPassword, forgetPassword1, forgetPassword2, getBranchs, postBranch, updateBranch, deleteBranch, getDepartments, postDepartment, updateDepartment, deleteDepartment, getDesingation, postDesignation, updateDesignation, deleteDesignation, getAllActivities, postLeaveType, updateLeaveType, getLeaveTypes, deleteLeaveType,
          createIndicator, getIndicator, deleteIndicator, getDesignations, updateIndicator, getAppraisal, createAppraisal, allEmployee, deleteApprisal, updateApprisal, createAssets, getAssets, deleteAssets, updateAssets, deleteUser, createTracks, getTracks, deleteTracks, updateTracks, editComApi, loanDeleteHandler,
          editAllowance, commisionDelteHandler, createLoan, editLoanApi,

@@ -85,6 +85,7 @@ const EditLead2 = ({ setAlert, pop, setPop }) => {
 
      const submitHandler = async()=>{
          const ans = await updateLead({...formdata , id: item?._id});
+         console.log("ans ",ans);
           if(ans?.status){
             toast.success("Successful Updated");
             navigate("/employeeDash/myLead");
@@ -150,7 +151,6 @@ const EditLead2 = ({ setAlert, pop, setPop }) => {
         setAllLeadStat(ans?.data);
     }
 
- 
      useEffect(()=>{
          fetchStatus();
          fetchSource();
