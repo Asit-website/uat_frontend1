@@ -319,6 +319,10 @@ const TaskProjects = ({ setAlert, pop, setPop }) => {
                       <p className="proteast">{client.task} Tasks</p>
                     </div>
 
+ <div className="mem">
+                     <p onClick={()=>navigate("/adminDash/HRM/projectOverview" , {state:client})} className="oveviewBtn">Overview </p>
+ </div>
+
                     {showIndex === index && (
                       <div className="showIndexcont2">
                         <div className="singlinpro">

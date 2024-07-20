@@ -297,7 +297,7 @@ const ProjectDetails = ({ setAlert, pop, setPop }) => {
       </div>
     </div>
 
-              <div className="projectOverView">
+              {/* <div className="projectOverView">
                 <h3>Overview Of {data?.Name}</h3>
 
                  <div className="allprogress">
@@ -324,7 +324,7 @@ const ProjectDetails = ({ setAlert, pop, setPop }) => {
                 </div>
 
                  </div>
-              </div>
+              </div> */}
 
             </div>
           </div>

@@ -473,6 +473,11 @@ color: #FFFFFF;
     flex-direction: column;
     gap: 20px;
 }
+.tclwrap2{
+    position: relative;
+    display: flex;
+    gap: 20px;
+}
 .tclwrap nav{
   display: flex;
   align-items: center;
@@ -543,6 +548,9 @@ color: #FFFFFF;
     display: flex;
     flex-direction: column;
     gap: 12px;
+}
+.pronaheading h2{
+   text-transform: uppercase;
 }
  .clibtns .backpro span{
      font-family: Inter;

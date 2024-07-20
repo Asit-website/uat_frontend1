@@ -94,6 +94,7 @@ import ProjectDetails from "./Components/admin/EmployManagement/ProjectDetails.j
 import MyProjects from "./Components/admin/EmployManagement/MyProjects.jsx";
 import MyProjectTask from "./Components/admin/EmployManagement/MyProjectTask.jsx";
 import ProjectDetails2 from "./Components/admin/EmployManagement/ProjectDetails2.jsx";
+import ProjectOverview from "./Components/admin/EmployManagement/ProjectOverview.jsx";
 
 var tc;
 
@@ -266,6 +267,7 @@ function App() {
               <Route path="/adminDash/HRM/taskClients" element={<TaskClients />} />
               <Route path="/adminDash/HRM/taskProjects" element={<TaskProjects />} />
               <Route path="/adminDash/HRM/projectDetails" element={<ProjectDetails />} />
+              <Route path="/adminDash/HRM/projectOverview" element={<ProjectOverview />} />
               <Route path="/adminDash/HRM/Tasks" element={<Tasks />} />
 
 
