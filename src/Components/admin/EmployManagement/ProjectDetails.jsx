@@ -14,19 +14,20 @@ import { useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import toast from "react-hot-toast";
 import cut from "../../images/cutt.png";
+import CircularProgress from "./CircularProgress";
 
 const ProjectDetails = ({ setAlert, pop, setPop }) => {
-
-  const {
-    user,
-    getAllProjectApi,
-    CreateProjectTask,
-    getProjectTask
-  } = useMain();
+  const { user, getAllProjectApi, CreateProjectTask, getProjectTask } =
+    useMain();
 
   const location = useLocation();
 
   const data = location?.state;
+
+  const [percentage, setPercentage] = useState(0);
+  const [pendingTask, setPendingTask] = useState(0);
+  const [notStartedTask, setnotStartedTask] = useState(0);
+  const [startedTask, setstartedTask] = useState(0);
 
   let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
 
@@ -58,10 +59,10 @@ const ProjectDetails = ({ setAlert, pop, setPop }) => {
   const [allProject, setAllProject] = useState([]);
   const [allTasks, setAllTasks] = useState([]);
 
-
   const getProjectTaskapi = async () => {
     const ans = await getProjectTask(data?._id);
-    setAllTasks(ans?.data);
+    const reversedTasks = ans?.data.reverse(); // Reverse the array
+    setAllTasks(reversedTasks); // Set the reversed array
   };
 
   const getAllProject = async () => {
@@ -74,7 +75,10 @@ const ProjectDetails = ({ setAlert, pop, setPop }) => {
     try {
       const toastId = toast.loading("Loading....");
 
-      const ans = await CreateProjectTask({ ...formdata  , projectId:data?._id});
+      const ans = await CreateProjectTask({
+        ...formdata,
+        projectId: data?._id,
+      });
       if (ans?.status) {
         toast.success("Successfuly created task");
       }
@@ -100,14 +104,70 @@ const ProjectDetails = ({ setAlert, pop, setPop }) => {
   useEffect(() => {
     getAllProject();
     getProjectTaskapi();
-     
   }, []);
 
-  useEffect(()=>{
-     if(data){
-     setAllEmp(data?.Members);
-     }
-  },[data])
+  useEffect(() => {
+    if (data) {
+      setAllEmp(data?.Members);
+    }
+  }, [data]);
+
+  useEffect(() => {
+    
+    const totalTasks = allTasks.length;
+    const completedTasks = allTasks.filter(
+      (task) => task.Status === "Completed"
+    ).length;
+    
+    const notStartTasks = allTasks.filter(
+      (task) => task.Status === "Not Started"
+    ).length;
+
+    const startedtasks = allTasks.filter(
+      (task) => task.Status === "Started"
+    ).length;
+    const Pendingtasks = allTasks.filter(
+      (task) => task.Status === "Pending"
+    ).length;
+
+     
+    const completedPercentage = (completedTasks / totalTasks) * 100;
+    const notStartPercentage = (notStartTasks / totalTasks) * 100;
+    const startedPercentage = (startedtasks / totalTasks) * 100;
+    const PendingPercentage = (Pendingtasks / totalTasks) * 100;
+
+    setPercentage(completedPercentage);
+    setnotStartedTask(notStartPercentage);
+    setstartedTask(startedPercentage);
+    setPendingTask(PendingPercentage);
+
+  }, [allTasks]);
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const tasksPerPage = 5;
+
+  // Calculate the total number of pages
+  const totalPages = Math.ceil(allTasks.length / tasksPerPage);
+
+  // Get the tasks for the current page
+  const currentTasks = allTasks.slice(
+    (currentPage - 1) * tasksPerPage,
+    currentPage * tasksPerPage
+  );
+
+  // Handle click for previous button
+  const handlePrev = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
+  // Handle click for next button
+  const handleNext = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
 
   return (
     <>
@@ -126,12 +186,10 @@ const ProjectDetails = ({ setAlert, pop, setPop }) => {
           )}
 
           <div className="em">
-
             <div className="tclwrap">
-              
               <nav>
                 <div className="pronaheading">
-                  <h2>App Development</h2>
+                  <h2>{data?.Name}</h2>
                   <p
                     className={`stapro ${
                       allProject.Status === "Finished" && "finibg"
@@ -147,9 +205,12 @@ const ProjectDetails = ({ setAlert, pop, setPop }) => {
                   <button className="backpro">
                     <span>Back</span>
                   </button>
-                  <button  onClick={() => {
+                  <button
+                    onClick={() => {
                       setAddClientPop(true);
-                    }} className="newcli">
+                    }}
+                    className="newcli"
+                  >
                     <img src={pluss} /> <span>Add Task</span>
                   </button>
                 </div>
@@ -187,69 +248,90 @@ const ProjectDetails = ({ setAlert, pop, setPop }) => {
 
               {/* this is all tasks now  */}
 
-              <div class="relative overflow-x-auto">
+              <div className="relative overflow-x-auto">
+      <table className="w-full prodetailTable text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+        <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+          <tr>
+            <th scope="col" className="px-6 py-3">Subject</th>
+            <th scope="col" className="px-6 py-3">Assign To</th>
+            <th scope="col" className="px-6 py-3">StartDate</th>
+            <th scope="col" className="px-6 py-3">DueDate</th>
+            <th scope="col" className="px-6 py-3">Priority</th>
+            <th scope="col" className="px-6 py-3">Github</th>
+            <th scope="col" className="px-6 py-3">Description</th>
+            <th scope="col" className="px-6 py-3">Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          {currentTasks.map((task, index) => (
+            <tr key={index} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+              <td className="px-6 py-4">{task.Title}</td>
+              <td className="px-6 py-4">{task?.Members?.fullName}</td>
+              <td className="px-6 py-4">{task?.StartDate}</td>
+              <td className="px-6 py-4">{task?.DueDate}</td>
+              <td className="px-6 py-4">{task?.Priority}</td>
+              <td className="px-6 py-4">{task?.Github}</td>
+              <td className="px-6 py-4">{task?.Description}</td>
+              <td className="px-6 py-4">{task?.Status}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
 
-                <table class="w-full prodetailTable text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+      <div className="navbuttons flex justify-between items-center mt-4">
+        <button
+          onClick={handlePrev}
+          disabled={currentPage === 1}
+          className="px-4 py-2 bg-gray-300 rounded-md disabled:bg-gray-200"
+        >
+          Prev
+        </button>
+        <span className="px-4">{currentPage}</span>
+        <button
+          onClick={handleNext}
+          disabled={currentPage === totalPages}
+          className="px-4 py-2 bg-gray-300 rounded-md disabled:bg-gray-200"
+        >
+          Next
+        </button>
+      </div>
+    </div>
 
-                  <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                    <tr>
-                      <th scope="col" class="px-6 py-3">
-                        Subject
-                      </th>
-                      <th scope="col" class="px-6 py-3">
-                        Assign To
-                      </th>
-                      <th scope="col" class="px-6 py-3">
-                        StartDate
-                      </th>
-                      <th scope="col" class="px-6 py-3">
-                        DueDate
-                      </th>
-                    
-                      <th scope="col" class="px-6 py-3">
-                        Priority
-                      </th>
-                      <th scope="col" class="px-6 py-3">
-                        Github
-                      </th>
-                      <th scope="col" class="px-6 py-3">
-                        Description
-                      </th>
-                      <th scope="col" class="px-6 py-3">
-                        Status
-                      </th>
-                    </tr>
-                  </thead>
+              <div className="projectOverView">
+                <h3>Overview Of {data?.Name}</h3>
 
-                  <tbody>
-                    {allTasks?.map((task, index) => (
-                      <tr
-                        key={index}
-                        class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
-                      >
-                        <td class="px-6 py-4">{task.Title}</td>
-                        <td class="px-6 py-4">{task?.Members?.fullName}</td>
-                        <td class="px-6 py-4">{task?.StartDate}</td>
-                        <td class="px-6 py-4">{task?.DueDate}</td>
-                        <td class="px-6 py-4">{task?.Priority}</td>
-                        <td class="px-6 py-4">{task?.Github}</td>
-                        <td class="px-6 py-4">{task?.Description}</td>
-                        <td class="px-6 py-4">{task?.Status}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
+                 <div className="allprogress">
 
+                <div className="eachProgeer">
+                   <h4>Completed Tasks</h4>
+                  <CircularProgress percentage={percentage} color={'#4caf50'} />
+                </div>
+
+                <div className="eachProgeer">
+                   <h4>Pending Tasks</h4>
+                  <CircularProgress percentage={pendingTask} color={'#f44336'} />
+                </div>
+
+          
+                <div className="eachProgeer">
+                   <h4>Not Started Tasks</h4>
+                  <CircularProgress percentage={notStartedTask} color={'#ff9800'} />
+                </div>
+                
+                <div className="eachProgeer">
+                   <h4>Started Tasks</h4>
+                  <CircularProgress percentage={startedTask} color={'#2196f3'} />
+                </div>
+
+                 </div>
               </div>
 
             </div>
-
           </div>
         </div>
       </div>
 
       {addClientPop && (
-
         <div className="addCliWrap">
           <div className="addClieCont addheight">
             <nav>

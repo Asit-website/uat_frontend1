@@ -13,7 +13,6 @@ import predel from "../../images/Frame 9741.png";
 import { useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import toast from "react-hot-toast";
-import cut from "../../images/cutt.png";
 
 const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
 

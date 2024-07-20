@@ -241,8 +241,11 @@ const EmployeeNavbar = ({ setAlert, pop1, setPop1 }) => {
   const fetchNotification  = async()=>{
     const ans = await fetchUserNotify();
      if(ans.status){
-        setAllNotification(ans?.notifications);
-
+        // setAllNotification(ans?.notifications);
+        let notifications = ans?.notifications;
+        let reversedNotifications = notifications.slice().reverse(); 
+  
+        setAllNotification(reversedNotifications);  
      }
 }
 

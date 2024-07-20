@@ -770,6 +770,7 @@ body {
   color: #666D76 !important;
 }
 
+
 .prodetailTable th , td{
   background: #FFFFFF;
   border-bottom: 1px solid #E8E9EB !important;
@@ -6163,4 +6164,83 @@ input::-webkit-inner-spin-button {
 
 .dli {
   margin-left: 30px;
+}
+
+.projectOverView{
+  width: 100%;
+  
+}
+.projectOverView h3{
+  width: 100%;
+font-family: Inter;
+color: #101820;
+font-size: 24px;
+font-weight: 600;
+line-height: 32px;
+
+
+}
+
+.allprogress{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  gap: 30px;
+  margin-top: 30px;
+}
+.eachProgeer{
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  align-items: center;
+}
+.eachProgeer h4{
+  width: 100%;
+font-family: Inter;
+color: #101820;
+font-size: 20px;
+font-weight: 500;
+line-height: 32px;
+}
+
+.navbuttons{
+  display: flex;
+gap: 5px;
+width: 100%;
+align-items: center;
+margin-top: 20px;
+justify-content: center;
+}
+.navbuttons button{
+  width: 80px;
+  height: 40px;
+  gap: 10px;
+  border-radius: 10px;
+  background: #FFFFFF;
+  border: 1px solid #D8D8D8;
+  color: #666D76;
+  font-family: Inter;
+font-size: 12px;
+font-weight: 500;
+line-height: 16px;
+letter-spacing: 0.004em;
+text-align: center;
+  
+}
+.navbuttons span{
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  border-radius: 10px;
+  background: #FFFFFF;
+  border: 1px solid #D8D8D8;
+  color: #666D76;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: Inter;
+font-size: 12px;
+font-weight: 500;
+  
 }

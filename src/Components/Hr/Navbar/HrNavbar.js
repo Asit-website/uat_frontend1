@@ -62,8 +62,10 @@ const HrNavbar = ({ setAlert}) => {
     const ans = await fetchUserNotifyHR();
 
      if(ans.status){
-        setAllNotification(ans?.notifications);
+      let notifications = ans?.notifications;
+      let reversedNotifications = notifications.slice().reverse(); 
 
+      setAllNotification(reversedNotifications);  
      }
 }
 
