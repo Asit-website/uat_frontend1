@@ -62,7 +62,7 @@ border: 0px 0px 1px 0px;
 }
 
 .singcel{
-    width:221px;
+    /* width:221px; */
 height: 94px;
 background: #FFFFFF;
 display: flex;
@@ -76,10 +76,15 @@ border-radius: 12px;
 .capWrap{
     position: relative;
 }
+.capWrap .phrofileimg{
+    max-width: 60px  !important;
+    border-radius: 50%;
+}
 .capWrap .cap{
     position: absolute;
     top: -20px;
     left: -20px;
+
 
 }
 

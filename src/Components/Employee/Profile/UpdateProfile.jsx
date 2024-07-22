@@ -24,8 +24,6 @@ const UpdateProfile = ({ setAlert, pop1, setPop1 }) => {
   const { user, updateProfile, postActivity, getStatisticsByUser, getBranchs, getDepartments, getDesignations , uploadToCloudinaryImg  , uploadOwnDocs} = useMain();
   const [value, setValue] = useState(user);
 
-  const navigate = useNavigate();
-
   const [branches, setBranches] = useState([]);
   const [departments, setDepartments] = useState([]);
   const [designations, setDesignations] = useState([]);
@@ -41,11 +39,6 @@ const UpdateProfile = ({ setAlert, pop1, setPop1 }) => {
     setDesignations(ans2?.data);
   };
 
-  useEffect(() => {
-    let user1 = JSON.parse(localStorage.getItem("hrms_user"));
-    setValue(user1);
-    getData();
-  }, []);
 
   const [pic , setPic] = useState("");
 
@@ -80,7 +73,6 @@ const UpdateProfile = ({ setAlert, pop1, setPop1 }) => {
 
   });
 
- 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     const { name } = event.target;
@@ -91,7 +83,6 @@ const UpdateProfile = ({ setAlert, pop1, setPop1 }) => {
       }));
     }
   };
-
 
   const handleSubmit = async (e) => {
     
@@ -170,8 +161,6 @@ const UpdateProfile = ({ setAlert, pop1, setPop1 }) => {
 
   const [currEmp, setCurrEmp] = useState(0);
 
-
-
   useEffect(()=>{
 
     const {EmployeeType} = user;
@@ -183,6 +172,13 @@ const UpdateProfile = ({ setAlert, pop1, setPop1 }) => {
      
 
   },[user])
+
+  
+  useEffect(() => {
+    let user1 = JSON.parse(localStorage.getItem("hrms_user"));
+    setValue(user1);
+    getData();
+  }, []);
 
 
   return (
@@ -253,6 +249,13 @@ const UpdateProfile = ({ setAlert, pop1, setPop1 }) => {
                      <option>Male</option>
                      <option>Female</option>
                   </select>
+                </div>
+
+                <div className="mb-6">
+                  <label htmlFor="DOB" className="block mb-1 ">
+                    DOB
+                  </label>
+                 <input type="date" name="dob"    onChange={handleChange} value={value?.dob}   className=" block w-full"/>
                 </div>
 
                 <div className="mb-6">

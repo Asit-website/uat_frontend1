@@ -71,7 +71,8 @@ const EmployeeHRM = ({
     fetchTodayLeave,
     postLeave,
     postNotification , 
-    getLeaveTypes
+    getLeaveTypes, 
+    getTodayBirthday
 
   } = useMain();
 
@@ -508,11 +509,6 @@ const EmployeeHRM = ({
 toast.dismiss(toastId);
 
   };
-
-  useEffect(() => {
-    getLeavesEmp();
-  }, []);
-
   
   const fetchLeaveType = async () => {
     const resp = await getLeaveTypes();
@@ -521,11 +517,19 @@ toast.dismiss(toastId);
     }
   };
 
+  const [userbirth , setUserBirth] = useState([]);
+  
+  const getTodayBirthdayapi = async()=>{
+    const ans = await getTodayBirthday();
+     setUserBirth(ans);
+  }
+  
+  
   useEffect(() => {
-    fetchLeaveType();
-  }, []);
-
-
+      getLeavesEmp();
+      fetchLeaveType();
+      getTodayBirthdayapi();
+    }, []);
   return (
     <>
       <div className="employee-dash relative h-full">
@@ -1099,15 +1103,15 @@ toast.dismiss(toastId);
                           </nav>
 
                           <div className="partPeople">
-                            {people.map((data, index) => (
+                            {userbirth.map((data, index) => (
                               <div className="singcel" key={index}>
                                 <div className="capWrap">
-                                  <img src={data.img} alt="" />
+                                  <img src={data.profileImage} className="phrofileimg" />
                                   <img src={cap} alt="" className="cap" />
                                 </div>
                                 <div>
-                                  <h3>{data.name}</h3>
-                                  <p>{data.work}</p>
+                                  <h3>{data?.fullName}</h3>
+                                  <p>{data?.designation}</p>
                                 </div>
                               </div>
                             ))}

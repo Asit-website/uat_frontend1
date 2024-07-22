@@ -3,6 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@emotion/react": "^11.13.0",
+    "@emotion/styled": "^11.13.0",
+    "@mui/material": "^5.16.4",
+    "@mui/styled-engine-sc": "^6.0.0-alpha.18",
     "@ramonak/react-progress-bar": "^5.2.0",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
@@ -42,6 +46,7 @@
     "react-timer-hook": "^3.0.6",
     "react-to-print": "^2.15.1",
     "recharts": "^2.6.2",
+    "styled-components": "^6.1.12",
     "web-vitals": "^2.1.4",
     "xlsx": "^0.18.5"
   },

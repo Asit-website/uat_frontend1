@@ -6,52 +6,28 @@ import "./HRMsystem.css";
 import EmployeeSidebar from "../../Employee/Sidebar/EmployeeSidebar";
 import EmployeeNavbar from "../../Employee/Navbar/EmployeeNavbar";
 import "./quote.css";
-import pluss from "../../images/pluss.png";
 import "react-profile-avatar/dist/index.css";
-import predit from "../../images/Frame 9740.png";
-import predel from "../../images/Frame 9741.png";
 import { useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
-import toast from "react-hot-toast";
-import cut from "../../images/cutt.png";
 import CircularProgress from "./CircularProgress";
 import ProgressBar from "@ramonak/react-progress-bar";
 
 
+
 const ProjectOverview = ({ setAlert, pop, setPop }) => {
-  const { user, getAllProjectApi, CreateProjectTask, getProjectTask } =
+  const { user, getProjectTask } =
     useMain();
 
   const location = useLocation();
 
   const data = location?.state;
 
-  console.log("data ",data);
-
   const [percentage, setPercentage] = useState(0);
-  const [pendingTask, setPendingTask] = useState(0);
-  const [notStartedTask, setnotStartedTask] = useState(0);
-  const [startedTask, setstartedTask] = useState(0);
 
   let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
 
   const { role } = hrms_user;
 
-  const [formdata, setFormdata] = useState({
-    Title: "",
-    Description: "",
-    Members: "",
-    StartDate: "",
-    DueDate: "",
-    // Project: "",
-    Priority: "",
-    Github: "",
-  });
-
-
-  const [allEmp, setAllEmp] = useState([]);
-
-  const [allProject, setAllProject] = useState([]);
   const [allTasks, setAllTasks] = useState([]);
 
   const getProjectTaskapi = async () => {
@@ -60,22 +36,10 @@ const ProjectOverview = ({ setAlert, pop, setPop }) => {
     setAllTasks(reversedTasks); // Set the reversed array
   };
 
-  const getAllProject = async () => {
-    const ans = await getAllProjectApi();
-    setAllProject(ans?.data);
-  };
-
-
   useEffect(() => {
-    getAllProject();
     getProjectTaskapi();
   }, []);
 
-  useEffect(() => {
-    if (data) {
-      setAllEmp(data?.Members);
-    }
-  }, [data]);
 
   const [openTask ,setOpenTask] =useState(0);
   const [OpenTaskper ,setOpenTaskper] =useState(0);
@@ -90,17 +54,6 @@ const ProjectOverview = ({ setAlert, pop, setPop }) => {
     const completedTasks = allTasks.filter(
       (task) => task.Status === "Completed"
     ).length;
-    
-    const notStartTasks = allTasks.filter(
-      (task) => task.Status === "Not Started"
-    ).length;
-
-    const startedtasks = allTasks.filter(
-      (task) => task.Status === "Started"
-    ).length;
-    const Pendingtasks = allTasks.filter(
-      (task) => task.Status === "Pending"
-    ).length;
 
     
     const openTaskse = allTasks.filter(
@@ -113,15 +66,9 @@ const ProjectOverview = ({ setAlert, pop, setPop }) => {
      
     const completedPercentage = (completedTasks / totalTasks) * 100;
     const opentaskper = ((openTaskse / totalTasks) * 100).toFixed(0);
-    const notStartPercentage = (notStartTasks / totalTasks) * 100;
-    const startedPercentage = (startedtasks / totalTasks) * 100;
-    const PendingPercentage = (Pendingtasks / totalTasks) * 100;
 
     setPercentage(completedPercentage);
     setOpenTaskper(opentaskper);
-    setnotStartedTask(notStartPercentage);
-    setstartedTask(startedPercentage);
-    setPendingTask(PendingPercentage);
 
   }, [allTasks]);
 
@@ -229,28 +176,6 @@ const ProjectOverview = ({ setAlert, pop, setPop }) => {
                </div>
 
 
-                 {/* <div className="allprogress">
-
-              
-
-                <div className="eachProgeer">
-                   <h4>Pending Tasks</h4>
-                  <CircularProgress percentage={pendingTask} color={'#f44336'} />
-                </div>
-
-          
-                <div className="eachProgeer">
-                   <h4>Not Started Tasks</h4>
-                  <CircularProgress percentage={notStartedTask} color={'#ff9800'} />
-                </div>
-                
-                <div className="eachProgeer">
-                   <h4>Started Tasks</h4>
-                  <CircularProgress percentage={startedTask} color={'#2196f3'} />
-                </div>
-
-                 </div> */}
-
               </div>
 
               <div className="secnoveview">
@@ -269,6 +194,7 @@ const ProjectOverview = ({ setAlert, pop, setPop }) => {
                      <ProgressBar completed={daysleftper} />
                 </nav>
                 </div>
+
 
               </div>
 
