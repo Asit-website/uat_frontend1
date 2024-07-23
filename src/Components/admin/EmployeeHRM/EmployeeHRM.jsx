@@ -38,18 +38,6 @@ import toast from "react-hot-toast";
 var tc3;
 var tc4;
 
-const people = [
-  {
-    img: peo1,
-    name: "Gautam Panday",
-    work: "Graphic Designer",
-  },
-  {
-    img: peo1,
-    name: "Chirag Sharma",
-    work: "Project Manager",
-  },
-];
 
 const EmployeeHRM = ({
   pop1,
@@ -523,13 +511,14 @@ toast.dismiss(toastId);
     const ans = await getTodayBirthday();
      setUserBirth(ans);
   }
-  
-  
+
   useEffect(() => {
       getLeavesEmp();
       fetchLeaveType();
       getTodayBirthdayapi();
     }, []);
+
+
   return (
     <>
       <div className="employee-dash relative h-full">
@@ -1096,6 +1085,7 @@ toast.dismiss(toastId);
                     <div className=" mt-4 attend-ctiveWrapempp">
                       {/* left side  */}
                       <div className="attenLeft">
+
                         <div className="celWrap">
                           <nav>
                             <img src={cel1} alt="" />
@@ -1131,7 +1121,8 @@ toast.dismiss(toastId);
                             <hr />
                             <div className="cals-dent relative">
                               <NavLink to="/employeeDash/atten">
-                                <Calendar onChange={onChange} value={value} />
+                                <Calendar  onChange={onChange} value={value} 
+                                />
                               </NavLink>
                             </div>
                           </div>
