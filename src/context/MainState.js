@@ -1121,6 +1121,15 @@ const MainState = (props) => {
       return data;
    }
 
+   const savenoteatt = async ({ id, Note , date}) => {
+
+      const data = await post(`${baseUrl}/clock/savenoteatt/${id}`, {
+         Note ,date
+      }, true);
+
+      return data;
+   }
+
    const createResignation = async ({ Employee,
       noticeDate,
       resignationDate,
@@ -2240,7 +2249,8 @@ const MainState = (props) => {
          updateQuotation1,
          deleteQuotation1 , 
          uploadSingleImage , 
-         getAllProjectUserApi
+         getAllProjectUserApi , 
+         savenoteatt
       }}>
          {props.children}
       </MainContext.Provider>

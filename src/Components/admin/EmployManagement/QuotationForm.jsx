@@ -486,7 +486,7 @@ const QuotationForm = ({ setAlert, pop, setPop }) => {
                 <div className="talbeLike">
 
                  
-                <div class="relative ">
+                <div class="relative w-full">
                 <table className="quotablle2 text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
         <thead className="theadqu2">
           <tr>

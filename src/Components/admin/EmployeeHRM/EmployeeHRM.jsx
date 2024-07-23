@@ -506,6 +506,7 @@ toast.dismiss(toastId);
   };
 
   const [userbirth , setUserBirth] = useState([]);
+  const [totalLeavetaken , setLeaveTaken] = useState("00");
   
   const getTodayBirthdayapi = async()=>{
     const ans = await getTodayBirthday();
@@ -516,6 +517,7 @@ toast.dismiss(toastId);
       getLeavesEmp();
       fetchLeaveType();
       getTodayBirthdayapi();
+      setLeaveTaken(hrms_user?.totalLeaves);
     }, []);
 
 
@@ -1004,13 +1006,7 @@ toast.dismiss(toastId);
 
                             <div className="time_emp_desh">
                               <h6 className="timeEmptext">168 hrs</h6>
-                              {/* <p>{`${Math.floor((32400 - clock) / 3600)
-                                .toString()
-                                .padStart(2, "0")}:${Math.floor(
-                                ((32400 - clock) % 3600) / 60
-                              )
-                                .toString()
-                                .padStart(2, "0")}`}</p> */}
+                              
                             </div>
                           </div>
                         </a>
@@ -1377,7 +1373,7 @@ toast.dismiss(toastId);
 
                         <div className="totel_leave_allowance1">
                           <div className="totalLeaText">
-                            <h5>15</h5>
+                            <h5>{totalLeavetaken}</h5>
                             <p>Total leave taken</p>
                           </div>
                           <div>
@@ -1396,7 +1392,7 @@ toast.dismiss(toastId);
                       <div className="leave_setion_emp">
                         <div className="totel_leave_allowance1">
                           <div className="totalLeaText">
-                            <h5>15</h5>
+                            <h5>{15-parseInt(totalLeavetaken) >=0 ? 15-parseInt(totalLeavetaken): 0}</h5>
                             <p>Total leave available</p>
                           </div>
                           <div>
@@ -1413,7 +1409,7 @@ toast.dismiss(toastId);
 
                         <div className="totel_leave_allowance1">
                           <div className="totalLeaText">
-                            <h5>15</h5>
+                            <h5>00</h5>
                             <p>Total request pending</p>
                           </div>
                           <div>
