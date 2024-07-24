@@ -1089,7 +1089,7 @@ toast.dismiss(toastId);
                           </nav>
 
                           <div className="partPeople">
-                            {userbirth.map((data, index) => (
+                            {userbirth?.map((data, index) => (
                               <div className="singcel" key={index}>
                                 <div className="capWrap">
                                   <img src={data.profileImage} className="phrofileimg" />

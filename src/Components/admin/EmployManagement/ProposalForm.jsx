@@ -167,6 +167,8 @@ const config = {
 const ProposalForm = ({ setAlert, pop, setPop }) => {
   const {
     user,
+    postProposalFormApi,
+    updatePropsalFormApi
   } = useMain();
 
   let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
@@ -210,10 +212,46 @@ const ProposalForm = ({ setAlert, pop, setPop }) => {
   });
 
   const postPropsalForm = async()=>{
-   
+    const toastId = toast.loading("Loading...");
+
+     const ans = await postProposalFormApi({...formdata  , userId:hrms_user?._id , leadId:id , content});
+     console.log("ans ",ans);
+     
+ if(ans?.status){
+   toast.success("Successfuly created");
+  setFormdata({
+    proposalFor: "",
+    preparedFor: "",
+    createdBy: "",
+    Date: "",
+  })
+
+
+  setContent(data);
+
+ }
+    toast.dismiss(toastId);
+
   }
 
   const updatePropsalForm = async()=>{
+    const toastId = toast.loading("Loading...");
+
+     const ans = await updatePropsalFormApi({...formdata  , userId:hrms_user?._id , leadId:id , content , id:item?._id});
+     
+ if(ans?.status){
+   toast.success("Successfuly updated");
+  setFormdata({
+    proposalFor: "",
+    preparedFor: "",
+    createdBy: "",
+    Date: "",
+  })
+
+  setContent(data);
+
+ }
+    toast.dismiss(toastId);
 
   }
   

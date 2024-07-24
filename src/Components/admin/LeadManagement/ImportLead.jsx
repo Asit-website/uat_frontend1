@@ -36,8 +36,7 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
     getFollowUp,
     getUserByDesignation1,
     getQuotationApi,
-    deleteQuotationapi , 
-    
+    deleteQuotationapi , deleteQproapi
   } = useMain();
 
   const { id } = useParams();
@@ -315,6 +314,7 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
   const getQuotationOfLead = async () => {
     const ans = await getQuotationApi(id);
     setAllQuota(ans?.quotations);
+    setAllPropo(ans?.proposals);
   };
 
   const deleteQuotationApi = async(id)=>{
@@ -331,7 +331,16 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
   }
 
   const deletePropsalApi = async(id)=>{
-   
+    const toastId = toast.loading("Loading...");
+    const ans = await deleteQproapi(id);
+      if(ans?.status){
+         getQuotationOfLead();
+        toast.success("Successfuly deleted");
+      }
+      else {
+        toast.error("Something went wrong");
+      }
+      toast.dismiss(toastId);
   }
 
   useEffect(() => {
