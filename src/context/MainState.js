@@ -3,7 +3,7 @@ import MainContext from './MainContext';
 import { deleteReq, get, post, put, postDocuments } from '../Api/api'
 import { useState } from 'react';
 
-const baseUrl = "http://localhost:5000";
+// const baseUrl = "http://localhost:5000";
 
 // const baseUrl = "https://hrms-backend-code.onrender.com"
 
@@ -13,7 +13,7 @@ const baseUrl = "http://localhost:5000";
 
 // this is production baseurl 
 
-// const baseUrl = "https://hmsbackend.kusheldigi.com";
+const baseUrl = "https://hmsbackend.kusheldigi.com";
 
 // const baseUrl = "https://hrms-backend-g3wt.onrender.com";
 
@@ -1704,6 +1704,10 @@ const MainState = (props) => {
       const data = await deleteReq(`${baseUrl}/lead/deleteQuotationapi/${id}`, true);
       return data;
    };
+   const deleteQproapi = async (id) => {
+      const data = await deleteReq(`${baseUrl}/lead/deletePropapi/${id}`, true);
+      return data;
+   };
 
    // ======================quatation api fething start===================
    const postQuotation1 = async ({ User, QuatationNo, GstNo, SacCode, PlacedSupply, BillTo, ShipTo, ClientName, Address, Mobile, Email, ItemDescription, Qty, Price, Amount, BalanceAmount, Note, currency, leadId }) => {
@@ -2077,6 +2081,14 @@ const MainState = (props) => {
       const data = await post(`${baseUrl}/lead/updateQuotationForm/${id}`, {  quotationNum, customerName, customerReq,mobileNum,  quotationDate, validUntil, customerId,companyName,companyAddress,content ,   items,  companyGSTIN,companyWebsite , userId , leadId  }, true);
       return data;
    };
+   const postProposalFormApi = async ({  proposalFor ,preparedFor , createdBy , Date, content , userId , leadId}) => {
+      const data = await post(`${baseUrl}/lead/postProposalForm`, {  proposalFor ,preparedFor , createdBy , Date,content , userId , leadId  }, true);
+      return data;
+   };
+   const updatePropsalFormApi = async ({ proposalFor ,preparedFor , createdBy , Date , content , userId , leadId , id}) => {
+      const data = await post(`${baseUrl}/lead/UpdateProposalForm/${id}`, { proposalFor ,preparedFor , createdBy , Date , content , userId , leadId  }, true);
+      return data;
+   };
 
    const createClientapi = async ({ Name , Email , City , State , ZipCode , PhoneNumber , Country , Address}) => {
       const data = await post(`${baseUrl}/task/createClient`, {  Name , Email , City , State , ZipCode , PhoneNumber , Country , Address}, true);
@@ -2180,7 +2192,7 @@ const MainState = (props) => {
          editAllowance, commisionDelteHandler, createLoan, editLoanApi,
          getTotalLeavesCount, uploadDocuments, createAnnouncement, deleteAnnouncement, updateAnnouncements, fetchAnnoucement, deleteAnnouncements, getEmp, allEmployeebyDep, notificationGet,
          acceptLeave, rejectLeave,
-         ProvideRemovePermission , postQuotationFormApi , createClientapi , 
+         ProvideRemovePermission , postQuotationFormApi ,updatePropsalFormApi ,  postProposalFormApi ,  createClientapi , 
          updateQuotationFormApi , 
          uploadOwnDocs,
          getAllLeads,
@@ -2250,7 +2262,7 @@ const MainState = (props) => {
          deleteQuotation1 , 
          uploadSingleImage , 
          getAllProjectUserApi , 
-         savenoteatt
+         savenoteatt , deleteQproapi
       }}>
          {props.children}
       </MainContext.Provider>

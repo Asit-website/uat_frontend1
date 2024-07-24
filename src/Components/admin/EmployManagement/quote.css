@@ -247,7 +247,7 @@ color: #101820;
 .hdquot{
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
 }
 .hdquot p{
     font-family: Inter;
@@ -1196,4 +1196,29 @@ letter-spacing: 0.005em;
     line-height: 24px;
     letter-spacing: 0.005em;
 color: #666D76;    
+}
+
+/* for propsal  */
+.promtopde{
+display: flex;
+flex-direction: column;
+gap:  20px;
+align-items: flex-end;
+width: 100%;
+}
+.promtopde label{
+display: flex;
+flex-direction: column;
+gap:  5px;
+align-items: flex-end;
+}
+.promtopde label h4{ 
+font-family: inter;
+ font-weight: 600;
+ font-size: 20px;
+}
+.promtopde label p{ 
+font-family: inter;
+ font-weight: 500;
+ font-size: 16px;
 }

@@ -95,6 +95,8 @@ import MyProjects from "./Components/admin/EmployManagement/MyProjects.jsx";
 import MyProjectTask from "./Components/admin/EmployManagement/MyProjectTask.jsx";
 import ProjectDetails2 from "./Components/admin/EmployManagement/ProjectDetails2.jsx";
 import ProjectOverview from "./Components/admin/EmployManagement/ProjectOverview.jsx";
+import CreateProposal from "./Components/quotation/CreateProposal.jsx";
+import ProposalForm from "./Components/admin/EmployManagement/ProposalForm.jsx";
 
 var tc;
 
@@ -190,6 +192,7 @@ function App() {
               <Route path="/employeeDash/mySelf" element={<MySelf />} />
 
               <Route path="/employeeDash/createQuotation" element={<CreateQuotation />} />
+              {/* <Route path="/employeeDash/createProposal" element={<CreateProposal />} /> */}
               <Route path="/employeeDash/editQuotation" element={<EditQuotation />} />
               
               <Route path="/employeeDash/taskLead" element={<TaskLead />}  />      
@@ -259,6 +262,8 @@ function App() {
               <Route path="/employeeDash/HRM/HRMsystemSetup" element={<HRMsystemSetup />} />
               <Route path="/adminDash/HRM/QuotationForm" element={<QuotationForm />} />
               <Route path="/employeeDash/HRM/QuotationForm" element={<QuotationForm />} />
+              <Route path="/employeeDash/HRM/ProposalForm" element={<ProposalForm />} />
+              <Route path="/adminDash/HRM/ProposalForm" element={<ProposalForm />} />
 
               <Route path="/employeeDash/HRM/myProjects" element={<MyProjects />} />
               <Route path="/employeeDash/HRM/projectDetails" element={<ProjectDetails2 />} />

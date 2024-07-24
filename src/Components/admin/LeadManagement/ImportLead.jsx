@@ -36,7 +36,8 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
     getFollowUp,
     getUserByDesignation1,
     getQuotationApi,
-    deleteQuotationapi
+    deleteQuotationapi , 
+    deleteQproapi
   } = useMain();
 
   const { id } = useParams();
@@ -145,40 +146,6 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
       toast.success("delleted ");
       getNotes();
     }
-  };
-
-  const [userQuotation, setUserQu] = useState([]);
-
-  const getQuotation = async () => {
-    const ans = await getQuotationAll(id);
-    if (ans?.status) {
-      setUserQu(ans?.data);
-    }
-  };
-
-  const deleteProject = async (id) => {
-    confirmAlert({
-      title: "Are you sure to delete this data?",
-      message: "All related data to this will be deleted",
-      buttons: [
-        {
-          label: "Yes, Go Ahead!",
-          style: {
-            background: "#FF5449",
-          },
-          onClick: async () => {
-            await deleteQuotation(id);
-            toast.success("delete Successfully");
-            setRefreshFlag(!refreshFlag);
-          },
-        },
-        {
-          label: "Cancel",
-
-          onClick: () => null,
-        },
-      ],
-    });
   };
 
   const [openCreateTask, setOpenCreateTask] = useState(false);
@@ -343,15 +310,30 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
   };
 
   const [allQuota, setAllQuota] = useState([]);
+  const [allPropo, setAllPropo] = useState([]);
 
   const getQuotationOfLead = async () => {
     const ans = await getQuotationApi(id);
-    setAllQuota(ans);
+    setAllQuota(ans?.quotations);
+    setAllPropo(ans?.proposals);
   };
 
   const deleteQuotationApi = async(id)=>{
     const toastId = toast.loading("Loading...");
     const ans = await deleteQuotationapi(id);
+      if(ans?.status){
+         getQuotationOfLead();
+        toast.success("Successfuly deleted");
+      }
+      else {
+        toast.error("Something went wrong");
+      }
+      toast.dismiss(toastId);
+  }
+
+  const deletePropsalApi = async(id)=>{
+    const toastId = toast.loading("Loading...");
+    const ans = await deleteQproapi(id);
       if(ans?.status){
          getQuotationOfLead();
         toast.success("Successfuly deleted");
@@ -397,9 +379,6 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
     }));
   }, [data]);
 
-  useEffect(() => {
-    getQuotation();
-  }, [refreshFlag]);
 
   useEffect(() => {
     const size = allNote.length;
@@ -409,8 +388,6 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
       setLeadStatus(Status);
     }
   }, [allNote]);
-
-
 
   useEffect(() => {
     getData();
@@ -765,7 +742,6 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
 
                   <button
                     onClick={() =>
-                      // navigate("/adminDash/createQuotation", { state: { id } })
                       navigate("/adminDash/HRM/QuotationForm", {
                         state: { id },
                       })
@@ -811,6 +787,78 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
                           <img
                             onClick={() => {
                               deleteQuotationApi(item?._id);
+                            }}
+                            className="dli cursor-pointer"
+                            src={deli}
+                            alt="deli"
+                          />
+                          {/* <img
+                            onClick={() =>
+                              navigate("/invoicePage", { state: item })
+                            }
+                            className="dli cursor-pointer"
+                            src={semi}
+                            alt="semi"
+                          /> */}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <span className="norecord">No records found</span>
+                )}
+              </div>
+
+              {/* fourth third  */}
+              <div className="leadFirs">
+                <div className="LEADSsTunav litu">
+                  <h2 className="ehading">Proposal</h2>
+
+                  <button
+                    onClick={() =>
+                      navigate("/adminDash/HRM/ProposalForm", {
+                        state: { id },
+                      })
+                    }
+                    className="createQquot"
+                  >
+                    <span>Create Proposal</span>
+                  </button>
+                </div>
+
+                <hr />
+
+                {allPropo?.length > 0 ? (
+                  <div className="allQui">
+                    {allPropo?.map((item, index) => (
+                      <div key={index} className="sakacont">
+                        <div className="singlquot" key={index}>
+                          <p className="invId">
+                          Proposal For: {item?.proposalFor}
+                          </p>
+                          <p className="invId">
+                          Created By: {item?.createdBy}
+                          </p>
+                          <p className="date">
+                            {new Date(item?.createdAt).toLocaleDateString(
+                              "en-GB"
+                            )}
+                          </p>
+                        </div>
+
+                        <div className="dj">
+                          <img
+                          
+                            onClick={()=>{
+                              navigate("/adminDash/HRM/ProposalForm" , {state:{item}})
+                            }}
+                            className="cursor-pointer"
+                            src={veci}
+                            alt="veci"
+                          />
+                          <img
+                            onClick={() => {
+                              deletePropsalApi(item?._id);
                             }}
                             className="dli cursor-pointer"
                             src={deli}
