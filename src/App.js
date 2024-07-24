@@ -283,6 +283,16 @@ function App() {
               <Route path="/adminDash/HRM/TerminationHRM" element={<TerminationHRM />} />
               <Route path="/adminDash/HRM/holiday" element={<HolidayHRM />} />
 
+              <Route path="/employeeDash/HRM/AwardHRM" element={<AwardHRM />} />
+              <Route path="/employeeDash/HRM/trip" element={<Trip />} />
+              <Route path="/employeeDash/HRM/TransferHRM" element={<TransferHRM />} />
+              <Route path="/employeeDash/HRM/ResignationHRM" element={<ResignationHRM />} />
+              <Route path="/employeeDash/HRM/PromotionHRM" element={<PromotionHRM />} />
+              <Route path="/employeeDash/HRM/ComplaintsHRM" element={<ComplaintsHRM />} />
+              <Route path="/employeeDash/HRM/WarningHRM" element={<WarningHRM />} />
+              <Route path="/employeeDash/HRM/TerminationHRM" element={<TerminationHRM />} />
+              <Route path="/employeeDash/HRM/holiday" element={<HolidayHRM />} />
+
 
               <Route path="/adminDash/HRM/totalEmployee" element={<TotalEmployee pop={pop} setPop={setPop} setAlert={setAlert} />} />
               <Route path="/adminDash/HRM/LeaveEmployee" element={<LeaveEmployee pop={pop} setPop={setPop} setAlert={setAlert} />} />
@@ -302,6 +312,7 @@ function App() {
               <Route path="/adminDash/Permission" element={<Permission pop={pop} setAlert={setAlert} setPop={setPop} />} />
               <Route path="/adminDash/profile" element={<AdminProfile pop={pop} setPop={setPop} setAlert={setAlert} />} />
               <Route path="/adminDash/announcement" element={<AdminAnnoncement pop={pop} setPop={setPop} setAlert={setAlert} />} />
+              <Route path="/employeeDash/announcement" element={<AdminAnnoncement pop={pop} setPop={setPop} setAlert={setAlert} />} />
               <Route path="/performance/indicator" element={<Indicator pop={pop} setPop={setPop} setAlert={setAlert} />} />
               <Route path="/performance/appraisal" element={<Appraisal pop={pop} setPop={setPop} setAlert={setAlert} />} />
               <Route path="/performance/goalTracking" element={<GoalTracking pop={pop} setPop={setPop} setAlert={setAlert} />} />

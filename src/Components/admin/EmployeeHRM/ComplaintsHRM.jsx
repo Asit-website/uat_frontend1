@@ -11,12 +11,18 @@ import plusIcon from "../../images/plusIcon.png";
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 import toast from "react-hot-toast";
+import EmployeeNavbar from "../../Employee/Navbar/EmployeeNavbar";
+import EmployeeSidebar from "../../Employee/Sidebar/EmployeeSidebar";
 
 
 
 const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
   const { user, createComplain, getComplain, updateComplain, deleteComplain, allEmployee } = useMain();
   const [popup1, setPopup1] = useState(false);
+
+  let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
+
+  const { role } = hrms_user;
 
   const [employee, setEmployee] = useState([]);
   const [refreshFlag, setRefreshFlag] = useState([]);
@@ -122,10 +128,20 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
   return (
     <>
       <div className="employee-dash h-full">
-        <AdminSidebar pop={pop} setPop={setPop} />
+        {/* <AdminSidebar pop={pop} setPop={setPop} /> */}/
+        {role === "EMPLOYEE" ? (
+          <EmployeeSidebar pop={pop} setPop={setPop} />
+        ) : (
+          <AdminSidebar pop={pop} setPop={setPop} />
+        )}
 
         <div className="tm awardtm">
-          <AdminNavbar user={user} setAlert={setAlert} />
+          {/* <AdminNavbar user={user} setAlert={setAlert} /> */}
+          {role === "EMPLOYEE" ? (
+            <EmployeeNavbar user={user} setAlert={setAlert} />
+          ) : (
+            <AdminNavbar user={user} setAlert={setAlert} />
+          )}
 
           <div className="em">
             <div className="flex-col">

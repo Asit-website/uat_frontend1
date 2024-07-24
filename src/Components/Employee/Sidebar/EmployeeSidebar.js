@@ -84,6 +84,45 @@ const payrols2 = [
  
 ]
 
+const hrAdminItems = [
+  {
+    title: "Award",
+    link: "/employeeDash/HRM/AwardHRM"
+  },
+  {
+    title: "Transfer",
+    link: "/employeeDash/HRM/TransferHRM"
+  },
+  {
+    title: "Regisnation",
+    link: "/employeeDash/HRM/ResignationHRM"
+  },
+  {
+    title: "Promotion",
+    link: "/employeeDash/HRM/PromotionHRM"
+  },
+  {
+    title: "Complaints",
+    link: "/employeeDash/HRM/ComplaintsHRM"
+  },
+  {
+    title: "Warning",
+    link: "/employeeDash/HRM/WarningHRM"
+  },
+  {
+    title: "Termination",
+    link: "/employeeDash/HRM/TerminationHRM"
+  },
+  {
+    title: "Holiday",
+    link: "/employeeDash/HRM/holiday" 
+  },
+  {
+    title:"Announcement",
+    link:"/employeeDash/announcement"
+  }
+]
+
 const EmployeeSidebar = () => {
 
   let user = JSON.parse(localStorage.getItem("hrms_user"));
@@ -98,6 +137,9 @@ const EmployeeSidebar = () => {
 
   const [openTraining, setOpenTraining] = useState(false);
 
+  const [hrItem,setHrItem] = useState(0);
+
+
 
   const [openLeaveMan, setOpenLeaveMan] = useState(false);
   const [openPerform, setOpenPerform] = useState(false);
@@ -107,6 +149,9 @@ const EmployeeSidebar = () => {
   const [leveItem, setLeveItem] = useState(0);
 
   const [performanceItem, setPerformanceItem] = useState(0);
+
+  const [openHr,setOpenHr] = useState(false);
+
 
   const navigate = useNavigate();
 
@@ -441,6 +486,56 @@ const EmployeeSidebar = () => {
                     ))}
                   </div>
                 )}
+              </>
+            }
+
+            {
+              hrAdminSetupPermission && 
+              <>
+                 {/* ===============hr admin setup start============ */}
+
+                 <div
+                onClick={() => setOpenHr((prev) => !prev)}
+                className="side-dash-box sidemargin"
+              >
+                <div className="dash-wrap">
+                  <img src={reading} alt="dasg" />
+                  <p>Hr Admin Setup</p>
+                </div>
+
+                <img src={vect} alt="vect" />
+              </div>
+
+              {openHr && (
+                <div className="alladminDash-item">
+                  {hrAdminItems?.map((item, index) => (
+                    <div
+                      onClick={() => {
+                        setHrItem(index);
+                        navigate(item?.link);
+                      }
+
+                      }
+                      className="sinADDasItem"
+                      key={index}
+                    >
+                      {hrItem == index ? (
+                        <img src={`${window.location.pathname === `${item?.link}` ? fiber : tyming}`} alt="" />
+                      ) : (
+                        <img src={`${window.location.pathname === `${item?.link}` ? fiber : tyming}`} alt="" />
+                      )}
+                      <p
+                        className={` ${hrItem === index ? "dashItemp" : "dITitl"
+                          } ${window.location.pathname === `${item?.link}` ? "fan" : ""}`}
+                      >
+                        {item?.title}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {/* =================hr admin setup end================= */}
               </>
             }
 
