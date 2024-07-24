@@ -313,6 +313,7 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
 
   const getQuotationOfLead = async () => {
     const ans = await getQuotationApi(id);
+    console.log('ans',ans);
     setAllQuota(ans?.quotations);
     setAllPropo(ans?.proposals);
   };
