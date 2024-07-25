@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import EmployeeNavbar from "../Navbar/EmployeeNavbar";
 import EmployeeSidebar from "../Sidebar/EmployeeSidebar";
 import "react-calendar/dist/Calendar.css";
@@ -11,14 +11,36 @@ import AdminSidebar from "../../admin/Sidebar/AdminSidebar";
 const MySelf = ({ setAlert, pop1, setPop1 }) => {
    // =================punch in punch out concept==========
    const {
-      user,
       postActivity,
       getStatisticsByUser,
+      getMyOfferLetter
 
    } = useMain();
 
-   let user1 = JSON?.parse(localStorage.getItem("hrms_user"));
+   const [user , setUser] = useState();
 
+   const [curenpage , setCurrPage] =useState("Document");
+   let user1 = JSON?.parse(localStorage.getItem("hrms_user"));
+   let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
+   const {offerLetterPermission} = hrms_user;
+
+   const [offerContent , setOfferContent] =useState(``);
+
+   console.log("curenpage" ,curenpage);
+
+    const getOfferletter = async()=>{
+      const ans = await getMyOfferLetter(user1?._id);
+       if(ans?.status){
+         setOfferContent(ans?.data[0]?.content);
+       }
+    }
+
+ useEffect(()=>{
+   setUser(hrms_user);
+   if(offerLetterPermission){
+      getOfferletter();
+   }
+ },[]);
    return (
       <>
          <div className="employee-dash h-full">
@@ -43,7 +65,7 @@ const MySelf = ({ setAlert, pop1, setPop1 }) => {
                   <nav className="myselfNav">
                      <h2>My self</h2>
 
-                     <select name="" id="">
+                     <select value={curenpage} onChange={(e)=>setCurrPage(e.target.value)} name="" id="">
                         <option value="Document">Document</option>
                         <option value="Offer Latter">Offer Letter</option>
                         <option value="Experience Letter">Experience Letter</option>
@@ -54,8 +76,12 @@ const MySelf = ({ setAlert, pop1, setPop1 }) => {
                   </nav>
 
 
-                  {/* first section  */}
-                  <div className="myselfFirst">
+ {
+   curenpage === 'Document' && 
+ 
+   <>
+   
+            <div className="myselfFirst">
 
 
                      <h3>Employee Detail</h3>
@@ -98,7 +124,6 @@ const MySelf = ({ setAlert, pop1, setPop1 }) => {
 
                   </div>
 
-                  {/* second section  */}
                   <div className="myselfFirst">
 
 
@@ -204,7 +229,6 @@ const MySelf = ({ setAlert, pop1, setPop1 }) => {
 
                   </div>
 
-                  {/* thid  section  */}
                   <div className="myselfFirst">
 
 
@@ -242,8 +266,6 @@ const MySelf = ({ setAlert, pop1, setPop1 }) => {
 
                   </div>
 
-
-                  {/* fourth section  */}
                   <div className="myselfFirst">
 
 
@@ -285,13 +307,22 @@ const MySelf = ({ setAlert, pop1, setPop1 }) => {
 
                   </div>
 
+                  </>
 
-                  <div className="reqcahgng">
+                     }
 
-                     {/* <button className="rqbtn"><span>Request Change</span></button> */}
 
-                  </div>
+                     {
+               curenpage ==="Offer Latter" && 
+               <div className="showoffercont">
+               <h2>OFFER LETTER</h2>
 
+             <div>
+             <div dangerouslySetInnerHTML={{ __html: offerContent }} />
+             </div>
+
+             </div>
+                     }
 
                </div>
 

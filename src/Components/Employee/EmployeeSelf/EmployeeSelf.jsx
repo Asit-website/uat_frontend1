@@ -6,6 +6,7 @@ import doc from "../../images/docu.png"
 import AdminSidebar from "../../admin/Sidebar/AdminSidebar";
 import { useLocation } from 'react-router-dom';
 import AdminNavbar from "../../admin/Navbar/AdminNavbar";
+import toast from "react-hot-toast";
 
 
 const EmployeeSelf = ({ setAlert, pop1, setPop1 }) => {
@@ -14,15 +15,36 @@ const EmployeeSelf = ({ setAlert, pop1, setPop1 }) => {
       user,
       postActivity,
       getStatisticsByUser,
-      getUsers
+      getUsers ,changeOfferLetterPer
 
    } = useMain();
+
+   const [user1, setUser1] = useState({});
+
 
    const location = useLocation();
    const state = location.state;
 
+
+   const [isChecked, setIsChecked] = useState(false);
+
+   const handleCheckboxChange = async (event) => {
+      const toastId = toast.loading("Loading...");
+      const checked = event.target.checked;
+      setIsChecked(checked);
+  
+      try {
+         const ans = await changeOfferLetterPer({userId:state});
+          toast.success("Succesfuly updated");      
+      } catch (error) {
+        console.error('Error calling API:', error);
+      }
+      toast.dismiss(toastId);
+    };
+  
    //   let user1 = JSON?.parse(localStorage.getItem("hrms_user"));
-   const [user1, setUser1] = useState({});
+
+   console.log("hser1",user1);
 
    const fetchUserDetails = async () => {
       const ans = await getUsers(state);
@@ -30,11 +52,16 @@ const EmployeeSelf = ({ setAlert, pop1, setPop1 }) => {
 
    }
 
-   console.log('user1 ', user1);
-
    useEffect(() => {
       fetchUserDetails();
+       
    }, [])
+
+   useEffect(()=>{
+    if(user1?.offerLetterPermission){
+       setIsChecked(true);
+    }
+   },[user1])
 
    return (
       <>
@@ -225,21 +252,7 @@ const EmployeeSelf = ({ setAlert, pop1, setPop1 }) => {
 
                      <hr />
 
-                     {/* <div className="allFristDe3tail2">
-
-                        {
-                           user1?.document?.map((item, index) => (
-                              <div className="singleDoc" key={index}>
-
-                                <a target="_blank" href={`${item?.url}`}><h2>{item?.name}</h2></a>
-                                <a target="_blank" href={`${item?.url}`}><img src={item?.url} className="docuImgages" alt="" /></a>
-
-                              </div>
-                           ))
-                        }
-
-
-                     </div> */}
+                   
                      
                      <div className="allFristDe3tail2">
 
@@ -328,22 +341,11 @@ const EmployeeSelf = ({ setAlert, pop1, setPop1 }) => {
 
                         <div className="singfirst">
                            <p>Offer Latter :</p>
-                           {/* <span>{user1?.SalaryPay}</span> */}
                          
-                              <input className="inpo1" type="checkbox" />
-                          
+                         <input checked={isChecked}  onChange={handleCheckboxChange}  className="inpo1" type="checkbox" />
 
                         </div>
 
-                        {/* <div className="singfirst">
-                           <p>Account No :</p>
-                           <span>{user1?.AccountNumber}</span>
-                        </div> */}
-
-                        {/* <div className="singfirst">
-                           <p> Bank Name :</p>
-                           <span>{user1?.SalaryBankName}</span>
-                        </div> */}
 
                         <div className="singfirst">
                            <p>Experience Latter :</p>
@@ -358,12 +360,7 @@ const EmployeeSelf = ({ setAlert, pop1, setPop1 }) => {
                               <input className="inpo1" type="checkbox" />
                           
                         </div>
-                        {/* <div className="singfirst">
-                           <p>Bank Branch Name :</p>
-                           <span>{user1?.Branch}</span>
-                        </div> */}
-
-
+                      
 
                      </div>
 
@@ -371,8 +368,6 @@ const EmployeeSelf = ({ setAlert, pop1, setPop1 }) => {
 
 
                   <div className="reqcahgng">
-
-                     {/* <button className="rqbtn"><span>Request Change</span></button> */}
 
                   </div>
 

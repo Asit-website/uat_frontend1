@@ -3,7 +3,7 @@ import MainContext from './MainContext';
 import { deleteReq, get, post, put, postDocuments } from '../Api/api'
 import { useState } from 'react';
 
-// const baseUrl = "http://localhost:5000";
+const baseUrl = "http://localhost:5000";
 
 // const baseUrl = "https://hrms-backend-code.onrender.com"
 
@@ -13,7 +13,7 @@ import { useState } from 'react';
 
 // this is production baseurl 
 
-const baseUrl = "https://hmsbackend.kusheldigi.com";
+// const baseUrl = "https://hmsbackend.kusheldigi.com";
 
 // const baseUrl = "https://hrms-backend-g3wt.onrender.com";
 
@@ -2152,6 +2152,18 @@ const MainState = (props) => {
       const data = await post(`${baseUrl}/task/changeTaskStatus/${taskId}`, { taskStatus}, true);
       return data;
    }
+   const saveDocs = async({id , content})=>{
+      const data = await post(`${baseUrl}/lead/postSaveOfERdOCS`, { userId:id , content}, true);
+      return data;
+   }
+   const changeOfferLetterPer = async({userId})=>{
+      const data = await post(`${baseUrl}/lead/changeOfferLetterPer`, { userId}, true);
+      return data;
+   }
+   const getMyOfferLetter = async(userId)=>{
+      const data = await post(`${baseUrl}/lead/getUserLetter`, { userId}, true);
+      return data;
+   }
 
    const getAllProjectUserTaskApi = async () => {
       
@@ -2197,6 +2209,7 @@ const MainState = (props) => {
          uploadOwnDocs,
          getAllLeads,
          updateDocSetup,
+         changeOfferLetterPer , 
          fetchAllDocs,
          updateAttendance,
          deleteDocSetup,
@@ -2206,8 +2219,10 @@ const MainState = (props) => {
          togglePayslip,
          updateLeadStatus,
          deleteNotification,
+         saveDocs , 
          createAllowance,
          postNotifyLeavereq,
+         getMyOfferLetter , 
          getUserSlip,
          createCommision,
          updateLeadNote,

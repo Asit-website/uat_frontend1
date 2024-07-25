@@ -412,14 +412,7 @@ const ProposalForm = ({ setAlert, pop, setPop }) => {
                 <div className="prntBtn">
                   <button
                     onClick={() => {
-                      if (
-                        formdata.Date !== "" &&
-                        formdata.createdBy !== "" &&
-                        formdata.preparedFor !== "" &&
-                        formdata.proposalFor !== "" &&
-                        content !== ""
-                        
-                      ) {
+              
                            if(item){
                             updatePropsalForm();
                             }
@@ -427,9 +420,7 @@ const ProposalForm = ({ setAlert, pop, setPop }) => {
                               postPropsalForm();
                             }
                             generatePdf();
-                      } else {
-                        toast.error("Please fill All The Details");
-                      }
+                      
                     }}
                   >
                     <span>Print</span>
