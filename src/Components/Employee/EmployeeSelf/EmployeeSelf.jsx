@@ -10,7 +10,6 @@ import toast from "react-hot-toast";
 
 
 const EmployeeSelf = ({ setAlert, pop1, setPop1 }) => {
-   // =================punch in punch out concept==========
    const {
       user,
       postActivity,
@@ -42,26 +41,25 @@ const EmployeeSelf = ({ setAlert, pop1, setPop1 }) => {
       toast.dismiss(toastId);
     };
   
-   //   let user1 = JSON?.parse(localStorage.getItem("hrms_user"));
-
-   console.log("hser1",user1);
-
    const fetchUserDetails = async () => {
       const ans = await getUsers(state);
       setUser1(ans?.data);
 
    }
 
+
+   useEffect(()=>{
+      if(user1?.offerLetterPermission){
+         setIsChecked(true);
+      }
+     },[user1])
+
    useEffect(() => {
       fetchUserDetails();
        
    }, [])
 
-   useEffect(()=>{
-    if(user1?.offerLetterPermission){
-       setIsChecked(true);
-    }
-   },[user1])
+
 
    return (
       <>

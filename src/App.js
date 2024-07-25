@@ -7,7 +7,6 @@ import ForgetPassword1 from "./Components/auth/ForgetPassword1";
 import MainState from "./context/MainState";
 import Alert from "./Components/Alert/Alert";
 import PrivateRoute from "./privateRoute/PrivateRoute";
-import EmployeeDash from "./Components/Employee/Dashboard/EmployeeDash";
 import HrDashboard from "./Components/Hr/Dashboard/HrDashboard";
 import AdminDash from "./Components/admin/Dashboard/AdminDash";
 import ForgetPassword2 from "./Components/auth/ForgetPassword2";
@@ -166,16 +165,7 @@ function App() {
             <Route
               element={<PrivateRoute role={[ROLES.EMPLOYEE, ROLES.ADMIN]} />}
             >
-              {/* <Route
-                path="/employeeDash"
-                element={
-                  <EmployeeDash
-                    setAlert={setAlert}
-                    pop1={pop1}
-                    setPop1={setPop1}
-                  />
-                }
-              /> */}
+              
 
               <Route path="/employeeDash/request" element={<Request pop1={pop1}
                 setPop1={setPop1} setAlert={setAlert} />} />
