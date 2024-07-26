@@ -5232,11 +5232,15 @@ input::-webkit-inner-spin-button {
 }
 
 .inpo1 {
-  width: 110px;
+  /* width: 110px; */
 }
 
 .inpo2 {
-  width: 30px;
+  /* width: 30px; */
+}
+
+.font-wrapper {
+  font-family: "Inter", sans-serif !important;
 }
 
 .tranking th,

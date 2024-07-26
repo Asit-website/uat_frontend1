@@ -25,13 +25,14 @@ const MySelf = ({ setAlert, pop1, setPop1 }) => {
    const {offerLetterPermission} = hrms_user;
 
    const [offerContent , setOfferContent] =useState(``);
-
-   console.log("curenpage" ,curenpage);
+   const [reliveContent , setReliveContent] =useState(``);
 
     const getOfferletter = async()=>{
       const ans = await getMyOfferLetter(user1?._id);
+      console.log("ans",ans);
        if(ans?.status){
-         setOfferContent(ans?.data[0]?.content);
+         setOfferContent(ans?.data?.createletter[0]?.content);
+         setReliveContent(ans?.data?.relivingLetter[0]?.content);
        }
     }
 
@@ -67,8 +68,8 @@ const MySelf = ({ setAlert, pop1, setPop1 }) => {
 
                      <select value={curenpage} onChange={(e)=>setCurrPage(e.target.value)} name="" id="">
                         <option value="Document">Document</option>
-                        <option value="Offer Latter">Offer Letter</option>
-                        <option value="Experience Letter">Experience Letter</option>
+                        <option value="Offer Letter">Offer Letter</option>
+                        <option value="Relieving Letter">Relieving Letter</option>
                         <option value="Experience Letter">Experience Letter</option>
                         <option value="Experience Letter">Experience Letter</option>
                      </select>
@@ -313,12 +314,23 @@ const MySelf = ({ setAlert, pop1, setPop1 }) => {
 
 
                      {
-               curenpage ==="Offer Latter" && 
+               curenpage ==="Offer Letter" && 
                <div className="showoffercont">
                <h2>OFFER LETTER</h2>
 
+             <div className="font-wrapper">
+             <div className="addfont" dangerouslySetInnerHTML={{ __html: offerContent }} />
+             </div>
+
+             </div>
+                     }
+                     {
+               curenpage ==="Relieving Letter" && 
+               <div className="showoffercont">
+               <h2>RELIEVING LETTER</h2>
+
              <div>
-             <div dangerouslySetInnerHTML={{ __html: offerContent }} />
+             <div dangerouslySetInnerHTML={{ __html: reliveContent }} />
              </div>
 
              </div>

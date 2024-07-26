@@ -14,7 +14,7 @@ const EmployeeSelf = ({ setAlert, pop1, setPop1 }) => {
       user,
       postActivity,
       getStatisticsByUser,
-      getUsers ,changeOfferLetterPer
+      getUsers ,changeOfferLetterPer , changeRelivingLetterPer
 
    } = useMain();
 
@@ -26,6 +26,7 @@ const EmployeeSelf = ({ setAlert, pop1, setPop1 }) => {
 
 
    const [isChecked, setIsChecked] = useState(false);
+   const [isChecked2, setIsChecked2] = useState(false);
 
    const handleCheckboxChange = async (event) => {
       const toastId = toast.loading("Loading...");
@@ -34,6 +35,21 @@ const EmployeeSelf = ({ setAlert, pop1, setPop1 }) => {
   
       try {
          const ans = await changeOfferLetterPer({userId:state});
+          toast.success("Succesfuly updated");      
+      } catch (error) {
+        console.error('Error calling API:', error);
+      }
+      toast.dismiss(toastId);
+    };
+
+   const handleCheckboxChange2 = async (event) => {
+      const toastId = toast.loading("Loading...");
+      const checked = event.target.checked;
+      setIsChecked2(checked);
+  
+      try {
+         const ans = await changeRelivingLetterPer({userId:state});
+         console.log("ans ",ans);
           toast.success("Succesfuly updated");      
       } catch (error) {
         console.error('Error calling API:', error);
@@ -52,6 +68,9 @@ const EmployeeSelf = ({ setAlert, pop1, setPop1 }) => {
       if(user1?.offerLetterPermission){
          setIsChecked(true);
       }
+       if(user1?.RelievingLetterPermission){
+         setIsChecked2(true);
+       }
      },[user1])
 
    useEffect(() => {
@@ -337,23 +356,30 @@ const EmployeeSelf = ({ setAlert, pop1, setPop1 }) => {
 
                      <div className="allFristDe3tail sinoid">
 
-                        <div className="singfirst">
-                           <p>Offer Latter :</p>
+                        <div className="singfirst adwwith">
+                           <p>Offer Letter :</p>
                          
                          <input checked={isChecked}  onChange={handleCheckboxChange}  className="inpo1" type="checkbox" />
 
                         </div>
 
+                        <div className="singfirst adwwith">
+                           <p>Relieving Letter :</p>
+                         
+                         <input checked={isChecked2}  onChange={handleCheckboxChange2}  className="inpo1" type="checkbox" />
 
-                        <div className="singfirst">
-                           <p>Experience Latter :</p>
+                        </div>
+
+
+                        <div className="singfirst adwwith">
+                           <p>Experience Letter :</p>
                            
                               <input className="inpo2" type="checkbox" />
                           
                         </div>
 
-                        <div className="singfirst">
-                           <p>Offer Latter :</p>
+                        <div className="singfirst adwwith">
+                           <p>Offer Letter :</p>
                            
                               <input className="inpo1" type="checkbox" />
                           

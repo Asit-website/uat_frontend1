@@ -70,6 +70,12 @@ gap: 18px;
     align-items: center;
 
 }
+.adwwith{
+     /* background-color: red; */
+     width: 200px;
+     justify-content: space-between;
+
+}
 .singfirst p{
     font-family: Inter;
     color: #1B2533;
