@@ -1242,7 +1242,7 @@ toast.dismiss(toastId);
                         <div>
                           <a
                             href="#"
-                            className="block serad max-w-2xl p-5 bg-white border timeWrap border-gray-200 rounded-lg shadow hover:bg-gray-100   "
+                            className="block serad max-w-2xl p-5 bg-white border timeWrap border-gray-200 rounded-lg shadow    "
                           >
                             <div className="timeLogWrap">
                               <img src={timeLog} alt="" />
@@ -1328,6 +1328,7 @@ toast.dismiss(toastId);
                           </a>
                         </div>
                       </div>
+
                     </div>
 
                     <div className="hrLefThi22">
