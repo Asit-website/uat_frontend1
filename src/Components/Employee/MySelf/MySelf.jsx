@@ -5,7 +5,6 @@ import "react-calendar/dist/Calendar.css";
 import { useMain } from "../../../hooks/useMain";
 import "./myself.css"
 import doc from "../../images/docu.png"
-import bx from "../../images/bxs-download.png"
 import AdminSidebar from "../../admin/Sidebar/AdminSidebar";
 
 const MySelf = ({ setAlert, pop1, setPop1 }) => {
@@ -26,13 +25,14 @@ const MySelf = ({ setAlert, pop1, setPop1 }) => {
 
    const [offerContent , setOfferContent] =useState(``);
    const [reliveContent , setReliveContent] =useState(``);
+   const [experienceContent , setExperienceContent] =useState(``);
 
     const getOfferletter = async()=>{
       const ans = await getMyOfferLetter(user1?._id);
-      console.log("ans",ans);
        if(ans?.status){
          setOfferContent(ans?.data?.createletter[0]?.content);
          setReliveContent(ans?.data?.relivingLetter[0]?.content);
+         setExperienceContent(ans?.data?.expeletter[0]?.content);
        }
     }
 
@@ -331,6 +331,18 @@ const MySelf = ({ setAlert, pop1, setPop1 }) => {
 
              <div>
              <div dangerouslySetInnerHTML={{ __html: reliveContent }} />
+             </div>
+
+             </div>
+                     }
+
+                     {
+               curenpage ==="Experience Letter" && 
+               <div className="showoffercont">
+               <h2>EXPERIENCE LETTER</h2>
+
+             <div>
+             <div dangerouslySetInnerHTML={{ __html: experienceContent }} />
              </div>
 
              </div>

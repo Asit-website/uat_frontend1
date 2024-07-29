@@ -14,7 +14,7 @@ const EmployeeSelf = ({ setAlert, pop1, setPop1 }) => {
       user,
       postActivity,
       getStatisticsByUser,
-      getUsers ,changeOfferLetterPer , changeRelivingLetterPer
+      getUsers ,changeOfferLetterPer , changeRelivingLetterPer , changeExperienceLetterPer
 
    } = useMain();
 
@@ -27,6 +27,7 @@ const EmployeeSelf = ({ setAlert, pop1, setPop1 }) => {
 
    const [isChecked, setIsChecked] = useState(false);
    const [isChecked2, setIsChecked2] = useState(false);
+   const [isChecked3, setIsChecked3] = useState(false);
 
    const handleCheckboxChange = async (event) => {
       const toastId = toast.loading("Loading...");
@@ -49,7 +50,20 @@ const EmployeeSelf = ({ setAlert, pop1, setPop1 }) => {
   
       try {
          const ans = await changeRelivingLetterPer({userId:state});
-         console.log("ans ",ans);
+          toast.success("Succesfuly updated");      
+      } catch (error) {
+        console.error('Error calling API:', error);
+      }
+      toast.dismiss(toastId);
+    };
+
+   const handleCheckboxChange3 = async (event) => {
+      const toastId = toast.loading("Loading...");
+      const checked = event.target.checked;
+      setIsChecked3(checked);
+  
+      try {
+         const ans = await changeExperienceLetterPer({userId:state});
           toast.success("Succesfuly updated");      
       } catch (error) {
         console.error('Error calling API:', error);
@@ -70,6 +84,9 @@ const EmployeeSelf = ({ setAlert, pop1, setPop1 }) => {
       }
        if(user1?.RelievingLetterPermission){
          setIsChecked2(true);
+       }
+       if(user1?.ExperienceLetterPermission){
+         setIsChecked3(true);
        }
      },[user1])
 
@@ -374,7 +391,7 @@ const EmployeeSelf = ({ setAlert, pop1, setPop1 }) => {
                         <div className="singfirst adwwith">
                            <p>Experience Letter :</p>
                            
-                              <input className="inpo2" type="checkbox" />
+                              <input checked={isChecked3}  onChange={handleCheckboxChange3} className="inpo2" type="checkbox" />
                           
                         </div>
 

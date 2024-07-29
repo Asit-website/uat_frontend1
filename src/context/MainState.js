@@ -2160,8 +2160,16 @@ const MainState = (props) => {
       const data = await post(`${baseUrl}/lead/saveRelivingLetter`, { userId:id , content}, true);
       return data;
    }
+   const saveExperienceLetterapi = async({id , content})=>{
+      const data = await post(`${baseUrl}/lead/saveExperienceLetter`, { userId:id , content}, true);
+      return data;
+   }
    const changeOfferLetterPer = async({userId})=>{
       const data = await post(`${baseUrl}/lead/changeOfferLetterPer`, { userId}, true);
+      return data;
+   }
+   const changeExperienceLetterPer = async({userId})=>{
+      const data = await post(`${baseUrl}/lead/changeExperienceLetterPer`, { userId}, true);
       return data;
    }
    const changeRelivingLetterPer = async({userId})=>{
@@ -2227,6 +2235,7 @@ const MainState = (props) => {
          togglePayslip,
          updateLeadStatus,
          deleteNotification,
+         changeExperienceLetterPer , 
          saveDocs , 
          createAllowance,
          postNotifyLeavereq,
@@ -2268,6 +2277,7 @@ const MainState = (props) => {
          getLeadSources,
          postLeadSource,
          updateLeadSource,
+         saveExperienceLetterapi , 
          deleteLeadSource,
          getIndustry,
          postIndustry,

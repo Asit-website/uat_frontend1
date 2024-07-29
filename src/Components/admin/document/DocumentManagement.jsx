@@ -31,8 +31,10 @@ const item2 = [
   {
     title: "Relieving Letter",
   },
- 
-]
+  {
+    title: "Experience Letter",
+  },
+];
 
 const data = `<p class="MsoNormal" align="left" style="text-indent: -1px; color: black; margin: 0in 0in 0in 1px; text-align: left; line-height: 107%; font-size: 16px;"><span style="line-height: 107%;">Private
         &amp; Confidential </span></p>
@@ -954,25 +956,55 @@ const data2 = `<p class="MsoNormal" style="margin: 0in 0in 11px; line-height: 10
         Solutions</span></p>
 
 <p class="MsoNormal" style="margin: 0in 0in 11px; line-height: 107%; font-family: Calibri, sans-serif; font-size: 15px;"><span style="line-height: 107%; font-family: Inter, sans-serif; font-size: 16px;">Noida, Uttar
-        Pradesh</span></p>`
+        Pradesh</span></p>`;
+
+        const data3 = `<p style="margin-right: 0in; margin-left: 0in; font-family: &quot;Times New Roman&quot;, serif; font-size: 16px;"><span>&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;</span><span style="font-family: Inter, sans-serif; background: yellow; font-size: 17px;">19<sup>TH</sup> JULY 2024</span></p><p style="margin-right: 0in; margin-left: 0in; font-family: &quot;Times New Roman&quot;, serif; font-size: 16px;"><span style="font-family: Inter, sans-serif; background: yellow; font-size: 17px;">Dear xyz,</span></p><p style="margin-right: 0in; margin-left: 0in; font-family: &quot;Times New Roman&quot;, serif; font-size: 16px;"><span style="font-family: Inter, sans-serif; background: yellow; font-size: 17px;"><br></span></p><p style="margin-right: 0in; margin-left: 0in; font-family: &quot;Times New Roman&quot;, serif; font-size: 16px;"><span style="font-family: Inter, sans-serif; background: yellow; font-size: 17px;"><br></span></p><p style="margin-right: 0in; margin-left: 0in; font-family: &quot;Times New Roman&quot;, serif; font-size: 16px;"><span style="font-family: Inter, sans-serif; background: yellow; font-size: 17px;">I am writing to confirm that Pooja has
+        served as our HR Manager at Kushel Digi Solutions from 16<sup>th</sup> September
+        2023 to 5<sup>th</sup> JUNE 2024. During her tenure, she exhibited exceptional
+        professionalism, dedication, and competence in all HR-related responsibilities.</span></p><p style="margin-right: 0in; margin-left: 0in; font-family: &quot;Times New Roman&quot;, serif; font-size: 16px;"><span style="font-family: Inter, sans-serif; background: yellow; font-size: 17px;"><br></span></p>
+
+<p style="margin-right: 0in; margin-left: 0in; font-family: &quot;Times New Roman&quot;, serif; font-size: 16px;"><span style="font-family: Inter, sans-serif; background: yellow; font-size: 17px;">Pooja effectively managed various
+        aspects of human resources, including recruitment, employee relations,
+        performance management, training and development, compensation and benefits
+        administration, and HR policy development. She played a key role in enhancing
+        our HR processes and procedures, ensuring compliance with labor laws and
+        regulations, and fostering a positive work environment.</span></p><p style="margin-right: 0in; margin-left: 0in; font-family: &quot;Times New Roman&quot;, serif; font-size: 16px;"><span style="font-family: Inter, sans-serif; background: yellow; font-size: 17px;"><br></span></p>
+
+<p style="margin-right: 0in; margin-left: 0in; font-family: &quot;Times New Roman&quot;, serif; font-size: 16px;"><span style="font-family: Inter, sans-serif; background: yellow; font-size: 17px;">She demonstrated strong leadership
+        skills by successfully leading HR initiatives and collaborating with department
+        heads to support organizational goals. Her ability to handle sensitive employee
+        issues with empathy and discretion contributed significantly to maintaining a
+        harmonious workplace.</span></p><p style="margin-right: 0in; margin-left: 0in; font-family: &quot;Times New Roman&quot;, serif; font-size: 16px;"><span style="font-family: Inter, sans-serif; background: yellow; font-size: 17px;"><br></span></p>
+
+<p style="margin-right: 0in; margin-left: 0in; font-family: &quot;Times New Roman&quot;, serif; font-size: 16px;"><span style="font-family: Inter, sans-serif; background: yellow; font-size: 17px;">Moreover, Pooja consistently exhibited
+        strong communication skills, both written and verbal, which were essential in
+        conveying HR policies and procedures effectively across the organization.</span></p><p style="margin-right: 0in; margin-left: 0in; font-family: &quot;Times New Roman&quot;, serif; font-size: 16px;"><span style="font-family: Inter, sans-serif; background: yellow; font-size: 17px;"><br></span></p>
+
+<p style="margin-right: 0in; margin-left: 0in; font-family: &quot;Times New Roman&quot;, serif; font-size: 16px;"><span style="font-family: Inter, sans-serif; font-size: 17px;">We
+        are grateful for her contributions during her tenure at Kushel Digi Solutions</span></p>
+
+<p class="MsoNormal" style="margin: 0in 0in 11px; line-height: 107%; font-family: Calibri, sans-serif; font-size: 15px;"><span style="line-height: 107%; font-size: 17px; font-family: Inter, sans-serif;">Thanks &amp; Regards</span></p>
+
+<p class="MsoNormal" style="margin: 0in 0in 11px; line-height: 107%; font-family: Calibri, sans-serif; font-size: 15px;"><span style="line-height: 107%; font-size: 17px; font-family: Inter, sans-serif;">Priya Singh</span></p>
+
+<p class="MsoNormal" style="margin: 0in 0in 11px; line-height: 107%; font-family: Calibri, sans-serif; font-size: 15px;"><span style="line-height: 107%; font-size: 17px; font-family: Inter, sans-serif;">Kushel Digi Solutions</span></p><p style="margin-right: 0in; margin-left: 0in; font-family: &quot;Times New Roman&quot;, serif; font-size: 16px;"><span style="font-family: Calibri, sans-serif; background: yellow; font-size: 17px;"><br></span></p>`
 
 const DocumentManagement = ({ setAlert, pop, setPop }) => {
-  const { user  , allEmployee , saveDocs , saveRelivingLetterapi} = useMain();
+  const { user, allEmployee, saveDocs, saveRelivingLetterapi , saveExperienceLetterapi } = useMain();
 
   const [currEmp, setCurrEmp] = useState(0);
 
   let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
 
+  const [allEmp, setAllEmp] = useState([]);
+  const [SelectEmpId, setSelectEmpId] = useState("");
 
-  const [allEmp , setAllEmp] = useState([]);
-  const [SelectEmpId , setSelectEmpId] = useState("");
+  const [currentPage, setCurrentPage] = useState(0);
 
-  const [currentPage , setCurrentPage] = useState(0);
-
-  const allEmplget = async()=>{
+  const allEmplget = async () => {
     const ans = await allEmployee();
-   setAllEmp(ans?.emp);
-  }
+    setAllEmp(ans?.emp);
+  };
 
   const { role } = hrms_user;
 
@@ -980,52 +1012,69 @@ const DocumentManagement = ({ setAlert, pop, setPop }) => {
 
   const [content, setContent] = useState(data);
   const [content2, setContent2] = useState(data2);
-
-
+  const [content3, setContent3] = useState(data3);
 
   const config = {
     controls: {
       font: {
         list: {
-          'Inter, sans-serif': 'Inter',
-        }
-      }
-    }
+          "Inter, sans-serif": "Inter",
+        },
+      },
+    },
   };
 
-  const saveDocumentApi = async()=>{
-    if(SelectEmpId === "" || SelectEmpId === "Select"){
+  const saveDocumentApi = async () => {
+    if (SelectEmpId === "" || SelectEmpId === "Select") {
       toast.error("Please select the user");
-      return ;
+      return;
     }
-    const toastid =  toast.loading("Loading...");
-     const ans = await saveDocs({id:SelectEmpId , content});
-      if(ans?.status){
-        toast.success("Successfuly created");
-      }
-      else {
-        toast.error("Too large Content");
-      }
-     toast.dismiss(toastid);
-  }
+    const toastid = toast.loading("Loading...");
+    const ans = await saveDocs({ id: SelectEmpId, content });
+    if (ans?.status) {
+      toast.success("Successfuly created");
+    } else {
+      toast.error("Too large Content");
+    }
+    toast.dismiss(toastid);
+  };
 
-  const saveRelivingLetter = async()=>{
-    if(SelectEmpId === "" || SelectEmpId === "Select"){
+  const saveRelivingLetter = async () => {
+    if (SelectEmpId === "" || SelectEmpId === "Select") {
       toast.error("Please select the user");
-      return ;
+      return;
     }
-    const toastid =  toast.loading("Loading...");
-     const ans = await saveRelivingLetterapi({id:SelectEmpId , content:content2});
-      if(ans?.status){
-        toast.success("Successfuly created");
-      }
-     toast.dismiss(toastid);
-  }
+    const toastid = toast.loading("Loading...");
+    const ans = await saveRelivingLetterapi({
+      id: SelectEmpId,
+      content: content2,
+    });
+    if (ans?.status) {
+      toast.success("Successfuly created");
+    }
+    toast.dismiss(toastid);
+  };
 
-  useEffect(()=>{
+  const saveExperienceLetter = async () => {
+    if (SelectEmpId === "" || SelectEmpId === "Select") {
+      toast.error("Please select the user");
+      return;
+    }
+    const toastid = toast.loading("Loading...");
+    const ans = await saveExperienceLetterapi({
+      id: SelectEmpId,
+      content: content3,
+    });
+
+    if (ans?.status) {
+      toast.success("Successfuly created");
+    }
+    toast.dismiss(toastid);
+  };
+
+  useEffect(() => {
     allEmplget();
-  },[])
-
+  }, []);
 
   return (
     <>
@@ -1046,7 +1095,6 @@ const DocumentManagement = ({ setAlert, pop, setPop }) => {
           <div className="em">
             <div className="flex-col">
               <div className="docuwrap">
-
                 <h2 className="docHead">Document Management</h2>
 
                 {/* first sec */}
@@ -1065,8 +1113,8 @@ const DocumentManagement = ({ setAlert, pop, setPop }) => {
                     </div>
                   ))}
                 </div>
-                
-                  {/* second sec */}
+
+                {/* second sec */}
                 <div className="leadInFir2">
                   {item2.map((e, index) => (
                     <div
@@ -1076,157 +1124,235 @@ const DocumentManagement = ({ setAlert, pop, setPop }) => {
                     >
                       <img src={bxUser} alt="" />
 
-                      <p className={`${currentPage == index ? "currEmp" : "nom"}`}>
+                      <p
+                        className={`${
+                          currentPage == index ? "currEmp" : "nom"
+                        }`}
+                      >
                         {e.title}
                       </p>
                     </div>
                   ))}
                 </div>
 
-
-                {
-                   currentPage === 0 && 
-                   <>
-                      <div className="docuSec">
-                  
-                  <div className="doSubFir">
-                    <img src={docSub} alt="" />
-                    <span>Offer Latter</span>
-                  </div>
-
-                  <hr />
-
-                  <div className="doSubSs">
-                    <span>Placeholders</span>
-                  </div>
-
-                  <hr />
-
-               
-                   <div className="selectEmpl">
-                    <label htmlFor="">Select Employee</label>
-                     <select name="SelectEmpId" value={SelectEmpId} onChange={(e)=>setSelectEmpId(e.target.value)} id="">
-                      <option value="Select">Select</option>
-                      {
-                        allEmp?.map((emp , index)=>(
-
-                          <option key={index} value={emp?._id}>{emp.fullName}</option>
-                        ))
-                      }
-                     </select>
-                   </div>
-                  
-                </div>
-
-
-                {/* content */}
-
-                 <div className="showoffercont">
-                   <h2>OFFER CONFIRMATION LETTER</h2>
-
-                 <div>
-                 <div dangerouslySetInnerHTML={{ __html: content }} />
-                 </div>
-
-                 </div>
-
-                {/* third  */}
-
-                <div className="docuThird">
-                  <h3>Format</h3>
-
-                  <hr />
-
-                  <JoditEditor
-                    ref={editor}
-                    value={content}
-                    tabIndex={1}
-                    config={config}
-                    onBlur={(newContent) => setContent(newContent)}
-                    onChange={(newContent) => {
-                      setContent(newContent);
-                    }}
-                  />
-                </div>
-
-                 <button onClick={()=>saveDocumentApi()} className="doSaveBtn"><span>Save</span></button>
-                   
-                   </>
-                }
-
-                {
-                  currentPage === 1 && 
+                {currentPage === 0 && (
                   <>
-                  <div className="docuSec">
-              
-              <div className="doSubFir">
-                <img src={docSub} alt="" />
-                <span>Relieving Letter</span>
-              </div>
+                    <div className="docuSec">
+                      <div className="doSubFir">
+                        <img src={docSub} alt="" />
+                        <span>Offer Latter</span>
+                      </div>
 
-              <hr />
+                      <hr />
 
-              <div className="doSubSs">
-                <span>Placeholders</span>
-              </div>
+                      <div className="doSubSs">
+                        <span>Placeholders</span>
+                      </div>
 
-              <hr />
+                      <hr />
 
-           
-               <div className="selectEmpl">
-                <label htmlFor="">Select Employee</label>
-                 <select name="SelectEmpId" value={SelectEmpId} onChange={(e)=>setSelectEmpId(e.target.value)} id="">
-                  <option value="Select">Select</option>
-                  {
-                    allEmp?.map((emp , index)=>(
+                      <div className="selectEmpl">
+                        <label htmlFor="">Select Employee</label>
+                        <select
+                          name="SelectEmpId"
+                          value={SelectEmpId}
+                          onChange={(e) => setSelectEmpId(e.target.value)}
+                          id=""
+                        >
+                          <option value="Select">Select</option>
+                          {allEmp?.map((emp, index) => (
+                            <option key={index} value={emp?._id}>
+                              {emp.fullName}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+                    </div>
 
-                      <option key={index} value={emp?._id}>{emp.fullName}</option>
-                    ))
-                  }
-                 </select>
-               </div>
-              
-            </div>
+                    {/* content */}
 
+                    <div className="showoffercont">
+                      <h2>OFFER CONFIRMATION LETTER</h2>
 
-            {/* content */}
+                      <div>
+                        <div dangerouslySetInnerHTML={{ __html: content }} />
+                      </div>
+                    </div>
 
-             <div className="showoffercont">
-               <h2>RELIEVING LETTER</h2>
+                    {/* third  */}
 
-             <div>
-             <div dangerouslySetInnerHTML={{ __html: content2 }} />
-             </div>
+                    <div className="docuThird">
+                      <h3>Format</h3>
 
-             </div>
+                      <hr />
 
-            {/* third  */}
+                      <JoditEditor
+                        ref={editor}
+                        value={content}
+                        tabIndex={1}
+                        config={config}
+                        onBlur={(newContent) => setContent(newContent)}
+                        onChange={(newContent) => {
+                          setContent(newContent);
+                        }}
+                      />
+                    </div>
 
-            <div className="docuThird">
-              <h3>Format</h3>
+                    <button
+                      onClick={() => saveDocumentApi()}
+                      className="doSaveBtn"
+                    >
+                      <span>Save</span>
+                    </button>
+                  </>
+                )}
 
-              <hr />
+                {currentPage === 1 && (
+                  <>
+                    <div className="docuSec">
+                      <div className="doSubFir">
+                        <img src={docSub} alt="" />
+                        <span>Relieving Letter</span>
+                      </div>
 
-              <JoditEditor
-                ref={editor}
-                value={content2}
-                tabIndex={1}
-                config={config}
-                onBlur={(newContent) => setContent2(newContent)}
-                onChange={(newContent) => {
-                  setContent2(newContent);
-                }}
-              />
-            </div>
+                      <hr />
 
-             <button onClick={()=>saveRelivingLetter()} className="doSaveBtn"><span>Save</span></button>
-               
-               </>
+                      <div className="doSubSs">
+                        <span>Placeholders</span>
+                      </div>
 
-                }
+                      <hr />
 
+                      <div className="selectEmpl">
+                        <label htmlFor="">Select Employee</label>
+                        <select
+                          name="SelectEmpId"
+                          value={SelectEmpId}
+                          onChange={(e) => setSelectEmpId(e.target.value)}
+                          id=""
+                        >
+                          <option value="Select">Select</option>
+                          {allEmp?.map((emp, index) => (
+                            <option key={index} value={emp?._id}>
+                              {emp.fullName}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+                    </div>
 
-             
+                    {/* content */}
+
+                    <div className="showoffercont">
+                      <h2>RELIEVING LETTER</h2>
+
+                      <div>
+                        <div dangerouslySetInnerHTML={{ __html: content2 }} />
+                      </div>
+                    </div>
+
+                    {/* third  */}
+
+                    <div className="docuThird">
+                      <h3>Format</h3>
+
+                      <hr />
+
+                      <JoditEditor
+                        ref={editor}
+                        value={content2}
+                        tabIndex={1}
+                        config={config}
+                        onBlur={(newContent) => setContent2(newContent)}
+                        onChange={(newContent) => {
+                          setContent2(newContent);
+                        }}
+                      />
+                    </div>
+
+                    <button
+                      onClick={() => saveRelivingLetter()}
+                      className="doSaveBtn"
+                    >
+                      <span>Save</span>
+                    </button>
+                  </>
+                )}
+
+                {currentPage === 2 && (
+
+                  <>
+                    <div className="docuSec">
+
+                      <div className="doSubFir">
+                        <img src={docSub} alt="" />
+                        <span>Experience Letter</span>
+                      </div>
+
+                      <hr />
+
+                      <div className="doSubSs">
+                        <span>Placeholders</span>
+                      </div>
+
+                      <hr />
+
+                      <div className="selectEmpl">
+                        <label htmlFor="">Select Employee</label>
+                        <select
+                          name="SelectEmpId"
+                          value={SelectEmpId}
+                          onChange={(e) => setSelectEmpId(e.target.value)}
+                          id=""
+                        >
+                          <option value="Select">Select</option>
+                          {allEmp?.map((emp, index) => (
+                            <option key={index} value={emp?._id}>
+                              {emp.fullName}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+
+                    </div>
+
+                    {/* content */}
+
+                    <div className="showoffercont">
+                      <h2>EXPERIENCE LETTER</h2>
+
+                      <div>
+                        <div dangerouslySetInnerHTML={{ __html: content3 }} />
+                      </div>
+                    </div>
+
+                    {/* third  */}
+
+                    <div className="docuThird">
+                      <h3>Format</h3>
+
+                      <hr />
+
+                      <JoditEditor
+                        ref={editor}
+                        value={content3}
+                        tabIndex={1}
+                        config={config}
+                        onBlur={(newContent) => setContent3(newContent)}
+                        onChange={(newContent) => {
+                          setContent3(newContent);
+                        }}
+                      />
+                    </div>
+
+                    <button
+                      onClick={() => saveExperienceLetter()}
+                      className="doSaveBtn"
+                    >
+                      <span>Save</span>
+                    </button>
+                  </>
+                )}
 
               </div>
             </div>
