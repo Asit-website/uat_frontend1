@@ -121,9 +121,9 @@ const data = `<p class="MsoNormal" align="left" style="text-indent: -1px; color:
 <p class="MsoNormal" align="left" style="margin: 0in 0in 0px; color: black; text-align: left; text-indent: 0in; line-height: normal; font-size: 16px;"><span style="font-family: Inter, sans-serif;">Theabovementioned
         offershallbe valid ifyoujoin uson orbefore<strong><span style="background: yellow;">Monday,10<sup>th</sup> ofJuneat10am</span></strong></span></p>
 
-<p class="MsoNormal" style="text-align: justify; font-family: Inter, sans-serif; color: black; margin: 10px 14px 0in 0in; text-indent: 0in; line-height: 115%; font-size: 16px;"><span style="line-height: 115%; font-size: 15px;">Your annual gross emoluments will be </span><strong><span style="line-height: 115%; font-family: Arial, sans-serif; background: yellow; font-size: 15px;">Rs. 00, 00,000/- (Thousand only)</span></strong><span style="line-height: 115%; font-size: 15px;">includes Basic, HRA, Conveyance<span style="letter-spacing: 0px;">Allowances,</span><span style="letter-spacing: 0px;">Medical,</span>CommunicationandPersonalAllowances.ThedetailsofthesalaryareintheattachedSalarybreakup</span><strong><span style="line-height: 115%; font-family: Arial, sans-serif; font-size: 15px;">Annexure–A</span></strong><span style="line-height: 115%; font-size: 15px;">.</span></p>
+<p class="MsoNormal" style="text-align: justify; font-family: Inter, sans-serif; color: black; margin: 10px 14px 0in 0in; text-indent: 0in; line-height: 115%; font-size: 16px;"><br></p>
 
-<p class="MsoNormal" align="left" style="margin: 0in 0in 0px; font-family: Inter, sans-serif; color: black; text-align: left; text-indent: 0in; line-height: normal; font-size: 16px;"><span style="color: windowtext;">&nbsp;</span><br></p>
+<p class="MsoNormal" align="left" style="margin: 0in 0in 0px; font-family: Inter, sans-serif; color: black; text-align: left; text-indent: 0in; line-height: normal; font-size: 16px;"><span style="color: windowtext; font-family: Inter, sans-serif;">&nbsp;Your annual gross emoluments will be Rs. 00, 00,000/- (Thousand only) includes Basic, HRA, Conveyance Allowances, Medical , Communication and Personal Allowances .The detail soft he salary are in the attached Salary breakup Annexure–A.</span></p><p class="MsoNormal" align="left" style="margin: 0in 0in 0px; font-family: Inter, sans-serif; color: black; text-align: left; text-indent: 0in; line-height: normal; font-size: 16px;"><span style="color: windowtext; font-family: Inter, sans-serif;"><br></span></p>
 
 <p class="MsoNormal" align="left" style="margin: 0in 0in 0px; color: black; text-align: left; text-indent: 0in; line-height: normal; font-size: 16px;"><span style="color: windowtext; font-family: Inter, sans-serif;">We are excited about the
         opportunity to work with you and believe that your skills and experience will make
@@ -270,7 +270,7 @@ the time being in force.</span></p>
   <p class="TableParagraph" style="margin: 0in 0in 0in 10px; font-family: Arial, sans-serif; font-size: 15px;"><span style="font-family: Inter, sans-serif; font-size: 13px;">Basic+DA</span></p>
   </td>
   <td width="362" valign="top" style="width: 361px; padding: 0in; height: 21px;">
-  <p class="TableParagraph" align="right" style="margin: 0in 2px 0in 0in; font-family: Arial, sans-serif; text-align: right; font-size: 15px;"><span style="font-family: Inter, sans-serif; background: yellow; font-size: 13px;">000.00</span></p>
+  <p class="TableParagraph" align="right" style="margin: 0in 2px 0in 0in; font-family: Arial, sans-serif; text-align: right; font-size: 15px;"><br></p>
   </td>
  </tr>
  <tr style="height: 21px;">
@@ -383,7 +383,7 @@ DIGI SOLUTIONS</strong>ornot,youneedtokeepallthedetailscontainedinthisletterconf
 
 <p class="MsoNormal" align="left" style="font-family: Inter, sans-serif; color: black; margin: 0in; text-align: left; text-indent: 0in; line-height: 107%; font-size: 16px;"><span style="line-height: 107%;">&nbsp;</span><br></p>
 
-<h2 style="margin: 0in 0in 0in 6px; text-indent: -1px; line-height: 107%; break-after: avoid; font-family: Inter, sans-serif; color: black; font-size: 16px;"><span style="line-height: 107%;">1.</span><span style="line-height: 107%;">Background Verification </span></h2>
+<h2 style="margin: 0in 0in 0in 6px; text-indent: -1px; line-height: 107%; display:flex; justify-content:flex-start; break-after: avoid; font-family: Inter, sans-serif; color: black; font-size: 16px;"><strong><span style="line-height: 107%;">1.&nbsp;</span><span style="line-height: 107%;">Background Verification </span></strong></h2>
 
 <p class="MsoNormal" align="left" style="font-family: Inter, sans-serif; color: black; margin: 0in 0in 2px; text-align: left; text-indent: 0in; line-height: 107%; font-size: 16px;"><strong><span style="line-height: 107%;"><span>&nbsp;</span></span></strong><br></p>
 
@@ -400,7 +400,7 @@ without any notice or compensation.</span></p>
 
 <p class="MsoNormal" align="left" style="font-family: Inter, sans-serif; color: black; margin: 0in 0in 4px; text-align: left; text-indent: 0in; line-height: 107%; font-size: 16px;"><span style="line-height: 107%;"><span>&nbsp;</span></span><br></p>
 
-<h2 style="margin: 0in 0in 0in 6px; text-indent: -1px; line-height: 107%; break-after: avoid; font-family: Inter, sans-serif; color: black; font-size: 16px;"><span style="line-height: 107%;">2.</span><span style="line-height: 107%;">Date of Birth </span></h2>
+<h2 style="margin: 0in 0in 0in 6px; display:flex; justify-content:flex-start; text-indent: -1px; line-height: 107%; break-after: avoid; font-family: Inter, sans-serif; color: black; font-size: 16px;"><strong><span style="line-height: 107%;">2.&nbsp;</span><span style="line-height: 107%;">Date of Birth </span></strong></h2>
 
 <p class="MsoNormal" style="margin: 0in 0in 0px 31px; text-align: justify; text-indent: -1px; line-height: 104%; font-family: Inter, sans-serif; color: black; font-size: 16px;"><span>&nbsp;</span><br></p>
 
@@ -413,7 +413,7 @@ retirement age. </span></p>
 
 <p class="MsoNormal" style="text-align: justify; line-height: 104%; font-family: Inter, sans-serif; color: black; margin: 0in 1px 0px 0in; text-indent: 0in; font-size: 16px;"><span style="line-height: 104%;">&nbsp;</span><br></p>
 
-<h2 style="margin: 0in 0in 0in 6px; text-indent: -1px; line-height: 107%; break-after: avoid; font-family: Inter, sans-serif; color: black; font-size: 16px;"><span style="line-height: 107%;">3.</span><span style="line-height: 107%;">Leave </span></h2>
+<h2 style="margin: 0in 0in 0in 6px; display:flex; justify-content:flex-start; text-indent: -1px; line-height: 107%; break-after: avoid; color: black; font-size: 16px;"><strong><span style="line-height: 107%;">3.&nbsp;&nbsp;</span><span style="line-height: 107%;">Leave </span></strong></h2>
 
 <p class="MsoNormal" style="margin: 0in 0in 0px 31px; text-align: justify; text-indent: -1px; line-height: 104%; font-family: Inter, sans-serif; color: black; font-size: 16px;"><span>&nbsp;</span><br></p>
 
@@ -423,8 +423,8 @@ retirement age. </span></p>
 
 <p class="MsoNormal" align="left" style="font-family: Inter, sans-serif; color: black; margin: 0in 0in 4px; text-align: left; text-indent: 0in; line-height: 107%; font-size: 16px;"><span style="line-height: 107%;">&nbsp;</span><br></p>
 
-<h2 style="margin: 0in; line-height: 107%; break-after: avoid; font-family: Inter, sans-serif; color: black; text-indent: 0in; font-size: 16px;"><span style="line-height: 107%;"><span>&nbsp;</span>4.</span><span style="line-height: 107%;">Confidentiality
-</span></h2>
+<h2 style="margin: 0in; line-height: 107%; display:flex; justify-content:flex-start; break-after: avoid; font-family: Inter, sans-serif; color: black; text-indent: 0in; font-size: 16px;"><strong><span style="line-height: 107%;"><span>&nbsp;</span>4.&nbsp;</span><span style="line-height: 107%;">Confidentiality
+</span></strong></h2>
 
 <p class="MsoNormal" align="left" style="font-family: Inter, sans-serif; color: black; margin: 0in 0in 2px; text-align: left; text-indent: 0in; line-height: 107%; font-size: 16px;"><strong><span style="line-height: 107%;"><span>&nbsp;</span></span></strong><br></p>
 
@@ -514,23 +514,11 @@ signing this agreement, you</span></strong><span style="line-height: 104%;">: </
 
 <p class="MsoNormal" style="text-align: justify; text-indent: -1px; line-height: 104%; font-family: Inter, sans-serif; color: black; margin: 0in 1px 0px; font-size: 16px;"><span style="line-height: 104%;">&nbsp;</span><br></p>
 
-<p class="MsoListParagraph" style="text-align: justify; line-height: 104%; font-family: Inter, sans-serif; color: black; margin: 0in 1px 0px 17px; text-indent: -0.25in; font-size: 16px;"><span style="line-height: 104%; font-family: Symbol;"><span>·<span style="font-style: normal; font-variant: normal; font-size-adjust: none; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-weight: normal; font-stretch: normal; line-height: normal; font-family: &quot;Times New Roman&quot;;" data-font-size="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span></span><span style="line-height: 104%;">Acknowledge and agree to the condition
-that all existing and future intellectual property rights in any materials,
-information and technology of any nature created by you either singly or
-jointly with other persons, are the exclusive property of the Company with
-unfettered rights for utilization or disposal of the same; and </span></p>
-
-<p class="MsoNormal" align="left" style="font-family: Inter, sans-serif; color: black; margin: 0in 0in 5px; text-align: left; text-indent: 4px; line-height: 107%; font-size: 16px;"><span style="line-height: 107%;">&nbsp;</span><br></p>
-
-<p class="MsoListParagraph" style="text-align: justify; line-height: 104%; font-family: Inter, sans-serif; color: black; margin: 0in 1px 0px 17px; text-indent: -0.25in; font-size: 16px;"><span style="line-height: 104%; font-family: Symbol;"><span>·<span style="font-style: normal; font-variant: normal; font-size-adjust: none; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-weight: normal; font-stretch: normal; line-height: normal; font-family: &quot;Times New Roman&quot;;" data-font-size="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span></span><span style="line-height: 104%;">Consent the Company and/ or its
-clients to use or adapt material to which you have contributed, in any manner
-and without expressly acknowledging your individual contribution. </span></p>
+<p class="MsoListParagraph" style="text-align: justify; line-height: 104%; font-family: Inter, sans-serif; color: black; margin: 0in 1px 0px 17px; text-indent: -0.25in; font-size: 16px;"><span style="line-height: 104%; font-family: Symbol;"><span>·<span style="font-style: normal; font-variant: normal; font-size-adjust: none; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-weight: normal; font-stretch: normal; line-height: normal; font-family: &quot;Times New Roman&quot;;" data-font-size="">&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-family: Inter, sans-serif;">&nbsp;Acknowledge and agree to the condition that all existing and future intellectual property rights in any materials, information and technology of any nature created by you either singly or jointly with other persons, are the exclusive property of the Company with unfettered rights for utilization or disposal of the same; and · Consent the Company and/  or its clients to use or adapt material to which you have contributed, in any manner and without expressly acknowledging your individual contribution.</span></span></span></span></p>
 
 <p class="MsoNormal" align="left" style="font-family: Inter, sans-serif; color: black; margin: 0in 0in 4px; text-align: left; text-indent: 0in; line-height: 107%; font-size: 16px;"><span style="line-height: 107%;"><span>&nbsp;</span></span><br></p>
 
-<h2 style="margin: 0in 0in 0in 6px; text-indent: -1px; line-height: 107%; break-after: avoid; font-family: Inter, sans-serif; color: black; font-size: 16px;"><span style="line-height: 107%;">8.</span><span style="line-height: 107%;">Confidential and Proprietary Information </span></h2>
+<h2 style="margin: 0in 0in 0in 6px; text-indent: -1px;display:flex; justify-content:flex-start; line-height: 107%; break-after: avoid; font-family: Inter, sans-serif; color: black; font-size: 16px;"><strong><span style="line-height: 107%;">8.&nbsp;</span><span style="line-height: 107%;">Confidential and Proprietary Information </span></strong></h2>
 
 <p class="MsoNormal" align="left" style="font-family: Inter, sans-serif; color: black; margin: 0in 0in 2px; text-align: left; text-indent: 0in; line-height: 107%; font-size: 16px;"><strong><span style="line-height: 107%;"><span>&nbsp;</span></span></strong><br></p>
 
@@ -573,7 +561,7 @@ or cease upon your departure from the Company.</span></p>
 
 <p class="MsoNormal" style="text-align: justify; text-indent: -1px; line-height: 104%; font-family: Inter, sans-serif; color: black; margin: 0in 1px 0px; font-size: 16px;"><span style="line-height: 104%;">&nbsp;</span><br></p>
 
-<h2 style="margin: 0in 0in 0in 6px; text-indent: -1px; line-height: 107%; break-after: avoid; font-family: Inter, sans-serif; color: black; font-size: 16px;"><span style="line-height: 107%;">9.</span><span style="line-height: 107%;">Insider Information </span></h2>
+<h2 style="margin: 0in 0in 0in 6px; text-indent: -1px; line-height: 107%; break-after: avoid; display:flex; justify-content:flex-start; font-family: Inter, sans-serif; color: black; font-size: 16px;"><strong><span style="line-height: 107%;">9.&nbsp;</span><span style="line-height: 107%;">Insider Information </span></strong></h2>
 
 <p class="MsoNormal" align="left" style="font-family: Inter, sans-serif; color: black; margin: 0in 0in 1px; text-align: left; text-indent: 0in; line-height: 107%; font-size: 16px;"><strong><span style="line-height: 107%;"><span>&nbsp;</span></span></strong><br></p>
 
@@ -589,8 +577,8 @@ maintain independence. </span></p>
 
 <p class="MsoNormal" align="left" style="font-family: Inter, sans-serif; color: black; margin: 0in 0in 0.05in; text-align: left; text-indent: 0in; line-height: 107%; font-size: 16px;"><span style="line-height: 107%;"><span>&nbsp;</span></span><br></p>
 
-<h2 style="margin: 0in 0in 0in 6px; text-indent: -1px; line-height: 107%; break-after: avoid; font-family: Inter, sans-serif; color: black; font-size: 16px;"><span style="line-height: 107%;">10.</span><span style="line-height: 107%;">Protection of computer software/Company’s
-Assets </span></h2>
+<h2 style="margin: 0in 0in 0in 6px; display:flex; justify-content:flex-start; text-indent: -1px; line-height: 107%; break-after: avoid; font-family: Inter, sans-serif; color: black; font-size: 16px;"><strong><span style="line-height: 107%;">10.</span><span style="line-height: 107%;">Protection of computer software/Company’s
+Assets </span></strong></h2>
 
 <p class="MsoNormal" align="left" style="font-family: Inter, sans-serif; color: black; margin: 0in 0in 2px; text-align: left; text-indent: 0in; line-height: 107%; font-size: 16px;"><strong><span style="line-height: 107%;"><span>&nbsp;</span></span></strong><br></p>
 
@@ -625,7 +613,7 @@ company is entitled to recover 80% of the cost of damage from you. </span></p>
 
 <p class="MsoNormal" align="left" style="font-family: Inter, sans-serif; color: black; margin: 0in; text-align: left; text-indent: 0in; line-height: 107%; font-size: 16px;"><span style="line-height: 107%;">&nbsp;</span><br></p>
 
-<h2 style="margin: 0in 0in 0in 6px; text-indent: -1px; line-height: 107%; break-after: avoid; font-family: Inter, sans-serif; color: black; font-size: 16px;"><span style="line-height: 107%;">11.</span><span style="line-height: 107%;">Exclusivity </span></h2>
+<h2 style="margin: 0in 0in 0in 6px; text-indent: -1px; line-height: 107%; break-after: avoid; display:flex; justify-content:flex-start; font-family: Inter, sans-serif; color: black; font-size: 16px;"><strong><span style="line-height: 107%;">11.</span><span style="line-height: 107%;">Exclusivity </span></strong></h2>
 
 <p class="MsoNormal" style="margin: 0in 0in 0px 31px; text-align: justify; text-indent: -1px; line-height: 104%; font-family: Inter, sans-serif; color: black; font-size: 16px;"><span>&nbsp;</span><br></p>
 
@@ -637,7 +625,7 @@ director of the Company.</span></p>
 
 <p class="MsoNormal" style="text-align: justify; line-height: 104%; font-family: Inter, sans-serif; color: black; margin: 0in 1px 0px 31px; text-indent: 0in; font-size: 16px;"><span style="line-height: 104%;">&nbsp;</span><br></p>
 
-<h2 style="margin: 0in; line-height: 107%; break-after: avoid; font-family: Inter, sans-serif; color: black; text-indent: 0in; font-size: 16px;"><span style="line-height: 107%;">12.</span><span style="line-height: 107%;">Performance Management </span></h2>
+<h2 style="margin: 0in; line-height: 107%; break-after: avoid; font-family: Inter, sans-serif; display:flex; justify-content:flex-start; color: black; text-indent: 0in; font-size: 16px;"><strong><span style="line-height: 107%;">12.</span><span style="line-height: 107%;">Performance Management </span></strong></h2>
 
 <p class="MsoNormal" align="left" style="font-family: Inter, sans-serif; color: black; margin: 0in 0in 2px; text-align: left; text-indent: 0in; line-height: 107%; font-size: 16px;"><strong><span style="line-height: 107%;"><span>&nbsp;</span></span></strong><br></p>
 
@@ -653,7 +641,7 @@ management decision. </span></p>
 
 <p class="MsoNormal" align="left" style="font-family: Inter, sans-serif; color: black; margin: 0in 0in 4px; text-align: left; text-indent: 0in; line-height: 107%; font-size: 16px;"><span style="line-height: 107%;">&nbsp;</span><br></p>
 
-<h2 style="margin: 0in 0in 0in 6px; text-indent: -1px; line-height: 107%; break-after: avoid; font-family: Inter, sans-serif; color: black; font-size: 16px;"><span style="line-height: 107%;">13.</span><span style="line-height: 107%;">Notice Period </span></h2>
+<h2 style="margin: 0in 0in 0in 6px; display:flex; justify-content:flex-start; text-indent: -1px; line-height: 107%; break-after: avoid; font-family: Inter, sans-serif; color: black; font-size: 16px;"><strong><span style="line-height: 107%;">13.</span><span style="line-height: 107%;">Notice Period </span></strong></h2>
 
 <p class="MsoNormal" align="left" style="font-family: Inter, sans-serif; color: black; margin: 0in 0in 2px; text-align: left; text-indent: 0in; line-height: 107%; font-size: 16px;"><strong><span style="line-height: 107%;"><span>&nbsp;</span></span></strong><br></p>
 
@@ -682,65 +670,56 @@ terminated by the Company immediately without prior notice if you at any time: <
 
 <p class="MsoNormal" align="left" style="font-family: Inter, sans-serif; color: black; margin: 0in 0in 4px; text-align: left; text-indent: 0in; line-height: 107%; font-size: 16px;"><span style="line-height: 107%;">&nbsp;</span><br></p>
 
-<p class="MsoNormal" align="left" style="line-height: 104%; font-family: Inter, sans-serif; color: black; margin: 0in 1px 0px 51px; text-align: left; text-indent: -51px; font-size: 16px;"><span style="line-height: 104%;"><span>(i)<span style="font-style: normal; font-variant: normal; font-size-adjust: none; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-weight: normal; font-stretch: normal; line-height: normal; font-family: &quot;Times New Roman&quot;;" data-font-size="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span></span><span style="line-height: 104%;">Commit any breach of your obligations
+<p class="MsoNormal" align="left" style="line-height: 104%; color: black; margin: 0in 1px 0px 51px; text-align: left; text-indent: -51px; font-size: 16px;"><span style="line-height: 104%;"><span>(i)&nbsp;</span></span><span style="line-height: 104%;">Commit any breach of your obligations
 under this Agreement;</span></p>
 
-<p class="MsoNormal" align="left" style="font-family: Inter, sans-serif; color: black; margin: 0in 0in 4px; text-align: left; text-indent: 0in; line-height: 107%; font-size: 16px;"><span style="line-height: 107%;">&nbsp;</span><br></p>
+<p class="MsoNormal" align="left" style="color: black; margin: 0in 0in 4px; text-align: left; text-indent: 0in; line-height: 107%; font-size: 16px;"><span style="line-height: 107%;">&nbsp;</span><br></p>
 
-<p class="MsoNormal" align="left" style="line-height: 104%; font-family: Inter, sans-serif; color: black; margin: 0in 1px 0px 51px; text-align: left; text-indent: -51px; font-size: 16px;"><span style="line-height: 104%;"><span>(ii)<span style="font-style: normal; font-variant: normal; font-size-adjust: none; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-weight: normal; font-stretch: normal; line-height: normal; font-family: &quot;Times New Roman&quot;;" data-font-size="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span></span><span style="line-height: 104%;">Disobey a lawful and reasonable order
+<p class="MsoNormal" align="left" style="line-height: 104%; color: black; margin: 0in 1px 0px 51px; text-align: left; text-indent: -51px; font-size: 16px;"><span style="line-height: 104%;"><span>(ii)&nbsp;</span></span><span style="line-height: 104%;">Disobey a lawful and reasonable order
 of the Company;</span></p>
 
-<p class="MsoNormal" align="left" style="font-family: Inter, sans-serif; color: black; margin: 0in 0in 4px; text-align: left; text-indent: 0in; line-height: 107%; font-size: 16px;"><span style="line-height: 107%;">&nbsp;</span><br></p>
+<p class="MsoNormal" align="left" style="color: black; margin: 0in 0in 4px; text-align: left; text-indent: 0in; line-height: 107%; font-size: 16px;"><span style="line-height: 107%;">&nbsp;</span><br></p>
 
-<p class="MsoNormal" align="left" style="line-height: 104%; font-family: Inter, sans-serif; color: black; margin: 0in 1px 0px 51px; text-align: left; text-indent: -51px; font-size: 16px;"><span style="line-height: 104%;"><span>(iii)<span style="font-style: normal; font-variant: normal; font-size-adjust: none; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-weight: normal; font-stretch: normal; line-height: normal; font-family: &quot;Times New Roman&quot;;" data-font-size="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span></span><span style="line-height: 104%;">Misconduct yourself under the
+<p class="MsoNormal" align="left" style="line-height: 104%; color: black; margin: 0in 1px 0px 51px; text-align: left; text-indent: -51px; font-size: 16px;"><span style="line-height: 104%;"><span>(iii)&nbsp;</span></span><span style="line-height: 104%;">Misconduct yourself under the
 influence of any substance abuse. If the company has reasonable grounds of
-suspecting that you are under the influence of illegal substance abuse while at
+suspecting that you are under the influence of illegal substance abuse whileat
 work, the company may request you to undergo a noninvasive drug test which will
 be conducted by a medical professional. If found guilty, your employment may be
 terminated without any notice there.</span></p>
 
-<p class="MsoNormal" align="left" style="font-family: Inter, sans-serif; color: black; margin: 0in 0in 5px; text-align: left; text-indent: 0in; line-height: 107%; font-size: 16px;"><span style="line-height: 107%;">&nbsp;</span><br></p>
+<p class="MsoNormal" align="left" style="color: black; margin: 0in 0in 5px; text-align: left; text-indent: 0in; line-height: 107%; font-size: 16px;"><span style="line-height: 107%;">&nbsp;</span><br></p>
 
-<p class="MsoNormal" align="left" style="line-height: 104%; font-family: Inter, sans-serif; color: black; margin: 0in 1px 0px 51px; text-align: left; text-indent: -51px; font-size: 16px;"><span style="line-height: 104%;"><span>(iv)<span style="font-style: normal; font-variant: normal; font-size-adjust: none; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-weight: normal; font-stretch: normal; line-height: normal; font-family: &quot;Times New Roman&quot;;" data-font-size="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span></span><span style="line-height: 104%;">Are guilty of or attempted to commit
+<p class="MsoNormal" align="left" style="line-height: 104%; color: black; margin: 0in 1px 0px 51px; text-align: left; text-indent: -51px; font-size: 16px;"><span style="line-height: 104%;"><span>(iv)&nbsp;</span></span><span style="line-height: 104%;">Are guilty of or attempted to commit
 fraud, dishonesty, theft or gross malfeasance, including, without limitation,
 conduct of a disruptive, criminal nature, conduct involving moral turpitude,
 embezzlement, or misappropriation of assets, misuse of the Company’s property;</span></p>
 
-<p class="MsoNormal" align="left" style="font-family: Inter, sans-serif; color: black; margin: 0in 0in 4px; text-align: left; text-indent: 0in; line-height: 107%; font-size: 16px;"><span style="line-height: 107%;">&nbsp;</span><br></p>
+<p class="MsoNormal" align="left" style="color: black; margin: 0in 0in 4px; text-align: left; text-indent: 0in; line-height: 107%; font-size: 16px;"><span style="line-height: 107%;">&nbsp;</span><br></p>
 
-<p class="MsoNormal" align="left" style="line-height: 104%; font-family: Inter, sans-serif; color: black; margin: 0in 1px 0px 51px; text-align: left; text-indent: -51px; font-size: 16px;"><span style="line-height: 104%;"><span>(v)<span style="font-style: normal; font-variant: normal; font-size-adjust: none; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-weight: normal; font-stretch: normal; line-height: normal; font-family: &quot;Times New Roman&quot;;" data-font-size="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span></span><span style="line-height: 104%;">Are neglectful in your duties, despite
+<p class="MsoNormal" align="left" style="line-height: 104%; color: black; margin: 0in 1px 0px 51px; text-align: left; text-indent: -51px; font-size: 16px;"><span style="line-height: 104%;"><span>(v)&nbsp;</span></span><span style="line-height: 104%;">Are neglectful in your duties, despite
 being warned;</span></p>
 
-<p class="MsoNormal" align="left" style="font-family: Inter, sans-serif; color: black; margin: 0in 0in 4px; text-align: left; text-indent: 0in; line-height: 107%; font-size: 16px;"><span style="line-height: 107%;">&nbsp;</span><br></p>
+<p class="MsoNormal" align="left" style="color: black; margin: 0in 0in 4px; text-align: left; text-indent: 0in; line-height: 107%; font-size: 16px;"><span style="line-height: 107%;">&nbsp;</span><br></p>
 
-<p class="MsoNormal" align="left" style="line-height: 104%; font-family: Inter, sans-serif; color: black; margin: 0in 1px 0px 51px; text-align: left; text-indent: -51px; font-size: 16px;"><span style="line-height: 104%;"><span>(vi)<span style="font-style: normal; font-variant: normal; font-size-adjust: none; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-weight: normal; font-stretch: normal; line-height: normal; font-family: &quot;Times New Roman&quot;;" data-font-size="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span></span><span style="line-height: 104%;">Fail to report for work at the
+<p class="MsoNormal" align="left" style="line-height: 104%; color: black; margin: 0in 1px 0px 51px; text-align: left; text-indent: -51px; font-size: 16px;"><span style="line-height: 104%;"><span>(vi)&nbsp;</span></span><span style="line-height: 104%;">Fail to report for work at the
 Company’s office by the Effective Date;</span></p>
 
-<p class="MsoNormal" align="left" style="font-family: Inter, sans-serif; color: black; margin: 0in 0in 4px; text-align: left; text-indent: 0in; line-height: 107%; font-size: 16px;"><span style="line-height: 107%;">&nbsp;</span><br></p>
+<p class="MsoNormal" align="left" style="color: black; margin: 0in 0in 4px; text-align: left; text-indent: 0in; line-height: 107%; font-size: 16px;"><span style="line-height: 107%;">&nbsp;</span><br></p>
 
-<p class="MsoNormal" align="left" style="line-height: 104%; font-family: Inter, sans-serif; color: black; margin: 0in 1px 0px 51px; text-align: left; text-indent: -51px; font-size: 16px;"><span style="line-height: 104%;"><span>(vii)<span style="font-style: normal; font-variant: normal; font-size-adjust: none; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-weight: normal; font-stretch: normal; line-height: normal; font-family: &quot;Times New Roman&quot;;" data-font-size="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span></span><span style="line-height: 104%;">Remain absent from duty for more than
+<p class="MsoNormal" align="left" style="line-height: 104%; color: black; margin: 0in 1px 0px 51px; text-align: left; text-indent: -51px; font-size: 16px;"><span style="line-height: 104%;"><span>(vii)&nbsp;</span></span><span style="line-height: 104%;">Remain absent from duty for more than
 3 days, without prior permission of a designated senior</span></p>
 
-<p class="MsoNormal" align="left" style="font-family: Inter, sans-serif; color: black; margin: 0in 0in 4px; text-align: left; text-indent: 0in; line-height: 107%; font-size: 16px;"><span style="line-height: 107%;">&nbsp;</span><br></p>
+<p class="MsoNormal" align="left" style="color: black; margin: 0in 0in 4px; text-align: left; text-indent: 0in; line-height: 107%; font-size: 16px;"><span style="line-height: 107%;">&nbsp;</span><br></p>
 
-<p class="MsoNormal" align="left" style="line-height: 104%; font-family: Inter, sans-serif; color: black; margin: 0in 1px 0px 51px; text-align: left; text-indent: -51px; font-size: 16px;"><span style="line-height: 104%;"><span>(viii)<span style="font-style: normal; font-variant: normal; font-size-adjust: none; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-weight: normal; font-stretch: normal; line-height: normal; font-family: &quot;Times New Roman&quot;;" data-font-size="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span></span><span style="line-height: 104%;">Misrepresent any information to the
+<p class="MsoNormal" align="left" style="line-height: 104%; color: black; margin: 0in 1px 0px 51px; text-align: left; text-indent: -51px; font-size: 16px;"><span style="line-height: 104%;"><span>(viii)&nbsp;</span></span><span style="line-height: 104%;">Misrepresent any information to the
 Company or make any false declaration to the Company or it is found that you
 suppressed any information from the Company. This clause shall also be
 applicable to any information or declaration or act committed prior to entering
 into the employment of the Company;</span></p>
 
-<p class="MsoNormal" align="left" style="font-family: Inter, sans-serif; color: black; margin: 0in 0in 4px; text-align: left; text-indent: 0in; line-height: 107%; font-size: 16px;"><span style="line-height: 107%;">&nbsp;</span><br></p>
+<p class="MsoNormal" align="left" style="color: black; margin: 0in 0in 4px; text-align: left; text-indent: 0in; line-height: 107%; font-size: 16px;"><span style="line-height: 107%;">&nbsp;</span><br></p>
 
-<p class="MsoNormal" align="left" style="line-height: 104%; font-family: Inter, sans-serif; color: black; margin: 0in 1px 0px 51px; text-align: left; text-indent: -51px; font-size: 16px;"><span style="line-height: 104%;"><span>(ix)<span style="font-style: normal; font-variant: normal; font-size-adjust: none; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-weight: normal; font-stretch: normal; line-height: normal; font-family: &quot;Times New Roman&quot;;" data-font-size="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span></span><span style="line-height: 104%;">You are deemed incapable of continuing
+<p class="MsoNormal" align="left" style="line-height: 104%; color: black; margin: 0in 1px 0px 51px; text-align: left; text-indent: -51px; font-size: 16px;"><span style="line-height: 104%;"><span>(ix)&nbsp;</span></span><span style="line-height: 104%;">You are deemed incapable of continuing
 in service or performing given work satisfactorily, owing to any physical or mental
 infirmity/ incapacity or any other reason whatsoever.</span></p>
 
@@ -794,7 +773,7 @@ employment. </span></p>
 
 <p class="MsoNormal" align="left" style="margin: 0in 0in 0px; font-family: Inter, sans-serif; color: black; text-align: left; text-indent: 0in; line-height: 107%; font-size: 16px;"><span style="line-height: 107%;">&nbsp;</span><br></p>
 
-<h2 style="margin: 0in 0in 0in 6px; text-indent: -1px; line-height: 107%; break-after: avoid; font-family: Inter, sans-serif; color: black; font-size: 16px;"><span style="line-height: 107%;">16.</span><span style="line-height: 107%;">Non-Solicitation </span></h2>
+<h2 style="margin: 0 0 0 6px; text-indent: -1px;display:flex; justify-content:flex-start; line-height: 107%; break-after: avoid; font-family: Inter, sans-serif; color: black; font-size: 16px;"><strong><span style="line-height: 107%;">16.</span><span style="line-height: 107%;">Non-Solicitation </span></strong></h2>
 
 <p class="MsoNormal" align="left" style="font-family: Inter, sans-serif; color: black; margin: 0in 0in 1px; text-align: left; text-indent: 0in; line-height: 107%; font-size: 16px;"><strong><span style="line-height: 107%;"><span>&nbsp;</span></span></strong><br></p>
 
@@ -837,15 +816,13 @@ Company as amended from time to time. In particular, I declare that: </span></p>
 
 <p class="MsoNormal" align="left" style="font-family: Inter, sans-serif; color: black; margin: 0in; text-align: left; text-indent: 0in; line-height: 107%; font-size: 16px;"><span><span>&nbsp;</span></span><br></p>
 
-<p class="MsoNormal" style="text-align: justify; line-height: 104%; font-family: Inter, sans-serif; color: black; margin: 0in 1px 0px 31px; text-indent: -24px; font-size: 16px;"><strong><span style="line-height: 104%;"><span>a)<span style="font-style: normal; font-variant: normal; font-size-adjust: none; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-weight: normal; font-stretch: normal; line-height: normal; font-family: &quot;Times New Roman&quot;;" data-font-size="">&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span></span></strong><span>I
+<p class="MsoNormal" style="text-align: justify; line-height: 104%; font-family: Inter, sans-serif; color: black; margin: 0in 1px 0px 31px; text-indent: -24px; font-size: 16px;"><strong><span style="line-height: 104%;"><span>a)&nbsp;</span></span></strong><span>I
 will furnish original copies of my certificates, testimonials and other
 necessary documents, on demand. </span></p>
 
 <p class="MsoNormal" align="left" style="font-family: Inter, sans-serif; color: black; margin: 0in 0in 4px; text-align: left; text-indent: 0in; line-height: 107%; font-size: 16px;"><span style="line-height: 107%; font-size: 13px;"><span>&nbsp;</span></span><br></p>
 
-<p class="MsoNormal" style="text-align: justify; line-height: 104%; font-family: Inter, sans-serif; color: black; margin: 0in 1px 0px 31px; text-indent: -24px; font-size: 16px;"><strong><span style="line-height: 104%;"><span>b)<span style="font-style: normal; font-variant: normal; font-size-adjust: none; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-weight: normal; font-stretch: normal; line-height: normal; font-family: &quot;Times New Roman&quot;;" data-font-size="">&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span></span></strong><span>I
+<p class="MsoNormal" style="text-align: justify; line-height: 104%; font-family: Inter, sans-serif; color: black; margin: 0in 1px 0px 31px; text-indent: -24px; font-size: 16px;"><strong><span style="line-height: 104%;"><span>b)&nbsp;</span></span></strong><span>I
 acknowledge and agree to the Company reserving the right to get a background
 check conducted on me through a third-party agency. In furtherance thereof, I
 authorize the Company to collect and retain copies of my personal particulars
@@ -855,8 +832,7 @@ agency. </span></p>
 
 <p class="MsoNormal" align="left" style="font-family: Inter, sans-serif; color: black; margin: 0in 0in 4px; text-align: left; text-indent: 0in; line-height: 107%; font-size: 16px;"><span style="line-height: 107%; font-size: 13px;"><span>&nbsp;</span></span><br></p>
 
-<p class="MsoNormal" style="text-align: justify; line-height: 104%; font-family: Inter, sans-serif; color: black; margin: 0in 1px 0px 31px; text-indent: -24px; font-size: 16px;"><strong><span style="line-height: 104%;"><span>c)<span style="font-style: normal; font-variant: normal; font-size-adjust: none; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-weight: normal; font-stretch: normal; line-height: normal; font-family: &quot;Times New Roman&quot;;" data-font-size="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span></span></strong><span>There
+<p class="MsoNormal" style="text-align: justify; line-height: 104%; font-family: Inter, sans-serif; color: black; margin: 0in 1px 0px 31px; text-indent: -24px; font-size: 16px;"><strong><span style="line-height: 104%;"><span>c)&nbsp;</span></span></strong><span>There
 are no ongoing or pending criminal cases/ criminal liabilities on me</span></p>
 
 <p><span style="font-family: Inter, sans-serif;"><br></span></p><table cellpadding="0" cellspacing="0">
@@ -871,8 +847,7 @@ are no ongoing or pending criminal cases/ criminal liabilities on me</span></p>
  <!--[endif]----><p><span style="font-family: Inter, sans-serif;"><br clear="ALL">
 </span></p><p><span style="font-family: Inter, sans-serif;"><span style="line-height: 107%; font-size: 13px;"><span>&nbsp;</span></span><br></span></p><p><span style="font-family: Inter, sans-serif;"><br></span></p>
 
-<p class="MsoNormal" style="text-align: justify; line-height: 104%; font-family: Inter, sans-serif; color: black; margin: 0in 1px 0px 31px; text-indent: -24px; font-size: 16px;"><strong><span style="line-height: 104%;"><span>d)<span style="font-style: normal; font-variant: normal; font-size-adjust: none; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-weight: normal; font-stretch: normal; line-height: normal; font-family: &quot;Times New Roman&quot;;" data-font-size="">&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span></span></strong><span>I am
+<p class="MsoNormal" style="text-align: justify; line-height: 104%; font-family: Inter, sans-serif; color: black; margin: 0in 1px 0px 31px; text-indent: -24px; font-size: 16px;"><strong><span style="line-height: 104%;"><span>d)&nbsp;</span></span></strong><span>I am
 not in possession, in an unauthorized manner, of any confidential, sensitive or
 personal information/ data/ material of any other Company or individual
 (collectively “Sensitive Data”). I shall not bring any Sensitive Data into the
@@ -881,16 +856,14 @@ during or after my tenure with the Company </span></p>
 
 <p class="MsoNormal" align="left" style="font-family: Inter, sans-serif; color: black; margin: 0in 0in 4px; text-align: left; text-indent: 0in; line-height: 107%; font-size: 16px;"><span style="line-height: 107%; font-size: 13px;"><span>&nbsp;</span></span><br></p>
 
-<p class="MsoNormal" style="text-align: justify; line-height: 104%; font-family: Inter, sans-serif; color: black; margin: 0in 1px 0px 31px; text-indent: -24px; font-size: 16px;"><strong><span style="line-height: 104%;"><span>e)<span style="font-style: normal; font-variant: normal; font-size-adjust: none; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-weight: normal; font-stretch: normal; line-height: normal; font-family: &quot;Times New Roman&quot;;" data-font-size="">&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span></span></strong><span>I
+<p class="MsoNormal" style="text-align: justify; line-height: 104%; font-family: Inter, sans-serif; color: black; margin: 0in 1px 0px 31px; text-indent: -24px; font-size: 16px;"><strong><span style="line-height: 104%;"><span>e</span></span></strong><span>I
 shall not commit, or cause to commit, any act or omission, which I believe to
 be illegal or against Company’s policies and core values for time being in
 force. </span></p>
 
 <p class="MsoNormal" align="left" style="font-family: Inter, sans-serif; color: black; margin: 0in 0in 4px; text-align: left; text-indent: 0in; line-height: 107%; font-size: 16px;"><span style="line-height: 107%; font-size: 13px;"><span>&nbsp;</span></span><br></p>
 
-<p class="MsoNormal" style="text-align: justify; line-height: 104%; font-family: Inter, sans-serif; color: black; margin: 0in 1px 0px 31px; text-indent: -24px; font-size: 16px;"><strong><span style="line-height: 104%;"><span>f)<span style="font-style: normal; font-variant: normal; font-size-adjust: none; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-weight: normal; font-stretch: normal; line-height: normal; font-family: &quot;Times New Roman&quot;;" data-font-size="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span></span></strong><span>In
+<p class="MsoNormal" style="text-align: justify; line-height: 104%; font-family: Inter, sans-serif; color: black; margin: 0in 1px 0px 31px; text-indent: -24px; font-size: 16px;"><strong><span style="line-height: 104%;"><span>f)&nbsp;</span></span></strong><span>In
 the event of any wilful or intentional misconduct, fraud, dishonesty or breach
 of confidentiality on my part, I will personally be liable to the Company and/
 or its clients. </span></p>
@@ -992,6 +965,7 @@ const data2 = `<p class="MsoNormal" style="margin: 0in 0in 11px; line-height: 10
 const DocumentManagement = ({ setAlert, pop, setPop }) => {
   const { user, allEmployee, saveDocs, saveRelivingLetterapi , saveExperienceLetterapi } = useMain();
 
+  
   const [currEmp, setCurrEmp] = useState(0);
 
   let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
@@ -1013,6 +987,8 @@ const DocumentManagement = ({ setAlert, pop, setPop }) => {
   const [content, setContent] = useState(data);
   const [content2, setContent2] = useState(data2);
   const [content3, setContent3] = useState(data3);
+
+  console.log("con",content);
 
   const config = {
     controls: {

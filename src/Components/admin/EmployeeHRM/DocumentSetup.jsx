@@ -13,7 +13,7 @@ import plusIcon from "../../images/plusIcon.png";
 const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
   //   const { user, getBranchs, postBranch, updateBranch, deleteBranch, getDepartments, postDepartment, updateDepartment, deleteDepartment, getDesignations, postDesignation, updateDesignation, deleteDesignation, postLeaveType, updateLeaveType, getLeaveTypes, deleteLeaveType } = useMain();
 
-  //   const [value, onChange] = useState(new Date());
+    // const [value, onChange] = useState(new Date());
   //   const [gen, setGen] = useState([]);
   //   const [flag, setFlag] = useState();
 
