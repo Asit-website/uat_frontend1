@@ -36,8 +36,8 @@ const item2 = [
   },
 ];
 
-const data = `<p class="MsoNormal" align="left" style="text-indent: -1px; color: black; margin: 0in 0in 0in 1px; text-align: left; line-height: 107%; font-size: 16px;"><span style="line-height: 107%;">Private
-        &amp; Confidential </span></p>
+const data = `<p class="MsoNormal" align="left" style="text-indent: -1px; color: black; margin: 0in 0in 0in 1px; text-align: left; line-height: 107%; font-size: 16px;"><strong style="font-family: Inter, sans-serif;"><span style="line-height: 107%;">Private
+        &amp; Confidential </span></strong></p>
 
 <p class="MsoNormal" align="left" style="font-family: Inter, sans-serif; color: black; margin: 0in; text-align: left; text-indent: 0in; line-height: 107%; font-size: 16px;"><span style="line-height: 107%;"><span>&nbsp;</span></span><br></p>
 
@@ -383,7 +383,7 @@ DIGI SOLUTIONS</strong>ornot,youneedtokeepallthedetailscontainedinthisletterconf
 
 <p class="MsoNormal" align="left" style="font-family: Inter, sans-serif; color: black; margin: 0in; text-align: left; text-indent: 0in; line-height: 107%; font-size: 16px;"><span style="line-height: 107%;">&nbsp;</span><br></p>
 
-<h2 style="margin: 0in 0in 0in 6px; text-indent: -1px; line-height: 107%; display:flex; justify-content:flex-start; break-after: avoid; font-family: Inter, sans-serif; color: black; font-size: 16px;"><strong><span style="line-height: 107%;">1.&nbsp;</span><span style="line-height: 107%;">Background Verification </span></strong></h2>
+<h2 style="margin: 0in 0in 0in 6px; text-indent: -1px; line-height: 107%; display: flex; justify-content: flex-start; break-after: avoid; font-family: Inter, sans-serif; color: black; font-size: 16px;"><strong><span style="line-height: 107%;">1.&nbsp;</span><span style="line-height: 107%;">Background Verification </span></strong></h2>
 
 <p class="MsoNormal" align="left" style="font-family: Inter, sans-serif; color: black; margin: 0in 0in 2px; text-align: left; text-indent: 0in; line-height: 107%; font-size: 16px;"><strong><span style="line-height: 107%;"><span>&nbsp;</span></span></strong><br></p>
 
@@ -400,7 +400,7 @@ without any notice or compensation.</span></p>
 
 <p class="MsoNormal" align="left" style="font-family: Inter, sans-serif; color: black; margin: 0in 0in 4px; text-align: left; text-indent: 0in; line-height: 107%; font-size: 16px;"><span style="line-height: 107%;"><span>&nbsp;</span></span><br></p>
 
-<h2 style="margin: 0in 0in 0in 6px; display:flex; justify-content:flex-start; text-indent: -1px; line-height: 107%; break-after: avoid; font-family: Inter, sans-serif; color: black; font-size: 16px;"><strong><span style="line-height: 107%;">2.&nbsp;</span><span style="line-height: 107%;">Date of Birth </span></strong></h2>
+<h2 style="margin: 0in 0in 0in 6px; display: flex; justify-content: flex-start; text-indent: -1px; line-height: 107%; break-after: avoid; font-family: Inter, sans-serif; color: black; font-size: 16px;"><strong><span style="line-height: 107%;">2.&nbsp;</span><span style="line-height: 107%;">Date of Birth </span></strong></h2>
 
 <p class="MsoNormal" style="margin: 0in 0in 0px 31px; text-align: justify; text-indent: -1px; line-height: 104%; font-family: Inter, sans-serif; color: black; font-size: 16px;"><span>&nbsp;</span><br></p>
 
@@ -413,7 +413,7 @@ retirement age. </span></p>
 
 <p class="MsoNormal" style="text-align: justify; line-height: 104%; font-family: Inter, sans-serif; color: black; margin: 0in 1px 0px 0in; text-indent: 0in; font-size: 16px;"><span style="line-height: 104%;">&nbsp;</span><br></p>
 
-<h2 style="margin: 0in 0in 0in 6px; display:flex; justify-content:flex-start; text-indent: -1px; line-height: 107%; break-after: avoid; color: black; font-size: 16px;"><strong><span style="line-height: 107%;">3.&nbsp;&nbsp;</span><span style="line-height: 107%;">Leave </span></strong></h2>
+<h2 style="margin: 0in 0in 0in 6px; display: flex; justify-content: flex-start; text-indent: -1px; line-height: 107%; break-after: avoid; color: black; font-size: 16px;"><strong><span style="line-height: 107%;">3.&nbsp;&nbsp;</span><span style="line-height: 107%;">Leave </span></strong></h2>
 
 <p class="MsoNormal" style="margin: 0in 0in 0px 31px; text-align: justify; text-indent: -1px; line-height: 104%; font-family: Inter, sans-serif; color: black; font-size: 16px;"><span>&nbsp;</span><br></p>
 
@@ -423,7 +423,7 @@ retirement age. </span></p>
 
 <p class="MsoNormal" align="left" style="font-family: Inter, sans-serif; color: black; margin: 0in 0in 4px; text-align: left; text-indent: 0in; line-height: 107%; font-size: 16px;"><span style="line-height: 107%;">&nbsp;</span><br></p>
 
-<h2 style="margin: 0in; line-height: 107%; display:flex; justify-content:flex-start; break-after: avoid; font-family: Inter, sans-serif; color: black; text-indent: 0in; font-size: 16px;"><strong><span style="line-height: 107%;"><span>&nbsp;</span>4.&nbsp;</span><span style="line-height: 107%;">Confidentiality
+<h2 style="margin: 0in; line-height: 107%; display: flex; justify-content: flex-start; break-after: avoid; font-family: Inter, sans-serif; color: black; text-indent: 0in; font-size: 16px;"><strong><span style="line-height: 107%;"><span>&nbsp;</span>4.&nbsp;</span><span style="line-height: 107%;">Confidentiality
 </span></strong></h2>
 
 <p class="MsoNormal" align="left" style="font-family: Inter, sans-serif; color: black; margin: 0in 0in 2px; text-align: left; text-indent: 0in; line-height: 107%; font-size: 16px;"><strong><span style="line-height: 107%;"><span>&nbsp;</span></span></strong><br></p>
@@ -518,7 +518,7 @@ signing this agreement, you</span></strong><span style="line-height: 104%;">: </
 
 <p class="MsoNormal" align="left" style="font-family: Inter, sans-serif; color: black; margin: 0in 0in 4px; text-align: left; text-indent: 0in; line-height: 107%; font-size: 16px;"><span style="line-height: 107%;"><span>&nbsp;</span></span><br></p>
 
-<h2 style="margin: 0in 0in 0in 6px; text-indent: -1px;display:flex; justify-content:flex-start; line-height: 107%; break-after: avoid; font-family: Inter, sans-serif; color: black; font-size: 16px;"><strong><span style="line-height: 107%;">8.&nbsp;</span><span style="line-height: 107%;">Confidential and Proprietary Information </span></strong></h2>
+<h2 style="margin: 0in 0in 0in 6px; text-indent: -1px; display: flex; justify-content: flex-start; line-height: 107%; break-after: avoid; font-family: Inter, sans-serif; color: black; font-size: 16px;"><strong><span style="line-height: 107%;">8.&nbsp;</span><span style="line-height: 107%;">Confidential and Proprietary Information </span></strong></h2>
 
 <p class="MsoNormal" align="left" style="font-family: Inter, sans-serif; color: black; margin: 0in 0in 2px; text-align: left; text-indent: 0in; line-height: 107%; font-size: 16px;"><strong><span style="line-height: 107%;"><span>&nbsp;</span></span></strong><br></p>
 
@@ -561,7 +561,7 @@ or cease upon your departure from the Company.</span></p>
 
 <p class="MsoNormal" style="text-align: justify; text-indent: -1px; line-height: 104%; font-family: Inter, sans-serif; color: black; margin: 0in 1px 0px; font-size: 16px;"><span style="line-height: 104%;">&nbsp;</span><br></p>
 
-<h2 style="margin: 0in 0in 0in 6px; text-indent: -1px; line-height: 107%; break-after: avoid; display:flex; justify-content:flex-start; font-family: Inter, sans-serif; color: black; font-size: 16px;"><strong><span style="line-height: 107%;">9.&nbsp;</span><span style="line-height: 107%;">Insider Information </span></strong></h2>
+<h2 style="margin: 0in 0in 0in 6px; text-indent: -1px; line-height: 107%; break-after: avoid; display: flex; justify-content: flex-start; font-family: Inter, sans-serif; color: black; font-size: 16px;"><strong><span style="line-height: 107%;">9.&nbsp;</span><span style="line-height: 107%;">Insider Information </span></strong></h2>
 
 <p class="MsoNormal" align="left" style="font-family: Inter, sans-serif; color: black; margin: 0in 0in 1px; text-align: left; text-indent: 0in; line-height: 107%; font-size: 16px;"><strong><span style="line-height: 107%;"><span>&nbsp;</span></span></strong><br></p>
 
@@ -577,7 +577,7 @@ maintain independence. </span></p>
 
 <p class="MsoNormal" align="left" style="font-family: Inter, sans-serif; color: black; margin: 0in 0in 0.05in; text-align: left; text-indent: 0in; line-height: 107%; font-size: 16px;"><span style="line-height: 107%;"><span>&nbsp;</span></span><br></p>
 
-<h2 style="margin: 0in 0in 0in 6px; display:flex; justify-content:flex-start; text-indent: -1px; line-height: 107%; break-after: avoid; font-family: Inter, sans-serif; color: black; font-size: 16px;"><strong><span style="line-height: 107%;">10.</span><span style="line-height: 107%;">Protection of computer software/Company’s
+<h2 style="margin: 0in 0in 0in 6px; display: flex; justify-content: flex-start; text-indent: -1px; line-height: 107%; break-after: avoid; font-family: Inter, sans-serif; color: black; font-size: 16px;"><strong><span style="line-height: 107%;">10.</span><span style="line-height: 107%;">Protection of computer software/Company’s
 Assets </span></strong></h2>
 
 <p class="MsoNormal" align="left" style="font-family: Inter, sans-serif; color: black; margin: 0in 0in 2px; text-align: left; text-indent: 0in; line-height: 107%; font-size: 16px;"><strong><span style="line-height: 107%;"><span>&nbsp;</span></span></strong><br></p>
@@ -613,7 +613,7 @@ company is entitled to recover 80% of the cost of damage from you. </span></p>
 
 <p class="MsoNormal" align="left" style="font-family: Inter, sans-serif; color: black; margin: 0in; text-align: left; text-indent: 0in; line-height: 107%; font-size: 16px;"><span style="line-height: 107%;">&nbsp;</span><br></p>
 
-<h2 style="margin: 0in 0in 0in 6px; text-indent: -1px; line-height: 107%; break-after: avoid; display:flex; justify-content:flex-start; font-family: Inter, sans-serif; color: black; font-size: 16px;"><strong><span style="line-height: 107%;">11.</span><span style="line-height: 107%;">Exclusivity </span></strong></h2>
+<h2 style="margin: 0in 0in 0in 6px; text-indent: -1px; line-height: 107%; break-after: avoid; display: flex; justify-content: flex-start; font-family: Inter, sans-serif; color: black; font-size: 16px;"><strong><span style="line-height: 107%;">11.</span><span style="line-height: 107%;">Exclusivity </span></strong></h2>
 
 <p class="MsoNormal" style="margin: 0in 0in 0px 31px; text-align: justify; text-indent: -1px; line-height: 104%; font-family: Inter, sans-serif; color: black; font-size: 16px;"><span>&nbsp;</span><br></p>
 
@@ -625,7 +625,7 @@ director of the Company.</span></p>
 
 <p class="MsoNormal" style="text-align: justify; line-height: 104%; font-family: Inter, sans-serif; color: black; margin: 0in 1px 0px 31px; text-indent: 0in; font-size: 16px;"><span style="line-height: 104%;">&nbsp;</span><br></p>
 
-<h2 style="margin: 0in; line-height: 107%; break-after: avoid; font-family: Inter, sans-serif; display:flex; justify-content:flex-start; color: black; text-indent: 0in; font-size: 16px;"><strong><span style="line-height: 107%;">12.</span><span style="line-height: 107%;">Performance Management </span></strong></h2>
+<h2 style="margin: 0in; line-height: 107%; break-after: avoid; font-family: Inter, sans-serif; display: flex; justify-content: flex-start; color: black; text-indent: 0in; font-size: 16px;"><strong><span style="line-height: 107%;">12.</span><span style="line-height: 107%;">Performance Management </span></strong></h2>
 
 <p class="MsoNormal" align="left" style="font-family: Inter, sans-serif; color: black; margin: 0in 0in 2px; text-align: left; text-indent: 0in; line-height: 107%; font-size: 16px;"><strong><span style="line-height: 107%;"><span>&nbsp;</span></span></strong><br></p>
 
@@ -641,7 +641,7 @@ management decision. </span></p>
 
 <p class="MsoNormal" align="left" style="font-family: Inter, sans-serif; color: black; margin: 0in 0in 4px; text-align: left; text-indent: 0in; line-height: 107%; font-size: 16px;"><span style="line-height: 107%;">&nbsp;</span><br></p>
 
-<h2 style="margin: 0in 0in 0in 6px; display:flex; justify-content:flex-start; text-indent: -1px; line-height: 107%; break-after: avoid; font-family: Inter, sans-serif; color: black; font-size: 16px;"><strong><span style="line-height: 107%;">13.</span><span style="line-height: 107%;">Notice Period </span></strong></h2>
+<h2 style="margin: 0in 0in 0in 6px; display: flex; justify-content: flex-start; text-indent: -1px; line-height: 107%; break-after: avoid; font-family: Inter, sans-serif; color: black; font-size: 16px;"><strong><span style="line-height: 107%;">13.</span><span style="line-height: 107%;">Notice Period </span></strong></h2>
 
 <p class="MsoNormal" align="left" style="font-family: Inter, sans-serif; color: black; margin: 0in 0in 2px; text-align: left; text-indent: 0in; line-height: 107%; font-size: 16px;"><strong><span style="line-height: 107%;"><span>&nbsp;</span></span></strong><br></p>
 
@@ -773,7 +773,7 @@ employment. </span></p>
 
 <p class="MsoNormal" align="left" style="margin: 0in 0in 0px; font-family: Inter, sans-serif; color: black; text-align: left; text-indent: 0in; line-height: 107%; font-size: 16px;"><span style="line-height: 107%;">&nbsp;</span><br></p>
 
-<h2 style="margin: 0 0 0 6px; text-indent: -1px;display:flex; justify-content:flex-start; line-height: 107%; break-after: avoid; font-family: Inter, sans-serif; color: black; font-size: 16px;"><strong><span style="line-height: 107%;">16.</span><span style="line-height: 107%;">Non-Solicitation </span></strong></h2>
+<h2 style="margin: 0px 0px 0px 6px; text-indent: -1px; display: flex; justify-content: flex-start; line-height: 107%; break-after: avoid; font-family: Inter, sans-serif; color: black; font-size: 16px;"><strong><span style="line-height: 107%;">16.</span><span style="line-height: 107%;">Non-Solicitation </span></strong></h2>
 
 <p class="MsoNormal" align="left" style="font-family: Inter, sans-serif; color: black; margin: 0in 0in 1px; text-align: left; text-indent: 0in; line-height: 107%; font-size: 16px;"><strong><span style="line-height: 107%;"><span>&nbsp;</span></span></strong><br></p>
 
@@ -967,30 +967,31 @@ const DocumentManagement = ({ setAlert, pop, setPop }) => {
 
   
   const [currEmp, setCurrEmp] = useState(0);
-
+  
   let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
-
+  
   const [allEmp, setAllEmp] = useState([]);
   const [SelectEmpId, setSelectEmpId] = useState("");
-
+  
   const [currentPage, setCurrentPage] = useState(0);
-
+  
   const allEmplget = async () => {
     const ans = await allEmployee();
     setAllEmp(ans?.emp);
   };
-
+  
   const { role } = hrms_user;
-
+  
   const editor = useRef(null);
-
+  const editor2 = useRef(null);
+  const editor3 = useRef(null);
+  
   const [content, setContent] = useState(data);
   const [content2, setContent2] = useState(data2);
   const [content3, setContent3] = useState(data3);
-
-  console.log("con",content);
-
+  
   const config = {
+    cache:true ,
     controls: {
       font: {
         list: {
@@ -999,7 +1000,8 @@ const DocumentManagement = ({ setAlert, pop, setPop }) => {
       },
     },
   };
-
+  
+  console.log('c',content);
   const saveDocumentApi = async () => {
     if (SelectEmpId === "" || SelectEmpId === "Select") {
       toast.error("Please select the user");
@@ -1166,7 +1168,7 @@ const DocumentManagement = ({ setAlert, pop, setPop }) => {
                         ref={editor}
                         value={content}
                         tabIndex={1}
-                        config={config}
+                        // config={config}
                         onBlur={(newContent) => setContent(newContent)}
                         onChange={(newContent) => {
                           setContent(newContent);
@@ -1235,10 +1237,10 @@ const DocumentManagement = ({ setAlert, pop, setPop }) => {
                       <hr />
 
                       <JoditEditor
-                        ref={editor}
+                        ref={editor2}
                         value={content2}
                         tabIndex={1}
-                        config={config}
+                        // config={config}
                         onBlur={(newContent) => setContent2(newContent)}
                         onChange={(newContent) => {
                           setContent2(newContent);
@@ -1310,10 +1312,18 @@ const DocumentManagement = ({ setAlert, pop, setPop }) => {
                       <hr />
 
                       <JoditEditor
-                        ref={editor}
+                        // ref={editor3}
+                        // value={content3}
+                        // // tabIndex={1}
+                        
+                        // config={config}
+                        // onBlur={(newContent) => setContent3(newContent)}
+                        // // onChange={(newContent) => {
+                        // //   setContent3(newContent);
+                        // // }}
+                        ref={editor3}
                         value={content3}
                         tabIndex={1}
-                        config={config}
                         onBlur={(newContent) => setContent3(newContent)}
                         onChange={(newContent) => {
                           setContent3(newContent);
