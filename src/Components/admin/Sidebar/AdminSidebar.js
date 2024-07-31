@@ -243,6 +243,15 @@ const AdminSidebar = ({ pop, setPop }) => {
               </div>
             </div></NavLink>
 
+{/* =======================ITR ============================ */}
+            <NavLink to="/adminDash/HRM/ITR"><div className={`${window.location.pathname === "/adminDash/HRM/ITR"  ? "hh" : ""} setWrap`}>
+              {/* <p>Setting</p> */}
+              <div className="systSset">
+                <img src={`${window.location.pathname === "/adminDash/HRM/ITR" ? leaderboard1 : leaderboard}`} alt="" />
+                <span className={`${window.location.pathname==="/adminDash/HRM/ITR"  ? "fan" : ""}`}>ITR </span>
+              </div>
+            </div></NavLink>
+
 {/* lead management start  */}
 
           <NavLink to="/adminDash/leadDash"><div className={`${window.location.pathname === "/adminDash/leadDash" || window.location.pathname === "/adminDash/myLead" || window.location.pathname === "/adminDash/editLead" || window.location.pathname === "/adminDash/createLead" || window.location.pathname === "/adminDash/importLead/:id" || window.location.pathname === "/adminDash/createQuotation" || window.location.pathname === "/adminDash/editQuotation" ? "hh" : ""} setWrap`}>

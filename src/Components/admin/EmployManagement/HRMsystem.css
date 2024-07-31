@@ -553,3 +553,183 @@ th {
     text-align: left;
 
 }
+
+.ITRWRAP{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+}
+.ITRWRAP .heading{
+    font-family: Inter;
+    color: #101820;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 32px;
+    
+}
+.incomeChoice{
+    background-color: white;
+    border-radius: 10px;
+     padding: 10px;
+     display: flex;
+     flex-direction: column;
+     gap: 20px;
+     width: 1000px;
+     height: 450px;
+}
+.incomeChoice .question{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.incomeChoice .question .questinput{
+    font-family: Inter;
+    color: #101820;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 32px;
+    
+}
+.incomeChoice .question .choices{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.incomeChoice .question .choices label{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.incomeChoice .question .choices label span{
+    font-family: Inter;
+    color: #101820;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 32px;
+    
+}
+
+.continueBtn{
+    width: 143px;
+height: 40px;
+border-radius:10px;
+background: #0B56E4;
+
+}
+.continueBtn span{
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    letter-spacing: 0.005em;
+color: #FFFFFF;    
+
+}
+
+.uploaForms2{
+    background-color: white;
+    border-radius: 10px;
+     padding: 20px;
+     display: flex;
+     flex-direction: column;
+     gap: 20px;
+     width: 1000px;
+     height: 300px;
+}
+.itrpara{
+    border: 1px solid #B7DFD5;
+    background: #DEF2EB;
+padding: 10px;
+border-radius: 10px;
+}
+.itrpara p{
+    font-family: Inter;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 24px;
+    letter-spacing: 0.0015em;
+color: #1B2533;    
+text-align: center;
+}
+
+.continwiform{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    gap: 20px;
+    justify-content: center;
+}
+.continwiform button{
+    background: linear-gradient(131.78deg, #D1E8FD 6.87%, #EDEFFF 91.67%);
+    border: 1px solid #0B56E4;
+    width: 230px;
+height: 40px;
+
+border-radius: 10px;
+color: #0B56E4;
+font-family: Inter;
+font-size: 14px;
+font-weight: 500;
+line-height: 24px;
+letter-spacing: 0.005em;
+
+
+}
+
+.continwiform span{
+    font-family: Inter;
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 58.09px;
+    letter-spacing: 0.004em;
+color: #0B56E4;    
+
+}
+
+.uploaForms{
+    background-color: white;
+    border-radius: 10px;
+     padding: 20px;
+     display: flex;
+     flex-direction: column;
+     gap: 20px;
+     width: 1000px;
+     height: 300px;
+    gap: 20px;
+    display: grid ;
+    grid-template-columns: repeat(2 , 1fr);
+    align-items: center;
+}
+.uploaForms .label{
+    max-width: 400px;
+    width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.uploaForms .label input{
+    width: 295px;
+    height: 48px;
+    padding: 8px 16px ;
+    border-radius: 10px;
+    background: #FFFFFF;
+    border: 1px solid #D0D4DC;    
+}
+
+.optiondiv{
+    display: flex;
+    align-items: center;
+gap: 10px;
+    
+}
+.optiondiv span{
+    font-family: Inter;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 24px;
+    letter-spacing: 0.0015em;
+color: #1B2533;    
+text-align: center;
+}
+

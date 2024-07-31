@@ -964,7 +964,6 @@ const data2 = `<p class="MsoNormal" style="margin: 0in 0in 11px; line-height: 10
 
 const DocumentManagement = ({ setAlert, pop, setPop }) => {
   const { user, allEmployee, saveDocs, saveRelivingLetterapi , saveExperienceLetterapi } = useMain();
-
   
   const [currEmp, setCurrEmp] = useState(0);
   
@@ -1001,7 +1000,6 @@ const DocumentManagement = ({ setAlert, pop, setPop }) => {
     },
   };
   
-  console.log('c',content);
   const saveDocumentApi = async () => {
     if (SelectEmpId === "" || SelectEmpId === "Select") {
       toast.error("Please select the user");

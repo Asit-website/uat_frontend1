@@ -96,6 +96,9 @@ import ProjectDetails2 from "./Components/admin/EmployManagement/ProjectDetails2
 import ProjectOverview from "./Components/admin/EmployManagement/ProjectOverview.jsx";
 import CreateProposal from "./Components/quotation/CreateProposal.jsx";
 import ProposalForm from "./Components/admin/EmployManagement/ProposalForm.jsx";
+import ITR from "./Components/admin/EmployManagement/ITR.jsx";
+import UploadITRForm from "./Components/admin/EmployManagement/UploadITRForm.jsx";
+import ITRReturn from "./Components/admin/EmployManagement/ITRReturn.jsx";
 
 var tc;
 
@@ -251,6 +254,9 @@ function App() {
               <Route path="/adminDash/HRM/HRMsystemSetup" element={<HRMsystemSetup />} />
               <Route path="/employeeDash/HRM/HRMsystemSetup" element={<HRMsystemSetup />} />
               <Route path="/adminDash/HRM/QuotationForm" element={<QuotationForm />} />
+              <Route path="/adminDash/HRM/ITR" element={<ITR />} />
+              <Route path="/adminDash/HRM/UploadITRForm" element={<UploadITRForm />} />
+              <Route path="/adminDash/HRM/ITRReturn" element={<ITRReturn />} />
               <Route path="/employeeDash/HRM/QuotationForm" element={<QuotationForm />} />
               <Route path="/employeeDash/HRM/ProposalForm" element={<ProposalForm />} />
               <Route path="/adminDash/HRM/ProposalForm" element={<ProposalForm />} />
