@@ -99,6 +99,7 @@ import ProposalForm from "./Components/admin/EmployManagement/ProposalForm.jsx";
 import ITR from "./Components/admin/EmployManagement/ITR.jsx";
 import UploadITRForm from "./Components/admin/EmployManagement/UploadITRForm.jsx";
 import ITRReturn from "./Components/admin/EmployManagement/ITRReturn.jsx";
+import Expense from "./Components/admin/EmployManagement/Expense.jsx";
 
 var tc;
 
@@ -255,6 +256,8 @@ function App() {
               <Route path="/employeeDash/HRM/HRMsystemSetup" element={<HRMsystemSetup />} />
               <Route path="/adminDash/HRM/QuotationForm" element={<QuotationForm />} />
               <Route path="/adminDash/HRM/ITR" element={<ITR />} />
+              <Route path="/adminDash/HRM/Expense" element={<Expense />} />
+
               <Route path="/adminDash/HRM/UploadITRForm" element={<UploadITRForm />} />
               <Route path="/adminDash/HRM/ITRReturn" element={<ITRReturn />} />
               <Route path="/employeeDash/HRM/QuotationForm" element={<QuotationForm />} />

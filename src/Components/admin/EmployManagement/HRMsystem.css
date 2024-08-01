@@ -122,6 +122,15 @@
     gap: 16px;
     border-radius: 18px;
 }
+.expensepop{
+    background-color: white;
+    max-width: 550px  !important;
+    height: 560px !important;
+    margin: -100px 0px ;
+    border-radius: 10px;
+
+  
+}
 
 
 .popTitl {

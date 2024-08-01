@@ -6561,3 +6561,49 @@ font-size: 12px;
 font-weight: 500;
   
 }
+
+.expennav{
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  
+}
+.expennav button{
+  width: 138px;
+  height: 40px;
+  border-radius: 10px;
+  background: #0B56E4;
+  border: 1px solid #0B56E4;  
+
+}
+.expennav button span{
+font-family: Inter;
+color: white;
+font-size: 16px;
+font-weight: 500;
+line-height: 24px;
+letter-spacing: 0.005em;
+
+}
+.expencont{
+  width: 100%;
+  background-color: white;
+  padding: 10px;
+}
+
+.expensetable th{
+  font-family: Inter;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  letter-spacing: 0.0025em;
+  color: #2B2B2B;
+}
+.expensetable td{
+  font-family: Inter;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  letter-spacing: 0.0025em;
+  color: #2B2B2B;
+}
