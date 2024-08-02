@@ -255,7 +255,7 @@ function App() {
               <Route path="/adminDash/HRM/HRMsystemSetup" element={<HRMsystemSetup />} />
               <Route path="/employeeDash/HRM/HRMsystemSetup" element={<HRMsystemSetup />} />
               <Route path="/adminDash/HRM/QuotationForm" element={<QuotationForm />} />
-              <Route path="/adminDash/HRM/ITR" element={<ITR />} />
+              {/* <Route path="/adminDash/HRM/ITR" element={<ITR />} /> */}
               <Route path="/adminDash/HRM/Expense" element={<Expense />} />
 
               <Route path="/adminDash/HRM/UploadITRForm" element={<UploadITRForm />} />

@@ -6607,3 +6607,41 @@ letter-spacing: 0.005em;
   letter-spacing: 0.0025em;
   color: #2B2B2B;
 }
+
+.docInputs{
+  background-color: white;
+  border-radius: 10px;
+  padding: 10px;
+  display: grid;
+  grid-template-columns: repeat(2 , 1fr);
+  gap: 20px 20px;
+  width: 100%;
+  height: fit-content;
+}
+
+.docInputs label{
+   display: flex;
+   align-items: center;
+   gap: 20px;
+   
+}
+.docInputs label input{
+   width: 415px;
+height: 44px;
+padding: 8px 16px ;
+border-radius: 10px;
+background: #FFFFFF;
+border: 1px solid #D0D4DC;
+
+}
+.docInputs label button{
+   width: 100px;
+   border-radius: 10px;
+   color: white;
+   font-weight: 500;
+   font-family: inter;
+height: 44px;
+background: #0B56E4;
+
+
+}

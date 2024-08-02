@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import EmployeeNavbar from "../Navbar/EmployeeNavbar";
 import EmployeeSidebar from "../Sidebar/EmployeeSidebar";
 import "react-calendar/dist/Calendar.css";
@@ -6,6 +6,8 @@ import { useMain } from "../../../hooks/useMain";
 import "./myself.css"
 import doc from "../../images/docu.png"
 import AdminSidebar from "../../admin/Sidebar/AdminSidebar";
+import { useReactToPrint } from "react-to-print";
+
 
 const MySelf = ({ setAlert, pop1, setPop1 }) => {
    // =================punch in punch out concept==========
@@ -25,7 +27,43 @@ const MySelf = ({ setAlert, pop1, setPop1 }) => {
 
    const [offerContent , setOfferContent] =useState(``);
    const [reliveContent , setReliveContent] =useState(``);
+
    const [experienceContent , setExperienceContent] =useState(``);
+
+   const contonentPDF = useRef();
+   const contonentPDF2 = useRef();
+   const contonentPDF3 = useRef();
+
+
+   const generatePdf = useReactToPrint({
+      content: () => contonentPDF.current,
+      documentTitle: "Quotation",
+      parentContainer: {
+        "@media print": {
+          display: "block",
+        },
+      },
+    });
+
+   const generatePdf2 = useReactToPrint({
+      content: () => contonentPDF2.current,
+      documentTitle: "Quotation",
+      parentContainer: {
+        "@media print": {
+          display: "block",
+        },
+      },
+    });
+   const generatePdf3 = useReactToPrint({
+      content: () => contonentPDF3.current,
+      documentTitle: "Quotation",
+      parentContainer: {
+        "@media print": {
+          display: "block",
+        },
+      },
+    });
+  
 
     const getOfferletter = async()=>{
       const ans = await getMyOfferLetter(user1?._id);
@@ -64,6 +102,8 @@ const MySelf = ({ setAlert, pop1, setPop1 }) => {
                <div className="em manem">
 
                   <nav className="myselfNav">
+
+                     
                      <h2>My self</h2>
 
                      <select value={curenpage} onChange={(e)=>setCurrPage(e.target.value)} name="" id="">
@@ -318,9 +358,17 @@ const MySelf = ({ setAlert, pop1, setPop1 }) => {
                <div className="showoffercont">
                <h2>OFFER LETTER</h2>
 
-             <div className="font-wrapper">
+             <div ref={contonentPDF} className="font-wrapper p-4">
              <div className="addfont" dangerouslySetInnerHTML={{ __html: offerContent }} />
+
+           
              </div>
+
+             <div className="prntBtn">
+                  <button  onClick={() => generatePdf()} >
+                    <span>Print</span>
+                  </button>
+                </div>
 
              </div>
                      }
@@ -329,21 +377,36 @@ const MySelf = ({ setAlert, pop1, setPop1 }) => {
                <div className="showoffercont">
                <h2>RELIEVING LETTER</h2>
 
-             <div>
+             <div ref={contonentPDF2} className=" p-4">
              <div dangerouslySetInnerHTML={{ __html: reliveContent }} />
              </div>
+
+             <div className="prntBtn">
+                  <button  onClick={() => generatePdf2()} >
+                    <span>Print</span>
+                  </button>
+                </div>
+
 
              </div>
                      }
 
                      {
+
                curenpage ==="Experience Letter" && 
                <div className="showoffercont">
                <h2>EXPERIENCE LETTER</h2>
 
-             <div>
+             <div ref={contonentPDF3} className="p-4">
              <div dangerouslySetInnerHTML={{ __html: experienceContent }} />
              </div>
+
+             <div className="prntBtn">
+                  <button  onClick={() => generatePdf3()} >
+                    <span>Print</span>
+                  </button>
+                </div>
+
 
              </div>
                      }

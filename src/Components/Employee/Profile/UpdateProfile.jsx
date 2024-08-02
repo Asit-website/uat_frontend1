@@ -69,7 +69,7 @@ const UpdateProfile = ({ setAlert, pop1, setPop1 }) => {
     RelievingLetter:"",
     OfferLetter:"",
     ExperienceLetter:"",
-
+    ITR:""
 
   });
 
@@ -94,6 +94,7 @@ const UpdateProfile = ({ setAlert, pop1, setPop1 }) => {
     // this is for upload the user documents 
     const {
       adharCard,
+      ITR ,
       pancard,
       tenCert,
       twevelCert,
@@ -107,6 +108,9 @@ const UpdateProfile = ({ setAlert, pop1, setPop1 }) => {
     const formData = new FormData();
     if (documents.adharCard) {
       formData.append("adharCard", adharCard);
+    }
+    if (documents.ITR) {
+      formData.append("ITR", ITR);
     }
     if (documents.pancard) {
       formData.append("pancard", pancard);
@@ -135,6 +139,7 @@ const UpdateProfile = ({ setAlert, pop1, setPop1 }) => {
 
     if (
       documents.adharCard !== "" ||
+      documents.ITR !== "" ||
       documents.pancard !== "" ||
       documents.tenCert !== "" ||
       documents.twevelCert !== "" ||
@@ -899,7 +904,7 @@ const UpdateProfile = ({ setAlert, pop1, setPop1 }) => {
                 {/* this is document upload start  */}
                 <div className="basic-information2 mb-4 mt-7">
                       <div className="basics">
-                        <h3>Documents</h3>
+                        <h3>Documents </h3>
                       </div>
 
                       <hr className="upper" />
@@ -1117,6 +1122,29 @@ const UpdateProfile = ({ setAlert, pop1, setPop1 }) => {
                               </div>
                             </>
                           )}
+
+                <div className="flex w-full ">
+                           
+                            <div className="thiddrapgsingl mt-4">
+                              <h4>ITR(Income Tax Return)</h4>
+
+                              <div className="drag-area try">
+                                <img src={uploadFile} alt="" />
+
+                                <p>Click to upload</p>
+
+                                <input
+                                  className="filesjila w-full"
+                                  name="ITR"
+                                  type="file"
+                                  onChange={handleFileChange}
+                                />
+                              </div>
+                            </div>
+                       
+                          </div>
+
+
                         </div>
                       </div>
                     </div>
