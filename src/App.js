@@ -357,6 +357,7 @@ function App() {
 
               <Route path="/adminDash/payslip" element={<Payslip pop={pop} setPop={setPop}/>}/>
               <Route path="/employeeDash/payslip" element={<Payslip pop={pop} setPop={setPop}/>}/>
+           
 
               <Route path="/adminDash/setAll/:id" element={<SetSallary pop={pop} setPop={setPop} />} />
 

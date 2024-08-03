@@ -69,7 +69,8 @@ const UpdateProfile = ({ setAlert, pop1, setPop1 }) => {
     RelievingLetter:"",
     OfferLetter:"",
     ExperienceLetter:"",
-    ITR:""
+    ITR:"" , 
+    ITR2:""
 
   });
 
@@ -95,6 +96,7 @@ const UpdateProfile = ({ setAlert, pop1, setPop1 }) => {
     const {
       adharCard,
       ITR ,
+      ITR2,
       pancard,
       tenCert,
       twevelCert,
@@ -111,6 +113,9 @@ const UpdateProfile = ({ setAlert, pop1, setPop1 }) => {
     }
     if (documents.ITR) {
       formData.append("ITR", ITR);
+    }
+    if (documents.ITR2) {
+      formData.append("ITR2", ITR2);
     }
     if (documents.pancard) {
       formData.append("pancard", pancard);
@@ -140,6 +145,7 @@ const UpdateProfile = ({ setAlert, pop1, setPop1 }) => {
     if (
       documents.adharCard !== "" ||
       documents.ITR !== "" ||
+      documents.ITR2!== "" ||
       documents.pancard !== "" ||
       documents.tenCert !== "" ||
       documents.twevelCert !== "" ||
@@ -1136,6 +1142,23 @@ const UpdateProfile = ({ setAlert, pop1, setPop1 }) => {
                                 <input
                                   className="filesjila w-full"
                                   name="ITR"
+                                  type="file"
+                                  onChange={handleFileChange}
+                                />
+                              </div>
+                            </div>
+                       
+                            <div className="thiddrapgsingl mt-4">
+                              <h4>ITR(Income Tax Return) Pdf2</h4>
+
+                              <div className="drag-area try">
+                                <img src={uploadFile} alt="" />
+
+                                <p>Click to upload</p>
+
+                                <input
+                                  className="filesjila w-full"
+                                  name="ITR2"
                                   type="file"
                                   onChange={handleFileChange}
                                 />

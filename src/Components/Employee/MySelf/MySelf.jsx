@@ -80,6 +80,26 @@ const MySelf = ({ setAlert, pop1, setPop1 }) => {
       getOfferletter();
    }
  },[]);
+
+ useEffect(() => {
+   const removeYellowBackground = (content) => {
+     // Use a regular expression to remove the background: yellow; style
+     return content?.replace(/background:\s*yellow\s*;?/gi, '');
+   };
+
+   if (offerContent) {
+     setOfferContent(removeYellowBackground(offerContent));
+   }
+
+   if (reliveContent) {
+     setReliveContent(removeYellowBackground(reliveContent));
+   }
+
+   if (experienceContent) {
+     setExperienceContent(removeYellowBackground(experienceContent));
+   }
+ }, [offerContent, reliveContent, experienceContent]);
+
    return (
       <>
          <div className="employee-dash h-full">
