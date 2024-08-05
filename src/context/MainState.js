@@ -2180,8 +2180,8 @@ const MainState = (props) => {
       const data = await post(`${baseUrl}/lead/getUserLetter`, { userId}, true);
       return data;
    }
-   const CreateExpense = async({title , note , totalAmount , date})=>{
-      const data = await post(`${baseUrl}/lead/createExpense`, { title , note , totalAmount , date}, true);
+   const CreateExpense = async({title,itemCode, quantity, unit,  purchasePrice , salesPrice , purchaseDate ,  category})=>{
+      const data = await post(`${baseUrl}/lead/createExpense`, { title,itemCode, quantity, unit,  purchasePrice , salesPrice , purchaseDate ,  category}, true);
       return data;
    }
    const getExpenseApi = async()=>{

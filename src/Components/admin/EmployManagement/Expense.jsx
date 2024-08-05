@@ -18,7 +18,7 @@ const Expense = ({ setAlert, pop, setPop }) => {
   const [openExpense , setOpenExpense] = useState(false);
 
   const [formdata ,setFormdata] = useState({
-    title:"" , note:"" , totalAmount:"" , date:""
+    title:"" ,itemCode:"" , quantity:"" , unit:"" ,  purchasePrice:"" , salesPrice:"" , purchaseDate:"" ,  category:""
   })
 
   const [allExpense , setAllExpense] = useState([]);
@@ -33,6 +33,7 @@ const Expense = ({ setAlert, pop, setPop }) => {
 
   const getExpense = async()=>{
     const resp =await getExpenseApi();
+    console.log("resp",resp);
     setAllExpense(resp?.expesnes);
 
   }
@@ -80,26 +81,39 @@ const Expense = ({ setAlert, pop, setPop }) => {
             <div className="ITRWRAP">
               <nav className="expennav">
                 <button onClick={()=>setOpenExpense(true)}>
-                  <span>Create Expense</span>
+                  <span>Create Item</span>
                 </button>
               </nav>
 
               <div className="expencont">
                 <div class="relative overflow-x-auto w-full">
                   <table class="w-full expensetable text-sm text-left rtl:text-right ">
+
                     <thead class="text-xs w-full uppercase bg-gray-50  ">
                       <tr>
                       <th scope="col" class="px-6 py-3">
                           Title
                         </th>
                         <th scope="col" class="px-6 py-3">
-                          Date
+                          Item Code
                         </th>
                         <th scope="col" class="px-6 py-3">
-                          Amount
+                          Quantity
                         </th>
                         <th scope="col" class="px-6 py-3">
-                          Notes
+                          Unit
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                          Purchase Price
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                          Sales Price
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                          Purchase Date
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                          Category
                         </th>
                         <th scope="col" class="px-6 py-3">
                           Action
@@ -112,11 +126,13 @@ const Expense = ({ setAlert, pop, setPop }) => {
                             allExpense?.map((item , index)=>(
                                 <tr key={index} class="bg-white dark:bg-gray-800 ">
                                 <td class="px-6 py-4">{item?.title}</td>
-                                <td class="px-6 py-4">{item?.date}</td>
-                                <td class="px-6 py-4">{item?.totalAmount}</td>
-                                <td class="px-6 py-4">
-                                 {item?.note}
-                                </td>
+                                <td class="px-6 py-4">{item?.itemCode}</td>
+                                <td class="px-6 py-4">{item?.quantity}</td>
+                                <td class="px-6 py-4">   {item?.unit}  </td>
+                                <td class="px-6 py-4"> {item?.purchasePrice}</td>
+                                <td class="px-6 py-4"> {item?.salesPrice}</td>
+                                <td class="px-6 py-4"> {item?.purchaseDate}</td>
+                                <td class="px-6 py-4"> {item?.category}</td>
                                 <td class="px-6 py-4">
                                   <div className="flex items-center sk">
                                     <i className="fa-solid fa-pen-to-square"></i>
@@ -137,8 +153,10 @@ const Expense = ({ setAlert, pop, setPop }) => {
       </div>
 
 
+
+
       {openExpense && (
-          <div className="allPopupWrap">
+          <div className="allPopupWrap incheight">
             <div className="popup1 expensepop">
               <div className="popNav">
                 <h2>Create Expense  </h2>
@@ -158,36 +176,84 @@ const Expense = ({ setAlert, pop, setPop }) => {
               </label>
 
               <label>
-                <p className="popTitl">Date</p>
+                <p className="popTitl">Item Code</p>
 
                 <input
-                  type="date"
-                  placeholder="Enter Leave Type Name"
-                  name="date"
-                  value={formdata.date}
+                  type="text"
+                  placeholder="Enter ItemCode"
+                  name="itemCode"
+                  value={formdata.itemCode}
                   onChange={changeHandler} />
               </label>
 
               <label>
-                <p className="popTitl">Total Amount</p>
+                <p className="popTitl">Quantity</p>
 
                 <input
                   type="number"
-                  placeholder="Enter Leave Type Name"
-                  name="totalAmount"
-                  value={formdata.totalAmount}
+                  placeholder="Enter Quantity"
+                  name="quantity"
+                  value={formdata.quantity}
                   onChange={changeHandler}
                    />
               </label>
               
               <label>
-                <p className="popTitl">Notes</p>
+                <p className="popTitl">Unit</p>
 
                 <input
                   type="text"
-                  placeholder="Enter Leave Type Name"
-                  name="note"
-                  value={formdata.note}
+                  placeholder="Enter unit"
+                  name="unit"
+                  value={formdata.unit}
+                  onChange={changeHandler}
+                   />
+              </label>
+
+              <label>
+                <p className="popTitl">Purchase Price</p>
+
+                <input
+                  type="number"
+                  placeholder="Enter purchasePrice"
+                  name="purchasePrice"
+                  value={formdata.purchasePrice}
+                  onChange={changeHandler}
+                   />
+              </label>
+
+              <label>
+                <p className="popTitl">Sales Price</p>
+
+                <input
+                  type="number"
+                  placeholder="Enter purchasePrice"
+                  name="salesPrice"
+                  value={formdata.salesPrice}
+                  onChange={changeHandler}
+                   />
+              </label>
+
+              <label>
+                <p className="popTitl">Purchase Date</p>
+
+                <input
+                  type="date"
+                  placeholder="Enter purchase Date"
+                  name="purchaseDate"
+                  value={formdata.purchaseDate}
+                  onChange={changeHandler}
+                   />
+              </label>
+
+              <label>
+                <p className="popTitl">category</p>
+
+                <input
+                  type="text"
+                  placeholder="Enter purchase Date"
+                  name="category"
+                  value={formdata.category}
                   onChange={changeHandler}
                    />
               </label>
