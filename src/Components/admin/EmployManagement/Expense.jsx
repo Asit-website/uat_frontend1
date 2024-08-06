@@ -33,7 +33,6 @@ const Expense = ({ setAlert, pop, setPop }) => {
 
   const getExpense = async()=>{
     const resp =await getExpenseApi();
-    console.log("resp",resp);
     setAllExpense(resp?.expesnes);
 
   }

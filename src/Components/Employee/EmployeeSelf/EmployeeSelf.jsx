@@ -10,11 +10,7 @@ import toast from "react-hot-toast";
 
 
 const EmployeeSelf = ({ setAlert, pop1, setPop1 }) => {
-   const {
-      user,
-      postActivity,
-      getStatisticsByUser,
-      getUsers ,changeOfferLetterPer , changeRelivingLetterPer , changeExperienceLetterPer
+   const {user, postActivity, getStatisticsByUser, getUsers ,changeOfferLetterPer , changeRelivingLetterPer , changeExperienceLetterPer , getThisMonthLeave
 
    } = useMain();
 
@@ -24,10 +20,14 @@ const EmployeeSelf = ({ setAlert, pop1, setPop1 }) => {
    const location = useLocation();
    const state = location.state;
 
+   console.log("user1",user1);
+
 
    const [isChecked, setIsChecked] = useState(false);
    const [isChecked2, setIsChecked2] = useState(false);
    const [isChecked3, setIsChecked3] = useState(false);
+
+   const [thisMonthLeave , setThisMonthLeave] = useState(0);
 
    const handleCheckboxChange = async (event) => {
       const toastId = toast.loading("Loading...");
@@ -73,6 +73,9 @@ const EmployeeSelf = ({ setAlert, pop1, setPop1 }) => {
   
    const fetchUserDetails = async () => {
       const ans = await getUsers(state);
+      const resp = await getThisMonthLeave(state);
+      console.log("resp",resp);
+      setThisMonthLeave(resp?.totalDays);
       setUser1(ans?.data);
 
    }
@@ -94,7 +97,6 @@ const EmployeeSelf = ({ setAlert, pop1, setPop1 }) => {
       fetchUserDetails();
        
    }, [])
-
 
 
    return (
@@ -359,6 +361,42 @@ const EmployeeSelf = ({ setAlert, pop1, setPop1 }) => {
                         </div>
 
 
+
+                     </div>
+
+                  </div>
+
+                  {/* fivth section  */}
+                  <div className="myselfFirst">
+
+
+                     <h3>Leave Details</h3>
+
+                     <hr />
+
+                     <div className="allFristDe3tail">
+
+                        <div className="singfirst">
+                           <p>This Month Leave</p>
+                           <span>{thisMonthLeave}</span>
+                        </div>
+
+                        <div className="singfirst">
+                           <p>Total Leave taken</p>
+                           <span>{user1?.totalLeaves}</span>
+                        </div>
+
+                        <div className="singfirst">
+                           <p>This Month Paid Leave Remaining</p>
+                           <span>{2-parseInt(thisMonthLeave) >=0 ? 2-parseInt(thisMonthLeave) : 0}</span>
+                        </div>
+
+                        <div className="singfirst">
+                           <p>Year paid leave remaining</p>
+                           <span>{12-parseInt(user1?.totalLeaves) >=0 ? 12-parseInt(user1?.totalLeaves) : 0}</span>
+                        </div>
+
+               
 
                      </div>
 

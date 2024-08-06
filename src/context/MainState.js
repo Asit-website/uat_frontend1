@@ -2211,6 +2211,11 @@ const MainState = (props) => {
       const data = await get(`${baseUrl}/task/getProjectTask/${projectId}`, true);
       return data;
    };
+   const getThisMonthLeave = async (userId) => {
+
+      const data = await get(`${baseUrl}/user/getThisMonthLeave/${userId}`, true);
+      return data;
+   };
    const getTodayBirthday = async () => {
       
       const data = await get(`${baseUrl}/task/getBirthDayUser`, true);
@@ -2233,7 +2238,7 @@ const MainState = (props) => {
          getTotalLeavesCount, uploadDocuments, createAnnouncement, deleteAnnouncement, updateAnnouncements, fetchAnnoucement, deleteAnnouncements, getEmp, allEmployeebyDep, notificationGet,
          acceptLeave, rejectLeave,
          ProvideRemovePermission , postQuotationFormApi ,updatePropsalFormApi ,  postProposalFormApi ,  createClientapi , 
-         updateQuotationFormApi ,  changeRelivingLetterPer , 
+         updateQuotationFormApi ,  changeRelivingLetterPer , getThisMonthLeave ,
          uploadOwnDocs,
          getAllLeads,
          updateDocSetup,
