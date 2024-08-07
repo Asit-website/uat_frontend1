@@ -448,6 +448,14 @@ const AdminSidebar = ({ pop, setPop }) => {
 
               {/* ====================assets management end==================== */}
 
+              <NavLink to="/adminDash/HRM/Expense"><div className={`${window.location.pathname === "/adminDash/HRM/Expense"  ? "hh" : ""} setWrap`}>
+              {/* <p>Setting</p> */}
+              <div className="systSset">
+                <img src={`${window.location.pathname === "/adminDash/HRM/Expense" ? leaderboard1 : leaderboard}`} alt="" />
+                <span className={`${window.location.pathname==="/adminDash/HRM/Expense"  ? "fan" : ""}`}>Items </span>
+              </div>
+            </div></NavLink>
+
 
 
               {/* ==================document  start================ */}

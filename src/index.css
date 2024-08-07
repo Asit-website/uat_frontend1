@@ -4330,6 +4330,11 @@ abbr:where([title]) {
   top: 20px;
 }
 
+.chhosemonth {
+  margin-top:30px;
+  max-width: 180px;
+}
+
 .clock1 p {
   color: #707070;
   font-family: "Medium" !important;

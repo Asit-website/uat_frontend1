@@ -145,7 +145,7 @@ const AdminEmplyee = ({
 
   const getData = async () => {
     const ans = await getActiveUsers();
-    setData1(ans.data);
+    setData1(ans?.data);
   };
 
   useEffect(() => {

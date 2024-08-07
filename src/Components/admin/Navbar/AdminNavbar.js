@@ -63,9 +63,9 @@ const AdminNavbar = ({ setAlert}) => {
   const fetchNotification  = async()=>{
     const ans = await fetchUserNotifyHR();
 
-     if(ans.status){
+     if(ans?.status){
         let notifications = ans?.notifications;
-        let reversedNotifications = notifications.slice().reverse(); 
+        let reversedNotifications = notifications?.slice()?.reverse(); 
   
         setAllNotification(reversedNotifications);  
      }

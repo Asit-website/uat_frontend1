@@ -134,7 +134,6 @@ const Expense = ({ setAlert, pop, setPop }) => {
                                 <td class="px-6 py-4"> {item?.category}</td>
                                 <td class="px-6 py-4">
                                   <div className="flex items-center sk">
-                                    <i className="fa-solid fa-pen-to-square"></i>
                                     <i onClick={()=>deleteExpense(item?._id)} className="fa-solid fa-trash"></i>
                                   </div>
                                 </td>
@@ -143,6 +142,7 @@ const Expense = ({ setAlert, pop, setPop }) => {
                         }
                     
                     </tbody>
+                    
                   </table>
                 </div>
               </div>
@@ -270,6 +270,9 @@ const Expense = ({ setAlert, pop, setPop }) => {
             </div>
           </div>
         )}
+
+ {/* <i className="fa-solid fa-pen-to-square"></i> */}
+
        
     </>
 

@@ -20,8 +20,6 @@ const EmployeeSelf = ({ setAlert, pop1, setPop1 }) => {
    const location = useLocation();
    const state = location.state;
 
-   console.log("user1",user1);
-
 
    const [isChecked, setIsChecked] = useState(false);
    const [isChecked2, setIsChecked2] = useState(false);
@@ -74,7 +72,6 @@ const EmployeeSelf = ({ setAlert, pop1, setPop1 }) => {
    const fetchUserDetails = async () => {
       const ans = await getUsers(state);
       const resp = await getThisMonthLeave(state);
-      console.log("resp",resp);
       setThisMonthLeave(resp?.totalDays);
       setUser1(ans?.data);
 
@@ -378,7 +375,7 @@ const EmployeeSelf = ({ setAlert, pop1, setPop1 }) => {
 
                         <div className="singfirst">
                            <p>This Month Leave</p>
-                           <span>{thisMonthLeave}</span>
+                           <span>{thisMonthLeave?thisMonthLeave:0}</span>
                         </div>
 
                         <div className="singfirst">

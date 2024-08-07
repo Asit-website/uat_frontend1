@@ -437,7 +437,7 @@ const EmployeeHRM = ({
   const getAnnoucement = async () => {
     const ans = await fetchAnnoucement();
     // setAnnounce(ans?.data);
-    const reversedArray = ans.data.reverse();
+    const reversedArray = ans?.data?.reverse();
     setAnnounce(reversedArray);
   };
 
