@@ -100,6 +100,7 @@ import ITR from "./Components/admin/EmployManagement/ITR.jsx";
 import UploadITRForm from "./Components/admin/EmployManagement/UploadITRForm.jsx";
 import ITRReturn from "./Components/admin/EmployManagement/ITRReturn.jsx";
 import Expense from "./Components/admin/EmployManagement/Expense.jsx";
+import LeaveUpdates from "./Components/admin/EmployeeHRM/LeaveUpdates.jsx";
 
 var tc;
 
@@ -301,6 +302,7 @@ function App() {
               <Route path="/adminDash/HRM/totalEmployee" element={<TotalEmployee pop={pop} setPop={setPop} setAlert={setAlert} />} />
               <Route path="/adminDash/HRM/LeaveEmployee" element={<LeaveEmployee pop={pop} setPop={setPop} setAlert={setAlert} />} />
               <Route path="/employeeDash/HRM/LeaveEmployee" element={<LeaveEmployee pop={pop} setPop={setPop} setAlert={setAlert} />} />
+              <Route path="/employeeDash/HRM/LeaveEmployeeDetails" element={<LeaveUpdates pop={pop} setPop={setPop} setAlert={setAlert} />} />
               <Route path="/adminDash/HRM/activeEmployee" element={<ActiveEmplyee pop={pop} setPop={setPop} setAlert={setAlert} />} />
               <Route path="/adminDash/HRM/leaveRequest" element={<LeaveRequest pop={pop} setPop={setPop} setAlert={setAlert} />} />
               <Route path="/employeeDash/HRM/leaveRequest" element={<LeaveRequest pop={pop} setPop={setPop} setAlert={setAlert} />} />
