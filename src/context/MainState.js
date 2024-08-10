@@ -195,9 +195,13 @@ const MainState = (props) => {
 
    const getActiveUsers = async (userId) => {
       const data = await get(`${baseUrl}/user/getActiveUsers`, true);
-      console.log("daa ", data);
       return data;
    };
+
+    const changeStatusBreak = async({isBreakIn , userId})=>{
+      const data = await post(`${baseUrl}/user/changeBreakin`, {isBreakIn , userId  }, true);
+      return data;
+    }
 
    const getActiveUsersCount = async (userId) => {
       const data = await get(`${baseUrl}/user/getActiveUsersCount?userId=${userId}`, true);
@@ -2317,7 +2321,7 @@ const MainState = (props) => {
          deleteQuotation1 , 
          uploadSingleImage , 
          getAllProjectUserApi , 
-         savenoteatt , deleteQproapi
+         savenoteatt , deleteQproapi , changeStatusBreak
       }}>
          {props.children}
       </MainContext.Provider>

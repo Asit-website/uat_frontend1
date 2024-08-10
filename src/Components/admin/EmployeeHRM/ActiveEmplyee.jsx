@@ -200,7 +200,7 @@ const AdminEmplyee = ({
                       <img src={employ?.user?.profileImage ? employ?.user?.profileImage : data[0].profile} alt="" />
                       <h2>{employ?.user?.fullName}</h2>
                       <p>{employ?.user?.designation}</p>
-                      <button className="inactBtn"><span>Online</span></button>
+                      <button className="inactBtn"><span>{employ?.user?.isBreakIn ? "Break":"Online"}</span></button>
                     </div>
 
                     <div className="empEmail_phnL">

@@ -60,7 +60,7 @@ const EmployeeHRM = ({
     postLeave,
     postNotification , 
     getLeaveTypes, 
-    getTodayBirthday
+    getTodayBirthday , changeStatusBreak
 
   } = useMain();
 
@@ -212,6 +212,13 @@ const EmployeeHRM = ({
     }
   };
 
+  const breakchangeapi = async(isBreakIn)=>{
+    let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
+
+   const resp = await changeStatusBreak({isBreakIn , userId:hrms_user?._id});
+   console.log("rewp",resp);
+  }
+
   const styleThing = {
     display: star1 ? "block" : "none",
   };
@@ -265,6 +272,8 @@ const EmployeeHRM = ({
           })
         );
 
+        await breakchangeapi(true);
+
         localStorage.setItem("break-time", new Date().getTime());
         localStorage.setItem("clock-status", "resume");
 
@@ -283,6 +292,8 @@ const EmployeeHRM = ({
             hour12: true,
           })
         );
+
+        await breakchangeapi(false);
 
         let t1 = localStorage.getItem("break-time");
         if (t1) {
@@ -367,6 +378,9 @@ const EmployeeHRM = ({
 
     const breakIn = localStorage.getItem("breakInTime");
     const breakOut = localStorage.getItem("breakOutTime");
+
+    await breakchangeapi(false);
+
 
     // Convert breakIn and breakOut to Date objects
     // Convert breakIn and breakOut to Date objects
