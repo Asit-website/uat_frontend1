@@ -4696,16 +4696,138 @@ border-radius: 12px;
   /* top: 9%; */
 }
 
+.leavewrapping{
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  background-color: rgba(64, 64, 64, 0.3);
+  justify-content: center;
+}
+
+.crelevecont{
+  width: 455px;
+  height: fit-content;
+  padding: 20px;
+  border-radius: 18px ;
+  background: #FFFFFF;
+display: flex;
+flex-direction: column;
+box-shadow: 0px 4px 12px 0px #1A1A1A33;
+border: 1px solid #E3E3E3;
+z-index: 20;
+  }
 .user_class_input3 {
   width: 50%;
 }
 
+.crelavetopsec{
+
+display: flex;
+align-items: center;
+justify-content: space-between;
+
+}
+.crelavetopsec h3{
+
+font-family: Inter;
+color: #1B2533;
+font-size: 16px;
+font-weight: 600;
+line-height: 24px;
+letter-spacing: 0.0015em;
+text-align: left;
+
+}
+.levaecretaeform{
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px 0px;
+}
 .user_class_input {
   display: flex;
   flex-direction: column;
   gap: 5px;
 }
 
+.levaecreflex{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.levelreasons{
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.levelreasons label{
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.user_classleave{
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.user_classleave label{
+  font-family: Inter;
+  color: #1B2533;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: 0.0025em;
+  text-align: left;
+  
+}
+
+.levelreasons textarea{
+  border: 1px solid #D0D4DC;
+  background: #FFFFFF;
+border-radius: 10px;
+width: 100%;
+resize: none;
+height: 100px;
+padding: 10px;
+}
+
+.leavebuttons{
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.leaverqbtns{
+  width: 120px;
+height: 40px;
+border-radius: 10px;
+font-family: Inter;
+font-size: 16px;
+font-weight: 500;
+line-height: 24px;
+letter-spacing: 0.005em;
+color: #FFFFFF;
+background: #0B56E4;
+
+}
+.levacanclebtns{
+  width: 86px;
+  height: 40px;
+  border-radius:10px;
+  border: 1px solid #B8BBC0; 
+  font-family: Inter;
+font-size: 16px;
+font-weight: 500;
+line-height: 24px;
+letter-spacing: 0.005em;
+color: #666D76;
+ 
+
+}
 .user_class_input label {
   font-family: Inter;
   color: #1B2533;

@@ -474,6 +474,8 @@ const EmployeeHRM = ({
     }
   };
 
+  const [showleave , setShowLeave] = useState(false);
+
   const submitHandler = async (e) => {
     e.preventDefault();
 
@@ -1360,6 +1362,7 @@ toast.dismiss(toastId);
                           type="button"
                           onClick={() => {
                             setStar1(!star1);
+                            setShowLeave(true);
                           }}
                         >
                           <span> Create Leave</span>
@@ -1500,45 +1503,33 @@ toast.dismiss(toastId);
 
 {/* this is create leave  */}
 {
-  role === "EMPLOYEE" && 
+  showleave && 
 
       <>
-                
-                <div
-                  style={styleThing}
-                  id="authentication-modal"
-                  tabindex="-1"
-                  aria-hidden="true"
-                  class="user_class  hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center mt-10 md:inset-0 h-[calc(100%-1rem)] max-h-full "
-                >
-                  <div class="relative  p-4 w-full wrapping max-w-md max-h-full">
-                 
-                    <div class="relative createLeaveWrap bg-white rounded-lg shadow dark:bg-gray-700">
-                      {/* <!-- Modal header --> */}
 
-                      <div class="leaHEcUTwRAP">
+       <div className="leavewrapping">
 
-                        <h3 class="leaveHead ">
-                           Leave Request
-                        </h3>
+      
+   <div className="crelevecont">
 
-                        <img src={cutt}  onClick={() => setStar1(false)} alt="" />
+
+                      <div class="crelavetopsec">
+
+                        <h3 class="leaveHead ">   Leave Request   </h3>
+
+                        <img src={cutt}  onClick={() => setShowLeave(false)} alt="" />
 
                       </div>
 
                       <hr />
 
                       {/* <!-- Modal body --> */}
-                      <div class="">
-                        <form className=" mainModel" action="#">
+                        <form className="levaecretaeform" action="#">
 
                          
-                          <div class="user_class_input2">
+                          <div class="user_classleave">
 
-                            <label
-                              for="text"
-                              class="block mb-2 text-sm font-medium text-gray-900 employName"
-                            >
+                            <label>
                               Leave type
                             </label>
 
@@ -1556,7 +1547,7 @@ toast.dismiss(toastId);
                             </select>
                           </div>
 
-                          <div className="userClassWrap">
+                          <div className="levaecreflex">
 
                             <div class="user_class_input3 w-full mt-2 ">
                               <label
@@ -1596,7 +1587,7 @@ toast.dismiss(toastId);
 
                           </div>
 
-                          <div class="user_class_input4">
+                          <div class="levelreasons">
                             <label
                               for="message"
                               class="block mb-2 mt-2 text-sm font-medium text-gray-900 employName"
@@ -1615,9 +1606,8 @@ toast.dismiss(toastId);
                             ></textarea>
                           </div>
 
-                         
-
-                          <div className="sendReBtn">
+                        
+                          <div className="leavebuttons">
 
                           <button
                             onClick={(e) => {
@@ -1626,7 +1616,7 @@ toast.dismiss(toastId);
                               submitHandler(e);
                             }}
                             type="button"
-                            class="reqSend"
+                            className="leaverqbtns"
                           >
                            <span>  Request send</span>
                           </button>
@@ -1634,7 +1624,7 @@ toast.dismiss(toastId);
                           <button
                             onClick={() => setStar1(false)}
                             type="button"
-                            class="canceBtn"
+                            class="levacanclebtns"
                           >
                             <span>Cancel</span>
                           </button> 
@@ -1642,12 +1632,10 @@ toast.dismiss(toastId);
                           </div>
 
                         </form>
+
+
                       </div>
-
-                    </div>
-
-                  </div>
-                </div>
+                      </div>
       </>
 
      }
