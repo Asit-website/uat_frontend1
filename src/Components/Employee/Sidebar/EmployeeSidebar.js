@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import chakka from "../../images/chakka.png";
 import { NavLink, useNavigate } from "react-router-dom";
 import chart from "../../images/ChartPieSlice.png"
-import shopping from "../../images/ShoppingBagOpen-d.png"
 import userP from "../../images/userProfile.png"
 import employee from '../../images/employee.svg';
 import perty from '../../images/perty.svg';
@@ -128,7 +127,9 @@ const EmployeeSidebar = () => {
   let user = JSON.parse(localStorage.getItem("hrms_user"));
 
 
-  const { leadPermission, hrmsSetUpPermission, payrollPermission, leadSystemPermission, attendencePermission, assetsPermission, documentPermission, leaveManagePermission, performancePermission, employeeManagePermission, hrAdminSetupPermission, trainingSetupPermission } = user;
+  const { leadPermission, hrmsSetUpPermission, payrollPermission, leadSystemPermission, attendencePermission, assetsPermission, documentPermission, leaveManagePermission, performancePermission, employeeManagePermission, hrAdminSetupPermission, trainingSetupPermission, role } = user;
+
+  console.log("role ",role);
 
   const [openPayroll, setOpenPayroll] = useState(false);
 
