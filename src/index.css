@@ -4426,7 +4426,7 @@ abbr:where([title]) {
 .attend-ctiveWrapempp .markAttWrap55 {
   background-color: white;
   width: 100%;
-  height: 361px;
+  height: 441px;
   border-radius: 5px;
   display: flex;
   flex-direction: column;
@@ -6770,5 +6770,25 @@ border: 1px solid #D0D4DC;
 height: 44px;
 background: #0B56E4;
 
+
+}
+
+.todaywords{
+  width: 100%;
+}
+.todaywords input{
+  border: 1px solid #D0D4DC;
+  width: 90%;
+  height: 50px;
+  border-radius: 10px;
+  padding: 10px;
+  margin: 0px 10px;
+font-family: Inter;
+color: #B8BBC0;
+font-size: 16px;
+font-weight: 500;
+line-height: 24px;
+letter-spacing: 0.005em;
+text-align: left;
 
 }

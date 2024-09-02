@@ -27,6 +27,7 @@ const AttendenceCalendar = ({ setAlert, pop1, setPop1 }) => {
   const [clockIn, setClockIn] = useState(null);
   const [clockOut, setClockOut] = useState(null);
   const [totalBreak, setTotalBreak] = useState(null);
+  const [task , settask] = useState("");
 
   const getData = async (date) => {
     setLoadFlag(true);
@@ -58,6 +59,9 @@ const AttendenceCalendar = ({ setAlert, pop1, setPop1 }) => {
 
             setNote("");
           }
+
+          console.log("att",attendece);
+          settask(attendece?.data?.todayTask);
         setClockOut(attendece?.data?.clockOut);
         setTotalBreak(attendece?.data?.breakTime);
       } else {
@@ -147,13 +151,20 @@ const AttendenceCalendar = ({ setAlert, pop1, setPop1 }) => {
                             <h2>{totalBreak ? totalBreak : "none"}</h2>
                           </div>
                         </div>
-                        <div className="clock clock2">
+                        {/* <div className="clock clock2">
                           <h3>Note</h3>
                           <div className=" clock1 flex items-center noteinput">
                             <textarea type="text" value={Note} onChange={(e)=>setNote(e.target.value)} />
                           </div>
 
                           <button onClick={()=>savenoteapi()} className="attsavebtn"><span>Save</span></button>
+                        </div> */}
+
+                        <div className="clock clock2">
+                          <h3>Task</h3>
+
+                          <p className="prasj">{task}</p>
+                        
                         </div>
 
                       </div>

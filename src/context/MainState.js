@@ -241,9 +241,9 @@ const MainState = (props) => {
       return data;
    };
 
-   const postActivity = async ({ clockIn, clockOut, late, overtime, total, message = '', date1 }) => {
+   const postActivity = async ({ clockIn, clockOut, late, overtime, total, message = '', date1 , todayTask }) => {
 
-      const data = await post(`${baseUrl}/activity/postActivity`, { clockIn, clockOut, date1, late, overtime, total, message }, true);
+      const data = await post(`${baseUrl}/activity/postActivity`, { clockIn, clockOut, date1, late, overtime, total, message , todayTask }, true);
       return data;
    };
 
@@ -1106,10 +1106,10 @@ const MainState = (props) => {
    };
 
 
-   const postAttendence = async ({ clockInDetail, clockOutDetail, id, breakTime, clockInDate }) => {
+   const postAttendence = async ({ clockInDetail, clockOutDetail, id, breakTime, clockInDate  , todayTask}) => {
 
       const data = await post(`${baseUrl}/clock/createClock/${id}`, {
-         clockInDetail, clockOutDetail, date: clockInDate, breakTime
+         clockInDetail, clockOutDetail, date: clockInDate, breakTime , todayTask
       }, true);
 
       return data;

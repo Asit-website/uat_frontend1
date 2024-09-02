@@ -82,6 +82,8 @@ const EmployeeHRM = ({
 
   let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
 
+  const [todayTask , setTodayTask] =useState("");
+
    const {activeEmployeePermission , leaveRequestPermission  , employeeOnLeavePermission , totalEmployeePermission} = hrms_user;
 
   const { role } = hrms_user;
@@ -216,7 +218,6 @@ const EmployeeHRM = ({
     let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
 
    const resp = await changeStatusBreak({isBreakIn , userId:hrms_user?._id});
-   console.log("rewp",resp);
   }
 
   const styleThing = {
@@ -357,6 +358,10 @@ const EmployeeHRM = ({
   };
 
   const clockOut = async () => {
+
+     if(todayTask === ""){
+      return alert("Please Enter Your Task");
+     }
     setClockOutLoading(true);
 
     localStorage.setItem("clock-status", "out");
@@ -413,6 +418,7 @@ const EmployeeHRM = ({
       overtime: clock - 32400 > 0 ? clock - 32400 : 0,
       total: clock,
       message: "",
+      todayTask: todayTask
     });
 
     const userDataString = localStorage.getItem("hrms_user");
@@ -427,7 +433,10 @@ const EmployeeHRM = ({
       clockOutDetail: localStorage.getItem("clockOutTime"),
       id: userData?._id,
       clockInDate: clockInDate,
+      todayTask:todayTask
     });
+
+    setTodayTask("");
 
     localStorage.removeItem("clock-in");
     localStorage.removeItem("clock-status");
@@ -829,10 +838,21 @@ toast.dismiss(toastId);
                       {/* first  */}
                       <div className="markAttWrap">
                         {/* top */}
+
                         <div className="markAtt">
                           <img src={sites} alt="" />
                           <p>Mark Attandance</p>
                         </div>
+                        
+
+                        <hr />
+
+                      
+                        <div className="todaywords">
+
+<input type="text" placeholder="today task" value={todayTask} onChange={(e)=>setTodayTask(e.target.value)} />
+
+</div>
 
                         <hr />
 
@@ -1154,6 +1174,13 @@ toast.dismiss(toastId);
 
                             <hr />
 
+                            <div className="todaywords">
+
+<input type="text" placeholder="today task" value={todayTask} onChange={(e)=>setTodayTask(e.target.value)} />
+
+</div>
+
+ <hr />
                             <div className="myOficeWrap55">
                               <div className="oficTime55">
                                 <div className="ofSin55">
@@ -1640,10 +1667,11 @@ toast.dismiss(toastId);
 
      }
 
-              </div>
+           </div>
 
             </div>
           )}
+
         </div>
       </div>
     </>
