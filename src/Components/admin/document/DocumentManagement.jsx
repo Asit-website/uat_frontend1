@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import AdminNavbar from "../../admin/Navbar/AdminNavbar";
 import AdminSidebar from "../../admin/Sidebar/AdminSidebar";
 import "react-calendar/dist/Calendar.css";
@@ -14,13 +14,16 @@ import toast from "react-hot-toast";
 
 const item = [
   {
-    title: "Full-time Employees",
+    title: "Full-time Employee",
   },
   {
-    title: "Intern Employees",
+    title: "Intern Employee",
   },
   {
-    title: "Freelancer Employees",
+    title: "Freelancer Employee",
+  },
+  {
+    title: "Part-time Employee",
   },
 ];
 
@@ -51,8 +54,7 @@ const data = `<p class="MsoNormal" align="left" style="text-indent: -1px; color:
 <p class="MsoNormal" style="text-align: justify; text-indent: -1px; line-height: 104%; font-family: Inter, sans-serif; color: black; margin: 0in 1px 0px; font-size: 16px;"><span style="line-height: 104%;"><span>&nbsp;</span></span><br></p>
 
 <p class="MsoNormal" style="text-align: justify; text-indent: -1px; line-height: 104%; color: black; margin: 0in 1px 0px; font-size: 16px;"><span style="line-height: 104%; color: windowtext; font-family: Inter, sans-serif;">I
-        am pleased to extend this offer letter for the position of <strong><span style="background: yellow;"> [POST] </span></strong><span style="background: yellow;"></span> on <span style="background: yellow;">a
-            part-time</span> basis at <strong>KUSHEL DIGI
+        am pleased to extend this offer letter for the position of <strong><span style="background: yellow;"> [POST] on a [EMPLOYEETYPE] basis </span></strong><span style="background: yellow;"></span> <span style="background: yellow;"> at <strong>KUSHEL DIGI
             SOLUTIONS</strong>. We are excited about the prospect of you joining our team and
         contributing your expertise to our organization.</span></p>
 
@@ -61,17 +63,14 @@ const data = `<p class="MsoNormal" align="left" style="text-indent: -1px; color:
 <p><br></p><p class="MsoNormal" align="left" style="margin: 0in 0in 0px; color: black; text-align: left; text-indent: 0in; line-height: normal; font-size: 16px;"><span style="color: windowtext;"><strong>Position</strong></span><strong><span style="color: windowtext;"><span style="background: yellow;">:</span></span></strong><span style="color: windowtext; background: yellow;"> [POST] </span></p><p class="MsoNormal" align="left" style="margin: 0in 0in 0px; color: black; text-align: left; text-indent: 0in; line-height: normal; font-size: 16px;"><span style="color: windowtext; background: yellow; font-family: Inter, sans-serif;"><br></span></p>
 
 <p class="MsoNormal" align="left" style="margin: 0in 0in 0px; font-family: Inter, sans-serif; color: black; text-align: left; text-indent: 0in; line-height: normal; font-size: 16px;"><strong><span style="color: windowtext;">Joining
-            Date:<span>&nbsp; </span></span></strong><span style="color: windowtext; background: yellow;">10 June
-        2024</span></p><p class="MsoNormal" align="left" style="margin: 0in 0in 0px; color: black; text-align: left; text-indent: 0in; line-height: normal; font-size: 16px;"><span style="color: windowtext; background: yellow; font-family: Inter, sans-serif;"><br></span></p>
+            Date:<span>&nbsp; </span></span></strong><span style="color: windowtext; background: yellow;"> [JOININGDATE] </span></p><p class="MsoNormal" align="left" style="margin: 0in 0in 0px; color: black; text-align: left; text-indent: 0in; line-height: normal; font-size: 16px;"><span style="color: windowtext; background: yellow; font-family: Inter, sans-serif;"><br></span></p>
 
 <p class="MsoNormal" align="left" style="margin: 0in 0in 0px; font-family: Inter, sans-serif; color: black; text-align: left; text-indent: 0in; line-height: normal; font-size: 16px;"><strong><span style="color: windowtext;">Location:
         </span></strong><span style="color: windowtext;">Sector- 63, Noida</span></p><p class="MsoNormal" align="left" style="margin: 0in 0in 0px; color: black; text-align: left; text-indent: 0in; line-height: normal; font-size: 16px;"><span style="color: windowtext; font-family: Inter, sans-serif;"><br></span></p>
 
-<p class="MsoNormal" align="left" style="margin: 0in 0in 0px; font-family: Inter, sans-serif; color: black; text-align: left; text-indent: 0in; line-height: normal; font-size: 16px;"><strong><span style="color: windowtext;">Working
-            Hours<span style="background: yellow;">:</span></span></strong><span style="color: windowtext; background: yellow;"> <span>&nbsp;</span>5:00 Hours</span></p><p class="MsoNormal" align="left" style="margin: 0in 0in 0px; color: black; text-align: left; text-indent: 0in; line-height: normal; font-size: 16px;"><span style="color: windowtext; background: yellow; font-family: Inter, sans-serif;"><br></span></p>
+<p class="MsoNormal" align="left" style="margin: 0in 0in 0px; font-family: Inter, sans-serif; color: black; text-align: left; text-indent: 0in; line-height: normal; font-size: 16px;"><strong><span style="color: windowtext;">Working Hours<span style="background: yellow;">:</span></span></strong><span style="color: windowtext; background: yellow;"> <span>&nbsp;</span> [WORKHOUR] Hours</span></p><p class="MsoNormal" align="left" style="margin: 0in 0in 0px; color: black; text-align: left; text-indent: 0in; line-height: normal; font-size: 16px;"><span style="color: windowtext; background: yellow; font-family: Inter, sans-serif;"><br></span></p>
 
-<p class="MsoNormal" align="left" style="margin: 0in 0in 0px; font-family: Inter, sans-serif; color: black; text-align: left; text-indent: 0in; line-height: normal; font-size: 16px;"><strong><span style="color: windowtext;">Working
-            Days</span></strong><span style="color: windowtext;">: Monday to Saturday</span></p><p class="MsoNormal" align="left" style="margin: 0in 0in 0px; color: black; text-align: left; text-indent: 0in; line-height: normal; font-size: 16px;"><span style="color: windowtext; font-family: Inter, sans-serif;"><br></span></p>
+<p class="MsoNormal" align="left" style="margin: 0in 0in 0px; font-family: Inter, sans-serif; color: black; text-align: left; text-indent: 0in; line-height: normal; font-size: 16px;"><strong><span style="color: windowtext;">Working Days</span></strong><span style="color: windowtext;">: [WORKINGDAYS] </span></p><p class="MsoNormal" align="left" style="margin: 0in 0in 0px; color: black; text-align: left; text-indent: 0in; line-height: normal; font-size: 16px;"><span style="color: windowtext; font-family: Inter, sans-serif;"><br></span></p>
 
 <p class="MsoNormal" align="left" style="margin: 0in 0in 0px; color: black; text-align: left; text-indent: 0in; line-height: normal; font-size: 16px;"><strong><span style="color: windowtext; font-family: Inter, sans-serif;">Responsibilities:</span></strong></p>
 
@@ -94,10 +93,10 @@ const data = `<p class="MsoNormal" align="left" style="text-indent: -1px; color:
 </ol>
 
 <p class="MsoNormal" align="left" style="margin: 0in 0in 0px; font-family: Inter, sans-serif; color: black; text-align: left; text-indent: 0in; line-height: normal; font-size: 16px;"><strong><span style="color: windowtext;">Compensation</span></strong><span style="color: windowtext;">: Your compensation for this
-        position will be <strong><span style="background: yellow;">[COMPENSATAION]</span></strong><span style="background: yellow;">/- PM</span> + incentives based on the target's
+        position will be <strong><span style="background: yellow;"> [COMPENSATAION] </span></strong><span style="background: yellow;">/- PM</span> + incentives based on the target's
         achievements policies.</span></p><p class="MsoNormal" align="left" style="margin: 0in 0in 0px; color: black; text-align: left; text-indent: 0in; line-height: normal; font-size: 16px;"><span style="color: windowtext; font-family: Inter, sans-serif;"><br></span></p>
 
-<p class="MsoNormal" align="left" style="margin: 0in 0in 0px; font-family: Inter, sans-serif; color: black; text-align: left; text-indent: 0in; line-height: normal; font-size: 16px;"><strong><span style="color: windowtext;">Benefits</span></strong><span style="color: windowtext;">: As a part-time employee,
+<p class="MsoNormal" align="left" style="margin: 0in 0in 0px; font-family: Inter, sans-serif; color: black; text-align: left; text-indent: 0in; line-height: normal; font-size: 16px;"><strong><span style="color: windowtext;">Benefits</span></strong><span style="color: windowtext;">: As a [EMPLOYEETYPE] ,
         you will be eligible for the following benefits:</span></p>
 
 <ol start="1" type="1" style="margin-bottom: 0in;">
@@ -115,14 +114,14 @@ const data = `<p class="MsoNormal" align="left" style="text-indent: -1px; color:
         successful completion of any background checks or screenings required by <strong>KUSHEL DIGI SOLUTIONS</strong>.</span></p><p class="MsoNormal" align="left" style="margin: 0in 0in 0px; color: black; text-align: left; text-indent: 0in; line-height: normal; font-size: 16px;"><span style="color: windowtext; font-family: Inter, sans-serif;"><br></span></p>
 
 <p class="MsoNormal" align="left" style="margin: 0in 0in 0px; color: black; text-align: left; text-indent: 0in; line-height: normal; font-size: 16px;"><span style="color: windowtext; font-family: Inter, sans-serif;">Please indicate your
-        acceptance of this offer by signing and returning a copy of this letter by <strong><span style="background: yellow;">SATURADY</span></strong></span></p><p class="MsoNormal" align="left" style="margin: 0in 0in 0px; color: black; text-align: left; text-indent: 0in; line-height: normal; font-size: 16px;"><span style="color: windowtext;"><strong><span style="background: yellow; font-family: Inter, sans-serif;"> [08/06/2024]</span></strong></span></p>
+        acceptance of this offer by signing and returning a copy of this letter by <strong><span style="background: yellow;"> [RETURNINGDAY] </span></strong></span></p><p class="MsoNormal" align="left" style="margin: 0in 0in 0px; color: black; text-align: left; text-indent: 0in; line-height: normal; font-size: 16px;"><span style="color: windowtext;"><strong><span style="background: yellow; font-family: Inter, sans-serif;"> [RETURNINGDATE] </span></strong></span></p>
 
-<p class="MsoNormal" align="left" style="margin: 0in 0in 0px; color: black; text-align: left; text-indent: 0in; line-height: normal; font-size: 16px;"><span style="font-family: Inter, sans-serif;">Theabovementioned
-        offershallbe valid ifyoujoin uson orbefore<strong><span style="background: yellow;">Monday,10<sup>th</sup> ofJuneat10am</span></strong></span></p>
+<p class="MsoNormal" align="left" style="margin: 0in 0in 0px; color: black; text-align: left; text-indent: 0in; line-height: normal; font-size: 16px;"><span style="font-family: Inter, sans-serif;">The above mentioned
+        offer shall be valid if you join us on or before <strong><span style="background: yellow;"> [VALIDJOIN] </span></strong></span></p>
 
 <p class="MsoNormal" style="text-align: justify; font-family: Inter, sans-serif; color: black; margin: 10px 14px 0in 0in; text-indent: 0in; line-height: 115%; font-size: 16px;"><br></p>
 
-<p class="MsoNormal" align="left" style="margin: 0in 0in 0px; font-family: Inter, sans-serif; color: black; text-align: left; text-indent: 0in; line-height: normal; font-size: 16px;"><span style="color: windowtext; font-family: Inter, sans-serif;">&nbsp;Your annual gross emoluments will be Rs. [COMPENSATAION]/- (Thousand only) includes Basic, HRA, Conveyance Allowances, Medical , Communication and Personal Allowances .The detail soft he salary are in the attached Salary breakup Annexure–A.</span></p><p class="MsoNormal" align="left" style="margin: 0in 0in 0px; font-family: Inter, sans-serif; color: black; text-align: left; text-indent: 0in; line-height: normal; font-size: 16px;"><span style="color: windowtext; font-family: Inter, sans-serif;"><br></span></p>
+<p class="MsoNormal" align="left" style="margin: 0in 0in 0px; font-family: Inter, sans-serif; color: black; text-align: left; text-indent: 0in; line-height: normal; font-size: 16px;"><span style="color: windowtext; font-family: Inter, sans-serif;">&nbsp;Your annual gross emoluments will be Rs. [COMPENSATAION]/- (Thousand only) includes Basic, HRA, Conveyance Allowances, Medical , Communication and Personal Allowances .The detail soft he salary are in the attached Salary breakup Annexure-A.</span></p><p class="MsoNormal" align="left" style="margin: 0in 0in 0px; font-family: Inter, sans-serif; color: black; text-align: left; text-indent: 0in; line-height: normal; font-size: 16px;"><span style="color: windowtext; font-family: Inter, sans-serif;"><br></span></p>
 
 <p class="MsoNormal" align="left" style="margin: 0in 0in 0px; color: black; text-align: left; text-indent: 0in; line-height: normal; font-size: 16px;"><span style="color: windowtext; font-family: Inter, sans-serif;">We are excited about the
         opportunity to work with you and believe that your skills and experience will make
@@ -252,7 +251,7 @@ the time being in force.</span></p>
   <p class="TableParagraph" style="font-family: Arial, sans-serif; margin: 3px 0in 0px 10px; font-size: 15px;"><strong><span style="font-family: Inter, sans-serif; font-size: 13px;">PerMonthFixed</span></strong></p>
   </td>
   <td width="362" valign="top" style="width: 361px; padding: 0in; height: 21px;">
-  <p class="TableParagraph" align="right" style="font-family: Arial, sans-serif; margin: 3px 2px 0px 0in; text-align: right; font-size: 15px;"><strong><span style="font-family: Inter, sans-serif; background: yellow; font-size: 13px;">,000.00</span></strong></p>
+  <p class="TableParagraph" align="right" style="font-family: Arial, sans-serif; margin: 3px 2px 0px 0in; text-align: right; font-size: 15px;"><strong><span style="font-family: Inter, sans-serif; background: yellow; font-size: 13px;"> [COMPENSATAION].00 </span></strong></p>
   </td>
  </tr>
  <tr style="height: 21px;">
@@ -403,7 +402,7 @@ without any notice or compensation.</span></p>
 
 <p class="MsoNormal" style="margin: 0in 0in 0px 31px; text-align: justify; text-indent: -1px; line-height: 104%; font-family: Inter, sans-serif; color: black; font-size: 16px;"><span>&nbsp;</span><br></p>
 
-<p class="MsoNormal" style="text-align: justify; color: black; margin: 0in 2px 0in 0in; text-indent: 0in; line-height: 107%; font-size: 16px;"><span style="line-height: 107%; font-family: Inter, sans-serif;"><span>&nbsp; </span>The date of birth declared by you is <span style="background: yellow;">20/12/1992</span>. You will be
+<p class="MsoNormal" style="text-align: justify; color: black; margin: 0in 2px 0in 0in; text-indent: 0in; line-height: 107%; font-size: 16px;"><span style="line-height: 107%; font-family: Inter, sans-serif;"><span>&nbsp; </span>The date of birth declared by you is <span style="background: yellow;"> [EMPLOYEEDATEOFBIRTH] </span>. You will be
 bound by such a declared </span></p>
 
 <p class="MsoNormal" style="text-align: justify; line-height: 104%; color: black; margin: 0in 1px 0px 0in; text-indent: 0in; font-size: 16px;"><span style="line-height: 104%; font-family: Inter, sans-serif;"><span>&nbsp;
@@ -928,7 +927,8 @@ const data2 = `<p class="MsoNormal" style="margin: 0in 0in 11px; line-height: 10
 <p class="MsoNormal" style="margin: 0in 0in 11px; line-height: 107%; font-family: Calibri, sans-serif; font-size: 15px;"><span style="line-height: 107%; font-family: Inter, sans-serif; font-size: 16px;">Noida, Uttar
         Pradesh</span></p>`;
 
-const data3 = `<p style="margin-right: 0in; margin-left: 0in; font-family: &quot;Times New Roman&quot;, serif; font-size: 16px;"><span>&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;</span><span style="font-family: Inter, sans-serif; background: yellow; font-size: 17px;">19<sup>TH</sup> JULY 2024</span></p><p style="margin-right: 0in; margin-left: 0in; font-family: &quot;Times New Roman&quot;, serif; font-size: 16px;"><span style="font-family: Inter, sans-serif; background: yellow; font-size: 17px;">Dear [DEAR],</span></p><p style="margin-right: 0in; margin-left: 0in; font-family: &quot;Times New Roman&quot;, serif; font-size: 16px;"><span style="font-family: Inter, sans-serif; background: yellow; font-size: 17px;"><br></span></p><p style="margin-right: 0in; margin-left: 0in; font-family: &quot;Times New Roman&quot;, serif; font-size: 16px;"><span style="font-family: Inter, sans-serif; background: yellow; font-size: 17px;"><br></span></p><p style="margin-right: 0in; margin-left: 0in; font-family: &quot;Times New Roman&quot;, serif; font-size: 16px;"><span style="font-family: Inter, sans-serif; background: yellow; font-size: 17px;">I am writing to confirm that [DEAR] has
+const data3 = `
+<p style="margin-right: 0in; margin-left: 0in; font-family: &quot;Times New Roman&quot;, serif; font-size: 16px;"><span>&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;</span><span style="font-family: Inter, sans-serif; background: yellow; font-size: 17px;">19<sup>TH</sup> JULY 2024</span></p><p style="margin-right: 0in; margin-left: 0in; font-family: &quot;Times New Roman&quot;, serif; font-size: 16px;"><span style="font-family: Inter, sans-serif; background: yellow; font-size: 17px;">Dear [DEAR],</span></p><p style="margin-right: 0in; margin-left: 0in; font-family: &quot;Times New Roman&quot;, serif; font-size: 16px;"><span style="font-family: Inter, sans-serif; background: yellow; font-size: 17px;"><br></span></p><p style="margin-right: 0in; margin-left: 0in; font-family: &quot;Times New Roman&quot;, serif; font-size: 16px;"><span style="font-family: Inter, sans-serif; background: yellow; font-size: 17px;"><br></span></p><p style="margin-right: 0in; margin-left: 0in; font-family: &quot;Times New Roman&quot;, serif; font-size: 16px;"><span style="font-family: Inter, sans-serif; background: yellow; font-size: 17px;">I am writing to confirm that [DEAR] has
         served as our [POST] at Kushel Digi Solutions from 16<sup>th</sup> September
         2023 to 5<sup>th</sup> JUNE 2024. During her tenure, she exhibited exceptional
         professionalism, dedication, and competence in all HR-related responsibilities.</span></p><p style="margin-right: 0in; margin-left: 0in; font-family: &quot;Times New Roman&quot;, serif; font-size: 16px;"><span style="font-family: Inter, sans-serif; background: yellow; font-size: 17px;"><br></span></p>
@@ -992,16 +992,6 @@ const DocumentManagement = ({ setAlert, pop, setPop }) => {
   const [content2, setContent2] = useState(data2);
   const [content3, setContent3] = useState(data3);
 
-  const config = {
-    cache: true,
-    controls: {
-      font: {
-        list: {
-          "Inter, sans-serif": "Inter",
-        },
-      },
-    },
-  };
 
   const saveDocumentApi = async () => {
     if (SelectEmpId === "" || SelectEmpId === "Select") {
@@ -1057,7 +1047,16 @@ const DocumentManagement = ({ setAlert, pop, setPop }) => {
     postOf:"[POSTOF]" , 
     dear:"[DEAR]" , 
     post:"[POST]" ,
-    compensation:"[COMPENSATAION]"
+    position:"[POSITION]",
+    joiningDate:"[JOININGDATE]" , 
+    employeeType: "[EMPLOYEETYPE]" ,
+    workingHour:"[WORKHOUR]" , 
+    workingDays:"[WORKINGDAYS]" , 
+     compensation:"[COMPENSATAION]" , 
+     returningDay:"[RETURNINGDAY]" ,
+     returningDate: "[RETURNINGDATE]" , 
+     validJoin:"[VALIDJOIN]" , 
+     empDateOfBirth:"[EMPLOYEEDATEOFBIRTH]"
   })
 
 
@@ -1067,8 +1066,17 @@ const DocumentManagement = ({ setAlert, pop, setPop }) => {
     postOf:"" , 
     dear:"" , 
     post:"" , 
-    compensation:""
+    compensation:"" , 
+    joiningDate:"" , 
+    employeeType: "Full-time Employee" , 
+    workingHour:"" ,
+    workingDays:"" , 
+    returningDate:"" , 
+    returningDay:"" , 
+    validJoin:"" , 
+    empDateOfBirth:""
   })
+
 
   const handleNameChange = (e) => {
     const {name , value} = e.target;
@@ -1078,15 +1086,16 @@ const DocumentManagement = ({ setAlert, pop, setPop }) => {
     }))
   };
 
-
   const handleInsert = (which) => {
+
+
     const valueToInsert = detail[which];
     const valueReplace = replaceData[which];
 
-    const escapedValueReplace = valueReplace.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const escapedValueReplace = valueReplace?.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
     const regex = new RegExp(escapedValueReplace, 'g');
-    const updatedContent = content2.replace(regex, valueToInsert);
+    const updatedContent = content2?.replace(regex, valueToInsert);
     setContent2(updatedContent);
 
     setReplaceData((prevReplaceData) => ({
@@ -1094,29 +1103,33 @@ const DocumentManagement = ({ setAlert, pop, setPop }) => {
       [which]: valueToInsert,
     }));
   };
+
   const handleInsert1 = (which) => {
+
     const valueToInsert = detail[which];
     const valueReplace = replaceData[which];
 
-    const escapedValueReplace = valueReplace.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const escapedValueReplace = valueReplace?.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
     const regex = new RegExp(escapedValueReplace, 'g');
-    const updatedContent = content.replace(regex, valueToInsert);
+    const updatedContent = content?.replace(regex, valueToInsert);
     setContent(updatedContent);
 
     setReplaceData((prevReplaceData) => ({
       ...prevReplaceData,
       [which]: valueToInsert,
     }));
+
   };
+
   const handleInsert2 = (which) => {
     const valueToInsert = detail[which];
     const valueReplace = replaceData[which];
 
-    const escapedValueReplace = valueReplace.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const escapedValueReplace = valueReplace?.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
     const regex = new RegExp(escapedValueReplace, 'g');
-    const updatedContent = content3.replace(regex, valueToInsert);
+    const updatedContent = content3?.replace(regex, valueToInsert);
     setContent3(updatedContent);
 
     setReplaceData((prevReplaceData) => ({
@@ -1129,6 +1142,10 @@ const DocumentManagement = ({ setAlert, pop, setPop }) => {
   useEffect(() => {
     allEmplget();
   }, []);
+
+  useEffect(()=>{
+    handleInsert1("employeeType");
+  },[currEmp]);
 
   return (
     <>
@@ -1155,7 +1172,13 @@ const DocumentManagement = ({ setAlert, pop, setPop }) => {
                 <div className="leadInFir2">
                   {item.map((e, index) => (
                     <div
-                      onClick={() => setCurrEmp(index)}
+                      onClick={() =>{
+                        setDetail((prev)=>({
+                          ...prev , 
+                          employeeType: e.title
+                        }))
+                        setCurrEmp(index);
+                      }}
                       className="sinInfir"
                       key={index}
                     >
@@ -1232,7 +1255,7 @@ const DocumentManagement = ({ setAlert, pop, setPop }) => {
                         name="dear"
                         value={detail.dear}
                         onChange={handleNameChange}
-                        placeholder="Enter Dear"
+                        placeholder="Enter UserName"
                       />
                       <button onClick={()=>handleInsert1('dear')}>Insert</button>
                      </label>
@@ -1258,6 +1281,105 @@ const DocumentManagement = ({ setAlert, pop, setPop }) => {
                       />
                       <button onClick={() => handleInsert1('compensation')}>Insert</button>
                      </label>
+                     
+                     <label >
+                      
+                      <div className="joindatewrap">
+
+                     <input
+                        type="date"
+                        name="joiningDate"
+                        value={detail.position}
+                        onChange={handleNameChange}
+                        placeholder="Enter joining Date"
+                        />
+
+                        <p>Joining Date</p>
+                        </div>
+
+                      <button onClick={() => handleInsert1('joiningDate')}>Insert</button>
+                     </label>
+
+                     <label >
+                     <input
+                        type="text"
+                        name="workingHour"
+                        value={detail.workingHour}
+                        onChange={handleNameChange}
+                        placeholder="Enter working Hour 5:00"
+                      />
+                      <button onClick={() => handleInsert1('workingHour')}>Insert</button>
+                     </label>
+
+                     <label >
+                     <input
+                        type="text"
+                        name="workingDays"
+                        value={detail.workingDays}
+                        onChange={handleNameChange}
+                        placeholder="Enter workingDays Monday to saturday"
+                      />
+                      <button onClick={() => handleInsert1('workingDays')}>Insert</button>
+                     </label>
+                     
+                     <label >
+                     <input
+                        type="text"
+                        name="returningDay"
+                        value={detail.returningDay}
+                        onChange={handleNameChange}
+                        placeholder="Enter Returning Day"
+                      />
+                      <button onClick={() => handleInsert1('returningDay')}>Insert</button>
+                     </label>
+                     
+                     <label >
+                      
+                      <div className="joindatewrap">
+
+                     <input
+                        type="date"
+                        name="returningDate"
+                        value={detail.returningDate}
+                        onChange={handleNameChange}
+                        placeholder="Enter Returning Date"
+                        />
+
+                        <p>Return Date</p>
+                        </div>
+
+                      <button onClick={() => handleInsert1('returningDate')}>Insert</button>
+                     </label>
+
+                     <label >
+                     <input
+                        type="text"
+                        name="validJoin"
+                        value={detail.validJoin}
+                        onChange={handleNameChange}
+                        placeholder="Monday , 10th of June at 10am"
+                      />
+                      <button onClick={() => handleInsert1('validJoin')}>Insert</button>
+                     </label>
+
+                     <label >
+                      
+                      <div className="joindatewrap">
+
+                     <input
+                        type="date"
+                        name="empDateOfBirth"
+                        value={detail.empDateOfBirth}
+                        onChange={handleNameChange}
+                        placeholder="Enter Employee Date of Birth"
+                        />
+
+                        <p>DOB</p>
+                        </div>
+
+                      <button onClick={() => handleInsert1('empDateOfBirth')}>Insert</button>
+                     </label>
+
                      
                   
                     </div>
@@ -1510,6 +1632,7 @@ const DocumentManagement = ({ setAlert, pop, setPop }) => {
                     </button>
                   </>
                 )}
+
               </div>
             </div>
           </div>

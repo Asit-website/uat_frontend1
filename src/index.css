@@ -4697,7 +4697,7 @@ border-radius: 12px;
 }
 
 .leavewrapping{
-  position: absolute;
+  position: fixed;
   left: 0;
   right: 0;
   top: 0;
@@ -4706,10 +4706,23 @@ border-radius: 12px;
   align-items: center;
   background-color: rgba(64, 64, 64, 0.3);
   justify-content: center;
+  z-index: 1000;
 }
 
 .crelevecont{
   width: 455px;
+  height: fit-content;
+  padding: 20px;
+  border-radius: 18px ;
+  background: #FFFFFF;
+display: flex;
+flex-direction: column;
+box-shadow: 0px 4px 12px 0px #1A1A1A33;
+border: 1px solid #E3E3E3;
+z-index: 20;
+  }
+.crelevecont2{
+  width: 555px;
   height: fit-content;
   padding: 20px;
   border-radius: 18px ;
@@ -4768,6 +4781,32 @@ text-align: left;
   display: flex;
   flex-direction: column;
   gap: 5px;
+}
+
+.showann{
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.showann label{
+  font-family: Inter;
+  color: #1B2533;
+  font-weight: 500;
+  line-height: 20px;
+  letter-spacing: 0.0025em;
+  text-align: left;
+}
+.showann span{
+  font-family: Inter;
+  color:#0B56E4 !important;
+  font-weight: 500;
+  line-height: 24px;
+  letter-spacing: 0.0025em;
+  text-align: left;
+  font-size: 14px;
+
 }
 .user_classleave{
   display: flex;

@@ -21,6 +21,20 @@
 }
 
 
+.adflex{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+}
+.adflex h3{
+    font-family: Inter;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 28px;
+    text-align: left;
+}
+
 .dFirLef p {
     font-family: Inter;
     font-size: 12px;
@@ -638,8 +652,11 @@ text-align: left;
 .hrLefThi {
     background-color: #FFFFFF;
     border-radius: 10px;
-    max-width: 672px;
     width: 100%;
+}
+
+.singleannoucs{
+    cursor: pointer;
 }
 
 

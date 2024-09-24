@@ -27,17 +27,15 @@ import peo1 from "../../images/peo1.png";
 import meeting from "../../images/meeting.svg";
 import goals from "../../images/goals.png";
 import lighting from "../../images/ligting.svg";
-import leavimg from "../../images/leaveImg.png"
-import cas from "../../images/cssual.png"
-import sick2 from "../../images/sick2.png"
-import annNav from "../../images/annNav.png"
-import cutt from "../../images/cutt.png"
+import leavimg from "../../images/leaveImg.png";
+import cas from "../../images/cssual.png";
+import sick2 from "../../images/sick2.png";
+import annNav from "../../images/annNav.png";
+import cutt from "../../images/cutt.png";
 import toast from "react-hot-toast";
-
 
 var tc3;
 var tc4;
-
 
 const EmployeeHRM = ({
   pop1,
@@ -58,10 +56,10 @@ const EmployeeHRM = ({
     postAttendence,
     fetchTodayLeave,
     postLeave,
-    postNotification , 
-    getLeaveTypes, 
-    getTodayBirthday , changeStatusBreak
-
+    postNotification,
+    getLeaveTypes,
+    getTodayBirthday,
+    changeStatusBreak,
   } = useMain();
 
   const user2 = JSON.parse(localStorage.getItem("hrms_user"));
@@ -82,9 +80,14 @@ const EmployeeHRM = ({
 
   let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
 
-  const [todayTask , setTodayTask] =useState("");
+  const [todayTask, setTodayTask] = useState("");
 
-   const {activeEmployeePermission , leaveRequestPermission  , employeeOnLeavePermission , totalEmployeePermission} = hrms_user;
+  const {
+    activeEmployeePermission,
+    leaveRequestPermission,
+    employeeOnLeavePermission,
+    totalEmployeePermission,
+  } = hrms_user;
 
   const { role } = hrms_user;
 
@@ -95,7 +98,6 @@ const EmployeeHRM = ({
     end: "",
     reason: "",
   });
-
 
   const changeHandler = (e) => {
     const { name, value } = e.target;
@@ -115,6 +117,8 @@ const EmployeeHRM = ({
   const [holiday, setHoliday] = useState([]);
 
   const [star1, setStar1] = useState(false);
+
+  const [openAnn, setOpenAnn] = useState(false);
 
   const [task, setTask] = useState([
     {
@@ -214,11 +218,11 @@ const EmployeeHRM = ({
     }
   };
 
-  const breakchangeapi = async(isBreakIn)=>{
+  const breakchangeapi = async (isBreakIn) => {
     let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
 
-   const resp = await changeStatusBreak({isBreakIn , userId:hrms_user?._id});
-  }
+    const resp = await changeStatusBreak({ isBreakIn, userId: hrms_user?._id });
+  };
 
   const styleThing = {
     display: star1 ? "block" : "none",
@@ -232,7 +236,9 @@ const EmployeeHRM = ({
     localStorage.setItem("date1", new Date().toLocaleDateString("en-GB"));
 
     if (!t) {
-      localStorage.setItem( "clockInTime", new Date().toLocaleTimeString("en-US", {
+      localStorage.setItem(
+        "clockInTime",
+        new Date().toLocaleTimeString("en-US", {
           hour: "numeric",
           minute: "2-digit",
           second: "2-digit",
@@ -358,10 +364,9 @@ const EmployeeHRM = ({
   };
 
   const clockOut = async () => {
-
-     if(todayTask === ""){
+    if (todayTask === "") {
       return alert("Please Enter Your Task");
-     }
+    }
     setClockOutLoading(true);
 
     localStorage.setItem("clock-status", "out");
@@ -385,7 +390,6 @@ const EmployeeHRM = ({
     const breakOut = localStorage.getItem("breakOutTime");
 
     await breakchangeapi(false);
-
 
     // Convert breakIn and breakOut to Date objects
     // Convert breakIn and breakOut to Date objects
@@ -418,7 +422,7 @@ const EmployeeHRM = ({
       overtime: clock - 32400 > 0 ? clock - 32400 : 0,
       total: clock,
       message: "",
-      todayTask: todayTask
+      todayTask: todayTask,
     });
 
     const userDataString = localStorage.getItem("hrms_user");
@@ -433,7 +437,7 @@ const EmployeeHRM = ({
       clockOutDetail: localStorage.getItem("clockOutTime"),
       id: userData?._id,
       clockInDate: clockInDate,
-      todayTask:todayTask
+      todayTask: todayTask,
     });
 
     setTodayTask("");
@@ -483,12 +487,12 @@ const EmployeeHRM = ({
     }
   };
 
-  const [showleave , setShowLeave] = useState(false);
+  const [showleave, setShowLeave] = useState(false);
 
   const submitHandler = async (e) => {
     e.preventDefault();
 
-   const toastId =   toast.loading("Loading...");
+    const toastId = toast.loading("Loading...");
 
     const startDate = new Date(formdata.start);
     const endDate = new Date(formdata.end);
@@ -503,13 +507,16 @@ const EmployeeHRM = ({
       reason: formdata.reason,
     });
 
-    const notify = await postNotification(daysGap, formdata.employeeName , user?.fullName);
+    const notify = await postNotification(
+      daysGap,
+      formdata.employeeName,
+      user?.fullName
+    );
 
     if (ans.success) {
       // alert("Successfuly applied");
       toast.success("Successfully applied");
       setStar1(false);
-
     }
     setFormdata({
       employeeName: "",
@@ -519,10 +526,9 @@ const EmployeeHRM = ({
       reason: "",
     });
 
-toast.dismiss(toastId);
-
+    toast.dismiss(toastId);
   };
-  
+
   const fetchLeaveType = async () => {
     const resp = await getLeaveTypes();
     if (resp.success) {
@@ -530,33 +536,31 @@ toast.dismiss(toastId);
     }
   };
 
-  const [userbirth , setUserBirth] = useState([]);
-  const [totalLeavetaken , setLeaveTaken] = useState("00");
-  
-  const getTodayBirthdayapi = async()=>{
+  const [userbirth, setUserBirth] = useState([]);
+  const [totalLeavetaken, setLeaveTaken] = useState("00");
+
+  const getTodayBirthdayapi = async () => {
     const ans = await getTodayBirthday();
-     setUserBirth(ans);
-  }
+    setUserBirth(ans);
+  };
 
   useEffect(() => {
-      getLeavesEmp();
-      fetchLeaveType();
-      getTodayBirthdayapi();
-      setLeaveTaken(hrms_user?.totalLeaves);
-    }, []);
-
+    getLeavesEmp();
+    fetchLeaveType();
+    getTodayBirthdayapi();
+    setLeaveTaken(hrms_user?.totalLeaves);
+  }, []);
 
   return (
     <>
       <div className="employee-dash relative h-full">
         {isHr ? (
           <HrSidebar />
-        ) :
-         role === "EMPLOYEE" ?
-          <EmployeeSidebar pop={pop} setPop={setPop} /> 
-          :
-         <AdminSidebar pop={pop} setPop={setPop} />
-        }
+        ) : role === "EMPLOYEE" ? (
+          <EmployeeSidebar pop={pop} setPop={setPop} />
+        ) : (
+          <AdminSidebar pop={pop} setPop={setPop} />
+        )}
 
         <div className="tm">
           {isHr ? (
@@ -576,7 +580,6 @@ toast.dismiss(toastId);
             "Loading .."
           ) : (
             <div className="em emm">
-              
               <div className="flex-col">
                 {/* this is same fo Employeee and Admin  */}
 
@@ -602,87 +605,77 @@ toast.dismiss(toastId);
                 </div>
 
                 {/* second boxes => This is for Admin and Permission */}
-                {(role === "ADMIN" || (activeEmployeePermission || leaveRequestPermission || employeeOnLeavePermission || totalEmployeePermission))  && (
+                {(role === "ADMIN" ||
+                  activeEmployeePermission ||
+                  leaveRequestPermission ||
+                  employeeOnLeavePermission ||
+                  totalEmployeePermission) && (
                   <div className="hrLefFir">
-                     
-                     {
-                      (activeEmployeePermission || role === "ADMIN") && 
-                     
-                    <NavLink
-                      className="skm"
-                      to={`/adminDash/HRM/activeEmployee`}
-                    >
-                      <div className="sinActDat colorChange1 ">
-                        <img className="firImg" src={ac1} alt="" />
+                    {(activeEmployeePermission || role === "ADMIN") && (
+                      <NavLink
+                        className="skm"
+                        to={`/adminDash/HRM/activeEmployee`}
+                      >
+                        <div className="sinActDat colorChange1 ">
+                          <img className="firImg" src={ac1} alt="" />
 
-                        <div className="titWrap">
-                          <h3>Active Employee</h3>
-                          <p className="hrmlRNu">{counts?.activeEmployees}</p>
+                          <div className="titWrap">
+                            <h3>Active Employee</h3>
+                            <p className="hrmlRNu">{counts?.activeEmployees}</p>
+                          </div>
                         </div>
-                      </div>
-                    </NavLink>
+                      </NavLink>
+                    )}
 
-                     }
+                    {(leaveRequestPermission || role === "ADMIN") && (
+                      <NavLink
+                        className="skm"
+                        to={`/adminDash/HRM/leaveRequest`}
+                      >
+                        <div className="sinActDat colorChange2">
+                          <img className="firImg" src={ac2} alt="" />
 
-                     {
-                      (leaveRequestPermission || role === "ADMIN")  && 
-                     
-
-                    <NavLink className="skm" to={`/adminDash/HRM/leaveRequest`}>
-                      <div className="sinActDat colorChange2">
-                        <img className="firImg" src={ac2} alt="" />
-
-                        <div className="titWrap">
-                          <h3>Leave Request</h3>
-                          <p className="hrmlRNu">{totalLeave}</p>
+                          <div className="titWrap">
+                            <h3>Leave Request</h3>
+                            <p className="hrmlRNu">{totalLeave}</p>
+                          </div>
                         </div>
-                      </div>
-                    </NavLink>
+                      </NavLink>
+                    )}
 
-                     }
+                    {(employeeOnLeavePermission || role === "ADMIN") && (
+                      <NavLink
+                        className="skm"
+                        to={`/adminDash/HRM/LeaveEmployee`}
+                      >
+                        <div className="sinActDat colorChange3">
+                          <img className="firImg" src={ac3} alt="" />
 
-                     {
-                      (employeeOnLeavePermission ||  role === "ADMIN") &&
-                     
+                          <div className="titWrap">
+                            <h3>Employee on Leave</h3>
 
-                    <NavLink
-                      className="skm"
-                      to={`/adminDash/HRM/LeaveEmployee`}
-                    >
-                      <div className="sinActDat colorChange3">
-                        <img className="firImg" src={ac3} alt="" />
-
-                        <div className="titWrap">
-                          <h3>Employee on Leave</h3>
-
-                          <p className="hrmlRNu">{leaveCount}</p>
+                            <p className="hrmlRNu">{leaveCount}</p>
+                          </div>
                         </div>
-                      </div>
-                    </NavLink>
+                      </NavLink>
+                    )}
 
-                     }
+                    {(totalEmployeePermission || role === "ADMIN") && (
+                      <NavLink
+                        className="skm"
+                        to={`/adminDash/HRM/totalEmployee`}
+                      >
+                        <div className="sinActDat colorChange4">
+                          <img className="firImg" src={ac4} alt="" />
 
-                     {
+                          <div className="titWrap">
+                            <h3>Total Employee</h3>
 
-                     ( totalEmployeePermission || role === "ADMIN") && 
-
-                    <NavLink
-                      className="skm"
-                      to={`/adminDash/HRM/totalEmployee`}
-                    >
-                      <div className="sinActDat colorChange4">
-                        <img className="firImg" src={ac4} alt="" />
-
-                        <div className="titWrap">
-                          <h3>Total Employee</h3>
-
-                          <p className="hrmlRNu">{counts?.totalEmployees}</p>
+                            <p className="hrmlRNu">{counts?.totalEmployees}</p>
+                          </div>
                         </div>
-                      </div>
-                    </NavLink>
-
-                     }
-
+                      </NavLink>
+                    )}
                   </div>
                 )}
 
@@ -843,16 +836,17 @@ toast.dismiss(toastId);
                           <img src={sites} alt="" />
                           <p>Mark Attandance</p>
                         </div>
-                        
 
                         <hr />
 
-                      
                         <div className="todaywords">
-
-<input type="text" placeholder="today task" value={todayTask} onChange={(e)=>setTodayTask(e.target.value)} />
-
-</div>
+                          <input
+                            type="text"
+                            placeholder="today task"
+                            value={todayTask}
+                            onChange={(e) => setTodayTask(e.target.value)}
+                          />
+                        </div>
 
                         <hr />
 
@@ -1043,7 +1037,6 @@ toast.dismiss(toastId);
 
                             <div className="time_emp_desh">
                               <h6 className="timeEmptext">168 hrs</h6>
-                              
                             </div>
                           </div>
                         </a>
@@ -1118,7 +1111,6 @@ toast.dismiss(toastId);
                     <div className=" mt-4 attend-ctiveWrapempp">
                       {/* left side  */}
                       <div className="attenLeft">
-
                         <div className="celWrap">
                           <nav>
                             <img src={cel1} alt="" />
@@ -1129,7 +1121,10 @@ toast.dismiss(toastId);
                             {userbirth?.map((data, index) => (
                               <div className="singcel" key={index}>
                                 <div className="capWrap">
-                                  <img src={data.profileImage} className="phrofileimg" />
+                                  <img
+                                    src={data.profileImage}
+                                    className="phrofileimg"
+                                  />
                                   <img src={cap} alt="" className="cap" />
                                 </div>
                                 <div>
@@ -1154,8 +1149,7 @@ toast.dismiss(toastId);
                             <hr />
                             <div className="cals-dent relative">
                               <NavLink to="/employeeDash/atten">
-                                <Calendar  onChange={onChange} value={value} 
-                                />
+                                <Calendar onChange={onChange} value={value} />
                               </NavLink>
                             </div>
                           </div>
@@ -1175,12 +1169,15 @@ toast.dismiss(toastId);
                             <hr />
 
                             <div className="todaywords">
+                              <input
+                                type="text"
+                                placeholder="today task"
+                                value={todayTask}
+                                onChange={(e) => setTodayTask(e.target.value)}
+                              />
+                            </div>
 
-<input type="text" placeholder="today task" value={todayTask} onChange={(e)=>setTodayTask(e.target.value)} />
-
-</div>
-
- <hr />
+                            <hr />
                             <div className="myOficeWrap55">
                               <div className="oficTime55">
                                 <div className="ofSin55">
@@ -1372,12 +1369,11 @@ toast.dismiss(toastId);
                           </a>
                         </div>
                       </div>
-
                     </div>
 
                     <div className="hrLefThi22">
                       <div className="leaves_request_emp">
-                        <div className="ladHead2">
+                        <div className="adflex">
                           <img src={leavimg} alt="" />
                           <h3>Leaves</h3>
                         </div>
@@ -1438,7 +1434,11 @@ toast.dismiss(toastId);
                       <div className="leave_setion_emp">
                         <div className="totel_leave_allowance1">
                           <div className="totalLeaText">
-                            <h5>{15-parseInt(totalLeavetaken) >=0 ? 15-parseInt(totalLeavetaken): 0}</h5>
+                            <h5>
+                              {15 - parseInt(totalLeavetaken) >= 0
+                                ? 15 - parseInt(totalLeavetaken)
+                                : 0}
+                            </h5>
                             <p>Total leave available</p>
                           </div>
                           <div>
@@ -1474,7 +1474,7 @@ toast.dismiss(toastId);
 
                     {/* this is for annoucement  */}
                     <div className="hrLefThi">
-                      <div className="annNav">
+                      <div className="adflex">
                         <img src={annNav} alt="" />
                         <h3>Announcement Lists </h3>
                       </div>
@@ -1502,7 +1502,11 @@ toast.dismiss(toastId);
                           <tbody>
                             {announce?.map((val, index) => {
                               return (
-                                <tr key={index} className="bg-white border-b  ">
+                                <tr
+                                onClick={()=>setOpenAnn(val)}
+                                  key={index}
+                                  className="bg-white border-b singleannoucs "
+                                >
                                   <th
                                     scope="row"
                                     className="px-3 py-4 font-medium tasklo  whitespace-nowrap taskAns taskans11"
@@ -1528,37 +1532,27 @@ toast.dismiss(toastId);
                   </>
                 )}
 
-{/* this is create leave  */}
-{
-  showleave && 
+                {/* this is create leave  */}
+                {showleave && (
+                  <>
+                    <div className="leavewrapping">
+                      <div className="crelevecont">
+                        <div class="crelavetopsec">
+                          <h3 class="leaveHead "> Leave Request </h3>
 
-      <>
+                          <img
+                            src={cutt}
+                            onClick={() => setShowLeave(false)}
+                            alt=""
+                          />
+                        </div>
 
-       <div className="leavewrapping">
+                        <hr />
 
-      
-   <div className="crelevecont">
-
-
-                      <div class="crelavetopsec">
-
-                        <h3 class="leaveHead ">   Leave Request   </h3>
-
-                        <img src={cutt}  onClick={() => setShowLeave(false)} alt="" />
-
-                      </div>
-
-                      <hr />
-
-                      {/* <!-- Modal body --> */}
+                        {/* <!-- Modal body --> */}
                         <form className="levaecretaeform" action="#">
-
-                         
                           <div class="user_classleave">
-
-                            <label>
-                              Leave type
-                            </label>
+                            <label>Leave type</label>
 
                             <select
                               name="leaveType"
@@ -1575,7 +1569,6 @@ toast.dismiss(toastId);
                           </div>
 
                           <div className="levaecreflex">
-
                             <div class="user_class_input3 w-full mt-2 ">
                               <label
                                 for="text"
@@ -1611,7 +1604,6 @@ toast.dismiss(toastId);
                                 required
                               />
                             </div>
-
                           </div>
 
                           <div class="levelreasons">
@@ -1633,45 +1625,74 @@ toast.dismiss(toastId);
                             ></textarea>
                           </div>
 
-                        
                           <div className="leavebuttons">
+                            <button
+                              onClick={(e) => {
+                                e.preventDefault();
 
-                          <button
-                            onClick={(e) => {
-                              e.preventDefault();
+                                submitHandler(e);
+                              }}
+                              type="button"
+                              className="leaverqbtns"
+                            >
+                              <span> Request send</span>
+                            </button>
 
-                              submitHandler(e);
-                            }}
-                            type="button"
-                            className="leaverqbtns"
-                          >
-                           <span>  Request send</span>
-                          </button>
+                            <button
+                              onClick={() => setStar1(false)}
+                              type="button"
+                              class="levacanclebtns"
+                            >
+                              <span>Cancel</span>
+                            </button>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </>
+                )}
 
-                          <button
-                            onClick={() => setStar1(false)}
-                            type="button"
-                            class="levacanclebtns"
-                          >
-                            <span>Cancel</span>
-                          </button> 
+                {openAnn && (
+                  <>
+                    <div className="leavewrapping">
+                      <div className="crelevecont2">
 
+                        <div class="crelavetopsec">
+                          <h3 class="leaveHead "> Annoucement </h3>
+
+                          <img
+                            src={cutt}
+                            onClick={() => setOpenAnn(false)}
+                            alt=""
+                          />
+                        </div>
+
+                        <hr />
+
+                        {/* <!-- Modal body --> */}
+                          <div class="showann">
+                            <label>Title</label>
+
+                            <span>{openAnn?.title}</span>
                           </div>
 
-                        </form>
+                          <div class="showann">
+                            <label
+                              for="message"
+                              class="block mb-2 mt-2 text-sm font-medium text-gray-900 employName"
+                            >
+                              Description
+                            </label>
+                            <span>{openAnn?.description}</span>
+                          </div>
 
-
-                      </div>
-                      </div>
-      </>
-
-     }
-
-           </div>
-
+                                   </div>
+                    </div>
+                  </>
+                )}
+              </div>
             </div>
           )}
-
         </div>
       </div>
     </>

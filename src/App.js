@@ -187,7 +187,6 @@ function App() {
               <Route path="/employeeDash/mySelf" element={<MySelf />} />
 
               <Route path="/employeeDash/createQuotation" element={<CreateQuotation />} />
-              {/* <Route path="/employeeDash/createProposal" element={<CreateProposal />} /> */}
               <Route path="/employeeDash/editQuotation" element={<EditQuotation />} />
               
               <Route path="/employeeDash/taskLead" element={<TaskLead />}  />      
@@ -202,7 +201,6 @@ function App() {
                 path="/hrDash"
                 element={<HrDashboard pop1={pop1} setPop1={setPop1} setAlert={setAlert} />}
               />
-              {/* <Route path="/hrDash/EmployeeReg" element={<EmployeeManageByHr setAlert={setAlert}/>}/> */}
               <Route path="/hrDash/EmployeeReg" element={<EmployeeManage
                 setAlert={setAlert}
                 pop={pop}
@@ -267,16 +265,12 @@ function App() {
 
               <Route path="/employeeDash/HRM/myProjects" element={<MyProjects />} />
               <Route path="/employeeDash/HRM/projectDetails" element={<ProjectDetails2 />} />
-              {/* <Route path="/employeeDash/HRM/myProjectTask" element={<MyProjectTask />} /> */}
 
               <Route path="/adminDash/HRM/taskClients" element={<TaskClients />} />
               <Route path="/adminDash/HRM/taskProjects" element={<TaskProjects />} />
               <Route path="/adminDash/HRM/projectDetails" element={<ProjectDetails />} />
               <Route path="/adminDash/HRM/projectOverview" element={<ProjectOverview />} />
               <Route path="/adminDash/HRM/Tasks" element={<Tasks />} />
-
-
-
 
               <Route path="/adminDash/HRM/AwardHRM" element={<AwardHRM />} />
               <Route path="/adminDash/HRM/trip" element={<Trip />} />
@@ -297,7 +291,6 @@ function App() {
               <Route path="/employeeDash/HRM/WarningHRM" element={<WarningHRM />} />
               <Route path="/employeeDash/HRM/TerminationHRM" element={<TerminationHRM />} />
               <Route path="/employeeDash/HRM/holiday" element={<HolidayHRM />} />
-
 
               <Route path="/adminDash/HRM/totalEmployee" element={<TotalEmployee pop={pop} setPop={setPop} setAlert={setAlert} />} />
               <Route path="/adminDash/HRM/LeaveEmployee" element={<LeaveEmployee pop={pop} setPop={setPop} setAlert={setAlert} />} />
