@@ -3,7 +3,7 @@ import MainContext from './MainContext';
 import { deleteReq, get, post, put, postDocuments } from '../Api/api'
 import { useState } from 'react';
 
-// const baseUrl = "http://localhost:5000";
+const baseUrl = "http://localhost:5000";
 
 // const baseUrl = "https://hrms-backend-code.onrender.com"
 
@@ -13,7 +13,7 @@ import { useState } from 'react';
 
 // this is production baseurl 
 
-const baseUrl = "https://hmsbackend.kusheldigi.com";
+// const baseUrl = "https://hmsbackend.kusheldigi.com";
 
 // const baseUrl = "https://hrms-backend-g3wt.onrender.com";
 
@@ -2236,6 +2236,16 @@ const MainState = (props) => {
       const data = await post(`${baseUrl}/leave/monthlyLeave`, {month}, true);
       return data;
    }
+   const LeaveAllowApihandler = async(user , allowance)=>{
+
+      const data = await post(`${baseUrl}/leave/leaveAllowance`,{user , allowance}, true);
+      return data;
+   }
+   const leaveTypeApi = async({id})=>{
+
+      const data = await post(`${baseUrl}/leave/leaveTypeApi`,{id}, true);
+      return data;
+   }
 
 
    return (
@@ -2245,7 +2255,7 @@ const MainState = (props) => {
          createIndicator, getIndicator, deleteIndicator, getDesignations, updateIndicator, getAppraisal, createAppraisal, allEmployee, deleteApprisal, updateApprisal, createAssets, getAssets, deleteAssets, updateAssets, deleteUser, createTracks, getTracks, deleteTracks, updateTracks, editComApi, loanDeleteHandler,
          editAllowance, commisionDelteHandler, createLoan, editLoanApi,
          getTotalLeavesCount, uploadDocuments, createAnnouncement, deleteAnnouncement, updateAnnouncements, fetchAnnoucement, deleteAnnouncements, getEmp, allEmployeebyDep, notificationGet,
-         acceptLeave, rejectLeave,
+         acceptLeave, rejectLeave, leaveTypeApi , 
          ProvideRemovePermission , postQuotationFormApi ,updatePropsalFormApi ,  postProposalFormApi ,  createClientapi , 
          updateQuotationFormApi ,  changeRelivingLetterPer , getThisMonthLeave ,
          uploadOwnDocs,
@@ -2299,6 +2309,7 @@ const MainState = (props) => {
          fetchTodayLeave,
          deleteQuotation,
          departmentEmployee,
+         LeaveAllowApihandler ,
          getLead3,
          getLeadSources,
          postLeadSource,

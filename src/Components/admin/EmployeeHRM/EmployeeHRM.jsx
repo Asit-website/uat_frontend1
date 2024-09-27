@@ -32,6 +32,7 @@ import cas from "../../images/cssual.png";
 import sick2 from "../../images/sick2.png";
 import annNav from "../../images/annNav.png";
 import cutt from "../../images/cutt.png";
+
 import toast from "react-hot-toast";
 
 var tc3;
@@ -60,6 +61,8 @@ const EmployeeHRM = ({
     getLeaveTypes,
     getTodayBirthday,
     changeStatusBreak,
+    allEmployee , 
+    LeaveAllowApihandler , leaveTypeApi
   } = useMain();
 
   const user2 = JSON.parse(localStorage.getItem("hrms_user"));
@@ -165,7 +168,13 @@ const EmployeeHRM = ({
 
   var [clock, setClock] = useState(0);
   var [breakClock, setBreakClock] = useState(0);
+
   const [mount, setMount] = useState(false);
+
+  const [leavedata , setLeavedata] = useState({
+    casualLeave:0 , 
+    paidLeave:0
+  });
 
   useEffect(() => {
     document.addEventListener("visibilitychange", handleVisibilityChange);
@@ -224,9 +233,7 @@ const EmployeeHRM = ({
     const resp = await changeStatusBreak({ isBreakIn, userId: hrms_user?._id });
   };
 
-  const styleThing = {
-    display: star1 ? "block" : "none",
-  };
+
 
   const clockIn = async () => {
     setLoading(true);
@@ -550,6 +557,72 @@ const EmployeeHRM = ({
     getTodayBirthdayapi();
     setLeaveTaken(hrms_user?.totalLeaves);
   }, []);
+
+  useEffect(() => {
+    const delay = 10 * 60 * 60 * 1000; // 10 hours in milliseconds
+
+    let timeoutId; 
+
+    
+    const clockInTime = localStorage.getItem("clockInTime");
+
+    if (clockInTime) {
+      
+      timeoutId = setTimeout(() => {
+        clockOut(); 
+      }, delay);
+    }
+
+
+    return () => clearTimeout(timeoutId);
+  }, []); 
+
+
+  // THIS IS FOR LEAVE ALLOWANCE 
+   const [leaveAllowance , setLeaveAllow] = useState(false);
+
+   const [allowData , setAllowData] = useState({
+    user:"" ,
+    allowance:""
+   })
+
+   const [allEmp , setAllEmp] = useState([]);
+
+    const fetchemployess = async()=>{
+      const resp = await allEmployee();
+       setAllEmp(resp?.emp);
+    }
+
+
+    const LeaveAllowApi = async()=>{
+      const toastId = toast.loading("Loading...");
+       const resp = await LeaveAllowApihandler(allowData?.user , allowData?.allowance);
+        console.log("resp ",resp);
+        if(resp?.success){
+          toast.success("Successfuly Added");
+        }
+        toast.dismiss(toastId);
+        setAllowData({
+           user:"" ,
+          allowance:""
+        })
+    }
+
+    const leavestypecount = async()=>{
+      const resp = await leaveTypeApi({id:user2?._id});
+       console.log("resp ",resp);
+       setLeavedata({
+        casualLeave: resp?.data?.casualLeave , 
+        paidLeave: resp?.data?.paidLeave
+       })
+    }
+
+    useEffect(()=>{
+      fetchemployess();
+      leavestypecount();
+    },[])
+
+
 
   return (
     <>
@@ -1373,10 +1446,13 @@ const EmployeeHRM = ({
 
                     <div className="hrLefThi22">
                       <div className="leaves_request_emp">
+
                         <div className="adflex">
                           <img src={leavimg} alt="" />
                           <h3>Leaves</h3>
                         </div>
+
+                        <div className="flex addpages items-center">
 
                         <button
                           data-modal-target="authentication-modal"
@@ -1390,27 +1466,48 @@ const EmployeeHRM = ({
                         >
                           <span> Create Leave</span>
                         </button>
+
+                        <button
+                          data-modal-target="authentication-modal"
+                          data-modal-toggle="authentication-modal"
+                          class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                          type="button"
+                          onClick={() => {
+                            setLeaveAllow(true);
+                          }}
+                        >
+                          <span>Leave Allowance</span>
+                        </button>
+
+                        </div>
+
+
                       </div>
 
                       <hr />
 
                       <div className="leave_setion_emp">
+
+                        
                         <div className="totel_leave_allowance1">
+
+                          
                           <div className="totalLeaText">
-                            <h5>15</h5>
+                            <h5>{user2?.userAllowance}</h5>
                             <p>Total leave allowance</p>
                           </div>
 
                           <div>
                             <p>
                               <img src={cas} alt="" />
-                              <span className="cas"> casual - 07</span>
+                              <span className="cas"> casual - {leavedata?.casualLeave}</span>
                             </p>
                             <p>
                               <img src={sick2} alt="" />
-                              <span className="cas">Sick - 08</span>{" "}
+                              <span className="cas">Paid - {leavedata?.paidLeave}</span>{" "}
                             </p>
                           </div>
+
                         </div>
 
                         <div className="totel_leave_allowance1">
@@ -1421,11 +1518,11 @@ const EmployeeHRM = ({
                           <div>
                             <p>
                               <img src={cas} alt="" />
-                              <span className="cas"> casual - 07</span>
+                              <span className="cas"> casual - {leavedata?.casualLeave} </span>
                             </p>
                             <p>
                               <img src={sick2} alt="" />
-                              <span className="cas">Sick - 08</span>{" "}
+                              <span className="cas">Paid - {leavedata?.paidLeave}</span>{" "}
                             </p>
                           </div>
                         </div>
@@ -1435,8 +1532,8 @@ const EmployeeHRM = ({
                         <div className="totel_leave_allowance1">
                           <div className="totalLeaText">
                             <h5>
-                              {15 - parseInt(totalLeavetaken) >= 0
-                                ? 15 - parseInt(totalLeavetaken)
+                              {parseInt(user2?.userAllowance) - parseInt(totalLeavetaken) >= 0
+                                ? parseInt(user2?.userAllowance) - parseInt(totalLeavetaken)
                                 : 0}
                             </h5>
                             <p>Total leave available</p>
@@ -1444,11 +1541,11 @@ const EmployeeHRM = ({
                           <div>
                             <p>
                               <img src={cas} alt="" />
-                              <span className="cas"> casual - 07</span>
+                              <span className="cas"> casual - {leavedata?.casualLeave}</span>
                             </p>
                             <p>
                               <img src={sick2} alt="" />
-                              <span className="cas">Sick - 08</span>{" "}
+                              <span className="cas">Paid - {leavedata?.paidLeave}</span>{" "}
                             </p>
                           </div>
                         </div>
@@ -1461,11 +1558,11 @@ const EmployeeHRM = ({
                           <div>
                             <p>
                               <img src={cas} alt="" />
-                              <span className="cas"> casual - 07</span>
+                              <span className="cas"> casual - {leavedata?.casualLeave}</span>
                             </p>
                             <p>
                               <img src={sick2} alt="" />
-                              <span className="cas">Sick - 08</span>{" "}
+                              <span className="cas">Paid - {leavedata?.paidLeave}</span>{" "}
                             </p>
                           </div>
                         </div>
@@ -1690,6 +1787,112 @@ const EmployeeHRM = ({
                     </div>
                   </>
                 )}
+
+
+    {
+      leaveAllowance && 
+      <>
+      <div className="leavewrapping">
+        <div className="crelevecont">
+          <div class="crelavetopsec">
+            <h3 class="leaveHead "> Leave Allowance </h3>
+
+            <img
+              src={cutt}
+              onClick={() => setLeaveAllow(false)}
+            />
+          </div>
+
+          <hr />
+
+          {/* <!-- Modal body --> */}
+          <form className="levaecretaeform" action="#">
+
+            <div class="user_classleave">
+              <label>Select Employee</label>
+
+              <select
+                name="user"
+                onChange={(e)=>{
+                  setAllowData((prev)=>({
+                    ...prev ,
+                    user:e.target.value
+                  }))
+                }}
+                value={allowData?.user}
+
+                required
+              >
+               <option value="Select">Select</option>
+               {
+                allEmp?.map((emp , index)=>(
+                  <option key={index} value={emp?._id}>{emp?.fullName}</option>
+                ))
+               }
+              </select>
+            </div>
+
+            <div class="user_classleave">
+              <label>Total Allowance</label>
+
+              <select
+                name="allowance"
+                onChange={(e)=>{
+                  setAllowData((prev)=>({
+                    ...prev ,
+                    allowance:e.target.value
+                  }))
+                }}
+                value={allowData?.allowance}
+                 
+                required
+              >
+               <option value="Select">Select</option>
+               <option value="1">1</option>
+               <option value="2">2</option>
+               <option value="3">3</option>
+               <option value="4">4</option>
+               <option value="5">5</option>
+               <option value="6">6</option>
+               <option value="7">7</option>
+               <option value="8">8</option>
+               <option value="9">9</option>
+               <option value="10">10</option>
+               <option value="11">11</option>
+               <option value="12">12</option>
+               <option value="13">13</option>
+               <option value="14">14</option>
+               <option value="15">15</option>
+              </select>
+            </div>
+
+            <div className="leavebuttons">
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+            LeaveAllowApi();
+                }}
+                type="button"
+                className="leaverqbtns"
+              >
+                <span>Create</span>
+              </button>
+
+              <button
+                onClick={() => setLeaveAllow(false)}
+                type="button"
+                class="levacanclebtns"
+              >
+                <span>Cancel</span>
+              </button>
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </>
+    }
+
               </div>
             </div>
           )}

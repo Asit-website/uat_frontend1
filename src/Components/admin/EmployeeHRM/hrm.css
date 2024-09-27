@@ -11,6 +11,10 @@
     gap: 10px;
 }
 
+.addpages{
+    gap: 20px;
+}
+
 .dFirLef h2 {
     font-family: Inter;
     font-size: 24px;
