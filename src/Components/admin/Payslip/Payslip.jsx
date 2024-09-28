@@ -52,14 +52,11 @@ const Payslip = ({ pop,  setPop}) => {
 
     const [popdata, setPopData] = useState(null);
 
-    console.log("podata ",popdata);
-
     const fetchUserSlip = async (showLoading = true) => {
         if (showLoading) {
             setLoading(true);
         }
         const ans = await getUserSlip(formdata.month, formdata.year);
-        console.log(ans);
         if (ans?.status) {
             setData(ans?.payslipDetails);
         }
@@ -71,7 +68,6 @@ const Payslip = ({ pop,  setPop}) => {
 
         const toastId = toast.loading("Loading...");
         const ans = await togglePayslip(userId, formdata.month, formdata.year);
-        console.log(ans);
         if (ans?.status) {
             fetchUserSlip(false);
             toast.success('Successfuly updated');
@@ -132,11 +128,13 @@ const Payslip = ({ pop,  setPop}) => {
 
     })
 
+    console.log("hrms_user ", hrms_user);
+
     const deductionData = ()=>{
           if(parseInt(popdata?.totalLeaves) > 2){
               
              let leftLeave;
-              if(popdata?.user?.totalLeaves > 15){
+              if(popdata?.user?.totalLeaves > parseInt(hrms_user?.userAllowance)){
                 leftLeave = parseInt(popdata?.totalLeaves)
               }
               else{

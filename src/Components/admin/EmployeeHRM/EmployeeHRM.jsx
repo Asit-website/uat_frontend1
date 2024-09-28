@@ -176,6 +176,8 @@ const EmployeeHRM = ({
     paidLeave:0
   });
 
+  console.log("user ",hrms_user);
+
   useEffect(() => {
     document.addEventListener("visibilitychange", handleVisibilityChange);
 
@@ -555,7 +557,7 @@ const EmployeeHRM = ({
     getLeavesEmp();
     fetchLeaveType();
     getTodayBirthdayapi();
-    setLeaveTaken(hrms_user?.totalLeaves);
+    // setLeaveTaken(hrms_user?.totalLeaves);
   }, []);
 
   useEffect(() => {
@@ -595,11 +597,16 @@ const EmployeeHRM = ({
 
 
     const LeaveAllowApi = async()=>{
+
+       if(!allowData?.user || !allowData?.allowance){
+        return alert("Please Provide the complete details")
+       }
       const toastId = toast.loading("Loading...");
        const resp = await LeaveAllowApihandler(allowData?.user , allowData?.allowance);
-        console.log("resp ",resp);
-        if(resp?.success){
-          toast.success("Successfuly Added");
+       
+       if(resp?.success){
+         toast.success("Successfuly Added");
+         localStorage.setItem("hrms_user" , JSON.stringify(resp?.userDetail));
         }
         toast.dismiss(toastId);
         setAllowData({
@@ -610,7 +617,7 @@ const EmployeeHRM = ({
 
     const leavestypecount = async()=>{
       const resp = await leaveTypeApi({id:user2?._id});
-       console.log("resp ",resp);
+       setLeaveTaken(resp?.data?.totalLeaves)
        setLeavedata({
         casualLeave: resp?.data?.casualLeave , 
         paidLeave: resp?.data?.paidLeave
@@ -1467,17 +1474,20 @@ const EmployeeHRM = ({
                           <span> Create Leave</span>
                         </button>
 
+                      {
+                       ( hrms_user?.userAllowCrtPermission || hrms_user?.role === "ADMIN") && 
                         <button
-                          data-modal-target="authentication-modal"
-                          data-modal-toggle="authentication-modal"
-                          class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                          type="button"
-                          onClick={() => {
-                            setLeaveAllow(true);
-                          }}
-                        >
-                          <span>Leave Allowance</span>
-                        </button>
+                        data-modal-target="authentication-modal"
+                        data-modal-toggle="authentication-modal"
+                        class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                        type="button"
+                        onClick={() => {
+                          setLeaveAllow(true);
+                        }}
+                      >
+                        <span>Leave Allowance</span>
+                      </button>
+                      }
 
                         </div>
 
