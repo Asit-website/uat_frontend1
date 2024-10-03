@@ -10,60 +10,164 @@ import pluss from "../../images/pluss.png";
 import "react-profile-avatar/dist/index.css";
 import predit from "../../images/Frame 9740.png";
 import predel from "../../images/Frame 9741.png";
-import { useLocation } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import toast from "react-hot-toast";
+import cut from "../../images/cutt.png";
+import CircularProgress from "./CircularProgress";
 
 const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
-
-  const {
-    user,
-    getAllProjectApi,
-    getAllProjectUserTaskApi2 , changeTaskStatusApi
-  } = useMain();
+  const { user, getAllProjectApi, CreateProjectTask, getProjectTask } =
+    useMain();
 
   const location = useLocation();
 
   const data = location?.state;
 
+  const [percentage, setPercentage] = useState(0);
+  const [pendingTask, setPendingTask] = useState(0);
+  const [notStartedTask, setnotStartedTask] = useState(0);
+  const [startedTask, setstartedTask] = useState(0);
+
   let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
 
   const { role } = hrms_user;
-  
+
+  const [formdata, setFormdata] = useState({
+    Title: "",
+    Description: "",
+    Members: "",
+    StartDate: "",
+    DueDate: "",
+    // Project: "",
+    Priority: "",
+    Github: "",
+  });
+
+  const changeHandler = (e) => {
+    const { name, value } = e.target;
+    setFormdata((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const [addClientPop, setAddClientPop] = useState(false);
+
+  const [allEmp, setAllEmp] = useState([]);
+
   const [allProject, setAllProject] = useState([]);
   const [allTasks, setAllTasks] = useState([]);
 
-
-  const getMyProjectTaskapi = async () => {
-    const ans = await getAllProjectUserTaskApi2(data?._id);
+  const getProjectTaskapi = async () => {
+    const ans = await getProjectTask(data?._id);
     const reversedTasks = ans?.data.reverse(); // Reverse the array
     setAllTasks(reversedTasks); // Set the reversed array
   };
-  
 
   const getAllProject = async () => {
     const ans = await getAllProjectApi();
     setAllProject(ans?.data);
   };
 
-  const changeTaskStatus =async(value , taskId) =>{
-     const toastId = toast.loading("Loading...");
-      const ans = await changeTaskStatusApi(value , taskId);
-      getMyProjectTaskapi();
+  const submitHandler = async (e) => {
+    e.preventDefault();
+    try {
+      const toastId = toast.loading("Loading....");
 
-       if(ans?.status){
-         toast.success("Successfuly done");
-       }
+      const ans = await CreateProjectTask({
+        ...formdata,
+        projectId: data?._id,
+      });
+      if (ans?.status) {
+        toast.success("Successfuly created task");
+      }
 
-       toast.dismiss(toastId);
-  }
+      setAddClientPop(false);
+      getProjectTaskapi();
+      setFormdata({
+        Title: "",
+        Description: "",
+        Members: "",
+        StartDate: "",
+        DueDate: "",
+        Github: "",
+      });
+
+      toast.dismiss(toastId);
+    } catch (error) {
+      console.log(error);
+      toast.error("Something went wrong , please try again");
+    }
+  };
 
   useEffect(() => {
     getAllProject();
-    getMyProjectTaskapi();
-     
+    getProjectTaskapi();
   }, []);
 
+  useEffect(() => {
+    if (data) {
+      setAllEmp(data?.Members);
+    }
+  }, [data]);
+
+  useEffect(() => {
+    
+    const totalTasks = allTasks.length;
+    const completedTasks = allTasks.filter(
+      (task) => task.Status === "Completed"
+    ).length;
+    
+    const notStartTasks = allTasks.filter(
+      (task) => task.Status === "Not Started"
+    ).length;
+
+    const startedtasks = allTasks.filter(
+      (task) => task.Status === "Started"
+    ).length;
+    const Pendingtasks = allTasks.filter(
+      (task) => task.Status === "Pending"
+    ).length;
+
+     
+    const completedPercentage = (completedTasks / totalTasks) * 100;
+    const notStartPercentage = (notStartTasks / totalTasks) * 100;
+    const startedPercentage = (startedtasks / totalTasks) * 100;
+    const PendingPercentage = (Pendingtasks / totalTasks) * 100;
+
+    setPercentage(completedPercentage);
+    setnotStartedTask(notStartPercentage);
+    setstartedTask(startedPercentage);
+    setPendingTask(PendingPercentage);
+
+  }, [allTasks]);
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const tasksPerPage = 5;
+
+  // Calculate the total number of pages
+  const totalPages = Math.ceil(allTasks.length / tasksPerPage);
+
+  // Get the tasks for the current page
+  const currentTasks = allTasks.slice(
+    (currentPage - 1) * tasksPerPage,
+    currentPage * tasksPerPage
+  );
+
+  // Handle click for previous button
+  const handlePrev = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
+  // Handle click for next button
+  const handleNext = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
 
   return (
     <>
@@ -82,12 +186,10 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
           )}
 
           <div className="em">
-
             <div className="tclwrap">
-              
               <nav>
                 <div className="pronaheading">
-                  <h2>App Development</h2>
+                  <h2>{data?.Name}</h2>
                   <p
                     className={`stapro ${
                       allProject.Status === "Finished" && "finibg"
@@ -99,12 +201,23 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
                   </p>
                 </div>
 
-                <div className="clibtns">
-                  <button className="backpro">
-                    <span>Back</span>
-                  </button>
-               
-                </div>
+                {
+                  hrms_user?.designation === "Manager" &&  <div className="clibtns">
+                  <NavLink to="/adminDash/HRM/taskProjects"><button className="backpro">
+                      <span>Back</span>
+                    </button></NavLink>
+                    <button
+                      onClick={() => {
+                        setAddClientPop(true);
+                      }}
+                      className="newcli"
+                    >
+                      <img src={pluss} /> <span>Add Task</span>
+                    </button>
+                  </div>
+                }
+
+                
               </nav>
 
               <div className="prodlefriwrap">
@@ -139,75 +252,240 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
 
               {/* this is all tasks now  */}
 
-              <div class="relative overflow-x-auto">
+              <div className="relative overflow-x-auto">
+      <table className="w-full prodetailTable text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+        <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+          <tr>
+            <th scope="col" className="px-6 py-3">Subject</th>
+            <th scope="col" className="px-6 py-3">Assign To</th>
+            <th scope="col" className="px-6 py-3">StartDate</th>
+            <th scope="col" className="px-6 py-3">DueDate</th>
+            <th scope="col" className="px-6 py-3">Priority</th>
+            <th scope="col" className="px-6 py-3">Github</th>
+            <th scope="col" className="px-6 py-3">Description</th>
+            <th scope="col" className="px-6 py-3">Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          {currentTasks.map((task, index) => (
+            <tr key={index} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+              <td className="px-6 py-4">{task.Title}</td>
+              <td className="px-6 py-4">{task?.Members?.fullName}</td>
+              <td className="px-6 py-4">{task?.StartDate}</td>
+              <td className="px-6 py-4">{task?.DueDate}</td>
+              <td className="px-6 py-4">{task?.Priority}</td>
+              <td className="px-6 py-4">{task?.Github}</td>
+              <td className="px-6 py-4">{task?.Description}</td>
+              <td className="px-6 py-4">{task?.Status}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
 
-                <table class="w-full prodetailTable text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+      <div className="navbuttons flex justify-between items-center mt-4">
+        <button
+          onClick={handlePrev}
+          disabled={currentPage === 1}
+          className="px-4 py-2 bg-gray-300 rounded-md disabled:bg-gray-200"
+        >
+          Prev
+        </button>
+        <span className="px-4">{currentPage}</span>
+        <button
+          onClick={handleNext}
+          disabled={currentPage === totalPages}
+          className="px-4 py-2 bg-gray-300 rounded-md disabled:bg-gray-200"
+        >
+          Next
+        </button>
+      </div>
+    </div>
 
-                  <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                    <tr>
-                      <th scope="col" class="px-6 py-3">
-                        Subject
-                      </th>
-                      <th scope="col" class="px-6 py-3">
-                        Assign To
-                      </th>
-                      <th scope="col" class="px-6 py-3">
-                        StartDate
-                      </th>
-                      <th scope="col" class="px-6 py-3">
-                        DueDate
-                      </th>
-                    
-                      <th scope="col" class="px-6 py-3">
-                        Priority
-                      </th>
-                      <th scope="col" class="px-6 py-3">
-                        Github
-                      </th>
-                      <th scope="col" class="px-6 py-3">
-                        Description
-                      </th>
-                      <th scope="col" class="px-6 py-3">
-                        Status
-                      </th>
-                    </tr>
-                  </thead>
+              {/* <div className="projectOverView">
+                <h3>Overview Of {data?.Name}</h3>
 
-                  <tbody>
-                    {allTasks?.map((task, index) => (
-                      <tr
-                        key={index}
-                        class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
-                      >
-                        <td class="px-6 py-4">{task.Title}</td>
-                        <td class="px-6 py-4">{task?.Members?.fullName}</td>
-                        <td class="px-6 py-4">{task?.StartDate}</td>
-                        <td class="px-6 py-4">{task?.DueDate}</td>
-                        <td class="px-6 py-4">{task?.Priority}</td>
-                        <td class="px-6 py-4">{task?.Github}</td>
-                        <td class="px-6 py-4">{task?.Description}</td>
-                        <td class="px-6 py-4">
-                            <select name="taskStatus"  value={task?.Status} onChange={(e)=> changeTaskStatus(e.target.value , task?._id)} >
-                                <option value="Not Started">Not Started</option>
-                                <option value="Started">Started</option>
-                                <option value="Pending">Pending</option>
-                                <option value="Completed">Completed</option>
-                            </select>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
+                 <div className="allprogress">
 
-              </div>
+                <div className="eachProgeer">
+                   <h4>Completed Tasks</h4>
+                  <CircularProgress percentage={percentage} color={'#4caf50'} />
+                </div>
+
+                <div className="eachProgeer">
+                   <h4>Pending Tasks</h4>
+                  <CircularProgress percentage={pendingTask} color={'#f44336'} />
+                </div>
+
+          
+                <div className="eachProgeer">
+                   <h4>Not Started Tasks</h4>
+                  <CircularProgress percentage={notStartedTask} color={'#ff9800'} />
+                </div>
+                
+                <div className="eachProgeer">
+                   <h4>Started Tasks</h4>
+                  <CircularProgress percentage={startedTask} color={'#2196f3'} />
+                </div>
+
+                 </div>
+              </div> */}
 
             </div>
-
           </div>
         </div>
       </div>
 
-   
+      {addClientPop && (
+        <div className="addCliWrap">
+          <div className="addClieCont addheight">
+            <nav>
+              <p>Create New Task</p>
+              <img
+                onClick={() => {
+                  setAddClientPop(false);
+                  setFormdata({
+                    Name: "",
+                    Description: "",
+                    Members: "",
+                    Status: "Ongoing",
+                    DueDate: "",
+                    Members: "",
+                  });
+                }}
+                src={cut}
+                alt=""
+              />
+            </nav>
+
+            <hr />
+
+            <form onSubmit={submitHandler}>
+              <label>
+                <p>Subject</p>
+                <input
+                  name="Title"
+                  value={formdata.Title}
+                  onChange={changeHandler}
+                  type="text"
+                  placeholder="Name"
+                />
+              </label>
+
+              <label>
+                <p>Assign To </p>
+
+                <select
+                  name="Members"
+                  value={formdata.Members}
+                  onChange={changeHandler}
+                >
+                  <option value="Select">Select Employee</option>
+                  {allEmp?.map((emp, index) => (
+                    <option value={emp?._id} key={index}>
+                      {emp?.fullName}
+                    </option>
+                  ))}
+                </select>
+              </label>
+
+              {/* <label>
+                <p>Project </p>
+
+                <select
+                  name="Project"
+                  value={formdata.Project}
+                  onChange={changeHandler}
+                >
+                  <option value="Select">Select Employee</option>
+                  {allProject?.map((emp, index) => (
+                    <option value={emp?._id} key={index}>
+                      {emp?.Name}
+                    </option>
+                  ))}
+                </select>
+              </label> */}
+
+              <label>
+                <p>Priority </p>
+
+                <select
+                  name="Priority"
+                  value={formdata.Priority}
+                  onChange={changeHandler}
+                >
+                  <option value="Select">Select Priority</option>
+                  <option value="Normal">Normal</option>
+                  <option value="Medium">Medium</option>
+                  <option value="High">High</option>
+                </select>
+              </label>
+
+              <label>
+                <p>Start Date </p>
+                <input
+                  name="StartDate"
+                  value={formdata.StartDate}
+                  onChange={changeHandler}
+                  type="date"
+                />
+              </label>
+
+              <label>
+                <p>Due Date</p>
+                <input
+                  name="DueDate"
+                  value={formdata.DueDate}
+                  onChange={changeHandler}
+                  type="date"
+                />
+              </label>
+
+              <label>
+                <p>Github Link</p>
+                <input
+                  name="Github"
+                  value={formdata.Github}
+                  onChange={changeHandler}
+                  type="text"
+                />
+              </label>
+
+              <label>
+                <p>Description</p>
+                <textarea
+                  type="text"
+                  name="Description"
+                  value={formdata.Description}
+                  onChange={changeHandler}
+                  placeholder="Description"
+                />
+              </label>
+
+              <div className="btnsss">
+                <button type="submit" className="saveclient">
+                  <span>Add Task</span>
+                </button>
+                <button
+                  onClick={() => {
+                    setAddClientPop(false);
+                    setFormdata({
+                      Name: "",
+                      Description: "",
+                      Members: "",
+                      Status: "Ongoing",
+                      DueDate: "",
+                      Members: "",
+                    });
+                  }}
+                  className="cancel"
+                >
+                  <span>Cancel</span>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </>
   );
 };

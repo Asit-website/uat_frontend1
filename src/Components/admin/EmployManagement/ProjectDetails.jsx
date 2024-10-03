@@ -10,7 +10,7 @@ import pluss from "../../images/pluss.png";
 import "react-profile-avatar/dist/index.css";
 import predit from "../../images/Frame 9740.png";
 import predel from "../../images/Frame 9741.png";
-import { useLocation } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import toast from "react-hot-toast";
 import cut from "../../images/cutt.png";
@@ -202,9 +202,9 @@ const ProjectDetails = ({ setAlert, pop, setPop }) => {
                 </div>
 
                 <div className="clibtns">
-                  <button className="backpro">
+                <NavLink to="/adminDash/HRM/taskProjects"><button className="backpro">
                     <span>Back</span>
-                  </button>
+                  </button></NavLink>
                   <button
                     onClick={() => {
                       setAddClientPop(true);
