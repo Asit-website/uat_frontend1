@@ -257,7 +257,7 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
                 </div>
 
                 {
-                  hrms_user?.designation === "Manager" &&  <div className="clibtns">
+                  hrms_user?.designation === "Manager" && hrms_user?.designation === "UI/UX Designer" && hrms_user?.designation === "Senior Digital Marketing" &&  <div className="clibtns">
                   <NavLink to="/adminDash/HRM/taskProjects"><button className="backpro">
                       <span>Back</span>
                     </button></NavLink>
