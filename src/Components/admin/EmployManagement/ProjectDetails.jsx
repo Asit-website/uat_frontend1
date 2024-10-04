@@ -19,11 +19,14 @@ import { MdDelete } from "react-icons/md";
 import { MdOutlineEdit } from "react-icons/md";
 import { FaEye } from "react-icons/fa";
 
-
-
 const ProjectDetails = ({ setAlert, pop, setPop }) => {
-  const { user, getAllProjectApi, CreateProjectTask, getProjectTask  , deleteProjectTaskapi , EditProjectTask , fetchTaskDetailApi} =
-    useMain();
+  const {
+    user,
+    getAllProjectApi,
+    CreateProjectTask,
+    getProjectTask,
+    deleteProjectTaskapi,
+    EditProjectTask,  } = useMain();
 
   const location = useLocation();
 
@@ -63,16 +66,13 @@ const ProjectDetails = ({ setAlert, pop, setPop }) => {
 
   const [allProject, setAllProject] = useState([]);
   const [allTasks, setAllTasks] = useState([]);
-  const [allTaskDetail , setAllTaskDetail] = useState([]);
-
-  console.log("alltask ",allTaskDetail);
+  const [allTaskDetail, setAllTaskDetail] = useState([]);
 
   const getProjectTaskapi = async () => {
     const ans = await getProjectTask(data?._id);
-    console.log("anss ",ans);
-    const reversedTasks = ans?.data.reverse(); 
+    const reversedTasks = ans?.data.reverse();
     setAllTaskDetail(ans?.data2);
-    setAllTasks(reversedTasks); 
+    setAllTasks(reversedTasks);
   };
 
   const getAllProject = async () => {
@@ -110,14 +110,14 @@ const ProjectDetails = ({ setAlert, pop, setPop }) => {
     }
   };
 
-  const edittaskhandler = async()=>{
+  const edittaskhandler = async () => {
     try {
       const toastId = toast.loading("Loading....");
 
       const ans = await EditProjectTask({
         ...formdata,
         projectId: data?._id,
-        taskId: isEdit
+        taskId: isEdit,
       });
       if (ans?.status) {
         toast.success("Successfuly Updated task");
@@ -140,7 +140,7 @@ const ProjectDetails = ({ setAlert, pop, setPop }) => {
       console.log(error);
       toast.error("Something went wrong , please try again");
     }
-  }
+  };
 
   useEffect(() => {
     getAllProject();
@@ -154,12 +154,11 @@ const ProjectDetails = ({ setAlert, pop, setPop }) => {
   }, [data]);
 
   useEffect(() => {
-    
     const totalTasks = allTasks.length;
     const completedTasks = allTasks.filter(
       (task) => task.Status === "Completed"
     ).length;
-    
+
     const notStartTasks = allTasks.filter(
       (task) => task.Status === "Not Started"
     ).length;
@@ -171,7 +170,6 @@ const ProjectDetails = ({ setAlert, pop, setPop }) => {
       (task) => task.Status === "Pending"
     ).length;
 
-     
     const completedPercentage = (completedTasks / totalTasks) * 100;
     const notStartPercentage = (notStartTasks / totalTasks) * 100;
     const startedPercentage = (startedtasks / totalTasks) * 100;
@@ -181,10 +179,9 @@ const ProjectDetails = ({ setAlert, pop, setPop }) => {
     setnotStartedTask(notStartPercentage);
     setstartedTask(startedPercentage);
     setPendingTask(PendingPercentage);
-
   }, [allTasks]);
 
-  const [isEdit , setisEdit] = useState(false);
+  const [isEdit, setisEdit] = useState(false);
 
   const [currentPage, setCurrentPage] = useState(1);
   const tasksPerPage = 5;
@@ -212,21 +209,20 @@ const ProjectDetails = ({ setAlert, pop, setPop }) => {
     }
   };
 
-  const deleteTasks = async(id)=>{
-     const resp = await deleteProjectTaskapi(id);
-     if(resp.status){
+  const deleteTasks = async (id) => {
+    const resp = await deleteProjectTaskapi(id);
+    if (resp.status) {
       getProjectTaskapi();
-       toast.success("Succesfuly deleted");
-     }
-     else {
-      toast.error("Something went wrong")
-     }
-  }
+      toast.success("Succesfuly deleted");
+    } else {
+      toast.error("Something went wrong");
+    }
+  };
 
-  // THIS IS FOR  POPUP SHOW TASK TIMER DETAILS 
-  const [timerPop , setTimerPop]  = useState(false);
+  // THIS IS FOR  POPUP SHOW TASK TIMER DETAILS
+  const [timerPop, setTimerPop] = useState(false);
 
-  console.log("timerpopdaa ",timerPop);
+  console.log("timerpopdaa ", timerPop);
 
   return (
     <>
@@ -261,13 +257,15 @@ const ProjectDetails = ({ setAlert, pop, setPop }) => {
                 </div>
 
                 <div className="clibtns">
-                <NavLink to="/adminDash/HRM/taskProjects"><button className="backpro">
-                    <span>Back</span>
-                  </button></NavLink>
+                  <NavLink to="/adminDash/HRM/taskProjects">
+                    <button className="backpro">
+                      <span>Back</span>
+                    </button>
+                  </NavLink>
                   <button
                     onClick={() => {
                       setAddClientPop(true);
-                      setisEdit(false)
+                      setisEdit(false);
                     }}
                     className="newcli"
                   >
@@ -309,70 +307,99 @@ const ProjectDetails = ({ setAlert, pop, setPop }) => {
               {/* this is all tasks now  */}
 
               <div className="relative overflow-x-auto">
-      <table className="w-full prodetailTable text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                <table className="w-full prodetailTable text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                  <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                    <tr>
+                      <th scope="col" className="px-6 py-3">
+                        Subject
+                      </th>
+                      <th scope="col" className="px-6 py-3">
+                        Assign To
+                      </th>
+                      <th scope="col" className="px-6 py-3">
+                        StartDate
+                      </th>
+                      <th scope="col" className="px-6 py-3">
+                        DueDate
+                      </th>
+                      <th scope="col" className="px-6 py-3">
+                        Priority
+                      </th>
+                      <th scope="col" className="px-6 py-3">
+                        Github
+                      </th>
+                      <th scope="col" className="px-6 py-3">
+                        Description
+                      </th>
+                      <th scope="col" className="px-6 py-3">
+                        Status
+                      </th>
+                      <th scope="col" className="px-6 py-3">
+                        Action
+                      </th>
+                    </tr>
+                  </thead>
 
-        <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-          <tr>
-            <th scope="col" className="px-6 py-3">Subject</th>
-            <th scope="col" className="px-6 py-3">Assign To</th>
-            <th scope="col" className="px-6 py-3">StartDate</th>
-            <th scope="col" className="px-6 py-3">DueDate</th>
-            <th scope="col" className="px-6 py-3">Priority</th>
-            <th scope="col" className="px-6 py-3">Github</th>
-            <th scope="col" className="px-6 py-3">Description</th>
-            <th scope="col" className="px-6 py-3">Status</th>
-            <th scope="col" className="px-6 py-3">Action</th>
-          </tr>
-        </thead>
+                  <tbody>
+                    {currentTasks.map((task, index) => (
+                      <tr
+                        key={index}
+                        className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+                      >
+                        <td className="px-6 py-4">{task.Title}</td>
+                        <td className="px-6 py-4">{task?.Members?.fullName}</td>
+                        <td className="px-6 py-4">{task?.StartDate}</td>
+                        <td className="px-6 py-4">{task?.DueDate}</td>
+                        <td className="px-6 py-4">{task?.Priority}</td>
+                        <td className="px-6 py-4">{task?.Github}</td>
+                        <td className="px-6 py-4">{task?.Description}</td>
+                        <td className="px-6 py-4">{task?.Status}</td>
+                        <td className="px-6 py-4 adddsomflex">
+                          <MdDelete
+                            onClick={() => deleteTasks(task?._id)}
+                            className="iconsss"
+                          />
+                          <MdOutlineEdit
+                            onClick={() => {
+                              setAddClientPop(true);
+                              setFormdata(task);
+                              setisEdit(task?._id);
+                            }}
+                            className="iconsss2"
+                          />
+                          <FaEye
+                            onClick={() => {
+                              const filterData = allTaskDetail.find(
+                                (t) => t?.taskId === task?._id
+                              );
+                              setTimerPop(filterData);
+                            }}
+                            className="iconsss"
+                          />
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
 
-        <tbody>
-          {currentTasks.map((task, index) => (
-            <tr key={index} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-              <td className="px-6 py-4">{task.Title}</td>
-              <td className="px-6 py-4">{task?.Members?.fullName}</td>
-              <td className="px-6 py-4">{task?.StartDate}</td>
-              <td className="px-6 py-4">{task?.DueDate}</td>
-              <td className="px-6 py-4">{task?.Priority}</td>
-              <td className="px-6 py-4">{task?.Github}</td>
-              <td className="px-6 py-4">{task?.Description}</td>
-              <td className="px-6 py-4">{task?.Status}</td>
-              <td className="px-6 py-4 adddsomflex"> 
-                <MdDelete onClick={()=>deleteTasks(task?._id)} className="iconsss" /> 
-                  <MdOutlineEdit onClick={()=>{
-                    setAddClientPop(true);
-                    setFormdata(task);
-                    setisEdit(task?._id);
-                  }} className="iconsss2"  /> 
-                  <FaEye onClick={()=>{
-                  const filterData = allTaskDetail.find((t) => t?.taskId === task?._id);
-                  setTimerPop(filterData);
-                  }} className="iconsss" />
-
-                     </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-
-      <div className="navbuttons flex justify-between items-center mt-4">
-        <button
-          onClick={handlePrev}
-          disabled={currentPage === 1}
-          className="px-4 py-2 bg-gray-300 rounded-md disabled:bg-gray-200"
-        >
-          Prev
-        </button>
-        <span className="px-4">{currentPage}</span>
-        <button
-          onClick={handleNext}
-          disabled={currentPage === totalPages}
-          className="px-4 py-2 bg-gray-300 rounded-md disabled:bg-gray-200"
-        >
-          Next
-        </button>
-      </div>
-    </div>
-
+                <div className="navbuttons flex justify-between items-center mt-4">
+                  <button
+                    onClick={handlePrev}
+                    disabled={currentPage === 1}
+                    className="px-4 py-2 bg-gray-300 rounded-md disabled:bg-gray-200"
+                  >
+                    Prev
+                  </button>
+                  <span className="px-4">{currentPage}</span>
+                  <button
+                    onClick={handleNext}
+                    disabled={currentPage === totalPages}
+                    className="px-4 py-2 bg-gray-300 rounded-md disabled:bg-gray-200"
+                  >
+                    Next
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -403,15 +430,16 @@ const ProjectDetails = ({ setAlert, pop, setPop }) => {
 
             <hr />
 
-            <form onSubmit={(e)=>{
-              e.preventDefault();
-                if(isEdit){
-                edittaskhandler();
-                }
-                else{
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                if (isEdit) {
+                  edittaskhandler();
+                } else {
                   submitHandler();
                 }
-            }}>
+              }}
+            >
               <label>
                 <p>Subject</p>
                 <input
@@ -439,8 +467,6 @@ const ProjectDetails = ({ setAlert, pop, setPop }) => {
                   ))}
                 </select>
               </label>
-
-             
 
               <label>
                 <p>Priority </p>
@@ -500,7 +526,7 @@ const ProjectDetails = ({ setAlert, pop, setPop }) => {
 
               <div className="btnsss">
                 <button type="submit" className="saveclient">
-                  <span>{isEdit?"Update":"Add Task"}</span>
+                  <span>{isEdit ? "Update" : "Add Task"}</span>
                 </button>
                 <button
                   onClick={() => {
@@ -525,32 +551,45 @@ const ProjectDetails = ({ setAlert, pop, setPop }) => {
         </div>
       )}
 
-{timerPop && (
+      {timerPop && (
         <div className="addCliWrap">
-
           <div className="addClieCont fitheight">
-
             <nav>
               <p>Timer Details</p>
               <img
-                onClick={() => { setTimerPop(false);}}
+                onClick={() => {
+                  setTimerPop(false);
+                }}
                 src={cut}
               />
             </nav>
 
             <hr />
 
-            <p>Time In: {new Date(timerPop?.timeIn).toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true })}</p>
+            <p>
+              Time In:{" "}
+              {new Date(timerPop?.timeIn).toLocaleTimeString("en-US", {
+                hour: "numeric",
+                minute: "numeric",
+                second: "numeric",
+                hour12: true,
+              })}
+            </p>
 
-            <p>Time Out: {new Date(Number(timerPop?.timeOut)).toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true })}</p>
+            <p>
+              Time Out:{" "}
+              {new Date(Number(timerPop?.timeOut)).toLocaleTimeString("en-US", {
+                hour: "numeric",
+                minute: "numeric",
+                second: "numeric",
+                hour12: true,
+              })}
+            </p>
 
-             <p>Total Time: {timerPop?.totalTime} </p>
-
+            <p>Total Time: {timerPop?.totalTime} </p>
           </div>
-
         </div>
       )}
-
     </>
   );
 };

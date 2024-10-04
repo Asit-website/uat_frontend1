@@ -100,6 +100,7 @@ const Permission = ({ pop, setPop, setAlert }) => {
           {/* this is for applly the permission */}
           <div className="em">
             <div className="permiCont">
+
               <label>
                 <p>Service</p>
                 <select
@@ -119,6 +120,9 @@ const Permission = ({ pop, setPop, setAlert }) => {
                   </option>
                   <option value="attendencePermission">
                     attendencePermission
+                  </option>
+                  <option value="showTasksDetailPermission">
+                  showTasksDetailPermission
                   </option>
                   <option value="assetsPermission">assetsPermission</option>
                   <option value="documentPermission">documentPermission</option>
@@ -275,6 +279,9 @@ const Permission = ({ pop, setPop, setAlert }) => {
                   </option>
                   <option value="leadSystemPermission">
                     leadSystemPermission
+                  </option>
+                  <option value="showTasksDetailPermission">
+                  showTasksDetailPermission
                   </option>
                   <option value="attendencePermission">
                     attendencePermission
