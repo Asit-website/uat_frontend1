@@ -17,10 +17,12 @@ import cut from "../../images/cutt.png";
 import CircularProgress from "./CircularProgress";
 import { MdDelete } from "react-icons/md";
 import { MdOutlineEdit } from "react-icons/md";
+import { FaEye } from "react-icons/fa";
+
 
 
 const ProjectDetails = ({ setAlert, pop, setPop }) => {
-  const { user, getAllProjectApi, CreateProjectTask, getProjectTask  , deleteProjectTaskapi , EditProjectTask} =
+  const { user, getAllProjectApi, CreateProjectTask, getProjectTask  , deleteProjectTaskapi , EditProjectTask , fetchTaskDetailApi} =
     useMain();
 
   const location = useLocation();
@@ -61,11 +63,16 @@ const ProjectDetails = ({ setAlert, pop, setPop }) => {
 
   const [allProject, setAllProject] = useState([]);
   const [allTasks, setAllTasks] = useState([]);
+  const [allTaskDetail , setAllTaskDetail] = useState([]);
+
+  console.log("alltask ",allTaskDetail);
 
   const getProjectTaskapi = async () => {
     const ans = await getProjectTask(data?._id);
-    const reversedTasks = ans?.data.reverse(); // Reverse the array
-    setAllTasks(reversedTasks); // Set the reversed array
+    console.log("anss ",ans);
+    const reversedTasks = ans?.data.reverse(); 
+    setAllTaskDetail(ans?.data2);
+    setAllTasks(reversedTasks); 
   };
 
   const getAllProject = async () => {
@@ -216,6 +223,11 @@ const ProjectDetails = ({ setAlert, pop, setPop }) => {
      }
   }
 
+  // THIS IS FOR  POPUP SHOW TASK TIMER DETAILS 
+  const [timerPop , setTimerPop]  = useState(false);
+
+  console.log("timerpopdaa ",timerPop);
+
   return (
     <>
       <div className="employee-dash h-full">
@@ -330,7 +342,13 @@ const ProjectDetails = ({ setAlert, pop, setPop }) => {
                     setAddClientPop(true);
                     setFormdata(task);
                     setisEdit(task?._id);
-                  }} className="iconsss2"  />    </td>
+                  }} className="iconsss2"  /> 
+                  <FaEye onClick={()=>{
+                  const filterData = allTaskDetail.find((t) => t?.taskId === task?._id);
+                  setTimerPop(filterData);
+                  }} className="iconsss" />
+
+                     </td>
             </tr>
           ))}
         </tbody>
@@ -354,8 +372,6 @@ const ProjectDetails = ({ setAlert, pop, setPop }) => {
         </button>
       </div>
     </div>
-
-            
 
             </div>
           </div>
@@ -508,6 +524,33 @@ const ProjectDetails = ({ setAlert, pop, setPop }) => {
           </div>
         </div>
       )}
+
+{timerPop && (
+        <div className="addCliWrap">
+
+          <div className="addClieCont fitheight">
+
+            <nav>
+              <p>Timer Details</p>
+              <img
+                onClick={() => { setTimerPop(false);}}
+                src={cut}
+              />
+            </nav>
+
+            <hr />
+
+            <p>Time In: {new Date(timerPop?.timeIn).toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true })}</p>
+
+            <p>Time Out: {new Date(Number(timerPop?.timeOut)).toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true })}</p>
+
+             <p>Total Time: {timerPop?.totalTime} </p>
+
+          </div>
+
+        </div>
+      )}
+
     </>
   );
 };

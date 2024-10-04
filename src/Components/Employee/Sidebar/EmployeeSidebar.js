@@ -129,8 +129,6 @@ const EmployeeSidebar = () => {
 
   const { leadPermission, hrmsSetUpPermission, payrollPermission, leadSystemPermission, attendencePermission, assetsPermission, documentPermission, leaveManagePermission, performancePermission, employeeManagePermission, hrAdminSetupPermission, trainingSetupPermission, role } = user;
 
-  console.log("role ",role);
-
   const [openPayroll, setOpenPayroll] = useState(false);
 
   const [payrollItem, setPayrollItem] = useState(0);

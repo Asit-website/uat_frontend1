@@ -22,8 +22,7 @@ var tc3;
 var tc4;
 
 const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
-  const { user, getAllProjectApi, CreateProjectTask, getProjectTask } =
-    useMain();
+  const { user, getAllProjectApi, CreateProjectTask, getMyProjectTask  , timerHandlerapi} =useMain();
 
   const location = useLocation();
 
@@ -65,7 +64,7 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
   const [allTasks, setAllTasks] = useState([]);
 
   const getProjectTaskapi = async () => {
-    const ans = await getProjectTask(data?._id);
+    const ans = await getMyProjectTask(data?._id , hrms_user?._id);
     const reversedTasks = ans?.data.reverse(); // Reverse the array
     setAllTasks(reversedTasks); // Set the reversed array
   };
@@ -151,7 +150,6 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const tasksPerPage = 5;
   
-
   // Calculate the total number of pages
   const totalPages = Math.ceil(allTasks.length / tasksPerPage);
 
@@ -181,48 +179,137 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
 
   const [timerPop , setTimerPop] = useState(false);
 
+  const [timerData , setTimerData] = useState({
+    taskId:"" , 
+    Note:"" , 
+  })
 
 
-  // const handleVisibilityChange = () => {
-  //   if (!document.hidden) {
-  //     initializeTimer();
-  //   }
-  // };
+  const timerChange = (e)=>{
+    const {name ,value} = e.target;
+    setTimerData((prev)=>({
+      ...prev ,
+      [name]:value
+    }))
+  }
 
-  // const initializeTimer = () => {
-  //   let t = localStorage.getItem("taskTimer");
+  const closeTimer = async()=>{
+    clearInterval(tc3);
+    clearInterval(tc4);
+    setMount(!mount);
+    setClock(0);
+
+
+    localStorage.removeItem("taskTimer");
+    localStorage.removeItem("timerClockIn");
+    localStorage.removeItem("timeIn");
+   
+  }
+
+  const clockIn = async () => {
+
+    let t = localStorage.getItem("taskTimer");
+
+    if (!t){
+
+        localStorage.setItem( "timerClockIn",
+        new Date().toLocaleTimeString("en-US", {
+          hour: "numeric",
+          minute: "2-digit",
+          second: "2-digit",
+          hour12: true,
+        })
+      );
+
+      const currentTime = new Date(); 
+      const timeOut = currentTime.toISOString(); 
+      
+      localStorage.setItem('timeIn', currentTime.toISOString());   // Set clock-in time in ISO format
+
+      localStorage.setItem("taskTimer", new Date().getTime());
+      
+      tc4 = setInterval(() => {
+        setClock(++clock);
+      }, 1000);
+    } 
+    else {
+  setTimerPop(true);
+    }
+
+    setMount(!mount);
+  };
+
+
+  const timerHandler = async(e)=>{
+
+    e.preventDefault();
+
+    const currentTime = new Date();
   
-  //   clearInterval(tc3);
-  //   clearInterval(tc4);
+    const timeIn = new Date(localStorage.getItem('timeIn'));
+    const timeOut = currentTime.getTime();
 
-  //   if (t) {
-  //            let t5 = Math.floor((new Date().getTime() - t) / 1000);
-  //       setClock(t5);
+      const difference = currentTime.getTime() - timeIn.getTime(); 
+  
+      const hours = Math.floor(difference / (1000 * 60 * 60));
+      const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+  
+      const diffTime = `${hours}:${minutes}:${seconds}`;  
+      
+  
+    const resp = await timerHandlerapi({Note: timerData.Note , taskId: timerData?.taskId , timeIn: timeIn, timeOut: timeOut , totalTime: diffTime , user: hrms_user?._id , projectId: data?._id });
 
-  //       tc4 = setInterval(() => {
-  //         setClock(++t5);
-  //       }, 1000);
+    if(resp?.status){
+      closeTimer();
+      toast.success("Successfuly done");
+      setTimerPop(false);
+    }
+    else{
+      toast.error("Something went wrong");
+    }
+   }
 
-  //         tc3 = setInterval(() => {
-  //         }, 1000);
-  //     } else {
-  //       let t7 = localStorage.getItem("clock-out-time");
-  //       let t5 = Math.floor((t7 - t) / 1000);
-  //       setClock(t5);
-  //     }
-  //   }
+  const handleVisibilityChange = () => {
+    if (!document.hidden) {
+      initializeTimer();
+    }
+  };
 
-  // useEffect(() => {
-  //   document.addEventListener("visibilitychange", handleVisibilityChange);
+  const initializeTimer = () => {
+    let t = localStorage.getItem("taskTimer");
+  
+    clearInterval(tc3);
+    clearInterval(tc4);
 
-  //   return () => {
-  //     document.removeEventListener("visibilitychange", handleVisibilityChange);
-  //   };
-  // }, []);
+    if (t) {
+             let t5 = Math.floor((new Date().getTime() - t) / 1000);
+        setClock(t5);
 
-  // useEffect(() => {
-  //   initializeTimer();
-  // }, []);
+        tc4 = setInterval(() => {
+          setClock(++t5);
+        }, 1000);
+
+          tc3 = setInterval(() => {
+          }, 1000);
+      } else {
+        let t7 = localStorage.getItem("clock-out-time");
+        let t5 = Math.floor((t7 - t) / 1000);
+        setClock(t5);
+      }
+    }
+
+  useEffect(() => {
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+
+    return () => {
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+    };
+  }, []);
+
+  useEffect(() => {
+    initializeTimer();
+  }, []);
 
   return (
     <>
@@ -305,9 +392,7 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
 
 
                 <div>
-                  <IoMdTimer 
-                  // onclick do here change 
-                  />
+                  <IoMdTimer onClick={clockIn} className="cursor-pointer"/>
                   </div>
 
                   <div>
@@ -536,7 +621,7 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
       {timerPop && (
         <div className="addCliWrap">
 
-          <div className="addClieCont">
+          <div className="addClieCont fitheight">
 
             <nav>
               <p>Timer Details</p>
@@ -548,30 +633,34 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
 
             <hr />
 
-            <form onSubmit={submitHandler}>
+            <form onSubmit={timerHandler}>
+
+              <select name="taskId"  onChange={timerChange} value={timerData.taskId} >
+                <option value="Select">Select Task</option>
+{
+  allTasks?.map((task , index)=>(
+    <option key={index} value={task?._id}>{task?.Title}</option>
+  ))
+}
+              </select>
+
+      
+              <input name="Note"  onChange={timerChange} value={timerData.Note} type="text" placeholder="Enter Note..." className="noteInput" />
              
 
               <div className="btnsss">
                 <button type="submit" className="saveclient">
-                  <span>Add Task</span>
+                  <span>Add</span>
                 </button>
                 <button
                   onClick={() => {
-                    setAddClientPop(false);
-                    setFormdata({
-                      Name: "",
-                      Description: "",
-                      Members: "",
-                      Status: "Ongoing",
-                      DueDate: "",
-                      Members: "",
-                    });
-                  }}
+                    setTimerPop(false);   }}
                   className="cancel"
                 >
                   <span>Cancel</span>
                 </button>
               </div>
+
             </form>
           </div>
 
