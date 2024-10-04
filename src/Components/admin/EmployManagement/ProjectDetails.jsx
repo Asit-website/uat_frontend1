@@ -15,9 +15,12 @@ import { useState, useEffect } from "react";
 import toast from "react-hot-toast";
 import cut from "../../images/cutt.png";
 import CircularProgress from "./CircularProgress";
+import { MdDelete } from "react-icons/md";
+import { MdOutlineEdit } from "react-icons/md";
+
 
 const ProjectDetails = ({ setAlert, pop, setPop }) => {
-  const { user, getAllProjectApi, CreateProjectTask, getProjectTask } =
+  const { user, getAllProjectApi, CreateProjectTask, getProjectTask  , deleteProjectTaskapi , EditProjectTask} =
     useMain();
 
   const location = useLocation();
@@ -70,8 +73,7 @@ const ProjectDetails = ({ setAlert, pop, setPop }) => {
     setAllProject(ans?.data);
   };
 
-  const submitHandler = async (e) => {
-    e.preventDefault();
+  const submitHandler = async () => {
     try {
       const toastId = toast.loading("Loading....");
 
@@ -100,6 +102,38 @@ const ProjectDetails = ({ setAlert, pop, setPop }) => {
       toast.error("Something went wrong , please try again");
     }
   };
+
+  const edittaskhandler = async()=>{
+    try {
+      const toastId = toast.loading("Loading....");
+
+      const ans = await EditProjectTask({
+        ...formdata,
+        projectId: data?._id,
+        taskId: isEdit
+      });
+      if (ans?.status) {
+        toast.success("Successfuly Updated task");
+      }
+
+      setAddClientPop(false);
+      setisEdit(false);
+      getProjectTaskapi();
+      setFormdata({
+        Title: "",
+        Description: "",
+        Members: "",
+        StartDate: "",
+        DueDate: "",
+        Github: "",
+      });
+
+      toast.dismiss(toastId);
+    } catch (error) {
+      console.log(error);
+      toast.error("Something went wrong , please try again");
+    }
+  }
 
   useEffect(() => {
     getAllProject();
@@ -143,6 +177,8 @@ const ProjectDetails = ({ setAlert, pop, setPop }) => {
 
   }, [allTasks]);
 
+  const [isEdit , setisEdit] = useState(false);
+
   const [currentPage, setCurrentPage] = useState(1);
   const tasksPerPage = 5;
 
@@ -168,6 +204,17 @@ const ProjectDetails = ({ setAlert, pop, setPop }) => {
       setCurrentPage(currentPage + 1);
     }
   };
+
+  const deleteTasks = async(id)=>{
+     const resp = await deleteProjectTaskapi(id);
+     if(resp.status){
+      getProjectTaskapi();
+       toast.success("Succesfuly deleted");
+     }
+     else {
+      toast.error("Something went wrong")
+     }
+  }
 
   return (
     <>
@@ -208,6 +255,7 @@ const ProjectDetails = ({ setAlert, pop, setPop }) => {
                   <button
                     onClick={() => {
                       setAddClientPop(true);
+                      setisEdit(false)
                     }}
                     className="newcli"
                   >
@@ -250,6 +298,7 @@ const ProjectDetails = ({ setAlert, pop, setPop }) => {
 
               <div className="relative overflow-x-auto">
       <table className="w-full prodetailTable text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+
         <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
           <tr>
             <th scope="col" className="px-6 py-3">Subject</th>
@@ -260,8 +309,10 @@ const ProjectDetails = ({ setAlert, pop, setPop }) => {
             <th scope="col" className="px-6 py-3">Github</th>
             <th scope="col" className="px-6 py-3">Description</th>
             <th scope="col" className="px-6 py-3">Status</th>
+            <th scope="col" className="px-6 py-3">Action</th>
           </tr>
         </thead>
+
         <tbody>
           {currentTasks.map((task, index) => (
             <tr key={index} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
@@ -273,6 +324,13 @@ const ProjectDetails = ({ setAlert, pop, setPop }) => {
               <td className="px-6 py-4">{task?.Github}</td>
               <td className="px-6 py-4">{task?.Description}</td>
               <td className="px-6 py-4">{task?.Status}</td>
+              <td className="px-6 py-4 adddsomflex"> 
+                <MdDelete onClick={()=>deleteTasks(task?._id)} className="iconsss" /> 
+                  <MdOutlineEdit onClick={()=>{
+                    setAddClientPop(true);
+                    setFormdata(task);
+                    setisEdit(task?._id);
+                  }} className="iconsss2"  />    </td>
             </tr>
           ))}
         </tbody>
@@ -297,34 +355,7 @@ const ProjectDetails = ({ setAlert, pop, setPop }) => {
       </div>
     </div>
 
-              {/* <div className="projectOverView">
-                <h3>Overview Of {data?.Name}</h3>
-
-                 <div className="allprogress">
-
-                <div className="eachProgeer">
-                   <h4>Completed Tasks</h4>
-                  <CircularProgress percentage={percentage} color={'#4caf50'} />
-                </div>
-
-                <div className="eachProgeer">
-                   <h4>Pending Tasks</h4>
-                  <CircularProgress percentage={pendingTask} color={'#f44336'} />
-                </div>
-
-          
-                <div className="eachProgeer">
-                   <h4>Not Started Tasks</h4>
-                  <CircularProgress percentage={notStartedTask} color={'#ff9800'} />
-                </div>
-                
-                <div className="eachProgeer">
-                   <h4>Started Tasks</h4>
-                  <CircularProgress percentage={startedTask} color={'#2196f3'} />
-                </div>
-
-                 </div>
-              </div> */}
+            
 
             </div>
           </div>
@@ -339,6 +370,7 @@ const ProjectDetails = ({ setAlert, pop, setPop }) => {
               <img
                 onClick={() => {
                   setAddClientPop(false);
+                  setisEdit(false);
                   setFormdata({
                     Name: "",
                     Description: "",
@@ -355,7 +387,15 @@ const ProjectDetails = ({ setAlert, pop, setPop }) => {
 
             <hr />
 
-            <form onSubmit={submitHandler}>
+            <form onSubmit={(e)=>{
+              e.preventDefault();
+                if(isEdit){
+                edittaskhandler();
+                }
+                else{
+                  submitHandler();
+                }
+            }}>
               <label>
                 <p>Subject</p>
                 <input
@@ -384,22 +424,7 @@ const ProjectDetails = ({ setAlert, pop, setPop }) => {
                 </select>
               </label>
 
-              {/* <label>
-                <p>Project </p>
-
-                <select
-                  name="Project"
-                  value={formdata.Project}
-                  onChange={changeHandler}
-                >
-                  <option value="Select">Select Employee</option>
-                  {allProject?.map((emp, index) => (
-                    <option value={emp?._id} key={index}>
-                      {emp?.Name}
-                    </option>
-                  ))}
-                </select>
-              </label> */}
+             
 
               <label>
                 <p>Priority </p>
@@ -459,11 +484,12 @@ const ProjectDetails = ({ setAlert, pop, setPop }) => {
 
               <div className="btnsss">
                 <button type="submit" className="saveclient">
-                  <span>Add Task</span>
+                  <span>{isEdit?"Update":"Add Task"}</span>
                 </button>
                 <button
                   onClick={() => {
                     setAddClientPop(false);
+                    setisEdit(false);
                     setFormdata({
                       Name: "",
                       Description: "",

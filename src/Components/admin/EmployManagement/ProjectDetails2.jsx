@@ -15,6 +15,11 @@ import { useState, useEffect } from "react";
 import toast from "react-hot-toast";
 import cut from "../../images/cutt.png";
 import CircularProgress from "./CircularProgress";
+import { IoMdTimer } from "react-icons/io";
+
+
+var tc3;
+var tc4;
 
 const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
   const { user, getAllProjectApi, CreateProjectTask, getProjectTask } =
@@ -145,6 +150,7 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
 
   const [currentPage, setCurrentPage] = useState(1);
   const tasksPerPage = 5;
+  
 
   // Calculate the total number of pages
   const totalPages = Math.ceil(allTasks.length / tasksPerPage);
@@ -168,6 +174,55 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
       setCurrentPage(currentPage + 1);
     }
   };
+
+  // THIS IS FOR CLOCK 
+  var [clock, setClock] = useState(0);
+  const [mount, setMount] = useState(false);
+
+  const [timerPop , setTimerPop] = useState(false);
+
+
+
+  // const handleVisibilityChange = () => {
+  //   if (!document.hidden) {
+  //     initializeTimer();
+  //   }
+  // };
+
+  // const initializeTimer = () => {
+  //   let t = localStorage.getItem("taskTimer");
+  
+  //   clearInterval(tc3);
+  //   clearInterval(tc4);
+
+  //   if (t) {
+  //            let t5 = Math.floor((new Date().getTime() - t) / 1000);
+  //       setClock(t5);
+
+  //       tc4 = setInterval(() => {
+  //         setClock(++t5);
+  //       }, 1000);
+
+  //         tc3 = setInterval(() => {
+  //         }, 1000);
+  //     } else {
+  //       let t7 = localStorage.getItem("clock-out-time");
+  //       let t5 = Math.floor((t7 - t) / 1000);
+  //       setClock(t5);
+  //     }
+  //   }
+
+  // useEffect(() => {
+  //   document.addEventListener("visibilitychange", handleVisibilityChange);
+
+  //   return () => {
+  //     document.removeEventListener("visibilitychange", handleVisibilityChange);
+  //   };
+  // }, []);
+
+  // useEffect(() => {
+  //   initializeTimer();
+  // }, []);
 
   return (
     <>
@@ -241,12 +296,27 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
 
                 {/* right side */}
                 <div className="righprodetail">
+
+                  <div className="timerdives">
+                  <p>{Math.floor(clock / 3600)}</p>:
+                  <p>{Math.floor((clock % 3600) / 60)}</p>:
+                  <p>{clock % 60}</p>
+                  </div>
+
+
+                <div>
+                  <IoMdTimer 
+                  // onclick do here change 
+                  />
+                  </div>
+
                   <div>
                     <img src={predit} alt="" />
                   </div>
                   <div>
                     <img src={predel} alt="" />
                   </div>
+                 
                 </div>
               </div>
 
@@ -301,34 +371,7 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
       </div>
     </div>
 
-              {/* <div className="projectOverView">
-                <h3>Overview Of {data?.Name}</h3>
-
-                 <div className="allprogress">
-
-                <div className="eachProgeer">
-                   <h4>Completed Tasks</h4>
-                  <CircularProgress percentage={percentage} color={'#4caf50'} />
-                </div>
-
-                <div className="eachProgeer">
-                   <h4>Pending Tasks</h4>
-                  <CircularProgress percentage={pendingTask} color={'#f44336'} />
-                </div>
-
-          
-                <div className="eachProgeer">
-                   <h4>Not Started Tasks</h4>
-                  <CircularProgress percentage={notStartedTask} color={'#ff9800'} />
-                </div>
-                
-                <div className="eachProgeer">
-                   <h4>Started Tasks</h4>
-                  <CircularProgress percentage={startedTask} color={'#2196f3'} />
-                </div>
-
-                 </div>
-              </div> */}
+            
 
             </div>
           </div>
@@ -337,6 +380,7 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
 
       {addClientPop && (
         <div className="addCliWrap">
+
           <div className="addClieCont addheight">
             <nav>
               <p>Create New Task</p>
@@ -484,8 +528,59 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
               </div>
             </form>
           </div>
+
         </div>
       )}
+
+
+      {timerPop && (
+        <div className="addCliWrap">
+
+          <div className="addClieCont">
+
+            <nav>
+              <p>Timer Details</p>
+              <img
+                onClick={() => { setTimerPop(false);}}
+                src={cut}
+              />
+            </nav>
+
+            <hr />
+
+            <form onSubmit={submitHandler}>
+             
+
+              <div className="btnsss">
+                <button type="submit" className="saveclient">
+                  <span>Add Task</span>
+                </button>
+                <button
+                  onClick={() => {
+                    setAddClientPop(false);
+                    setFormdata({
+                      Name: "",
+                      Description: "",
+                      Members: "",
+                      Status: "Ongoing",
+                      DueDate: "",
+                      Members: "",
+                    });
+                  }}
+                  className="cancel"
+                >
+                  <span>Cancel</span>
+                </button>
+              </div>
+            </form>
+          </div>
+
+        </div>
+      )}
+
+     
+
+
     </>
   );
 };

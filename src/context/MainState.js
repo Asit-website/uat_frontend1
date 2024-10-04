@@ -1878,6 +1878,14 @@ const MainState = (props) => {
       return data;
 
    }
+   const deleteProjectTaskapi = async ( taskId ) => {
+      const data = await deleteReq(`${baseUrl}/task/deleteProjectTaskapi/${taskId}`, true);
+      return data;
+
+   }
+
+   
+
 
    const getTaskApi = async ({ userId }) => {
       const data = await get(`${baseUrl}/openActivity/getTaskByUser/${userId}`, true);
@@ -2152,6 +2160,10 @@ const MainState = (props) => {
       const data = await post(`${baseUrl}/task/createProjectTask/${projectId}`, {  Title,Github ,  Description, Members, StartDate ,DueDate,Priority}, true);
       return data;
    }
+   const EditProjectTask = async({  Title, Description, Members, StartDate ,Github , DueDate , Priority , projectId , taskId})=>{
+      const data = await post(`${baseUrl}/task/editProjectTask/${projectId}/${taskId}`, {  Title,Github ,  Description, Members, StartDate ,DueDate,Priority}, true);
+      return data;
+   }
    const changeTaskStatusApi = async(taskStatus , taskId)=>{
       const data = await post(`${baseUrl}/task/changeTaskStatus/${taskId}`, { taskStatus}, true);
       return data;
@@ -2260,6 +2272,7 @@ const MainState = (props) => {
          ProvideRemovePermission , postQuotationFormApi ,updatePropsalFormApi ,  postProposalFormApi ,  createClientapi , 
          updateQuotationFormApi ,  changeRelivingLetterPer , getThisMonthLeave ,
          uploadOwnDocs,
+          
          getAllLeads,
          updateDocSetup,
          changeOfferLetterPer , 
@@ -2333,8 +2346,8 @@ const MainState = (props) => {
          deleteQuotation1 , 
          uploadSingleImage , 
          getAllProjectUserApi , 
-         savenoteatt , deleteQproapi , changeStatusBreak
-      }}>
+         savenoteatt , deleteQproapi , changeStatusBreak , deleteProjectTaskapi , EditProjectTask
+      }}> 
          {props.children}
       </MainContext.Provider>
    );

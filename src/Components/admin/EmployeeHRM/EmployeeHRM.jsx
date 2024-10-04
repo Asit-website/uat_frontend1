@@ -176,8 +176,6 @@ const EmployeeHRM = ({
     paidLeave:0
   });
 
-  console.log("user ",hrms_user);
-
   useEffect(() => {
     document.addEventListener("visibilitychange", handleVisibilityChange);
 
@@ -234,8 +232,6 @@ const EmployeeHRM = ({
 
     const resp = await changeStatusBreak({ isBreakIn, userId: hrms_user?._id });
   };
-
-
 
   const clockIn = async () => {
     setLoading(true);

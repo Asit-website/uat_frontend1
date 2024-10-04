@@ -17,6 +17,35 @@
 
 }
 
+.timerdives{
+    background-color:white;
+    width: 100px !important;
+    /* height: 100px !important; */
+    border-radius: 0px !important;
+
+}
+
+.timerdives p{
+    font-size: 20px;
+}
+
+.adddsomflex{
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.iconsss{
+    font-size: 24px;
+    color: green;
+    cursor: pointer;
+}
+.iconsss2{
+    font-size: 24px;
+    cursor: pointer;
+    color: red;
+}
+
 .plusSec button {
     display: flex;
     align-items: center;
