@@ -126,21 +126,21 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
   }, [data]);
 
   useEffect(() => {
-    const totalTasks = allTasks.length;
+    const totalTasks = allTasks?.length;
     const completedTasks = allTasks.filter(
       (task) => task.Status === "Completed"
-    ).length;
+    )?.length;
 
     const notStartTasks = allTasks.filter(
       (task) => task.Status === "Not Started"
-    ).length;
+    )?.length;
 
     const startedtasks = allTasks.filter(
       (task) => task.Status === "Started"
-    ).length;
+    )?.length;
     const Pendingtasks = allTasks.filter(
       (task) => task.Status === "Pending"
-    ).length;
+    )?.length;
 
     const completedPercentage = (completedTasks / totalTasks) * 100;
     const notStartPercentage = (notStartTasks / totalTasks) * 100;
@@ -157,7 +157,7 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
   const tasksPerPage = 5;
 
   // Calculate the total number of pages
-  const totalPages = Math.ceil(allTasks.length / tasksPerPage);
+  const totalPages = Math.ceil(allTasks?.length / tasksPerPage);
 
   // Get the tasks for the current page
   const currentTasks = allTasks.slice(
