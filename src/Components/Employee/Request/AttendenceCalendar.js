@@ -14,25 +14,25 @@ const AttendenceCalendar = ({ setAlert, pop1, setPop1 }) => {
     postActivity,
     getStatisticsByUser,
     getActivitiesByUser,
-    getAttendence,savenoteatt
+    getAttendence,
+    savenoteatt,
   } = useMain();
   const [value, onChange] = useState(new Date());
   const [loadFlag, setLoadFlag] = useState(false);
   const [mainData, setMainData] = useState({});
 
-  const [currdate , setCurrdate] = useState("");
+  const [currdate, setCurrdate] = useState("");
 
-  const [Note , setNote] = useState("");
+  const [Note, setNote] = useState("");
 
   const [clockIn, setClockIn] = useState(null);
   const [clockOut, setClockOut] = useState(null);
   const [totalBreak, setTotalBreak] = useState(null);
-  const [task , settask] = useState("");
+  const [task, settask] = useState("");
 
   const getData = async (date) => {
     setLoadFlag(true);
     const data = await getActivitiesByUser(date, "", "", 0, 10, "");
-
     setMainData(data.data[0]);
     setLoadFlag(false);
   };
@@ -52,16 +52,16 @@ const AttendenceCalendar = ({ setAlert, pop1, setPop1 }) => {
     if (attendece.status) {
       if (attendece?.data?.clockIn && attendece?.data?.clockOut) {
         setClockIn(attendece?.data?.clockIn);
-         if(attendece?.data?.Note){
-           setNote(attendece?.data?.Note);
-          }
-          else {
-
-            setNote("");
-          }
-
-          console.log("att",attendece);
+        if (attendece?.data?.Note) {
+          setNote(attendece?.data?.Note);
+        } else {
+          setNote("");
+        }
+        if (attendece?.data?.todayTask) {
           settask(attendece?.data?.todayTask);
+        } else {
+          settask(null);
+        }
         setClockOut(attendece?.data?.clockOut);
         setTotalBreak(attendece?.data?.breakTime);
       } else {
@@ -69,6 +69,7 @@ const AttendenceCalendar = ({ setAlert, pop1, setPop1 }) => {
         setClockOut(null);
         setTotalBreak(null);
         setNote("");
+        settask(null);
       }
     }
   };
@@ -80,17 +81,17 @@ const AttendenceCalendar = ({ setAlert, pop1, setPop1 }) => {
     getData(date);
   };
 
-  const savenoteapi = async()=>{
+  const savenoteapi = async () => {
     let user = localStorage.getItem("hrms_user");
     const userDetail = JSON.parse(user);
 
     const id = userDetail?._id;
-     const ans = await savenoteatt({Note , id , date:currdate});
-      setNote(ans?.data);
-    if(ans?.status){
+    const ans = await savenoteatt({ Note, id, date: currdate });
+    setNote(ans?.data);
+    if (ans?.status) {
       toast.success("Successfuly saved");
     }
-  }
+  };
 
   useEffect(() => {
     const today = new Date();
@@ -164,9 +165,7 @@ const AttendenceCalendar = ({ setAlert, pop1, setPop1 }) => {
                           <h3>Task</h3>
 
                           <p className="prasj">{task}</p>
-                        
                         </div>
-
                       </div>
                     ) : null}
                   </div>
