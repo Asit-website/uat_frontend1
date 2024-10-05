@@ -259,6 +259,7 @@ const TaskProjects = ({ setAlert, pop, setPop }) => {
               <div className="allClients">
                 {allProjects.map((client, index) => (
                   <div key={index} className="singleProject">
+                    
                     <div
                      
                       className="projnav"
@@ -277,6 +278,7 @@ const TaskProjects = ({ setAlert, pop, setPop }) => {
                         />
                         <p>{client.Name}</p>
                       </div>
+
                       <img  className="cursor-pointer" onClick={() => {
                         if (showIndex === index) {
                           setShowIndex(null);
@@ -284,6 +286,7 @@ const TaskProjects = ({ setAlert, pop, setPop }) => {
                           setShowIndex(index);
                         }
                       }} src={threedots} alt="" />
+
                     </div>
 
                     <hr />

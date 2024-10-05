@@ -124,6 +124,12 @@ const Permission = ({ pop, setPop, setAlert }) => {
                   <option value="showTasksDetailPermission">
                   showTasksDetailPermission
                   </option>
+                  <option value="projectCreatePermission">
+                  projectCreatePermission
+                  </option>
+                  <option value="showAllProjectPermission">
+                  showAllProjectPermission
+                  </option>
                   <option value="assetsPermission">assetsPermission</option>
                   <option value="documentPermission">documentPermission</option>
                   <option value="userAllowCrtPermission">userAllowanceCreatePermission</option>
@@ -140,6 +146,9 @@ const Permission = ({ pop, setPop, setAlert }) => {
                   <option value="hrAdminSetupPermission">
                     hrAdminSetupPermission
                   </option>
+                  <option value="addTaskPermission">
+                  addTaskPermission
+                  </option>
                   <option value="trainingSetupPermission">
                     trainingSetupPermission
                   </option>
@@ -154,6 +163,12 @@ const Permission = ({ pop, setPop, setAlert }) => {
                   </option>
                   <option value="totalEmployeePermission">
                     totalEmployeePermission
+                  </option>
+                  <option value="deleteTaskPermission">
+                  deleteTaskPermission 
+                  </option>
+                  <option value="editTaskPermission">
+                  editTaskPermission
                   </option>
                   <option value="createLeadPermission">
                     createLeadPermission
@@ -287,6 +302,18 @@ const Permission = ({ pop, setPop, setAlert }) => {
                     attendencePermission
                   </option>
                   <option value="assetsPermission">assetsPermission</option>
+                  <option value="projectCreatePermission">
+                  projectCreatePermission
+                  </option>
+                  <option value="showAllProjectPermission">
+                  showAllProjectPermission
+                  </option>
+                  <option value="deleteTaskPermission">
+                  deleteTaskPermission 
+                  </option>
+                  <option value="editTaskPermission">
+                  editTaskPermission
+                  </option>
                   <option value="userAllowCrtPermission">userAllowanceCreatePermission</option>
                   <option value="documentPermission">documentPermission</option>
                   <option value="leaveManagePermission">
@@ -301,6 +328,9 @@ const Permission = ({ pop, setPop, setAlert }) => {
                   <option value="payrollPermission">payrollPermission</option>
                   <option value="hrAdminSetupPermission">
                     hrAdminSetupPermission
+                  </option>
+                  <option value="addTaskPermission">
+                  addTaskPermission
                   </option>
                   <option value="trainingSetupPermission">
                     trainingSetupPermission

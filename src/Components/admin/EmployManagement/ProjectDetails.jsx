@@ -222,8 +222,6 @@ const ProjectDetails = ({ setAlert, pop, setPop }) => {
   // THIS IS FOR  POPUP SHOW TASK TIMER DETAILS
   const [timerPop, setTimerPop] = useState(false);
 
-  console.log("timerpopdaa ", timerPop);
-
   return (
     <>
       <div className="employee-dash h-full">

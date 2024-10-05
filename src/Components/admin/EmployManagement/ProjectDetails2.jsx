@@ -17,6 +17,8 @@ import cut from "../../images/cutt.png";
 import CircularProgress from "./CircularProgress";
 import { IoMdTimer } from "react-icons/io";
 import { FaEye } from "react-icons/fa";
+import { MdDelete } from "react-icons/md";
+import { MdOutlineEdit } from "react-icons/md";
 
 var tc3;
 var tc4;
@@ -35,16 +37,9 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
 
   const data = location?.state;
 
-  const [percentage, setPercentage] = useState(0);
-  const [pendingTask, setPendingTask] = useState(0);
-  const [notStartedTask, setnotStartedTask] = useState(0);
-  const [startedTask, setstartedTask] = useState(0);
-
   let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
 
-  const { role, showTasksDetailPermission } = hrms_user;
-
-  console.log("showTasksDetailPermission ", showTasksDetailPermission);
+  const { role, showTasksDetailPermission , showAllProjectPermission , addTaskPermission ,  deleteTaskPermission , editTaskPermission , deleteProjectTaskapi } = hrms_user;
 
   const [formdata, setFormdata] = useState({
     Title: "",
@@ -77,6 +72,14 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
     const reversedTasks = ans?.data.reverse(); // Reverse the array
     setAllTasks(reversedTasks); // Set the reversed array
   };
+
+  const getProjectTaskapiPermi = async () => {
+    const ans = await getProjectTask(data?._id);
+    const reversedTasks = ans?.data.reverse();
+    setAllTaskDetail(ans?.data2);
+    setAllTasks(reversedTasks);
+  };
+
 
   const getAllProject = async () => {
     const ans = await getAllProjectApi();
@@ -115,43 +118,11 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
   };
 
   useEffect(() => {
-    getAllProject();
-    getProjectTaskapi();
-  }, []);
-
-  useEffect(() => {
     if (data) {
       setAllEmp(data?.Members);
     }
   }, [data]);
 
-  useEffect(() => {
-    const totalTasks = allTasks?.length;
-    const completedTasks = allTasks.filter(
-      (task) => task.Status === "Completed"
-    )?.length;
-
-    const notStartTasks = allTasks.filter(
-      (task) => task.Status === "Not Started"
-    )?.length;
-
-    const startedtasks = allTasks.filter(
-      (task) => task.Status === "Started"
-    )?.length;
-    const Pendingtasks = allTasks.filter(
-      (task) => task.Status === "Pending"
-    )?.length;
-
-    const completedPercentage = (completedTasks / totalTasks) * 100;
-    const notStartPercentage = (notStartTasks / totalTasks) * 100;
-    const startedPercentage = (startedtasks / totalTasks) * 100;
-    const PendingPercentage = (Pendingtasks / totalTasks) * 100;
-
-    setPercentage(completedPercentage);
-    setnotStartedTask(notStartPercentage);
-    setstartedTask(startedPercentage);
-    setPendingTask(PendingPercentage);
-  }, [allTasks]);
 
   const [currentPage, setCurrentPage] = useState(1);
   const tasksPerPage = 5;
@@ -160,7 +131,7 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
   const totalPages = Math.ceil(allTasks?.length / tasksPerPage);
 
   // Get the tasks for the current page
-  const currentTasks = allTasks.slice(
+  const currentTasks = allTasks?.slice(
     (currentPage - 1) * tasksPerPage,
     currentPage * tasksPerPage
   );
@@ -240,6 +211,9 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
     setMount(!mount);
   };
 
+  const [isEdit, setisEdit] = useState(false);
+
+
   const timerHandler = async (e) => {
     e.preventDefault();
 
@@ -315,21 +289,35 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
     initializeTimer();
   }, []);
 
-  const [allTasksPer, setAllTasksPer] = useState([]);
-  const [timerPop2, setTimerPop2] = useState(false);
-
   const [allTaskDetail, setAllTaskDetail] = useState([]);
 
+  const [timerPop2, setTimerPop2] = useState(false);
+
+
   // THIS IS FOR PERMISSION
-  const getProjectTaskapiPermi = async () => {
-    const ans = await getProjectTask(data?._id);
-    const reversedTasks = ans?.data.reverse();
-    setAllTaskDetail(ans?.data2);
-    setAllTasksPer(reversedTasks);
+
+
+  const deleteTasks = async (id) => {
+    const resp = await deleteProjectTaskapi(id);
+    if (resp.status) {
+      getProjectTaskapi();
+      toast.success("Succesfuly deleted");
+    } else {
+      toast.error("Something went wrong");
+    }
   };
 
+
+
   useEffect(() => {
-    getProjectTaskapiPermi();
+    if(showAllProjectPermission){
+      getProjectTaskapiPermi();
+
+    }
+    else{
+      getProjectTaskapi();
+    }
+    getAllProject();
   }, []);
 
   return (
@@ -364,11 +352,13 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
                   </p>
                 </div>
 
-                {hrms_user?.designation === "Manager" &&
-                  hrms_user?.designation === "UI/UX Designer" &&
-                  hrms_user?.designation === "Senior Digital Marketing" && (
+               
+               {
+
+            addTaskPermission && 
+               
                     <div className="clibtns">
-                      <NavLink to="/adminDash/HRM/taskProjects">
+                      <NavLink to="employeeDash/HRM/myProjects">
                         <button className="backpro">
                           <span>Back</span>
                         </button>
@@ -382,7 +372,9 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
                         <img src={pluss} /> <span>Add Task</span>
                       </button>
                     </div>
-                  )}
+
+                      }
+                
               </nav>
 
               <div className="prodlefriwrap">
@@ -464,7 +456,7 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
                     </tr>
                   </thead>
                   <tbody>
-                    {currentTasks.map((task, index) => (
+                    {currentTasks?.map((task, index) => (
                       <tr
                         key={index}
                         className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
@@ -484,12 +476,30 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
                               showTasksDetailPermission &&   
                                <FaEye
                               onClick={() => {
-                                const filterData = allTaskDetail.find(
+                                const filterData = allTaskDetail?.find(
                                   (t) => t?.taskId === task?._id
                                 );
                                 setTimerPop2(filterData);
                               }}
                               className="iconsss"
+                            />
+                            }
+                            {
+                              deleteTaskPermission && 
+                               <MdDelete
+                              onClick={() => deleteTasks(task?._id)}
+                              className="iconsss"
+                            />
+                            }
+                            {
+                              editTaskPermission && 
+                              <MdOutlineEdit
+                              onClick={() => {
+                                setAddClientPop(true);
+                                setFormdata(task);
+                                setisEdit(task?._id);
+                              }}
+                              className="iconsss2"
                             />
                             }
                           
@@ -777,3 +787,38 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
   );
 };
 export default ProjectDetails2;
+
+
+
+// const [percentage, setPercentage] = useState(0);
+// const [pendingTask, setPendingTask] = useState(0);
+// const [notStartedTask, setnotStartedTask] = useState(0);
+// const [startedTask, setstartedTask] = useState(0);
+
+  // useEffect(() => {
+  //   const totalTasks = allTasks?.length;
+  //   const completedTasks = allTasks?.filter(
+  //     (task) => task.Status === "Completed"
+  //   )?.length;
+
+  //   const notStartTasks = allTasks?.filter(
+  //     (task) => task.Status === "Not Started"
+  //   )?.length;
+
+  //   const startedtasks = allTasks?.filter(
+  //     (task) => task.Status === "Started"
+  //   )?.length;
+  //   const Pendingtasks = allTasks?.filter(
+  //     (task) => task.Status === "Pending"
+  //   )?.length;
+
+  //   const completedPercentage = (completedTasks / totalTasks) * 100;
+  //   const notStartPercentage = (notStartTasks / totalTasks) * 100;
+  //   const startedPercentage = (startedtasks / totalTasks) * 100;
+  //   const PendingPercentage = (Pendingtasks / totalTasks) * 100;
+
+  //   setPercentage(completedPercentage);
+  //   setnotStartedTask(notStartPercentage);
+  //   setstartedTask(startedPercentage);
+  //   setPendingTask(PendingPercentage);
+  // }, [allTasks]);
