@@ -57,12 +57,13 @@ const EmployeeHRM = ({
     postAttendence,
     fetchTodayLeave,
     postLeave,
-    postNotification,
+    postNotification, 
+    postNotification2, 
     getLeaveTypes,
     getTodayBirthday,
     changeStatusBreak,
     allEmployee , 
-    LeaveAllowApihandler , leaveTypeApi
+    LeaveAllowApihandler , leaveTypeApi , postHalfDay
   } = useMain();
 
   const user2 = JSON.parse(localStorage.getItem("hrms_user"));
@@ -72,6 +73,7 @@ const EmployeeHRM = ({
     leaveRequest: 0,
     employeesLeaves: 0,
     totalEmployees: 0,
+    halfDayRequest:0 
   });
 
   const [loadFlag, setLoadFlag] = useState(true);
@@ -80,6 +82,7 @@ const EmployeeHRM = ({
   const [clockoutLoading, setClockOutLoading] = useState(false);
 
   const [totalLeave, setTotalLeave] = useState(0);
+  const [totalHalfDay, setTotalHalfDay] = useState(0);
 
   let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
 
@@ -87,6 +90,7 @@ const EmployeeHRM = ({
 
   const {
     activeEmployeePermission,
+    halfDayPermission ,
     leaveRequestPermission,
     employeeOnLeavePermission,
     totalEmployeePermission,
@@ -102,10 +106,25 @@ const EmployeeHRM = ({
     reason: "",
   });
 
+  const [formdata2, setFormdata2] = useState({
+    employeeName: "",
+    start: "",
+    end: "",
+    reason: "",
+  });
+
   const changeHandler = (e) => {
     const { name, value } = e.target;
 
     setFormdata((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+  const changeHandler2 = (e) => {
+    const { name, value } = e.target;
+
+    setFormdata2((prev) => ({
       ...prev,
       [name]: value,
     }));
@@ -120,6 +139,7 @@ const EmployeeHRM = ({
   const [holiday, setHoliday] = useState([]);
 
   const [star1, setStar1] = useState(false);
+  const [star2, setStar2] = useState(false);
 
   const [openAnn, setOpenAnn] = useState(false);
 
@@ -154,9 +174,10 @@ const EmployeeHRM = ({
     setLoadFlag(true);
     const ans = await getUsers();
     const ans1 = await getActiveUsersCount();
-
+    
     const ans2 = await getTotalLeavesCount();
     setTotalLeave(ans2.totalLeave);
+    setTotalHalfDay(ans2?.halfDay);
 
     setCounts({
       ...counts,
@@ -493,6 +514,7 @@ const EmployeeHRM = ({
   };
 
   const [showleave, setShowLeave] = useState(false);
+  const [showleave2, setShowLeave2] = useState(false);
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -512,6 +534,8 @@ const EmployeeHRM = ({
       reason: formdata.reason,
     });
 
+
+
     const notify = await postNotification(
       daysGap,
       formdata.employeeName,
@@ -529,6 +553,44 @@ const EmployeeHRM = ({
       start: "",
       end: "",
       reason: "",
+    });
+
+    toast.dismiss(toastId);
+  };
+
+  const submitHandler2 = async (e) => {
+    e.preventDefault();
+
+    const toastId = toast.loading("Loading...");
+
+    const startDate = new Date(formdata2.start);
+    const endDate = new Date(formdata2.end);
+    const timeDifference = Math.abs(endDate - startDate);
+    const daysGap = Math.ceil(timeDifference / (1000 * 60 * 60 * 24));
+
+    const ans = await postHalfDay({
+      from: formdata2.start,
+      to: formdata2.end,
+      days: daysGap,
+      reason: formdata2.reason,
+    });
+
+    const notify = await postNotification2(
+      daysGap,
+      formdata2.employeeName,
+      user?.fullName
+    );
+
+    if (ans.success) {
+      toast.success("Successfully applied");
+      setStar2(false);
+      setShowLeave2(false);
+    }
+    setFormdata2({
+      employeeName: "",
+      leaveType: "",
+      start: "",
+      end: "",
     });
 
     toast.dismiss(toastId);
@@ -590,7 +652,6 @@ const EmployeeHRM = ({
       const resp = await allEmployee();
        setAllEmp(resp?.emp);
     }
-
 
     const LeaveAllowApi = async()=>{
 
@@ -685,8 +746,10 @@ const EmployeeHRM = ({
                   activeEmployeePermission ||
                   leaveRequestPermission ||
                   employeeOnLeavePermission ||
+                  halfDayPermission || 
                   totalEmployeePermission) && (
                   <div className="hrLefFir">
+
                     {(activeEmployeePermission || role === "ADMIN") && (
                       <NavLink
                         className="skm"
@@ -698,6 +761,22 @@ const EmployeeHRM = ({
                           <div className="titWrap">
                             <h3>Active Employee</h3>
                             <p className="hrmlRNu">{counts?.activeEmployees}</p>
+                          </div>
+                        </div>
+                      </NavLink>
+                    )}
+
+                    {(halfDayPermission || role === "ADMIN") && (
+                      <NavLink
+                        className="skm"
+                        to={role === "ADMIN" ? `/adminDash/HRM/halfDayRequest`:"/employeeDash/HRM/halfDayRequest"}
+                      >
+                        <div className="sinActDat colorChange1">
+                          <img className="firImg" src={ac1} alt="" />
+
+                          <div className="titWrap">
+                            <h3>Half Day Request</h3>
+                            <p className="hrmlRNu">{totalHalfDay}</p>
                           </div>
                         </div>
                       </NavLink>
@@ -1463,6 +1542,19 @@ const EmployeeHRM = ({
                           class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                           type="button"
                           onClick={() => {
+                            setStar2(!star1);
+                            setShowLeave2(true);
+                          }}
+                        >
+                          <span> Create Half Day</span>
+                        </button>
+
+                        <button
+                          data-modal-target="authentication-modal"
+                          data-modal-toggle="authentication-modal"
+                          class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                          type="button"
+                          onClick={() => {
                             setStar1(!star1);
                             setShowLeave(true);
                           }}
@@ -1743,6 +1835,123 @@ const EmployeeHRM = ({
 
                             <button
                               onClick={() => setStar1(false)}
+                              type="button"
+                              class="levacanclebtns"
+                            >
+                              <span>Cancel</span>
+                            </button>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </>
+                )}
+
+                {showleave2 && (
+                  <>
+                    <div className="leavewrapping">
+                      <div className="crelevecont">
+                        <div class="crelavetopsec">
+                          <h3 class="leaveHead "> Half Day Request </h3>
+
+                          <img
+                            src={cutt}
+                            onClick={() => setShowLeave2(false)}
+                            alt=""
+                          />
+                        </div>
+
+                        <hr />
+
+                        {/* <!-- Modal body --> */}
+                        <form className="levaecretaeform" action="#">
+                          {/* <div class="user_classleave">
+                            <label>Leave type</label>
+
+                            <select
+                              name="leaveType"
+                              onChange={changeHandler}
+                              value={formdata.leaveType}
+                              required
+                            >
+                              {leaveType.map((item, index) => (
+                                <option value={item?.name} key={index}>
+                                  {item?.name}
+                                </option>
+                              ))}
+                            </select>
+                          </div> */}
+
+                          <div className="levaecreflex">
+                            <div class="user_class_input3 w-full mt-2 ">
+                              <label
+                                for="text"
+                                class="block mb-2 text-sm font-medium text-gray-900 employName"
+                              >
+                                Start
+                              </label>
+                              <input
+                                value={formdata2.start}
+                                onChange={changeHandler2}
+                                type="date"
+                                name="start"
+                                id="text"
+                                class="startDate"
+                                required
+                              />
+                            </div>
+
+                            <div class="user_class_input3 w-full ml-2  mt-2">
+                              <label
+                                for="text"
+                                class="block mb-2 text-sm font-medium text-gray-900 employName"
+                              >
+                                End
+                              </label>
+                              <input
+                                value={formdata2.end}
+                                onChange={changeHandler2}
+                                type="date"
+                                name="end"
+                                id="text"
+                                class="startDate"
+                                required
+                              />
+                            </div>
+                          </div>
+
+                          <div class="levelreasons">
+                            <label
+                              for="message"
+                              class="block mb-2 mt-2 text-sm font-medium text-gray-900 employName"
+                            >
+                              Reason
+                            </label>
+                            <textarea
+                              required
+                              name="reason"
+                              onChange={changeHandler2}
+                              value={formdata2.reason}
+                              id="message"
+                              rows="4"
+                              class="reasonText2"
+                              placeholder="Enter your reason..."
+                            ></textarea>
+                          </div>
+
+                          <div className="leavebuttons">
+                            <button
+                              onClick={(e) => {
+                                submitHandler2();
+                              }}
+                              type="button"
+                              className="leaverqbtns"
+                            >
+                              <span> Request send</span>
+                            </button>
+
+                            <button
+                              onClick={() => setShowLeave2(false)}
                               type="button"
                               class="levacanclebtns"
                             >

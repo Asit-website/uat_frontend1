@@ -330,8 +330,8 @@ text-align: left;
 }
 
 .colorChange2 {
-    background: #FCEFEC;
-    border: 1px solid #F4C0B3;
+    background: #FCEFEC !important;
+    border: 1px solid #F4C0B3 !important;
 }
 
 .colorChange3 {
@@ -365,7 +365,7 @@ text-align: left;
 
 .titWrap h3 {
     font-family: Inter;
-    font-size: 18px;
+    font-size: 15px;
     font-weight: 600;
     line-height: 24px;
     letter-spacing: 0.0015em;

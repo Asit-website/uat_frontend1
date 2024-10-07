@@ -273,6 +273,11 @@ const MainState = (props) => {
       const data = await post(`${baseUrl}/leave/postLeave`, { type, from, to, days, reason }, true);
       return data;
    };
+   const postHalfDay = async ({  from, to, days, reason }) => {
+
+      const data = await post(`${baseUrl}/leave/halfday`, {  from, to, days, reason }, true);
+      return data;
+   };
 
 
    // end 
@@ -285,6 +290,10 @@ const MainState = (props) => {
 
    const getUserLeaves = async () => {
       const data = await get(`${baseUrl}/leave/getUserLeaves`, true);
+      return data;
+   };
+   const getUserHalfDay = async () => {
+      const data = await get(`${baseUrl}/leave/getUserHalfDay`, true);
       return data;
    };
 
@@ -913,11 +922,30 @@ const MainState = (props) => {
 
       return data;
    }
+
+   const acceptHalf = async (formdata, id, userId, from, to) => {
+
+      const { user, days } = formdata;
+
+      let fullName = user.fullName;
+
+      const data = await post(`${baseUrl}/leave/acceptHalfDay/${id}`, { fullName, days, userId, startDate: from, endDate: to }, true);
+
+      return data;
+   }
    const rejectLeave = async (formdata, id) => {
       const { user } = formdata;
       let fullName = user.fullName;
 
       const data = await post(`${baseUrl}/leave/rejectLeave/${id}`, { fullName }, true);
+
+      return data;
+   }
+   const rejectHalfDay = async (formdata, id) => {
+      const { user } = formdata;
+      let fullName = user.fullName;
+
+      const data = await post(`${baseUrl}/leave/rejectHalfDay/${id}`, { fullName }, true);
 
       return data;
    }
@@ -927,6 +955,15 @@ const MainState = (props) => {
 
 
       const data = await post(`${baseUrl}/notification/createNotification`, { title: `Leave Application from ${username} `, description: `Leave of ${daysGap} days`, users: ["shubham gupta"] }, true);
+
+
+      return data;
+
+   }
+   const postNotification2 = async (daysGap, name, username) => {
+
+
+      const data = await post(`${baseUrl}/notification/createNotification`, { title: `Half Day Application from ${username} `, description: `Half Day of ${daysGap} days`, users: ["shubham gupta"] }, true);
 
 
       return data;
@@ -2354,7 +2391,7 @@ const MainState = (props) => {
          deleteQuotation1 , 
          uploadSingleImage , 
          getAllProjectUserApi , 
-         savenoteatt , deleteQproapi , changeStatusBreak , deleteProjectTaskapi , EditProjectTask
+         savenoteatt , deleteQproapi , changeStatusBreak , deleteProjectTaskapi , EditProjectTask , postHalfDay , postNotification2 , getUserHalfDay , rejectHalfDay , acceptHalf
       }}> 
          {props.children}
       </MainContext.Provider>

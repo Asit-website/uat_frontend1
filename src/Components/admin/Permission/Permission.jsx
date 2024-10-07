@@ -118,6 +118,9 @@ const Permission = ({ pop, setPop, setAlert }) => {
                   <option value="leadSystemPermission">
                     leadSystemPermission
                   </option>
+                  <option value="halfDayPermission">
+                  halfDayPermission
+                  </option>
                   <option value="attendencePermission">
                     attendencePermission
                   </option>
@@ -294,6 +297,9 @@ const Permission = ({ pop, setPop, setAlert }) => {
                   </option>
                   <option value="leadSystemPermission">
                     leadSystemPermission
+                  </option>
+                  <option value="halfDayPermission">
+                  halfDayPermission
                   </option>
                   <option value="showTasksDetailPermission">
                   showTasksDetailPermission
