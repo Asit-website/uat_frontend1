@@ -31,6 +31,7 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
     getMyProjectTask,
     timerHandlerapi,
     getProjectTask,
+    deleteProjectTaskapi22 , EditProjectTask
   } = useMain();
 
   const location = useLocation();
@@ -39,7 +40,7 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
 
   let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
 
-  const { role, showTasksDetailPermission , showAllProjectPermission , addTaskPermission ,  deleteTaskPermission , editTaskPermission , deleteProjectTaskapi } = hrms_user;
+  const { role, showTasksDetailPermission , showAllProjectPermission , addTaskPermission ,  deleteTaskPermission , editTaskPermission ,  } = hrms_user;
 
   const [formdata, setFormdata] = useState({
     Title: "",
@@ -289,6 +290,40 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
     initializeTimer();
   }, []);
 
+  const edittaskhandler = async () => {
+    try {
+      const toastId = toast.loading("Loading....");
+
+      const ans = await EditProjectTask({
+        ...formdata,
+        projectId: data?._id,
+        taskId: isEdit,
+      });
+      if (ans?.status) {
+        toast.success("Successfuly Updated task");
+      }
+
+      setAddClientPop(false);
+      setisEdit(false);
+      getProjectTaskapiPermi();
+      getProjectTaskapi();
+    
+      setFormdata({
+        Title: "",
+        Description: "",
+        Members: "",
+        StartDate: "",
+        DueDate: "",
+        Github: "",
+      });
+
+      toast.dismiss(toastId);
+    } catch (error) {
+      console.log(error);
+      toast.error("Something went wrong , please try again");
+    }
+  };
+
   const [allTaskDetail, setAllTaskDetail] = useState([]);
 
   const [timerPop2, setTimerPop2] = useState(false);
@@ -298,13 +333,16 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
 
 
   const deleteTasks = async (id) => {
-    const resp = await deleteProjectTaskapi(id);
+    const toastId = toast.loading("Loading...");
+    const resp = await deleteProjectTaskapi22(id);
     if (resp.status) {
       getProjectTaskapi();
+      getProjectTaskapiPermi();
       toast.success("Succesfuly deleted");
     } else {
       toast.error("Something went wrong");
     }
+    toast.dismiss(toastId);
   };
 
 
@@ -557,7 +595,15 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
 
             <hr />
 
-            <form onSubmit={submitHandler}>
+            <form 
+             onSubmit={(e) => {
+              e.preventDefault();
+              if (isEdit) {
+                edittaskhandler();
+              } else {
+                submitHandler();
+              }
+            }}>
               <label>
                 <p>Subject</p>
                 <input
@@ -586,22 +632,7 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
                 </select>
               </label>
 
-              {/* <label>
-                <p>Project </p>
-
-                <select
-                  name="Project"
-                  value={formdata.Project}
-                  onChange={changeHandler}
-                >
-                  <option value="Select">Select Employee</option>
-                  {allProject?.map((emp, index) => (
-                    <option value={emp?._id} key={index}>
-                      {emp?.Name}
-                    </option>
-                  ))}
-                </select>
-              </label> */}
+           
 
               <label>
                 <p>Priority </p>
@@ -788,37 +819,3 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
 };
 export default ProjectDetails2;
 
-
-
-// const [percentage, setPercentage] = useState(0);
-// const [pendingTask, setPendingTask] = useState(0);
-// const [notStartedTask, setnotStartedTask] = useState(0);
-// const [startedTask, setstartedTask] = useState(0);
-
-  // useEffect(() => {
-  //   const totalTasks = allTasks?.length;
-  //   const completedTasks = allTasks?.filter(
-  //     (task) => task.Status === "Completed"
-  //   )?.length;
-
-  //   const notStartTasks = allTasks?.filter(
-  //     (task) => task.Status === "Not Started"
-  //   )?.length;
-
-  //   const startedtasks = allTasks?.filter(
-  //     (task) => task.Status === "Started"
-  //   )?.length;
-  //   const Pendingtasks = allTasks?.filter(
-  //     (task) => task.Status === "Pending"
-  //   )?.length;
-
-  //   const completedPercentage = (completedTasks / totalTasks) * 100;
-  //   const notStartPercentage = (notStartTasks / totalTasks) * 100;
-  //   const startedPercentage = (startedtasks / totalTasks) * 100;
-  //   const PendingPercentage = (Pendingtasks / totalTasks) * 100;
-
-  //   setPercentage(completedPercentage);
-  //   setnotStartedTask(notStartPercentage);
-  //   setstartedTask(startedPercentage);
-  //   setPendingTask(PendingPercentage);
-  // }, [allTasks]);

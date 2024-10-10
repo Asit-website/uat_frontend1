@@ -1915,7 +1915,8 @@ const MainState = (props) => {
       return data;
 
    }
-   const deleteProjectTaskapi = async ( taskId ) => {
+   const deleteProjectTaskapi22 = async ( taskId ) => {
+      console.log("coming ",taskId);
       const data = await deleteReq(`${baseUrl}/task/deleteProjectTaskapi/${taskId}`, true);
       return data;
 
@@ -2391,7 +2392,7 @@ const MainState = (props) => {
          deleteQuotation1 , 
          uploadSingleImage , 
          getAllProjectUserApi , 
-         savenoteatt , deleteQproapi , changeStatusBreak , deleteProjectTaskapi , EditProjectTask , postHalfDay , postNotification2 , getUserHalfDay , rejectHalfDay , acceptHalf
+         savenoteatt , deleteQproapi , changeStatusBreak , deleteProjectTaskapi22 , EditProjectTask , postHalfDay , postNotification2 , getUserHalfDay , rejectHalfDay , acceptHalf
       }}> 
          {props.children}
       </MainContext.Provider>
