@@ -44,8 +44,7 @@ const data = `<p class="MsoNormal" align="left" style="text-indent: -1px; color:
 
 <p class="MsoNormal" align="left" style="font-family: Inter, sans-serif; color: black; margin: 0in; text-align: left; text-indent: 0in; line-height: 107%; font-size: 16px;"><span style="line-height: 107%;"><span>&nbsp;</span></span><br></p>
 
-<p class="MsoNormal" style="text-align: justify; text-indent: -1px; line-height: 104%; color: black; margin: 0in 1px 0px; font-size: 16px;"><span style="line-height: 104%; background: yellow; font-family: Inter, sans-serif;">06 June
-        2024</span></p>
+<p class="MsoNormal" style="text-align: justify; text-indent: -1px; line-height: 104%; color: black; margin: 0in 1px 0px; font-size: 16px;"><span style="line-height: 104%; background: yellow; font-family: Inter, sans-serif;"> [SENDINGDATE] </span></p>
 
 <p class="MsoNormal" align="left" style="font-family: Inter, sans-serif; color: black; margin: 0in 0in 2px; text-align: left; text-indent: 0in; line-height: 107%; font-size: 16px;"><span style="line-height: 107%;"><span>&nbsp;</span></span><br></p>
 
@@ -144,8 +143,7 @@ const data = `<p class="MsoNormal" align="left" style="text-indent: -1px; color:
 
 <p class="MsoNormal" align="left" style="font-family: Inter, sans-serif; color: black; margin: 0in 0in 2px; text-align: left; text-indent: 0in; line-height: 107%; font-size: 16px;"><span style="line-height: 107%;"><span>&nbsp;</span></span><br></p>
 
-<p class="MsoNormal" align="left" style="text-indent: -1px; color: black; margin: 0in 0in 0in 1px; text-align: left; line-height: 107%; font-size: 16px;"><strong><span style="line-height: 107%; background: yellow; font-family: Inter, sans-serif;">Priya
-            Singh</span></strong></p>
+<p class="MsoNormal" align="left" style="text-indent: -1px; color: black; margin: 0in 0in 0in 1px; text-align: left; line-height: 107%; font-size: 16px;"><strong><span style="line-height: 107%; background: yellow; font-family: Inter, sans-serif;"> [SENDERNAME] </span></strong></p>
 
 <p class="MsoNormal" align="left" style="text-indent: -1px; color: black; margin: 0in 0in 0in 1px; text-align: left; line-height: 107%; font-size: 16px;"><strong><span style="line-height: 107%; background: yellow; font-family: Inter, sans-serif;">HR
             Manager</span></strong></p>
@@ -341,7 +339,7 @@ the time being in force.</span></p>
   <p class="TableParagraph" style="font-family: Arial, sans-serif; margin: 3px 0in 0px 10px; font-size: 15px;"><strong><span style="font-family: Inter, sans-serif; color: black; font-size: 13px;">Net TakeHome(PerMonth)</span></strong></p>
   </td>
   <td width="362" valign="top" style="width: 361px; background: rgb(217, 217, 217); padding: 0in; height: 21px;">
-  <p class="TableParagraph" align="right" style="font-family: Arial, sans-serif; margin: 3px 2px 0px 0in; text-align: right; font-size: 15px;"><strong><span style="font-family: Inter, sans-serif; color: black; background: yellow; font-size: 13px;">0000.00</span></strong></p>
+  <p class="TableParagraph" align="right" style="font-family: Arial, sans-serif; margin: 3px 2px 0px 0in; text-align: right; font-size: 15px;"><strong><span style="font-family: Inter, sans-serif; color: black; background: yellow; font-size: 13px;"> [COMPENSATAION] </span></strong></p>
   </td>
  </tr>
  <tr style="height: 21px;">
@@ -955,9 +953,10 @@ const data3 = `
 
 <p class="MsoNormal" style="margin: 0in 0in 11px; line-height: 107%; font-family: Calibri, sans-serif; font-size: 15px;"><span style="line-height: 107%; font-size: 17px; font-family: Inter, sans-serif;">Thanks &amp; Regards</span></p>
 
-<p class="MsoNormal" style="margin: 0in 0in 11px; line-height: 107%; font-family: Calibri, sans-serif; font-size: 15px;"><span style="line-height: 107%; font-size: 17px; font-family: Inter, sans-serif;">Priya Singh</span></p>
+<p class="MsoNormal" style="margin: 0in 0in 11px; line-height: 107%; font-family: Calibri, sans-serif; font-size: 15px;"><span style="line-height: 107%; font-size: 17px; font-family: Inter, sans-serif;"> [SENDERNAME] </span></p>
 
 <p class="MsoNormal" style="margin: 0in 0in 11px; line-height: 107%; font-family: Calibri, sans-serif; font-size: 15px;"><span style="line-height: 107%; font-size: 17px; font-family: Inter, sans-serif;">Kushel Digi Solutions</span></p><p style="margin-right: 0in; margin-left: 0in; font-family: &quot;Times New Roman&quot;, serif; font-size: 16px;"><span style="font-family: Calibri, sans-serif; background: yellow; font-size: 17px;"><br></span></p>`;
+
 
 const DocumentManagement = ({ setAlert, pop, setPop }) => {
   const {
@@ -1056,7 +1055,9 @@ const DocumentManagement = ({ setAlert, pop, setPop }) => {
      returningDay:"[RETURNINGDAY]" ,
      returningDate: "[RETURNINGDATE]" , 
      validJoin:"[VALIDJOIN]" , 
-     empDateOfBirth:"[EMPLOYEEDATEOFBIRTH]"
+     empDateOfBirth:"[EMPLOYEEDATEOFBIRTH]" ,
+     sendingDate:"[SENDINGDATE]" , 
+     sendername:"[SENDERNAME]"
   })
 
 
@@ -1074,7 +1075,9 @@ const DocumentManagement = ({ setAlert, pop, setPop }) => {
     returningDate:"" , 
     returningDay:"" , 
     validJoin:"" , 
-    empDateOfBirth:""
+    empDateOfBirth:"" , 
+    sendingDate:"" , 
+    sendername:""
   })
 
 
@@ -1255,7 +1258,7 @@ const DocumentManagement = ({ setAlert, pop, setPop }) => {
                         name="dear"
                         value={detail.dear}
                         onChange={handleNameChange}
-                        placeholder="Enter UserName"
+                        placeholder="Enter Employee Name"
                       />
                       <button onClick={()=>handleInsert1('dear')}>Insert</button>
                      </label>
@@ -1306,9 +1309,20 @@ const DocumentManagement = ({ setAlert, pop, setPop }) => {
                         name="workingHour"
                         value={detail.workingHour}
                         onChange={handleNameChange}
-                        placeholder="Enter working Hour 5:00"
+                        placeholder="Enter working Hour"
                       />
                       <button onClick={() => handleInsert1('workingHour')}>Insert</button>
+                     </label>
+
+                     <label >
+                     <input
+                        type="text"
+                        name="sendername"
+                        value={detail.sendername}
+                        onChange={handleNameChange}
+                        placeholder="Enter Sender Name"
+                      />
+                      <button onClick={() => handleInsert1('sendername')}>Insert</button>
                      </label>
 
                      <label >
@@ -1317,7 +1331,7 @@ const DocumentManagement = ({ setAlert, pop, setPop }) => {
                         name="workingDays"
                         value={detail.workingDays}
                         onChange={handleNameChange}
-                        placeholder="Enter workingDays Monday to saturday"
+                        placeholder="Enter workingDays"
                       />
                       <button onClick={() => handleInsert1('workingDays')}>Insert</button>
                      </label>
@@ -1328,7 +1342,7 @@ const DocumentManagement = ({ setAlert, pop, setPop }) => {
                         name="returningDay"
                         value={detail.returningDay}
                         onChange={handleNameChange}
-                        placeholder="Enter Returning Day"
+                        placeholder="Offer Letter Returning Date"
                       />
                       <button onClick={() => handleInsert1('returningDay')}>Insert</button>
                      </label>
@@ -1357,7 +1371,7 @@ const DocumentManagement = ({ setAlert, pop, setPop }) => {
                         name="validJoin"
                         value={detail.validJoin}
                         onChange={handleNameChange}
-                        placeholder="Monday , 10th of June at 10am"
+                        placeholder="Joining Time and Day"
                       />
                       <button onClick={() => handleInsert1('validJoin')}>Insert</button>
                      </label>
@@ -1378,6 +1392,23 @@ const DocumentManagement = ({ setAlert, pop, setPop }) => {
                         </div>
 
                       <button onClick={() => handleInsert1('empDateOfBirth')}>Insert</button>
+                     </label>
+
+                     <label >
+                      
+                      <div className="joindatewrap">
+
+                     <input
+                        type="date"
+                        name="sendingDate"
+                        value={detail.sendingDate}
+                        onChange={handleNameChange}
+                        />
+
+                        <p>Sending Date</p>
+                        </div>
+
+                      <button onClick={() => handleInsert1('sendingDate')}>Insert</button>
                      </label>
 
                      

@@ -52,6 +52,8 @@ const Payslip = ({ pop,  setPop}) => {
 
     const [popdata, setPopData] = useState(null);
 
+    const [totaldata , setTotaldata] = useState([]);;
+
     const fetchUserSlip = async (showLoading = true) => {
         if (showLoading) {
             setLoading(true);
@@ -59,6 +61,7 @@ const Payslip = ({ pop,  setPop}) => {
         const ans = await getUserSlip(formdata.month, formdata.year);
         if (ans?.status) {
             setData(ans?.payslipDetails);
+            setTotaldata(ans?.payslipDetails);
         }
 
         setLoading(false);
@@ -128,8 +131,6 @@ const Payslip = ({ pop,  setPop}) => {
 
     })
 
-    console.log("hrms_user ", hrms_user);
-
     const deductionData = ()=>{
           if(parseInt(popdata?.totalLeaves) > 2){
               
@@ -157,6 +158,22 @@ return 0;
   useEffect(()=>{
     setUsersTotalLeaves();
   },[])
+
+  const [srchtxt , setsrchtxt] = useState("");
+
+  useEffect(()=>{
+
+    if(srchtxt === ""){
+        setData(totaldata);
+    }
+    else{
+         const filterdata = totaldata?.filter((f )=> f?.user?.fullName?.toLowerCase()?.includes(srchtxt?.toLowerCase()));
+         setData(filterdata);
+    }
+
+  },[srchtxt])
+
+
 
     return (
         <>
@@ -263,6 +280,9 @@ return 0;
                                                 className="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                                 placeholder="Search Employee"
                                                 required=""
+                                                onChange={(e)=>setsrchtxt(e.target.value)}
+                                                value={srchtxt}
+
                                             />
 
                                         </div>

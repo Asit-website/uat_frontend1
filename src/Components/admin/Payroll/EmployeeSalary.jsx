@@ -19,7 +19,10 @@ const EmployeeSalary = ({
     const {role} = hrms_user;
 
 
+
     const [data, setData] = useState([]);
+
+
 
     useEffect(() => {
         getData();
@@ -31,22 +34,32 @@ const EmployeeSalary = ({
         setData(ans?.data);
     }
 
+
     const navigate = useNavigate();
 
-    const [currentPage, setCurrentPage] = useState(1);
-    const itemsPerPage = 10;
-    const indexOfLastItem = currentPage * itemsPerPage;
-    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+const [currentPage, setCurrentPage] = useState(1);
+const itemsPerPage = 10;
+const indexOfLastItem = currentPage * itemsPerPage;
+const indexOfFirstItem = indexOfLastItem - itemsPerPage;
 
-    const currentItems = data.filter(x => x.designation !== "CEO" && x._id !== user._id).slice(indexOfFirstItem, indexOfLastItem);
+const [searchtext, setSearchTxt] = useState("");
 
-    const handleNextPage = () => {
-        setCurrentPage(currentPage + 1);
-    };
+const filteredData = data?.filter((x) => x?.designation !== "CEO" && x?._id !== user?._id)?.filter((x) => x?.fullName
+?.toLowerCase()?.includes(searchtext?.toLowerCase())); // Assuming you're filtering by 'name'
 
-    const handlePrevPage = () => {
-        setCurrentPage(currentPage - 1);
-    };
+const currentItems = filteredData?.slice(indexOfFirstItem, indexOfLastItem);
+
+const handleNextPage = () => {
+  setCurrentPage((prevPage) => prevPage + 1);
+};
+
+const handlePrevPage = () => {
+  setCurrentPage((prevPage) => prevPage - 1);
+};
+
+useEffect(() => {
+  setCurrentPage(1); // Reset to page 1 on new search
+}, [searchtext]);
 
 
     return (
@@ -113,6 +126,9 @@ const EmployeeSalary = ({
                                                 className="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                                 placeholder="Search Employee"
                                                 required=""
+                                                onChange={(e)=>setSearchTxt(e.target.value)}
+                                                value={searchtext}
+                                                
                                             />
 
                                         </div>
