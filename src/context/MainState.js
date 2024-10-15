@@ -388,6 +388,10 @@ const MainState = (props) => {
       const data = await post(`${baseUrl}/verify/admin`, {}, true);
       return data;
    };
+   const acceptassetsapi = async (assetId) => {
+      const data = await post(`${baseUrl}/admin/acceptassetsapi`, {assetId}, true);
+      return data;
+   };
 
    const getTasks = async () => {
       const data = await get(`${baseUrl}/task/getTasks`, true);
@@ -2392,7 +2396,7 @@ const MainState = (props) => {
          deleteQuotation1 , 
          uploadSingleImage , 
          getAllProjectUserApi , 
-         savenoteatt , deleteQproapi , changeStatusBreak , deleteProjectTaskapi22 , EditProjectTask , postHalfDay , postNotification2 , getUserHalfDay , rejectHalfDay , acceptHalf
+         savenoteatt , deleteQproapi , changeStatusBreak , deleteProjectTaskapi22 , EditProjectTask , postHalfDay , postNotification2 , getUserHalfDay , rejectHalfDay , acceptHalf , acceptassetsapi
       }}> 
          {props.children}
       </MainContext.Provider>

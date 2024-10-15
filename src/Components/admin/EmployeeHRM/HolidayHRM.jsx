@@ -26,6 +26,8 @@ const HolidayHRM = ({ setAlert, pop, setPop }) => {
   const [editData, setEditData] = useState({});
   const [data, setData] = useState([]);
 
+  console.log("data ",data);
+
   let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
 
   const { role } = hrms_user;
@@ -36,7 +38,6 @@ const HolidayHRM = ({ setAlert, pop, setPop }) => {
     endDate:""
   })
 
-  
 
   const changeHandler = (e) => {
     e.preventDefault();

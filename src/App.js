@@ -102,6 +102,7 @@ import ITRReturn from "./Components/admin/EmployManagement/ITRReturn.jsx";
 import Expense from "./Components/admin/EmployManagement/Expense.jsx";
 import LeaveUpdates from "./Components/admin/EmployeeHRM/LeaveUpdates.jsx";
 import HalfRequest from "./Components/admin/EmployeeHRM/HalfRequest.jsx";
+import AcceptPage from "./Components/AcceptPage.jsx";
 
 var tc;
 
@@ -192,6 +193,8 @@ function App() {
               
               <Route path="/employeeDash/taskLead" element={<TaskLead />}  />      
               <Route path="/employeeDash/meetLead" element={<MeetLead />}  />
+
+              <Route path="/accept/:userId" element={<AcceptPage />} />
 
 
             </Route>

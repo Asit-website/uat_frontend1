@@ -10,7 +10,6 @@ import toast from 'react-hot-toast';
 import bxSerch from "../../images/bx-search.png"
 import thedots from "../../images/thedots.png"
 import editsss from "../../images/editss.svg"
-import delete22 from "../../images/delete22.png"
 import ccc from "../../images/ccc.png"
 import EmployeeSidebar from '../../Employee/Sidebar/EmployeeSidebar';
 import EmployeeNavbar from '../../Employee/Navbar/EmployeeNavbar';
@@ -100,33 +99,6 @@ const Assets = ({ pop, setPop, setAlert }) => {
     setRefreshFlag(!refreshFlag)
   }
 
-  const deleteProject = async (id) => {
-
-    confirmAlert({
-      title: 'Are you sure to delete this data?',
-      message: 'All related data to this will be deleted',
-      buttons: [
-        {
-          label: 'Yes, Go Ahead!',
-          style: {
-            background: "#FF5449"
-          },
-          onClick: async () => {
-            await deleteAssets(id);
-            toast.success("delete Successfully");
-            setRefreshFlag(!refreshFlag);
-            getData();
-          }
-        },
-        {
-          label: 'Cancel',
-
-          onClick: () => null
-        }
-      ]
-    });
-
-  };
 
   const fetchEmployee = async () => {
     const ans = await allEmployee();
@@ -242,6 +214,9 @@ const Assets = ({ pop, setPop, setAlert }) => {
                       <th scope="col" class="px-4 py-3">
                          DESCRIPTION
                       </th>
+                      <th scope="col" class="px-4 py-3">
+                         STATUS
+                      </th>
 
                       <th scope="col" class="px-4 py-3">
                         ACTION
@@ -278,6 +253,9 @@ const Assets = ({ pop, setPop, setAlert }) => {
 
                             <td class="px-4 py-4">
                               {item?.description}
+                            </td>
+                            <td class="px-4 py-4">
+                              {item?.status}
                             </td>
 
 
