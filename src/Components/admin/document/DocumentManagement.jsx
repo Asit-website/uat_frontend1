@@ -37,6 +37,9 @@ const item2 = [
   {
     title: "Experience Letter",
   },
+  {
+    title: "LOR Letter",
+  },
 ];
 
 const data = `<p class="MsoNormal" align="left" style="text-indent: -1px; color: black; margin: 0in 0in 0in 1px; text-align: left; line-height: 107%; font-size: 16px;"><strong style="font-family: Inter, sans-serif;"><span style="line-height: 107%;">Private
@@ -957,6 +960,71 @@ const data3 = `
 
 <p class="MsoNormal" style="margin: 0in 0in 11px; line-height: 107%; font-family: Calibri, sans-serif; font-size: 15px;"><span style="line-height: 107%; font-size: 17px; font-family: Inter, sans-serif;">Kushel Digi Solutions</span></p><p style="margin-right: 0in; margin-left: 0in; font-family: &quot;Times New Roman&quot;, serif; font-size: 16px;"><span style="font-family: Calibri, sans-serif; background: yellow; font-size: 17px;"><br></span></p>`;
 
+const data4= `
+<br>
+ <p><span style="font-family: Helvetica, sans-serif;"><strong style="font-size: 14px;">Date</strong></span>: 27th JULY 2024</p>
+ 
+ <p><br></p><p><strong style="font-size: 14px;">Position:</strong> [POSITION] Intern</p><p><br></p><p><strong style="font-size: 14px;">Work Hours:</strong> [WORKHOUR] Hours</p><p><br></p><p>
+<strong style="font-size: 14px;">Location: </strong> [LOCATION] </p><p><br></p><p>
+<strong style="font-size: 14px;">Duration: </strong> [DURATION]
+</p><p><br></p><p><strong style="font-size: 14px;">Job Profile</strong>: [POSITION] Intern</p><p><br></p><p>
+<strong style="font-size: 14px;">Salary: </strong> [SALARY]
+</p><p><br></p><p><strong style="font-size: 14px;">Joining Date:</strong> 29 June 2024
+</p><p><br></p><p> [NAME] ,
+I am pleased to extend an offer to you for the position of [POSITION] with KUSHEL DIGI SOLUTIONS,
+effective [EFFECTIVE]. This position is an [SALARY] internship for [DURATION], aimed at providing valuable handson experience in [EXPERIENCEAT].</p><p><br></p><p>
+During your internship, 
+</p><p><br></p><p>Please review the further details regarding your responsibilities and expectations. We look forward to
+welcoming you to our team and contributing to your professional growth.
+</p><p><br></p><p><strong style="font-size: 14px;">Please confirm your acceptance of this offer by signing and returning this letter by [ACCEPTDATE].
+</strong></p><p><br></p><p><strong style="font-size: 14px;">Benefits</strong>: Certificate, LOR/LOA (Or any other equivalent), ESOPs. Your position will officially start on [STARTDATE], upon acceptance of the offer.
+</p><p><br></p><p style="text-align: center;"><strong style="font-size: 14px;">Terms and Conditions</strong></p><p><br></p><p>
+If any of the parties would like to end the position and withdraw thereon, a notice must be given to the other
+party at least 2 weeks in advance.
+</p><p><br></p><p>The benefits of the job will be granted based on performance. Incentives will be paid quarterly based on the
+performance and meeting KPIs.
+</p><p><br></p><p>The certificates, LOR, LOA, etc. benefits will be only given on completion of the internship. Any official letters
+such as recommendation, appreciation, or experience will only be given based on the performance of the
+candidate.
+</p><p><br></p><p>The Position Title, Job Description, and salary benefits are subject to change depending on the performance
+review at the end of each month. This will be done in agreement with the employee.
+</p><p><br></p><p>There are no set working hours in the company, so employees are expected to use their discretion regarding
+office hours. About leaves, Kushel Digi Solutions is flexible and only expects the employee to give advance
+notice to the management. Any elongated or uninformed (Without advance notice) holidays/leaves are not
+allowed and if they happen, strict action will be taken. In case of emergencies, informing your senior would
+suffice but other than that, giving advance notice about such leaves is mandatory.
+</p><p><br></p><p>The employee can still come to the office if he/she wishes on working days. We expect you to follow ethical
+practices while working with us and are not liable for any unethical actions on your part while at work.</p><p><br></p><p>
+The employee must also maintain a Non-Disclosure clause about the activities and strategies of Kushel Digi
+Solutions. This means that you cannot share anything about what happens inside the firm, how you did your
+work, what systems are followed in the company, and any data that was generated inside Kushel Digi Solutions
+due to its business activities, while you are working with us or even after you leave the company. Breaking this
+term can and will result in legal action.
+</p><p><br></p><p>This offer is legally binding in all forms and nature. Acceptance implies agreement with all terms and
+conditions herein.
+</p><p><br></p><p>
+We are excited for you to join us and to have a long-lasting association.</p><p><br></p><p>Thanks &amp; Regards</p><p>
+HR Manager</p><p>
+Priya Singh</p><p>
+Kushel Digi Solutions</p><p><br></p><p>Name ______________________</p><p><br></p><p> Signature ______________________</p><p><br></p><p> Date ______________________</p>
+`
+
+const data5 = `
+ <p> <br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Date: 24 AUGUST 2024</p><p><br></p><p>To Whom It May Concern,</p><p>
+I am pleased to recommend Mansi, who completed a one-month internship as a
+content writer with us. During this time, she demonstrated exceptional writing
+skills, creativity, and a keen understanding of our audience. Mansi consistently
+delivered high-quality content on time and showed great adaptability to our
+editorial standards. Her enthusiasm and professionalism were evident, making her
+a valuable asset to our team. I am confident that Mansi will excel in any future
+writing endeavors.</p><p><br></p><p>
+We wish you all the best for your future!</p><p><br></p><p>
+Thanks &amp; Regards
+</p><p>Priya Singh
+HR Manager&nbsp;</p><p>
+Kushel Digi Solutions</p>
+
+`
 
 const DocumentManagement = ({ setAlert, pop, setPop }) => {
   const {
@@ -964,7 +1032,9 @@ const DocumentManagement = ({ setAlert, pop, setPop }) => {
     allEmployee,
     saveDocs,
     saveRelivingLetterapi,
-    saveExperienceLetterapi,
+    saveExperienceLetterapi,  
+    saveLORLetterApi , 
+    saveOfferInterLetterapi
   } = useMain();
 
   const [currEmp, setCurrEmp] = useState(0);
@@ -974,7 +1044,7 @@ const DocumentManagement = ({ setAlert, pop, setPop }) => {
   const [allEmp, setAllEmp] = useState([]);
   const [SelectEmpId, setSelectEmpId] = useState("");
 
-  const [currentPage, setCurrentPage] = useState(0);
+  const [currentPage, setCurrentPage] = useState(3);
 
   const allEmplget = async () => {
     const ans = await allEmployee();
@@ -986,10 +1056,14 @@ const DocumentManagement = ({ setAlert, pop, setPop }) => {
   const editor = useRef(null);
   const editor2 = useRef(null);
   const editor3 = useRef(null);
+  const editor4 = useRef(null);
+  const editor5 = useRef(null);
 
   const [content, setContent] = useState(data);
   const [content2, setContent2] = useState(data2);
   const [content3, setContent3] = useState(data3);
+  const [content4, setContent4] = useState(data4);
+  const [content5, setContent5] = useState(data5);
 
 
   const saveDocumentApi = async () => {
@@ -1040,6 +1114,41 @@ const DocumentManagement = ({ setAlert, pop, setPop }) => {
     toast.dismiss(toastid);
   };
 
+
+  const saveInterOfferLetter = async () => {
+    if (SelectEmpId === "" || SelectEmpId === "Select") {
+      toast.error("Please select the user");
+      return;
+    }
+    const toastid = toast.loading("Loading...");
+    const ans = await saveOfferInterLetterapi({
+      id: SelectEmpId,
+      content: content4,
+    });
+
+    if (ans?.status) {
+      toast.success("Successfuly Saved");
+    }
+    toast.dismiss(toastid);
+  };
+
+  const saveLORLetter = async () => {
+    if (SelectEmpId === "" || SelectEmpId === "Select") {
+      toast.error("Please select the user");
+      return;
+    }
+    const toastid = toast.loading("Loading...");
+    const ans = await saveLORLetterApi({
+      id: SelectEmpId,
+      content: content5,
+    });
+
+    if (ans?.status) {
+      toast.success("Successfuly Saved");
+    }
+    toast.dismiss(toastid);
+  };
+
   const [replaceData , setReplaceData] = useState({
     name:"[NAME]", 
     address:"[ADDRESS]", 
@@ -1060,6 +1169,18 @@ const DocumentManagement = ({ setAlert, pop, setPop }) => {
      sendername:"[SENDERNAME]"
   })
 
+  const [replaceData2 , setReplaceData2] = useState({
+    name:"[NAME]",
+    position:"[POSITION]"  , 
+    workHour:"[WORKHOUR]" , 
+    location:"[LOCATION]" , 
+    duration:" [DURATION]" , 
+    salary:"[SALARY]" ,
+    effective:"[EFFECTIVE]" , 
+    experienceat:"[EXPERIENCEAT]" , 
+    acceptDate:"[ACCEPTDATE]" , 
+    startDate:"[STARTDATE]"
+  })
 
   const [detail , setDetail] = useState({
     name:"" , 
@@ -1080,10 +1201,29 @@ const DocumentManagement = ({ setAlert, pop, setPop }) => {
     sendername:""
   })
 
+  const [detail2 , setDetail2] = useState({
+    name:"" , 
+    position:"",
+    workHour:"" , 
+    location:"" , 
+    duration:"" , 
+    salary:"" , 
+    effective:"" , 
+    experienceat:"" , 
+    acceptDate:"" , 
+    startDate:""
+  })
 
   const handleNameChange = (e) => {
     const {name , value} = e.target;
     setDetail((prev)=>({
+      ...prev ,
+      [name]:value
+    }))
+  };
+  const handleNameChange2 = (e) => {
+    const {name , value} = e.target;
+    setDetail2((prev)=>({
       ...prev ,
       [name]:value
     }))
@@ -1125,6 +1265,24 @@ const DocumentManagement = ({ setAlert, pop, setPop }) => {
 
   };
 
+  const handleInsert3 = (which) => {
+
+    const valueToInsert = detail2[which];
+    const valueReplace = replaceData2[which];
+
+    const escapedValueReplace = valueReplace?.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
+    const regex = new RegExp(escapedValueReplace, 'g');
+    const updatedContent = content4?.replace(regex, valueToInsert);
+    setContent4(updatedContent);
+
+    setReplaceData2((prevReplaceData) => ({
+      ...prevReplaceData,
+      [which]: valueToInsert,
+    }));
+
+  };
+
   const handleInsert2 = (which) => {
     const valueToInsert = detail[which];
     const valueReplace = replaceData[which];
@@ -1140,7 +1298,6 @@ const DocumentManagement = ({ setAlert, pop, setPop }) => {
       [which]: valueToInsert,
     }));
   };
-
 
   useEffect(() => {
     allEmplget();
@@ -1215,7 +1372,7 @@ const DocumentManagement = ({ setAlert, pop, setPop }) => {
                   ))}
                 </div>
 
-                {currentPage === 0 && (
+                {(currentPage === 0 && currEmp === 0 ) && (
                   <>
                     <div className="docuSec">
                       <div className="doSubFir">
@@ -1453,6 +1610,195 @@ const DocumentManagement = ({ setAlert, pop, setPop }) => {
                   </>
                 )}
 
+
+                {(currentPage === 0 && currEmp === 1 ) && (
+                  <>
+                    <div className="docuSec">
+                      <div className="doSubFir">
+                        <img src={docSub} alt="" />
+                        <span>Offer Letter</span>
+                      </div>
+
+                      <hr />
+
+                      <div className="doSubSs">
+                        <span>Placeholders</span>
+                      </div>
+
+                      <hr />
+
+                      <div className="selectEmpl">
+                        <label htmlFor="">Select Employee</label>
+                        <select
+                          name="SelectEmpId"
+                          value={SelectEmpId}
+                          onChange={(e) => setSelectEmpId(e.target.value)}
+                          id=""
+                        >
+                          <option value="Select">Select</option>
+                          {allEmp?.map((emp, index) => (
+                            <option key={index} value={emp?._id}>
+                              {emp.fullName}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+                    </div>
+
+                    {/* third  */}
+                    <div className="docInputs">
+                     
+                     <label >
+                     <input
+                        type="text"
+                        name="name"
+                        value={detail2.name}
+                        onChange={handleNameChange2}
+                        placeholder="Enter Intern Name"
+                      />
+                      <button onClick={()=>handleInsert3('name')}>Insert</button>
+                     </label>
+
+                     <label >
+                     <input
+                        type="text"
+                        name="position"
+                        value={detail2.position}
+                        onChange={handleNameChange2}
+                        placeholder="Enter Position"
+                      />
+                      <button onClick={()=>handleInsert3('position')}>Insert</button>
+                     </label>
+
+                     <label >
+                     <input
+                        type="text"
+                        name="workHour"
+                        value={detail2.workHour}
+                        onChange={handleNameChange2}
+                        placeholder="Work Hour"
+                      />
+                      <button onClick={()=>handleInsert3('workHour')}>Insert</button>
+                     </label>
+
+                     <label >
+                     <input
+                        type="text"
+                        name="location"
+                        value={detail2.location}
+                        onChange={handleNameChange2}
+                        placeholder="Location"
+                      />
+                      <button onClick={()=>handleInsert3('location')}>Insert</button>
+                     </label>
+
+                     <label >
+                     <input
+                        type="text"
+                        name="duration"
+                        value={detail2.duration}
+                        onChange={handleNameChange2}
+                        placeholder="Duration"
+                      />
+                      <button onClick={()=>handleInsert3('duration')}>Insert</button>
+                     </label>
+
+                     <label >
+                     <input
+                        type="text"
+                        name="salary"
+                        value={detail2.salary}
+                        onChange={handleNameChange2}
+                        placeholder="salary paid/unpaid"
+                      />
+                      <button onClick={()=>handleInsert3('salary')}>Insert</button>
+                     </label>
+
+                     <label >
+                     <input
+                        type="text"
+                        name="effective"
+                        value={detail2.effective}
+                        onChange={handleNameChange2}
+                        placeholder="Effective Date 10/10/2024"
+                      />
+                      <button onClick={()=>handleInsert3('effective')}>Insert</button>
+                     </label>
+
+                     <label >
+                     <input
+                        type="text"
+                        name="experienceat"
+                        value={detail2.experienceat}
+                        onChange={handleNameChange2}
+                        placeholder="Experience At Position (Front-end Developement)"
+                      />
+                      <button onClick={()=>handleInsert3('experienceat')}>Insert</button>
+                     </label>
+
+                     <label >
+                     <input
+                        type="text"
+                        name="acceptDate"
+                        value={detail2.acceptDate}
+                        onChange={handleNameChange2}
+                        placeholder="acceptance Date"
+                      />
+                      <button onClick={()=>handleInsert3('acceptDate')}>Insert</button>
+                     </label>
+
+                     <label >
+                     <input
+                        type="text"
+                        name="startDate"
+                        value={detail2.startDate}
+                        onChange={handleNameChange2}
+                        placeholder="Position Official Start Date"
+                      />
+                      <button onClick={()=>handleInsert3('startDate')}>Insert</button>
+                     </label>
+
+
+                    </div>
+
+                    {/* content */}
+
+                    <div className="showoffercont">
+                      <h2>OFFER CONFIRMATION LETTER</h2>
+
+                      <div>
+                        <div dangerouslySetInnerHTML={{ __html: content4 }} />
+                      </div>
+                    </div>
+
+                    
+
+                    <div className="docuThird">
+                      <h3>Format</h3>
+
+                      <hr />
+
+                      <JoditEditor
+                        ref={editor4}
+                        value={content4}
+                        tabIndex={1}
+                        onBlur={(newContent) => setContent4(newContent)}
+                        onChange={(newContent) => {
+                          setContent4(newContent);
+                        }}
+                      />
+                    </div>
+
+                    <button
+                      onClick={() => saveInterOfferLetter()}
+                      className="doSaveBtn"
+                    >
+                      <span>Save</span>
+                    </button>
+
+                  </>
+                )}
+
                 {currentPage === 1 && (
                   <>
                     <div className="docuSec">
@@ -1657,6 +2003,80 @@ const DocumentManagement = ({ setAlert, pop, setPop }) => {
 
                     <button
                       onClick={() => saveExperienceLetter()}
+                      className="doSaveBtn"
+                    >
+                      <span>Save</span>
+                    </button>
+                  </>
+                )}
+
+
+                {currentPage === 3 && (
+                  <>
+                    <div className="docuSec">
+                      <div className="doSubFir">
+                        <img src={docSub} alt="" />
+                        <span>LETTER OF RECOMMENDATION</span>
+                      </div>
+
+                      <hr />
+
+                      <div className="doSubSs">
+                        <span>Placeholders</span>
+                      </div>
+
+                      <hr />
+
+                      <div className="selectEmpl">
+                        <label htmlFor="">Select Employee</label>
+                        <select
+                          name="SelectEmpId"
+                          value={SelectEmpId}
+                          onChange={(e) => setSelectEmpId(e.target.value)}
+                          id=""
+                        >
+                          <option value="Select">Select</option>
+                          {allEmp?.map((emp, index) => (
+                            <option key={index} value={emp?._id}>
+                              {emp.fullName}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+                    </div>
+
+
+                    {/* content */}
+
+                    <div className="showoffercont">
+                      <h2>LETTER OF RECOMMENDATION</h2>
+
+                      <div>
+                        <div dangerouslySetInnerHTML={{ __html: content5 }} />
+                      </div>
+                    </div>
+
+                    {/* third  */}
+
+                    <div className="docuThird">
+                      <h3>Format</h3>
+
+                      <hr />
+
+                      <JoditEditor
+                       
+                        ref={editor5}
+                        value={content5}
+                        tabIndex={1}
+                        onBlur={(newContent) => setContent5(newContent)}
+                        onChange={(newContent) => {
+                          setContent5(newContent);
+                        }}
+                      />
+                    </div>
+
+                    <button
+                      onClick={() => saveLORLetter()}
                       className="doSaveBtn"
                     >
                       <span>Save</span>

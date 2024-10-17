@@ -29,10 +29,12 @@ const MySelf = ({ setAlert, pop1, setPop1 }) => {
    const [reliveContent , setReliveContent] =useState(``);
 
    const [experienceContent , setExperienceContent] =useState(``);
+   const [internshipContent , setinternshipContent] =useState(``);
 
    const contonentPDF = useRef();
    const contonentPDF2 = useRef();
    const contonentPDF3 = useRef();
+   const contonentPDF4= useRef();
 
 
    const generatePdf = useReactToPrint({
@@ -63,6 +65,15 @@ const MySelf = ({ setAlert, pop1, setPop1 }) => {
         },
       },
     });
+   const generatePdf4 = useReactToPrint({
+      content: () => contonentPDF4.current,
+      documentTitle: "Quotation",
+      parentContainer: {
+        "@media print": {
+          display: "block",
+        },
+      },
+    });
   
 
     const getOfferletter = async()=>{
@@ -71,6 +82,7 @@ const MySelf = ({ setAlert, pop1, setPop1 }) => {
          setOfferContent(ans?.data?.createletter[0]?.content);
          setReliveContent(ans?.data?.relivingLetter[0]?.content);
          setExperienceContent(ans?.data?.expeletter[0]?.content);
+         setinternshipContent(ans?.data?.internLetter[0]?.content);
        }
     }
 
@@ -131,7 +143,7 @@ const MySelf = ({ setAlert, pop1, setPop1 }) => {
                         <option value="Offer Letter">Offer Letter</option>
                         <option value="Relieving Letter">Relieving Letter</option>
                         <option value="Experience Letter">Experience Letter</option>
-                        <option value="Experience Letter">Experience Letter</option>
+                        <option value="Internship Letter">Internship Letter</option>
                      </select>
 
                   </nav>
@@ -430,6 +442,26 @@ const MySelf = ({ setAlert, pop1, setPop1 }) => {
 
              </div>
                      }
+
+{
+
+curenpage ==="Internship Letter" && 
+<div className="showoffercont">
+<h2>INTERNSHIP LETTER</h2>
+
+<div ref={contonentPDF4} className="p-4">
+<div dangerouslySetInnerHTML={{ __html: internshipContent }} />
+</div>
+
+<div className="prntBtn">
+   <button  onClick={() => generatePdf4()} >
+     <span>Print</span>
+   </button>
+ </div>
+
+
+</div>
+      }
 
                </div>
 
