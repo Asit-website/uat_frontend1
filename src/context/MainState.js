@@ -2230,6 +2230,10 @@ const MainState = (props) => {
       const data = await post(`${baseUrl}/lead/saveOfferLetterInter`, { userId:id , content}, true);
       return data;
    }
+   const createExpenseApi = async(formdata)=>{
+      const data = await post(`${baseUrl}/lead/createExpense`, {formdata}, true);
+      return data;
+   }
    const changeOfferLetterPer = async({userId})=>{
       const data = await post(`${baseUrl}/lead/changeOfferLetterPer`, { userId}, true);
       return data;
@@ -2405,7 +2409,7 @@ const MainState = (props) => {
          deleteQuotation1 , 
          uploadSingleImage , 
          getAllProjectUserApi , 
-         savenoteatt , deleteQproapi , changeStatusBreak , deleteProjectTaskapi22 , EditProjectTask , postHalfDay , postNotification2 , getUserHalfDay , rejectHalfDay , acceptHalf , acceptassetsapi
+         savenoteatt , deleteQproapi , createExpenseApi , changeStatusBreak , deleteProjectTaskapi22 , EditProjectTask , postHalfDay , postNotification2 , getUserHalfDay , rejectHalfDay , acceptHalf , acceptassetsapi
       }}> 
          {props.children}
       </MainContext.Provider>

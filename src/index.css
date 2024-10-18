@@ -6831,3 +6831,9 @@ letter-spacing: 0.005em;
 text-align: left;
 
 }
+
+.expedat{
+  border: 1px solid black;
+  border-radius: 10px;
+  padding: 10px 10px;
+}

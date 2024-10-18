@@ -11,7 +11,7 @@ import ac4 from "../../images/ac4.png";
 import clock2 from "../../images/clock2.png";
 import timeLog from "../../images/timeLog.png";
 import "./hrm.css";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import refresh from "../../images/bx-refresh.png";
 import annouce from "../../images/annouce.png";
@@ -32,6 +32,8 @@ import cas from "../../images/cssual.png";
 import sick2 from "../../images/sick2.png";
 import annNav from "../../images/annNav.png";
 import cutt from "../../images/cutt.png";
+import cross1 from "../../images/cross1.png";
+
 
 import toast from "react-hot-toast";
 
@@ -63,7 +65,7 @@ const EmployeeHRM = ({
     getTodayBirthday,
     changeStatusBreak,
     allEmployee , 
-    LeaveAllowApihandler , leaveTypeApi , postHalfDay
+    LeaveAllowApihandler , leaveTypeApi , postHalfDay , CreateExpense
   } = useMain();
 
   const user2 = JSON.parse(localStorage.getItem("hrms_user"));
@@ -189,6 +191,8 @@ const EmployeeHRM = ({
 
   var [clock, setClock] = useState(0);
   var [breakClock, setBreakClock] = useState(0);
+
+  const navigate = useNavigate();
 
   const [mount, setMount] = useState(false);
 
@@ -640,6 +644,7 @@ const EmployeeHRM = ({
 
   // THIS IS FOR LEAVE ALLOWANCE 
    const [leaveAllowance , setLeaveAllow] = useState(false);
+   const [expenseShow , setExpenseShow] = useState(false);
 
    const [allowData , setAllowData] = useState({
     user:"" ,
@@ -686,6 +691,30 @@ const EmployeeHRM = ({
       leavestypecount();
     },[])
 
+
+    const [openExpense , setOpenExpense] = useState(false);
+
+    const [formdata3 ,setFormdata3] = useState({
+      title:"" ,itemCode:"" , quantity:"" , unit:"" ,  purchasePrice:"" , salesPrice:"" , purchaseDate:"" ,  category:""
+    })
+
+    const changeHandler3 = (e)=>{
+      const {name ,value} = e.target;
+      setFormdata3((prev)=>({
+          ...prev ,
+          [name]:value
+      }))
+    }
+
+    const expenseHandler = async(e)=>{
+      const toastId =  toast.loading("Loading...");
+       e.preventDefault();
+       const resp= await CreateExpense({...formdata3});
+        toast.success("Successfuly Created");
+        toast.dismiss(toastId);
+        setOpenExpense(false);
+        setFormdata3({  title:"" ,itemCode:"" , quantity:"" , unit:"" ,  purchasePrice:"" , salesPrice:"" , purchaseDate:"" ,  category:""})
+     }
 
 
   return (
@@ -1577,6 +1606,31 @@ const EmployeeHRM = ({
                       </button>
                       }
 
+<button
+                        data-modal-target="authentication-modal"
+                        data-modal-toggle="authentication-modal"
+                        class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                        type="button"
+                        onClick={() => {
+                          setOpenExpense(true);
+                          // navigate("/adminDash/HRM/Expense")
+                        }}
+                      >
+                        <span>Create Expense</span>
+                      </button>
+
+                      <button
+                        data-modal-target="authentication-modal"
+                        data-modal-toggle="authentication-modal"
+                        class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                        type="button"
+                        onClick={() => {
+                          navigate("/adminDash/HRM/Expense")
+                        }}
+                      >
+                        <span>All Expense</span>
+                      </button>
+
                         </div>
 
 
@@ -2107,6 +2161,123 @@ const EmployeeHRM = ({
       </div>
     </>
     }
+
+{openExpense && (
+          <div className="allPopupWrap incheight">
+            <div className="popup1 expensepop">
+              <div className="popNav">
+                <h2>Create Expense  </h2>
+                <img onClick={() => setOpenExpense(false)} src={cross1} alt="" />
+              </div>
+              <hr />
+              <label>
+                <p className="popTitl">Title</p>
+
+                <input
+                  type="text"
+                  placeholder="Enter Leave Type Name"
+                  name="title"
+                  value={formdata3.title}
+                  onChange={changeHandler3}
+                />
+              </label>
+
+              <label>
+                <p className="popTitl">Item Code</p>
+
+                <input
+                  type="text"
+                  placeholder="Enter ItemCode"
+                  name="itemCode"
+                  value={formdata3.itemCode}
+                  onChange={changeHandler3} />
+              </label>
+
+              <label>
+                <p className="popTitl">Quantity</p>
+
+                <input
+                  type="number"
+                  placeholder="Enter Quantity"
+                  name="quantity"
+                  value={formdata3.quantity}
+                  onChange={changeHandler3}
+                   />
+              </label>
+              
+              <label>
+                <p className="popTitl">Unit</p>
+
+                <input
+                  type="text"
+                  placeholder="Enter unit"
+                  name="unit"
+                  value={formdata3.unit}
+                  onChange={changeHandler3}
+                   />
+              </label>
+
+              <label>
+                <p className="popTitl">Purchase Price</p>
+
+                <input
+                  type="number"
+                  placeholder="Enter purchasePrice"
+                  name="purchasePrice"
+                  value={formdata3.purchasePrice}
+                  onChange={changeHandler3}
+                   />
+              </label>
+
+              <label>
+                <p className="popTitl">Sales Price</p>
+
+                <input
+                  type="number"
+                  placeholder="Enter purchasePrice"
+                  name="salesPrice"
+                  value={formdata3.salesPrice}
+                  onChange={changeHandler3}
+                   />
+              </label>
+
+              <label>
+                <p className="popTitl">Purchase Date</p>
+
+                <input
+                  type="date"
+                  placeholder="Enter purchase Date"
+                  name="purchaseDate"
+                  value={formdata3.purchaseDate}
+                  onChange={changeHandler3}
+                   />
+              </label>
+
+              <label>
+                <p className="popTitl">category</p>
+
+                <input
+                  type="text"
+                  placeholder="Enter purchase Date"
+                  name="category"
+                  value={formdata3.category}
+                  onChange={changeHandler3}
+                   />
+              </label>
+
+              <div className="btnWrap">
+                <button className="cencel" onClick={() => setOpenExpense(false)}>
+                  <span>Cancel</span>
+                </button>
+
+                <button onClick={expenseHandler} className="create" >
+                  <span>Create</span>
+                </button>
+              </div>
+
+            </div>
+          </div>
+        )}
 
               </div>
             </div>
