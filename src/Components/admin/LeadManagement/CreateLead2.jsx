@@ -52,7 +52,6 @@ const CreateLead2 = ({ setAlert, pop, setPop }) => {
 
     const navigate = useNavigate();
 
-
     const handleImageChange = (event) => {
         const imageFile = event.target.files[0];
 
@@ -316,6 +315,7 @@ const CreateLead2 = ({ setAlert, pop, setPop }) => {
                                             <label htmlFor="Industry">Industry</label>
                                             <select value={formdata?.Industry} name="Industry" onChange={changeHandler} id="Industry">
                                                 <option disabled>Select Industry</option>
+                                                <option value="Other">Other</option>
                                                 {
                                                     allLeadStatus?.map((item ,index)=>(
                                                         <option key={index} value={item?.name}>{item?.name}</option>
