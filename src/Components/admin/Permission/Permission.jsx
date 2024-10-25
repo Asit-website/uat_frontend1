@@ -139,6 +139,12 @@ const Permission = ({ pop, setPop, setAlert }) => {
                   <option value="leaveManagePermission">
                     leaveManagePermission
                   </option>
+                  <option value="showExpensePermission">
+                  showExpensePermission
+                  </option>
+                  <option value="createExpensePermission">
+                    createExpensePermission
+                  </option>
                   <option value="performancePermission">
                     performancePermission
                   </option>
@@ -324,6 +330,12 @@ const Permission = ({ pop, setPop, setAlert }) => {
                   <option value="documentPermission">documentPermission</option>
                   <option value="leaveManagePermission">
                     leaveManagePermission
+                  </option>
+                  <option value="showExpensePermission">
+                  showExpensePermission
+                  </option>
+                  <option value="createExpensePermission">
+                  createExpensePermission
                   </option>
                   <option value="performancePermission">
                     performancePermission

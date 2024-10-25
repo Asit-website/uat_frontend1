@@ -96,6 +96,7 @@ const EmployeeHRM = ({
     leaveRequestPermission,
     employeeOnLeavePermission,
     totalEmployeePermission,
+    createExpensePermission
   } = hrms_user;
 
   const { role } = hrms_user;
@@ -1606,6 +1607,9 @@ const EmployeeHRM = ({
                       </button>
                       }
 
+{
+  (hrms_user?.createExpensePermission || hrms_user?.role === "ADMIN") && 
+
 <button
                         data-modal-target="authentication-modal"
                         data-modal-toggle="authentication-modal"
@@ -1619,6 +1623,11 @@ const EmployeeHRM = ({
                         <span>Create Expense</span>
                       </button>
 
+}
+
+{
+    (hrms_user?.showExpensePermission || hrms_user?.role === "ADMIN") && 
+
                       <button
                         data-modal-target="authentication-modal"
                         data-modal-toggle="authentication-modal"
@@ -1630,6 +1639,8 @@ const EmployeeHRM = ({
                       >
                         <span>All Expense</span>
                       </button>
+
+}
 
                         </div>
 
