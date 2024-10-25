@@ -198,7 +198,7 @@ const UserLead = ({ setAlert, pop, setPop }) => {
 
             if (Filter1 === "Per Day") {
                 let today = new Date();
-                  today.setHours(0, 0, 0, 0);
+                today.setHours(0, 0, 0, 0);
                 const tomorrow = new Date(today);
                 tomorrow.setDate(tomorrow.getDate() + 1);
 
@@ -215,7 +215,7 @@ const UserLead = ({ setAlert, pop, setPop }) => {
                 const firstDayOfWeek = new Date(today);
                 firstDayOfWeek.setDate(today.getDate() - 7);
 
-                 const lastDayOfWeek = new Date(today);        
+                const lastDayOfWeek = new Date(today);
 
                 FiltData = userLead.filter((ld) => {
                     const createdAt = new Date(ld.createAt);
@@ -244,25 +244,25 @@ const UserLead = ({ setAlert, pop, setPop }) => {
         }
     }, [Filter1]);
 
-    const [searchText , setSrchText] = useState("");
+    const [searchText, setSrchText] = useState("");
 
 
-useEffect(()=>{
+    useEffect(() => {
 
-   if(searchText === ""){
-    setAllLead(allLeading);
-   }
-   else {
+        if (searchText === "") {
+            setAllLead(allLeading);
+        }
+        else {
 
-    const filterData = allLeading.filter((lead) => {
-      const leadName = `${lead.FirstName} ${lead.LastName}`.toLowerCase();
-      return leadName.includes(searchText.toLowerCase());
-  });
-  setAllLead(filterData);
+            const filterData = allLeading.filter((lead) => {
+                const leadName = `${lead.FirstName} ${lead.LastName}`.toLowerCase();
+                return leadName.includes(searchText.toLowerCase());
+            });
+            setAllLead(filterData);
 
-   }
+        }
 
-},[searchText])
+    }, [searchText])
 
 
     return (
@@ -362,8 +362,8 @@ useEffect(()=>{
                                 <div className="leftlead1">
                                     <img src={fff} alt="" />
 
-                                    <div  className="inptsearch">
-                                        <input value={searchText} onChange={(e)=>setSrchText(e.target.value)}  type="text" placeholder="Search leads" />
+                                    <div className="inptsearch">
+                                        <input value={searchText} onChange={(e) => setSrchText(e.target.value)} type="text" placeholder="Search leads" />
                                         <span><img src={search} alt="" /></span>
                                     </div>
 
