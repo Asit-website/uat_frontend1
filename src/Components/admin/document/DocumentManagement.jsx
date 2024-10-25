@@ -6,7 +6,6 @@ import { useMain } from "../../../hooks/useMain";
 import bxUser from "../../images/bx-user-pin.png";
 import docSub from "../../images/docSubfir.png";
 import JoditEditor from "jodit-react";
-
 import "./document.css";
 import EmployeeSidebar from "../../Employee/Sidebar/EmployeeSidebar";
 import EmployeeNavbar from "../../Employee/Navbar/EmployeeNavbar";
@@ -39,6 +38,9 @@ const item2 = [
   },
   {
     title: "LOR Letter",
+  },
+  {
+    title: "Complition Letter",
   },
 ];
 
@@ -1026,7 +1028,12 @@ Kushel Digi Solutions</p>
 
 `
 
+const data6 = `<br>
+<p style="text-align: center;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<br></p><p style="text-align: center;"><u>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<strong style="font-size: 24px;"> [USERNAME] &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</strong></u></p><p style="text-align: center;"><u><br></u><br></p><p style="text-align: center;"> [SENTENCE] </p>
+`
+
 const DocumentManagement = ({ setAlert, pop, setPop }) => {
+ 
   const {
     user,
     allEmployee,
@@ -1044,7 +1051,7 @@ const DocumentManagement = ({ setAlert, pop, setPop }) => {
   const [allEmp, setAllEmp] = useState([]);
   const [SelectEmpId, setSelectEmpId] = useState("");
 
-  const [currentPage, setCurrentPage] = useState(3);
+  const [currentPage, setCurrentPage] = useState(4);
 
   const allEmplget = async () => {
     const ans = await allEmployee();
@@ -1058,13 +1065,17 @@ const DocumentManagement = ({ setAlert, pop, setPop }) => {
   const editor3 = useRef(null);
   const editor4 = useRef(null);
   const editor5 = useRef(null);
+  const editor6 = useRef(null);
 
   const [content, setContent] = useState(data);
   const [content2, setContent2] = useState(data2);
   const [content3, setContent3] = useState(data3);
   const [content4, setContent4] = useState(data4);
   const [content5, setContent5] = useState(data5);
+  const [content6, setContent6] = useState(data6);
 
+
+  console.log("content6 ",content6);
 
   const saveDocumentApi = async () => {
     if (SelectEmpId === "" || SelectEmpId === "Select") {
@@ -1113,7 +1124,6 @@ const DocumentManagement = ({ setAlert, pop, setPop }) => {
     }
     toast.dismiss(toastid);
   };
-
 
   const saveInterOfferLetter = async () => {
     if (SelectEmpId === "" || SelectEmpId === "Select") {
@@ -1182,6 +1192,11 @@ const DocumentManagement = ({ setAlert, pop, setPop }) => {
     startDate:"[STARTDATE]"
   })
 
+  const [replaceData3 , setReplaceData3] = useState({
+   sentence:"[SENTENCE]" , 
+   username:"[USERNAME]"
+  })
+
   const [detail , setDetail] = useState({
     name:"" , 
     address:"" , 
@@ -1214,6 +1229,13 @@ const DocumentManagement = ({ setAlert, pop, setPop }) => {
     startDate:""
   })
 
+  const [detail3 , setDetail3] = useState({
+    sentence:"" , 
+    username:""
+  })
+
+
+
   const handleNameChange = (e) => {
     const {name , value} = e.target;
     setDetail((prev)=>({
@@ -1221,9 +1243,18 @@ const DocumentManagement = ({ setAlert, pop, setPop }) => {
       [name]:value
     }))
   };
+
   const handleNameChange2 = (e) => {
     const {name , value} = e.target;
     setDetail2((prev)=>({
+      ...prev ,
+      [name]:value
+    }))
+  };
+
+  const handleNameChange3 = (e) => {
+    const {name , value} = e.target;
+    setDetail3((prev)=>({
       ...prev ,
       [name]:value
     }))
@@ -1294,6 +1325,22 @@ const DocumentManagement = ({ setAlert, pop, setPop }) => {
     setContent3(updatedContent);
 
     setReplaceData((prevReplaceData) => ({
+      ...prevReplaceData,
+      [which]: valueToInsert,
+    }));
+  };
+
+  const handleInsert4 = (which) => {
+    const valueToInsert = detail3[which];
+    const valueReplace = replaceData3[which];
+
+    const escapedValueReplace = valueReplace?.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
+    const regex = new RegExp(escapedValueReplace, 'g');
+    const updatedContent = content6?.replace(regex, valueToInsert);
+    setContent6(updatedContent);
+
+    setReplaceData3((prevReplaceData) => ({
       ...prevReplaceData,
       [which]: valueToInsert,
     }));
@@ -1953,7 +2000,7 @@ const DocumentManagement = ({ setAlert, pop, setPop }) => {
                         name="dear"
                         value={detail.dear}
                         onChange={handleNameChange}
-                        placeholder="Enter Dear"
+                        placeholder="Enter UserName"
                       />
                       <button onClick={()=>handleInsert2('dear')}>Insert</button>
                      </label>
@@ -2071,6 +2118,107 @@ const DocumentManagement = ({ setAlert, pop, setPop }) => {
                         onBlur={(newContent) => setContent5(newContent)}
                         onChange={(newContent) => {
                           setContent5(newContent);
+                        }}
+                      />
+                    </div>
+
+                    <button
+                      onClick={() => saveLORLetter()}
+                      className="doSaveBtn"
+                    >
+                      <span>Save</span>
+                    </button>
+                  </>
+                )}
+
+{currentPage === 4 && (
+                  <>
+                    <div className="docuSec">
+                      <div className="doSubFir">
+                        <img src={docSub} alt="" />
+                        <span>CERTIFICATE OF COMPLETION</span>
+                      </div>
+
+                      <hr />
+
+                      <div className="doSubSs">
+                        <span>Placeholders</span>
+                      </div>
+
+                      <hr />
+
+                      <div className="selectEmpl">
+                        <label htmlFor="">Select Employee</label>
+                        <select
+                          name="SelectEmpId"
+                          value={SelectEmpId}
+                          onChange={(e) => setSelectEmpId(e.target.value)}
+                          id=""
+                        >
+                          <option value="Select">Select</option>
+                          {allEmp?.map((emp, index) => (
+                            <option key={index} value={emp?._id}>
+                              {emp.fullName}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+                    </div>
+
+
+                    <div className="docInputs">
+                     
+                     <label >
+                     <input
+                        type="text"
+                        name="sentence"
+                        value={detail3.sentence}
+                        onChange={handleNameChange3}
+                        placeholder="Enter Sentence"
+                      />
+                      <button onClick={()=>handleInsert4('sentence')}>Insert</button>
+                     </label>
+
+                     <label >
+                     <input
+                        type="text"
+                        name="username"
+                        value={detail3.username}
+                        onChange={handleNameChange3}
+                        placeholder="Enter UserName"
+                      />
+                      <button onClick={()=>handleInsert4('username')}>Insert</button>
+                     </label>
+
+                 
+                  
+                    </div>
+
+                    {/* content */}
+
+                    <div className="showoffercont">
+                      <h2>CERTIFICATE OF COMPLETION</h2>
+
+                      <div>
+                        <div dangerouslySetInnerHTML={{ __html: content6 }} />
+                      </div>
+                    </div>
+
+                    {/* third  */}
+
+                    <div className="docuThird">
+                      <h3>Format</h3>
+
+                      <hr />
+
+                      <JoditEditor
+                       
+                        ref={editor6}
+                        value={content6}
+                        tabIndex={1}
+                        onBlur={(newContent) => setContent6(newContent)}
+                        onChange={(newContent) => {
+                          setContent6(newContent);
                         }}
                       />
                     </div>
