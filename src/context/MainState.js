@@ -16,7 +16,7 @@ const baseUrl = "https://hmsbackend.kusheldigi.com";
 
 // const baseUrl = "https://hrms-backend-g3wt.onrender.com";
 
-// const baseUrl = "https://hr-backend-ncrd.onrender.com"
+// const baseUrl = "https://hr-backend-ncrd.onrender.com";
 
 
 const MainState = (props) => {
@@ -360,6 +360,7 @@ const MainState = (props) => {
    const updateHoliday = async ({ _id, holidayName, holidayDate }) => {
       console.log(_id, holidayName, holidayDate);
       const data = await put(`${baseUrl}/holiday/updateHoliday/${_id}`, { holidayName, holidayDate }, true);
+      console.log(data);
       return data;
    };
 
