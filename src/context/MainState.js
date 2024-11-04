@@ -1510,34 +1510,27 @@ const MainState = (props) => {
    }
 
 
-   const createExcelLead = async ({ LeadOwner,
-      City,
+   const createExcelLead = async ({
+      LeadOwner,
       CompanyName,
       Email,
+      Website , 
+      LeadStatus , 
       FirstName,
-      LastName,
-      LinkedInURL,
-      Mobile,
-      Phone,
-      State,
-      Title,
-      Website }) => {
+      LastName , 
+   }) => {
 
       let data;
 
       data = await post(`${baseUrl}/lead/createLead`, {
          LeadOwner,
-         City,
          Company: CompanyName,
          Email,
-         FirstName,
-         LastName,
-         SkypeID: LinkedInURL,
-         Mobile,
-         Phone,
-         State,
-         Title,
-         Website
+         Website , 
+         LeadStatus , 
+         FirstName , 
+         LastName , 
+
 
       }, true);
 
