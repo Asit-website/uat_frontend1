@@ -1103,7 +1103,7 @@ body {
 }
 
 .emm {
-  margin-top: 50px !important;
+  margin-top: 80px !important;
 }
 
 .taskans11 {
@@ -6865,4 +6865,77 @@ text-align: left;
   border: 1px solid black;
   border-radius: 10px;
   padding: 10px 10px;
+}
+.same_bar{
+  position: fixed;
+  top: 50px;
+  z-index: 10000;
+  display: none;
+  background-color: white;
+  padding: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+@media only screen and (min-width:1000px){
+  .oppl{
+    display: block !important;
+  }
+}
+@media only screen and (max-width:1000px){
+  .same_bar{
+    display: block !important;
+  }
+  .attend-ctiveWrap{
+    flex-direction: column-reverse;
+  }
+  .hrLefThi{
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  .hrmActLeft{
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  .attend-ctiveWrap .hrmActRight{
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+}
+
+@media only screen and (max-width:900px){
+  .hrLefFir {
+    flex-wrap: wrap !important;
+  }
+  .holiHead{
+    padding: 0px 20px;
+  }
+}
+
+@media only screen and (max-width:400px){
+  .time_emp_desh_flex{
+    gap: 15px;
+  }
+  .attend-ctiveWrap .markAttWrap{
+    height: auto !important;
+  }
+  .attend-ctiveWrap .oficTime .singlTime{
+    width: 55px !important;
+    height: 55px !important;
+  }
+  .attend-ctiveWrap .oficTime .singlTime p{
+    font-size: 20px !important;
+  }
+  .clockINOUTBtn svg{
+      display: none !important;
+  }
+  .sixth-logo p{
+    font-size: 12px;
+  }
+  .dFirLef h2{
+    font-size: 20px;
+    line-height: 28px;
+  }
+  .sixth-logo .bottom{
+    display: none;
+  }
 }
