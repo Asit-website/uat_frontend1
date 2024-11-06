@@ -30,6 +30,22 @@
     color: #1B2533;
 
     }
+    .udpateBtns span{
+        font-family: Inter;
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 24px;
+        letter-spacing: 0.005em;
+color:#FFFFFF;        
+    }
+    .udpateBtns{
+        width: fit-content;
+        margin: 0 auto;
+        padding: 5px 10px;
+        background: #0B56E4;
+        border: 1px solid #0B56E4;
+        border-radius: 10px;
+    }
     .inputfilabel{
         display: flex;
         flex-direction: column;
@@ -46,11 +62,25 @@
         color: #1B2533;
     }
     .inputfilabel input{
-      width: 100%;
-      border: 1px solid black;
-      border-radius: 6px;
-       padding: 0px 10px;
-       height: 40px;
+        display: block;
+        width: 100%;
+        padding: 0.775rem 1rem;
+        font-size: 1.1rem;
+        font-weight: 500;
+        line-height: 1.5;
+        font-family: Inter;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 20px;
+        letter-spacing: 0.0025em;
+        text-align: left;
+        color: #1B2533;
+        background-clip: padding-box;
+        border: 1px solid #D0D4DC;
+appearance: none;
+        border-radius: 0.475rem;
+        box-shadow: false;
+        transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 
     }
 .allroleswrap{
@@ -71,12 +101,19 @@
     border-radius: 10px;
     padding: 10px 10px;
     display: flex;
-    max-width: 300px;
+    max-width: 350px;
+    height: 260px;
     width: 100%;
+    overflow-y: scroll;
     flex-direction: column;
     gap: 10px;
+    border: 1px solid #e1e3ea !important;
+    border-top: 3px solid #3595F6 !important;
 }
 
+.leadroleCont::-webkit-scrollbar{
+    display: none;
+}
 .leadroleCont h2{
     font-family: Inter;
 font-size: 20px;
@@ -107,5 +144,35 @@ color: #1B2533;
     letter-spacing: 0.0015em;
     text-align: left;
     color: #1B2533;
+
+}
+
+.editrolehead{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+}
+
+.editrolehead button{
+    width: 138px;
+height: 40px;
+border-radius: 10px;
+background: #0B56E4;
+border: 1px solid #0B56E4;
+}
+.editrolehead button span{
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    letter-spacing: 0.005em;
+     color: #FFFFFF;
+}
+
+.makethisflex{
+    display: flex;
+    align-items: center;
+    gap: 10px;
 
 }

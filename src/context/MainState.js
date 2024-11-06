@@ -1433,7 +1433,8 @@ const MainState = (props) => {
          ZipCode,
          Country,
          DescriptionInfo,
-         image
+         image , 
+         date
       }) => {
 
       let data;
@@ -1473,7 +1474,8 @@ const MainState = (props) => {
             ZipCode,
             Country,
             DescriptionInfo,
-            image: imageUrl?.data
+            image: imageUrl?.data , 
+            date
          }, true);
 
       }
@@ -1505,6 +1507,7 @@ const MainState = (props) => {
             ZipCode,
             Country,
             DescriptionInfo,
+            date
 
          }, true);
       }
@@ -1551,7 +1554,8 @@ const MainState = (props) => {
 
 
    const updateLead = async (
-      { LeadOwner,
+      {
+          LeadOwner,
          Company,
          FirstName,
          LastName,
@@ -1576,7 +1580,10 @@ const MainState = (props) => {
          State,
          ZipCode,
          Country,
-         DescriptionInfo, id , image }
+         DescriptionInfo, id , image , 
+         date
+      
+      }
 
    ) => {
 
@@ -1616,6 +1623,7 @@ const MainState = (props) => {
             ZipCode,
             Country,
             DescriptionInfo,
+            date
 
          }, true);
 
@@ -1650,6 +1658,7 @@ const MainState = (props) => {
             ZipCode,
             Country,
             DescriptionInfo,
+            date
 
          }, true);
 
@@ -2106,15 +2115,28 @@ const MainState = (props) => {
       return data;
    };
 
-   const ProvidePermission = async ({ Designation , userId ,Service , SubPermission}) => {
-      const data = await post(`${baseUrl}/permission/providePermission`, { Designation , userId ,Service  , SubPermission}, true);
+   const ProvidePermission = async ({ name ,Service }) => {
+      const data = await post(`${baseUrl}/permission/providePermission`, { name ,Service }, true);
       return data;
    };
+   const UpdatePermission = async ({ name ,Service , roleId }) => {
+      const data = await post(`${baseUrl}/permission/updatePermission`, { name ,Service , roleId }, true);
+      return data;
+   };
+   const DeleteRoleApi = async ( roleId ) => {
+      const data = await post(`${baseUrl}/permission/DeleteRoleApi`, { roleId }, true);
+      return data;
+   };
+   const AllRolesapi = async () => {
+      const data = await post(`${baseUrl}/permission/fetchallRole` , {}, true);
+      return data;
+   };
+
    const ProvideRemovePermission = async ({ Designation , userId ,Service , SubPermission}) => {
       const data = await post(`${baseUrl}/permission/ProvideRemovePermission`, { Designation , userId ,Service  , SubPermission}, true);
       return data;
    };
-   const RemovePermission = async ({  }) => {
+   const RemovePermission = async ({ }) => {
       const data = await post(`${baseUrl}/permission/removePermission`, {  }, true);
       return data;
    };
@@ -2326,7 +2348,7 @@ const MainState = (props) => {
          login,deleteQuotationapi ,timerHandlerapi , saveLORLetterapi ,saveLetter1Api ,  fetchMonthlyLeave ,  deleteExpenseApi , getExpenseApi ,  CreateExpense ,saveRelivingLetterapi ,getTodayBirthday ,  changeTaskStatusApi ,getAllProjectUserTaskApi2  , getProjectTask,getAllProjectAllTaskApi , getAllProjectUserTaskApi ,  CreateProjectTask ,  taskCreateApi,FetchFollowApi ,getQuotationApi ,    ProvidePermission , RemovePermission ,   GetOpenLeadsApi ,   getLeadById,CreateNoteApi  , updateNoteApi,DeleteNoteApi ,  getUserByDesignation, UpdateLeadStatus, UpdateLeadSource, AllLeadSource, meetCreateApi, AllLeadStatus, taskEditApi, meetEditApi,GetNoteApi ,  deleteTaskapi, deleteMeetapi, getTaskApi, getMeetApi, employeeLogin, employeeResetPassword, hrLogin, createHr, getHrs, deleteHr, createEmployee, getEmployees, getUsers, getActiveUsers, getActiveUsersCount, postLeadStatus, postLeadSource2, getAdminEmployees, postActivity,editTaskapi ,deleteProject ,   postActivityHr, getActivitiesByUser, getStatisticsByUser, postLeave, updateLeave, getUserLeaves, getUserLeaveById, deleteLeave, getTotalLeaves, postTotalLeaves, verifyEmployee, verifyHr, verifyAdmin, setUser, buildAPI, user,disableClientapi ,  getProjects, postProject, getHolidays, postHoliday, updateProject, getProjectsByEmployee, getTasks, postTask, updateTask, deleteTask, setFlag, flag, changePassword, updateProfile, deleteHoliday, updateHoliday, deleteTaskProject, getChats, createNewChat, postMessage, deleteChat,getClientapi ,  adminLogin, getChat, getChatByUser, setUserTotalLeaveApi ,  setChatUser, chatUser, getEmployeesByEmployee, topDash, postAnnouncement, updateAnnouncement, getAnnouncements, getAnnouncementDates, deleteAnnouncement, getAttendance, getAttendanceByUser, createEmployee1, updateAdminProfile,   createProjectapi , getAllProjectApi , editProjectapi
  ,          changePassword1, verify, updateUser, forgetPassword, forgetPassword1, forgetPassword2, getBranchs, postBranch, updateBranch, deleteBranch, getDepartments, postDepartment, updateDepartment, deleteDepartment, getDesingation, postDesignation, updateDesignation, deleteDesignation, getAllActivities, postLeaveType, updateLeaveType, getLeaveTypes, deleteLeaveType,
          createIndicator, getIndicator, deleteIndicator, getDesignations, updateIndicator, getAppraisal, createAppraisal, allEmployee, deleteApprisal, updateApprisal, createAssets, getAssets, deleteAssets, updateAssets, deleteUser, createTracks, getTracks, deleteTracks, updateTracks, editComApi, loanDeleteHandler,
-         editAllowance, commisionDelteHandler, createLoan, editLoanApi,
+         editAllowance, commisionDelteHandler, createLoan, editLoanApi,UpdatePermission , 
          getTotalLeavesCount, uploadDocuments, createAnnouncement, deleteAnnouncement, updateAnnouncements, fetchAnnoucement, deleteAnnouncements, getEmp, allEmployeebyDep, notificationGet,
          acceptLeave, rejectLeave, leaveTypeApi , 
          ProvideRemovePermission , postQuotationFormApi ,updatePropsalFormApi ,  postProposalFormApi ,  createClientapi , 
@@ -2397,6 +2419,7 @@ const MainState = (props) => {
          deleteIndustry,
          updateIndustry,
          getLeadByUser,
+         DeleteRoleApi , 
          getLeadStat,
          postLeadStat,
          updateLeadStat,
@@ -2408,7 +2431,7 @@ const MainState = (props) => {
          deleteQuotation1 , 
          uploadSingleImage , 
          getAllProjectUserApi , 
-         savenoteatt , deleteQproapi , createExpenseApi , changeStatusBreak , deleteProjectTaskapi22 , EditProjectTask , postHalfDay , postNotification2 , getUserHalfDay , rejectHalfDay , acceptHalf , acceptassetsapi
+         savenoteatt ,AllRolesapi ,  deleteQproapi , createExpenseApi , changeStatusBreak , deleteProjectTaskapi22 , EditProjectTask , postHalfDay , postNotification2 , getUserHalfDay , rejectHalfDay , acceptHalf , acceptassetsapi
       }}> 
          {props.children}
       </MainContext.Provider>

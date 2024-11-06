@@ -103,6 +103,7 @@ import Expense from "./Components/admin/EmployManagement/Expense.jsx";
 import LeaveUpdates from "./Components/admin/EmployeeHRM/LeaveUpdates.jsx";
 import HalfRequest from "./Components/admin/EmployeeHRM/HalfRequest.jsx";
 import AcceptPage from "./Components/AcceptPage.jsx";
+import PermissionData from "./Components/admin/Permission/PermissionData.js";
 
 var tc;
 
@@ -315,6 +316,7 @@ function App() {
 
               <Route path="/adminDash/HrManage" element={<HrManage pop={pop} setAlert={setAlert} setPop={setPop} />} />
               <Route path="/adminDash/Permission" element={<Permission pop={pop} setAlert={setAlert} setPop={setPop} />} />
+              <Route path="/adminDash/PermissionDetail" element={<PermissionData pop={pop} setAlert={setAlert} setPop={setPop} />} />
               <Route path="/adminDash/profile" element={<AdminProfile pop={pop} setPop={setPop} setAlert={setAlert} />} />
               <Route path="/adminDash/announcement" element={<AdminAnnoncement pop={pop} setPop={setPop} setAlert={setAlert} />} />
               <Route path="/employeeDash/announcement" element={<AdminAnnoncement pop={pop} setPop={setPop} setAlert={setAlert} />} />
