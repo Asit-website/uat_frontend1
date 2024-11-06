@@ -623,7 +623,15 @@ body {
 .thebuttn {
   display: flex !important;
   justify-content: flex-start !important;
+  height: 100% !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
 
+.lonj td{
+  height: 100% !important;
 }
 
 .ref1 {
@@ -5201,8 +5209,9 @@ input::-webkit-inner-spin-button {
   border: 1px solid #E8E9EB;
   box-shadow: 0px 8px 32px -2px #1B25330F;
   padding: 15px 0px;
+  margin-top: 20px ;
   min-height: 250px;
-  max-height: 250px;
+  /* max-height: 250px; */
   overflow-y: scroll;
   border-radius: 10px;
 }
@@ -5974,7 +5983,6 @@ input::-webkit-inner-spin-button {
   display: flex;
   align-items: center;
   justify-content: center;
-  /* gap: 3px; */
   gap: 10px;
 }
 .noteLabel p {
