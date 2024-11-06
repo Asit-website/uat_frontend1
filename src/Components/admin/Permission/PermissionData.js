@@ -194,6 +194,7 @@ const PermissionData = ({ pop, setPop, setAlert }) => {
             }} className="udpateBtns"><span>{item?"Update":"Create"}</span></button>
 
           </div>
+          
         </div>
       </div>
     </>
