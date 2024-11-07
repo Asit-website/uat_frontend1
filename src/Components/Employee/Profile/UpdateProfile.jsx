@@ -39,7 +39,6 @@ const UpdateProfile = ({ setAlert, pop1, setPop1 }) => {
     setDesignations(ans2?.data);
   };
 
-
   const [pic , setPic] = useState("");
 
   const handleChange = async(e) => {
@@ -64,9 +63,6 @@ if(name === "pan" && value.length > 10){
   return
 }
 
-
-
-
  if (name === "image") {
   setValue({ ...value, [e.target.name]: e.target.files[0] });
   let image = e.target.files[0];
@@ -77,8 +73,6 @@ if(name === "pan" && value.length > 10){
 } else {
   setValue({ ...value, [e.target.name]: e.target.value });
 }
-
-
   };
 
   const [documents, setDocuments] = useState({
@@ -212,7 +206,21 @@ if(name === "pan" && value.length > 10){
     setValue(user1);
     getData();
   }, []);
+ 
+  const checkdiable = (name)=>{
+      const ans = user?.document?.filter((doc)=>{
+        if(doc?.name === name){
+          return true;
+        }
+      })
 
+      if(ans?.length > 0){
+        return true;
+      }
+      else{
+        return false;
+      }
+  }
 
   return (
     <>
@@ -248,11 +256,12 @@ if(name === "pan" && value.length > 10){
                   <input
                     type="text"
                     name="fullName"
-                    onChange={() => null}
+                    // onChange={() => null}
                     value={value.fullName}
                     id="fullName"
                     className=" block"
-                  />
+                    disabled={!!user?.fullName} // Disable if user.fullName is not empty or undefined
+                    />
                 </div>
                 <div className="">
                   <label htmlFor="email" className="block mb-1 ">
@@ -261,10 +270,11 @@ if(name === "pan" && value.length > 10){
                   <input
                     type="email"
                     name="email"
-                    onChange={() => null}
+                    // onChange={() => null}
                     value={value.email}
                     id="email"
                     className=" block"
+                    disabled={!!user?.email}
                   // required
                   />
                 </div>
@@ -279,6 +289,7 @@ if(name === "pan" && value.length > 10){
                     value={value.mobile}
                     id="mobile"
                     className=" block "
+                    disabled={!!user?.mobile}
                   // required
                   />
                 </div>
@@ -287,7 +298,7 @@ if(name === "pan" && value.length > 10){
                   <label htmlFor="gender" className="block mb-1 ">
                     Gender
                   </label>
-                  <select className="" name="gender" id="gender" onChange={() => null} value={value?.gender}>
+                  <select disabled={!!user?.gender} className="" name="gender" id="gender"  value={value?.gender}>
                      <option>Male</option>
                      <option>Female</option>
                   </select>
@@ -297,11 +308,12 @@ if(name === "pan" && value.length > 10){
                   <label htmlFor="DOB" className="block mb-1 ">
                     DOB
                   </label>
-                 <input type="date" name="dob"    onChange={handleChange} value={value?.dob}   className=" block "/>
+                  
+                 <input disabled={!!user?.dob} type="date" name="dob"    onChange={handleChange}  value={value?.dob} className=" block "/>
                 </div>
 
                 <div className="">
-                  <label htmlFor="image" className="block mb-1">
+                  <label  htmlFor="image" className="block mb-1">
                     Image
                   </label>
 
@@ -312,6 +324,7 @@ if(name === "pan" && value.length > 10){
                     id="file_input"
                     type="file"
                      value={pic}
+                     disabled={!!user?.pic}
 
                   />
 
@@ -319,15 +332,9 @@ if(name === "pan" && value.length > 10){
                     uploadedProfile !== "" && 
                      <div className="uploadedProfile">
 
-                   {/* <div className="cutImg">
-
-                        <img onClick={()=>{
-                          setUploadedProfile("");
-                           setProfileImage("");
-                        }} src={cutImg} className="" alt="" />
-                   </div> */}
+                 
                        
-                      <img src={uploadedProfile} alt="" />
+                      <img  src={uploadedProfile} alt="" />
                      </div>
                     }
                 </div>
@@ -345,6 +352,7 @@ if(name === "pan" && value.length > 10){
                     required
                     type="email"
                   // required
+                  disabled={!!user?.email1}
                   />
                 </div>
                 
@@ -373,6 +381,8 @@ if(name === "pan" && value.length > 10){
                     name="department"
                     value={value?.department}
                     id="department"
+                    disabled={!!user?.department}
+
                   >
                     {
                       departments?.map((val, index) => {
@@ -388,7 +398,8 @@ if(name === "pan" && value.length > 10){
                   </label>
                   <select
                     className=" block "
-                    onChange={() => null}
+                    // onChange={() => null}
+                    disabled={!!user?.designation}
                     name="designation"
                     value={value.designation}
                     id="designation"
@@ -411,10 +422,11 @@ if(name === "pan" && value.length > 10){
                     JoiningDate
                   </label>
                   <input
-                    onChange={() => null}
+                    // onChange={() => null}
                     type="date"
                     name="joiningDate"
                     value={value.joiningDate}
+                    disabled={!!user?.joiningDate}
                     className="block "
                     id="date"
                   />
@@ -429,6 +441,7 @@ if(name === "pan" && value.length > 10){
                     id="pan"
                     className="  block"
                     name="pan"
+                    disabled={!!user?.pan}
                     value={value.pan}
                     onChange={handleChange}
                   />
@@ -444,6 +457,7 @@ if(name === "pan" && value.length > 10){
                     className=" block "
                     // required
                     name="adhar"
+                    disabled={!!user?.adhar}
                     value={value.adhar}
                     onChange={handleChange}
                   />
@@ -459,6 +473,7 @@ if(name === "pan" && value.length > 10){
                     className=" block"
                     // required
                     name="father"
+                    disabled={!!user?.father}
                     value={value.father}
                     onChange={handleChange}
                   />
@@ -475,6 +490,7 @@ if(name === "pan" && value.length > 10){
                     // required
                     name="currentAddress"
                     value={value.currentAddress}
+                    disabled={!!user?.currentAddress}
                     onChange={handleChange}
                   />
                 </div>
@@ -500,6 +516,7 @@ if(name === "pan" && value.length > 10){
                     name="currentState"
                     value={value.currentState}
                     onChange={handleChange}
+                    disabled={!!user?.currentState}
 
                   />
                 </div>
@@ -515,6 +532,8 @@ if(name === "pan" && value.length > 10){
                     name="currentCity"
                     value={value.currentCity}
                     onChange={handleChange}
+                    disabled={!!user?.currentCity}
+
                   />
                 </div>
                 <div className="">
@@ -529,6 +548,8 @@ if(name === "pan" && value.length > 10){
                     name="currentPin"
                     value={value.currentPin}
                     onChange={handleChange}
+                    disabled={!!user?.currentPin}
+
                   />
                 </div>
                 <div className="">
@@ -541,6 +562,8 @@ if(name === "pan" && value.length > 10){
                     value={value.perState}
                     id="perState"
                     onChange={handleChange}
+                    disabled={!!user?.perState}
+
                   >
                     <option>Permanent State</option>
                     <option>Andhra Pradesh</option>
@@ -591,6 +614,7 @@ if(name === "pan" && value.length > 10){
                     className="block "
                     // required
                     name="perCity"
+                    disabled={!!user?.perCity}
                     value={value.perCity}
                     onChange={handleChange}
                   />
@@ -605,6 +629,7 @@ if(name === "pan" && value.length > 10){
                     className="block "
                     // required
                     name="perPin"
+                    disabled={!!user?.perPin}
                     value={value.perPin}
                     onChange={handleChange}
                   />
@@ -617,6 +642,7 @@ if(name === "pan" && value.length > 10){
                     className="rounded-lg "
                     name="Martial"
                     id="Martial"
+                    disabled={!!user?.Martial}
                     value={value.Martial}
                     onChange={handleChange}
                   >
@@ -633,6 +659,8 @@ if(name === "pan" && value.length > 10){
                     className="block  "
                     name="nationality"
                     id="nationality"
+                    disabled={!!user?.nationality}
+
                     value={value.nationality}
                     onChange={handleChange}
                   >
@@ -649,6 +677,8 @@ if(name === "pan" && value.length > 10){
                     id="Mother"
                     className=" block "
                     // required
+                    disabled={!!user?.Mother}
+
                     name="Mother"
                     value={value.Mother}
                     onChange={handleChange}
@@ -664,6 +694,8 @@ if(name === "pan" && value.length > 10){
                     className=" block "
                     // required
                     name="qualification"
+                    disabled={!!user?.qualification}
+
                     value={value.qualification}
                     onChange={handleChange}
                   />
@@ -679,6 +711,8 @@ if(name === "pan" && value.length > 10){
                     // required
                     name="specialization"
                     value={value.specialization}
+                    disabled={!!user?.specialization}
+
                     onChange={handleChange}
                   />
                 </div>
@@ -692,6 +726,8 @@ if(name === "pan" && value.length > 10){
                     id="qualificationType"
                     value={value.qualificationType}
                     onChange={handleChange}
+                    disabled={!!user?.qualificationType}
+
                   >
                     <option>Qualification Type</option>
                     <option>M.sc</option>
@@ -715,6 +751,8 @@ if(name === "pan" && value.length > 10){
                    <input  name="yearPass"
                     id="yearPass"
                     value={value.yearPass}
+                    disabled={!!user?.yearPass}
+
                     onChange={handleChange} className=" rounded-lg" type="date" />
                 </div>
                 <div className="">
@@ -728,6 +766,8 @@ if(name === "pan" && value.length > 10){
                     // required
                     name="university"
                     value={value.university}
+                    disabled={!!user?.university}
+
                     onChange={handleChange}
                   />
                 </div>
@@ -743,6 +783,8 @@ if(name === "pan" && value.length > 10){
                     name="college"
                     value={value.college}
                     onChange={handleChange}
+                    disabled={!!user?.college}
+
                   />
                 </div>
                 <div className="">
@@ -756,6 +798,8 @@ if(name === "pan" && value.length > 10){
                     // required
                     name="percentage"
                     value={value.percentage}
+                    disabled={!!user?.percentage}
+
                     onChange={handleChange}
                   />
                 </div>
@@ -770,6 +814,8 @@ if(name === "pan" && value.length > 10){
                     // required
                     name="previousCompany"
                     value={value.previousCompany}
+                    disabled={!!user?.previousCompany}
+
                     onChange={handleChange}
                   />
                 </div>
@@ -784,6 +830,8 @@ if(name === "pan" && value.length > 10){
                     // required
                     name="previousDesignation"
                     value={value.previousDesignation}
+                    disabled={!!user?.previousDesignation}
+
                     onChange={handleChange}
                   />
                 </div>
@@ -798,6 +846,8 @@ if(name === "pan" && value.length > 10){
                     // required
                     name="toDate"
                     value={value.toDate}
+                    disabled={!!user?.toDate}
+
                     onChange={handleChange}
                   />
                 </div>
@@ -813,6 +863,8 @@ if(name === "pan" && value.length > 10){
                     name="fromDate"
                     value={value.fromDate}
                     onChange={handleChange}
+                    disabled={!!user?.fromDate}
+
                   />
                 </div>
                 <div className="">
@@ -826,6 +878,8 @@ if(name === "pan" && value.length > 10){
                     // required
                     name="numberOfMonth"
                     value={value.numberOfMonth}
+                    disabled={!!user?.numberOfMonth}
+
                     onChange={handleChange}
                   />
                 </div>
@@ -840,6 +894,8 @@ if(name === "pan" && value.length > 10){
                     // required
                     name="Jobdescription"
                     value={value.Jobdescription}
+                    disabled={!!user?.Jobdescription}
+
                     onChange={handleChange}
                   />
                 </div>
@@ -855,6 +911,8 @@ if(name === "pan" && value.length > 10){
                     // required
                     name="SalaryBankName"
                     value={value.SalaryBankName}
+                    disabled={!!user?.SalaryBankName}
+
                     onChange={handleChange}
                   />
                 </div>
@@ -869,6 +927,8 @@ if(name === "pan" && value.length > 10){
                     // required
                     name="BeneficiaryName"
                     value={value.BeneficiaryName}
+                    disabled={!!user?.BeneficiaryName}
+
                     onChange={handleChange}
                   />
                 </div>
@@ -883,6 +943,8 @@ if(name === "pan" && value.length > 10){
                     // required
                     name="BankIfsc"
                     value={value.BankIfsc}
+                    disabled={!!user?.BankIfsc}
+
                     onChange={handleChange}
                   />
                 </div>
@@ -899,6 +961,8 @@ if(name === "pan" && value.length > 10){
                     name="AccountNumber"
                     value={value.AccountNumber}
                     onChange={handleChange}
+                    disabled={!!user?.AccountNumber}
+
                   />
                 </div>
 
@@ -913,6 +977,8 @@ if(name === "pan" && value.length > 10){
                     // required
                     name="confirmAccount"
                     value={value.confirmAccount}
+                    disabled={!!user?.confirmAccount}
+
                     onChange={handleChange}
                   />
                 </div>
@@ -928,6 +994,8 @@ if(name === "pan" && value.length > 10){
                     // required
                     name="Branch"
                     value={value.Branch}
+                    disabled={!!user?.Branch}
+
                     onChange={handleChange}
                   />
                 </div>
@@ -966,6 +1034,8 @@ if(name === "pan" && value.length > 10){
                                   name="adharCard"
                                   type="file"
                                   onChange={handleFileChange}
+                                  disabled={checkdiable("adharCard")}
+
                                 />
                               </div>
                             </div>
@@ -985,6 +1055,8 @@ if(name === "pan" && value.length > 10){
                                   type="file"
                                   name="pancard"
                                   onChange={handleFileChange}
+                                  disabled={checkdiable("pancard")}
+
                                 />
                               </div>
                             </div>
@@ -1007,6 +1079,8 @@ if(name === "pan" && value.length > 10){
                                   type="file"
                                   name="tenCert"
                                   onChange={handleFileChange}
+                                  disabled={checkdiable("tenCert")}
+
                                 />
                               </div>
                             </div>
@@ -1023,8 +1097,10 @@ if(name === "pan" && value.length > 10){
                                 <input
                                   name="twevelCert"
                                   onChange={handleFileChange}
-                                  className="filesjila "
+                                  className="filesjila"
                                   type="file"
+                                  disabled={checkdiable("twevelCert")}
+
                                 />
                               </div>
                             </div>
@@ -1045,6 +1121,8 @@ if(name === "pan" && value.length > 10){
                                   type="file"
                                   name="cancelCheque"
                                   onChange={handleFileChange}
+                                  disabled={checkdiable("cancelCheque")}
+
                                 />
                               </div>
                             </div>
@@ -1064,6 +1142,8 @@ if(name === "pan" && value.length > 10){
                                     onChange={handleFileChange}
                                     className="filesjila "
                                     type="file"
+                                    disabled={checkdiable("LastOrganization")}
+
                                   />
                                 </div>
                               </div>
@@ -1093,6 +1173,8 @@ if(name === "pan" && value.length > 10){
                                       type="file"
                                       name="RelievingLetter"
                                       onChange={handleFileChange}
+                                      disabled={checkdiable("RelievingLetter")}
+
                                     />
                                   </div>
                                 </div>
@@ -1113,6 +1195,8 @@ if(name === "pan" && value.length > 10){
                                       className="filesjila "
                                       type="file"
                                       onChange={handleFileChange}
+                                      disabled={checkdiable("OfferLetter")}
+
                                     />
                                   </div>
                                 </div>
@@ -1134,6 +1218,8 @@ if(name === "pan" && value.length > 10){
                                       type="file"
                                       name="ExperienceLetter"
                                       onChange={handleFileChange}
+                                      disabled={checkdiable("ExperienceLetter")}
+
                                     />
                                   </div>
                                 </div>
@@ -1153,6 +1239,8 @@ if(name === "pan" && value.length > 10){
                                       className="filesjila "
                                       type="file"
                                       onChange={handleFileChange}
+                                      disabled={checkdiable("prevOrgOffer")}
+
                                     />
                                   </div>
                                 </div>
@@ -1175,6 +1263,8 @@ if(name === "pan" && value.length > 10){
                                   name="ITR"
                                   type="file"
                                   onChange={handleFileChange}
+                                  disabled={checkdiable("ITR")}
+
                                 />
                               </div>
                             </div>
@@ -1192,6 +1282,8 @@ if(name === "pan" && value.length > 10){
                                   name="ITR2"
                                   type="file"
                                   onChange={handleFileChange}
+                                  disabled={checkdiable("ITR2")}
+
                                 />
                               </div>
                             </div>

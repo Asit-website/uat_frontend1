@@ -4,7 +4,7 @@ import AdminSidebar from "../Sidebar/AdminSidebar";
 import "react-calendar/dist/Calendar.css";
 import { useMain } from "../../../hooks/useMain";
 import uploadFile from "../../images/upload-file.png";
-import { NavLink, useNavigate, useParams } from "react-router-dom";
+import { NavLink, useFetcher, useNavigate, useParams } from "react-router-dom";
 import HrSidebar from "../../Hr/Sidebar/HrSidebar";
 import HrNavbar from "../../Hr/Navbar/HrNavbar";
 import toast from "react-hot-toast";
@@ -39,6 +39,7 @@ const EmployeeManage = ({
   const {
     user,
     createEmployee1,
+    AllRolesapi , 
     getUsers,
     updateUser,
     getBranchs,
@@ -68,6 +69,7 @@ const EmployeeManage = ({
     reportingManager: "",
     designation: "",
     joiningDate: "",
+    PermissionRole:""
   });
 
   const [value2, setValue2] = useState({
@@ -128,7 +130,13 @@ const EmployeeManage = ({
   const [branches, setBranches] = useState([]);
   const [departments, setDepartments] = useState([]);
   const [designations, setDesignations] = useState([]);
+  const [PermRole , setPermRole] = useState([]); 
 
+  const fetchAllRoles = async()=>{
+    const ans = await AllRolesapi();
+    setPermRole(ans?.data);
+ }
+ 
   useEffect(() => {
     let form1 = localStorage.getItem("form1");
     if (form1) {
@@ -161,7 +169,7 @@ const EmployeeManage = ({
     if (id) {
       getUser();
     }
-  }, [id]);
+  }, [id , PermRole]);
 
   useEffect(() => {
     getData();
@@ -188,7 +196,15 @@ const EmployeeManage = ({
       }
     }
 
-      
+    let perm = "";
+
+    if (ans?.data?.PermissionRole) {
+      const foundRole = PermRole?.find((role) => role?._id === ans.data.PermissionRole);
+      if (foundRole) {
+        perm = foundRole._id;
+      }
+    }
+    
     setValue1({
       status: false,
       fullName: ans.data.fullName,
@@ -198,6 +214,7 @@ const EmployeeManage = ({
       designation: ans.data.designation,
       joiningDate: ans.data.joiningDate,
       password: "",
+      PermissionRole: perm
     });
     setValue2({
       status: false,
@@ -266,7 +283,6 @@ const EmployeeManage = ({
     }
   };
 
-
   const [documents, setDocuments] = useState({
     adharCard: "",
     pancard: "",
@@ -298,8 +314,7 @@ const EmployeeManage = ({
     const toastId = toast.loading("Loading...");
 
     if (!id) {
-      const {
-        
+      const {   
         adharCard,
         pancard,
         tenCert,
@@ -340,7 +355,6 @@ const EmployeeManage = ({
         formData.append("ExperienceLetter", ExperienceLetter);
       }
 
-       console.log("formda ",formData);
 
       if (
         documents.adharCard !== "" ||
@@ -388,6 +402,7 @@ const EmployeeManage = ({
         reportingManager: "",
         designation: "",
         joiningDate: "",
+        PermissionRole:""
       });
       setValue2({
         status: false,
@@ -515,6 +530,10 @@ const EmployeeManage = ({
     toast.dismiss(toastId);
   };
 
+  useEffect(()=>{
+    fetchAllRoles();
+  },[])
+
   return (
     <>
       <div className="employee-dash h-full">
@@ -533,6 +552,7 @@ const EmployeeManage = ({
           )}
 
           <div className="em">
+
             {/* first  */}
             <section className="adFri">
               {/* left side  */}
@@ -550,6 +570,7 @@ const EmployeeManage = ({
             </section>
 
             <div className="flex-col">
+              
               {/* first sec */}
               <div className="leadInFir">
                 {item.map((e, index) => (
@@ -692,6 +713,29 @@ const EmployeeManage = ({
                                 {designations?.map((e, index) => {
                                   return (
                                     <option key={index} value={e?._name}>
+                                      {e?.name}
+                                    </option>
+                                  );
+                                })}
+                              </select>
+                            </label>
+
+                            <label htmlFor="">
+                              <p>Role</p>
+
+                              <select
+                                onChange={(e) => {
+                                  handleChange(e, "form1");
+                                }}
+                                name="PermissionRole"
+                                value={value1?.PermissionRole}
+                                disabled={value1.status}
+                                className="department_test"
+                              >
+                                <option selected>Select Role</option>
+                                {PermRole?.map((e, index) => {
+                                  return (
+                                    <option key={index} value={e?._id}>
                                       {e?.name}
                                     </option>
                                   );
@@ -1868,9 +1912,12 @@ const EmployeeManage = ({
                       Register
                     </button>
                   </div>
+
                 </div>
               </form>
+
             </div>
+
           </div>
         </div>
       </div>

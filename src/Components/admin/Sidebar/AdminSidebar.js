@@ -148,12 +148,12 @@ const AdminSidebar = ({ pop, setPop }) => {
 
   const [payrollItem,setPayrollItem] = useState(0);
 
-  let user = JSON.parse(localStorage.getItem("hrms_user"));
-
-  let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
+  let hrms_user = JSON?.parse(localStorage.getItem("hrms_user"));
   const { role } = hrms_user;
+
+  let hrms_permission = JSON?.parse(localStorage.getItem("hrms_permission"));
    
-  const { leadPermission, hrmsSetUpPermission, payrollPermission, leadSystemPermission, attendencePermission, assetsPermission, documentPermission, leaveManagePermission, performancePermission, employeeManagePermission , hrAdminSetupPermission , trainingSetupPermission } = user;
+  const { leadPermission, hrmsSetUpPermission, payrollPermission, leadSystemPermission, attendencePermission, assetsPermission, documentPermission, leaveManagePermission, performancePermission, employeeManagePermission , hrAdminSetupPermission , trainingSetupPermission } = hrms_permission;
 
   const [performanceItem,setPerformanceItem] = useState(0);
 

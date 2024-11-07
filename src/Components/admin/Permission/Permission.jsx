@@ -8,10 +8,23 @@ import { MdDelete } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import HrSidebar from "../../Hr/Sidebar/HrSidebar";
+import EmployeeSidebar from "../../Employee/Sidebar/EmployeeSidebar";
+import EmployeeNavbar from "../../Employee/Navbar/EmployeeNavbar";
+import HrNavbar from "../../Hr/Navbar/HrNavbar";
 
 
-const Permission = ({ pop, setPop, setAlert }) => {
+const Permission = ({   pop1,
+  setPop1,
+  pop,
+  setPop,
+  setAlert,
+  isHr = false, }) => {
   const { user, AllRolesapi  , DeleteRoleApi} = useMain();
+
+  let hrms_user = JSON?.parse(localStorage.getItem("hrms_user"));
+  const { role } = hrms_user;
+
 
 const navigate = useNavigate();
 
@@ -40,16 +53,41 @@ useEffect(()=>{
   return (
     <>
       <div className="annDash relative h-full">
-        <AdminSidebar pop={pop} setPop={setPop} />
+        {isHr ? (
+          <HrSidebar />
+        ) : role === "EMPLOYEE" ? (
+          <EmployeeSidebar pop={pop} setPop={setPop} />
+        ) : (
+          <AdminSidebar pop={pop} setPop={setPop} />
+        )}
 
         <div className="tm">
-          <AdminNavbar user={user} setAlert={setAlert} />
+          {isHr ? (
+            <HrNavbar
+              user={user}
+              setAlert={setAlert}
+              pop1={pop1}
+              setPop1={setPop1}
+            />
+          ) : role === "EMPLOYEE" ? (
+            <EmployeeNavbar user={user} setAlert={setAlert} />
+          ) : (
+            <AdminNavbar user={user} setAlert={setAlert} />
+          )}
 
           <div className="em editrolewrap">
 
             <div className="editrolehead">
             <h1>Edit Role</h1>
-            <button onClick={()=>navigate("/adminDash/PermissionDetail")}><span>Add New Role</span></button>
+            <button onClick={()=>{
+              if(role === "ADMIN"){
+                navigate("/adminDash/PermissionDetail");
+              }
+              else{
+                navigate("/employeeDash/PermissionDetail");
+
+              }
+            }}><span>Add New Role</span></button>
             </div>
 
             <div className="relative  overflow-x-auto w-full">

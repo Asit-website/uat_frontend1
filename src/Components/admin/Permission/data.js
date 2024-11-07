@@ -76,3 +76,8 @@
   
   ]
 
+  export const permissionProvide = [
+    {id:"permissionPagePermission" , title:"Permission Page" } ,
+
+  ]
+

@@ -50,17 +50,17 @@ const Auth = (props) => {
     e.preventDefault();
 
     let ans = await login(value);
+    console.log("ans " ,ans?.PermissionRole);
 
     if (ans.success) {
       setUser(ans.user);
       localStorage.setItem("hrms_user", JSON.stringify(ans?.user));
+      localStorage.setItem("hrms_permission", JSON.stringify(ans?.user?.PermissionRole || {}));
       localStorage.setItem(
         "hrms_token",
         JSON.stringify({
           token: ans.token,
           role: ans.role
-          // rememberMe: document.getElementById('remember').checked,
-          // expiry: new Date().getTime() + 24 * 60 * 60 * 1000
         })
       );
 

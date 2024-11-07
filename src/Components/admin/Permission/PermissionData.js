@@ -18,14 +18,25 @@ import {
   payslipPerms,
   ProjectCreate,
   taskPerms,
+  permissionProvide
 } from "./data";
 import { useLocation, useNavigate } from "react-router-dom";
+import HrSidebar from "../../Hr/Sidebar/HrSidebar";
+import EmployeeSidebar from "../../Employee/Sidebar/EmployeeSidebar";
+import HrNavbar from "../../Hr/Navbar/HrNavbar";
+import EmployeeNavbar from "../../Employee/Navbar/EmployeeNavbar";
 
-const PermissionData = ({ pop, setPop, setAlert }) => {
-  const {
-    user,
-    ProvidePermission,UpdatePermission
-  } = useMain();
+const PermissionData = ({  pop1,
+  setPop1,
+  pop,
+  setPop,
+  setAlert,
+  isHr = false,}) => {
+
+  const { user,ProvidePermission,UpdatePermission} = useMain();
+
+  let hrms_user = JSON?.parse(localStorage.getItem("hrms_user"));
+  const { role } = hrms_user;
 
   const navigate = useNavigate();
 
@@ -141,7 +152,6 @@ const PermissionData = ({ pop, setPop, setAlert }) => {
     </div>
   );
 
-
   useEffect(() => {
     if (item) {
         setRoleName({ name: item.name });
@@ -156,10 +166,30 @@ const PermissionData = ({ pop, setPop, setAlert }) => {
   return (
     <>
       <div className="annDash relative h-full">
-        <AdminSidebar pop={pop} setPop={setPop} />
+        {/* <AdminSidebar pop={pop} setPop={setPop} /> */}
+        {isHr ? (
+          <HrSidebar />
+        ) : role === "EMPLOYEE" ? (
+          <EmployeeSidebar pop={pop} setPop={setPop} />
+        ) : (
+          <AdminSidebar pop={pop} setPop={setPop} />
+        )}
 
         <div className="tm">
-          <AdminNavbar user={user} setAlert={setAlert} />
+          {/* <AdminNavbar user={user} setAlert={setAlert} /> */}
+          {isHr ? (
+            <HrNavbar
+              user={user}
+              setAlert={setAlert}
+              pop1={pop1}
+              setPop1={setPop1}
+            />
+          ) : role === "EMPLOYEE" ? (
+            <EmployeeNavbar user={user} setAlert={setAlert} />
+          ) : (
+            <AdminNavbar user={user} setAlert={setAlert} />
+          )}
+
 
           <div className="em editrolewrap">
             <h1>Edit Role</h1>
@@ -182,6 +212,7 @@ const PermissionData = ({ pop, setPop, setAlert }) => {
               {renderCategory(dashboardPerms, "Dashboard ")}
               {renderCategory(payslipPerms, "Payslip ")}
               {renderCategory(otherPerms, "Others")}
+              {renderCategory(permissionProvide, "Permission Page")}
             </div>
 
             <button onClick={()=>{
