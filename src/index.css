@@ -5243,10 +5243,11 @@ input::-webkit-inner-spin-button {
   margin-left: 15px;
   overflow-y: scroll;
   min-height: 250px;
-  max-height: 250px;
+  /* max-height: 250px; */
   box-shadow: 0px 8px 32px -2px #1B25330F;
   border-radius: 15px;
   padding: 15px 0px;
+  margin-top: 20px;
 }
 
 .my_open {
@@ -6909,8 +6910,68 @@ text-align: left;
   .holiHead{
     padding: 0px 20px;
   }
+  .lead_dash_card{
+    flex-wrap: wrap;
+    gap: 15px;
+  }
+  .sing111{
+    margin-left: 0px;
+  }
+  .sing11111{
+    margin-left: 0px;
+  }
+  .my_things{
+    flex-direction: column;
+    margin-top: 0px;
+  }
+  .table22{
+    margin-left: 0px;
+  }
+  
 }
 
+@media only screen and (max-width:680px){
+  .leadThings{
+    flex-wrap: wrap;
+   justify-content: center;
+   align-items: center;
+   gap: 15px;
+  }
+  .leads_btn{
+    flex-wrap: wrap;
+    gap: 15px;
+  }
+  .lead_btn{
+    margin-left: 0px;
+  }
+  .lead_content1 h2{
+    text-align: center;
+  }
+  .lead_content1 p{
+    text-align: center;
+  }
+  .em{
+    padding: 32px 20px;
+  }
+  .fiterWrap{
+    flex-wrap: wrap !important;
+    height: auto !important;
+    justify-content: center;
+    align-items: center !important;
+  }
+}
+@media only screen and (max-width:450px){
+  .fiterWrap{
+    flex-direction: column !important;
+  }
+  .fiterWrap h3{
+    margin-top: 15px;
+  }
+  .hrmsFri h2{
+    font-size: 20px !important;
+    line-height: 28px !important;
+  }
+}
 @media only screen and (max-width:400px){
   .time_emp_desh_flex{
     gap: 15px;
@@ -6938,4 +6999,5 @@ text-align: left;
   .sixth-logo .bottom{
     display: none;
   }
+  
 }

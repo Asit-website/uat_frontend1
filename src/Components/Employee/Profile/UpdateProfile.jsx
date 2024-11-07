@@ -54,6 +54,15 @@ const UpdateProfile = ({ setAlert, pop1, setPop1 }) => {
  if (name === "currentPin" && value.length > 6) {
   return; 
 }
+if(name === "perPin" && value.length > 6){
+  return
+}
+if(name === "mobile" && value.length > 10){
+  return
+}
+if(name === "pan" && value.length > 10){
+  return
+}
 
 
 
@@ -339,7 +348,7 @@ const UpdateProfile = ({ setAlert, pop1, setPop1 }) => {
                   />
                 </div>
                 
-                <div className="">
+                {/* <div className="">
                   <label htmlFor="gmail" className="block mb-1">
                     Company Gmail
                   </label>
@@ -352,7 +361,7 @@ const UpdateProfile = ({ setAlert, pop1, setPop1 }) => {
                     type="email"
                   // 
                   />
-                </div>
+                </div> */}
 
                 <div className="">
                   <label htmlFor="department" className="block mb-1">
@@ -413,7 +422,7 @@ const UpdateProfile = ({ setAlert, pop1, setPop1 }) => {
 
                 <div className="">
                   <label htmlFor="date" className="block mb-1">
-                    PAN No.
+                    PAN Number.
                   </label>
                   <input
                     type="text"
@@ -427,7 +436,7 @@ const UpdateProfile = ({ setAlert, pop1, setPop1 }) => {
 
                 <div className="">
                   <label htmlFor="adhar" className="block mb-1">
-                    Aadhaar No.
+                    Aadhaar Number.
                   </label>
                   <input
                     type="text"
@@ -447,7 +456,7 @@ const UpdateProfile = ({ setAlert, pop1, setPop1 }) => {
                   <input
                     type="text"
                     id="father"
-                    className=" block  "
+                    className=" block"
                     // required
                     name="father"
                     value={value.father}
