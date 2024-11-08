@@ -2280,6 +2280,13 @@ abbr:where([title]) {
   position: relative;
 }
 
+.admin-mainnew{
+  /* background-color: red; */
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
 .admin-main .plus1 {
   width: 180px;
   max-width: 100%;
@@ -2447,13 +2454,10 @@ abbr:where([title]) {
 
 .admin-form1 {
   background-color: white;
-  max-width: 50%;
+  max-width: 48%;
   width: 100%;
   padding: 20px 20px;
   border-radius: 10px;
-  margin-top: 30px;
-  margin-right: 12px;
-  /* height: 400px; */
 }
 
 
@@ -2499,8 +2503,9 @@ abbr:where([title]) {
 
 .admin-form {
   display: flex;
-  margin: 0 25px;
+  /* margin: 0 25px; */
   width: 100%;
+  /* background-color: orange; */
   justify-content: space-between;
 }
 
@@ -2588,10 +2593,6 @@ abbr:where([title]) {
   margin: 0px 10px;
 }
 
-.admin-main1 {
-  height: auto;
-  padding-bottom: 30px;
-}
 
 .admin-form2 {
   margin-top: 30px;
@@ -2616,8 +2617,40 @@ abbr:where([title]) {
 
 .basic-information {
   background-color: white;
-  padding: 15px 0px;
+  padding: 15px 15px;
   border-radius: 10px;
+  max-width: 49%;
+  width: 100%;
+}
+
+.emregistbtn{
+  background-color: #0B56E4;
+  color: white;
+  font-weight: 600;
+  font-size: 16px;
+font-family: Inter;
+font-weight: 500;
+line-height: 20px;
+}
+.alldocwwrap{
+  /* background-color: orange; */
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-top: 20px;
+  width: 100%;
+  
+}
+.wrap1{
+  /* background-color: red; */
+  display: flex;
+  width: 100%;
+  gap: 10px;
+  justify-content: space-between;
+}
+
+.empmanagform{
+  margin-top: 30px;
 }
 
 .basic-information2 {
@@ -2692,7 +2725,6 @@ abbr:where([title]) {
 .form2-class textarea {
 
   height: 44px;
-
   padding: 8px 16px 8px 16px;
   border-radius: 10px;
   outline: none;
@@ -2734,9 +2766,6 @@ abbr:where([title]) {
   border-radius: 8px;
 }
 
-.try {
-  margin: 0px 13px;
-}
 
 
 
@@ -3280,7 +3309,10 @@ gap: 20px;
 }
 
 .drag-area {
-  width: 252px;
+  max-width: 252px;
+  /* width: 252px; */
+  width: 100%;
+  /* background-color: blue; */
   height: 62px;
   border-radius: 12px;
   border: 1px solid #B7B7B7;
@@ -3295,6 +3327,8 @@ gap: 20px;
   display: flex;
   flex-direction: column;
   gap: 5px;
+  width: 100%;
+  /* background-color: aqua; */
 
 }
 
@@ -3305,7 +3339,6 @@ gap: 20px;
   font-weight: 400;
   line-height: 20px;
   letter-spacing: 0.0025em;
-  padding-left: 14px;
 }
 
 .lstOrgText {

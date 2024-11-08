@@ -592,10 +592,12 @@ const EmployeeManage = ({
                 onSubmit={(f) => {
                   handleSubmit(f, "submit");
                 }}
+                className="empmanagform"
               >
-                <div className="admin-main admin-main1">
+                <div className="admin-mainnew ">
 
                   <div className="admin-form">
+
                     <div className="admin-form1">
                       <h2 className="admfperh2">Personal Detail</h2>
 
@@ -809,9 +811,8 @@ const EmployeeManage = ({
                         </div>
                       </div>
                     </div>
-
-                   
-                    <div className="basic-information mt-7">
+                 
+                    <div className="basic-information">
                       <div className="basics">
                         <h3>Address Detail</h3>
                       </div>
@@ -819,6 +820,7 @@ const EmployeeManage = ({
 
                       <div className="form2-class">
                         <div className="w-full mt-2 form2wrap">
+
                           <div className="flex w-full">
                             <div className="mb-6 w-full try">
                               <label
@@ -883,9 +885,6 @@ const EmployeeManage = ({
                               />
                             </div>
                           </div>
-
-                        
-
                           <div className="flex w-full">
                             <div className="mb-6 w-full try">
                               <label
@@ -930,7 +929,6 @@ const EmployeeManage = ({
                               />
                             </div>
                           </div>
-
                           <div className="flex w-full">
                             <div className="mb-6 w-full try">
                               <label
@@ -1005,23 +1003,7 @@ const EmployeeManage = ({
                                   Permanent Residence Address{" "}
                                 </label>
                                 <div className="flex items-center">
-                                  {/* <input
-                                      id="link-checkbox"
-                                      type="checkbox"
-                                      value=""
-                                      className="w-4 checkta  rounded mt-3 "
-                                    /> */}
-                                  {/* <label
-                                      for="link-checkbox"
-                                      className="ml-2 text-sm font-medium  text-gray-900 dark:text-gray-300"
-                                    >
-                                      Set as present{" "}
-                                      <a
-                                        href="#"
-                                        className="text-blue-600 dark:text-blue-500 hover:underline"
-                                      ></a>
-                                      .
-                                    </label> */}
+                              
                                 </div>
                               </div>
                               <input
@@ -1038,13 +1020,12 @@ const EmployeeManage = ({
                             </div>
                           </div>
 
-                          <div className="flex flex-col addedGgap w-full">
-                            <div className="mb-6 w-full lesswidth try">
+                            <div className="mb-6 try">
                               <label
-                                for="perState"
+                                for="currentAddress"
                                 className="block mb-0  font-medium "
                               >
-                                Permanent state
+                                  Permanent state
                               </label>
                               <select
                                 className="rounded-lg  w-full"
@@ -1100,7 +1081,7 @@ const EmployeeManage = ({
                               </select>
                             </div>
 
-                            <div className="mb-6 w-full try">
+                            <div className="mb-6 try">
                               <label
                                 for="perCity"
                                 className="block mb-0  font-medium"
@@ -1121,7 +1102,7 @@ const EmployeeManage = ({
                               />
                             </div>
 
-                            <div className="mb-6 w-full try">
+                            <div className="mb-6 try">
                               <label
                                 for="perPin"
                                 className="block mb-0 font-medium"
@@ -1141,7 +1122,7 @@ const EmployeeManage = ({
                                 disabled={value3.status}
                               />
                             </div>
-                          </div>
+
 
                           <div className="flex w-full">
                             <div className="mb-6 w-full try">
@@ -1212,326 +1193,29 @@ const EmployeeManage = ({
                         </div>
                       </div>
                     </div>
-                    {/* 
-                      <div className="basic-information mt-7">
-                        <div className="basics">
-                          <h3>Professional Information</h3>
-                          <img src={lower} alt="lower" />
-                        </div>
-                        <hr className="upper" />
-                        <div className="form2-class">
-                          <div className="w-full mt-2">
-                            <div className="flex w-full">
-                              <div className="mb-6 w-full try">
-                                <label
-                                  for="qualification"
-                                  className="block mb-0  font-medium "
-                                >
-                                  Qualification
-                                </label>
-                                <input
-                                  type="text"
-                                  id="qualification"
-                                  className="w-full rounded-lg"
-                                  // required
-                                  name="qualification"
-                                  value={value4?.qualification}
-                                  onChange={(e) => {
-                                    handleChange(e, "form4");
-                                  }}
-                                  disabled={value4.status}
-                                />
-                              </div>
-                              <div className="mb-6 w-full try">
-                                <label
-                                  for="specialization"
-                                  className="block mb-0  font-medium"
-                                >
-                                  Specialization
-                                </label>
-                                <input
-                                  type="text"
-                                  id="specialization"
-                                  className="rounded-lg  w-full"
-                                  // required
-                                  name="specialization"
-                                  value={value4?.specialization}
-                                  onChange={(e) => {
-                                    handleChange(e, "form4");
-                                  }}
-                                  disabled={value4.status}
-                                />
-                              </div>
-                              <div className="mb-6 w-full try">
-                                <label
-                                  for="qualificationType"
-                                  className="block mb-0 font-medium"
-                                >
-                                  Qualification Type
-                                </label>
-                                <select
-                                  className="rounded-lg  w-full"
-                                  name="qualificationType"
-                                  id="qualificationType"
-                                  value={value4?.qualificationType}
-                                  onChange={(e) => {
-                                    handleChange(e, "form4");
-                                  }}
-                                  disabled={value4.status}
-                                >
-                                  <option>Qualification Type</option>
-                                  <option>M.sc</option>
-                                  <option>B.sc</option>
-                                  <option>10th</option>
-                                  <option>12th</option>
-                                  <option>BBA</option>
-                                  <option>BCA</option>
-                                  <option>B.tech</option>
-                                  <option>M.tech</option>
-                                  <option>MBA</option>
-                                  <option>BCom</option>
-                                  <option>Others</option>
-                                </select>
-                              </div>
-                            </div>
-
-                            <div className="flex w-full">
-                              <div className="mb-6 w-full try">
-                                <label
-                                  for="yearPass"
-                                  className="block mb-0 font-medium"
-                                >
-                                  Year of passing •
-                                </label>
-                               
-                                <input type="date" className="w-full"  name="yearPass"
-                                  id="yearPass"
-                                  value={value4?.yearPass}
-                                  onChange={(e) => {
-                                    handleChange(e, "form4");
-                                  }}
-                                  disabled={value4.status} />
-                              </div>
-                              <div className="mb-6 w-full try">
-                                <label
-                                  for="university"
-                                  className="block mb-0  font-medium"
-                                >
-                                  University/Board •
-                                </label>
-                                <input
-                                  type="text"
-                                  id="university"
-                                  className="rounded-lg  w-full"
-                                  // required
-                                  name="university"
-                                  value={value4?.university}
-                                  onChange={(e) => {
-                                    handleChange(e, "form4");
-                                  }}
-                                  disabled={value4.status}
-                                />
-                              </div>
-
-
-                              <div className="mb-6 w-full try">
-                                <label
-                                  for="college"
-                                  className="block mb-0  font-medium"
-                                >
-                                  College/School •
-                                </label>
-                                <input
-                                  type="text"
-                                  id="college"
-                                  className="rounded-lg  w-full"
-                                  // required
-                                  name="college"
-                                  value={value4?.college}
-                                  onChange={(e) => {
-                                    handleChange(e, "form4");
-                                  }}
-                                  disabled={value4.status}
-                                />
-                              </div>
-
-                            </div>
-
-                            <div className="flex w-full">
-                              <div className="mb-6 w-full try">
-                                <label
-                                  for="percentage"
-                                  className="block mb-0  font-medium"
-                                >
-                                  Grade/CCPA/Percentage
-                                </label>
-                                <input
-                                  type="text"
-                                  id="percentage"
-                                  className="rounded-lg  w-full"
-                                  // required
-                                  name="percentage"
-                                  value={value4?.percentage}
-                                  onChange={(e) => {
-                                    handleChange(e, "form4");
-                                  }}
-                                  disabled={value4.status}
-                                />
-                              </div>
-                              <div className="mb-6 w-full try">
-                                <label
-                                  for="previousCompany"
-                                  className="block mb-0  font-medium"
-                                >
-                                  Previous Company •
-                                </label>
-                                <input
-                                  type="text"
-                                  id="previousCompany"
-                                  className="rounded-lg  w-full"
-                                  // required
-                                  name="previousCompany"
-                                  value={value4?.previousCompany}
-                                  onChange={(e) => {
-                                    handleChange(e, "form4");
-                                  }}
-                                  disabled={value4.status}
-                                />
-                              </div>
-                              <div className="mb-6 w-full try">
-                                <label
-                                  for="previousDesignation"
-                                  className="block mb-0  font-medium"
-                                >
-                                  Previous Designation •
-                                </label>
-                                <input
-                                  type="text"
-                                  id="previousDesignation"
-                                  className="rounded-lg  w-full"
-                                  // required
-                                  name="previousDesignation"
-                                  value={value4?.previousDesignation}
-                                  onChange={(e) => {
-                                    handleChange(e, "form4");
-                                  }}
-                                  disabled={value4.status}
-                                />
-                              </div>
-                            </div>
-
-                            <div className="flex w-full">
-                              <div className="mb-6 w-full try">
-                                <label
-                                  for="toDate"
-                                  className="block mb-0  font-medium"
-                                >
-                                  To date •
-                                </label>
-                                <input
-                                  type="date"
-                                  id="toDate"
-                                  className="rounded-lg  w-full"
-                                  // required
-                                  name="toDate"
-                                  value={value4?.toDate}
-                                  onChange={(e) => {
-                                    handleChange(e, "form4");
-                                  }}
-                                  disabled={value4.status}
-                                />
-                              </div>
-                              <div className="mb-6 w-full try">
-                                <label
-                                  for="fromDate"
-                                  className="block mb-0  font-medium"
-                                >
-                                  From date*
-                                </label>
-                                <input
-                                  type="date"
-                                  id="fromDate"
-                                  className="rounded-lg  w-full"
-                                  // required
-                                  name="fromDate"
-                                  value={value4?.fromDate}
-                                  onChange={(e) => {
-                                    handleChange(e, "form4");
-                                  }}
-                                  disabled={value4.status}
-                                />
-                              </div>
-                              <div className="mb-6 w-full try">
-                                <label
-                                  for="numberOfMonth"
-                                  className="block mb-0  font-medium"
-                                >
-                                  Number of months *
-                                </label>
-                                <input
-                                  type="text"
-                                  id="numberOfMonth"
-                                  className="rounded-lg  w-full"
-                                  // required
-                                  name="numberOfMonth"
-                                  value={value4?.numberOfMonth}
-                                  onChange={(e) => {
-                                    handleChange(e, "form4");
-                                  }}
-                                  disabled={value4.status}
-                                />
-                              </div>
-                            </div>
-
-                            <div className="flex w-full">
-                              <div className="mb-6 w-full try">
-                                <label
-                                  for="Jobdescription"
-                                  className="block mb-0  font-medium"
-                                >
-                                  Job description
-                                </label>
-                                <input
-                                  type="text"
-                                  id="Jobdescription"
-                                  className="rounded-lg  w-full Jobdescription"
-                                  // required
-                                  name="Jobdescription"
-                                  value={value4?.Jobdescription}
-                                  onChange={(e) => {
-                                    handleChange(e, "form4");
-                                  }}
-                                  disabled={value4.status}
-                                />
-                              </div>
-                            </div>
-                           
-                          </div>
-                        </div>
-                      </div> */}
-
-                    {/* </div> */}
+                  
                   </div>
 
                   <div className="admin-form">
                     {/* this is doc side  */}
-                    <div className="basic-information mt-7">
+
+                    <div className="admin-form1">
+
                       <div className="basics">
                         <h3>Documents</h3>
                       </div>
 
                       <hr className="upper" />
 
-                      <div className="form2-class">
-                        <div className="w-full sfgh mt-6">
+                        <div className="w-full alldocwwrap">
                           {/* this is first doc row  */}
 
-                          <div className="flex w-full">
+                          <div className="wrap1">
                             {/* fist   */}
                             <div className="thiddrapgsingl">
                               <h4>Aadhar Card</h4>
 
-                              <div className="drag-area try">
+                              <div className="drag-area">
                                 <img src={uploadFile} alt="" />
 
                                 <p>Click to upload</p>
@@ -1543,6 +1227,7 @@ const EmployeeManage = ({
                                   onChange={handleFileChange}
                                 />
                               </div>
+
                             </div>
 
                             {/* second */}
@@ -1563,16 +1248,17 @@ const EmployeeManage = ({
                                 />
                               </div>
                             </div>
+
                           </div>
 
                           {/* this is second doc row  */}
 
-                          <div className="flex w-full mt-6">
+                          <div className="wrap1">
                             {/* frist   */}
                             <div className="thiddrapgsingl">
                               <h4>10th Certificate</h4>
 
-                              <div className="drag-area try">
+                              <div className="drag-area ">
                                 <img src={uploadFile} alt="" />
 
                                 <p>Click to upload</p>
@@ -1590,7 +1276,7 @@ const EmployeeManage = ({
                             <div className="thiddrapgsingl">
                               <h4>12th Certificate</h4>
 
-                              <div className="drag-area try">
+                              <div className="drag-area ">
                                 <img src={uploadFile} alt="" />
 
                                 <p>Click to upload</p>
@@ -1605,12 +1291,12 @@ const EmployeeManage = ({
                             </div>
                           </div>
 
-                          <div className="flex w-full mt-6">
+                          <div className="wrap1">
                             {/* frist   */}
 
                             <div className="thiddrapgsingl">
                               <h4>Cancelled Cheque</h4>
-                              <div className="drag-area try">
+                              <div className="drag-area ">
                                 <img src={uploadFile} alt="" />
 
                                 <p>Click to upload</p>
@@ -1629,7 +1315,7 @@ const EmployeeManage = ({
                                 <h4>Last Organization</h4>
 
       
-                                <div className="drag-area try">
+                                <div className="drag-area ">
                                   <img src={uploadFile} alt="" />
 
                                   <p>Click to upload</p>
@@ -1651,7 +1337,7 @@ const EmployeeManage = ({
                                 Last Organization Docs
                               </h1>
 
-                              <div className="flex w-full mt-6">
+                              <div className="wrap1">
                                 {/* first   */}
 
                                 <div className="thiddrapgsingl">
@@ -1693,7 +1379,7 @@ const EmployeeManage = ({
                                 </div>
                               </div>
 
-                              <div className="flex w-full mt-6">
+                              <div className="wrap1">
                                 {/* first   */}
 
                                 <div className="thiddrapgsingl">
@@ -1734,12 +1420,13 @@ const EmployeeManage = ({
                               </div>
                             </>
                           )}
-                        </div>
+                        
                       </div>
+
                     </div>
 
                     {/* this is backend acc side  */}
-                    <div className="basic-information addedinfowidth mt-7">
+                    <div className="basic-information">
                       <div className="basics">
                         <h3>Bank Account Information</h3>
                       </div>
@@ -1900,6 +1587,7 @@ const EmployeeManage = ({
                         </div>
                       </div>
                     </div>
+
                   </div>
 
                   {/* this is button  */}
@@ -1907,7 +1595,7 @@ const EmployeeManage = ({
                   <div className=" flex items-center justify-center mt-5">
                     <button
                       type="submit"
-                      className="text-white outline-none bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300  font-semibold rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+                      className="emregistbtn ctext-white outline-none bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300  font-semibold rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
                     >
                       Register
                     </button>

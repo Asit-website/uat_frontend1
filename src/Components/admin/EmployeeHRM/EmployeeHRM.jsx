@@ -110,6 +110,7 @@ const EmployeeHRM = ({
 
   const fetchUserOwnDetailHandler = async()=>{
     const ans = await fetchUserOwnDetailApi(hrms_user?._id);
+    console.log("ans " ,ans);
     if(ans?.status){
       localStorage.setItem("hrms_user", JSON.stringify(ans?.data));
       localStorage.setItem("hrms_permission", JSON.stringify(ans?.data?.PermissionRole || {}));
@@ -122,7 +123,7 @@ const EmployeeHRM = ({
       fetchUserOwnDetailHandler();
    }
 
-  },[])
+  },[hrms_user])
 
   const [formdata, setFormdata] = useState({
     employeeName: "",

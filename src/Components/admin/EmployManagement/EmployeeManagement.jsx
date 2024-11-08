@@ -39,16 +39,15 @@ const EmployeeManagement = ({
   const [data, setData] = useState([]);
 
   const [currentPage, setCurrentPage] = useState(1);
+// Set items per page to 10
+const itemsPerPage = 10;
 
-  const itemsPerPage = 11;
+// Calculate total pages
+const totalPages = Math.ceil(data.length / itemsPerPage);
 
+// Calculate paginated data
+const paginatedData = data.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
 
-  // Calculate total pages
-  const totalPages = Math.ceil(data.length / itemsPerPage);
-
-   // Calculate paginated data
-  
-   const paginatedData = data.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
 
     // Handle page change
   const handlePageChange = (newPage) => {
@@ -163,8 +162,34 @@ const EmployeeManagement = ({
         );
     });
 
+    setCurrentPage(1);
     setData(filterData);
 }, [filters.department, filters.designation, filters.employeeType]);
+
+const scrollToTop = () => {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth' // Smooth scrolling
+  });
+};
+
+
+const srchEmpFunction = (e)=>{
+   const value = e.target.value;
+   console.log("value" , value);
+   setCurrentPage(1);
+    if(value === ""){
+   setData(allData);
+    }
+    else{
+      const completeData = [...allData];
+      console.log("comp;ete" , completeData);
+      const filter = completeData.filter((data) =>  data?.fullName?.toLowerCase()?.includes(value.toLowerCase()) );
+      console.log("filter" , filter);
+      setData(filter);
+        }
+}
+
 
   return (
     <>
@@ -245,7 +270,7 @@ const EmployeeManagement = ({
                 <p className="line" />
 
 
-                <select name="employeeType" onChange={filterHandler} id="">
+                <select name="employeeType" className="employetypeselect" onChange={filterHandler} id="">
                   <option value="Employee Type">Employee Type</option>
                   <option value="Full-time Employees">Full-time Employees</option>
                   <option value="Intern Employees">Intern Employees</option>
@@ -270,8 +295,8 @@ const EmployeeManagement = ({
                     <p className="hhj">All Employee</p>
 
                     <div className="deletwrP">
-                      <img src={deleted} alt="" />
-                      <span>Delete</span>
+                     
+                      <input type="text" placeholder="Search..." className="emsearchi" onChange={(e)=>srchEmpFunction(e)}  />
                     </div>
                   </div>
 
@@ -320,7 +345,7 @@ const EmployeeManagement = ({
                               <input type="checkbox" className="checkboxes" />
 
                             </th>
-                            <th scope="row" className="px-6 py-4   "><span className="index cursor-pointer">{(currentPage - 1) * itemsPerPage + index + 1}</span> </th>
+                            <th scope="row" className="px-6 py-4   "><span className="index cursor-pointer">{currentPage === 1 ? (currentPage-1) * itemsPerPage + index + 1 : (((currentPage-1) * itemsPerPage + index + 1)-1)}</span> </th>
                             <td className="px-6 py-4 taskAns">{item?.fullName}</td>
                             <td className="px-6 py-4 taskAns">{item?.email}</td>
                             <td className="px-6 py-4 taskAns">{item?.department}</td>
@@ -406,11 +431,18 @@ const EmployeeManagement = ({
             </div>
 
             <div className="emPaginate">
-        <button className="prepaginate" onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1}>
+        <button className={`prepaginate ${currentPage !== 1 && "putthehovebtn"}`} onClick={() => {
+          handlePageChange(currentPage - 1);
+           scrollToTop();
+        }} disabled={currentPage === 1}>
           Previous
         </button>
         <span className="pagenum">Page {currentPage} of {totalPages}</span>
-        <button className="prepaginate" onClick={() => handlePageChange(currentPage + 1)} disabled={currentPage === totalPages}>
+        <button className={`prepaginate ${currentPage !== totalPages && "putthehovebtn"} `} onClick={() => {
+          handlePageChange(currentPage + 1)
+          scrollToTop();
+
+        }} disabled={currentPage === totalPages}>
           Next
         </button>
       </div>
