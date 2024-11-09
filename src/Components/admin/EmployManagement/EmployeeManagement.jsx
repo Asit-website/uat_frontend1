@@ -39,17 +39,14 @@ const EmployeeManagement = ({
   const [data, setData] = useState([]);
 
   const [currentPage, setCurrentPage] = useState(1);
-// Set items per page to 10
-const itemsPerPage = 10;
 
-// Calculate total pages
-const totalPages = Math.ceil(data.length / itemsPerPage);
+  const itemsPerPage = 10;
 
-// Calculate paginated data
-const paginatedData = data.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
+  const filteredData = data.filter((item) => item.designation !== "CEO" && item._id !== user._id);
+const totalPages = Math.ceil(filteredData.length / itemsPerPage);
 
+const paginatedData = filteredData.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
 
-    // Handle page change
   const handlePageChange = (newPage) => {
     if (newPage >= 1 && newPage <= totalPages) {
       setCurrentPage(newPage);
@@ -58,7 +55,6 @@ const paginatedData = data.slice((currentPage - 1) * itemsPerPage, currentPage *
 
   let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
   let hrms_permission = JSON.parse(localStorage.getItem("hrms_permission"));
-
 
    const {role } = hrms_user;
    const {  employeeManageEditPermission , employeeManageActivatePermission} = hrms_permission;
@@ -84,7 +80,6 @@ const paginatedData = data.slice((currentPage - 1) * itemsPerPage, currentPage *
       setDesignation(ans?.data);
   }
   
-
   const getData = async () => {
     const ans = await getUsers();
     setAllData(ans?.data);
@@ -103,7 +98,7 @@ const paginatedData = data.slice((currentPage - 1) * itemsPerPage, currentPage *
   const deleteUser1 = async (id , isDeact) => {
 
     confirmAlert({
-      title: `Are you sure you want to ${isDeact?"Activate":"Deactivate"} this item?`,
+      title: `Are you sure you want to ${isDeact?"Activate":"Deactivate"} this Person?`,
       buttons: [
         {
           label: `${isDeact?"Activate":"Deactivate"}`,
@@ -166,6 +161,8 @@ const paginatedData = data.slice((currentPage - 1) * itemsPerPage, currentPage *
     setData(filterData);
 }, [filters.department, filters.designation, filters.employeeType]);
 
+const [checkInpId , setCheckInpId] = useState([]);
+
 const scrollToTop = () => {
   window.scrollTo({
     top: 0,
@@ -173,10 +170,8 @@ const scrollToTop = () => {
   });
 };
 
-
 const srchEmpFunction = (e)=>{
    const value = e.target.value;
-   console.log("value" , value);
    setCurrentPage(1);
     if(value === ""){
    setData(allData);
@@ -189,6 +184,12 @@ const srchEmpFunction = (e)=>{
       setData(filter);
         }
 }
+
+
+const checkallinput = () => {
+  const idList = allData.map((d) => d?._id); 
+  setCheckInpId(idList);
+};
 
 
   return (
@@ -309,7 +310,14 @@ const srchEmpFunction = (e)=>{
                     <thead className="text-xs uppercase textALLtITL ">
                       <tr>
                         <th scope="col" className="px-6 py-3 taskTitl ">
-                          <input type="checkbox" className="checkboxes" />
+                          <input onClick={()=>{
+                             if(checkInpId?.length === allData?.length){
+                                setCheckInpId([]);
+                             }
+                             else{
+                              checkallinput();
+                             }
+                          }} type="checkbox" className="checkboxes" />
 
                         </th>
                         <th scope="col" className="px-6 py-3 taskTitl ">
@@ -342,10 +350,20 @@ const srchEmpFunction = (e)=>{
                         paginatedData.filter(x => x.designation !== "CEO" && x._id !== user._id)?.map((item, index) => (
                           <tr key={index} className="bg-white border-b fdf">
                             <th scope="col" className="px-6 py-3 taskTitl ">
-                              <input type="checkbox" className="checkboxes" />
+                              <input onClick={()=>{
+                                 if(checkInpId.includes(item?._id)){
+                                  const filterdata = checkInpId.filter((id)=> id !== item?._id);
+                                  setCheckInpId(filterdata);
+                                 }
+                                 else{
+                                  setCheckInpId((prev) => [...prev, item?._id]); 
+   }
+                              }} checked={checkInpId.includes(item?._id)} type="checkbox" className="checkboxes" />
 
                             </th>
-                            <th scope="row" className="px-6 py-4   "><span className="index cursor-pointer">{currentPage === 1 ? (currentPage-1) * itemsPerPage + index + 1 : (((currentPage-1) * itemsPerPage + index + 1)-1)}</span> </th>
+                            <th scope="row" className="px-6 py-4   "><span className="index cursor-pointer">
+                              {(currentPage - 1) * itemsPerPage + index + 1}
+                              </span> </th>
                             <td className="px-6 py-4 taskAns">{item?.fullName}</td>
                             <td className="px-6 py-4 taskAns">{item?.email}</td>
                             <td className="px-6 py-4 taskAns">{item?.department}</td>

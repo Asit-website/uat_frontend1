@@ -9,6 +9,8 @@ import HrSidebar from "../../Hr/Sidebar/HrSidebar";
 import HrNavbar from "../../Hr/Navbar/HrNavbar";
 import toast from "react-hot-toast";
 import bxUser from "../../images/bx-user-pin.png";
+import { ImCross } from "react-icons/im";
+
 
 const item = [
   {
@@ -47,6 +49,7 @@ const EmployeeManage = ({
     getDesignations,
     uploadDocuments,
     allEmployee,
+    uploadToCloudinaryImg
   } = useMain();
 
   const [employee, setEmployee] = useState([]);
@@ -297,16 +300,31 @@ const EmployeeManage = ({
 
   });
 
-  const handleFileChange = (event) => {
+  const [previewImages , setPreviewImages] = useState({})
+
+  const handleFileChange = async(event, name) => {
     const file = event.target.files[0];
-    const { name } = event.target;
     if (file) {
       setDocuments((prevDocuments) => ({
         ...prevDocuments,
         [name]: file,
       }));
     }
+
+    // upload to cludinary for preview 
+    const toastId = toast.loading("Wait...");
+     const ans = await uploadToCloudinaryImg({image:file});
+
+     if(ans?.status){
+      toast.success("Successfuly");
+      setPreviewImages((prev)=>({
+        ...prev ,
+        [name]: ans?.data
+      }))
+    }
+    toast.dismiss(toastId);
   };
+
 
   const handleSubmit = async (e, type) => {
     e.preventDefault();
@@ -534,6 +552,7 @@ const EmployeeManage = ({
     fetchAllRoles();
   },[])
 
+
   return (
     <>
       <div className="employee-dash h-full">
@@ -563,9 +582,9 @@ const EmployeeManage = ({
               <NavLink to="/adminDash/HRM/employeeManagement"><button className="calce">
                   <span>Cancel</span>
                 </button></NavLink>
-                <button className="register">
+                {/* <button className="register">
                   <span>Register New</span>
-                </button>
+                </button> */}
               </div>
             </section>
 
@@ -821,7 +840,7 @@ const EmployeeManage = ({
                       <div className="form2-class">
                         <div className="w-full mt-2 form2wrap">
 
-                          <div className="flex w-full">
+                          <div className="makethisflex1">
                             <div className="mb-6 w-full try">
                               <label
                                 for="pan"
@@ -929,7 +948,7 @@ const EmployeeManage = ({
                               />
                             </div>
                           </div>
-                          <div className="flex w-full">
+                          <div className="flex w-full makethisflex1">
                             <div className="mb-6 w-full try">
                               <label
                                 for="currentState"
@@ -1124,7 +1143,7 @@ const EmployeeManage = ({
                             </div>
 
 
-                          <div className="flex w-full">
+                          <div className="flex w-full makethisflex1">
                             <div className="mb-6 w-full try">
                               <label
                                 for="Martial"
@@ -1213,7 +1232,7 @@ const EmployeeManage = ({
                           <div className="wrap1">
                             {/* fist   */}
                             <div className="thiddrapgsingl">
-                              <h4>Aadhar Card</h4>
+                              <h4>Aadhar Card </h4>
 
                               <div className="drag-area">
                                 <img src={uploadFile} alt="" />
@@ -1221,12 +1240,33 @@ const EmployeeManage = ({
                                 <p>Click to upload</p>
 
                                 <input
-                                  className="filesjila w-full"
+                                  className="filesjila"
                                   name="adharCard"
                                   type="file"
-                                  onChange={handleFileChange}
+                                  onChange={(e)=>handleFileChange(e , "adharCard")}
                                 />
                               </div>
+
+                              {
+                                previewImages?.adharCard && 
+                                <div className="previewiamges">
+                                   <nav> <ImCross onClick={()=>{
+                                    setPreviewImages((prev)=>{
+                                      const updatedPreviewImages  ={...prev};
+                                      delete updatedPreviewImages.adharCard;
+                                      return updatedPreviewImages
+                                    });
+
+                                    setDocuments((prev)=>({
+                                      ...prev , 
+                                      adharCard:""
+                                    }))
+
+
+                                   }} className="cursor-pointer" /> </nav>
+                                <img src={previewImages?.adharCard} alt="" />
+                                </div>
+                              }
 
                             </div>
 
@@ -1241,12 +1281,34 @@ const EmployeeManage = ({
                                 <p>Click to upload</p>
 
                                 <input
-                                  className="filesjila w-full"
+                                  className="filesjila"
                                   type="file"
                                   name="pancard"
-                                  onChange={handleFileChange}
+                                  onChange={(e)=>handleFileChange(e ,"pancard" )}
                                 />
                               </div>
+
+                              {
+                                previewImages?.pancard && 
+                                <div className="previewiamges">
+                                <nav> <ImCross onClick={()=>{
+                                 setPreviewImages((prev)=>{
+                                   const updatedPreviewImages  = {...prev};
+                                   delete updatedPreviewImages?.pancard;
+                                   return updatedPreviewImages
+                                 });
+
+                                 setDocuments((prev)=>({
+                                   ...prev , 
+                                   pancard:""
+                                 }))
+
+
+                                }} className="cursor-pointer" /> </nav>
+                             <img src={previewImages?.pancard} alt="" />
+                             </div>
+                              }
+
                             </div>
 
                           </div>
@@ -1267,27 +1329,67 @@ const EmployeeManage = ({
                                   className="filesjila w-full"
                                   type="file"
                                   name="tenCert"
-                                  onChange={handleFileChange}
+                                  onChange={(e)=>handleFileChange(e , "tenCert")}
                                 />
                               </div>
+                              {
+                                previewImages?.tenCert && 
+                                <div className="previewiamges">
+                                <nav> <ImCross onClick={()=>{
+                                 setPreviewImages((prev)=>{
+                                   const updatedPreviewImages  = {...prev};
+                                   delete updatedPreviewImages?.tenCert;
+                                   return updatedPreviewImages
+                                 });
+
+                                 setDocuments((prev)=>({
+                                   ...prev , 
+                                   tenCert:""
+                                 }))
+
+
+                                }} className="cursor-pointer" /> </nav>
+                             <img src={previewImages?.tenCert} alt="" />
+                             </div>
+                              }
                             </div>
 
                             {/* second  */}
                             <div className="thiddrapgsingl">
                               <h4>12th Certificate</h4>
 
-                              <div className="drag-area ">
+                              <div className="drag-area">
                                 <img src={uploadFile} alt="" />
 
                                 <p>Click to upload</p>
 
                                 <input
                                   name="twevelCert"
-                                  onChange={handleFileChange}
-                                  className="filesjila w-full"
+                                  onChange={(e)=>handleFileChange(e , "twevelCert")}
+                                  className="filesjila"
                                   type="file"
                                 />
                               </div>
+                              {
+                                previewImages?.twevelCert && 
+                                <div className="previewiamges">
+                                <nav> <ImCross onClick={()=>{
+                                 setPreviewImages((prev)=>{
+                                   const updatedPreviewImages  = {...prev};
+                                   delete updatedPreviewImages?.twevelCert;
+                                   return updatedPreviewImages
+                                 });
+
+                                 setDocuments((prev)=>({
+                                   ...prev , 
+                                   twevelCert:""
+                                 }))
+
+
+                                }} className="cursor-pointer" /> </nav>
+                             <img src={previewImages?.twevelCert} alt="" />
+                             </div>
+                              }
                             </div>
                           </div>
 
@@ -1302,12 +1404,32 @@ const EmployeeManage = ({
                                 <p>Click to upload</p>
 
                                 <input
-                                  className="filesjila w-full"
+                                  className="filesjila"
                                   type="file"
                                   name="cancelCheque"
-                                  onChange={handleFileChange}
+                                  onChange={(e)=>handleFileChange(e , "cancelCheque")}
                                 />
                               </div>
+                              {
+                                previewImages?.cancelCheque && 
+                                <div className="previewiamges">
+                                <nav> <ImCross onClick={()=>{
+                                 setPreviewImages((prev)=>{
+                                   const updatedPreviewImages  = {...prev};
+                                   delete updatedPreviewImages?.cancelCheque;
+                                   return updatedPreviewImages
+                                 });
+
+                                 setDocuments((prev)=>({
+                                   ...prev , 
+                                   cancelCheque:""
+                                 }))
+
+
+                                }} className="cursor-pointer" /> </nav>
+                             <img src={previewImages?.cancelCheque} alt="" />
+                             </div>
+                              }
                             </div>
 
                             {currEmp === 0 && (
@@ -1322,11 +1444,31 @@ const EmployeeManage = ({
 
                                   <input
                                     name="LastOrganization"
-                                    onChange={handleFileChange}
-                                    className="filesjila w-full"
+                                    onChange={(e)=>handleFileChange(e , "LastOrganization")}
+                                    className="filesjila"
                                     type="file"
                                   />
                                 </div>
+                                {
+                                previewImages?.LastOrganization && 
+                                <div className="previewiamges">
+                                <nav> <ImCross onClick={()=>{
+                                 setPreviewImages((prev)=>{
+                                   const updatedPreviewImages  = {...prev};
+                                   delete updatedPreviewImages?.LastOrganization;
+                                   return updatedPreviewImages
+                                 });
+
+                                 setDocuments((prev)=>({
+                                   ...prev , 
+                                   LastOrganization:""
+                                 }))
+
+
+                                }} className="cursor-pointer" /> </nav>
+                             <img src={previewImages?.LastOrganization} alt="" />
+                             </div>
+                              }
                               </div>
                             )}
                           </div>
@@ -1350,12 +1492,32 @@ const EmployeeManage = ({
                                     <p>Click to upload</p>
 
                                     <input
-                                      className="filesjila w-full"
+                                      className="filesjila "
                                       type="file"
                                       name="RelievingLetter"
-                                      onChange={handleFileChange}
+                                      onChange={(e)=>handleFileChange(e ,"RelievingLetter" )}
                                     />
                                   </div>
+                                  {
+                                previewImages?.RelievingLetter && 
+                                <div className="previewiamges">
+                                <nav> <ImCross onClick={()=>{
+                                 setPreviewImages((prev)=>{
+                                   const updatedPreviewImages  = {...prev};
+                                   delete updatedPreviewImages?.RelievingLetter;
+                                   return updatedPreviewImages
+                                 });
+
+                                 setDocuments((prev)=>({
+                                   ...prev , 
+                                   RelievingLetter:""
+                                 }))
+
+
+                                }} className="cursor-pointer" /> </nav>
+                             <img src={previewImages?.RelievingLetter} alt="" />
+                             </div>
+                              }
                                 </div>
 
                                 {/* second  */}
@@ -1371,11 +1533,31 @@ const EmployeeManage = ({
 
                                     <input
                                       name="OfferLetter"
-                                      className="filesjila w-full"
+                                      className="filesjila"
                                       type="file"
-                                      onChange={handleFileChange}
+                                      onChange={(e)=>handleFileChange(e ,"OfferLetter" )}
                                     />
                                   </div>
+                                  {
+                                previewImages?.OfferLetter && 
+                                <div className="previewiamges">
+                                <nav> <ImCross onClick={()=>{
+                                 setPreviewImages((prev)=>{
+                                   const updatedPreviewImages  = {...prev};
+                                   delete updatedPreviewImages?.OfferLetter;
+                                   return updatedPreviewImages
+                                 });
+
+                                 setDocuments((prev)=>({
+                                   ...prev , 
+                                   OfferLetter:""
+                                 }))
+
+
+                                }} className="cursor-pointer" /> </nav>
+                             <img src={previewImages?.OfferLetter} alt="" />
+                             </div>
+                              }
                                 </div>
                               </div>
 
@@ -1391,17 +1573,37 @@ const EmployeeManage = ({
                                     <p>Click to upload</p>
 
                                     <input
-                                      className="filesjila w-full"
+                                      className="filesjila"
                                       type="file"
                                       name="ExperienceLetter"
-                                      onChange={handleFileChange}
+                                      onChange={(e)=>handleFileChange(e , "ExperienceLetter")}
                                     />
                                   </div>
+                                  {
+                                previewImages?.ExperienceLetter && 
+                                <div className="previewiamges">
+                                <nav> <ImCross onClick={()=>{
+                                 setPreviewImages((prev)=>{
+                                   const updatedPreviewImages  = {...prev};
+                                   delete updatedPreviewImages?.ExperienceLetter;
+                                   return updatedPreviewImages
+                                 });
+
+                                 setDocuments((prev)=>({
+                                   ...prev , 
+                                   ExperienceLetter:""
+                                 }))
+
+
+                                }} className="cursor-pointer" /> </nav>
+                             <img src={previewImages?.ExperienceLetter} alt="" />
+                             </div>
+                              }
                                 </div>
 
                                 {/* second  */}
 
-                                <div className="thiddrapgsingl">
+                                {/* <div className="thiddrapgsingl">
                                   <h4>Offer letter</h4>
 
                                   <div className="drag-area try">
@@ -1416,7 +1618,7 @@ const EmployeeManage = ({
                                       onChange={handleFileChange}
                                     />
                                   </div>
-                                </div>
+                                </div> */}
                               </div>
                             </>
                           )}
