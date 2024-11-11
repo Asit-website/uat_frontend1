@@ -222,6 +222,7 @@
 
 }
 
+
 .viewOne {
     position: absolute;
     top: 40px;
@@ -682,7 +683,7 @@ text-align: left;
     height: 950px;
      position: fixed;
      top: 80px;
-  padding: 12px;
+  padding: 0px 12px 12px 12px;
   overflow-y: scroll;
      background: #FFFFFF;
     border: 1px solid #E8E9EB;   
@@ -716,6 +717,11 @@ text-align: left;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    position: sticky;
+    top: 0px;
+    background-color: white;
+    padding: 10px 0px;
+
 }
 .notifcont nav h2{
     font-family: Inter;

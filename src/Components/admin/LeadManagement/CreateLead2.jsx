@@ -8,6 +8,11 @@ import OutsideClickHandler from "react-outside-click-handler";
 import EmployeeSidebar from "../../Employee/Sidebar/EmployeeSidebar";
 import EmployeeNavbar from "../../Employee/Navbar/EmployeeNavbar";
 import toast from "react-hot-toast";
+import * as EmailValidator from "email-validator";
+import validator from 'validator';
+import { FaUpload } from "react-icons/fa6";
+
+
 
 const CreateLead2 = ({ setAlert, pop, setPop }) => {
     const { user, createLead, getEmployees ,  AllLeadSource , AllLeadStatus,getLeadStat  } = useMain();
@@ -50,6 +55,24 @@ const CreateLead2 = ({ setAlert, pop, setPop }) => {
         DescriptionInfo: ""
     });
 
+    const [emailisValid, setIsemailValid] = useState(null); 
+ 
+    const handleValidation = () => {
+        const valid = EmailValidator.validate(formdata.Email);
+        setIsemailValid(valid);
+      };
+
+      const [isUrlValid, setIsUrlValid] = useState(null);
+
+      const handleInputUrlChange = (value) => {
+        if (validator.isURL(value)) {
+            setIsUrlValid(true);
+        } else {
+            setIsUrlValid(false);
+        }
+      };
+
+
     const navigate = useNavigate();
 
     const handleImageChange = (event) => {
@@ -76,6 +99,12 @@ const CreateLead2 = ({ setAlert, pop, setPop }) => {
 
     const submitHandler = async () => {
         const toastId = toast.loading("Loading...");
+        if(emailisValid === false && formdata.Email !== ""){
+          return  toast.error("Please Enter Correct Email")
+           }
+        if( isUrlValid === false && formdata.Website !== ""){
+          return  toast.error("Please Enter Correct Website Link")
+           }
         const ans = await createLead({ ...formdata });
         if (ans?.status) {
             navigate("/employeeDash/myLead")
@@ -159,16 +188,22 @@ const CreateLead2 = ({ setAlert, pop, setPop }) => {
                     <EmployeeNavbar user={user} setAlert={setAlert} />
 
                     <div className="em">
+
                         <div className="ghj">
                             <h2 className="semik">Create Lead</h2>
                             <NavLink to="/employeeDash/myLead"><button>Back</button></NavLink>
+                            <button onClick={submitHandler} type="button" class="siubmitbtnlead">Submit</button>
+
                         </div>
 
-                        <form action="">
-                            <div onClick={() => setPop1(!pop1)} data-modal-target="default-modal"
-                                data-modal-toggle="default-modal" className="uint mt-5">
+                        <form  action="">
+                          <div  data-modal-target="default-modal"
+                                data-modal-toggle="default-modal" className="uploadprowrap">
                                 <img src={uint} alt="unit" />
+                                <FaUpload className="FaUploadfds" onClick={()=> setPop1(!pop1)} />
+
                             </div>
+
                             <>
 
                                 {/* Main modal */}
@@ -266,7 +301,12 @@ const CreateLead2 = ({ setAlert, pop, setPop }) => {
                                         </div>
                                         <div className="lead_inp1">
                                             <label htmlFor="">Email *</label>
-                                            <input required value={formdata.Email} name="Email" onChange={changeHandler} type="email" />
+                                            <input required value={formdata.Email} name="Email" 
+                                            onChange={(e)=>{
+                                                changeHandler(e);
+                                                handleValidation(e.target.value);
+                                            }}
+                                            type="email" className={`${(emailisValid === false && formdata.Email !== "") && "emailvalidinput"}`} />
                                         </div>
                                     </div>
 
@@ -288,7 +328,10 @@ const CreateLead2 = ({ setAlert, pop, setPop }) => {
                                         </div>
                                         <div className="lead_inp1">
                                             <label htmlFor="">Website</label>
-                                            <input value={formdata.Website} name="Website" onChange={changeHandler} type="text" />
+                                            <input value={formdata.Website} name="Website" onChange={(e)=>{
+                                                changeHandler(e);
+                                                 handleInputUrlChange(e.target.value);
+                                            }}  type="text" className={`${(isUrlValid === false && formdata.Website !== "") && "emailvalidinput"}`} />
                                         </div>
                                     </div>
 
@@ -335,10 +378,6 @@ const CreateLead2 = ({ setAlert, pop, setPop }) => {
                                                         )
                                                     })
                                                 }
-                                                {/* < option value="Cold">Cold</option>
-                                                <option value="Warm">Warm</option>
-                                                <option value="Follow-up">Follow-up</option>
-                                                <option value="Hot">Hot</option> */}
 
                                             </select>
                                         </div>
@@ -442,12 +481,10 @@ const CreateLead2 = ({ setAlert, pop, setPop }) => {
                                 </div>
                             </div>
 
-                            <div>
-                                <button type="button" onClick={submitHandler} class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Submit</button>
-
-                            </div>
+                          
 
                         </form>
+
                     </div>
                 </div>
             </div>

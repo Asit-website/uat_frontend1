@@ -18,6 +18,8 @@ const AdminNavbar = ({ setAlert}) => {
    const [user , setUser] = useState({});
 
   const [allNotication , setAllNotification] = useState([]);
+  const [currLoad , setCurrLoad] = useState(1);
+  const [actNotify , setActNotify] = useState([]);
 
   const [shownotify , setShownotify] = useState(false);
 
@@ -73,7 +75,19 @@ const AdminNavbar = ({ setAlert}) => {
 
 useEffect(()=>{
   fetchNotification();
+  setCurrLoad(1);
 },[])
+
+
+
+useEffect(()=>{
+
+  let num = currLoad*10;
+ const nNotify = allNotication.slice(0 , num);
+ setActNotify(nNotify);
+
+},[allNotication , currLoad])
+
 
   return (
     <>
@@ -161,7 +175,13 @@ useEffect(()=>{
 
           allNotication.length > 0 ?
 
-           allNotication?.map((item , index)=>(
+
+          <div className="allnotiftwrap">
+
+{
+
+
+          actNotify?.map((item , index)=>(
 
              <>
              <div key={index} className="singlnotify">
@@ -178,6 +198,15 @@ useEffect(()=>{
              </>
 
            ))
+
+          }
+
+           
+          <button  onClick={() => setCurrLoad(currLoad + 1)}
+          className="lodmorebtns"><span>Load More...</span></button>
+         
+                    </div>
+
 
            
            :
