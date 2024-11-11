@@ -135,7 +135,7 @@ color: #1B2533;
     display: flex !important;
     align-items: center !important;
     gap: 20px;
-    background-color: red;
+    /* background-color: red; */
     
 }
 .singlead span{
