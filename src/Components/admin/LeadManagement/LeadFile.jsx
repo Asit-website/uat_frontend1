@@ -8,8 +8,9 @@ import bxs from "../../images/bxs.svg";
 import { NavLink } from "react-router-dom";
 import * as XLSX from "xlsx";
 import toast from "react-hot-toast";
-
+import { useNavigate } from "react-router-dom";
 const LeadFile = ({ setAlert, pop, setPop }) => {
+  const navigate = useNavigate();
   const { user, allEmployee, createExcelLead } = useMain();
 
   const [users, setUsers] = useState([]);
@@ -44,6 +45,8 @@ const LeadFile = ({ setAlert, pop, setPop }) => {
 
     let selectedFile = e.target.files[0];
 
+    console.log(selectedFile);
+
     if (selectedFile) {
       if (selectedFile && fileTypes.includes(selectedFile.type)) {
         setTypeError(null);
@@ -52,6 +55,7 @@ const LeadFile = ({ setAlert, pop, setPop }) => {
         reader.onload = (e) => {
           setExcelFile(e.target.result);
         };
+        toast.success("Successfuly Browse..");
         console.log("slect file", selectedFile);
       } else {
         setTypeError("please seelect only file type");
@@ -65,6 +69,8 @@ const LeadFile = ({ setAlert, pop, setPop }) => {
   // onsubmit event
   const handleFileSubmit = async (e) => {
     e.preventDefault();
+
+    console.log(excelData);
 
     if (excelFile !== null) {
       const workbook = XLSX.read(excelFile, { type: "buffer" });
@@ -111,6 +117,9 @@ const LeadFile = ({ setAlert, pop, setPop }) => {
       }
 
       toast.success("Successfuly uploaded");
+      navigate("/adminDash/myLead");
+
+     
 
       toast.dismiss(toastId);
     }

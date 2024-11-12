@@ -962,7 +962,7 @@ const paginatedData = allLeads.slice((currentPage - 1) * itemsPerPage, currentPa
             </div>
 
             {/* this is lastest */}
-            <div className="table22">
+            <div className="table22 table333">
               <div className="my_open">
                 <h3>My Deals Closing This Month</h3>
                 <div>

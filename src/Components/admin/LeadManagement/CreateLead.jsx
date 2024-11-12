@@ -90,6 +90,10 @@ const CreateLead = ({ setAlert, pop, setPop }) => {
      const changeHandler = async(e)=>{
         const {name ,value} = e.target;
 
+        if(name === "Phone" && value.length > 10){
+            return
+          }
+
         setFormdata((prev)=>({
             ...prev ,
             [name]:value

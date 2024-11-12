@@ -284,7 +284,7 @@ const MyLead = ({ setAlert, pop, setPop }) => {
                   </NavLink>
 
 
-                  <button
+                  {/* <button
                     id="dropdownDefaultButton"
                     data-dropdown-toggle="dropdown"
                     className="text-white silo   px-5 py-2.5 text-center inline-flex items-center"
@@ -305,7 +305,7 @@ const MyLead = ({ setAlert, pop, setPop }) => {
                         fill="#666D76"
                       />
                     </svg>
-                  </button>
+                  </button> */}
 
 
 
@@ -331,7 +331,7 @@ const MyLead = ({ setAlert, pop, setPop }) => {
                     </span>
                   </div>
 
-                  <img src={fff} alt="" />
+                  {/* <img src={fff} alt="" /> */}
                 </div>
 
                 {/* <div

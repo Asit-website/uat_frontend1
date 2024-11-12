@@ -5287,6 +5287,9 @@ input::-webkit-inner-spin-button {
   margin-top: 20px;
 }
 
+.table333{
+  margin-left: 0px !important;
+}
 .my_open {
   display: flex;
   align-items: center;
@@ -5505,7 +5508,7 @@ input::-webkit-inner-spin-button {
 .browse {
   width: 175px;
   height: 40px;
-  background-color: #0B56E4;
+  /* background-color: #0B56E4; */
   border-radius: 8px;
   display: flex;
   align-items: center;
@@ -5514,7 +5517,8 @@ input::-webkit-inner-spin-button {
 
 .browse h3 {
   font-size: 16px;
-  color: #ffffff;
+  color: black;
+  text-decoration: underline;
   font-family: inter !important;
   font-weight: 500 !important;
 }

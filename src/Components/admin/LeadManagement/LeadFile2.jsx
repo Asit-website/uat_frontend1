@@ -8,8 +8,10 @@ import EmployeeNavbar from "../../Employee/Navbar/EmployeeNavbar";
 import * as XLSX from "xlsx";
 import toast from "react-hot-toast";
 import { NavLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const LeadFile2 = ({ setAlert, pop, setPop }) => {
+  const navigate = useNavigate();
     const { user, allEmployee, createExcelLead } = useMain();
 
     const [users, setUsers] = useState([]);
@@ -51,6 +53,7 @@ const LeadFile2 = ({ setAlert, pop, setPop }) => {
           reader.onload = (e) => {
             setExcelFile(e.target.result);
           };
+          toast.success("Successfuly Browse..");
         } else {
           setTypeError("please seelect only file type");
           setExcelFile(null);
@@ -107,6 +110,7 @@ const LeadFile2 = ({ setAlert, pop, setPop }) => {
         
   
         toast.success("Successfuly uploaded");
+        navigate("/adminDash/myLead");
   
         toast.dismiss(toastId);
       }
