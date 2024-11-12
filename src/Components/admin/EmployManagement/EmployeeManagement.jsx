@@ -185,7 +185,6 @@ const srchEmpFunction = (e)=>{
         }
 }
 
-
 const checkallinput = () => {
   const idList = allData.map((d) => d?._id); 
   setCheckInpId(idList);
@@ -317,7 +316,7 @@ const checkallinput = () => {
                              else{
                               checkallinput();
                              }
-                          }} type="checkbox" className="checkboxes" />
+                          }} checked={checkInpId?.length === allData.length} type="checkbox" className="checkboxes" />
 
                         </th>
                         <th scope="col" className="px-6 py-3 taskTitl ">

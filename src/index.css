@@ -3317,7 +3317,6 @@ gap: 20px;
   max-width: 252px;
   /* width: 252px; */
   width: 100%;
-  /* background-color: blue; */
   height: 62px;
   border-radius: 12px;
   border: 1px solid #B7B7B7;
@@ -3333,7 +3332,6 @@ gap: 20px;
   flex-direction: column;
   gap: 5px;
   width: 100%;
-  /* background-color: aqua; */
 
 }
 
@@ -5416,24 +5414,44 @@ input::-webkit-inner-spin-button {
 .lead_inp {
   display: flex;
   align-items: center;
+  gap: 20px;
+
 }
 
+.lead_input{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+}
 .lead_inp label {
   display: block;
 }
 
 .lead_inp1 {
-  width: 100% !important;
-  margin: 15px 10px;
+  max-width: 50%;
+  width: 100%;
+}
+
+.makeitflexcol{
+  display: flex;
+  gap: 20px;
+}
+.exceptionwidht{
+  width: 100%;
+}
+.exceptionwidht input{
+  /* max-width: calc(100% - 81px ); */
+  width:100%;
 }
 
 .lead_inp1 input,
 .lead_inp1 select {
   width: 100%;
   height: 48px !important;
-  /* margin: 0px 10px; */
   outline: none !important;
-  border: 1px solid #D0D4DC !important;
+  border: 1px solid #D0D4DC;
   color: #666D76 !important;
   font-weight: 400 !important;
   font-family: inter !important;
@@ -5551,8 +5569,11 @@ input::-webkit-inner-spin-button {
 }
 
 .lead_inp11 {
-  width: auto !important;
-  /* margin: 0px 0px !important; */
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ max-width: 91px !important;
+ width: 100%;
 }
 
 .gfg td {
@@ -6943,6 +6964,37 @@ justify-content: space-between;
   height: 85%;
 }
 
+.lodmorebtns{
+  width: 123px;
+  height: 40px;
+  border-radius: 10px;
+  background: #0B56E4;
+  
+}
+
+.lodmorebtns span{
+font-family: Inter;
+font-size: 16px;
+font-weight: 500;
+line-height: 24px;
+letter-spacing: 0.005em;
+color: #FFFFFF;
+}
+
+.allnotiftwrap{
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding-bottom: 400px;
+}
+.allnotifywrap{
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding-bottom: 400px;
+}
+
+
 
 @media only screen and (min-width:1000px){
   .oppl{
@@ -7067,4 +7119,44 @@ justify-content: space-between;
     display: none;
   }
   
+}
+
+.emailvalidinput{
+  border: 1px solid red !important;
+}
+
+
+.uploadprowrap{
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-top: 5px;
+}
+
+.FaUploadfds{
+  cursor: pointer;
+  color: #666D76;
+  font-size: 23px;
+}
+
+.makethifles{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.siubmitbtnlead{
+  background-color: #0B56E4 !important;
+  color: white !important;
+  font-weight: 500 !important;
+  font-family: Inter !important;
+font-size: 18px !important;
+width: 120px !important;
+border: none !important;
+
+}
+
+.makeitsticky{
+
+  padding: 10px 0px;
 }
