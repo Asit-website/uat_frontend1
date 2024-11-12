@@ -14,6 +14,9 @@ const LeadFile2 = ({ setAlert, pop, setPop }) => {
   const navigate = useNavigate();
     const { user, allEmployee, createExcelLead } = useMain();
 
+    const [selectedFiles , setSelectedFiles] = useState("");
+
+
     const [users, setUsers] = useState([]);
   
     let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
@@ -46,6 +49,8 @@ const LeadFile2 = ({ setAlert, pop, setPop }) => {
       let selectedFile = e.target.files[0];
   
       if (selectedFile) {
+        setSelectedFiles(selectedFile);
+
         if (selectedFile && fileTypes.includes(selectedFile.type)) {
           setTypeError(null);
           let reader = new FileReader();
@@ -147,6 +152,8 @@ const LeadFile2 = ({ setAlert, pop, setPop }) => {
                                         </div>
                                         <input type="file"  onChange={handleFile} required />
                                     </div>
+                                    {selectedFiles && <p className="text-center">{selectedFiles.name}</p>} 
+
                                 </div>
                                 <div className="download_gfg">
                                     <h2>Download sample file

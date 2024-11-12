@@ -580,11 +580,11 @@ const MyLead = ({ setAlert, pop, setPop }) => {
                               <div className=" viewOne">
                                 {/* first  */}
                                 <div
-                                  onClick={() => {
-                                    navigate("/adminDash/editLead", {
-                                      state: item,
-                                    });
-                                  }}
+                                onClick={() => {
+                                  navigate(
+                                    `/adminDash/importLead/${item._id}`
+                                  );
+                                }}
                                   className="subView"
                                 >
                                   <img src={happy} alt="" />
@@ -596,10 +596,12 @@ const MyLead = ({ setAlert, pop, setPop }) => {
                                 {/* second */}
                                 {
                                   <div
+                                   
+
                                     onClick={() => {
-                                      navigate(
-                                        `/adminDash/importLead/${item._id}`
-                                      );
+                                      navigate("/adminDash/editLead", {
+                                        state: item,
+                                      });
                                     }}
                                     className="subView"
                                   >
