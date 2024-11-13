@@ -252,7 +252,7 @@
 .prepaginate{
     width: 100px;
     height: 40px;
-    padding: 3px 1px 3px 6px;
+    /* padding: 3px 1px 3px 6px; */
     gap: 10px;
     border-radius: 10px;
     border: 1px solid #D8D8D8;    
