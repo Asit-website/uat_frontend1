@@ -325,7 +325,6 @@ const EmployeeManage = ({
     toast.dismiss(toastId);
   };
 
-
   const handleSubmit = async (e, type) => {
     e.preventDefault();
 
@@ -394,6 +393,7 @@ const EmployeeManage = ({
           formData,
           employeeType:item[currEmp].title
         });
+
       } else {
         const ans = await createEmployee1({
           ...value1,
@@ -403,6 +403,7 @@ const EmployeeManage = ({
           ...value5,
           employeeType:item[currEmp].title
         });
+
       }
 
       localStorage.removeItem("form1");

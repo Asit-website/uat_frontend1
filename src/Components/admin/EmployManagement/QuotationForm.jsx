@@ -54,8 +54,9 @@ const QuotationForm = ({ setAlert, pop, setPop }) => {
 
   const editor = useRef(null);
 
-  const [content, setContent] = useState(data);
+  const navigate = useNavigate();
 
+  const [content, setContent] = useState(data);
 
   const { role, } = hrms_user;
 
@@ -64,6 +65,8 @@ const QuotationForm = ({ setAlert, pop, setPop }) => {
   const handleImageClick = () => {
     fileInputRef.current.click();
   };
+
+  const [preview , setPreview] = useState(true);
 
   const [logoImage, setLogoImage] = useState("");
 
@@ -233,18 +236,31 @@ const QuotationForm = ({ setAlert, pop, setPop }) => {
 
           <div className="em">
             <div className="qutaWrap">
-              {/* lefft side  */}
 
               <div className="qutaLeft">
+
                 <div className="qutLTo">
                   <h2>Quotation Form</h2>
-                  {/* <button>
-                    <span>Preview</span>
-                  </button> */}
+
+                  <div className="qutolobutons">
+                     <button onClick={()=>setPreview(true)}>Preview</button>
+                     <button onClick={()=>{
+                        if (item) {
+                          updateQuotationForm();
+                        } else {
+                          postQuotationForm();
+                        }
+                     }}>Create</button>
+                     <button onClick={()=>{
+                       navigate(-1);
+                     }} className="cnebuqo">Cancel</button>
+                  </div>
+              
                 </div>
 
                 <div className="allwhitebg">
                   <form className="qtoform">
+
                     <label>
                       <p>Quotation No*</p>
                       <input
@@ -320,10 +336,10 @@ const QuotationForm = ({ setAlert, pop, setPop }) => {
                     </label>
 
                     <div className="admorewrap">
-                      <div className="admorCont">
+                      {/* <div className="admorCont">
                         <img src={plussing} alt="" />
                         <span>Add More Fields</span>
-                      </div>
+                      </div> */}
 
                       <div className="image" onClick={handleImageClick}>
                         <img src={inputfileds} alt="" />
@@ -336,6 +352,7 @@ const QuotationForm = ({ setAlert, pop, setPop }) => {
                         />
                       </div>
                     </div>
+
                   </form>
 
                   <div class="relative ">
@@ -481,15 +498,15 @@ const QuotationForm = ({ setAlert, pop, setPop }) => {
                 </div>
               </div>
 
-              {/* right side  */}
-              <div className="qutaRight">
+              {
+       preview && 
+         <div className="previwwraps">
+   <div className="qutaRight">
                 <div ref={contonentPDF} className="qutaRightcont">
                   <div className="hdquot">
                     <p>Quotation {formdata?.quotationNum}</p>
-                    {/* <img src={kdsquto} alt="" /> */}
                     {logoImage ? <img src={logoImage} alt="Logo" /> : <p></p>}
 
-                    {/* <img src={logoImage} alt="" /> */}
                   </div>
 
                   <p className="cust">Customer</p>
@@ -503,7 +520,6 @@ const QuotationForm = ({ setAlert, pop, setPop }) => {
                     <p>Customer ID: {formdata?.customerId}</p>
                   </div>
 
-                  {/* talble */}
 
                   <div className="talbeLike">
                     <div class="relative w-full">
@@ -547,7 +563,6 @@ const QuotationForm = ({ setAlert, pop, setPop }) => {
                   <hr />
 
                   <div className="rigthfot">
-                    {/* right side */}
                     <div className="rigthfotleft">
                       <p className="leftfist">{formdata.companyName}</p>
                       <p className="seconle">
@@ -558,7 +573,6 @@ const QuotationForm = ({ setAlert, pop, setPop }) => {
                       </p>
                     </div>
 
-                    {/* eleft  */}
                     <div className="rigthfotright">
                       <p>Reach us at</p>
                       <p>{formdata?.companyAddress}</p>
@@ -573,20 +587,20 @@ const QuotationForm = ({ setAlert, pop, setPop }) => {
                 <hr />
 
                 <div className="prntBtn">
+                  <button onClick={()=>setPreview(false)} className="cnebuqo">Cancel</button>
                   <button
                     onClick={() => {
-                      if (item) {
-                        updateQuotationForm();
-                      } else {
-                        postQuotationForm();
-                      }
+                    
                       generatePdf();
                     }}
                   >
                     <span>Print</span>
                   </button>
                 </div>
-              </div>
+              </div> 
+         </div>
+              }
+           
             </div>
           </div>
         </div>
