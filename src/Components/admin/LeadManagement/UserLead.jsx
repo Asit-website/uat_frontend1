@@ -288,7 +288,7 @@ const UserLead = ({ setAlert, pop, setPop }) => {
                                         <img src={download} alt="" />
                                         <span className="ref1">  Import Leads</span>
                                     </button></NavLink>
-                                    <button
+                                    {/* <button
                                         id="dropdownDefaultButton"
                                         data-dropdown-toggle="dropdown"
                                         className="text-white silo   px-5 py-2.5 text-center inline-flex items-center"
@@ -300,9 +300,9 @@ const UserLead = ({ setAlert, pop, setPop }) => {
                                             <path d="M16.293 9.29303L12 13.586L7.70697 9.29303L6.29297 10.707L12 16.414L17.707 10.707L16.293 9.29303Z" fill="#666D76" />
                                         </svg>
 
-                                    </button>
+                                    </button> */}
 
-                                    <OutsideClickHandler
+                                    {/* <OutsideClickHandler
                                         onOutsideClick={() => {
                                             setCard(false);
                                         }}
@@ -350,7 +350,7 @@ const UserLead = ({ setAlert, pop, setPop }) => {
                                                 </li>
                                             </ul>
                                         </div>
-                                    </OutsideClickHandler>
+                                    </OutsideClickHandler> */}
                                 </div>
                             </div>
                         </div>
@@ -360,7 +360,7 @@ const UserLead = ({ setAlert, pop, setPop }) => {
 
                             <div>
                                 <div className="leftlead1">
-                                    <img src={fff} alt="" />
+                                    {/* <img src={fff} alt="" /> */}
 
                                     <div className="inptsearch">
                                         <input value={searchText} onChange={(e) => setSrchText(e.target.value)} type="text" placeholder="Search leads" />
@@ -554,6 +554,10 @@ const UserLead = ({ setAlert, pop, setPop }) => {
                                                     Status
                                                 </th>
                                                 <th scope="col" className="px-3 py-3 leadti">
+                                                    {/* LinkedIn URL */}
+                                                    Lead Date
+                                                </th>
+                                                <th scope="col" className="px-3 py-3 leadti">
                                                     Action
                                                 </th>
                                             </tr>
@@ -588,6 +592,8 @@ const UserLead = ({ setAlert, pop, setPop }) => {
                                                         <td scope="col" className="px-3 py-3 myleadtit2">
                                                             {item?.Email}
                                                         </td>
+                                            
+
                                                         <td scope="col" className="px-3 py-3 myleadtit2">
                                                             {item?.Website}
                                                         </td>
@@ -608,6 +614,10 @@ const UserLead = ({ setAlert, pop, setPop }) => {
                                                             </div>
 
                                                         </td>
+
+                                                        <td className="px-6 py-4 taskAns">
+                          {new Date(item?.createAt).toLocaleDateString("en-CA")}
+                        </td>
 
 
                                                         <td className="thebuttn">

@@ -6032,7 +6032,22 @@ input::-webkit-inner-spin-button {
 #fentar{
   width: 265px;
   max-width: 100%;
+  /* -webkit-appearance: none;
+  appearance: none; */
+  /* border: none;
+  border-right: 16px solid white; */
 
+}
+.select-wrapper {
+  position: relative;
+}
+
+.select-wrapper::after {
+  content: "▼";
+  font-size: 1rem;
+  top: 6px;
+  right: 10px;
+  position: absolute;
 }
 .test_filter{
   display: flex;

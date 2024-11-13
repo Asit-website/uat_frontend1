@@ -454,6 +454,7 @@ const MyLead = ({ setAlert, pop, setPop }) => {
                   value={Filter1}
                   name="thisFilter"
                   id="fentar"
+                  className="select-wrapper"
                 >
                   <option value="Select" disabled selected>
                     Select
