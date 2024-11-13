@@ -15,11 +15,13 @@ import actions from "../../images/actions.png";
 import happy from "../../images/bx-happy-heart-eyes.png";
 import deleted from "../../images/deletedd.svg";
 import edit22 from "../../images/edit22.png";
+import { IoIosCloseCircle } from "react-icons/io";
+
 
 const MyLead2 = ({ setAlert, pop, setPop }) => {
   const navigate = useNavigate();
 
-  const { user, getLead, deleteLeads, getUserByDesignation } = useMain();
+  const { user, getLead, deleteLeads, getUserByDesignation , closeLead } = useMain();
 
   const [desUsers, setDeUsers] = useState([]);
 
@@ -246,6 +248,20 @@ const MyLead2 = ({ setAlert, pop, setPop }) => {
     const idList = allData.map((d) => d?._id);
     setCheckInpId(idList);
   };
+
+
+  const closeLeadHandler = async(id)=>{
+    const toastId = toast.loading("Loading...");
+
+    const ans = await closeLead(id);
+    if(ans.status){
+      toast.success("Successfuly Done");
+    }
+
+    toast.dismiss(toastId);
+
+  }
+
 
   return (
     <>
@@ -507,6 +523,24 @@ const MyLead2 = ({ setAlert, pop, setPop }) => {
                                     <p > Delete </p>
                                   </div>
                                 }
+
+<hr />
+
+{/* fourth  */}
+{
+
+<div
+ onClick={() => {
+   closeLeadHandler(item?._id);
+ }}
+ className="subView"
+>
+<IoIosCloseCircle className="incfornsizze" />
+ <p > Close </p>
+
+</div>
+}
+
                               </div>
                             )}
                           </div>

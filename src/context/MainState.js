@@ -1702,9 +1702,19 @@ const MainState = (props) => {
       return data;
    };
 
+   const closeLead = async (id) => {
 
-
-
+      const data = await post(`${baseUrl}/admin/closeLead/${id}`, {  }, true);
+      return data;
+   }
+   const closeLeadApiFetch=async() =>{
+      const data = await post(`${baseUrl}/admin/getAllCloseLead`, {  }, true);
+      return data;
+   }
+   const getTodayLead=async() =>{
+      const data = await post(`${baseUrl}/admin/getTodayLead`, {  }, true);
+      return data;
+   }
    const updateLeadStatus = async (id, LeadStatus) => {
 
       const data = await post(`${baseUrl}/lead/updateLeadStatus/${id}`, { LeadStatus }, true);
@@ -2436,7 +2446,7 @@ const MainState = (props) => {
          deleteQuotation1 , 
          uploadSingleImage , 
          getAllProjectUserApi , 
-         savenoteatt ,AllRolesapi ,  deleteQproapi , createExpenseApi , changeStatusBreak , deleteProjectTaskapi22 , EditProjectTask , postHalfDay , postNotification2 , getUserHalfDay , rejectHalfDay , acceptHalf , acceptassetsapi
+         savenoteatt ,AllRolesapi ,  closeLead , deleteQproapi , createExpenseApi , changeStatusBreak , deleteProjectTaskapi22 , EditProjectTask , postHalfDay , closeLeadApiFetch , postNotification2 , getUserHalfDay , rejectHalfDay , acceptHalf , acceptassetsapi , getTodayLead
       }}> 
          {props.children}
       </MainContext.Provider>

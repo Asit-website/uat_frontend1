@@ -15,15 +15,15 @@ import actions from "../../images/actions.png";
 import happy from "../../images/bx-happy-heart-eyes.png";
 import deleted from "../../images/deletedd.svg";
 import edit22 from "../../images/edit22.png";
+import { IoIosCloseCircle } from "react-icons/io";
+
 
 const MyLead = ({ setAlert, pop, setPop }) => {
   const navigate = useNavigate();
 
-  const { user, getLead, deleteLeads, getUserByDesignation } = useMain();
+  const { user, getLead, deleteLeads, getUserByDesignation  , closeLead} = useMain();
 
   const [desUsers, setDeUsers] = useState([]);
-
-  
 
   const [refreshFlag, setRefreshFlag] = useState(false);
 
@@ -253,6 +253,18 @@ const MyLead = ({ setAlert, pop, setPop }) => {
     setCheckInpId(idList);
   };
 
+  const closeLeadHandler = async(id)=>{
+    const toastId = toast.loading("Loading...");
+
+    const ans = await closeLead(id);
+    if(ans.status){
+      toast.success("Successfuly Done");
+    }
+
+    toast.dismiss(toastId);
+
+  }
+
   return (
     <>
       <div className="employee-dash h-full">
@@ -305,11 +317,7 @@ const MyLead = ({ setAlert, pop, setPop }) => {
                         fill="#666D76"
                       />
                     </svg>
-                  </button> */}
-
-
-
-                 
+                  </button> */}   
 
                 </div>
               </div>
@@ -616,12 +624,7 @@ const MyLead = ({ setAlert, pop, setPop }) => {
                                 {/* third */}
                                 {
 
-                                  <div
-                                    onClick={() => {
-                                      deleteProject(item?._id);
-                                    }}
-                                    className="subView"
-                                  >
+                                 
                                    <div
                                     onClick={() => {
                                       deleteProject(item?._id);
@@ -631,8 +634,28 @@ const MyLead = ({ setAlert, pop, setPop }) => {
                                     <img src={deleted} alt="" />
                                     <p > Delete </p>
                                   </div>
-                                  </div>
+
+
                                 }
+
+<hr />
+
+{/* fourth  */}
+{
+
+ <div
+  onClick={() => {
+    closeLeadHandler(item?._id);
+  }}
+  className="subView"
+>
+<IoIosCloseCircle className="incfornsizze" />
+  <p > Close </p>
+
+</div>
+}
+
+
                               </div>
                             )}
                             

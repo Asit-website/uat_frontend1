@@ -21,8 +21,10 @@ const LeadDash = ({ setAlert, pop, setPop }) => {
     deleteTaskapi,
     deleteMeetapi,
     getAllLeads,
+    getTodayLead , 
     deleteLeads,
     GetOpenLeadsApi,
+    closeLeadApiFetch
   } = useMain();
 
   const [start1, setStart1] = useState(false);
@@ -132,33 +134,76 @@ const LeadDash = ({ setAlert, pop, setPop }) => {
     toast.dismiss(toastId);
   };
 
+  const [todayLeadSrch , setTodayLeadSrch] = useState("");
   const [allLeads, setAllLeads] = useState([]);
   const [optionedit, setOptionEdit] = useState(null);
+  const [optionedit2, setOptionEdit2] = useState(null);
 
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
 
 const totalPages = Math.ceil(allLeads.length / itemsPerPage);
 
-const paginatedData = allLeads.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
+ const [paginatedData , setPaginationData] = useState([]);
 
 
+useEffect(()=>{
+
+  if(todayLeadSrch === ""){
+    setPaginationData([...allLeads]);
+  }
+  else{
+    const filterData = allLeads.filter((lead)=> lead?.Company?.toLowerCase()?.includes(todayLeadSrch?.toLocaleLowerCase()))
+    setPaginationData(filterData);
+  }
+  
+} , [todayLeadSrch])
+
+useEffect(()=>{
+  setPaginationData(allLeads?.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage));
+},[currentPage , allLeads])
 
   const fetchLeads = async () => {
-    const ans = await getAllLeads();
+    const ans = await getTodayLead();
     if (ans.status) {
-      setAllLeads(ans?.data);
+      setAllLeads(ans?.leads);
     }
   };
+
+  const [allCloseLead , setAllCloseLead] = useState([]);
+  const [allCloseForSrch ,setAllCloseFroSrch] = useState([]);
+  const [closeSerch , setCloseSrch] = useState("");
+
+  const closeLead = async()=>{
+    const ans = await closeLeadApiFetch();
+    setAllCloseFroSrch(ans?.status);
+    setAllCloseLead(ans?.status);
+  }
+
+  useEffect(()=>{
+
+    if(closeSerch === ""){
+      setAllCloseLead([...allCloseForSrch]);
+    }
+    else{
+
+      const filterdata = allCloseForSrch.filter((lead)=> lead?.Company?.toLowerCase()?.includes(closeSerch.toLowerCase()));
+      
+      if(filterdata){
+        setAllCloseLead(filterdata);
+      }
+    }
+
+  } ,[closeSerch])
 
   useEffect(() => {
     fetchLead();
     fetchTask();
     fetchMeet();
     fetchLeads();
+    closeLead();
     GetOpenLeads();
   }, []);
-  
   
 
 
@@ -834,6 +879,7 @@ const paginatedData = allLeads.slice((currentPage - 1) * itemsPerPage, currentPa
             <div className="table11">
               <div className="my_open">
                 <h3>Today's Leads</h3>
+                 <input value={todayLeadSrch} onChange={(e)=>setTodayLeadSrch(e.target.value)} type="text" className="searchclosde" placeholder="Search..."  />
               </div>
 
         
@@ -965,6 +1011,12 @@ const paginatedData = allLeads.slice((currentPage - 1) * itemsPerPage, currentPa
             <div className="table22 table333">
               <div className="my_open">
                 <h3>My Deals Closing This Month</h3>
+
+                <div className="searchdeclose">
+
+                  <input type="text" className="searchclosde" value={closeSerch} onChange={(e)=>setCloseSrch(e.target.value)} placeholder="Search..." />
+
+              
                 <div>
                   <svg
                     className="floyu"
@@ -1065,86 +1117,122 @@ const paginatedData = allLeads.slice((currentPage - 1) * itemsPerPage, currentPa
                     </ul>
                   </div>
                 </div>
+
+                </div>
               </div>
               <div className="relative overflow-x-auto lonj">
                 <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                   <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                     <tr className="thol">
                       <th scope="col" className="px-4 py-3">
-                        Subject
+                        Company
                       </th>
                       <th scope="col" className="px-4 py-3">
-                        Due Date
+                        Email
+                      </th>
+                      <th scope="col" className="px-4 py-3">
+                        FirstName
+                      </th>
+                      <th scope="col" className="px-4 py-3">
+                        LastName
+                      </th>
+                      <th scope="col" className="px-4 py-3">
+                        Close Date
                       </th>
                       <th scope="col" className="px-4 py-3">
                         Status
                       </th>
+                  
                       <th scope="col" className="px-4 py-3">
-                        Priority
+                        Action
                       </th>
-                      <th scope="col" className="px-4 py-3">
-                        Related To
-                      </th>
-                      <th scope="col" className="px-4 py-3">
-                        Contact Name
-                      </th>
+                  
+                   
+                  
                     </tr>
                   </thead>
                   <tbody>
-                    <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                      <th
-                        scope="row"
-                        className="px-4 aka py-4 font-medium text-gray-900 whitespace-nowrap  aka"
-                      >
-                        Follow up WhatsApp Message
-                      </th>
-                      <td className="px-4 py-4 duedatest">31/05/2023</td>
-                      <td className="px-4 py-4 duedatest">Not Started</td>
-                      <td className="px-4 py-4 duedatest">High</td>
-                      <td className="px-4 py-4 relt">Machi Gulinski</td>
-                      <td className="px-4 py-4">
-                        <div className="contactk">
-                          <img src={siy} alt="siy" />
-                          <p>Kris Marrier</p>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                      <th
-                        scope="row"
-                        className="px-4 aka py-4 font-medium text-gray-900 whitespace-nowrap  aka"
-                      >
-                        Follow up WhatsApp Message
-                      </th>
-                      <td className="px-4 py-4 duedatest">31/05/2023</td>
-                      <td className="px-4 py-4 duedatest">Not Started</td>
-                      <td className="px-4 py-4 duedatest">High</td>
-                      <td className="px-4 py-4 relt">Machi Gulinski</td>
-                      <td className="px-4 py-4">
-                        <div className="contactk">
-                          <img src={siy} alt="siy" />
-                          <p>Kris Marrier</p>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                      <th
-                        scope="row"
-                        className="px-4 aka py-4 font-medium text-gray-900 whitespace-nowrap  aka"
-                      >
-                        Follow up WhatsApp Message
-                      </th>
-                      <td className="px-4 py-4 duedatest">31/05/2023</td>
-                      <td className="px-4 py-4 duedatest">Not Started</td>
-                      <td className="px-4 py-4 duedatest">High</td>
-                      <td className="px-4 py-4 relt">Machi Gulinski</td>
-                      <td className="px-4 py-4">
-                        <div className="contactk">
-                          <img src={siy} alt="siy" />
-                          <p>Kris Marrier</p>
-                        </div>
-                      </td>
-                    </tr>
+                    {
+                      allCloseLead?.map((item , index)=>(
+                        <tr key={index} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                        <th
+                          scope="row"
+                          className="px-4 aka py-4 font-medium text-gray-900 whitespace-nowrap  aka"
+                        >
+                          {item?.Company}
+                        </th>
+                        <td className="px-4 py-4 duedatest">{item?.Email}</td>
+                        <td className="px-4 py-4 duedatest">{item?.FirstName}</td>
+                        <td className="px-4 py-4 duedatest">{item?.LastName}</td>
+                        <td className="px-4 py-4 duedatest">{new Date(item?.closeDate).toLocaleDateString('en-GB')}</td>
+                        <td className="px-4 py-4 duedatest">{item?.LeadStatus}</td>
+                        <td className="px-4 py-4 duedatest">{item?.staus}</td>
+
+                        <td
+                          onClick={() => {
+                            if (optionedit2 === index) {
+                              setOptionEdit2(null);
+                            } else {
+                              setOptionEdit2(index);
+                            }
+                          }}
+                          className="px-6 py-4 relative cursor-pointer"
+                        >
+                          <img src={moreVert} alt="" />
+
+                          {optionedit2 === index && (
+                            <div className="attaedipop2">
+                              <div
+                                // onClick={() =>
+                                //   navigate("/adminDash/editLead", {
+                                //     state: item,
+                                //   })
+                                // }
+                                className="attposin"
+                              >
+                                <img src={edit} alt="" />
+                                <p>Edit</p>
+                              </div>
+                              <div
+                                // onClick={() => {
+                                //   navigate(`/adminDash/importLead/${item._id}`);
+                                // }}
+                                className="attposin"
+                              >
+                                <svg
+                                  width="20"
+                                  height="14"
+                                  viewBox="0 0 20 14"
+                                  fill="none"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                >
+                                  <path
+                                    d="M10.0002 2.41667C13.1585 2.41667 15.9752 4.19167 17.3502 7C15.9752 9.80833 13.1585 11.5833 10.0002 11.5833C6.84183 11.5833 4.02516 9.80833 2.65016 7C4.02516 4.19167 6.84183 2.41667 10.0002 2.41667ZM10.0002 0.75C5.8335 0.75 2.27516 3.34167 0.833496 7C2.27516 10.6583 5.8335 13.25 10.0002 13.25C14.1668 13.25 17.7252 10.6583 19.1668 7C17.7252 3.34167 14.1668 0.75 10.0002 0.75ZM10.0002 4.91667C11.1502 4.91667 12.0835 5.85 12.0835 7C12.0835 8.15 11.1502 9.08333 10.0002 9.08333C8.85016 9.08333 7.91683 8.15 7.91683 7C7.91683 5.85 8.85016 4.91667 10.0002 4.91667ZM10.0002 3.25C7.9335 3.25 6.25016 4.93333 6.25016 7C6.25016 9.06667 7.9335 10.75 10.0002 10.75C12.0668 10.75 13.7502 9.06667 13.7502 7C13.7502 4.93333 12.0668 3.25 10.0002 3.25Z"
+                                    fill="#383838"
+                                  />
+                                </svg>
+
+                                <p>View</p>
+                              </div>
+                              <div
+                                // onClick={() => {
+                                //   deleteProject(item?._id);
+                                // }}
+                                className="attposin"
+                              >
+                                <img src={delete4} alt="" />
+                                <p>Delete</p>
+                              </div>
+                            </div>
+                          )}
+                        </td>
+                      
+               
+                      </tr>
+                     
+                      ))
+                    }
+                   
                   </tbody>
                 </table>
               </div>

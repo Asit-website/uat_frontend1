@@ -15,7 +15,7 @@ import { FaUpload } from "react-icons/fa6";
 
 
 const CreateLead2 = ({ setAlert, pop, setPop }) => {
-    const { user, createLead, getEmployees ,  AllLeadSource , AllLeadStatus,getLeadStat  } = useMain();
+    const { user, createLead, getEmployees ,  AllLeadSource , AllLeadStatus,getLeadStat  , uploadToCloudinaryImg } = useMain();
     const [pop1, setPop1] = useState(false);
     const stylePeer = {
         display: pop1 ? "block" : "none"
@@ -75,18 +75,26 @@ const CreateLead2 = ({ setAlert, pop, setPop }) => {
 
     const navigate = useNavigate();
 
-    const handleImageChange = (event) => {
+    const [leadUpldProf , setLeadUpLdPro] = useState("");
+
+
+    const handleImageChange = async (event) => {
         const imageFile = event.target.files[0];
-
+    
         if (!imageFile || !imageFile.type.match('image/*')) {
-            return toast.error('Please select a valid image file.');
+          return toast.error('Please select a valid image file.');
         }
-
-        setFormdata((prev) => ({
-            ...prev,
+    
+        setFormdata((prev)=>({
+            ...prev ,
             image: imageFile
         }))
-    };
+
+        const resp = await uploadToCloudinaryImg({image:imageFile});
+        console.log(resp)
+        setLeadUpLdPro(resp?.data);
+
+      };
 
     const changeHandler = async (e) => {
         const { name, value } = e.target;
@@ -100,9 +108,11 @@ const CreateLead2 = ({ setAlert, pop, setPop }) => {
     const submitHandler = async () => {
         const toastId = toast.loading("Loading...");
         if(emailisValid === false && formdata.Email !== ""){
+            toast.dismiss(toastId);
           return  toast.error("Please Enter Correct Email")
            }
         if( isUrlValid === false && formdata.Website !== ""){
+            toast.dismiss(toastId);
           return  toast.error("Please Enter Correct Website Link")
            }
         const ans = await createLead({ ...formdata });
@@ -191,16 +201,28 @@ const CreateLead2 = ({ setAlert, pop, setPop }) => {
 
                         <div className="ghj">
                             <h2 className="semik">Create Lead</h2>
-                            <NavLink to="/employeeDash/myLead"><button>Back</button></NavLink>
-                            <button onClick={submitHandler} type="button" class="siubmitbtnlead">Submit</button>
+                           
+
+                            <div className="makethifles">
+                       <NavLink to="/employeeDash/myLead"><button>Back</button></NavLink>
+                             <button onClick={submitHandler} type="button" class="siubmitbtnlead">Submit</button>
+
+                        </div>
 
                         </div>
 
                         <form  action="">
                           <div  data-modal-target="default-modal"
                                 data-modal-toggle="default-modal" className="uploadprowrap">
-                                <img src={uint} alt="unit" />
-                                <FaUpload className="FaUploadfds" onClick={()=> setPop1(!pop1)} />
+                                      <div className="imagewrapleac">
+
+{
+  leadUpldProf ? <img src={leadUpldProf} alt="" className="leadUpldProf" />: 
+  <FaUpload className="FaUploadfds" onClick={()=> setPop1(!pop1)} />
+  }
+
+    </div>
+    <p onClick={()=> setPop1(!pop1)} className="cursor-pointer"> {formdata.image ? "Change Image":"Upload Image"} </p>
 
                             </div>
 
