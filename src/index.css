@@ -5129,7 +5129,12 @@ input::-webkit-inner-spin-button {
   position: absolute;
   left: 264px;
 }
-
+.react-tel-input .form-control{
+  width: 100% !important;
+}
+.react-tel-input{
+  margin: 5px 0px !important;
+}
 .sunis select {
   margin-left: 20px;
 }
@@ -7310,7 +7315,8 @@ input::-webkit-inner-spin-button {
   letter-spacing: 0.0015em;
   text-align: left;
   color: #101820;
-
+  color: blue;
+  text-decoration: underline;
 }
 
 .leadUpldProf {
@@ -7356,7 +7362,7 @@ input::-webkit-inner-spin-button {
   border: 1px solid #B3CBF7;
   border-radius: 50%;
   background: linear-gradient(131.78deg, #D1E8FD 6.87%, #EDEFFF 91.67%);
-
+  margin-left: 11px;
 
 }
 

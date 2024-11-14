@@ -60,7 +60,7 @@ const CreateLead = ({ setAlert, pop, setPop }) => {
     const [emailisValid, setIsemailValid] = useState(null);
     const [emailisValid1, setIsemailValid1] = useState(null);
 
-    
+
 
     const handleValidation = () => {
         const valid = EmailValidator.validate(formdata.Email);
@@ -332,12 +332,7 @@ const CreateLead = ({ setAlert, pop, setPop }) => {
                                 <h2>Lead Information</h2>
 
                                 <div className="lead_input mt-5">
-                                    <PhoneInput
-                                        name="Phone"
-                                        disabled
-                                        placeholder="Enter phone number"
-                                        value={formdata?.Phone}
-                                        onChange={changeHandler} />
+
 
                                     <div className="lead_inp">
                                         <div className="lead_inp1">
@@ -395,8 +390,25 @@ const CreateLead = ({ setAlert, pop, setPop }) => {
                                     <div className="lead_inp">
                                         <div className="lead_inp1">
                                             <label htmlFor="">Phone *</label>
-                                            <input required value={formdata.Phone} name="Phone" onChange={changeHandler} type="number" />
+                                            {/* <input required value={formdata.Phone} name="Phone" onChange={changeHandler} type="number" /> */}
+                                            <PhoneInput
+                                            
+                                            inputClass="hjj"
+                                            country={'in'}
+                                            id="Phone"
+                                            value={formdata?.Phone}
+                                            name="Phone"
+                                            placeholder="Enter your phone"
+
+                                            onChange={Phone => changeHandler({ target: { value: Phone, name: 'Phone' } })}
+
+                                            inputProps={{
+                                                required: true,
+                                            }}
+                                            countryCodeEditable={false}
+                                        />
                                         </div>
+                                      
                                         <div className="lead_inp1">
                                             <label htmlFor="">Fax</label>
                                             <input value={formdata.Fax} name="Fax" onChange={changeHandler} type="text" />

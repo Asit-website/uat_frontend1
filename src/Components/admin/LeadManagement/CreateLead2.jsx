@@ -12,6 +12,8 @@ import * as EmailValidator from "email-validator";
 import validator from 'validator';
 import { FaUpload } from "react-icons/fa6";
 import usit from '../../images/usit.png';
+import PhoneInput from 'react-phone-input-2'
+import 'react-phone-input-2/lib/style.css'
 
 
 const CreateLead2 = ({ setAlert, pop, setPop }) => {
@@ -264,7 +266,7 @@ const CreateLead2 = ({ setAlert, pop, setPop }) => {
                                     {
                                         leadUpldProf ? <img src={leadUpldProf} alt="" className="leadUpldProf" /> :
                                             // <FaUpload className="FaUploadfds" onClick={() => setPop1(!pop1)} />
-                                            <img src={usit} alt="usit"/>
+                                            <img src={usit} alt="usit" />
                                     }
 
                                 </div>
@@ -381,7 +383,23 @@ const CreateLead2 = ({ setAlert, pop, setPop }) => {
                                     <div className="lead_inp">
                                         <div className="lead_inp1">
                                             <label htmlFor="">Phone *</label>
-                                            <input required value={formdata.Phone} name="Phone" onChange={changeHandler} type="number" />
+                                            {/* <input required value={formdata.Phone} name="Phone" onChange={changeHandler} type="number" /> */}
+                                            <PhoneInput
+                                            
+                                            inputClass="hjj"
+                                            country={'in'}
+                                            id="Phone"
+                                            value={formdata?.Phone}
+                                            name="Phone"
+                                            placeholder="Enter your phone"
+
+                                            onChange={Phone => changeHandler({ target: { value: Phone, name: 'Phone' } })}
+
+                                            inputProps={{
+                                                required: true,
+                                            }}
+                                            countryCodeEditable={false}
+                                        />
                                         </div>
                                         <div className="lead_inp1">
                                             <label htmlFor="">Fax</label>
@@ -491,12 +509,13 @@ const CreateLead2 = ({ setAlert, pop, setPop }) => {
                                                 handleValidation1(e.target.value);
                                             }} type="email" />
                                         </div>
-                                       <div className="lead_inp1">
-                                       <label htmlFor="">Twitter</label>
-                                       <input className={`${(isUrlValid2 === false && formdata.Twitter !== "") && "emailvalidinput"}`} value={formdata.Twitter} name="Twitter" onChange={(e) => {
-                                           changeHandler(e);
-                                           handleInputUrlChange2(e.target.value);}} type="text" />
-                                   </div>
+                                        <div className="lead_inp1">
+                                            <label htmlFor="">Twitter</label>
+                                            <input className={`${(isUrlValid2 === false && formdata.Twitter !== "") && "emailvalidinput"}`} value={formdata.Twitter} name="Twitter" onChange={(e) => {
+                                                changeHandler(e);
+                                                handleInputUrlChange2(e.target.value);
+                                            }} type="text" />
+                                        </div>
 
                                     </div>
                                 </div>
