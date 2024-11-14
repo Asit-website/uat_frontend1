@@ -11,13 +11,13 @@ import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 import toast from "react-hot-toast";
 import download from "../../images/donwlaond.png";
-
-
+import { IoIosCloseCircle } from "react-icons/io";
+import downis from '../../images/downis.png'
 const UserLead = ({ setAlert, pop, setPop }) => {
 
     const navigate = useNavigate();
 
-    const { user, getLead3, deleteLeads, getUserByDesignation, getLeadByUser } = useMain();
+    const { user, getLead3, deleteLeads, getUserByDesignation, getLeadByUser, closeLead } = useMain();
 
     const [refreshFlag, setRefreshFlag] = useState(false);
 
@@ -264,6 +264,37 @@ const UserLead = ({ setAlert, pop, setPop }) => {
 
     }, [searchText])
 
+    const closeLeadHandler = async (id) => {
+        confirmAlert({
+            title: "Are you sure to close this deal?",
+            message: "All related data to this deal will closed",
+            buttons: [
+              {
+                label: "Yes, Go Ahead!",
+                style: {
+                  background: "#FF5449",
+                },
+                onClick: async () => {
+                  const toastId = toast.loading("Loading...");
+      
+                  const ans = await closeLead(id);
+                  if (ans.status) {
+                    toast.success("Successfuly Done");
+                  }
+      
+                  toast.dismiss(toastId);
+                },
+              },
+              {
+                label: "Cancel",
+      
+                onClick: () => null,
+              },
+            ],
+          });
+
+    }
+
 
     return (
         <>
@@ -483,6 +514,7 @@ const UserLead = ({ setAlert, pop, setPop }) => {
                             <div className="table11">
 
                                 <div className="my_open my_open1">
+                                    <div className="sunis">
                                     <h3>User Leads</h3>
 
                                     <select className="userFilterr" name="leadUser" onChange={(e) => {
@@ -496,6 +528,8 @@ const UserLead = ({ setAlert, pop, setPop }) => {
                                         }
 
                                     </select>
+                                <img width="30" src={downis} alt="downis" />
+                                </div>
 
                                     <div className="test_filter">
                                         <select onChange={(e) => setFilter1(e.target.value)} value={Filter1} name="thisFilter" id="fentar">
@@ -505,6 +539,7 @@ const UserLead = ({ setAlert, pop, setPop }) => {
                                             <option value="Last 14 Days">Last 14 Days</option>
                                             <option value="This Month">This Month</option>
                                         </select>
+                                        <img width="30" className="doqn doqn1" src={downis} alt="" />
                                     </div>
 
                                 </div>
@@ -592,7 +627,7 @@ const UserLead = ({ setAlert, pop, setPop }) => {
                                                         <td scope="col" className="px-3 py-3 myleadtit2">
                                                             {item?.Email}
                                                         </td>
-                                            
+
 
                                                         <td scope="col" className="px-3 py-3 myleadtit2">
                                                             {item?.Website}
@@ -616,8 +651,8 @@ const UserLead = ({ setAlert, pop, setPop }) => {
                                                         </td>
 
                                                         <td className="px-6 py-4 taskAns">
-                          {new Date(item?.createAt).toLocaleDateString("en-CA")}
-                        </td>
+                                                            {new Date(item?.createAt).toLocaleDateString("en-CA")}
+                                                        </td>
 
 
                                                         <td className="thebuttn">
@@ -713,6 +748,17 @@ const UserLead = ({ setAlert, pop, setPop }) => {
                                                                 }} width="12" height="16" viewBox="0 0 12 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                                     <path d="M9.33317 5.5V13.8333H2.6665V5.5H9.33317ZM8.08317 0.5H3.9165L3.08317 1.33333H0.166504V3H11.8332V1.33333H8.9165L8.08317 0.5ZM10.9998 3.83333H0.999837V13.8333C0.999837 14.75 1.74984 15.5 2.6665 15.5H9.33317C10.2498 15.5 10.9998 14.75 10.9998 13.8333V3.83333Z" fill="#DE3730" />
                                                                 </svg>
+
+                                                                <div
+                                                                    onClick={() => {
+                                                                        closeLeadHandler(item?._id);
+                                                                    }}
+                                                                    className="subView"
+                                                                >
+                                                                    <IoIosCloseCircle className="incfornsizze" />
+                                                                    {/* <p > Close </p> */}
+
+                                                                </div>
                                                             </div>
 
                                                         </td>
