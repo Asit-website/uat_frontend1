@@ -17,7 +17,7 @@ import cel1 from '../../images/cal1.svg';
 import webAsseting from '../../images/webAsseting.svg';
 import reading from '../../images/reading.svg';
 import "../../admin/Sidebar/sidebar.css"
-
+import dock from '../../images/dock.png';
 
 const LeaveManItem = [
   {
@@ -462,7 +462,8 @@ const EmployeeSidebar = () => {
                 <NavLink to="/employeeDash/documentManagement"><div className={`${window.location.pathname === "/employeeDash/documentManagement" ? "hh" : ""} setWrap`}>
                   {/* <p>Setting</p> */}
                   <div className="systSset">
-                    <img src={window.location.pathname === "/employeeDash/documentManagement" ? "fan" : ""} alt="" />
+                    <img width="20" src={dock} alt=""/>
+                    {/* <img src={window.location.pathname === "/employeeDash/documentManagement" ? "fan" : ""} alt="" /> */}
                     <span className={`${window.location.pathname === "/employeeDash/documentManagement" ? "fan" : ""}`}>Document Management</span>
                   </div>
                 </div></NavLink>

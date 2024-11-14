@@ -23,7 +23,7 @@ import shop from "../../images/ShoppingBagOpen-d.png"
 import shopping from "../../images/ShoppingBagOpen-d.png"
 import userP from "../../images/userProfile.png"
 import "./sidebar.css"
-
+import dock from '../../images/dock.png';
 
 const leadItem = [
   {
@@ -445,7 +445,8 @@ const AdminSidebar = ({ pop, setPop }) => {
            <NavLink to="/adminDash/documentManagement"><div className={`${window.location.pathname === "/adminDash/documentManagement"  ? "hh" : ""} setWrap`}>
         {/* <p>Setting</p> */}
         <div className="systSset">
-          <img src={window.location.pathname==="/adminDash/documentManagement" ? "fan" : ""} alt="" />
+          {/* <img src={window.location.pathname==="/adminDash/documentManagement" ? "fan" : ""} alt="" /> */}
+          <img width="20" src={dock} alt=""/>
           <span className={`${window.location.pathname==="/adminDash/documentManagement" ? "fan" : ""}`}>Document Management</span>
         </div>
       </div></NavLink>
@@ -521,7 +522,7 @@ const AdminSidebar = ({ pop, setPop }) => {
   
 
         {/* =================training setup start============= */}
-        <div
+        {/* <div
           onClick={() => setOpenTraining((prev) => !prev)}
           className="side-dash-box"
         >
@@ -561,7 +562,7 @@ const AdminSidebar = ({ pop, setPop }) => {
               </div>
             ))}
           </div>
-        )}
+        )} */}
         {/* ===================training setup end=============== */}    
 
         {/* ===============hr admin setup start============ */}

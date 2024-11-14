@@ -440,6 +440,9 @@
     background-color: white !important;
     border: none !important;
     border-bottom: 1px solid #E8E9EB !important;
+    font-size: 13.5px !important;
+    font-family: Inter !important;
+    font-weight: 500 !important;
 }
 
 .tabl3had {
