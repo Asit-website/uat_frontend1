@@ -17,14 +17,14 @@ const LeadDash2 = ({ setAlert, pop, setPop }) => {
 
   const {
     user,
-    getLead,
+    getTodayLead2,
     getTaskApi,
     getMeetApi,
     deleteTaskapi,
     deleteMeetapi,
     deleteLeads , 
     GetOpenLeadsApi , 
-    closeLeadApiFetch
+    closeLeadApiFetch2
   } = useMain();
 
   const [start1, setStart1] = useState(false);
@@ -66,12 +66,10 @@ const LeadDash2 = ({ setAlert, pop, setPop }) => {
   const navigate = useNavigate();
 
   const fetchLead = async () => {
-    const ans = await getLead("", "", "", "");
-    console.log("fdsfsfsfs" ,ans);
-    if (ans?.data) {
-      setTotalMyLead(ans?.data?.length);
-      setAllLeads(ans?.data);
-    }
+    const ans = await getTodayLead2();
+      setTotalMyLead(ans?.leads?.length);
+      setAllLeads(ans?.leads);
+    
   };
 
   const fetchTask = async () => {
@@ -165,7 +163,7 @@ const [optionedit2, setOptionEdit2] = useState(null);
 const [allCloseForSrch ,setAllCloseFroSrch] = useState([]);
 
 const closeLead = async()=>{
-  const ans = await closeLeadApiFetch();
+  const ans = await closeLeadApiFetch2();
   setAllCloseFroSrch(ans?.status);
   setAllCloseLead(ans?.status);
 }
@@ -1003,6 +1001,7 @@ const closeLead = async()=>{
               </div>
 
               <div className="table22 table333">
+
               <div className="my_open">
                 <h3>My Deals Closing This Month</h3>
 
@@ -1113,7 +1112,9 @@ const closeLead = async()=>{
                 </div>
 
                 </div>
+
               </div>
+
               <div className="relative overflow-x-auto lonj">
                 <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                   <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">

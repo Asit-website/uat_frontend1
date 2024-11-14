@@ -1711,8 +1711,21 @@ const MainState = (props) => {
       const data = await post(`${baseUrl}/admin/getAllCloseLead`, {  }, true);
       return data;
    }
+   const closeLeadApiFetch2=async() =>{
+
+      let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
+
+      const data = await post(`${baseUrl}/admin/getAllCloseLead2`, { id:hrms_user?._id }, true);
+      return data;
+   }
    const getTodayLead=async() =>{
       const data = await post(`${baseUrl}/admin/getTodayLead`, {  }, true);
+      return data;
+   }
+   const getTodayLead2=async() =>{
+      let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
+
+      const data = await post(`${baseUrl}/admin/getTodayLead2`, { id: hrms_user?._id  }, true);
       return data;
    }
    const updateLeadStatus = async (id, LeadStatus) => {
@@ -2446,7 +2459,7 @@ const MainState = (props) => {
          deleteQuotation1 , 
          uploadSingleImage , 
          getAllProjectUserApi , 
-         savenoteatt ,AllRolesapi ,  closeLead , deleteQproapi , createExpenseApi , changeStatusBreak , deleteProjectTaskapi22 , EditProjectTask , postHalfDay , closeLeadApiFetch , postNotification2 , getUserHalfDay , rejectHalfDay , acceptHalf , acceptassetsapi , getTodayLead
+         savenoteatt ,AllRolesapi ,  closeLead , deleteQproapi , createExpenseApi , changeStatusBreak , deleteProjectTaskapi22 , EditProjectTask , postHalfDay , closeLeadApiFetch2 , closeLeadApiFetch , postNotification2 , getUserHalfDay , rejectHalfDay , acceptHalf , acceptassetsapi , getTodayLead , getTodayLead2
       }}> 
          {props.children}
       </MainContext.Provider>
