@@ -57,7 +57,7 @@
 .qutolobutons{
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 10px;
 }
 .qutolobutons button{
     color: white;
@@ -120,13 +120,15 @@ color: #FFFFFF;
     display: grid;
     grid-template-columns: repeat(2 , 1fr);
     flex-direction: column;
-    gap: 30px 50px;
+    gap: 20px 40px;
 
 }
 .qtoform label{
    display: flex;
    align-items: center;
-   justify-content: space-between;
+   max-width: 520px;
+   gap: 30px;
+
 }
 .qtoform label p{
     font-family: Inter;
@@ -134,12 +136,33 @@ color: #FFFFFF;
     font-weight: 400;
     line-height: 24px;
     letter-spacing: 0.0015em;
-    text-align: left;
+    text-align: right;
+    width:240px;
 color: #1B2533;    
-border-bottom: 2px dotted #0B1015;
 padding-bottom: 10px; 
 }
 
+.adddbunelogo{
+    display: flex;
+     max-width: fit-content;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding: 10px 20px;
+    background-color: #f7faff;
+    margin-left: 20px;
+
+}
+
+.adddbunelogo p{
+    font-family: Inter !important;
+    font-size: 16px !important;
+    font-weight: 400 !important;
+    line-height: 24px !important;
+    letter-spacing: 0.0015em;
+    text-align: center !important;
+}
 .comapnydetail{
     display: flex;
     flex-direction: column;
@@ -156,13 +179,18 @@ text-align: left;
 
 }
 .qtoform label input{
-max-width: 250px; 
+max-width: 300px; 
 width: 100%;
 height: 40px;  
 padding: 8px 16px ;
 border-radius: 5px ;
 border: 1px solid #B4C2D5;
-
+font-family: Inter;
+font-size: 14px;
+font-weight: 600;
+line-height: 24px;
+letter-spacing: 0.0015em;
+text-align: left;
 }
 
 .admorewrap{
@@ -234,7 +262,7 @@ color: white !important;
 }
 
 .tabletr input{
-    width: 86px;
+    width: 180px;
 height: 34px;
 border-radius: 5px ;
 border: 1px solid #6A6A6A;
@@ -255,7 +283,7 @@ color: #101820;
 color: #101820;    
 }
 .tabletr .inpu11{
-    width:140px;
+    width:340px;
 height: 34px;
 border-radius: 5px ;
 border: 1px solid #6A6A6A;
@@ -265,7 +293,7 @@ border: 1px solid #6A6A6A;
 .qutaRightcont{
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 14px;
     padding: 20px;
 
 
@@ -288,7 +316,8 @@ color: #101820;
 .hdquot{
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
+    max-width: 500px;
 }
 .hdquot p{
     font-family: Inter;
@@ -301,25 +330,32 @@ color: #101820;
 }
 
 .hdquot img{
-    max-width: 128px;
-    width: 100%;
-    max-height: 30px;
-    height: 100%;
+    width: 200px;
+    height: 100px;
 }
 
 .cust{
     font-family: Inter;
 font-size: 18px;
 font-weight: 500;
-line-height: 32px;
+line-height: 28px;
 text-align: left;
-color: #101820;
+color: #0B56E4;
 }
 
 .gridView {
     display: grid;
     width: 100%;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(2 ,1fr);
+    gap: 5px 20px;
+    width: 100%;
+}
+
+.gridView div{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
 }
 
 .gridView p {
@@ -328,6 +364,16 @@ color: #101820;
     font-weight: 500;
     line-height: 32px;
 color: #101820;    
+width: 140px;
+/* text-align: right; */
+/* background-color: orange; */
+}
+.gridView span {
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 32px;
+color: #2B2B2B;    
 }
 
 .talbeLike{
@@ -431,14 +477,14 @@ color: #101820;
 .rigthfotleft{
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 5px;
     max-width: 270px;
 }
 
 .rigthfotleft .leftfist{
     font-family: Inter;
 font-size: 18px;
-font-weight: 600;
+font-weight: 500;
 line-height: 32px;
 text-align: left;
 color: #101820;
@@ -455,6 +501,7 @@ color: #101820;
 font-size: 15px;
 font-weight: 500;
 text-align: left;
+line-height: 30px;
 color: #101820;    
 max-width: 250px;
 
@@ -471,16 +518,16 @@ color: #101820;
 .rigthfotright{
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 5px;
     max-width: 300px;
 }
 .rigthfotright p{
     font-family: Inter;
     font-size: 15px;
-    font-weight: 400;
+    font-weight: 500;
     line-height: 20px;
     text-align: left;
-color: #101820;    
+color: #2B2B2B;    
 }
 
 .prntBtn{

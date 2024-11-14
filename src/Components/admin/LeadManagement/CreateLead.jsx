@@ -60,8 +60,6 @@ const CreateLead = ({ setAlert, pop, setPop }) => {
     const [emailisValid, setIsemailValid] = useState(null);
     const [emailisValid1, setIsemailValid1] = useState(null);
 
-
-
     const handleValidation = () => {
         const valid = EmailValidator.validate(formdata.Email);
         setIsemailValid(valid);
@@ -117,7 +115,6 @@ const CreateLead = ({ setAlert, pop, setPop }) => {
         }))
 
         const resp = await uploadToCloudinaryImg({ image: imageFile });
-        console.log(resp)
         setLeadUpLdPro(resp?.data);
 
     };
@@ -266,7 +263,6 @@ const CreateLead = ({ setAlert, pop, setPop }) => {
 
                                     {
                                         leadUpldProf ? <img src={leadUpldProf} alt="" className="leadUpldProf" /> :
-                                            // <FaUpload className="FaUploadfds" onClick={() => setPop1(!pop1)} />
                                             <img src={usit} alt="" onClick={() => setPop1(!pop1)} />
                                     }
 
@@ -390,16 +386,13 @@ const CreateLead = ({ setAlert, pop, setPop }) => {
                                     <div className="lead_inp">
                                         <div className="lead_inp1">
                                             <label htmlFor="">Phone *</label>
-                                            {/* <input required value={formdata.Phone} name="Phone" onChange={changeHandler} type="number" /> */}
-                                            <PhoneInput
-                                            
+                                            <PhoneInput                                      
                                             inputClass="hjj"
                                             country={'in'}
                                             id="Phone"
                                             value={formdata?.Phone}
                                             name="Phone"
                                             placeholder="Enter your phone"
-
                                             onChange={Phone => changeHandler({ target: { value: Phone, name: 'Phone' } })}
 
                                             inputProps={{

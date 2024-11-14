@@ -66,10 +66,10 @@ const sidebarItem = [
     img: hub3,
     tableData: [
       {
-        title: "Leave Type",
+        title: "LEAVE TYPE",
       },
       {
-        title: "Days/Year",
+        title: "DAYS/YEAR",
       },
       {
         title: "ACTION",
