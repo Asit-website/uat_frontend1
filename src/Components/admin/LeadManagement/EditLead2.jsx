@@ -177,7 +177,7 @@ const EditLead2 = ({ setAlert, pop, setPop }) => {
           <EmployeeNavbar user={user} setAlert={setAlert} />
 
           <div className="em">
-            <h2 className="semik">Create Lead</h2>
+            <h2 className="semik">Edit Lead</h2>
             <form action="">
               <div
                 data-modal-target="default-modal"
