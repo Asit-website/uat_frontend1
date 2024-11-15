@@ -181,7 +181,9 @@ const AdminProfile = ({ pop, setPop, setAlert }) => {
             <AdminNavbar user={user} setAlert={setAlert} />
           )}
           <div className="em">
+            
             <div className="anNav">
+
               {/* left sie */}
               <div className="anNavLeft">
                 <h2>Manage Announcement</h2>
