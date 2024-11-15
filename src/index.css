@@ -7176,7 +7176,35 @@ input::-webkit-inner-spin-button {
   padding-bottom: 400px;
 }
 
+.annoucewrapshow{
+  width: 100%;
+  background-color: white;
+  margin: 20px 0px;
+}
+.annoucewrapshowcnt{
+  max-width: 75vw;
+  width: 100%;
+}
 
+.addpading{
+  padding: 10px 0px;
+}
+
+.timelogscont{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 0px;
+}
+
+.timelogscont span{
+  font-family: Inter !important;
+  font-size: 16px !important;
+  font-weight: 500 !important;
+  line-height: 24px !important;
+  letter-spacing: 0.005em !important;
+  color: black !important;
+}
 
 @media only screen and (min-width:1000px) {
   .oppl {
@@ -7197,6 +7225,8 @@ input::-webkit-inner-spin-button {
     width: 100% !important;
     max-width: 100% !important;
   }
+
+
 
   .hrmActLeft {
     width: 100% !important;
@@ -7417,4 +7447,15 @@ input::-webkit-inner-spin-button {
   left: 0;
   top: 81px;
   height: 81px;
+}
+
+.taskassignwrap{
+  height: 100% !important;
+ width: 100% !important;
+ background-color: white;
+
+}
+
+.taskassignwrap2{
+  height: 100% !important;
 }

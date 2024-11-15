@@ -480,7 +480,7 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
                   <div className="lleaiFOlEFT">
                     <div className="subPart">
                       <h3>Lead Owner :</h3>
-                      <p>{data?.LeadOwner?.email}</p>
+                      <p>{data?.LeadOwner?.fullName}</p>
                     </div>
 
                     <div className="subPart">

@@ -54,7 +54,8 @@ const CreateLead2 = ({ setAlert, pop, setPop }) => {
         State: "",
         ZipCode: "",
         Country: "",
-        DescriptionInfo: ""
+        DescriptionInfo: "", 
+        date:""
     });
 
     const [emailisValid, setIsemailValid] = useState(null);
@@ -191,7 +192,8 @@ const CreateLead2 = ({ setAlert, pop, setPop }) => {
                 State: "",
                 ZipCode: "",
                 Country: "",
-                DescriptionInfo: ""
+                DescriptionInfo: "" , 
+                date:""
             })
 
             toast.success("Successfuly submit");
@@ -246,8 +248,7 @@ const CreateLead2 = ({ setAlert, pop, setPop }) => {
 
                     <div className="em">
 
-                        <div className="ghj">
-                            {/* <h2 className="semik">Create Lead</h2> */}
+                        {/* <div className="ghj">
 
 
                             <div className="makethifles">
@@ -256,9 +257,19 @@ const CreateLead2 = ({ setAlert, pop, setPop }) => {
 
                             </div>
 
+                        </div> */}
+
+<div className="ghj makeitsticky">
+                            <div className="makethifles">
+                                <NavLink to="/adminDash/myLead"><button>Back</button></NavLink>
+
+                                <button onClick={submitHandler} type="button" class="siubmitbtnlead">Submit</button>
+
+                            </div>
+
                         </div>
 
-                        <form action="">
+                        <form action="" className="test_formis">
                             <div data-modal-target="default-modal"
                                 data-modal-toggle="default-modal" className="uploadprowrap">
                                 <div className="imagewrapleac">
@@ -346,18 +357,24 @@ const CreateLead2 = ({ setAlert, pop, setPop }) => {
                                     </div>
 
                                     <div className="lead_inp">
-                                        <div className="lead_inp1 lead_inp11">
-                                            <label htmlFor="">First Name *</label>
-                                            <select required style={{ width: "91px !important" }} className="selr" name="" id="">
-                                                <option>None</option>
-                                                <option>Mr</option>
-                                                <option>Mrs</option>
-                                            </select>
-                                        </div>
-                                        <div className="lead_inp1">
-                                            <label style={{ visibility: "hidden" }} htmlFor="">Company</label>
-                                            <input value={formdata.FirstName} name="FirstName" onChange={changeHandler} type="text" />
-                                        </div>
+                                    <div className="lead_inp1 makeitflexcol">
+
+<div className="lead_inp11">
+    <label htmlFor="">First Name *</label>
+    <select required className="selr" name="" id="">
+        <option>None</option>
+        <option>Mr</option>
+        <option>Mrs</option>
+    </select>
+</div>
+
+<div className=" exceptionwidht">
+    <label style={{ visibility: "hidden" }} htmlFor="">hidden</label>
+    <input value={formdata.FirstName} name="FirstName" onChange={changeHandler} type="text" />
+</div>
+
+</div>
+
                                         <div className="lead_inp1">
                                             <label htmlFor="">Last Name</label>
                                             <input value={formdata.LastName} name="LastName" onChange={changeHandler} type="text" />
@@ -421,23 +438,7 @@ const CreateLead2 = ({ setAlert, pop, setPop }) => {
                                         </div>
                                     </div>
 
-                                    <div className="lead_inp">
-                                        <div className="lead_inp1">
-                                            <label htmlFor="">Lead Source</label>
-                                            <select name="LeadSource" onChange={changeHandler} id="">
-                                                <option >Select lead source</option>
-                                                {
-                                                    allLeadSource?.map((item, index) => (
-                                                        <option key={index} value={item?.name}>{item?.name}</option>
-                                                    ))
-                                                }
-                                            </select>
-                                        </div>
-                                        <div className="lead_inp1">
-                                            <label htmlFor="">No. of Employees</label>
-                                            <input value={formdata.NoOfEmployee} name="NoOfEmployee" onChange={changeHandler} type="number" />
-                                        </div>
-                                    </div>
+                     
 
                                     <div className="lead_inp">
                                         <div className="lead_inp1">
@@ -518,6 +519,28 @@ const CreateLead2 = ({ setAlert, pop, setPop }) => {
                                         </div>
 
                                     </div>
+
+                                    <div className="lead_inp">
+                                        <div className="lead_inp1">
+                                            <label htmlFor="">Date</label>
+                                            <input value={formdata.date} name="date" onChange={changeHandler} type="date" />
+                                        </div>
+                                        <div className="lead_inp1">
+                                            <label htmlFor="">Lead Source</label>
+                                            <select name="LeadSource" onChange={changeHandler} id="">
+                                                <option>Select lead source</option>
+                                                {
+                                                    allLeadSource?.map((item, index) => (
+                                                        <option key={index} value={item?.name}>{item?.name}</option>
+                                                    ))
+                                                }
+                                            </select>
+                                        </div>
+
+                                    </div>
+
+
+
                                 </div>
 
                             </div>

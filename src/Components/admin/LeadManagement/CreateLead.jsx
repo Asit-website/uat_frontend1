@@ -245,7 +245,6 @@ const CreateLead = ({ setAlert, pop, setPop }) => {
                     <div className="em">
 
                         <div className="ghj makeitsticky">
-                            {/* <h2 className="semik">Create Lead</h2> */}
                             <div className="makethifles">
                                 <NavLink to="/adminDash/myLead"><button>Back</button></NavLink>
 
@@ -422,24 +421,7 @@ const CreateLead = ({ setAlert, pop, setPop }) => {
                                         </div>
                                     </div>
 
-                                    <div className="lead_inp">
-                                        <div className="lead_inp1">
-                                            <label htmlFor="">Lead Source</label>
-                                            <select name="LeadSource" onChange={changeHandler} id="">
-                                                <option>Select lead source</option>
-                                                {
-                                                    allLeadSource?.map((item, index) => (
-                                                        <option key={index} value={item?.name}>{item?.name}</option>
-                                                    ))
-                                                }
-                                            </select>
-                                        </div>
-                                        <div className="lead_inp1">
-                                            <label htmlFor="">No. of Employees</label>
-                                            <input value={formdata.NoOfEmployee} name="NoOfEmployee" onChange={changeHandler} type="number" />
-                                        </div>
-                                    </div>
-
+                                  
                                     <div className="lead_inp">
                                         <div className="lead_inp1">
                                             <label htmlFor="Industry">Industry</label>
@@ -528,7 +510,15 @@ const CreateLead = ({ setAlert, pop, setPop }) => {
                                             <input value={formdata.date} name="date" onChange={changeHandler} type="date" />
                                         </div>
                                         <div className="lead_inp1">
-
+                                            <label htmlFor="">Lead Source</label>
+                                            <select name="LeadSource" onChange={changeHandler} id="">
+                                                <option>Select lead source</option>
+                                                {
+                                                    allLeadSource?.map((item, index) => (
+                                                        <option key={index} value={item?.name}>{item?.name}</option>
+                                                    ))
+                                                }
+                                            </select>
                                         </div>
 
                                     </div>
