@@ -1331,10 +1331,10 @@ td {
   background-color: white;
   width: 170px;
   z-index: 100;
-  height: 125px;
+  height: fit-content;
   border: 1px solid #E3E3E3;
   box-shadow: 0px 4px 12px 0px #1A1A1A33;
-  /* top: 0px; */
+  top: 50px;
   right: 65px;
 }
 
@@ -6566,6 +6566,7 @@ input::-webkit-inner-spin-button {
 .emp_sino {
   display: flex;
   align-items: center;
+  padding-top: 20px;
 }
 
 .type_date select {

@@ -47,8 +47,45 @@ gap: 10px;
 border-radius: 10px;
  justify-content: center;
 }
+.plusImg6{
+   display: flex;
+   align-items: center;
+   background-color: #0B56E4;
+   width: 100px;
+height: 40px;
+gap: 10px;
+border-radius: 10px;
+ justify-content: center;
+}
+.plusImg55{
+   display: flex;
+   align-items: center;
+   background-color: #0B56E4;
+   width: 120px;
+height: 40px;
+gap: 10px;
+border-radius: 10px;
+ justify-content: center;
+}
 
 .plusImg span{
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    letter-spacing: 0.005em;
+color: #FFFFFF;    
+}
+
+.plusImg6 span{
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    letter-spacing: 0.005em;
+color: #FFFFFF;    
+}
+.plusImg55 span{
     font-family: Inter;
     font-size: 16px;
     font-weight: 500;

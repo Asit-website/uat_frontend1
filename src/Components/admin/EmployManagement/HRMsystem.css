@@ -250,7 +250,7 @@
 }
 
 .allPopupWrap {
-    position: fixed;
+    position: absolute;
     background-color: rgba(0, 0, 0, 0.2);
     display: flex;
     align-items: center;
@@ -259,6 +259,9 @@
     left: 0;
     bottom:0;
     right: 0;
+    min-height: 100vh;
+     height: fit-content;
+    padding: 50px 0px;
 
 }
 
@@ -281,10 +284,22 @@
     max-width: 700px;
     width: 100%;
     background-color: white;
-    padding: 10px 10px;
+    padding: 20px 10px;
     display: flex;
+    margin-top: 100px;
     flex-direction: column;
     gap: 6px;
+
+}
+
+.awardpopupcont h2{
+    font-family: Inter;
+    font-size: 20px;
+    font-weight: 500;
+    padding: 10px 0px;
+    line-height: 30px;
+    text-align: left;
+    color: black;
 }
 
 .lableawaiwrap{
@@ -298,6 +313,7 @@
     display: flex;
     flex-direction: column;
     gap: 6px;
+    width: 100%;
     
 }
 .lableawaiwrap label p{
@@ -308,6 +324,43 @@
     text-align: left;
     color: black;
 }
+
+.lableawaiwrap label select{
+    width: 100% !important;
+height: 44px !important;
+border-radius: 10px !important;
+background: #F8F9FB !important;
+border: 1px solid #D0D4DC !important;
+}
+.lableawaiwrap label input{
+    width: 100% !important;
+height: 44px !important;
+border-radius: 10px !important;
+background: #F8F9FB !important;
+border: 1px solid #D0D4DC !important;
+padding: 0px 10px;
+font-family: Inter;
+font-size: 16px;
+font-weight: 400;
+line-height: 24px;
+text-align: left;
+color: black;
+}
+
+.lableawaiwrap textarea{
+    padding: 10px 10px;
+    font-family: Inter;
+font-size: 16px;
+font-weight: 400;
+line-height: 24px;
+border: 1px solid #D0D4DC !important;
+text-align: left;
+color: black;
+border-radius: 10px;
+resize: none;
+background: #F8F9FB !important;
+}
+
 
 .popup5{
     height: 270px;

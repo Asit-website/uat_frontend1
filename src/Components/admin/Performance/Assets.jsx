@@ -4,7 +4,6 @@ import { useMain } from '../../../hooks/useMain'
 import annPlus from "../../images/annPlus.png"
 import "./indicator.css"
 import { useEffect, useState } from 'react';
-import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 import toast from 'react-hot-toast';
 import bxSerch from "../../images/bx-search.png"
@@ -174,7 +173,7 @@ const Assets = ({ pop, setPop, setAlert }) => {
               </div>
 
               {/* rogth side  */}
-              <div onClick={() => setOpenForm(true)} className='plusImg'>
+              <div onClick={() => setOpenForm(true)} className='plusImg55'>
 
                 <img src={annPlus} alt="" />
                <span>  Add New</span>

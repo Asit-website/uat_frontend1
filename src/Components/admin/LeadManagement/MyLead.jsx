@@ -21,10 +21,7 @@ const MyLead = ({ setAlert, pop, setPop }) => {
 
   const [refreshFlag, setRefreshFlag] = useState(false);
 
-  const [card, setCard] = useState(false);
-
   const [Filter1, setFilter1] = useState("Select");
-
 
   const [allLeading, setAllLeading] = useState([]);
   const [allLead, setAllLead] = useState([]);
@@ -513,6 +510,8 @@ const MyLead = ({ setAlert, pop, setPop }) => {
                   </tbody>
                 </table>
               </div>
+
+              
             </div>
 
             <div className="emPaginate">

@@ -167,9 +167,34 @@ const AdminProfile = ({ pop, setPop, setAlert }) => {
 
   const [leavePopup , setLeavePopup] = useState(false);
 
-
-  
   const { role } = hrms_user;
+
+  const [currentPage, setCurrentPage] = useState(1);
+
+  let itemsPerPage = 10;
+
+  const totalPages = Math?.ceil(allAnnoucement?.length / itemsPerPage);
+
+  const startIndex = (currentPage - 1) * itemsPerPage;
+
+  const endIndex = Math.min(startIndex + itemsPerPage, allAnnoucement?.length);
+
+  const currentItems = allAnnoucement?.slice(startIndex, endIndex);
+
+
+  const handlePageChange = (newPage) => {
+    if (newPage >= 1 && newPage <= totalPages) {
+      setCurrentPage(newPage);
+    }
+  };
+  
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth", 
+    });
+  };
+
 
   return (
     <>
@@ -199,22 +224,15 @@ const AdminProfile = ({ pop, setPop, setAlert }) => {
               </div>
 
               {/* right side  */}
-              <div onClick={() => setOpenForm(true)} className="plusImg">
-                <img src={annPlus} alt="" />
+              <div onClick={() => setOpenForm(true)} className="plusImg6">
+                <img src={annPlus} alt="" />  <span>ADD</span>
               </div>
             </div>
 
             <main className="anMain">
               {/* top */}
               <div className="anmainTop">
-                {/* left side */}
-                <div className="anMLef">
-                  <select name="" id="">
-                    <option value="10">10</option>
-                  </select>
-
-                  <span>entries per page</span>
-                </div>
+               
 
                 {/* right side  */}
                 <div className="anMaRi">
@@ -245,12 +263,12 @@ const AdminProfile = ({ pop, setPop, setAlert }) => {
                   </thead>
 
                   <tbody>
-                    {allAnnoucement.map((item, index) => (
+                    {currentItems.map((item, index) => (
                       <tr onClick={()=>setLeavePopup(item)} key={index} class="bg-white cursor-pointer">
-                        <td class="px-3 py-4">{item.title}</td>
+                        <td class="px-3 py-4">{item.title?.slice(0, 30)}...</td>
                         <td class="px-3 py-4">{item.startDate}</td>
                         <td class="px-3 py-4">{item.endDate}</td>
-                        <td class="px-3 py-4">{item.description}</td>
+                        <td class="px-3 py-4">{item.description?.slice(0,50)}...</td>
                         <td class="px-3 py-4">
                           <div className="flex items-center sk">
                             <i
@@ -275,6 +293,34 @@ const AdminProfile = ({ pop, setPop, setAlert }) => {
                 </table>
               </div>
             </main>
+
+            <div className="emPaginate">
+              <button
+                className={`prepaginate ${currentPage !== 1 && "putthehovebtn"
+                  }`}
+                onClick={() => {
+                  handlePageChange(currentPage - 1);
+                  scrollToTop();
+                }}
+                disabled={currentPage === 1}
+              >
+                Previous
+              </button>
+              <span className="pagenum">
+                Page {currentPage} of {totalPages}
+              </span>
+              <button
+                className={`prepaginate ${currentPage !== totalPages && "putthehovebtn"
+                  } `}
+                onClick={() => {
+                  handlePageChange(currentPage + 1);
+                  scrollToTop();
+                }}
+                disabled={currentPage === totalPages}
+              >
+                Next
+              </button>
+            </div>
 
 
 

@@ -75,7 +75,6 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
 
   const { user, postAward, getAward, allEmployee, deleteAward, updateAward } = useMain();
 
-
   const [onEdit, setOnEdit] = useState(false);
   const [editData, setEditData] = useState({});
 
@@ -83,12 +82,9 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
 
   const { role } = hrms_user;
 
-
   const [popup1, setPopup1] = useState(false);
 
-
   const [refreshFlag, setRefreshFlag] = useState(false);
-
 
   const [allAward, setAllAward] = useState([]);
 
@@ -118,7 +114,6 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
   }
 
   const [allEmp, setAllEmp] = useState([]);
-
 
   const fetchAward = async () => {
     const resp = await getAward();
@@ -382,7 +377,7 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
 
               </div>
 
-              <div className="award-popup-label">
+              <div className="lableawaiwrap">
 
                 <label htmlFor="">
                   <p>Date</p>
@@ -408,7 +403,7 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
 
               </div>
 
-              <div className="award-popup-label award-popup-textarea">
+              <div className="lableawaiwrap">
 
                 <label htmlFor="">
                   <p>Description</p>
@@ -419,7 +414,7 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
 
               </div>
 
-              <div className="award-popup-label award-popup-textarea">
+              <div className="lableawaiwrap">
 
                 <label htmlFor="">
                   <p>Rating</p>
@@ -433,9 +428,6 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
                 </label>
 
               </div>
-
-
-              <hr />
 
               <div className="btnWrap Award-popup-btn">
                 <button onClick={() => {

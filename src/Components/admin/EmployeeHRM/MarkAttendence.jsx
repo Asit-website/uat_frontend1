@@ -125,6 +125,7 @@ const MarkAttendance = ({
   };
 
   var [selectedOption, setSelectedOption] = useState("daily");
+
   const [date, setDate] = useState("");
   const [month, setMonth] = useState("");
   const [userId, setuserId] = useState("");
@@ -732,8 +733,7 @@ const MarkAttendance = ({
                         <img src={bxsearch} alt="" />
                       </div>
 
-                      {/* <button className="exprtbtn"><span>Export</span></button> */}
-                      {selectedOption !== "monthly" && (
+                      {(selectedOption === "daily" && date === "" ) && (
                         <ReactHTMLTableToExcel
                           id="test-table-xls-button"
                           className="download-table-xls-button exprtbtn"
@@ -744,7 +744,7 @@ const MarkAttendance = ({
                         />
                       )}
 
-                      {selectedOption === "daily" && date !== "" && (
+                      {(selectedOption === "daily" && date !== "") && (
                         <ReactHTMLTableToExcel
                           id="test-table-xls-button"
                           className="download-table-xls-button exprtbtn"
@@ -766,7 +766,7 @@ const MarkAttendance = ({
                         />
                       )}
 
-                      {selectedOption === "all" && (
+{selectedOption === "all" && (
                         <ReactHTMLTableToExcel
                           id="test-table-xls-button"
                           className="download-table-xls-button exprtbtn"
@@ -775,7 +775,7 @@ const MarkAttendance = ({
                           sheet="tablexls"
                           buttonText="Export"
                         />
-                      )}
+                      )} 
                     </div>
                   </div>
                 </div>

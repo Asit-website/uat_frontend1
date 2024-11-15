@@ -179,8 +179,6 @@ const Payslip = ({ pop, setPop }) => {
 
     }, [srchtxt])
 
-
-
     return (
         <>
             <div className={`employee-dash  h-full`}>
@@ -342,24 +340,39 @@ const Payslip = ({ pop, setPop }) => {
                                                         <td className="px-6 py-4">{item?.user?.netSalary}</td>
 
                                                         <td className={`px-6 py-4 `}> <span className={`${item?.status === "Unpaid" ? "unpaid" : "paid"} `}>{item?.status}</span> </td>
+ 
+ <td>
+{
+                                                            (paySlipActionPermission || role === "ADMIN") &&
+                                                            <div className="toglwCont">
+                                                                <td onClick={() => {
+                                                                    if (showToggle === index) {
+                                                                        setShowToggle(null);
+                                                                    }
+                                                                    else {
+                                                                        setShowToggle(index);
+                                                                    }
+                                                                }} className="px-6 py-4">
+                                                                    <img src={acy} alt="acy" />
+                                                                </td>
+                                                                {
+                                                                    showToggle === index &&
+                                                                    <div className="togglewrap">
+                                                                        <p onClick={() => {
+                                                                            toggleStatus(item?.user?._id)
+                                                                        }}>Click to {item?.status === "Unpaid" ? "Paid" : "Unpaid"}</p>
+                                                                        <p onClick={() => {
+                                                                            setOpenPayslip(true);
+                                                                            setShowToggle(null);
+                                                                            setPopData(item);
+                                                                        }}>Payslip</p>
+                                                                        {/* <p>Delete </p> */}
+                                                                    </div>
+                                                                }
+                                                            </div>
+                                                        }
 
-                                                        {/*  */}
-
-                                                        <td > 
-                                                             <div className="paysliptdimages">
-                                                            <img onClick={() => {
-                                                                toggleStatus(item?.user?._id)
-                                                            }} src={payslip1} alt="" />
-                                                            
-                                                            <img onClick={() => {
-                                                                setOpenPayslip(true);
-                                                                setShowToggle(null);
-                                                                setPopData(item);
-                                                            }} src={payslip2} alt="" />
-
-
-                                                        </div> </td>
-
+</td>
                                                     </tr>
                                                 ))
                                             }
@@ -534,8 +547,8 @@ const Payslip = ({ pop, setPop }) => {
 
                             </div>
 
-                            <div className="payform">
-                                <div class="relative overflow-x-auto">
+                            <div className="">
+                                <div class="relative overflow-hidden">
                                     <table class="w-full text-sm text-left rtl:text-right  ">
                                         <thead class="text-xs vhg  uppercase bg-gray-50 dark:bg-gray-700 ">
                                             <tr>
@@ -557,7 +570,6 @@ const Payslip = ({ pop, setPop }) => {
                                             </tr>
                                         </thead>
                                         <tbody className="vhg">
-
 
                                             <tr class="bg-white ">
 
