@@ -3,18 +3,12 @@ import "react-calendar/dist/Calendar.css";
 import { useMain } from "../../../hooks/useMain";
 import pluss from "../../images/pluss.png";
 import search from "../../images/bx-search.png";
-import fff from "../../images/fff.png";
 import { NavLink, useNavigate } from "react-router-dom";
-import OutsideClickHandler from "react-outside-click-handler";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import toast from "react-hot-toast";
 import AdminSidebar from "../Sidebar/AdminSidebar";
 import AdminNavbar from "../Navbar/AdminNavbar";
-import actions from "../../images/actions.png";
-import happy from "../../images/bx-happy-heart-eyes.png";
-import deleted from "../../images/deletedd.svg";
-import edit22 from "../../images/edit22.png";
 import { IoIosCloseCircle } from "react-icons/io";
 import downis from '../../images/downis.png';
 
@@ -31,7 +25,6 @@ const MyLead = ({ setAlert, pop, setPop }) => {
 
   const [Filter1, setFilter1] = useState("Select");
 
-  const [currView, setCurrView] = useState(-1);
 
   const [allLeading, setAllLeading] = useState([]);
   const [allLead, setAllLead] = useState([]);
@@ -46,9 +39,6 @@ const MyLead = ({ setAlert, pop, setPop }) => {
 
   const [filterInput, setFilterInput] = useState();
 
-  const stylepeer2 = {
-    display: card ? "block" : "none",
-  };
 
   useEffect(() => {
     fetchLead();
@@ -254,14 +244,7 @@ const MyLead = ({ setAlert, pop, setPop }) => {
   };
 
   const closeLeadHandler = async (id) => {
-    // const toastId = toast.loading("Loading...");
-
-    // const ans = await closeLead(id);
-    // if (ans.status) {
-    //   toast.success("Successfuly Done");
-    // }
-
-    // toast.dismiss(toastId);
+  
 
     confirmAlert({
       title: "Are you sure to close this deal?",
@@ -324,28 +307,7 @@ const MyLead = ({ setAlert, pop, setPop }) => {
                   </NavLink>
 
 
-                  {/* <button
-                    id="dropdownDefaultButton"
-                    data-dropdown-toggle="dropdown"
-                    className="text-white silo   px-5 py-2.5 text-center inline-flex items-center"
-                    type="button"
-                    onClick={() => setCard(!card)}
-                  >
-                    Actions{" "}
-                    <svg
-                      className="ml-2"
-                      width="30"
-                      height="30"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M16.293 9.29303L12 13.586L7.70697 9.29303L6.29297 10.707L12 16.414L17.707 10.707L16.293 9.29303Z"
-                        fill="#666D76"
-                      />
-                    </svg>
-                  </button> */}
+                 
 
                 </div>
               </div>
@@ -367,101 +329,9 @@ const MyLead = ({ setAlert, pop, setPop }) => {
                     </span>
                   </div>
 
-                  {/* <img src={fff} alt="" /> */}
                 </div>
 
-                {/* <div
-                  id="dropdown"
-                  className="z-10 dart hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700"
-                  style={stylePeer3}
-                >
-                  <div className="filter_lead">
-                    <h2>Filter Leads by</h2>
-                  </div>
-                  <div className="trt_things">
-                    <div className="touched_things">
-                      <input type="checkbox" />
-                      <span>Touched Records</span>
-                    </div>
-                    <div className="fg">
-                      <span>By</span>
-                      <select className="testo" name="" id="">
-                        <option value="User & system">User & system</option>
-                      </select>
-                    </div>
-                    <div className="in_the">
-                      <select className="aloy1" name="" id="">
-                        <option value="In the last">In the last</option>
-                      </select>
-                      <div className="stoing">
-                        <input
-                          type="text"
-                          onChange={(e) => setFilterInput(e.target.value)}
-                          placeholder="2"
-                        />{" "}
-                      </div>
-
-                      <select className="aloy2" name="" id="">
-                        <option value="Days">Days</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div className="setting">
-                    <div className="some_things">
-                      <input type="checkbox" />
-                      <span>Untouched Records</span>
-                    </div>
-                    <div className="some_things">
-                      <input type="checkbox" />
-                      <span>Activities</span>
-                    </div>
-                    <div className="some_things">
-                      <input type="checkbox" />
-                      <span>Notes</span>
-                    </div>
-                    <div className="some_things">
-                      <input type="checkbox" />
-                      <span>Annual Revenue</span>
-                    </div>
-                    <div className="some_things">
-                      <input type="checkbox" />
-                      <span>Country</span>
-                    </div>
-                    <div className="some_things">
-                      <input type="checkbox" />
-                      <span>Created Time</span>
-                    </div>
-                    <div className="some_things">
-                      <input type="checkbox" />
-                      <span>Industry</span>
-                    </div>
-                    <div className="some_things">
-                      <input type="checkbox" />
-                      <span>Last Activity Time</span>
-                    </div>
-                    <div className="some_things">
-                      <input type="checkbox" />
-                      <span>Lead Owner</span>
-                    </div>
-                  </div>
-                  <div className="apply_footer">
-                    <div className="apply">
-                      <button
-                        onClick={() => {
-                          if (filterInput === "") {
-                            toast.error("Select the number of Days");
-                            return;
-                          }
-                        }}
-                      >
-                        Apply
-                      </button>
-                    </div>
-                    <div className="cancel">
-                      <button>Clear</button>
-                    </div>
-                  </div>
-                </div> */}
+              
               </div>
 
               <div className="leaftlead2">
@@ -484,6 +354,7 @@ const MyLead = ({ setAlert, pop, setPop }) => {
             </div>
 
             <div>
+
               <div className="test_filter">
                 <select
                   onChange={(e) => setFilter1(e.target.value)}
@@ -671,6 +542,7 @@ const MyLead = ({ setAlert, pop, setPop }) => {
                 Next
               </button>
             </div>
+            
           </div>
         </div>
       </div>

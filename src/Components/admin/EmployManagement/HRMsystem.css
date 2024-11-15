@@ -250,17 +250,15 @@
 }
 
 .allPopupWrap {
-    position: absolute;
-    display: flex;
-   min-height: 100vh;
+    position: fixed;
     background-color: rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
     justify-content: center;
-    /* left: 0; */
-    left: 260px;
-    right: 0;
     top: 0;
-    bottom: 0;
-
+    left: 0;
+    bottom:0;
+    right: 0;
 
 }
 
@@ -279,21 +277,37 @@
   
 }
 
-.popup1 {
-    background-color: white;
-    /* overflow: hidden; */
+.awardpopupcont{
+    max-width: 700px;
     width: 100%;
-    height: 464px;
-    max-height: 100%;
+    background-color: white;
+    padding: 10px 10px;
     display: flex;
-    z-index: 400;
-    padding: 20px;
     flex-direction: column;
-    gap: 18px;
-    transform: translateY(200px);
-
+    gap: 6px;
 }
 
+.lableawaiwrap{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+}
+
+.lableawaiwrap label{
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    
+}
+.lableawaiwrap label p{
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    text-align: left;
+    color: black;
+}
 
 .popup5{
     height: 270px;
