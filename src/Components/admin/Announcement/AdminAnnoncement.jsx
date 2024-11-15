@@ -10,6 +10,8 @@ import "react-confirm-alert/src/react-confirm-alert.css";
 import toast from "react-hot-toast";
 import EmployeeSidebar from "../../Employee/Sidebar/EmployeeSidebar";
 import EmployeeNavbar from "../../Employee/Navbar/EmployeeNavbar";
+import { RxCross2 } from "react-icons/rx";
+
 
 const AdminProfile = ({ pop, setPop, setAlert }) => {
   const {
@@ -163,6 +165,10 @@ const AdminProfile = ({ pop, setPop, setAlert }) => {
 
   let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
 
+  const [leavePopup , setLeavePopup] = useState(false);
+
+
+  
   const { role } = hrms_user;
 
   return (
@@ -181,7 +187,7 @@ const AdminProfile = ({ pop, setPop, setAlert }) => {
             <AdminNavbar user={user} setAlert={setAlert} />
           )}
           <div className="em">
-            
+
             <div className="anNav">
 
               {/* left sie */}
@@ -220,19 +226,19 @@ const AdminProfile = ({ pop, setPop, setAlert }) => {
                 <table class="w-full text-sm text-left rtl:text-right text-black dark:text-black tranking">
                   <thead class="text-xs text-black uppercase  dark:text-black">
                     <tr>
-                      <th scope="col" class="px-6 py-3">
+                      <th scope="col" class="px-3 py-3">
                         TITLE
                       </th>
-                      <th scope="col" class="px-6 py-3">
+                      <th scope="col" class="px-3 py-3">
                         START DATE
                       </th>
-                      <th scope="col" class="px-6 py-3">
+                      <th scope="col" class="px-3 py-3">
                         END DATE
                       </th>
-                      <th scope="col" class="px-6 py-3">
+                      <th scope="col" class="px-3 py-3">
                         DESCRIPTION
                       </th>
-                      <th scope="col" class="px-6 py-3">
+                      <th scope="col" class="px-3 py-3">
                         ACTION
                       </th>
                     </tr>
@@ -240,12 +246,12 @@ const AdminProfile = ({ pop, setPop, setAlert }) => {
 
                   <tbody>
                     {allAnnoucement.map((item, index) => (
-                      <tr key={index} class="bg-white">
-                        <td class="px-6 py-4">{item.title}</td>
-                        <td class="px-6 py-4">{item.startDate}</td>
-                        <td class="px-6 py-4">{item.endDate}</td>
-                        <td class="px-6 py-4">{item.description}</td>
-                        <td class="px-6 py-4">
+                      <tr onClick={()=>setLeavePopup(item)} key={index} class="bg-white cursor-pointer">
+                        <td class="px-3 py-4">{item.title}</td>
+                        <td class="px-3 py-4">{item.startDate}</td>
+                        <td class="px-3 py-4">{item.endDate}</td>
+                        <td class="px-3 py-4">{item.description}</td>
+                        <td class="px-3 py-4">
                           <div className="flex items-center sk">
                             <i
                               onClick={() => {
@@ -269,7 +275,44 @@ const AdminProfile = ({ pop, setPop, setAlert }) => {
                 </table>
               </div>
             </main>
+
+
+
           </div>
+
+
+          {
+            leavePopup && 
+            <div className="leavePopupwrap2">
+                <div className="leavepopconta2">
+
+                  <nav><RxCross2 fontSize={24} className="cursor-pointer" onClick={()=>setLeavePopup(false)} /></nav>
+ 
+                <label htmlFor="">
+                  <h4>Title: </h4>
+                  <p>{leavePopup?.title}</p>
+                </label>
+
+              
+                <label htmlFor="">
+                  <h4>From: </h4>
+                  <p>{leavePopup?.startDate}</p>
+                </label>
+                <label htmlFor="">
+                  <h4>To: </h4>
+                  <p>{leavePopup?.endDate}</p>
+                </label>
+
+                <label htmlFor="">
+                  <h4>Description: </h4>
+                  <p>{leavePopup?.description}</p>
+                </label>
+
+                   
+                </div>
+            </div>
+          }
+
         </div>
 
         {/* form  */}
