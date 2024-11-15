@@ -255,7 +255,8 @@
    min-height: 100vh;
     background-color: rgba(0, 0, 0, 0.2);
     justify-content: center;
-    left: 0;
+    /* left: 0; */
+    left: 260px;
     right: 0;
     top: 0;
     bottom: 0;

@@ -10,7 +10,8 @@ import HrNavbar from "../../Hr/Navbar/HrNavbar";
 import toast from "react-hot-toast";
 import bxUser from "../../images/bx-user-pin.png";
 import { ImCross } from "react-icons/im";
-
+import * as EmailValidator from "email-validator";
+import validator from 'validator';
 
 const item = [
   {
@@ -34,14 +35,14 @@ const EmployeeManage = ({
 }) => {
   const { id } = useParams();
 
-    const [currEmp, setCurrEmp] = useState(0);
+  const [currEmp, setCurrEmp] = useState(0);
 
   const navigate = useNavigate();
 
   const {
     user,
     createEmployee1,
-    AllRolesapi , 
+    AllRolesapi,
     getUsers,
     updateUser,
     getBranchs,
@@ -63,6 +64,8 @@ const EmployeeManage = ({
     getEmployee();
   }, []);
 
+  
+
   const [value1, setValue1] = useState({
     status: false,
     fullName: "",
@@ -72,8 +75,18 @@ const EmployeeManage = ({
     reportingManager: "",
     designation: "",
     joiningDate: "",
-    PermissionRole:""
+    PermissionRole: ""
   });
+
+  const [emailisValid, setIsemailValid] = useState(null);
+  const [emailisValid1, setIsemailValid1] = useState(null);
+
+  const handleValidation = () => {
+    const valid = EmailValidator.validate(value1.email);
+    setIsemailValid(valid);
+};
+
+
 
   const [value2, setValue2] = useState({
     status: false,
@@ -83,6 +96,11 @@ const EmployeeManage = ({
     gender: "",
     dob: "",
   });
+
+  const handleValidation1 = () => {
+    const valid = EmailValidator.validate(value2.email1);
+    setIsemailValid1(valid);
+  };
 
   const [value3, setValue3] = useState({
     status: false,
@@ -133,13 +151,13 @@ const EmployeeManage = ({
   const [branches, setBranches] = useState([]);
   const [departments, setDepartments] = useState([]);
   const [designations, setDesignations] = useState([]);
-  const [PermRole , setPermRole] = useState([]); 
+  const [PermRole, setPermRole] = useState([]);
 
-  const fetchAllRoles = async()=>{
+  const fetchAllRoles = async () => {
     const ans = await AllRolesapi();
     setPermRole(ans?.data);
- }
- 
+  }
+
   useEffect(() => {
     let form1 = localStorage.getItem("form1");
     if (form1) {
@@ -172,7 +190,7 @@ const EmployeeManage = ({
     if (id) {
       getUser();
     }
-  }, [id , PermRole]);
+  }, [id, PermRole]);
 
   useEffect(() => {
     getData();
@@ -207,7 +225,7 @@ const EmployeeManage = ({
         perm = foundRole._id;
       }
     }
-    
+
     setValue1({
       status: false,
       fullName: ans.data.fullName,
@@ -275,13 +293,34 @@ const EmployeeManage = ({
   const handleChange = (e, type) => {
     if (type === "form1") {
       setValue1({ ...value1, [e.target.name]: e.target.value });
-    } else if (type === "form2") {
+
+    }
+    else if (type === "form2") {
+      if (e.target.name === "mobile" && e.target.value.length > 10) {
+        return
+      }
       setValue2({ ...value2, [e.target.name]: e.target.value });
-    } else if (type === "form3") {
+
+    }
+    else if (type === "form3") {
+      if (e.target.name === "pan" && e.target.value.length > 10) {
+        return
+      }
+      if (e.target.name === "adhar" && e.target.value.length > 12) {
+        return
+      }
+      if (e.target.name === "currentPin" && e.target.value.length > 6) {
+        return
+      }
+      if (e.target.name === "perPin" && e.target.value.length > 6) {
+        return
+      }
       setValue3({ ...value3, [e.target.name]: e.target.value });
-    } else if (type === "form4") {
+    }
+    else if (type === "form4") {
       setValue4({ ...value4, [e.target.name]: e.target.value });
-    } else if (type === "form5") {
+    }
+    else if (type === "form5") {
       setValue5({ ...value5, [e.target.name]: e.target.value });
     }
   };
@@ -289,20 +328,20 @@ const EmployeeManage = ({
   const [documents, setDocuments] = useState({
     adharCard: "",
     pancard: "",
-    tenCert:"",
-    twevelCert:"",
+    tenCert: "",
+    twevelCert: "",
     cancelCheque: "",
     LastOrganization: "",
-    RelievingLetter:"",
-    OfferLetter:"",
-    ExperienceLetter:"",
+    RelievingLetter: "",
+    OfferLetter: "",
+    ExperienceLetter: "",
 
 
   });
 
-  const [previewImages , setPreviewImages] = useState({})
+  const [previewImages, setPreviewImages] = useState({})
 
-  const handleFileChange = async(event, name) => {
+  const handleFileChange = async (event, name) => {
     const file = event.target.files[0];
     if (file) {
       setDocuments((prevDocuments) => ({
@@ -313,12 +352,12 @@ const EmployeeManage = ({
 
     // upload to cludinary for preview 
     const toastId = toast.loading("Wait...");
-     const ans = await uploadToCloudinaryImg({image:file});
+    const ans = await uploadToCloudinaryImg({ image: file });
 
-     if(ans?.status){
+    if (ans?.status) {
       toast.success("Successfuly");
-      setPreviewImages((prev)=>({
-        ...prev ,
+      setPreviewImages((prev) => ({
+        ...prev,
         [name]: ans?.data
       }))
     }
@@ -330,8 +369,19 @@ const EmployeeManage = ({
 
     const toastId = toast.loading("Loading...");
 
+   
+        if (emailisValid === false && value1?.email !== "") {
+            toast.dismiss(toastId);
+            return toast.error("Please Enter Correct Gmail")
+        }
+
+        if (emailisValid1 === false && value2?.email1 !== "") {
+          toast.dismiss(toastId);
+          return toast.error("Please Enter Correct Gmail")
+      }
+
     if (!id) {
-      const {   
+      const {
         adharCard,
         pancard,
         tenCert,
@@ -391,7 +441,7 @@ const EmployeeManage = ({
           ...value4,
           ...value5,
           formData,
-          employeeType:item[currEmp].title
+          employeeType: item[currEmp].title
         });
 
       } else {
@@ -401,7 +451,7 @@ const EmployeeManage = ({
           ...value3,
           ...value4,
           ...value5,
-          employeeType:item[currEmp].title
+          employeeType: item[currEmp].title
         });
 
       }
@@ -421,7 +471,7 @@ const EmployeeManage = ({
         reportingManager: "",
         designation: "",
         joiningDate: "",
-        PermissionRole:""
+        PermissionRole: ""
       });
       setValue2({
         status: false,
@@ -487,7 +537,7 @@ const EmployeeManage = ({
         RelievingLetter,
         OfferLetter,
         ExperienceLetter,
-      
+
       } = documents;
 
       const formData = new FormData();
@@ -518,7 +568,7 @@ const EmployeeManage = ({
 
       if (
 
-        adharCard  !== "" ||
+        adharCard !== "" ||
         pancard !== "" ||
         tenCert !== "" ||
         twevelCert !== "" ||
@@ -526,7 +576,7 @@ const EmployeeManage = ({
         LastOrganization !== "" ||
         RelievingLetter !== "" ||
         OfferLetter !== "" ||
-        ExperienceLetter !== "" 
+        ExperienceLetter !== ""
       ) {
 
         const ans = await uploadDocuments(id, formData);
@@ -549,9 +599,9 @@ const EmployeeManage = ({
     toast.dismiss(toastId);
   };
 
-  useEffect(()=>{
+  useEffect(() => {
     fetchAllRoles();
-  },[])
+  }, [])
 
 
   return (
@@ -580,7 +630,7 @@ const EmployeeManage = ({
 
               {/* right side  */}
               <div className="adFrRIH">
-              <NavLink to="/adminDash/HRM/employeeManagement"><button className="calce">
+                <NavLink to="/adminDash/HRM/employeeManagement"><button className="calce">
                   <span>Cancel</span>
                 </button></NavLink>
                 {/* <button className="register">
@@ -590,7 +640,7 @@ const EmployeeManage = ({
             </section>
 
             <div className="flex-col">
-              
+
               {/* first sec */}
               <div className="leadInFir">
                 {item.map((e, index) => (
@@ -624,7 +674,7 @@ const EmployeeManage = ({
                       <div className="form-section">
                         <div>
                           <div className="flex flex-col emmanformwrap1">
-                            
+
                             <label>
                               <p>Full Name</p>
                               <input
@@ -683,7 +733,9 @@ const EmployeeManage = ({
                               <input
                                 onChange={(e) => {
                                   handleChange(e, "form1");
+                                  handleValidation(e.target.value)
                                 }}
+                                className={`${(emailisValid === false && value1.email !== "") && "emailvalidinput"}`}
                                 type="email"
                                 // name="gmail"
                                 name="email"
@@ -777,61 +829,64 @@ const EmployeeManage = ({
                                 value={value1?.joiningDate}
                                 disabled={value1.status}
                               />
-                            </label>                             
-                              
-                                <label
-                                  for="email1"
-                                  className="block mb-0  font-medium"
-                                >
+                            </label>
 
-                                 <p> Personal Email Address</p>
-                                 <input
-                                  type="email"
-                                  id="email1"
-                                  className="rounded-lg  w-full"
-                                  // required
-                                  name="email1"
-                                  value={value2?.email1}
-                                  onChange={(e) => {
-                                    handleChange(e, "form2");
-                                  }}
-                                  disabled={value2.status}
-                                />
-                                </label>
-                               
-                               
-                                <label
-                                  for="gender"
-                                  className="block mb-0  font-medium "
-                                >
-                                 <p> Gender</p>
-                                 <select
-                                  onChange={(e) => {
-                                    handleChange(e, "form2");
-                                  }}
-                                  name="gender"
-                                  value={value2?.gender}
-                                  disabled={value2.status}
-                                  className="w-full rouneded-lg"
-                                >
-                                  <option>gender</option>
-                                  <option>Male</option>
-                                  <option>Female</option>
-                                  onChange=
-                                  {(e) => {
-                                    handleChange(e, "form2");
-                                  }}
-                                  disabled={value2.status}
-                                </select>
-                                </label>
-                              
-                              
+                            <label
+                              for="email1"
+                              className="block mb-0  font-medium"
+                            >
+
+                              <p> Personal Email Address</p>
+                              <input
+                                type="email"
+                                id="email1"
+                                // rounded-lg  w-full
+                                className={`${(emailisValid1 === false && value2.email1 !== "") && "emailvalidinput"} rounded-lg  w-full`}
+                                
+                                // required
+                                name="email1"
+                                value={value2?.email1}
+                                onChange={(e) => {
+                                  handleChange(e, "form2");
+                                  handleValidation1(e.target.value)
+                                }}
+                                disabled={value2.status}
+                              />
+                            </label>
+
+
+                            <label
+                              for="gender"
+                              className="block mb-0  font-medium "
+                            >
+                              <p> Gender</p>
+                              <select
+                                onChange={(e) => {
+                                  handleChange(e, "form2");
+                                }}
+                                name="gender"
+                                value={value2?.gender}
+                                disabled={value2.status}
+                                className="w-full rouneded-lg"
+                              >
+                                <option>gender</option>
+                                <option>Male</option>
+                                <option>Female</option>
+                                onChange=
+                                {(e) => {
+                                  handleChange(e, "form2");
+                                }}
+                                disabled={value2.status}
+                              </select>
+                            </label>
+
+
 
                           </div>
                         </div>
                       </div>
                     </div>
-                 
+
                     <div className="basic-information">
                       <div className="basics">
                         <h3>Address Detail</h3>
@@ -911,20 +966,20 @@ const EmployeeManage = ({
                                 for="currentAddress"
                                 className="block mb-0  font-medium "
                               >
-                               Mobile Number*
+                                Mobile Number*
                               </label>
                               <input
-                                  type="number"
-                                  id="mobile"
-                                  className="rounded-lg  w-full"
-                                  // required
-                                  name="mobile"
-                                  value={value2?.mobile}
-                                  onChange={(e) => {
-                                    handleChange(e, "form2");
-                                  }}
-                                  disabled={value2.status}
-                                />
+                                type="number"
+                                id="mobile"
+                                className="rounded-lg  w-full"
+                                // required
+                                name="mobile"
+                                value={value2?.mobile}
+                                onChange={(e) => {
+                                  handleChange(e, "form2");
+                                }}
+                                disabled={value2.status}
+                              />
                             </div>
                           </div>
                           <div className="flex w-full">
@@ -1023,7 +1078,7 @@ const EmployeeManage = ({
                                   Permanent Residence Address{" "}
                                 </label>
                                 <div className="flex items-center">
-                              
+
                                 </div>
                               </div>
                               <input
@@ -1040,108 +1095,108 @@ const EmployeeManage = ({
                             </div>
                           </div>
 
-                            <div className="mb-6 try">
-                              <label
-                                for="currentAddress"
-                                className="block mb-0  font-medium "
-                              >
-                                  Permanent state
-                              </label>
-                              <select
-                                className="rounded-lg  w-full"
-                                name="perState"
-                                value={value3?.perState}
-                                id="perState"
-                                onChange={(e) => {
-                                  handleChange(e, "form3");
-                                }}
-                                disabled={value3.status}
-                              >
-                                <option>Permanent State</option>
-                                <option>Andhra Pradesh</option>
-                                <option>Arunachal Pradesh</option>
-                                <option>Assam</option>
-                                <option>Bihar</option>
-                                <option>Chhattisgarh</option>
-                                <option>Goa</option>
-                                <option>Gujarat</option>
-                                <option>Haryana</option>
-                                <option>Himachal Pradesh</option>
-                                <option>Jharkhand</option>
-                                <option>Karnataka</option>
-                                <option>Kerala</option>
-                                <option>Maharashtra</option>
-                                <option>Madhya Pradesh</option>
-                                <option>Manipur</option>
-                                <option>Meghalaya</option>
-                                <option>Mizoram</option>
-                                <option>Nagaland</option>
-                                <option>Odisha</option>
-                                <option>Punjab</option>
-                                <option>Rajasthan</option>
-                                <option>Sikkim</option>
-                                <option>Tamil Nadu</option>
-                                <option>Tripura</option>
-                                <option>Telangana</option>
-                                <option>Uttar Pradesh</option>
-                                <option>Uttarakhand</option>
-                                <option>West Bengal</option>
-                                <option>Andaman & Nicobar (UT)</option>
-                                <option>Chandigarh (UT)</option>
-                                <option>
-                                  Dadra & Nagar Haveli and Daman & Diu (UT)
-                                </option>
-                                <option>
-                                  Delhi [National Capital Territory (NCT)]
-                                </option>
-                                <option>Jammu & Kashmir (UT)</option>
-                                <option>Ladakh (UT)</option>
-                                <option>Lakshadweep (UT)</option>
-                                <option>Puducherry (UT)</option>
-                              </select>
-                            </div>
+                          <div className="mb-6 try">
+                            <label
+                              for="currentAddress"
+                              className="block mb-0  font-medium "
+                            >
+                              Permanent state
+                            </label>
+                            <select
+                              className="rounded-lg  w-full"
+                              name="perState"
+                              value={value3?.perState}
+                              id="perState"
+                              onChange={(e) => {
+                                handleChange(e, "form3");
+                              }}
+                              disabled={value3.status}
+                            >
+                              <option>Permanent State</option>
+                              <option>Andhra Pradesh</option>
+                              <option>Arunachal Pradesh</option>
+                              <option>Assam</option>
+                              <option>Bihar</option>
+                              <option>Chhattisgarh</option>
+                              <option>Goa</option>
+                              <option>Gujarat</option>
+                              <option>Haryana</option>
+                              <option>Himachal Pradesh</option>
+                              <option>Jharkhand</option>
+                              <option>Karnataka</option>
+                              <option>Kerala</option>
+                              <option>Maharashtra</option>
+                              <option>Madhya Pradesh</option>
+                              <option>Manipur</option>
+                              <option>Meghalaya</option>
+                              <option>Mizoram</option>
+                              <option>Nagaland</option>
+                              <option>Odisha</option>
+                              <option>Punjab</option>
+                              <option>Rajasthan</option>
+                              <option>Sikkim</option>
+                              <option>Tamil Nadu</option>
+                              <option>Tripura</option>
+                              <option>Telangana</option>
+                              <option>Uttar Pradesh</option>
+                              <option>Uttarakhand</option>
+                              <option>West Bengal</option>
+                              <option>Andaman & Nicobar (UT)</option>
+                              <option>Chandigarh (UT)</option>
+                              <option>
+                                Dadra & Nagar Haveli and Daman & Diu (UT)
+                              </option>
+                              <option>
+                                Delhi [National Capital Territory (NCT)]
+                              </option>
+                              <option>Jammu & Kashmir (UT)</option>
+                              <option>Ladakh (UT)</option>
+                              <option>Lakshadweep (UT)</option>
+                              <option>Puducherry (UT)</option>
+                            </select>
+                          </div>
 
-                            <div className="mb-6 try">
-                              <label
-                                for="perCity"
-                                className="block mb-0  font-medium"
-                              >
-                                Permanent city
-                              </label>
-                              <input
-                                type="text"
-                                id="perCity"
-                                className="rounded-lg  w-full"
-                                // required
-                                name="perCity"
-                                value={value3?.perCity}
-                                onChange={(e) => {
-                                  handleChange(e, "form3");
-                                }}
-                                disabled={value3.status}
-                              />
-                            </div>
+                          <div className="mb-6 try">
+                            <label
+                              for="perCity"
+                              className="block mb-0  font-medium"
+                            >
+                              Permanent city
+                            </label>
+                            <input
+                              type="text"
+                              id="perCity"
+                              className="rounded-lg  w-full"
+                              // required
+                              name="perCity"
+                              value={value3?.perCity}
+                              onChange={(e) => {
+                                handleChange(e, "form3");
+                              }}
+                              disabled={value3.status}
+                            />
+                          </div>
 
-                            <div className="mb-6 try">
-                              <label
-                                for="perPin"
-                                className="block mb-0 font-medium"
-                              >
-                                Permanent Area Pincode
-                              </label>
-                              <input
-                                type="text"
-                                id="perPin"
-                                className="rounded-lg  w-full"
-                                // required
-                                name="perPin"
-                                value={value3?.perPin}
-                                onChange={(e) => {
-                                  handleChange(e, "form3");
-                                }}
-                                disabled={value3.status}
-                              />
-                            </div>
+                          <div className="mb-6 try">
+                            <label
+                              for="perPin"
+                              className="block mb-0 font-medium"
+                            >
+                              Permanent Area Pincode
+                            </label>
+                            <input
+                              type="text"
+                              id="perPin"
+                              className="rounded-lg  w-full"
+                              // required
+                              name="perPin"
+                              value={value3?.perPin}
+                              onChange={(e) => {
+                                handleChange(e, "form3");
+                              }}
+                              disabled={value3.status}
+                            />
+                          </div>
 
 
                           <div className="flex w-full makethisflex1">
@@ -1213,7 +1268,7 @@ const EmployeeManage = ({
                         </div>
                       </div>
                     </div>
-                  
+
                   </div>
 
                   <div className="admin-form">
@@ -1227,384 +1282,384 @@ const EmployeeManage = ({
 
                       <hr className="upper" />
 
-                        <div className="w-full alldocwwrap">
-                          {/* this is first doc row  */}
+                      <div className="w-full alldocwwrap">
+                        {/* this is first doc row  */}
 
-                          <div className="wrap1">
-                            {/* fist   */}
+                        <div className="wrap1">
+                          {/* fist   */}
+                          <div className="thiddrapgsingl">
+                            <h4>Aadhar Card </h4>
+
+                            <div className="drag-area">
+                              <img src={uploadFile} alt="" />
+
+                              <p>Click to upload</p>
+
+                              <input
+                                className="filesjila"
+                                name="adharCard"
+                                type="file"
+                                onChange={(e) => handleFileChange(e, "adharCard")}
+                              />
+                            </div>
+
+                            {
+                              previewImages?.adharCard &&
+                              <div className="previewiamges">
+                                <nav> <ImCross onClick={() => {
+                                  setPreviewImages((prev) => {
+                                    const updatedPreviewImages = { ...prev };
+                                    delete updatedPreviewImages.adharCard;
+                                    return updatedPreviewImages
+                                  });
+
+                                  setDocuments((prev) => ({
+                                    ...prev,
+                                    adharCard: ""
+                                  }))
+
+
+                                }} className="cursor-pointer" /> </nav>
+                                <img src={previewImages?.adharCard} alt="" />
+                              </div>
+                            }
+
+                          </div>
+
+                          {/* second */}
+
+                          <div className="thiddrapgsingl">
+                            <h4>PAN Card</h4>
+
+                            <div className="drag-area try">
+                              <img src={uploadFile} alt="" />
+
+                              <p>Click to upload</p>
+
+                              <input
+                                className="filesjila"
+                                type="file"
+                                name="pancard"
+                                onChange={(e) => handleFileChange(e, "pancard")}
+                              />
+                            </div>
+
+                            {
+                              previewImages?.pancard &&
+                              <div className="previewiamges">
+                                <nav> <ImCross onClick={() => {
+                                  setPreviewImages((prev) => {
+                                    const updatedPreviewImages = { ...prev };
+                                    delete updatedPreviewImages?.pancard;
+                                    return updatedPreviewImages
+                                  });
+
+                                  setDocuments((prev) => ({
+                                    ...prev,
+                                    pancard: ""
+                                  }))
+
+
+                                }} className="cursor-pointer" /> </nav>
+                                <img src={previewImages?.pancard} alt="" />
+                              </div>
+                            }
+
+                          </div>
+
+                        </div>
+
+                        {/* this is second doc row  */}
+
+                        <div className="wrap1">
+                          {/* frist   */}
+                          <div className="thiddrapgsingl">
+                            <h4>10th Certificate</h4>
+
+                            <div className="drag-area ">
+                              <img src={uploadFile} alt="" />
+
+                              <p>Click to upload</p>
+
+                              <input
+                                className="filesjila w-full"
+                                type="file"
+                                name="tenCert"
+                                onChange={(e) => handleFileChange(e, "tenCert")}
+                              />
+                            </div>
+                            {
+                              previewImages?.tenCert &&
+                              <div className="previewiamges">
+                                <nav> <ImCross onClick={() => {
+                                  setPreviewImages((prev) => {
+                                    const updatedPreviewImages = { ...prev };
+                                    delete updatedPreviewImages?.tenCert;
+                                    return updatedPreviewImages
+                                  });
+
+                                  setDocuments((prev) => ({
+                                    ...prev,
+                                    tenCert: ""
+                                  }))
+
+
+                                }} className="cursor-pointer" /> </nav>
+                                <img src={previewImages?.tenCert} alt="" />
+                              </div>
+                            }
+                          </div>
+
+                          {/* second  */}
+                          <div className="thiddrapgsingl">
+                            <h4>12th Certificate</h4>
+
+                            <div className="drag-area">
+                              <img src={uploadFile} alt="" />
+
+                              <p>Click to upload</p>
+
+                              <input
+                                name="twevelCert"
+                                onChange={(e) => handleFileChange(e, "twevelCert")}
+                                className="filesjila"
+                                type="file"
+                              />
+                            </div>
+                            {
+                              previewImages?.twevelCert &&
+                              <div className="previewiamges">
+                                <nav> <ImCross onClick={() => {
+                                  setPreviewImages((prev) => {
+                                    const updatedPreviewImages = { ...prev };
+                                    delete updatedPreviewImages?.twevelCert;
+                                    return updatedPreviewImages
+                                  });
+
+                                  setDocuments((prev) => ({
+                                    ...prev,
+                                    twevelCert: ""
+                                  }))
+
+
+                                }} className="cursor-pointer" /> </nav>
+                                <img src={previewImages?.twevelCert} alt="" />
+                              </div>
+                            }
+                          </div>
+                        </div>
+
+                        <div className="wrap1">
+                          {/* frist   */}
+
+                          <div className="thiddrapgsingl">
+                            <h4>Cancelled Cheque</h4>
+                            <div className="drag-area ">
+                              <img src={uploadFile} alt="" />
+
+                              <p>Click to upload</p>
+
+                              <input
+                                className="filesjila"
+                                type="file"
+                                name="cancelCheque"
+                                onChange={(e) => handleFileChange(e, "cancelCheque")}
+                              />
+                            </div>
+                            {
+                              previewImages?.cancelCheque &&
+                              <div className="previewiamges">
+                                <nav> <ImCross onClick={() => {
+                                  setPreviewImages((prev) => {
+                                    const updatedPreviewImages = { ...prev };
+                                    delete updatedPreviewImages?.cancelCheque;
+                                    return updatedPreviewImages
+                                  });
+
+                                  setDocuments((prev) => ({
+                                    ...prev,
+                                    cancelCheque: ""
+                                  }))
+
+
+                                }} className="cursor-pointer" /> </nav>
+                                <img src={previewImages?.cancelCheque} alt="" />
+                              </div>
+                            }
+                          </div>
+
+                          {currEmp === 0 && (
                             <div className="thiddrapgsingl">
-                              <h4>Aadhar Card </h4>
+                              <h4>Last Organization</h4>
 
-                              <div className="drag-area">
+
+                              <div className="drag-area ">
                                 <img src={uploadFile} alt="" />
 
                                 <p>Click to upload</p>
 
                                 <input
+                                  name="LastOrganization"
+                                  onChange={(e) => handleFileChange(e, "LastOrganization")}
                                   className="filesjila"
-                                  name="adharCard"
                                   type="file"
-                                  onChange={(e)=>handleFileChange(e , "adharCard")}
                                 />
                               </div>
-
                               {
-                                previewImages?.adharCard && 
+                                previewImages?.LastOrganization &&
                                 <div className="previewiamges">
-                                   <nav> <ImCross onClick={()=>{
-                                    setPreviewImages((prev)=>{
-                                      const updatedPreviewImages  ={...prev};
-                                      delete updatedPreviewImages.adharCard;
+                                  <nav> <ImCross onClick={() => {
+                                    setPreviewImages((prev) => {
+                                      const updatedPreviewImages = { ...prev };
+                                      delete updatedPreviewImages?.LastOrganization;
                                       return updatedPreviewImages
                                     });
 
-                                    setDocuments((prev)=>({
-                                      ...prev , 
-                                      adharCard:""
+                                    setDocuments((prev) => ({
+                                      ...prev,
+                                      LastOrganization: ""
                                     }))
 
 
-                                   }} className="cursor-pointer" /> </nav>
-                                <img src={previewImages?.adharCard} alt="" />
+                                  }} className="cursor-pointer" /> </nav>
+                                  <img src={previewImages?.LastOrganization} alt="" />
                                 </div>
                               }
-
                             </div>
+                          )}
+                        </div>
 
-                            {/* second */}
+                        {currEmp === 0 && (
+                          <>
+                            <h1 className="lstOrgText">
+                              Last Organization Docs
+                            </h1>
 
-                            <div className="thiddrapgsingl">
-                              <h4>PAN Card</h4>
+                            <div className="wrap1">
+                              {/* first   */}
 
-                              <div className="drag-area try">
-                                <img src={uploadFile} alt="" />
-
-                                <p>Click to upload</p>
-
-                                <input
-                                  className="filesjila"
-                                  type="file"
-                                  name="pancard"
-                                  onChange={(e)=>handleFileChange(e ,"pancard" )}
-                                />
-                              </div>
-
-                              {
-                                previewImages?.pancard && 
-                                <div className="previewiamges">
-                                <nav> <ImCross onClick={()=>{
-                                 setPreviewImages((prev)=>{
-                                   const updatedPreviewImages  = {...prev};
-                                   delete updatedPreviewImages?.pancard;
-                                   return updatedPreviewImages
-                                 });
-
-                                 setDocuments((prev)=>({
-                                   ...prev , 
-                                   pancard:""
-                                 }))
-
-
-                                }} className="cursor-pointer" /> </nav>
-                             <img src={previewImages?.pancard} alt="" />
-                             </div>
-                              }
-
-                            </div>
-
-                          </div>
-
-                          {/* this is second doc row  */}
-
-                          <div className="wrap1">
-                            {/* frist   */}
-                            <div className="thiddrapgsingl">
-                              <h4>10th Certificate</h4>
-
-                              <div className="drag-area ">
-                                <img src={uploadFile} alt="" />
-
-                                <p>Click to upload</p>
-
-                                <input
-                                  className="filesjila w-full"
-                                  type="file"
-                                  name="tenCert"
-                                  onChange={(e)=>handleFileChange(e , "tenCert")}
-                                />
-                              </div>
-                              {
-                                previewImages?.tenCert && 
-                                <div className="previewiamges">
-                                <nav> <ImCross onClick={()=>{
-                                 setPreviewImages((prev)=>{
-                                   const updatedPreviewImages  = {...prev};
-                                   delete updatedPreviewImages?.tenCert;
-                                   return updatedPreviewImages
-                                 });
-
-                                 setDocuments((prev)=>({
-                                   ...prev , 
-                                   tenCert:""
-                                 }))
-
-
-                                }} className="cursor-pointer" /> </nav>
-                             <img src={previewImages?.tenCert} alt="" />
-                             </div>
-                              }
-                            </div>
-
-                            {/* second  */}
-                            <div className="thiddrapgsingl">
-                              <h4>12th Certificate</h4>
-
-                              <div className="drag-area">
-                                <img src={uploadFile} alt="" />
-
-                                <p>Click to upload</p>
-
-                                <input
-                                  name="twevelCert"
-                                  onChange={(e)=>handleFileChange(e , "twevelCert")}
-                                  className="filesjila"
-                                  type="file"
-                                />
-                              </div>
-                              {
-                                previewImages?.twevelCert && 
-                                <div className="previewiamges">
-                                <nav> <ImCross onClick={()=>{
-                                 setPreviewImages((prev)=>{
-                                   const updatedPreviewImages  = {...prev};
-                                   delete updatedPreviewImages?.twevelCert;
-                                   return updatedPreviewImages
-                                 });
-
-                                 setDocuments((prev)=>({
-                                   ...prev , 
-                                   twevelCert:""
-                                 }))
-
-
-                                }} className="cursor-pointer" /> </nav>
-                             <img src={previewImages?.twevelCert} alt="" />
-                             </div>
-                              }
-                            </div>
-                          </div>
-
-                          <div className="wrap1">
-                            {/* frist   */}
-
-                            <div className="thiddrapgsingl">
-                              <h4>Cancelled Cheque</h4>
-                              <div className="drag-area ">
-                                <img src={uploadFile} alt="" />
-
-                                <p>Click to upload</p>
-
-                                <input
-                                  className="filesjila"
-                                  type="file"
-                                  name="cancelCheque"
-                                  onChange={(e)=>handleFileChange(e , "cancelCheque")}
-                                />
-                              </div>
-                              {
-                                previewImages?.cancelCheque && 
-                                <div className="previewiamges">
-                                <nav> <ImCross onClick={()=>{
-                                 setPreviewImages((prev)=>{
-                                   const updatedPreviewImages  = {...prev};
-                                   delete updatedPreviewImages?.cancelCheque;
-                                   return updatedPreviewImages
-                                 });
-
-                                 setDocuments((prev)=>({
-                                   ...prev , 
-                                   cancelCheque:""
-                                 }))
-
-
-                                }} className="cursor-pointer" /> </nav>
-                             <img src={previewImages?.cancelCheque} alt="" />
-                             </div>
-                              }
-                            </div>
-
-                            {currEmp === 0 && (
                               <div className="thiddrapgsingl">
-                                <h4>Last Organization</h4>
+                                <h4>Relieving Letter</h4>
 
-      
-                                <div className="drag-area ">
+
+                                <div className="drag-area try">
                                   <img src={uploadFile} alt="" />
 
                                   <p>Click to upload</p>
 
                                   <input
-                                    name="LastOrganization"
-                                    onChange={(e)=>handleFileChange(e , "LastOrganization")}
-                                    className="filesjila"
+                                    className="filesjila "
                                     type="file"
+                                    name="RelievingLetter"
+                                    onChange={(e) => handleFileChange(e, "RelievingLetter")}
                                   />
                                 </div>
                                 {
-                                previewImages?.LastOrganization && 
-                                <div className="previewiamges">
-                                <nav> <ImCross onClick={()=>{
-                                 setPreviewImages((prev)=>{
-                                   const updatedPreviewImages  = {...prev};
-                                   delete updatedPreviewImages?.LastOrganization;
-                                   return updatedPreviewImages
-                                 });
+                                  previewImages?.RelievingLetter &&
+                                  <div className="previewiamges">
+                                    <nav> <ImCross onClick={() => {
+                                      setPreviewImages((prev) => {
+                                        const updatedPreviewImages = { ...prev };
+                                        delete updatedPreviewImages?.RelievingLetter;
+                                        return updatedPreviewImages
+                                      });
 
-                                 setDocuments((prev)=>({
-                                   ...prev , 
-                                   LastOrganization:""
-                                 }))
+                                      setDocuments((prev) => ({
+                                        ...prev,
+                                        RelievingLetter: ""
+                                      }))
 
 
-                                }} className="cursor-pointer" /> </nav>
-                             <img src={previewImages?.LastOrganization} alt="" />
-                             </div>
-                              }
-                              </div>
-                            )}
-                          </div>
-
-                          {currEmp === 0 && (
-                            <>
-                              <h1 className="lstOrgText">
-                                Last Organization Docs
-                              </h1>
-
-                              <div className="wrap1">
-                                {/* first   */}
-
-                                <div className="thiddrapgsingl">
-                                  <h4>Relieving Letter</h4>
-
-       
-                                  <div className="drag-area try">
-                                    <img src={uploadFile} alt="" />
-
-                                    <p>Click to upload</p>
-
-                                    <input
-                                      className="filesjila "
-                                      type="file"
-                                      name="RelievingLetter"
-                                      onChange={(e)=>handleFileChange(e ,"RelievingLetter" )}
-                                    />
+                                    }} className="cursor-pointer" /> </nav>
+                                    <img src={previewImages?.RelievingLetter} alt="" />
                                   </div>
-                                  {
-                                previewImages?.RelievingLetter && 
-                                <div className="previewiamges">
-                                <nav> <ImCross onClick={()=>{
-                                 setPreviewImages((prev)=>{
-                                   const updatedPreviewImages  = {...prev};
-                                   delete updatedPreviewImages?.RelievingLetter;
-                                   return updatedPreviewImages
-                                 });
-
-                                 setDocuments((prev)=>({
-                                   ...prev , 
-                                   RelievingLetter:""
-                                 }))
-
-
-                                }} className="cursor-pointer" /> </nav>
-                             <img src={previewImages?.RelievingLetter} alt="" />
-                             </div>
-                              }
-                                </div>
-
-                                {/* second  */}
-
-                                <div className="thiddrapgsingl">
-                                  <h4>Offer letter</h4>
-
-        
-                                  <div className="drag-area try">
-                                    <img src={uploadFile} alt="" />
-
-                                    <p>Click to upload</p>
-
-                                    <input
-                                      name="OfferLetter"
-                                      className="filesjila"
-                                      type="file"
-                                      onChange={(e)=>handleFileChange(e ,"OfferLetter" )}
-                                    />
-                                  </div>
-                                  {
-                                previewImages?.OfferLetter && 
-                                <div className="previewiamges">
-                                <nav> <ImCross onClick={()=>{
-                                 setPreviewImages((prev)=>{
-                                   const updatedPreviewImages  = {...prev};
-                                   delete updatedPreviewImages?.OfferLetter;
-                                   return updatedPreviewImages
-                                 });
-
-                                 setDocuments((prev)=>({
-                                   ...prev , 
-                                   OfferLetter:""
-                                 }))
-
-
-                                }} className="cursor-pointer" /> </nav>
-                             <img src={previewImages?.OfferLetter} alt="" />
-                             </div>
-                              }
-                                </div>
+                                }
                               </div>
 
-                              <div className="wrap1">
-                                {/* first   */}
+                              {/* second  */}
 
-                                <div className="thiddrapgsingl">
-                                  <h4>Experience letter</h4>
-
-                                  <div className="drag-area try">
-                                    <img src={uploadFile} alt="" />
-
-                                    <p>Click to upload</p>
-
-                                    <input
-                                      className="filesjila"
-                                      type="file"
-                                      name="ExperienceLetter"
-                                      onChange={(e)=>handleFileChange(e , "ExperienceLetter")}
-                                    />
-                                  </div>
-                                  {
-                                previewImages?.ExperienceLetter && 
-                                <div className="previewiamges">
-                                <nav> <ImCross onClick={()=>{
-                                 setPreviewImages((prev)=>{
-                                   const updatedPreviewImages  = {...prev};
-                                   delete updatedPreviewImages?.ExperienceLetter;
-                                   return updatedPreviewImages
-                                 });
-
-                                 setDocuments((prev)=>({
-                                   ...prev , 
-                                   ExperienceLetter:""
-                                 }))
+                              <div className="thiddrapgsingl">
+                                <h4>Offer letter</h4>
 
 
-                                }} className="cursor-pointer" /> </nav>
-                             <img src={previewImages?.ExperienceLetter} alt="" />
-                             </div>
-                              }
+                                <div className="drag-area try">
+                                  <img src={uploadFile} alt="" />
+
+                                  <p>Click to upload</p>
+
+                                  <input
+                                    name="OfferLetter"
+                                    className="filesjila"
+                                    type="file"
+                                    onChange={(e) => handleFileChange(e, "OfferLetter")}
+                                  />
                                 </div>
+                                {
+                                  previewImages?.OfferLetter &&
+                                  <div className="previewiamges">
+                                    <nav> <ImCross onClick={() => {
+                                      setPreviewImages((prev) => {
+                                        const updatedPreviewImages = { ...prev };
+                                        delete updatedPreviewImages?.OfferLetter;
+                                        return updatedPreviewImages
+                                      });
 
-                                {/* second  */}
+                                      setDocuments((prev) => ({
+                                        ...prev,
+                                        OfferLetter: ""
+                                      }))
 
-                                {/* <div className="thiddrapgsingl">
+
+                                    }} className="cursor-pointer" /> </nav>
+                                    <img src={previewImages?.OfferLetter} alt="" />
+                                  </div>
+                                }
+                              </div>
+                            </div>
+
+                            <div className="wrap1">
+                              {/* first   */}
+
+                              <div className="thiddrapgsingl">
+                                <h4>Experience letter</h4>
+
+                                <div className="drag-area try">
+                                  <img src={uploadFile} alt="" />
+
+                                  <p>Click to upload</p>
+
+                                  <input
+                                    className="filesjila"
+                                    type="file"
+                                    name="ExperienceLetter"
+                                    onChange={(e) => handleFileChange(e, "ExperienceLetter")}
+                                  />
+                                </div>
+                                {
+                                  previewImages?.ExperienceLetter &&
+                                  <div className="previewiamges">
+                                    <nav> <ImCross onClick={() => {
+                                      setPreviewImages((prev) => {
+                                        const updatedPreviewImages = { ...prev };
+                                        delete updatedPreviewImages?.ExperienceLetter;
+                                        return updatedPreviewImages
+                                      });
+
+                                      setDocuments((prev) => ({
+                                        ...prev,
+                                        ExperienceLetter: ""
+                                      }))
+
+
+                                    }} className="cursor-pointer" /> </nav>
+                                    <img src={previewImages?.ExperienceLetter} alt="" />
+                                  </div>
+                                }
+                              </div>
+
+                              {/* second  */}
+
+                              {/* <div className="thiddrapgsingl">
                                   <h4>Offer letter</h4>
 
                                   <div className="drag-area try">
@@ -1620,10 +1675,10 @@ const EmployeeManage = ({
                                     />
                                   </div>
                                 </div> */}
-                              </div>
-                            </>
-                          )}
-                        
+                            </div>
+                          </>
+                        )}
+
                       </div>
 
                     </div>

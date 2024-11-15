@@ -436,7 +436,7 @@ const AdminSidebar = ({ pop, setPop }) => {
 <NavLink to="/adminDash/HRM/markAttendance"><div className={`${window.location.pathname === "/adminDash/HRM/markAttendance"  ? "hh" : ""} setWrap`}>
         <div className="systSset">
           <img src={`${window.location.pathname === "/adminDash/HRM/markAttendance"   ? cel1 : cel}`} alt="" />
-          <span className={`${window.location.pathname==="/adminDash/HRM/markAttendance" ? "fan" : ""}`}>Hr Management</span>
+          <span className={`${window.location.pathname==="/adminDash/HRM/markAttendance" ? "fan" : ""}`}>Attendance Management</span>
         </div>
       </div></NavLink>
         {/* =====================attendence management end============ */}

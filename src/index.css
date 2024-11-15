@@ -1548,8 +1548,15 @@ td {
   justify-content: center;
   align-items: center;
   gap: 20px;
+  padding: 20px;
 }
-
+.assettable th{
+  white-space: nowrap !important;
+  font-size: 11px !important;
+}
+input[type="search"]::-webkit-search-cancel-button {
+  display: none !important;
+}
 .prebBtN {
   border: 1px solid black;
   padding: 5px 20px;
@@ -2553,7 +2560,7 @@ abbr:where([title]) {
   border-radius: 10px;
   border: 1px solid #D0D4DC;
   background: #F8F9FB;
-
+  outline: none;
 }
 
 .form-section input placeholder {
@@ -3501,7 +3508,9 @@ abbr:where([title]) {
   border: 1px solid #000000;
   opacity: 10%;
 }
-
+.onHoldbg{
+  color: white !important;
+}
 .onboarding {
   background-color: #FFFFFF;
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;

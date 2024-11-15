@@ -492,7 +492,7 @@ const MyLead = ({ setAlert, pop, setPop }) => {
                   id="fentar"
                   className="select-wrapper"
                 >
-                  
+
                   <option value="Select" disabled selected>
                     Select
                   </option>
