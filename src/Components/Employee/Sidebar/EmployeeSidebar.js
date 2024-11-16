@@ -123,7 +123,7 @@ const EmployeeSidebar = () => {
   let hrms_permission = JSON.parse(localStorage.getItem("hrms_permission"));
 
 
-  const { leadPermission, hrmsSetUpPermission, payrollPermission, leadSystemPermission, attendencePermission, assetsPermission, documentPermission, leaveManagePermission, performancePermission, employeeManagePermission, hrAdminSetupPermission, trainingSetupPermission, permissionPagePermission } = hrms_permission;
+  const { leadPermission, hrmsSetUpPermission, payrollPermission,hrManagementPermission, leadSystemPermission, attendencePermission, assetsPermission, documentPermission, leaveManagePermission, performancePermission, employeeManagePermission, hrAdminSetupPermission, trainingSetupPermission, permissionPagePermission } = hrms_permission;
 
   const [openPayroll, setOpenPayroll] = useState(false);
 
@@ -254,7 +254,7 @@ const EmployeeSidebar = () => {
 
 
 
-            {
+            {/* {
               trainingSetupPermission &&
               <>
 
@@ -300,20 +300,22 @@ const EmployeeSidebar = () => {
                   </div>
                 )}
               </>
-            }
+            } */}
 
 
             <>
               {/* ===============Hr  Management start============ */}
-
-              <div onClick={() => setOpenHr2((prev) => !prev)} className="side-dash-box sidemargin" >
-                <div className="dash-wrap">
-                  <img src={reading} alt="dasg" />
-                  <p>Hr Management</p>
-                </div>
-
-                <img src={vect} alt="vect" />
+            {
+              openHr2 &&   <div onClick={() => setOpenHr2((prev) => !prev)} className="side-dash-box sidemargin" >
+              <div className="dash-wrap">
+                <img src={reading} alt="dasg" />
+                <p>Hr Management</p>
               </div>
+
+              <img src={vect} alt="vect" />
+            </div>
+            }
+             
 
               {openHr2 && (
                 <div className="alladminDash-item">

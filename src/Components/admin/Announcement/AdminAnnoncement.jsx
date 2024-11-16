@@ -56,6 +56,8 @@ const AdminProfile = ({ pop, setPop, setAlert }) => {
   };
 
   const [allAnnoucement, setAllAnouce] = useState([]);
+  const [announcementList,setAnnouncementList] = useState([]);
+  const [AnnoucSearch,setAnnounceSearch] = useState([]);
 
   const getAnnoucement = async () => {
     const ans = await fetchAnnoucement();

@@ -394,6 +394,7 @@ background: #F8F9FB !important;
     align-items: center;
     gap: 16px;
     justify-content: flex-start;
+    padding: 20px 0px;
 }
 
 .selectBRANCH {

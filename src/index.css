@@ -1014,7 +1014,9 @@ td {
   border-color: #0b60ff;
   transition-delay: 0.1s;
 }
-
+input{
+   outline: none !important;
+}
 .custom-field.one input.dirty+.placeholder,
 .custom-field.one input:not(:placeholder-shown)+.placeholder,
 .custom-field.one input:focus+.placeholder {
@@ -3517,7 +3519,29 @@ abbr:where([title]) {
   font-size: 33px;
   line-height: 40px;
 }
-
+.pono0,.pono2,.pono10{
+  background-color: white !important;
+  height: auto !important;
+  max-width: 500px !important;
+  padding: 20px !important;
+  width: 100% !important;
+}
+.popup1 label{
+  margin-top: 20px !important;
+}
+.popNav{
+  padding: 10px 0px;
+}
+.expensepop{
+  width: 100% !important;
+  padding: 20px !important;
+}
+.allPopupWrap{
+  z-index: 1000 !important;
+}
+.input{
+  outline: none !important;
+}
 .status-months2 select {
   position: relative;
   z-index: 2;
@@ -3529,7 +3553,9 @@ abbr:where([title]) {
   color: #000000 !important;
   opacity: 60%;
 }
-
+.anMaRi input{
+  outline: none !important;
+}
 .hr-months {
   border: 1px solid #000000;
   opacity: 10%;
