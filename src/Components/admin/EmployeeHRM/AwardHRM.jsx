@@ -247,13 +247,13 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
                           EMPLOYEE
                         </th>
                         <th scope="col" className="px-6 py-3 taskTitl ">
-                          AWARD TYPE
+                          REASON
                         </th>
                         <th scope="col" className="px-6 py-3 taskTitl ">
                           DATE
                         </th>
                         <th scope="col" className="px-6 py-3 taskTitl ">
-                          GIFT
+                          GIFT TYPE
                         </th>
                         <th scope="col" className="px-6 py-3 taskTitl ">
                           RATING

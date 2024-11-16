@@ -93,12 +93,12 @@ const AdminProfile = ({ pop, setPop, setAlert }) => {
       }
 
       getAnnoucement();
-
       setOpenForm(false);
-      toast.dismiss(toastId);
     } catch (error) {
       console.log(error);
     }
+    toast.dismiss(toastId);
+
   };
 
   const getData1 = async () => {
@@ -182,7 +182,6 @@ const AdminProfile = ({ pop, setPop, setAlert }) => {
   const endIndex = Math.min(startIndex + itemsPerPage, allAnnoucement?.length);
 
   const currentItems = allAnnoucement?.slice(startIndex, endIndex);
-
 
   const handlePageChange = (newPage) => {
     if (newPage >= 1 && newPage <= totalPages) {

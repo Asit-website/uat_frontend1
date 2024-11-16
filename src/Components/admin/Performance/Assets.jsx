@@ -72,6 +72,7 @@ const Assets = ({ pop, setPop, setAlert }) => {
 
 
   const submitHandler = async (e) => {
+    const toastId = toast.loading("Loading...");
     try {
       if (onEdit) {
         await updateAssets({ ...formdata });
@@ -87,6 +88,7 @@ const Assets = ({ pop, setPop, setAlert }) => {
     } catch (error) {
       console.log(error);
     }
+    toast.dismiss(toastId);
   }
 
   useEffect(() => {
@@ -348,6 +350,7 @@ const Assets = ({ pop, setPop, setAlert }) => {
         {
           openForm &&
           <div className='annFormwrap'>
+            
 
             <form onSubmit={() => {
               submitHandler();
@@ -465,6 +468,8 @@ const Assets = ({ pop, setPop, setAlert }) => {
                     description:""
                   })
                 }} className='cancelBtn'>Cancel</button>
+
+                 {/* <button className='creteBtn22'>Send Mail</button> */}
               </div>
 
 

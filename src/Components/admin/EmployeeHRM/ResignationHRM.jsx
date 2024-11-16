@@ -185,7 +185,7 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
                         LAST WORKING DAY
                         </th>
                         <th scope="col" className="px-6 py-3 taskTitl ">
-                        REASON
+                         DESCRIPTION
                         </th>
                         <th scope="col" className="px-6 py-3 taskTitl ">
                         ACTION
