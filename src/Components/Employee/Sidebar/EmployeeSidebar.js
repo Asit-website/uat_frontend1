@@ -306,7 +306,7 @@ const EmployeeSidebar = () => {
             <>
               {/* ===============Hr  Management start============ */}
             {
-              openHr2 &&   <div onClick={() => setOpenHr2((prev) => !prev)} className="side-dash-box sidemargin" >
+              (employeeManagePermission || hrmsSetUpPermission || payrollPermission  || performancePermission || attendencePermission || documentPermission || leaveManagePermission) &&  <div onClick={() => setOpenHr2((prev) => !prev)} className="side-dash-box sidemargin" >
               <div className="dash-wrap">
                 <img src={reading} alt="dasg" />
                 <p>Hr Management</p>
