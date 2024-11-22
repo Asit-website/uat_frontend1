@@ -24,6 +24,8 @@ import shopping from "../../images/ShoppingBagOpen-d.png"
 import userP from "../../images/userProfile.png"
 import "./sidebar.css"
 import dock from '../../images/dock.png';
+import analytics from '../../images/analytics.svg';
+import readliness from '../../images/readlines.svg';
 
 const leadItem = [
   {
@@ -180,6 +182,8 @@ const AdminSidebar = ({ pop, setPop }) => {
 
   const [openHr,setOpenHr] = useState(false);
 
+  const [openLead,setOpenLead] = useState(false);
+
   const stylepoo = {
      display:start ? "block" : "none"
   }
@@ -212,7 +216,7 @@ const AdminSidebar = ({ pop, setPop }) => {
         {/* dashboard  */}
       <NavLink to="/adminDash/HRM"><div
           onClick={() => setOpenDashItem((prev) => !prev)}
-          className={`${window.location.pathname === "/adminDash/HRM" ? "hh" : ""} side-dash-box`}
+          className={`${window.location.pathname === "/adminDash/HRM" ? "hh" : ""} side-dash-box silom`}
         >
           <div className="dash-wrap">
             <img src={`${window.location.pathname==="/adminDash/HRM" ? saka : gridDas}`} alt="gridDas" />
@@ -235,13 +239,51 @@ const AdminSidebar = ({ pop, setPop }) => {
 
 {/* lead management start  */}
 
-    <NavLink to="/adminDash/leadDash"><div className={`${window.location.pathname === "/adminDash/leadDash" || window.location.pathname === "/adminDash/myLead" || window.location.pathname === "/adminDash/editLead" || window.location.pathname === "/adminDash/createLead" || window.location.pathname === "/adminDash/importLead/:id" || window.location.pathname === "/adminDash/createQuotation" || window.location.pathname === "/adminDash/editQuotation" ? "hh" : ""} setWrap`}>
-        {/* <p>Setting</p> */}
+    {/* <NavLink to="/adminDash/leadDash"><div className={`${window.location.pathname === "/adminDash/leadDash" || window.location.pathname === "/adminDash/myLead" || window.location.pathname === "/adminDash/editLead" || window.location.pathname === "/adminDash/createLead" || window.location.pathname === "/adminDash/importLead/:id" || window.location.pathname === "/adminDash/createQuotation" || window.location.pathname === "/adminDash/editQuotation" ? "hh" : ""} setWrap`}>
+      
         <div className="systSset">
           <img src={`${window.location.pathname === "/adminDash/leadDash" || window.location.pathname === "/adminDash/myLead" || window.location.pathname === "/adminDash/editLead" || window.location.pathname === "/adminDash/createLead" || window.location.pathname === "/adminDash/importLead/:id" || window.location.pathname === "/adminDash/createQuotation" || window.location.pathname === "/adminDash/editQuotation" ? leaderboard1 : leaderboard}`} alt="" />
           <span className={`${window.location.pathname==="/adminDash/leadDash" || window.location.pathname === "/adminDash/myLead" || window.location.pathname === "/adminDash/editLead" || window.location.pathname === "/adminDash/createLead" || window.location.pathname === "/adminDash/importLead/:id" || window.location.pathname === "/adminDash/createQuotation" || window.location.pathname === "/adminDash/editQuotation" ? "fan" : ""}`}>Lead Management</span>
         </div>
+      </div></NavLink> */}
+
+        <div
+          onClick={() => setOpenLead((prev) => !prev)}
+          className="side-dash-box silom"
+        >
+          <div className="dash-wrap">
+          <img src={`${window.location.pathname === "/adminDash/leadDash" || window.location.pathname === "/adminDash/myLead" || window.location.pathname === "/adminDash/editLead" || window.location.pathname === "/adminDash/createLead" || window.location.pathname === "/adminDash/importLead/:id" || window.location.pathname === "/adminDash/createQuotation" || window.location.pathname === "/adminDash/editQuotation" || window.location.pathname === "/adminDash/LeadSystemSetting" ? leaderboard1 : leaderboard}`} alt="" />
+            <p className={`${window.location.pathname === "/adminDash/leadDash" || window.location.pathname === "/adminDash/myLead" || window.location.pathname === "/adminDash/editLead" || window.location.pathname === "/adminDash/createLead" || window.location.pathname === "/adminDash/importLead/:id" || window.location.pathname === "/adminDash/createQuotation" || window.location.pathname === "/adminDash/editQuotation" || window.location.pathname === "/adminDash/LeadSystemSetting" ? "semo" : "none"}`}>Lead Management</p>
+          </div>
+
+          <img src={vect} alt="" />
+        </div>
+
+        {openLead && (
+          <div className="alladminDash-item">
+                 <NavLink to="/adminDash/leadDash"><div className={`${window.location.pathname === "/adminDash/leadDash" || window.location.pathname === "/adminDash/myLead" || window.location.pathname === "/adminDash/editLead" || window.location.pathname === "/adminDash/createLead" || window.location.pathname === "/adminDash/importLead/:id" || window.location.pathname === "/adminDash/createQuotation" || window.location.pathname === "/adminDash/editQuotation" ? "hh" : ""} setWrap`}>
+      
+        <div className="systSset">
+          <img src={`${window.location.pathname === "/adminDash/leadDash" || window.location.pathname === "/adminDash/myLead" || window.location.pathname === "/adminDash/editLead" || window.location.pathname === "/adminDash/createLead" || window.location.pathname === "/adminDash/importLead/:id" || window.location.pathname === "/adminDash/createQuotation" || window.location.pathname === "/adminDash/editQuotation" ? leaderboard1 : leaderboard}`} alt="" />
+          <span className={`${window.location.pathname==="/adminDash/leadDash" || window.location.pathname === "/adminDash/myLead" || window.location.pathname === "/adminDash/editLead" || window.location.pathname === "/adminDash/createLead" || window.location.pathname === "/adminDash/importLead/:id" || window.location.pathname === "/adminDash/createQuotation" || window.location.pathname === "/adminDash/editQuotation" ? "fan" : ""}`}>Lead</span>
+        </div>
       </div></NavLink>
+
+      <NavLink to="/adminDash/LeadSystemSetting"><div className={`${window.location.pathname === "/adminDash/LeadSystemSetting"  ? "hh" : ""} setWrap`}>
+       
+       <div className="systSset">
+         <img src={`${window.location.pathname === "/adminDash/LeadSystemSetting"   ? perty : employee}`} alt="" />
+         <span className={`${window.location.pathname==="/adminDash/LeadSystemSetting" ? "fan" : ""}`}>Lead System Setting</span>
+       </div>
+     </div></NavLink>
+          </div>
+        )}
+
+
+      
+
+
+      
     {/* =========================lead management end================== */}
 
   
@@ -249,11 +291,11 @@ const AdminSidebar = ({ pop, setPop }) => {
 
     <div
           onClick={() => setOpenPayroll2((prev) => !prev)}
-          className="side-dash-box"
+          className="side-dash-box silom"
         >
           <div className="dash-wrap">
-            <img src={anal} alt="dasg" />
-            <p>Task Management</p>
+            <img src={`${window.location.pathname==="/adminDash/HRM/taskClients" || window.location.pathname==="/adminDash/HRM/taskProjects" ? analytics : anal}`} alt="dasg" />
+            <p className={`${window.location.pathname==="/adminDash/HRM/taskClients" || window.location.pathname==="/adminDash/HRM/taskProjects" ? "semo" : "none"}`}>Task Management</p>
           </div>
 
           <img src={vect} alt="" />
@@ -293,13 +335,13 @@ const AdminSidebar = ({ pop, setPop }) => {
 
         {/*   lead system setting start */}
 
-        <NavLink to="/adminDash/LeadSystemSetting"><div className={`${window.location.pathname === "/adminDash/LeadSystemSetting"  ? "hh" : ""} setWrap`}>
-        {/* <p>Setting</p> */}
+        {/* <NavLink to="/adminDash/LeadSystemSetting"><div className={`${window.location.pathname === "/adminDash/LeadSystemSetting"  ? "hh" : ""} setWrap`}>
+       
         <div className="systSset">
           <img src={`${window.location.pathname === "/adminDash/LeadSystemSetting"   ? perty : employee}`} alt="" />
           <span className={`${window.location.pathname==="/adminDash/LeadSystemSetting" ? "fan" : ""}`}>Lead System Setting</span>
         </div>
-      </div></NavLink>
+      </div></NavLink> */}
 
         {/*   lead system setting end */}
 
@@ -307,11 +349,11 @@ const AdminSidebar = ({ pop, setPop }) => {
        {/* ===================Hr manamgement start========= */}
        <div
           onClick={() => setOpenPerform2((prev) => !prev)}
-          className="side-dash-box"
+          className="side-dash-box silom"
         >
           <div className="dash-wrap">
-            <img src={reading} alt="dasg" />
-            <p>Hr Management</p>
+            <img src={`${window.location.pathname === "/adminDash/HRM/employeeManagement" || window.location.pathname === "/adminDash/HRM/markAttendance" || window.location.pathname === "/adminDash/HRM/LeaveEmployee" || window.location.pathname === "/adminDash/HRM/leaveRequest" || window.location.pathname === "/adminDash/setSallary" || window.location.pathname === "/adminDash/payslip" || window.location.pathname === "/adminDash/documentManagement" || window.location.pathname === "/performance/indicator" || window.location.pathname === "/performance/appraisal" || window.location.pathname === "/performance/goalTracking" || window.location.pathname === "/adminDash/HRM/HRMsystemSetup" ? readliness : reading}`} alt="dasg" />
+            <p className={`${window.location.pathname === "/adminDash/HRM/employeeManagement" || window.location.pathname === "/adminDash/HRM/markAttendance" || window.location.pathname === "/adminDash/HRM/LeaveEmployee" || window.location.pathname === "/adminDash/HRM/leaveRequest" || window.location.pathname === "/adminDash/setSallary" || window.location.pathname === "/adminDash/payslip" || window.location.pathname === "/adminDash/documentManagement" || window.location.pathname === "/performance/indicator" || window.location.pathname === "/performance/appraisal" || window.location.pathname === "/performance/goalTracking" || window.location.pathname === "/adminDash/HRM/HRMsystemSetup" ? "semo" : "none"}`}>Hr Management</p>
           </div>
 
           <img src={vect} alt="vect" />
@@ -331,21 +373,64 @@ const AdminSidebar = ({ pop, setPop }) => {
 
     {/* ================employee management end======================== */}
 
-     {/* ===============hrm system setup start================ */}
-     <NavLink to="/adminDash/HRM/HRMsystemSetup"><div className={`${window.location.pathname === "/adminDash/HRM/HRMsystemSetup"  ? "hh" : ""} setWrap`}>
-        {/* <p>Setting</p> */}
+    {/* ================attendence management start=========== */}
+<NavLink to="/adminDash/HRM/markAttendance"><div className={`${window.location.pathname === "/adminDash/HRM/markAttendance"  ? "hh" : ""} setWrap`}>
         <div className="systSset">
-          <img src={`${window.location.pathname === "/adminDash/HRM/HRMsystemSetup"   ? perty : employee}`} alt="" />
-          <span className={`${window.location.pathname==="/adminDash/HRM/HRMsystemSetup" ? "fan" : ""}`}>Hrm System Setup</span>
+          <img src={`${window.location.pathname === "/adminDash/HRM/markAttendance"   ? cel1 : cel}`} alt="" />
+          <span className={`${window.location.pathname==="/adminDash/HRM/markAttendance" ? "fan" : ""}`}>Attendance Management</span>
         </div>
       </div></NavLink>
-    {/* =====================hrm system setup end============= */}
+        {/* =====================attendence management end============ */}
 
-      {/* =================payroll management start============ */}
+         {/* ==================leave Management start============= */}
+         <div
+          onClick={() => setOpenLeaveMan((prev) => !prev)}
+          className="side-dash-box silom"
+        >
+          <div className="dash-wrap">
+            <img src={reading} alt="dasg" />
+            <p>Leave Management Setup</p>
+          </div>
+
+          <img src={vect} alt="vect" />
+        </div>
+
+        {openLeaveMan && (
+          <div className="alladminDash-item">
+            {LeaveManItem?.map((item, index) => (
+              <div
+                onClick={() => {
+                  setLeveItem(index);
+                  navigate(item?.link);
+                  setOpenLeaveMan(true);
+                }
+
+                }
+                className="sinADDasItem"
+                key={index}
+              >
+                {leveItem == index ? (
+                  <img src={`${window.location.pathname === `${item?.link}` ? fiber : tyming}`} alt="" />
+                ) : (
+                  <img src={`${window.location.pathname === `${item?.link}` ? fiber : tyming}`} alt="" />
+                )}
+                <p
+                  className={` ${leveItem === index ? "dashItemp" : "dITitl"
+                    } ${window.location.pathname === `${item?.link}` ? "fan" : ""}`}
+                >
+                  {item?.title}
+                </p>
+              </div>
+            ))}
+          </div>
+        )}
+        {/* =================leave management end==================== */}
+
+         {/* =================payroll management start============ */}
 
       <div
           onClick={() => setOpenPayroll((prev) => !prev)}
-          className="side-dash-box"
+          className="side-dash-box silom"
         >
           <div className="dash-wrap">
             <img src={anal} alt="dasg" />
@@ -387,10 +472,21 @@ const AdminSidebar = ({ pop, setPop }) => {
 
         {/* =================payroll management end============ */}
 
-            {/* ===================performance setup start========= */}
-            <div
+          {/* ==================document  start================ */}
+          <NavLink to="/adminDash/documentManagement"><div className={`${window.location.pathname === "/adminDash/documentManagement"  ? "hh" : ""} setWrap`}>
+        {/* <p>Setting</p> */}
+        <div className="systSset">
+          {/* <img src={window.location.pathname==="/adminDash/documentManagement" ? "fan" : ""} alt="" /> */}
+          <img width="20" src={dock} alt=""/>
+          <span className={`${window.location.pathname==="/adminDash/documentManagement" ? "fan" : ""}`}>Document Management</span>
+        </div>
+      </div></NavLink>
+        {/* ====================document end==================== */}
+
+           {/* ===================performance setup start========= */}
+           <div
           onClick={() => setOpenPerform((prev) => !prev)}
-          className="side-dash-box"
+          className="side-dash-box silom"
         >
           <div className="dash-wrap">
             <img src={reading} alt="dasg" />
@@ -431,71 +527,16 @@ const AdminSidebar = ({ pop, setPop }) => {
         )}
         {/* ====================performance setup end============ */}
 
-{/* ================attendence management start=========== */}
-<NavLink to="/adminDash/HRM/markAttendance"><div className={`${window.location.pathname === "/adminDash/HRM/markAttendance"  ? "hh" : ""} setWrap`}>
-        <div className="systSset">
-          <img src={`${window.location.pathname === "/adminDash/HRM/markAttendance"   ? cel1 : cel}`} alt="" />
-          <span className={`${window.location.pathname==="/adminDash/HRM/markAttendance" ? "fan" : ""}`}>Attendance Management</span>
-        </div>
-      </div></NavLink>
-        {/* =====================attendence management end============ */}
-
-           {/* ==================document  start================ */}
-           <NavLink to="/adminDash/documentManagement"><div className={`${window.location.pathname === "/adminDash/documentManagement"  ? "hh" : ""} setWrap`}>
+     {/* ===============hrm system setup start================ */}
+     <NavLink to="/adminDash/HRM/HRMsystemSetup"><div className={`${window.location.pathname === "/adminDash/HRM/HRMsystemSetup"  ? "hh" : ""} setWrap`}>
         {/* <p>Setting</p> */}
         <div className="systSset">
-          {/* <img src={window.location.pathname==="/adminDash/documentManagement" ? "fan" : ""} alt="" /> */}
-          <img width="20" src={dock} alt=""/>
-          <span className={`${window.location.pathname==="/adminDash/documentManagement" ? "fan" : ""}`}>Document Management</span>
+          <img src={`${window.location.pathname === "/adminDash/HRM/HRMsystemSetup"   ? perty : employee}`} alt="" />
+          <span className={`${window.location.pathname==="/adminDash/HRM/HRMsystemSetup" ? "fan" : ""}`}>Hrm System Setup</span>
         </div>
       </div></NavLink>
-        {/* ====================document end==================== */}
+    {/* =====================hrm system setup end============= */}
 
-         {/* ==================leave Management start============= */}
-         <div
-          onClick={() => setOpenLeaveMan((prev) => !prev)}
-          className="side-dash-box"
-        >
-          <div className="dash-wrap">
-            <img src={reading} alt="dasg" />
-            <p>Leave Management Setup</p>
-          </div>
-
-          <img src={vect} alt="vect" />
-        </div>
-
-        {openLeaveMan && (
-          <div className="alladminDash-item">
-            {LeaveManItem?.map((item, index) => (
-              <div
-                onClick={() => {
-                  setLeveItem(index);
-                  navigate(item?.link);
-                  setOpenLeaveMan(true);
-                }
-
-                }
-                className="sinADDasItem"
-                key={index}
-              >
-                {leveItem == index ? (
-                  <img src={`${window.location.pathname === `${item?.link}` ? fiber : tyming}`} alt="" />
-                ) : (
-                  <img src={`${window.location.pathname === `${item?.link}` ? fiber : tyming}`} alt="" />
-                )}
-                <p
-                  className={` ${leveItem === index ? "dashItemp" : "dITitl"
-                    } ${window.location.pathname === `${item?.link}` ? "fan" : ""}`}
-                >
-                  {item?.title}
-                </p>
-              </div>
-            ))}
-          </div>
-        )}
-        {/* =================leave management end==================== */}
-
-           
           </div>
         )}
         {/* ====================Hr management end============ */}
@@ -568,7 +609,7 @@ const AdminSidebar = ({ pop, setPop }) => {
 
         <div
           onClick={() => setOpenHr((prev) => !prev)}
-          className="side-dash-box"
+          className="side-dash-box silom"
         >
           <div className="dash-wrap">
             <img src={reading} alt="dasg" />
@@ -612,7 +653,6 @@ const AdminSidebar = ({ pop, setPop }) => {
 
       {/* <---------------System setting------------------> */}
       <div className="setWrap">
-        {/* <p>Setting</p> */}
         <div className="systSset">
           <img src={adminSetting} alt="" />
           <span>System Settings</span>
@@ -694,7 +734,7 @@ const AdminSidebar = ({ pop, setPop }) => {
       
                       <div
                         onClick={() => setOpenPayroll((prev) => !prev)}
-                        className="side-dash-box"
+                        className="side-dash-box silom"
                       >
                         <div className="dash-wrap">
                           <img src={anal} alt="dasg" />
@@ -799,7 +839,7 @@ const AdminSidebar = ({ pop, setPop }) => {
                     <>
                       <div
                         onClick={() => setOpenLeaveMan((prev) => !prev)}
-                        className="side-dash-box"
+                        className="side-dash-box silom"
                       >
                         <div className="dash-wrap">
                           <img src={reading} alt="dasg" />
@@ -847,7 +887,7 @@ const AdminSidebar = ({ pop, setPop }) => {
                     <>
                       <div
                         onClick={() => setOpenPerform((prev) => !prev)}
-                        className="side-dash-box"
+                        className="side-dash-box silom"
                       >
                         <div className="dash-wrap">
                           <img src={reading} alt="dasg" />
@@ -909,7 +949,7 @@ const AdminSidebar = ({ pop, setPop }) => {
 
                      <div
                 onClick={() => setOpenTraining((prev) => !prev)}
-                className="side-dash-box"
+                className="side-dash-box silom"
               >
                 <div className="dash-wrap">
                   <img src={reading} alt="dasg" />
@@ -958,7 +998,7 @@ const AdminSidebar = ({ pop, setPop }) => {
 
 <div
                 onClick={() => setOpenHr((prev) => !prev)}
-                className="side-dash-box"
+                className="side-dash-box silom"
               >
                 <div className="dash-wrap">
                   <img src={reading} alt="dasg" />

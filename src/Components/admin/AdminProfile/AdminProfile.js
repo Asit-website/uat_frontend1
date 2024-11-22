@@ -244,6 +244,21 @@ const AdminProfile = ({ pop, setPop, setAlert }) => {
                 </div>
 
                 <div className="mb-6">
+                  <label htmlFor="email1" className="block mb-1">
+                     Password
+                  </label>
+                  <input
+                    className="block w-full"
+                    name="password"
+                    value={value.password}
+                    onChange={handleChange}
+                    id="password"
+                    type="text"
+                  // required
+                  />
+                </div>
+
+                <div className="mb-6">
                   <label htmlFor="gmail" className="block mb-1">
                     Company Gmail
                   </label>

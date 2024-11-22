@@ -195,7 +195,8 @@ const AdminEmplyee = ({
 
               {/* second */}
               <main className="laveEmplyWrap">
-                {data1?.map((employ, index) => (
+              
+                {data1?.length > 0 ? data1?.map((employ, index) => (
                   <div key={index} className="singl_EmplyL">
                     <div className="singEmp_profileL">
                       <img src={employ?.user?.profileImage ? employ?.user?.profileImage : data[0].profile} alt="" />
@@ -221,7 +222,7 @@ const AdminEmplyee = ({
                     </div>
 
                   </div>
-                ))}
+                )) : <p className="no_data">No Data Found</p>}
               </main>
             </div>
           </div>

@@ -958,7 +958,7 @@ const EmployeeHRM = ({
                       </NavLink>
 
                       {/* third  */}
-                      <NavLink to="/adminDash/announcement">
+                     
                         <div className="hrLefThi">
                           <h2 className="headind">
                             {" "}
@@ -1025,7 +1025,7 @@ const EmployeeHRM = ({
                             </table>
                           </div>
                         </div>
-                      </NavLink>
+                    
                     </div>
 
                     {/* right side */}

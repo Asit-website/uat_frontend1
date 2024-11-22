@@ -245,7 +245,7 @@ const QuotationForm = ({ setAlert, pop, setPop }) => {
               <div className="qutaLeft">
 
                 <div className="qutLTo">
-                  <h2>Quotation Form</h2>
+                  {/* <h2>Quotation Form</h2> */}
 
                   <div className="qutolobutons">
                      <button onClick={()=>setPreview(true)}>Preview</button>
