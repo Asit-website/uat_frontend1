@@ -743,6 +743,25 @@ body {
   --field-padding: 12px;
 }
 
+.showpassicon{
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  cursor: pointer;
+}
+
+.systSset img{
+  max-width: 16px;
+  max-height: 16px;
+  width: 16px;
+  height: 16px;
+}
+.dash-wrap img{
+  max-width: 16px;
+  max-height: 16px;
+  width: 16px;
+  height: 16px;
+}
 .custom-field input {
   border: none;
   -webkit-appearance: none;
@@ -917,6 +936,10 @@ td {
   gap: 4px;
 }
 
+.adpading{
+  padding: 0px 20px;
+}
+
 .allDasCon .setWrap p {
   font-family: Manrope;
   font-size: 12px;
@@ -955,6 +978,8 @@ td {
   /* color: #7E8299;   */
 }
 
+
+
 .systSset span {
   font-family: Inter;
   font-size: 14px;
@@ -964,6 +989,8 @@ td {
   text-align: left;
   /* color: #7E8299;   */
 }
+
+
 
 .adDasWrap {
   display: flex;
@@ -975,6 +1002,7 @@ td {
   display: flex;
   flex-direction: column;
   width: 100%;
+  /* background-color: red; */
 
 }
 
@@ -1659,10 +1687,11 @@ input[type="search"]::-webkit-search-cancel-button {
 .sidebars {
   /* background-color: #000f2b !important; */
   background-color: #ffffff;
-  padding: 24px 0px;
+  padding: 24px 0px 50px 0px;
   border-right: 1px solid #e8e6e6;
   /* margin-top: 69px; */
 }
+
 
 .sidebars1 {
   margin-top: 69px;
@@ -1672,7 +1701,7 @@ input[type="search"]::-webkit-search-cancel-button {
   display: flex;
   flex-direction: column;
   gap: 18px;
-  padding: 12px;
+  /* padding: 12px; */
 }
 
 .dashNW span {
@@ -7495,4 +7524,12 @@ input::-webkit-inner-spin-button {
 
 .taskassignwrap2{
   height: 100% !important;
+}
+
+.lessfontweight{
+  font-weight: 400 !important;
+}
+
+.addonefont{
+  font-size: 15px !important;
 }

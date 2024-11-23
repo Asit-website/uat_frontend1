@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import kushel from "../images/kushel.png";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useMain } from "../../hooks/useMain";
+import { FaEye } from "react-icons/fa";
+import { FaEyeSlash } from "react-icons/fa6";
+
 import frame from "../images/Frame.png"
 
 
@@ -17,6 +20,7 @@ const Auth = (props) => {
   });
 
   const [tab, setTab] = useState(0);
+  const [showpassword , setShowpass] = useState(false);
 
   const adminLogin = (e) => {
     e.preventDefault();
@@ -119,17 +123,24 @@ const Auth = (props) => {
          />
          <span className="placeholder">{tab === 1 ? "Email" : "Employee Code"}</span>
        </label>
-       <label className="custom-field one">
+       <div className="w-full relative">
+
+       <label className="custom-field w-full one">
          <input
            required
            name="password"
            onChange={handleChange}
            value={value.password}
-           type="password"
-           placeholder=" "
+           type={showpassword?'text':'password'}
+placeholder=" "
          />
          <span className="placeholder">Password</span>
        </label>
+
+       <span  className="showpassicon"> {showpassword ? <FaEye onClick={()=>setShowpass(false)} />  :    <FaEyeSlash onClick={()=>setShowpass(true)} />} </span>
+
+       </div>
+
         <div className="formgotPassWidht">
 
        <NavLink to="/forget">
@@ -138,7 +149,7 @@ const Auth = (props) => {
         </div>
      </div>
 
-     <button className="yui">Log in</button>
+     <button  className="yui">Log in</button>
 
     
    </form>
