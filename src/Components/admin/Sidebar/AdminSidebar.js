@@ -175,6 +175,8 @@ const AdminSidebar = ({ pop, setPop }) => {
 
   const [openLead, setOpenLead] = useState(false);
 
+  console.log("openLead" , openLead);
+
   const stylepoo = {
     display: start ? "block" : "none",
   };
@@ -1777,15 +1779,7 @@ const AdminSidebar = ({ pop, setPop }) => {
 
              
 
-              <NavLink to="/employeeDash/update">
-                <li className="indefy">
-                  <img src={userP} alt="" />
-                  <a href="#" className=" ">
-                    <span className="">User Profile</span>
-                  </a>
-                </li>
-              </NavLink>
-
+         
               <div className="red-box">
                 <div className="white-box">
                   <img src={chakka} alt="chakka" />
@@ -1809,3 +1803,13 @@ const AdminSidebar = ({ pop, setPop }) => {
 };
 
 export default AdminSidebar;
+
+
+{/* <NavLink to="/employeeDash/update">
+<li className="indefy">
+  <img src={userP} alt="" />
+  <a href="#" className=" ">
+    <span className="">User Profile</span>
+  </a>
+</li>
+</NavLink> */}

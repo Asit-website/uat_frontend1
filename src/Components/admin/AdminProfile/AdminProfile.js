@@ -31,21 +31,6 @@ const AdminProfile = ({ pop, setPop, setAlert }) => {
     getData();
   }, []);
 
-
-  // const handleChange = async (e) => {
-  //   if (e.target.name === "image") {
-  //     setValue({ ...value, [e.target.name]: e.target.files[0] });
-  //     let image = e.target.files[0];
-  //     const ans = await uploadToCloudinaryImg({ image });
-  //     if (ans.status) {
-  //       setUploadedProfile(ans?.data);
-  //     }
-  //   } else {
-  //     setValue({ ...value, [e.target.name]: e.target.value });
-  //   }
-  // };
-
-
   const handleChange = async(e) => {
     const {name  , value} = e.target;
    
@@ -245,15 +230,19 @@ const AdminProfile = ({ pop, setPop, setAlert }) => {
 
                 <div className="mb-6">
                   <label htmlFor="email1" className="block mb-1">
-                     Password
+                    Update Password
                   </label>
                   <input
                     className="block w-full"
-                    name="password"
-                    value={value.password}
+                    name="updatePassword"
+                    value={value?.updatePassword}
                     onChange={handleChange}
                     id="password"
                     type="text"
+                    onChangeCapture={(e)=>setValue((prev)=>({
+                      ...prev ,
+                      updatePassword: e.target.value
+                    }))}
                   // required
                   />
                 </div>
