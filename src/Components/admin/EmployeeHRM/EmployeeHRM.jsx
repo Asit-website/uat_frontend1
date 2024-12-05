@@ -588,7 +588,6 @@ const EmployeeHRM = ({
   };
 
   const submitHandler2 = async (e) => {
-    e.preventDefault();
 
     const toastId = toast.loading("Loading...");
 
@@ -2020,6 +2019,7 @@ const EmployeeHRM = ({
                           <div className="leavebuttons">
                             <button
                               onClick={(e) => {
+                                e.preventDefault();
                                 submitHandler2();
                               }}
                               type="button"
