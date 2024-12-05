@@ -21,7 +21,11 @@ const item = [
 const UpdateProfile = ({ setAlert, pop1, setPop1 }) => {
   
   const { user, updateProfile, postActivity, getStatisticsByUser, getBranchs, getDepartments, getDesignations , uploadToCloudinaryImg  , uploadOwnDocs} = useMain();
-  const [value, setValue] = useState(user);
+
+
+  const [value, setValue] = useState({...user ,
+     mobile:user?.mobile || '' , 
+    });
 
 
   const [branches, setBranches] = useState([]);
@@ -44,6 +48,7 @@ const UpdateProfile = ({ setAlert, pop1, setPop1 }) => {
   const handleChange = async(e) => {
  const {name  , value} = e.target;
 
+
  if (name === "pan" && value.length > 10) {
   return; 
 }
@@ -62,7 +67,6 @@ if(name === "mobile" && value.length > 10){
 if(name === "pan" && value.length > 10){
   return
 }
-
  if (name === "image") {
   setValue({ ...value, [e.target.name]: e.target.files[0] });
   let image = e.target.files[0];
@@ -71,7 +75,11 @@ if(name === "pan" && value.length > 10){
     setUploadedProfile(ans?.data);
    }
 } else {
-  setValue({ ...value, [e.target.name]: e.target.value });
+  setValue((prev) => ({
+    ...prev, 
+    [name]: value, 
+  }));
+  
 }
   };
 
@@ -106,6 +114,7 @@ if(name === "pan" && value.length > 10){
      const toastId = toast.loading("Loading...");
 
     e.preventDefault();
+    console.log("value",value);
     const ans = await updateProfile(value );
 
     const {
@@ -197,6 +206,11 @@ if(name === "pan" && value.length > 10){
      
 
   },[user])
+
+  useEffect(() => {
+    setValue({ ...user }); // Update the state when `user` changes
+  }, [user]); // Run only when `user` updates
+  
 
 
   useEffect(() => {
@@ -295,7 +309,7 @@ if(name === "pan" && value.length > 10){
                     type="number"
                     name="mobile"
                     onChange={handleChange}
-                    value={value.mobile}
+                    value={value.mobile || ''}
                     id="mobile"
                     className=" block "
                     disabled={!!user?.mobile}

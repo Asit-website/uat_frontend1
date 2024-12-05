@@ -16,10 +16,8 @@ const EmployeeSelf = ({ setAlert, pop1, setPop1 }) => {
 
    const [user1, setUser1] = useState({});
 
-
    const location = useLocation();
    const state = location.state;
-
 
    const [isChecked, setIsChecked] = useState(false);
    const [isChecked2, setIsChecked2] = useState(false);
