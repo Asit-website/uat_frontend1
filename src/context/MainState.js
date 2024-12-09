@@ -2168,14 +2168,23 @@ const MainState = (props) => {
       const data = await post(`${baseUrl}/payslip/setUserTotalLeave`, {  }, true);
       return data;
    };
-   const postQuotationFormApi = async ({  quotationNum, customerName, customerReq,mobileNum,  quotationDate, validUntil, customerId,companyName,companyAddress,   companyGSTIN,companyWebsite , content , items, userId , leadId}) => {
-      const data = await post(`${baseUrl}/lead/postQuotationForm`, {  quotationNum, customerName, customerReq,mobileNum,  quotationDate, validUntil, customerId,companyName,companyAddress,content ,   items,  companyGSTIN,companyWebsite , userId , leadId  }, true);
+   const postQuotationFormApi = async ({  customerName, customerReq,  quotationDate, introduction , additional , costhead ,timeline, technology, userId , leadId}) => {
+      const data = await post(`${baseUrl}/lead/postQuotationForm`, { customerName, customerReq,  quotationDate, introduction , additional , costhead ,timeline , technology, userId , leadId  }, true);
       return data;
    };
-   const updateQuotationFormApi = async ({  quotationNum, customerName, customerReq,mobileNum,  quotationDate, validUntil, customerId,companyName,companyAddress,   companyGSTIN,companyWebsite , content , items, userId , leadId , id}) => {
-      const data = await post(`${baseUrl}/lead/updateQuotationForm/${id}`, {  quotationNum, customerName, customerReq,mobileNum,  quotationDate, validUntil, customerId,companyName,companyAddress,content ,   items,  companyGSTIN,companyWebsite , userId , leadId  }, true);
+   // const postQuotationFormApi = async ({  quotationNum, customerName, customerReq,mobileNum,  quotationDate, validUntil, customerId,companyName,companyAddress,   companyGSTIN,companyWebsite , content , items, userId , leadId}) => {
+   //    const data = await post(`${baseUrl}/lead/postQuotationForm`, {  quotationNum, customerName, customerReq,mobileNum,  quotationDate, validUntil, customerId,companyName,companyAddress,content ,   items,  companyGSTIN,companyWebsite , userId , leadId  }, true);
+   //    return data;
+   // };
+   // const updateQuotationFormApi = async ({  quotationNum, customerName, customerReq,mobileNum,  quotationDate, validUntil, customerId,companyName,companyAddress,   companyGSTIN,companyWebsite , content , items, userId , leadId , id}) => {
+   //    const data = await post(`${baseUrl}/lead/updateQuotationForm/${id}`, {  quotationNum, customerName, customerReq,mobileNum,  quotationDate, validUntil, customerId,companyName,companyAddress,content ,   items,  companyGSTIN,companyWebsite , userId , leadId  }, true);
+   //    return data;
+   // };
+   const updateQuotationFormApi = async ({  customerName, customerReq,  quotationDate, introduction , additional , costhead ,timeline, technology, userId  ,  id}) => {
+      const data = await post(`${baseUrl}/lead/updateQuotationForm/${id}`, {   customerName, customerReq,  quotationDate, introduction , additional , costhead ,timeline, technology, userId    }, true);
       return data;
    };
+
    const postProposalFormApi = async ({  proposalFor ,preparedFor , createdBy , Date, content , userId , leadId}) => {
       const data = await post(`${baseUrl}/lead/postProposalForm`, {  proposalFor ,preparedFor , createdBy , Date,content , userId , leadId  }, true);
       return data;

@@ -115,7 +115,7 @@ const QuotationForm = ({ setAlert, pop, setPop }) => {
   };
 
   const [rows, setRows] = useState([
-    { description: "", quantity: "", price: "", total: "" },
+    { description: "", price: "", total: "" },
   ]);
 
 
@@ -123,7 +123,7 @@ const QuotationForm = ({ setAlert, pop, setPop }) => {
   const [rows3, setRows3] = useState([{ description: "" }]);
 
   const addRow = () => {
-    setRows([...rows, { description: "", quantity: "", price: "", total: "" }]);
+    setRows([...rows, { description: "", price: "", total: "" }]);
   };
 
   const addRow2 = () => {
@@ -136,12 +136,20 @@ const QuotationForm = ({ setAlert, pop, setPop }) => {
   const postQuotationForm = async () => {
     const toastId = toast.loading("Loading...");
 
+    const {customerName , customerReq , quotationDate} = formdata;
+
     const ans = await postQuotationFormApi({
-      ...formdata,
-      items: rows,
+      customerName , 
+      customerReq , 
+      quotationDate ,
+      costhead: rows,
       userId: hrms_user?._id,
       leadId: id,
-      content,
+      introduction : content,
+      additional: content2 , 
+      technology:rows2 , 
+      timeline: rows3
+
     });
 
     if (ans?.status) {
@@ -168,16 +176,30 @@ const QuotationForm = ({ setAlert, pop, setPop }) => {
     toast.dismiss(toastId);
   };
 
+  console.log("leadi",id);
+
   const updateQuotationForm = async () => {
     const toastId = toast.loading("Loading...");
 
+    const {customerName , customerReq , quotationDate} = formdata;
+
     const ans = await updateQuotationFormApi({
-      ...formdata,
-      items: rows,
+      // ...formdata,
+      // items: rows,
+      // userId: hrms_user?._id,
+      // leadId: id,
+      // content,
+      // id: item?._id,
+      customerName , 
+      customerReq , 
+      quotationDate ,
+      costhead: rows,
       userId: hrms_user?._id,
-      leadId: id,
-      content,
-      id: item?._id,
+      introduction : content,
+      additional: content2 , 
+      technology:rows2 , 
+      timeline: rows3 , 
+      id: item?._id
     });
 
     if (ans?.status) {
@@ -212,36 +234,37 @@ const QuotationForm = ({ setAlert, pop, setPop }) => {
 
   useEffect(() => {
     if (item) {
+      
       const {
-        quotationNum,
+        // quotationNum,
+        // mobileNum,
+        // validUntil,
+        // customerId,
+        // companyName,
+        // companyAddress,
+        // companyGSTIN,
+        // companyWebsite,
         customerName,
         customerReq,
-        mobileNum,
         quotationDate,
-        validUntil,
-        customerId,
-        companyName,
-        companyAddress,
-        companyGSTIN,
-        companyWebsite,
-        items,
+        costhead,
+        additional ,
+        introduction , 
+        timeline,
+        technology
       } = item;
-      setRows(items);
+      setRows(costhead);
+      setRows2(technology)
+      setRows3(timeline)
+      setContent(introduction)
+      setContent2(additional)
       setFormdata({
-        quotationNum,
         customerName,
         customerReq,
-        mobileNum,
-        quotationDate,
-        validUntil,
-        customerId,
-        companyName,
-        companyAddress,
-        companyGSTIN,
-        companyWebsite,
+        quotationDate
       });
     }
-  }, []);
+  }, [item]);
 
   const contonentPDF = useRef();
 
