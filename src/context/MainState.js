@@ -2264,6 +2264,10 @@ const MainState = (props) => {
       const data = await post(`${baseUrl}/lead/postSaveOfERdOCS`, { userId:id , content}, true);
       return data;
    }
+   const freelencerOfferApi = async({id , content7})=>{
+      const data = await post(`${baseUrl}/lead/freelencerOfferApi`, { userId:id , content7}, true);
+      return data;
+   }
    const saveRelivingLetterapi = async({id , content})=>{
       const data = await post(`${baseUrl}/lead/saveRelivingLetter`, { userId:id , content}, true);
       return data;
@@ -2408,6 +2412,7 @@ const MainState = (props) => {
          deleteNotification,
          changeExperienceLetterPer , 
          saveDocs , 
+         freelencerOfferApi,
          createAllowance,
          postNotifyLeavereq,
          getMyOfferLetter , 

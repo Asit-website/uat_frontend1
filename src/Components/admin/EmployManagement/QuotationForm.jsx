@@ -176,8 +176,6 @@ const QuotationForm = ({ setAlert, pop, setPop }) => {
     toast.dismiss(toastId);
   };
 
-  console.log("leadi",id);
-
   const updateQuotationForm = async () => {
     const toastId = toast.loading("Loading...");
 
@@ -479,7 +477,7 @@ const QuotationForm = ({ setAlert, pop, setPop }) => {
 
                   <div onClick={addRow2} className="admorCont cursor-pointer">
                     <img src={plussing} alt="" />
-                    <span>Add Item</span>
+                    <span>Add Techonology</span>
                   </div>
 
                   {/* FOR TIMELINE  */}
@@ -512,7 +510,7 @@ const QuotationForm = ({ setAlert, pop, setPop }) => {
 
                   <div onClick={addRow3} className="admorCont cursor-pointer">
                     <img src={plussing} alt="" />
-                    <span>Add Item</span>
+                    <span>Add Timeline</span>
                   </div>
 
                   {/* COST ESTIMATAE */}
@@ -577,7 +575,7 @@ const QuotationForm = ({ setAlert, pop, setPop }) => {
 
                   <div onClick={addRow} className="admorCont cursor-pointer">
                     <img src={plussing} alt="" />
-                    <span>Add Item</span>
+                    <span>Add Cost Estimate</span>
                   </div>
 
                   {/* <div className="comapnydetail">
@@ -679,6 +677,8 @@ const QuotationForm = ({ setAlert, pop, setPop }) => {
                         </div>
                       </div>
 
+<br />
+<br />
                       {/* <p className="cust">Customer</p> */}
 
                       <div className="userApp">
