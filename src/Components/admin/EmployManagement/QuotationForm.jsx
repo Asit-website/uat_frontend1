@@ -14,10 +14,30 @@ import toast from "react-hot-toast";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useReactToPrint } from "react-to-print";
 import { CiCirclePlus } from "react-icons/ci";
-import pluslogo from "../../images/8922789.png"
+import pluslogo from "../../images/8922789.png";
+import logokushel from "../../images/kushel1.png";
 
+const data = `<p><strong><span style="font-size: 24px;">Introduction<br><br><br></span></strong></p><p><strong><span style="font-size: 24px;"><br></span></strong></p><p><strong><span style="font-size: 24px;">Key Features</span></strong></p><p><strong><span style="font-size: 24px;"><br></span></strong></p><p><strong><span style="font-size: 24px;">1.&nbsp;. User Registration &amp; Profile</span></strong></p><p><br>
+<span style="font-size: 14px;">●&nbsp; <strong>Sign-Up/Sign-In</strong>: Users can register and log in using social media (Google,
+Facebook) or email.</span></p><p><span style="font-size: 14px;"><br>
+<span style="font-size: 14px;">●<strong>&nbsp;User Profiles:</strong> Ability to create and manage personal profiles, set fitness goals,
+and track progress.</span></span></p><ul class="ulist" style="box-sizing: border-box; border-width: 0px; border-style: solid; border-color: rgb(229, 231, 235); --tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / 0.5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; padding: 0px; margin: 0px; font-family: gilroy; list-style: none; color: rgb(0, 0, 0); font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; font-size: medium;"><li style="box-sizing: border-box; border-width: 0px; border-style: solid; border-color: rgb(229, 231, 235); --tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / 0.5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; padding: 0px; margin: 0px; font-weight: 500; line-height: 32px; text-align: left; color: rgb(16, 24, 32); font-size: 18px;"><br></li><br></ul><ol class="ollist" style="box-sizing: border-box; border-width: 0px; border-style: solid; border-color: rgb(229, 231, 235); --tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / 0.5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; padding: 0px; margin: 0px; font-family: gilroy; list-style: none; color: rgb(0, 0, 0); font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; font-size: medium;"><br></ol>`;
 
-const data = `<h3 style="box-sizing: border-box; border-width: 0px; border-style: solid; border-color: rgb(229, 231, 235); --tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / 0.5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; padding: 0px; margin: 0px; font-family: Inter; font-size: 18px; font-weight: 500; line-height: 32px; text-align: left; color: rgb(16, 24, 32); font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;">User App(android/iOS)</h3><ul class="ulist" style="box-sizing: border-box; border-width: 0px; border-style: solid; border-color: rgb(229, 231, 235); --tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / 0.5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; padding: 0px; margin: 0px; font-family: gilroy; list-style: none; color: rgb(0, 0, 0); font-size: medium; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;"><li style="box-sizing: border-box; border-width: 0px; border-style: solid; border-color: rgb(229, 231, 235); --tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / 0.5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; padding: 0px; margin: 0px; font-family: Inter; font-size: 18px; font-weight: 500; line-height: 32px; text-align: left; color: rgb(16, 24, 32);">Login with</li></ul><ol class="ollist" style="box-sizing: border-box; border-width: 0px; border-style: solid; border-color: rgb(229, 231, 235); --tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / 0.5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; padding: 0px; margin: 0px; font-family: gilroy; list-style: none; color: rgb(0, 0, 0); font-size: medium; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;"><li style="box-sizing: border-box; border-width: 0px; border-style: solid; border-color: rgb(229, 231, 235); --tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / 0.5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; padding: 0px; margin: 0px; font-family: Inter; font-size: 18px; font-weight: 400; line-height: 32px; text-align: left; color: rgb(16, 24, 32);">1. Email address</li><li style="box-sizing: border-box; border-width: 0px; border-style: solid; border-color: rgb(229, 231, 235); --tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / 0.5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; padding: 0px; margin: 0px; font-family: Inter; font-size: 18px; font-weight: 400; line-height: 32px; text-align: left; color: rgb(16, 24, 32);">2. Password</li></ol><ul class="ulist" style="box-sizing: border-box; border-width: 0px; border-style: solid; border-color: rgb(229, 231, 235); --tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / 0.5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; padding: 0px; margin: 0px; font-family: gilroy; list-style: none; color: rgb(0, 0, 0); font-size: medium; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;"><li style="box-sizing: border-box; border-width: 0px; border-style: solid; border-color: rgb(229, 231, 235); --tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / 0.5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; padding: 0px; margin: 0px; font-family: Inter; font-size: 18px; font-weight: 500; line-height: 32px; text-align: left; color: rgb(16, 24, 32);">Sign Up</li></ul><ol class="ollist" style="box-sizing: border-box; border-width: 0px; border-style: solid; border-color: rgb(229, 231, 235); --tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / 0.5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; padding: 0px; margin: 0px; font-family: gilroy; list-style: none; color: rgb(0, 0, 0); font-size: medium; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;"><li style="box-sizing: border-box; border-width: 0px; border-style: solid; border-color: rgb(229, 231, 235); --tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / 0.5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; padding: 0px; margin: 0px; font-family: Inter; font-size: 18px; font-weight: 400; line-height: 32px; text-align: left; color: rgb(16, 24, 32);"><span style="box-sizing: border-box; border-width: 0px; border-style: solid; border-color: rgb(229, 231, 235); --tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / 0.5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; padding: 0px; margin: 0px; font-family: Inter; font-size: 18px; font-weight: 600; line-height: 26px; text-align: left;">Name:</span><span>&nbsp;</span>You’ll likely be asked to enter your first and last name.</li><li style="box-sizing: border-box; border-width: 0px; border-style: solid; border-color: rgb(229, 231, 235); --tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / 0.5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; padding: 0px; margin: 0px; font-family: Inter; font-size: 18px; font-weight: 400; line-height: 32px; text-align: left; color: rgb(16, 24, 32);"><span style="box-sizing: border-box; border-width: 0px; border-style: solid; border-color: rgb(229, 231, 235); --tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / 0.5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; padding: 0px; margin: 0px; font-family: Inter; font-size: 18px; font-weight: 600; line-height: 26px; text-align: left;">Email address:<span>&nbsp;</span></span>You’ll need to provide a valid email address to create an account.</li></ol>`;
+const data2 = `<p><strong style="font-family: Tahoma, Geneva, sans-serif; font-size: 24px;"><span style="font-family: Verdana, Geneva, sans-serif; font-size: 16px;">Additional Consideration</span></strong></p><p><strong style="font-family: Tahoma, Geneva, sans-serif;"><span style="font-family: Verdana, Geneva, sans-serif; font-size: 16px;"><br></span></strong></p><p><span style="font-family: Verdana, Geneva, sans-serif;"><strong style="font-family: Tahoma, Geneva, sans-serif;"><span style="font-size: 16px;">1. Third-Party API Costs: </span></strong><span style="font-size: 16px;">Any additional API costs for video services, payment
+gateways, or others would be charged separately.</span></span></p><p><span style="font-family: Tahoma, Geneva, sans-serif;"><span style="font-family: Verdana, Geneva, sans-serif; font-size: 16px;"><br></span></span></p><p><span style="font-family: Verdana, Geneva, sans-serif;"><strong style="font-family: Tahoma, Geneva, sans-serif;"><span style="font-size: 16px;">2. Maintenance: </span></strong><span style="font-size: 16px;">Ongoing support and maintenance would be charged at a monthly
+retainer or hourly rate post-launch</span><strong style="font-family: Tahoma, Geneva, sans-serif;"><span style="font-size: 16px;">.</span></strong></span></p><p><strong style="font-family: Tahoma, Geneva, sans-serif;"><span style="font-family: Verdana, Geneva, sans-serif; font-size: 16px;"><br></span></strong></p><p><span style="font-family: Verdana, Geneva, sans-serif;"><strong style="font-family: Tahoma, Geneva, sans-serif;"><span style="font-size: 16px;">
+3. Content Creation: </span></strong><span style="font-size: 16px;">The client will be responsible for providing content such as
+workout videos, tutorials, and articles unless otherwise specified</span><strong style="font-family: Tahoma, Geneva, sans-serif;"><span style="font-size: 16px;">.</span></strong></span></p><p><strong style="font-family: Tahoma, Geneva, sans-serif;"><span style="font-family: Verdana, Geneva, sans-serif; font-size: 16px;"><br></span></strong></p><p><span style="font-size: 24px;"><br><span style="font-family: Verdana, Geneva, sans-serif;"><strong style="font-family: Tahoma, Geneva, sans-serif;">Payment Schedule&nbsp;</strong></span></span></p><p><span style="font-family: Verdana, Geneva, sans-serif;"><strong style="font-family: Tahoma, Geneva, sans-serif;"><span style="font-size: 16px;"><br>1. </span></strong><span style="font-size: 16px;">Advance Payment of 25% upon order confirmation.</span><strong style="font-family: Tahoma, Geneva, sans-serif;"><span style="font-size: 16px;">
+<br>2. </span></strong><span style="font-size: 16px;">25% After Figma finalization.</span><strong style="font-family: Tahoma, Geneva, sans-serif;"><span style="font-size: 16px;">
+<br>3. </span></strong><span style="font-size: 16px;">25% After Frontend Development.</span><strong style="font-family: Tahoma, Geneva, sans-serif;"><span style="font-size: 16px;">
+<br>4. </span></strong><span style="font-size: 16px;">25% after final delivery.</span></span></p><p><span style="font-family: Verdana, Geneva, sans-serif;"><span style="font-size: 16px;"><br></span></span></p><p><span style="font-family: Verdana, Geneva, sans-serif;"><span style="font-size: 16px;"><br></span></span></p><p><span style="font-family: Verdana, Geneva, sans-serif;"><span style="font-size: 16px;"><strong style="font-size: 24px;">Requirements</strong></span></span></p><p><span style="font-family: Verdana, Geneva, sans-serif;"><span style="font-size: 16px;">
+<br>List of requirements for start working on the website-<br><br>
+● Relevant contents &amp; images
+<br>● Functional Requirements: User registration, fitness/nutrition plans, live
+coaching, community features, e-commerce, subscription models.
+<br>● Technical Requirements: Tech stack preferences, hosting, mobile
+compatibility, third-party integrations (payments, video)
+<br>● E-commerce: Product list, pricing structure, payment gateways, currencies.</span></span></p>`;
 
 const QuotationForm = ({ setAlert, pop, setPop }) => {
   const {
@@ -56,12 +76,14 @@ const QuotationForm = ({ setAlert, pop, setPop }) => {
   };
 
   const editor = useRef(null);
+  const editor2 = useRef(null);
 
   const navigate = useNavigate();
 
   const [content, setContent] = useState(data);
+  const [content2, setContent2] = useState(data2);
 
-  const { role, } = hrms_user;
+  const { role } = hrms_user;
 
   const fileInputRef = useRef(null);
 
@@ -69,10 +91,10 @@ const QuotationForm = ({ setAlert, pop, setPop }) => {
     fileInputRef.current.click();
   };
 
-  const [preview , setPreview] = useState(false);
+  const [preview, setPreview] = useState(false);
 
   const [logoImage, setLogoImage] = useState("");
-  const [buislogoname , setBuisLogName] = useState("");
+  const [buislogoname, setBuisLogName] = useState("");
 
   const handleFileChange = async (event) => {
     const file = event.target.files[0];
@@ -96,8 +118,19 @@ const QuotationForm = ({ setAlert, pop, setPop }) => {
     { description: "", quantity: "", price: "", total: "" },
   ]);
 
+
+  const [rows2, setRows2] = useState([{ description: "", stack: "" }]);
+  const [rows3, setRows3] = useState([{ description: "" }]);
+
   const addRow = () => {
     setRows([...rows, { description: "", quantity: "", price: "", total: "" }]);
+  };
+
+  const addRow2 = () => {
+    setRows2([...rows2, { description: "", stack: "" }]);
+  };
+  const addRow3 = () => {
+    setRows3([...rows3, { description: "" }]);
   };
 
   const postQuotationForm = async () => {
@@ -241,33 +274,37 @@ const QuotationForm = ({ setAlert, pop, setPop }) => {
 
           <div className="em">
             <div className="qutaWrap">
-
               <div className="qutaLeft">
-
                 <div className="qutLTo">
                   {/* <h2>Quotation Form</h2> */}
 
                   <div className="qutolobutons">
-                     <button onClick={()=>setPreview(true)}>Preview</button>
-                     <button onClick={()=>{
+                    <button onClick={() => setPreview(true)}>Preview</button>
+                    <button
+                      onClick={() => {
                         if (item) {
                           updateQuotationForm();
                         } else {
                           postQuotationForm();
                         }
-                     }}>Create</button>
-                     <button onClick={()=>{
-                       navigate(-1);
-                     }} className="cnebuqo">Cancel</button>
+                      }}
+                    >
+                      Create
+                    </button>
+                    <button
+                      onClick={() => {
+                        navigate(-1);
+                      }}
+                      className="cnebuqo"
+                    >
+                      Cancel
+                    </button>
                   </div>
-              
                 </div>
 
                 <div className="allwhitebg">
-
                   <form className="qtoform">
-
-                    <label>
+                    {/* <label>
                       <p>Quotation No*</p>
                       <input
                         value={formdata.quotationNum}
@@ -276,7 +313,7 @@ const QuotationForm = ({ setAlert, pop, setPop }) => {
                         type="text"
                         placeholder="#01"
                       />
-                    </label>
+                    </label> */}
 
                     <label>
                       <p>Customer Name*</p>
@@ -300,7 +337,7 @@ const QuotationForm = ({ setAlert, pop, setPop }) => {
                       />
                     </label>
 
-                    <label>
+                    {/* <label>
                       <p>Mobile Number*</p>
                       <input
                         value={formdata.mobileNum}
@@ -309,7 +346,7 @@ const QuotationForm = ({ setAlert, pop, setPop }) => {
                         type="text"
                         placeholder="+918595046368"
                       />
-                    </label>
+                    </label> */}
 
                     <label>
                       <p>Quotation Date*</p>
@@ -320,7 +357,7 @@ const QuotationForm = ({ setAlert, pop, setPop }) => {
                         type="date"
                       />
                     </label>
-
+{/* 
                     <label>
                       <p>Valid Until*</p>
                       <input
@@ -329,9 +366,9 @@ const QuotationForm = ({ setAlert, pop, setPop }) => {
                         onChange={textChangeHandler}
                         type="date"
                       />
-                    </label>
+                    </label> */}
 
-                    <label>
+                    {/* <label>
                       <p>Customer ID*</p>
                       <input
                         value={formdata.customerId}
@@ -339,43 +376,136 @@ const QuotationForm = ({ setAlert, pop, setPop }) => {
                         onChange={textChangeHandler}
                         type="text"
                       />
-                    </label>
-
-          
-
+                    </label> */}
                   </form>
 
+                  {/* <div
+                    className="adddbunelogo cursor-pointer"
+                    onClick={handleImageClick}
+                  >
+                    <img src={pluslogo} width={50} alt="" />
+                    <p>
+                      {" "}
+                      {buislogoname
+                        ? buislogoname?.name
+                        : "Add Business Logo"}{" "}
+                    </p>
+                    <input
+                      type="file"
+                      ref={fileInputRef}
+                      style={{ display: "none" }}
+                      onChange={handleFileChange}
+                    />
+                  </div> */}
 
-<div className="adddbunelogo cursor-pointer" onClick={handleImageClick}>
-  <img src={pluslogo} width={50} alt="" />
-  <p > {buislogoname ? buislogoname?.name: "Add Business Logo"} </p>
-  <input
-    type="file"
-    ref={fileInputRef}
-    style={{ display: "none" }}
-    onChange={handleFileChange}
-  />
-</div>
+                  <div className="docuThird">
+                    <h3>Introduction And Key Features </h3>
 
+                    <hr />
 
+                    <JoditEditor
+                      ref={editor}
+                      value={content}
+                      tabIndex={1}
+                      onBlur={(newContent) => setContent(newContent)}
+                      onChange={(newContent) => {
+                        setContent(newContent);
+                      }}
+                    />
+                  </div>
 
+                  <div class="techstackwrap ">
+                    <h2>Techonology Stack</h2>
 
+                    <div className="allrows2wrao">
+                      {rows2.map((row, index) => (
+                        <div
+                          className="bg-white tabletr makeitflexri"
+                          key={index}
+                        >
+                          <div className=" givfulwidt">
+                            <input
+                              type="text"
+                              placeholder="Stack"
+                              value={row.stack}
+                              onChange={(e) => {
+                                const newRows = [...rows2];
+                                newRows[index].stack = e.target.value;
+                                setRows2(newRows);
+                              }}
+                            />
+                          </div>
 
-                  <div class="relative ">
+                          <div className="givfulwidt2">
+                            <input
+                              type="text"
+                              className="inpu11"
+                              placeholder="Description"
+                              value={row.description}
+                              onChange={(e) => {
+                                const newRows = [...rows2];
+                                newRows[index].description = e.target.value;
+                                setRows2(newRows);
+                              }}
+                            />
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div onClick={addRow2} className="admorCont cursor-pointer">
+                    <img src={plussing} alt="" />
+                    <span>Add Item</span>
+                  </div>
+
+                  {/* FOR TIMELINE  */}
+                  <div class="techstackwrap ">
+                    <h2>Timeline</h2>
+
+                    <div className="allrows2wrao">
+                      {rows3.map((row, index) => (
+                        <div
+                          className="bg-white tabletr makeitflexri"
+                          key={index}
+                        >
+                          <div className="givfulwidt2">
+                            <input
+                              type="text"
+                              className="inpu11"
+                              placeholder="Requirements gathering and design (3-5 weeks)"
+                              value={row.description}
+                              onChange={(e) => {
+                                const newRows = [...rows3];
+                                newRows[index].description = e.target.value;
+                                setRows3(newRows);
+                              }}
+                            />
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div onClick={addRow3} className="admorCont cursor-pointer">
+                    <img src={plussing} alt="" />
+                    <span>Add Item</span>
+                  </div>
+
+                  {/* COST ESTIMATAE */}
+                  <div class="relative costestimate ">
+                    <h2>Cost Estimate</h2>
                     <table className="quotablle text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                       <thead className="theadqu">
                         <tr>
                           <th scope="col" className="px-2 py-3">
-                            Description
+                            Cost Head
                           </th>
                           <th scope="col" className="px-2 py-3">
-                            Quantity
+                            Nature of Charge
                           </th>
                           <th scope="col" className="px-2 py-3">
-                            Price
-                          </th>
-                          <th scope="col" className="px-2 py-3">
-                            Total
+                            Amount (in inr)
                           </th>
                         </tr>
                       </thead>
@@ -396,18 +526,7 @@ const QuotationForm = ({ setAlert, pop, setPop }) => {
                             </td>
                             <td className="px-2 py-4">
                               <input
-                                type="number"
-                                value={row.quantity}
-                                onChange={(e) => {
-                                  const newRows = [...rows];
-                                  newRows[index].quantity = e.target.value;
-                                  setRows(newRows);
-                                }}
-                              />
-                            </td>
-                            <td className="px-2 py-4">
-                              <input
-                                type="number"
+                                type="text"
                                 value={row.price}
                                 onChange={(e) => {
                                   const newRows = [...rows];
@@ -438,23 +557,7 @@ const QuotationForm = ({ setAlert, pop, setPop }) => {
                     <span>Add Item</span>
                   </div>
 
-                  <div className="docuThird">
-                    <h3>Format</h3>
-
-                    <hr />
-
-                    <JoditEditor
-                      ref={editor}
-                      value={content}
-                      tabIndex={1}
-                      onBlur={(newContent) => setContent(newContent)}
-                      onChange={(newContent) => {
-                        setContent(newContent);
-                      }}
-                    />
-                  </div>
-
-                  <div className="comapnydetail">
+                  {/* <div className="comapnydetail">
                     <h3 className="comdetail">Company Details</h3>
 
                     <form className="qtoform">
@@ -500,115 +603,192 @@ const QuotationForm = ({ setAlert, pop, setPop }) => {
                         />
                       </label>
                     </form>
-                  </div>
+                  </div> */}
 
+                  {/* Addition consideration  */}
+                  <div className="docuThird">
+                    <h3>
+                      Addition Consideration / Payment Schedule / Requirements{" "}
+                    </h3>
+
+                    <hr />
+
+                    <JoditEditor
+                      ref={editor2}
+                      value={content2}
+                      tabIndex={1}
+                      onBlur={(newContent) => setContent2(newContent)}
+                      onChange={(newContent) => {
+                        setContent2(newContent);
+                      }}
+                    />
+                  </div>
                 </div>
               </div>
 
-              {
-       preview && 
-         <div className="previwwraps">
-     <div className="qutaRight">
-                <div ref={contonentPDF} className="qutaRightcont">
-                  
-                  <div className="hdquot">
-                    {logoImage ? <img src={logoImage} alt="Logo" /> : <p></p>}
-                    <p>Quotation {formdata?.quotationNum}</p>
+              {preview && (
+                <div className="previwwraps">
+                  <div className="qutaRight">
+                    <div ref={contonentPDF} className="qutaRightcont">
+                      <img className="logokushelquot" src={logokushel} alt="" />
 
-                  </div>
+                      <p className="proprsaltitle">
+                       {formdata.customerReq}
+                      </p>
 
-                  <p className="cust">Customer</p>
+                      <div className="preparequtotion">
+                        <div className="presec">
+                          <p>Prepared For</p>
+                          <p> {formdata.customerName} </p>
+                        </div>
+                        <div className="presec">
+                          <p>Created by: </p>
+                          <p>Shubham Gupta</p>
+                        </div>
+                        <div className="presec">
+                          <p>Date: {formdata.quotationDate} </p>
+                        </div>
+                        <div className="presec">
+                          <p>Kushel Digi Solutions </p>
+                          <span>shubham@kusheldigi.com</span>
+                          <span>www.kusheldigi.com</span>
+                          <p>+91 9045301702</p>
+                        </div>
+                      </div>
 
-                  <div className="gridView">
-                    <div><p>Customer Name :</p> <span>{formdata?.customerName}</span></div>
-                    <div><p>Date : </p> <span>{formdata?.quotationDate}</span></div>
-                    <div><p>Requirement :</p> <span>{formdata?.customerReq}</span> </div>
-                    <div><p>Valid Until :</p> <span>{formdata?.validUntil}</span> </div>
-                    <div><p>Contact No. :</p> <span>{formdata?.mobileNum}</span> </div>
-                    <div><p>Customer ID :</p> <span>{formdata?.customerId}</span> </div>
-                  </div>
+                      {/* <p className="cust">Customer</p> */}
 
+                      <div className="userApp">
+                        <div dangerouslySetInnerHTML={{ __html: content }} />
+                      </div>
 
-                  <div className="talbeLike">
-                    <div class="relative w-full">
-                      <table className="quotablle2 text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                        <thead className="theadqu2">
-                          <tr>
-                            <th scope="col" className="px-2 py-3">
-                              Description
-                            </th>
-                            <th scope="col" className="px-2 py-3">
-                              Quantity
-                            </th>
-                            <th scope="col" className="px-2 py-3">
-                              Price
-                            </th>
-                            <th scope="col" className="px-2 py-3">
-                              Total
-                            </th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {rows.map((row, index) => (
-                            <tr className="bg-white tabletr2" key={index}>
-                              <td className="px-2 py-4">{row.description}</td>
-                              <td className="px-2 py-4">{row.quantity}</td>
-                              <td className="px-2 py-4">{row.price}</td>
-                              <td className="px-2 py-4">{row.total}</td>
-                            </tr>
+                      {/* for stack  */}
+                      <div className="techsstack">
+                        <h2>Technology Stack</h2>
+                        <div className="allstack">
+                          {rows2?.map((tech, index) => (
+                            <div key={index} className="snglstack">
+                              <p>• {tech.stack} : </p>
+                              <span>{tech.description}</span>
+                            </div>
                           ))}
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
+                        </div>
+                      </div>
 
-                  <div className="userApp">
-                    <div dangerouslySetInnerHTML={{ __html: content }} />
-                  </div>
+                      {/* for timline  */}
+                      <div className="techsstack">
+                        <h2>Timeline</h2>
+                        <div className="allstack">
+                          {rows3?.map((tech, index) => (
+                            <div key={index} className="snglstack">
+                              <p>• Phase{index+1} : </p>
+                              <span>{tech.description}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
 
-                  <hr />
+                      <div className="talbeLike">
+                        <div class="relative w-full">
+                          <table className="quotablle2 text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                            <thead className="theadqu2">
+                              <tr>
+                                <th scope="col" className="px-2 py-3">
+                                  Cost Head
+                                </th>
+                                <th scope="col" className="px-2 py-3">
+                                  Nature of Charge
+                                </th>
+                                <th scope="col" className="px-2 py-3">
+                                  Amount(in INR)
+                                </th>
+                               
+                              </tr>
+                            </thead>
+                            <tbody>
+                              {rows.map((row, index) => (
+                                <tr className="bg-white tabletr2" key={index}>
+                                  <td className="px-2 py-4"> {row.description}</td>
+                                  <td className="px-2 py-4">{row.price}</td>
+                                  <td className="px-2 py-4">{row.total}</td>
+                                </tr>
+                              ))}
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
 
-                  <div className="rigthfot">
-                    <div className="rigthfotleft">
-                      <p className="leftfist">{formdata.companyName}</p>
-                      <p className="seconle">
-                        IT and e-Commerce Development Company
+                      <div className="userAppdds">
+                        <div dangerouslySetInnerHTML={{ __html: content2 }} />
+                      </div>
+
+                      <hr />
+
+             
+
+                      <div className="procesforwar">
+                        <h2>Process Forward</h2>
+                        <ul>
+                          <li>• Finalization of terms of development</li>
+                          <li>• Project Agreement for Digital Signature</li>
+                          <li>• Advance Payment</li>
+                          <li>• Commencement of Development Process</li>
+                          <li>• Milestone Update </li>
+                        </ul>
+                      </div>
+
+                      <br />
+
+                      <p className="wehoemesg">
+                      
+                        We hope this will be helpful to understand our process
+                        and our plan for your Address: G-9, First Floor, Sector
+                        63, Noida, 201301 Phone: +91 9045301702 | Email:
+                        info@kusheldigi.com | Website: www.kusheldigi.com
+                        website. We intend to build a creative, thoughtful, and
+                        modern App thatyour customers will love to use and
+                        increase your brand value, credibility, andsales. We
+                        look forward to providing you with a smooth development
+                        process and constant support.
                       </p>
-                      <p className="thirleft">
-                        <span>GST No. </span> {formdata.companyGSTIN}
-                      </p>
-                    </div>
 
-                    <div className="rigthfotright">
-                      <p>Reach us at</p>
-                      <p>{formdata?.companyAddress}</p>
-                      <p>+91-9045301702 / +1-585-566-2070</p>
-                      <p>{formdata?.companyWebsite}</p>
+<br />
+                      <div className="thaksmessge">
+                        <h4>Thanks & Regards</h4>
+
+                        <div className="frommesage">
+                          <h4>Shubham Gupta</h4>
+                          <p>CEO</p>
+                          <p>Kushel Digi Solutions </p>
+                          <p>G-9 First Floor, Sector 63, Noida, India </p>
+                          <p>
+                            Email: <span>shubham@kusheldigi.com</span>
+                          </p>
+                          <p>Phone: +91 9045301702</p>
+                        </div>
+                      </div>
                     </div>
 
                     <hr />
+
+                    <div className="prntBtn">
+                      <button
+                        onClick={() => setPreview(false)}
+                        className="cnebuqo"
+                      >
+                        Cancel
+                      </button>
+                      <button
+                        onClick={() => {
+                          generatePdf();
+                        }}
+                      >
+                        <span>Print</span>
+                      </button>
+                    </div>
                   </div>
-
                 </div>
-
-                <hr />
-
-                <div className="prntBtn">
-                  <button onClick={()=>setPreview(false)} className="cnebuqo">Cancel</button>
-                  <button
-                    onClick={() => {
-                    
-                      generatePdf();
-                    }}
-                  >
-                    <span>Print</span>
-                  </button>
-                </div>
-
-              </div> 
-         </div>
-              }
-           
+              )}
             </div>
           </div>
         </div>

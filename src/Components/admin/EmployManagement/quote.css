@@ -37,8 +37,105 @@
     height: fit-content;
     padding-bottom: 30px;
     background-color: white;
+    margin-top: 650px;
 }
 
+.techstackwrap{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.techstackwrap h2{
+font-family: Inter;
+font-size: 24px;
+font-weight: 600;
+line-height: 32px;
+text-align: left;
+color: #101820;
+
+}
+
+.allrows2wrao{
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.costestimate h2{
+font-family: Inter;
+font-size: 24px;
+font-weight: 600;
+line-height: 32px;
+text-align: left;
+color: #101820;
+
+}
+
+.techsstack{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+}
+.allstack{
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+.snglstack{
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+.snglstack p{
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 26px;
+    text-align: left;
+    color: #101820;
+    
+}
+.snglstack span{
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 26px;
+    text-align: left;
+    color: #101820;
+    
+}
+
+.userAppdds h2, h1,p,strong,span{
+    font-family: Inter !important;
+    color: #101820;
+}
+.techsstack h2{
+    font-family: Inter;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 32px;
+    text-align: left;
+    color: #101820;
+}
+.makeitflexri{
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+.givfulwidt{
+    width: 300px;
+}
+.givfulwidt input{
+    width:300px !important;
+}
+.givfulwidt2{
+    width: 500px;
+}
+.givfulwidt2 input{
+    width:500px !important;
+}
 .sinproid {
     display: flex;
     align-items: center;
@@ -170,7 +267,12 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    height: 100%;
     overflow-y: scroll;
+}
+
+.previwwraps::-webkit-scrollbar{
+    display: none;
 }
 
 .qtoform {
@@ -1468,4 +1570,133 @@
     font-family: inter;
     font-weight: 500;
     font-size: 16px;
+}
+
+.logokushelquot{
+    max-width: 250px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.proprsaltitle{
+font-family: Inter;
+font-size: 16px;
+font-weight: 600;
+line-height: 24px;
+letter-spacing: 0.0015em;
+text-align: center;
+margin-top: 50px;
+margin-bottom:30px;
+
+}
+
+.procesforwar{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.procesforwar h2{
+font-family: Inter;
+font-size: 24px;
+font-weight: 600;
+line-height: 32px;
+text-align: left;
+color: #101820;
+
+}
+
+.procesforwar ul{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.procesforwar ul li{
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    letter-spacing: 0.0025em;
+    text-align: left;
+  color: #2B2B2B;
+    
+}
+
+.wehoemesg{
+font-family: Inter;
+font-size: 16px;
+font-weight: 500;
+line-height: 26px;
+letter-spacing: 0.0015em;
+text-align: left;
+color: #1B2533;
+}
+
+.thaksmessge{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.thaksmessge h4{
+font-family: Inter;
+font-size: 16px;
+font-weight: 600;
+line-height: 24px;
+letter-spacing: 0.0015em;
+text-align: left;
+color: #1B2533;
+
+}
+
+.frommesage{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.frommesage p,.frommesage span{
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    letter-spacing: 0.0015em;
+    text-align: left;
+    color: #1B2533;
+    
+}
+
+.frommesage span{
+    color: #0B56E3;
+}
+
+.preparequtotion{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    align-items: flex-end;
+}
+
+.preparequtotion .presec{
+    display: flex;
+    flex-direction: column;
+}
+.preparequtotion .presec p{
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 26px;
+    letter-spacing: 0.0015em;
+    text-align: right;
+    color: #1B2533;
+}
+.preparequtotion .presec span{
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 26px;
+    letter-spacing: 0.0015em;
+    text-align: right;
+    color:#0B56E4;
 }
