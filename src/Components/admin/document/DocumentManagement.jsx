@@ -97,7 +97,7 @@ const data = `<p class="MsoNormal" align="left" style="text-indent: -1px; color:
 </ol>
 
 <p class="MsoNormal" align="left" style="margin: 0in 0in 0px; font-family: Inter, sans-serif; color: black; text-align: left; text-indent: 0in; line-height: normal; font-size: 16px;"><strong><span style="color: windowtext;">Compensation</span></strong><span style="color: windowtext;">: Your compensation for this
-        position will be <strong><span style="background: yellow;"> [COMPENSATAION] </span></strong><span style="background: yellow;">/- PM</span> + incentives based on the target's
+        position will be <strong><span style="background: yellow;"> [COMPENSATION] </span></strong><span style="background: yellow;">/- PM</span> + incentives based on the target's
         achievements policies.</span></p><p class="MsoNormal" align="left" style="margin: 0in 0in 0px; color: black; text-align: left; text-indent: 0in; line-height: normal; font-size: 16px;"><span style="color: windowtext; font-family: Inter, sans-serif;"><br></span></p>
 
 <p class="MsoNormal" align="left" style="margin: 0in 0in 0px; font-family: Inter, sans-serif; color: black; text-align: left; text-indent: 0in; line-height: normal; font-size: 16px;"><strong><span style="color: windowtext;">Benefits</span></strong><span style="color: windowtext;">: As a [EMPLOYEETYPE] ,
@@ -125,7 +125,7 @@ const data = `<p class="MsoNormal" align="left" style="text-indent: -1px; color:
 
 <p class="MsoNormal" style="text-align: justify; font-family: Inter, sans-serif; color: black; margin: 10px 14px 0in 0in; text-indent: 0in; line-height: 115%; font-size: 16px;"><br></p>
 
-<p class="MsoNormal" align="left" style="margin: 0in 0in 0px; font-family: Inter, sans-serif; color: black; text-align: left; text-indent: 0in; line-height: normal; font-size: 16px;"><span style="color: windowtext; font-family: Inter, sans-serif;">&nbsp;Your annual gross emoluments will be Rs. [COMPENSATAION]/- (Thousand only) includes Basic, HRA, Conveyance Allowances, Medical , Communication and Personal Allowances .The detail soft he salary are in the attached Salary breakup Annexure-A.</span></p><p class="MsoNormal" align="left" style="margin: 0in 0in 0px; font-family: Inter, sans-serif; color: black; text-align: left; text-indent: 0in; line-height: normal; font-size: 16px;"><span style="color: windowtext; font-family: Inter, sans-serif;"><br></span></p>
+<p class="MsoNormal" align="left" style="margin: 0in 0in 0px; font-family: Inter, sans-serif; color: black; text-align: left; text-indent: 0in; line-height: normal; font-size: 16px;"><span style="color: windowtext; font-family: Inter, sans-serif;">&nbsp;Your annual gross emoluments will be Rs. [COMPENSATION]/- (Thousand only) includes Basic, HRA, Conveyance Allowances, Medical , Communication and Personal Allowances .The detail soft he salary are in the attached Salary breakup Annexure-A.</span></p><p class="MsoNormal" align="left" style="margin: 0in 0in 0px; font-family: Inter, sans-serif; color: black; text-align: left; text-indent: 0in; line-height: normal; font-size: 16px;"><span style="color: windowtext; font-family: Inter, sans-serif;"><br></span></p>
 
 <p class="MsoNormal" align="left" style="margin: 0in 0in 0px; color: black; text-align: left; text-indent: 0in; line-height: normal; font-size: 16px;"><span style="color: windowtext; font-family: Inter, sans-serif;">We are excited about the
         opportunity to work with you and believe that your skills and experience will make
@@ -259,7 +259,7 @@ the time being in force.</span></p>
   <p class="TableParagraph" style="font-family: Arial, sans-serif; margin: 3px 0in 0px 10px; font-size: 15px;"><strong><span style="font-family: Inter, sans-serif; font-size: 13px;">PerMonthFixed</span></strong></p>
   </td>
   <td width="362" valign="top" style="width: 361px; padding: 0in; height: 21px;">
-  <p class="TableParagraph" align="right" style="font-family: Arial, sans-serif; margin: 3px 2px 0px 0in; text-align: right; font-size: 15px;"><strong><span style="font-family: Inter, sans-serif; background: yellow; font-size: 13px;"> [COMPENSATAION].00 </span></strong></p>
+  <p class="TableParagraph" align="right" style="font-family: Arial, sans-serif; margin: 3px 2px 0px 0in; text-align: right; font-size: 15px;"><strong><span style="font-family: Inter, sans-serif; background: yellow; font-size: 13px;"> [COMPENSATION].00 </span></strong></p>
   </td>
  </tr>
  <tr style="height: 21px;">
@@ -349,7 +349,7 @@ the time being in force.</span></p>
   <p class="TableParagraph" style="font-family: Arial, sans-serif; margin: 3px 0in 0px 10px; font-size: 15px;"><strong><span style="font-family: Inter, sans-serif; color: black; font-size: 13px;">Net TakeHome(PerMonth)</span></strong></p>
   </td>
   <td width="362" valign="top" style="width: 361px; background: rgb(217, 217, 217); padding: 0in; height: 21px;">
-  <p class="TableParagraph" align="right" style="font-family: Arial, sans-serif; margin: 3px 2px 0px 0in; text-align: right; font-size: 15px;"><strong><span style="font-family: Inter, sans-serif; color: black; background: yellow; font-size: 13px;"> [COMPENSATAION] </span></strong></p>
+  <p class="TableParagraph" align="right" style="font-family: Arial, sans-serif; margin: 3px 2px 0px 0in; text-align: right; font-size: 15px;"><strong><span style="font-family: Inter, sans-serif; color: black; background: yellow; font-size: 13px;"> [COMPENSATION] </span></strong></p>
   </td>
  </tr>
  <tr style="height: 21px;">
@@ -1093,7 +1093,7 @@ need to keep all the details contained in this letter confidential.
   <p class="TableParagraph" style="font-family: Arial, sans-serif; margin: 3px 0in 0px 10px; font-size: 15px;"><strong><span style="font-family: Inter, sans-serif; font-size: 13px;">PerMonthFixed</span></strong></p>
   </td>
   <td width="362" valign="top" style="width: 361px; padding: 0in; height: 21px;">
-  <p class="TableParagraph" align="right" style="font-family: Arial, sans-serif; margin: 3px 2px 0px 0in; text-align: right; font-size: 15px;"><strong><span style="font-family: Inter, sans-serif; background: yellow; font-size: 13px;"> [COMPENSATAION].00 </span></strong></p>
+  <p class="TableParagraph" align="right" style="font-family: Arial, sans-serif; margin: 3px 2px 0px 0in; text-align: right; font-size: 15px;"><strong><span style="font-family: Inter, sans-serif; background: yellow; font-size: 13px;"> [COMPENSATION].00 </span></strong></p>
   </td>
  </tr>
  <tr style="height: 21px;">
@@ -1183,7 +1183,7 @@ need to keep all the details contained in this letter confidential.
   <p class="TableParagraph" style="font-family: Arial, sans-serif; margin: 3px 0in 0px 10px; font-size: 15px;"><strong><span style="font-family: Inter, sans-serif; color: black; font-size: 13px;">Net TakeHome(PerMonth)</span></strong></p>
   </td>
   <td width="362" valign="top" style="width: 361px; background: rgb(217, 217, 217); padding: 0in; height: 21px;">
-  <p class="TableParagraph" align="right" style="font-family: Arial, sans-serif; margin: 3px 2px 0px 0in; text-align: right; font-size: 15px;"><strong><span style="font-family: Inter, sans-serif; color: black; background: yellow; font-size: 13px;"> [COMPENSATAION] </span></strong></p>
+  <p class="TableParagraph" align="right" style="font-family: Arial, sans-serif; margin: 3px 2px 0px 0in; text-align: right; font-size: 15px;"><strong><span style="font-family: Inter, sans-serif; color: black; background: yellow; font-size: 13px;"> [COMPENSATION] </span></strong></p>
   </td>
  </tr>
  <tr style="height: 21px;">
@@ -1394,6 +1394,369 @@ against the Company’s policies and core values for the time being in force.
 confidentiality on my part, I will be personally liable to the Company and/or its clients.
 </p><p><br></p>`
 
+const data8 = `<p><strong>Private &amp; Confidential</strong></p><p><br></p><p>
+[SENDINGDATE] </p><p><br></p><p>
+Dear [NAME],
+</p><p>We are pleased to offer you the position of [POSITION] on a part-time basis at KUSHEL DIGI SOLUTIONS.&nbsp;We are excited about the prospect of you joining
+our team and contributing your expertise to our organization.</p><p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;<br><br>1. <strong>Position:&nbsp;</strong>[POSITION]<br> <br> 2. <strong>Joining Date</strong>: [JOININGDATE]<br> <br> 3.&nbsp;<strong>Location</strong><strong>:&nbsp;</strong>[LOCATION]<br> <br>
+4. <strong>Working Hours: </strong>[WORKHOUR]<br><br>5. <strong>Working Days: </strong>[WORKINGDAYS]<br></p><p><br></p><p><br></p><p><strong style="font-size: 16px;">Responsibilities</strong>:</p><p><br></p><p>
+1. Identify and pursue new business opportunities to generate leads and increase revenue.
+</p><p>2. Develop and maintain relationships with clients and key stakeholders.
+</p><p>3. Collaborate with the sales and marketing teams to develop strategies for business
+growth.
+</p><p>4. Analyze market trends and competitor activities to identify potential areas for expansion.
+</p><p>5. Prepare and deliver presentations to prospective clients.
+6. Negotiate contracts and agreements with clients.</p><p><br></p><p><br></p><p><strong style="font-size: 16px;">Compensation</strong>: Your compensation for this position will be [COMPENSATION]/- PM + incentives based on
+the target's achievements policies.</p><p><br></p><p><strong style="font-size: 16px;">Benefits</strong>: As a part-time employee, you will be eligible for the following benefits:
+</p><p><br></p><p>1. Flexible work schedule.</p><p>
+2. Opportunities for professional development and growth.</p><p><br></p><p><strong style="font-size: 16px;"><br></strong></p><p><strong style="font-size: 16px;">Terms of Employment:</strong>
+<br><br>This offer of employment is contingent upon your acceptance of the terms outlined in this letter
+and the successful completion of any background checks or screenings required by <strong>KUSHEL DIGI
+SOLUTIONS.</strong><br><br>
+Please indicate your acceptance of this offer by signing and returning a copy of this letter by [RETURNINGDATE]<br><br>
+The above-mentioned offershall be valid if you join us on or before Monday, [JOININGDATE]<br><br>
+Your annual gross emoluments will be Rs. [ANNUALINCOME]
+including Basic, HRA, Conveyance Allowances, Medical, Communication and Personal Allowances. The
+details of the salary are in the attached Salary Break up Annexure –A.<br><br>We are excited about the opportunity to work with you and believe that your skills and
+experience will make a significant contribution to our team. If you have any questions or require
+further clarification, please do not hesitate to contact me.
+<br><br>To confirm your acceptance of this agreement, please initial all the pages and put your signature
+on the declaration on the page of this agreement and return to us the duplicate copy of the
+entire agreement duly initialed and signed. We look forward to a long and mutually beneficial
+relationship.
+<br><br>Yours faithfully,
+<br>Priya Singh
+HR Manager<br>
+For and on behalf of
+<br>Kushel Digi Solutions.<br><br><br>&nbsp; &nbsp;<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<strong style="font-size: 16px;">Appendix A</strong></p><p><br></p><p><strong>Name: </strong>[NAME]<br>
+<strong>Designation:</strong> [DESIGNATION]
+<br><strong>Location: </strong>[LOCATION]<br><br><br><br><strong style="font-size: 16px;">Compensation Details</strong>
+</p><p><br>All the above amounts are based on a full year of service. The amount payable to you will be
+determined on pro-rata based on the number of days that you serve with the Company during the
+applicable financial year. The annual payable to you shall be liable to tax deduction at source as
+per the applicable law for the time being in force.<br><br>
+
+
+Please note that irrespective of whether you join KUSHEL DIGI SOLUTIONS or not, you
+need to keep all the details contained in this letter confidential.
+
+
+
+
+
+</p><table class="MsoNormalTable" border="1" cellspacing="0" cellpadding="0" align="left" width="701" style="margin-left: 9px; margin-right: 9px;">
+ <tbody><tr style="height: 22px;">
+  <td width="701" colspan="2" valign="top" style="width: 7.3in; padding: 0in; height: 22px;">
+  <p class="TableParagraph" align="center" style="font-family: Inter, sans-serif; margin: 3px 335px 0px 0in; text-align: center; line-height: 87%; font-size: 15px;"><strong><span style="line-height: 87%; font-size: 13px;"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  </span></span><span>&nbsp;</span>Annexure–A</strong>.</p>
+  </td>
+ </tr>
+ <tr style="height: 21px;">
+  <td width="338" valign="top" style="width: 337px; padding: 0in; height: 21px;">
+  <p class="TableParagraph" style="font-family: Arial, sans-serif; margin: 3px 0in 0px 10px; font-size: 15px;"><strong><span style="font-family: Inter, sans-serif; font-size: 13px;">PerMonthFixed</span></strong></p>
+  </td>
+  <td width="362" valign="top" style="width: 361px; padding: 0in; height: 21px;">
+  <p class="TableParagraph" align="right" style="font-family: Arial, sans-serif; margin: 3px 2px 0px 0in; text-align: right; font-size: 15px;"><strong><span style="font-family: Inter, sans-serif; background: yellow; font-size: 13px;"> [COMPENSATION].00 </span></strong></p>
+  </td>
+ </tr>
+ <tr style="height: 21px;">
+  <td width="338" valign="top" style="width: 337px; background: rgb(217, 217, 217); padding: 0in; height: 21px;">
+  <p class="TableParagraph" style="font-family: Arial, sans-serif; margin: 3px 0in 0px 10px; font-size: 15px;"><strong><span style="font-family: Inter, sans-serif; color: black; font-size: 13px;">SalaryBreak -upComponents</span></strong></p>
+  </td>
+  <td width="362" valign="top" style="width: 361px; background: rgb(217, 217, 217); padding: 0in; height: 21px;">
+  <p class="TableParagraph" align="right" style="font-family: Arial, sans-serif; margin: 3px 2px 0px 0in; text-align: right; font-size: 15px;"><strong><span style="font-family: Inter, sans-serif; color: black; font-size: 13px;">Monthly
+  (INR)</span></strong></p>
+  </td>
+ </tr>
+ <tr style="height: 21px;">
+  <td width="338" valign="top" style="width: 337px; padding: 0in; height: 21px;">
+  <p class="TableParagraph" style="margin: 0in 0in 0in 10px; font-family: Arial, sans-serif; font-size: 15px;"><span style="font-family: Inter, sans-serif; font-size: 13px;">Basic+DA</span></p>
+  </td>
+  <td width="362" valign="top" style="width: 361px; padding: 0in; height: 21px;">
+  <p class="TableParagraph" align="right" style="margin: 0in 2px 0in 0in; font-family: Arial, sans-serif; text-align: right; font-size: 15px;"><br></p>
+  </td>
+ </tr>
+ <tr style="height: 21px;">
+  <td width="338" valign="top" style="width: 337px; padding: 0in; height: 21px;">
+  <p class="TableParagraph" style="margin: 0in 0in 0in 10px; font-family: Arial, sans-serif; font-size: 15px;"><span style="font-family: Inter, sans-serif; font-size: 13px;">HRA</span></p>
+  </td>
+  <td width="362" valign="top" style="width: 361px; padding: 0in; height: 21px;">
+  <p class="TableParagraph" align="right" style="margin: 0in 2px 0in 0in; font-family: Arial, sans-serif; text-align: right; font-size: 15px;"><span style="font-family: Inter, sans-serif; background: yellow; font-size: 13px;">000.00</span></p>
+  </td>
+ </tr>
+ <tr style="height: 21px;">
+  <td width="338" valign="top" style="width: 337px; padding: 0in; height: 21px;">
+  <p class="TableParagraph" style="font-family: Arial, sans-serif; margin: 1px 0in 0px 10px; font-size: 15px;"><span style="font-family: Inter, sans-serif; font-size: 13px;">ConveyanceAllowance</span></p>
+  </td>
+  <td width="362" valign="top" style="width: 361px; padding: 0in; height: 21px;">
+  <p class="TableParagraph" align="right" style="font-family: Arial, sans-serif; margin: 1px 2px 0px 0in; text-align: right; font-size: 15px;"><span style="font-family: Inter, sans-serif; background: yellow; font-size: 13px;">000.00</span></p>
+  </td>
+ </tr>
+ <tr style="height: 21px;">
+  <td width="338" valign="top" style="width: 337px; padding: 0in; height: 21px;">
+  <p class="TableParagraph" style="margin: 0in 0in 0in 10px; font-family: Arial, sans-serif; font-size: 15px;"><span style="font-family: Inter, sans-serif; font-size: 13px;">Medical
+  Allowance</span></p>
+  </td>
+  <td width="362" valign="top" style="width: 361px; padding: 0in; height: 21px;">
+  <p class="TableParagraph" align="right" style="margin: 0in 2px 0in 0in; font-family: Arial, sans-serif; text-align: right; font-size: 15px;"><span style="font-family: Inter, sans-serif; background: yellow; font-size: 13px;">0.00</span></p>
+  </td>
+ </tr>
+ <tr style="height: 21px;">
+  <td width="338" valign="top" style="width: 337px; padding: 0in; height: 21px;">
+  <p class="TableParagraph" style="margin: 0in 0in 0in 10px; font-family: Arial, sans-serif; font-size: 15px;"><span style="font-family: Inter, sans-serif; font-size: 13px;">EducationAllowance</span></p>
+  </td>
+  <td width="362" valign="top" style="width: 361px; padding: 0in; height: 21px;">
+  <p class="TableParagraph" align="right" style="margin: 0in 2px 0in 0in; font-family: Arial, sans-serif; text-align: right; font-size: 15px;"><span style="font-family: Inter, sans-serif; background: yellow; font-size: 13px;">0.00</span></p>
+  </td>
+ </tr>
+ <tr style="height: 20px;">
+  <td width="338" valign="top" style="width: 337px; padding: 0in; height: 20px;">
+  <p class="TableParagraph" style="margin: 0in 0in 0in 10px; font-family: Arial, sans-serif; font-size: 15px;"><span style="font-family: Inter, sans-serif; font-size: 13px;">LTA</span></p>
+  </td>
+  <td width="362" valign="top" style="width: 361px; padding: 0in; height: 20px;">
+  <p class="TableParagraph" align="right" style="margin: 0in 2px 0in 0in; font-family: Arial, sans-serif; text-align: right; font-size: 15px;"><span style="font-family: Inter, sans-serif; background: yellow; font-size: 13px;">0.00</span></p>
+  </td>
+ </tr>
+ <tr style="height: 21px;">
+  <td width="338" valign="top" style="width: 337px; padding: 0in; height: 21px;">
+  <p class="TableParagraph" style="font-family: Arial, sans-serif; margin: 2px 0in 0px 10px; font-size: 15px;"><span style="font-family: Inter, sans-serif; font-size: 13px;">Communication</span></p>
+  </td>
+  <td width="362" valign="top" style="width: 361px; padding: 0in; height: 21px;">
+  <p class="TableParagraph" align="right" style="font-family: Arial, sans-serif; margin: 2px 2px 0px 0in; text-align: right; font-size: 15px;"><span style="font-family: Inter, sans-serif; background: yellow; font-size: 13px;">0.00</span></p>
+  </td>
+ </tr>
+ <tr style="height: 21px;">
+  <td width="338" valign="top" style="width: 337px; padding: 0in; height: 21px;">
+  <p class="TableParagraph" style="font-family: Arial, sans-serif; margin: 1px 0in 0px 10px; font-size: 15px;"><span style="font-family: Inter, sans-serif; font-size: 13px;">PersonalAllowance</span></p>
+  </td>
+  <td width="362" valign="top" style="width: 361px; padding: 0in; height: 21px;">
+  <p class="TableParagraph" align="right" style="font-family: Arial, sans-serif; margin: 1px 2px 0px 0in; text-align: right; font-size: 15px;"><span style="font-family: Inter, sans-serif; background: yellow; font-size: 13px;">0.00</span></p>
+  </td>
+ </tr>
+ <tr style="height: 21px;">
+  <td width="338" valign="top" style="width: 337px; padding: 0in; height: 21px;">
+  <p class="TableParagraph" style="font-family: Arial, sans-serif; margin: 1px 0in 0px 10px; font-size: 15px;"><span style="font-family: Inter, sans-serif; font-size: 13px;">Bonus</span></p>
+  </td>
+  <td width="362" valign="top" style="width: 361px; padding: 0in; height: 21px;">
+  <p class="TableParagraph" align="right" style="font-family: Arial, sans-serif; margin: 1px 2px 0px 0in; text-align: right; font-size: 15px;"><span style="font-family: Inter, sans-serif; background: yellow; font-size: 13px;">0.00</span></p>
+  </td>
+ </tr>
+ <tr style="height: 21px;">
+  <td width="338" valign="top" style="width: 337px; background: rgb(217, 217, 217); padding: 0in; height: 21px;">
+  <p class="TableParagraph" style="font-family: Arial, sans-serif; margin: 3px 0in 0px 10px; font-size: 15px;"><strong><span style="font-family: Inter, sans-serif; color: black; font-size: 13px;">Net TakeHome(PerMonth)</span></strong></p>
+  </td>
+  <td width="362" valign="top" style="width: 361px; background: rgb(217, 217, 217); padding: 0in; height: 21px;">
+  <p class="TableParagraph" align="right" style="font-family: Arial, sans-serif; margin: 3px 2px 0px 0in; text-align: right; font-size: 15px;"><strong><span style="font-family: Inter, sans-serif; color: black; background: yellow; font-size: 13px;"> [COMPENSATION] </span></strong></p>
+  </td>
+ </tr>
+ <tr style="height: 21px;">
+  <td width="338" valign="top" style="width: 337px; background: rgb(217, 217, 217); padding: 0in; height: 21px;">
+  <p class="TableParagraph" style="font-family: Arial, sans-serif; margin: 3px 0in 0px 10px; font-size: 15px;"><strong><span style="font-family: Inter, sans-serif; color: black; font-size: 13px;">TOTALCOSTTOTHECOMPANY(PerAnnum)</span></strong></p>
+  </td>
+  <td width="362" valign="top" style="width: 361px; background: rgb(217, 217, 217); padding: 0in; height: 21px;">
+  <p class="TableParagraph" align="right" style="font-family: Arial, sans-serif; margin: 3px 2px 0px 0in; text-align: right; font-size: 15px;"><strong><span style="font-family: Inter, sans-serif; color: black; background: yellow; font-size: 13px;">0000.00</span></strong></p>
+  </td>
+ </tr>
+</tbody></table>
+
+
+
+<br><br> <br><p> We look forward to your joining and a long association.</p><br><br>
+<p style="text-align: center;"><strong style="font-size: 18px;">Appendix B</strong></p><br><p style="text-align: center;"><strong style="font-size: 16px;">General Terms &amp; Conditions
+</strong></p><br><br><p><strong style="font-size: 14px;">1. Background Verification</strong></p><br><p>Your employment in the Company is subject to satisfactory verification of your certificates,
+testimonials and personal particulars/ credentials. The Company reserves the right to get a
+background check (including criminal history record search, education and employment; and
+personal details verification) conducted on you through nominated third-party agencies. If such
+verification or background check reveals any discrepancy in the statement(s) made in your
+application or in the bio-data with the Company or in the declarations made by you in this
+agreement, your services are liable to be terminated forthwith without any notice or
+compensation.</p><br><p><strong style="font-size: 14px;">2. Date of Birth</strong>
+</p><br><p>The date of birth declared by you is [DATEOFBIRTH]. You will be bound by such a declared
+Date of birth in all service matters with the Company, including your retirement age.
+</p><br><p><strong style="font-size: 14px;">3. Leave</strong>
+</p><br><p>You will be eligible for [LEAVEALLOCATED] days’ annual leave per financial year (in addition to statutory holidays).
+You will not be entitled to receive payment in lieu of any unused leave.</p><br><p>
+<strong style="font-size: 14px;">4. Confidentiality</strong>
+</p><br><p>Maintaining confidentiality is a condition of your employment. During your employment, you will
+not store, possess, use or disclose confidential/ personal/ sensitive information or data (including
+those from any of your previous employment(s) with other organizations) in an unauthorized
+manner. You shall not bring any such information or data into the Company. You will not, either
+during your employment with the Company or after the termination of such employment,
+divulge to anyone any information, secret, accounts or dealings relating to the Company’s
+business, its affairs or its client, service providers, sub-contractor or vendors, other than the
+Directors of the Company or their authorized representatives.
+</p><br><p>On discontinuation of your employment, you will return to the Company, all papers and
+documents and all other property pertaining to the Company or affairs of the Company or its client
+or any of its associates or branches, which may be in your possession and will not retain any copy
+or extract therefrom.</p><br><p>You agree to sign engagement-specific non-disclosure/ confidentiality agreements, if so, required
+by certain clients of the Company. In case of any breach of confidentiality caused by you, either
+during or after the termination of your employment with us, you will be personally liable to our
+clients or third parties. You also agree to keep the company and its directors indemnified for any
+loss that may be caused by your failure to comply with confidentiality agreements</p><br><p><strong style="font-size: 14px;">5. People Handbook- Policies &amp; Procedure:</strong></p><br><p>
+You acknowledge that the Company has or may from time to time adopt a people handbook,
+restrictions, policies and procedures with respect to the conduct of its business and the financial
+and investment affairs of its officers, directors and employees, and you agree to be bound by and
+to adhere to all such handbooks, restrictions, policies and procedures. Without prejudice to the
+above, you agree that you will during the course of your employment abide by all existing and
+future India laws applicable to the performance of your duties, all applicable rules and regulations
+set forth by regulatory agencies, exchanges and self-practices. You further agree to submit to such
+supervision as may be necessary to ensure compliance therewith.</p><br><p>
+<strong style="font-size: 14px;">6. Indemnity:</strong>
+</p><br><p>You hereby agree to indemnify the Company, to the fullest extent permitted by law and to save
+and hold harmless the Company, from and in respect of all reasonable fees, costs, loss, damages
+and expenses, including legal fees paid in connection with or resulting from
+any claim, action, or demand against the Company, that arises out of or in any way relates to any
+action or omission on your part during the course of your employment with the
+Company, where you were acting negligently or unlawfully or in breach of the terms of your
+employment or in an unreasonable manner.
+</p><br><p><strong style="font-size: 14px;">7. Intellectual Property:</strong></p><br><p>
+The nature of the work to be assigned to you might be such that the clients may retain exclusive
+ownership rights on the resulting work products on an unconditional basis. Further,
+The Company may need to provide a client with the material without acknowledging each
+individual who worked on it.</p><br><p>By signing this agreement, you:
+</p><br><p>• Acknowledge and agree to the condition that all existing and future intellectual property rights
+in any materials, information and technology of any nature created by you eithersingly or jointly
+with other persons, are the exclusive property of the Company with unfettered rights for
+utilization or disposal of the same; and</p><br><p>
+• Consent the Company and/ or its clientsto use or adapt material to which you have contributed,
+in any manner and without expressly acknowledging your individual contribution.</p><br><p><strong style="font-size: 14px;">8. Confidential and Proprietary Information</strong>
+</p><br><p>Information and materials relating to the Company, its clients, licensors and suppliers that are not
+publicly available must be treated as confidential and proprietary (“Confidential Information”) and
+may only be used or disclosed for obligation purposes related to your employment duties with the
+Company.</p><br><p>
+You have an obligation to safeguard Confidential Information from unauthorized use and
+disclosure. Confidential Information includes, but is not limited to, the Company's professional,
+technical and administrative manuals; associated forms, processes, and computer systems
+(including hardware, software, databases and Information technology systems); other
+methodologies and systems; marketing and business development plans and strategies; client and
+prospect files, lists and materials; research materials; investigative materials; and project notes
+and plans.</p><br><p>
+Because Confidential Information is extremely valuable, the Company takes measures to maintain
+its confidentiality and guard its secrecy. Confidential Information may be copied, disclosed or used
+by you during your employment with the Company only as necessary to carry out Company
+business and, where applicable, only asrequired or authorized under the terms of any agreements
+between the Company and its clients, licensors and suppliers.</p><br><p>
+You agree not to take or keep any Confidential Information when you leave the Company. If you
+are ever asked to disclose any information or materials that are subject to these confidentiality
+restrictions, pursuant to legal process or otherwise, you must contact the business unit head or
+directors to seek the Company's consent prior to any disclosure. These confidentiality restrictions
+are permanent and do not lapse or cease upon your departure from the Company.
+</p><p><strong style="font-size: 14px;"><br></strong></p><p><strong style="font-size: 14px;">9. Insider Information</strong></p><br><p>You are prohibited from using or sharing information, not publicly disclosed, which you obtain
+during the course of your work for the Company, for your personal gain or advantage in securities
+transactions, or for the personal gain or advantage of anyone with whom you improperly share
+this information. This restriction applies to such information related to any company, not just the
+Company's clients and their affiliates. The foregoing obligation is in addition to any obligation that
+you have not to purchase or hold securities of entities with respect to which the Company must
+maintain independence.
+</p><br><p><strong style="font-size: 14px;">10. Protection of computersoftware/Company’s Asset</strong></p><br><p>The Company has a strict policy prohibiting the unauthorized reproduction or use of computer
+software purchased or licensed from an outside vendor. You will not bring into the Company, or
+use, any unauthorized or unlicensed software. You will be required to sign a declaration annually
+that you are complying with this policy. All Company property/ assets, including any copies
+thereof, must be returned to the Company on termination of employment or whenever requested
+by the company</p><br><p>You will be provided with access to a computer for your business use in the office. If you are
+allocated a portable computer for use with your work, you are required to take additional
+responsibility for the physical security of the equipment as well as the information stored therein.
+You must make yourself aware of and comply with Company’s relevant policies and procedures
+applicable to usage of the Company’s computer equipment, including the Company’s policies on
+the appropriate use of email and the internet.</p><br><p>
+You acknowledge and agree that the Company reserves the right to monitor your usage of the
+Company’s computer(s) and IT systems/resources towards ensuring that there is no unauthorized
+usage thereof. In case of any damage due to Negligence apart from any wear &amp; tear the company
+is entitled to recover 80% of the cost of damage from you.</p><br><p><strong style="font-size: 14px;">11. Exclusivity</strong>
+</p><br><p>During the continuance of your employment with the Company, it is a condition of your
+employment that you will not engage yourself in any other trade, business or occupation, including
+private business and consulting, without obtaining prior permission from the director of the
+Company.
+</p><br><p><strong style="font-size: 14px;">12. Performance Management</strong>
+</p><br><p>As a part of the People Growth Cycle, we follow an Annual Appraisal Cycle in the month of April
+&amp; October of any given calendar year. We encourage outstanding performance consistently and
+hence you may also be appraised at any time during the year. However, there is no standard
+process of increments after completion of probation in the company. Such appraisals are
+undertaken only in the event of outstanding performance and only unanimous management
+decision.
+</p><br><p><strong style="font-size: 14px;">13. Notice Period</strong>
+</p><br><p>The Company or you may, at any time during the course of the employment by stating their
+intention to do so in writing, terminate the employment by giving notice of 1 month or more or a
+salary payment in lieu of that notice. The Company may require you to complete all operative parts
+of the assignment or project that you may be involved in on the date of resignation as determined
+by the Company. If, in exceptional cases, the Company may agree to your request for an early
+release, the Company will recover the salary or part thereof equivalent to the balance notice
+period.
+</p><br><p>During the probation period, the company can terminate the employment forthwith without any
+notice.</p><br><p><strong style="font-size: 14px;">14. Summary Termination:</strong>
+</p><br><p>This Agreement and your employment may be terminated by the Company immediately without
+prior notice if you at any time</p><br><p>(i) Commit any breach of your obligations under this Agreement;
+</p><br><p>(ii) Disobey a lawful and reasonable order ofthe Company;
+</p><br><p>(iii) Misconduct yourself under the influence of any substance abuse. If the company has
+reasonable grounds of suspecting that you are under the influence of illegal substance
+abuse while at work, the company may request you to undergo a noninvasive drug test
+which will be conducted by a medical professional. If found guilty, your employment may
+be terminated without any notice there.</p><br><p>
+(iv) Are guilty of or attempted to commit fraud, dishonesty, theft or gross malfeasance,
+including, without limitation, conduct of a disruptive, criminal nature, conduct involving
+moral turpitude, embezzlement, or misappropriation of assets, misuse of the Company’s
+property;
+</p><br><p>(v) Are neglectful in your duties, despite being warned;</p><br><p>
+(vi) Fail to report for work at the Company’s office by the Effective Date;
+</p><br><p>(vii) Remain absent from duty for more than 3 days, without prior permission of a designated
+senior</p><br><p>
+(viii) Misrepresent any information to the Company or make any false declaration to the
+Company or it is found that you suppressed any information from the Company. This
+clause shall also be applicable to any information or declaration or act committed prior
+to entering into the employment of the Company;
+</p><br><p>(ix) You are deemed incapable of continuing in service or performing given work
+satisfactorily, owing to any physical or mental infirmity/incapacity or any other reason
+whatsoever.
+</p><br><p>This list is not exhaustive. The Company shall also be entitled to terminate your employment
+immediately without prior notice for any other cause recognized by applicable law.
+</p><br><p>In the event of termination pursuant to the above provision the Company shall not be obliged to
+make any further payment to you beyond the amount of any remuneration and payment in lieu
+of untaken holiday actually accrued up to and including the date of such termination.</p><br><p>Further, the termination of employment under this Agreement shall be without prejudice to any
+right that the Company may have in respect of any breach by you of any of the provisions of this
+Agreement, which may have occurred prior to such termination.</p><br><p><strong style="font-size: 16px;">15. Exit formalities:&nbsp;</strong></p><br><p>Before termination of employment, you will be required to complete exit formalities and sign
+the necessary forms in this regard, as per the policies of the Company. You will be required to
+return all documents and property (including copies thereof) belonging to the Company before
+your last working day to obtain release. You are also specifically restrained from keeping copies,
+or forwarding any mails or extracts of any of the Company’s or client’s documents, codes,
+or information with you, after your release from the services of the Company, except with
+specific written permission from the Company.
+As part of your exit formalities, you have to provide in writing to us that you will be personally
+liable to us and/ or our clients for any data/ confidential information retained by you, in any
+unauthorized manner or disclosed by you even after the tenure of your employment.
+</p><br><p><strong style="font-size: 14px;">16. Non-Solicitation</strong>
+</p><br><p>Upon leaving the Company you will not, without prior written consent of the Company, for 24
+(twenty-four) months from the date of ceasing employment, canvass, solicit, interfere with or
+entice away any person, Company or corporation who has, at any time during your employment
+with the Company, been a client of the Company with whom you have had contact or been
+involved in the provision of services, or an employee of the Company.
+To prevent any potential conflict of interest or breach of confidentiality, you will not accept an
+appointment offered by a client for whom an assignment is being performed by you or on which
+you are working for twenty-four months after the last working day, unless appropriate written
+consent is obtained from the Company. It is mandatory to immediately notify your director ofsuch
+an offer.
+</p><p><br></p><p><br></p><br><p style="text-align: center;"><strong style="font-size: 18px;">Declaration to be signed by the Employee</strong></p><br><p style="text-align: center;"><strong style="font-size: 18px;">DECLARATION</strong></p><br><br><br><p>By signing this agreement, I hereby acknowledge and agree that I have carefully read and
+understood the above agreement (including the attached terms and conditions thereto) and
+accept the same unconditionally. I will make myself fully aware of, and be bound by, the rules
+and regulations of the Company as amended from time to time. In particular, I declare that:</p><br><p>
+a) I will furnish original copies of my certificates, testimonials and other necessary documents,
+on demand.</p><br><p>
+b) I acknowledge and agree to the Company reserving the right to get a background check
+conducted on me through a third-party agency. In furtherance thereof, I authorize the
+Company to collect and retain copies of my personal particulars (including educational
+certificates, copies of passport, driving license, PAN card, and voter-identification card) either
+directly or through a third-party agency.
+</p><br><p>c) There are no ongoing or pending criminal cases/ criminal liabilities on me.</p><br><p>
+d) I am not in possession, in an unauthorized manner, of any confidential, sensitive or personal
+information/ data/ material of any other Company or individual (collectively “Sensitive
+Data”). I shall not bring any Sensitive Data into the Company, and shall not use any such
+Sensitive Data in an unauthorized manner, during or after my tenure with the Company
+</p><br><p>e) I shall not commit, or cause to commit, any act or omission, which I believe to be illegal or
+against the Company’s policies and core values for the time being in force.
+</p><br><p>f) In the case of any willful or intentional misconduct, fraud, dishonesty, or breach of
+confidentiality on my part, I will be personally liable to the Company and/or its clients.</p>`
+
+
+
 const DocumentManagement = ({ setAlert, pop, setPop }) => {
   const {
     user,
@@ -1407,7 +1770,7 @@ const DocumentManagement = ({ setAlert, pop, setPop }) => {
     saveOfferInterLetterapi,
   } = useMain();
 
-  const [currEmp, setCurrEmp] = useState(2);
+  const [currEmp, setCurrEmp] = useState(0);
 
   let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
 
@@ -1430,6 +1793,7 @@ const DocumentManagement = ({ setAlert, pop, setPop }) => {
   const editor5 = useRef(null);
   const editor6 = useRef(null);
   const editor7 = useRef(null);
+  const editor8 = useRef(null);
 
   const [content, setContent] = useState(data);
   const [content2, setContent2] = useState(data2);
@@ -1440,8 +1804,8 @@ const DocumentManagement = ({ setAlert, pop, setPop }) => {
 
   // for offer letter freelecncer
   const [content7 , setContent7] = useState(data7);
+  const [content8 , setContent8] = useState(data8);
 
-  console.log("content7" , content7);
 
   const saveDocumentApi = async () => {
     if (SelectEmpId === "" || SelectEmpId === "Select") {
@@ -1569,7 +1933,7 @@ const DocumentManagement = ({ setAlert, pop, setPop }) => {
     employeeType: "[EMPLOYEETYPE]",
     workingHour: "[WORKHOUR]",
     workingDays: "[WORKINGDAYS]",
-    compensation: "[COMPENSATAION]",
+    compensation: "[COMPENSATION]",
     returningDay: "[RETURNINGDAY]",
     returningDate: "[RETURNINGDATE]",
     validJoin: "[VALIDJOIN]",
@@ -1586,7 +1950,30 @@ const DocumentManagement = ({ setAlert, pop, setPop }) => {
     employeeType: "[EMPLOYEETYPE]",
     workingHour: "[WORKHOUR]",
     workingDays: "[WORKINGDAYS]",
-    compensation: "[COMPENSATAION]",
+    compensation: "[COMPENSATION]",
+    returningDay: "[RETURNINGDAY]",
+    returningDate: "[RETURNINGDATE]",
+    validJoin: "[VALIDJOIN]",
+    empDateOfBirth: "[DATEOFBIRTH]",
+    sendingDate: "[SENDINGDATE]",
+    sendername: "[SENDERNAME]",
+    workscope:"[WORKSCOPE]",
+    introduction:"[INTRODUCTION]",
+    annualIncome:"[ANNUALINCOME]",
+    designation:"[DESIGNATION]",
+    location:"[LOCATION]",
+    leave:"[LEAVEALLOCATED]"
+  });
+
+  const [replaceData5, setReplaceData5] = useState({
+    name: "[NAME]",
+    address: "[ADDRESS]",
+    position: "[POSITION]",
+    joiningDate: "[JOININGDATE]",
+    employeeType: "[EMPLOYEETYPE]",
+    workingHour: "[WORKHOUR]",
+    workingDays: "[WORKINGDAYS]",
+    compensation: "[COMPENSATION]",
     returningDay: "[RETURNINGDAY]",
     returningDate: "[RETURNINGDATE]",
     validJoin: "[VALIDJOIN]",
@@ -1679,6 +2066,29 @@ const DocumentManagement = ({ setAlert, pop, setPop }) => {
     leave:""
 
   });
+  const [detail5, setDetail5] = useState({
+    name: "",
+    dear: "",
+    position:"",
+    compensation: "",
+    joiningDate: "",
+    employeeType: "Freelencer",
+    workingHour: "",
+    workingDays: "",
+    returningDate: "",
+    returningDay: "",
+    validJoin: "",
+    empDateOfBirth: "",
+    sendingDate: "",
+    sendername: "",
+    workscope:"" , 
+    introduction:"",
+    annualIncome:"",
+    designation:"",
+    location:"",
+    leave:""
+
+  });
 
   const handleNameChange = (e) => {
     const { name, value } = e.target;
@@ -1691,6 +2101,13 @@ const DocumentManagement = ({ setAlert, pop, setPop }) => {
   const handleNameChange4 = (e) => {
     const { name, value } = e.target;
     setDetail4((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+  const handleNameChange5 = (e) => {
+    const { name, value } = e.target;
+    setDetail5((prev) => ({
       ...prev,
       [name]: value,
     }));
@@ -1764,6 +2181,25 @@ const DocumentManagement = ({ setAlert, pop, setPop }) => {
     setContent7(updatedContent);
 
     setReplaceData4((prevReplaceData) => ({
+      ...prevReplaceData,
+      [which]: valueToInsert,
+    }));
+  };
+
+  const handleInsert6 = (which) => {
+    const valueToInsert = detail5[which];
+    const valueReplace = replaceData5[which];
+
+    const escapedValueReplace = valueReplace?.replace(
+      /[.*+?^${}()|[\]\\]/g,
+      "\\$&"
+    );
+
+    const regex = new RegExp(escapedValueReplace, "g");
+    const updatedContent = content8?.replace(regex, valueToInsert);
+    setContent8(updatedContent);
+
+    setReplaceData5((prevReplaceData) => ({
       ...prevReplaceData,
       [which]: valueToInsert,
     }));
@@ -2895,8 +3331,7 @@ const DocumentManagement = ({ setAlert, pop, setPop }) => {
                           Insert
                         </button>
                       </label>
-
-                    
+      
 
                       <label>
                         <div className="joindatewrap">
@@ -3003,6 +3438,280 @@ const DocumentManagement = ({ setAlert, pop, setPop }) => {
                       <span>Save</span>
                     </button>
                   </>
+                )}
+
+
+                {currentPage === 0 && currEmp === 3 && (
+                  <>
+                    <div className="docuSec">
+
+                      <div className="doSubFir">
+                        <img src={docSub} alt="" />
+                        <span>Offer Letter</span>
+                      </div>
+
+                      <hr />
+
+                      <div className="doSubSs">
+                        <span>Placeholders</span>
+                      </div>
+
+                      <hr />
+
+                      <div className="selectEmpl">
+                        <label htmlFor="">Select Employee</label>
+                        <select
+                          name="SelectEmpId"
+                          value={SelectEmpId}
+                          onChange={(e) => setSelectEmpId(e.target.value)}
+                          id=""
+                        >
+                          <option value="Select">Select</option>
+                          {allEmp?.map((emp, index) => (
+                            <option key={index} value={emp?._id}>
+                              {emp.fullName}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+                    </div>
+
+                    {/* for inputs  */}
+                    <div className="docInputs">
+                      <label>
+                        <input
+                          type="text"
+                          name="name"
+                          value={detail5.name}
+                          onChange={handleNameChange5}
+                          placeholder="Enter Employee Name"
+                        />
+                        <button onClick={() => handleInsert6("name")}>
+                          Insert
+                        </button>
+                      </label>
+
+                      <label>
+                        <input
+                          type="text"
+                          name="position"
+                          value={detail5.position}
+                          onChange={handleNameChange5}
+                          placeholder="Enter Position"
+                        />
+                        <button onClick={() => handleInsert6("position")}>
+                          Insert
+                        </button>
+                      </label>
+
+                      <label>
+                        <input
+                          type="text"
+                          name="compensation"
+                          value={detail5.compensation}
+                          onChange={handleNameChange5}
+                          placeholder="Enter compensation"
+                        />
+                        <button onClick={() => handleInsert6("compensation")}>
+                          Insert
+                        </button>
+                      </label>
+
+                      <label>
+                        <input
+                          type="text"
+                          name="annualIncome"
+                          value={detail5.annualIncome}
+                          onChange={handleNameChange5}
+                          placeholder="Enter annual Income"
+                        />
+                        <button onClick={() => handleInsert6("annualIncome")}>
+                          Insert
+                        </button>
+                      </label>
+
+                      <label>
+                        <input
+                          type="text"
+                          name="designation"
+                          value={detail5.designation}
+                          onChange={handleNameChange5}
+                          placeholder="Enter designation"
+                        />
+                        <button onClick={() => handleInsert6("designation")}>
+                          Insert
+                        </button>
+                      </label>
+
+                      <label>
+                        <input
+                          type="text"
+                          name="location"
+                          value={detail5.location}
+                          onChange={handleNameChange5}
+                          placeholder="Enter location"
+                        />
+                        <button onClick={() => handleInsert6("location")}>
+                          Insert
+                        </button>
+                      </label>
+
+
+                      <label>
+                        <div className="joindatewrap">
+                          <input
+                            type="date"
+                            name="joiningDate"
+                            value={detail5.joiningDate}
+                            onChange={handleNameChange5}
+                            placeholder="Enter joining Date"
+                          />
+
+                          <p>Joining Date</p>
+                        </div>
+
+                        <button onClick={() => handleInsert6("joiningDate")}>
+                          Insert
+                        </button>
+                      </label>
+
+
+                      <label>
+                        <input
+                          type="text"
+                          name="leave"
+                          value={detail5.leave}
+                          onChange={handleNameChange5}
+                          placeholder="Enter Leave Allocated"
+                        />
+                        <button onClick={() => handleInsert6("leave")}>
+                          Insert
+                        </button>
+                      </label>
+
+
+                      <label>
+                        <input
+                          type="text"
+                          name="returningDate"
+                          value={detail5.returningDate}
+                          onChange={handleNameChange5}
+                          placeholder="Offer Letter Returning Date"
+                        />
+                        <button onClick={() => handleInsert6("returningDate")}>
+                          Insert
+                        </button>
+                      </label>
+      
+
+                      <label>
+                        <div className="joindatewrap">
+                          <input
+                            type="date"
+                            name="empDateOfBirth"
+                            value={detail5.empDateOfBirth}
+                            onChange={handleNameChange5}
+                            placeholder="Enter Employee Date of Birth"
+                          />
+
+                          <p>DOB</p>
+                        </div>
+
+                        <button onClick={() => handleInsert6("empDateOfBirth")}>
+                          Insert
+                        </button>
+                      </label>
+
+                      <label>
+                        <div className="joindatewrap">
+                          <input
+                            type="date"
+                            name="sendingDate"
+                            value={detail5.sendingDate}
+                            onChange={handleNameChange5}
+                          />
+
+                          <p>Sending Date</p>
+                        </div>
+
+                        <button onClick={() => handleInsert6("sendingDate")}>
+                          Insert
+                        </button>
+                      </label>
+
+                      <label>
+                        <div className="joindatewrap">
+                          <input
+                            type="text"
+                            name="introduction"
+                            value={detail5.introduction}
+                            onChange={handleNameChange5}
+                            placeholder="After reviewing your skills and experience, we are confident that your expertise aligns with our company's goals to deliver exceptional digital marketing services."
+                          />
+
+                          <p>Introduction</p>
+                        </div>
+
+                        <button onClick={() => handleInsert6("introduction")}>
+                          Insert
+                        </button>
+                      </label>
+                      <label>
+                        <div className="joindatewrap">
+                          <input
+                            type="text"
+                            name="workingDays"
+                            value={detail5.workingDays}
+                            onChange={handleNameChange5}
+                          />
+
+                          <p>working Days</p>
+                        </div>
+
+                        <button onClick={() => handleInsert6("workingDays")}>
+                          Insert
+                        </button>
+                      </label>
+                    </div>
+
+                    {/* content */}
+
+                    <div className="showoffercont">
+                      <h2>OFFER CONFIRMATION LETTER</h2>
+
+                      <div>
+                        <div dangerouslySetInnerHTML={{ __html: content8 }} />
+                      </div>
+                    </div>
+
+                    {/* third  */}
+
+                    <div className="docuThird">
+                      <h3>Format</h3>
+
+                      <hr />
+
+                      <JoditEditor
+                        ref={editor8}
+                        value={content8}
+                        tabIndex={1}
+                        onBlur={(newContent) => setContent8(newContent)}
+                        onChange={(newContent) => {
+                          setContent8(newContent);
+                        }}
+                      />
+                    </div>
+
+                    <button
+                      onClick={() => freelencerOffterLetter()}
+                      className="doSaveBtn"
+                    >
+                      <span>Save</span>
+                    </button>
+
+
+                  </>
+
                 )}
 
 
