@@ -6042,7 +6042,7 @@ input::-webkit-inner-spin-button {
 }
 
 .leadUPdateStsus {
-  width: 110px;
+  width: 140px !important;
   height: 40px;
   border-radius: 10px;
   border: 1px solid #0B56E4;

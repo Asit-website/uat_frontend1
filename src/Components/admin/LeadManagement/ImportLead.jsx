@@ -608,7 +608,7 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
                       updatingLeadStatus(e.target.value);
                     }}
                     value={LeadStatus}
-                    className="leadUPdateStsus"
+                    className="leadUPdateStsus sewidfls"
                     name="LeadStatus"
                     id=""
                   >
