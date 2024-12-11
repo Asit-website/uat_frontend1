@@ -6,7 +6,6 @@ import "./HRMsystem.css";
 import EmployeeSidebar from "../../Employee/Sidebar/EmployeeSidebar";
 import EmployeeNavbar from "../../Employee/Navbar/EmployeeNavbar";
 import plussing from "../../images/plussing.png";
-import inputfileds from "../../images/inputfield.png";
 import "./quote.css";
 import JoditEditor from "jodit-react";
 import { useEffect, useRef, useState } from "react";
@@ -17,11 +16,12 @@ import { CiCirclePlus } from "react-icons/ci";
 import pluslogo from "../../images/8922789.png";
 import logokushel from "../../images/kushel1.png";
 
+
 const data = `<p><strong><span style="font-size: 24px;">Introduction<br><br><br></span></strong></p><p><strong><span style="font-size: 24px;"><br></span></strong></p><p><strong><span style="font-size: 24px;">Key Features</span></strong></p><p><strong><span style="font-size: 24px;"><br></span></strong></p><p><strong><span style="font-size: 24px;">1.&nbsp;. User Registration &amp; Profile</span></strong></p><p><br>
 <span style="font-size: 14px;">●&nbsp; <strong>Sign-Up/Sign-In</strong>: Users can register and log in using social media (Google,
 Facebook) or email.</span></p><p><span style="font-size: 14px;"><br>
 <span style="font-size: 14px;">●<strong>&nbsp;User Profiles:</strong> Ability to create and manage personal profiles, set fitness goals,
-and track progress.</span></span></p><ul class="ulist" style="box-sizing: border-box; border-width: 0px; border-style: solid; border-color: rgb(229, 231, 235); --tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / 0.5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; padding: 0px; margin: 0px; font-family: gilroy; list-style: none; color: rgb(0, 0, 0); font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; font-size: medium;"><li style="box-sizing: border-box; border-width: 0px; border-style: solid; border-color: rgb(229, 231, 235); --tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / 0.5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; padding: 0px; margin: 0px; font-weight: 500; line-height: 32px; text-align: left; color: rgb(16, 24, 32); font-size: 18px;"><br></li><br></ul><ol class="ollist" style="box-sizing: border-box; border-width: 0px; border-style: solid; border-color: rgb(229, 231, 235); --tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / 0.5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; padding: 0px; margin: 0px; font-family: gilroy; list-style: none; color: rgb(0, 0, 0); font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; font-size: medium;"><br></ol>`;
+and track progress</span></span></p>`;
 
 const data2 = `<p><strong style="font-family: Tahoma, Geneva, sans-serif; font-size: 24px;"><span style="font-family: Verdana, Geneva, sans-serif; font-size: 16px;">Additional Consideration</span></strong></p><p><strong style="font-family: Tahoma, Geneva, sans-serif;"><span style="font-family: Verdana, Geneva, sans-serif; font-size: 16px;"><br></span></strong></p><p><span style="font-family: Verdana, Geneva, sans-serif;"><strong style="font-family: Tahoma, Geneva, sans-serif;"><span style="font-size: 16px;">1. Third-Party API Costs: </span></strong><span style="font-size: 16px;">Any additional API costs for video services, payment
 gateways, or others would be charged separately.</span></span></p><p><span style="font-family: Tahoma, Geneva, sans-serif;"><span style="font-family: Verdana, Geneva, sans-serif; font-size: 16px;"><br></span></span></p><p><span style="font-family: Verdana, Geneva, sans-serif;"><strong style="font-family: Tahoma, Geneva, sans-serif;"><span style="font-size: 16px;">2. Maintenance: </span></strong><span style="font-size: 16px;">Ongoing support and maintenance would be charged at a monthly
@@ -48,6 +48,13 @@ const QuotationForm = ({ setAlert, pop, setPop }) => {
   } = useMain();
 
   let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
+
+  const printRef = useRef();
+
+  const handlePrint = useReactToPrint({
+    content: () => printRef.current,
+    documentTitle: 'Quotation',
+  });
 
   const location = useLocation();
 
@@ -81,6 +88,7 @@ const QuotationForm = ({ setAlert, pop, setPop }) => {
   const navigate = useNavigate();
 
   const [content, setContent] = useState(data);
+
   const [content2, setContent2] = useState(data2);
 
   const { role } = hrms_user;
@@ -266,8 +274,10 @@ const QuotationForm = ({ setAlert, pop, setPop }) => {
 
   const contonentPDF = useRef();
 
+
+
   const generatePdf = useReactToPrint({
-    content: () => contonentPDF.current,
+    content: () => printRef.current,
     documentTitle: "Quotation",
     parentContainer: {
       "@media print": {
@@ -650,8 +660,15 @@ const QuotationForm = ({ setAlert, pop, setPop }) => {
               {preview && (
                 <div className="previwwraps">
                   <div className="qutaRight">
-                    <div ref={contonentPDF} className="qutaRightcont">
+                    <div ref={printRef} className="qutaRightcont">
+
+                    <div className="quota_header">
                       <img className="logokushelquot" src={logokushel} alt="" />
+                      </div>
+
+
+                 <div className="quot_contentt">
+
 
                       <p className="proprsaltitle">
                        {formdata.customerReq}
@@ -679,13 +696,11 @@ const QuotationForm = ({ setAlert, pop, setPop }) => {
 
 <br />
 <br />
-                      {/* <p className="cust">Customer</p> */}
 
                       <div className="userApp">
                         <div dangerouslySetInnerHTML={{ __html: content }} />
                       </div>
 
-                      {/* for stack  */}
                       <div className="techsstack">
                         <h2>Technology Stack</h2>
                         <div className="allstack">
@@ -698,7 +713,6 @@ const QuotationForm = ({ setAlert, pop, setPop }) => {
                         </div>
                       </div>
 
-                      {/* for timline  */}
                       <div className="techsstack">
                         <h2>Timeline</h2>
                         <div className="allstack">
@@ -747,8 +761,7 @@ const QuotationForm = ({ setAlert, pop, setPop }) => {
 
                       <hr />
 
-             
-
+            
                       <div className="procesforwar">
                         <h2>Process Forward</h2>
                         <ul>
@@ -790,6 +803,20 @@ const QuotationForm = ({ setAlert, pop, setPop }) => {
                           <p>Phone: +91 9045301702</p>
                         </div>
                       </div>
+
+<br /><br /><br />
+
+                    
+
+
+                  </div>
+
+                  <footer className="qoformfooter">
+                        <p>Address: First Floor, D242, F-32B, Sector 63 Rd, Noida, Uttar Pradesh 201301</p>
+                        <p>Phone: +91 9045301702 | Email: <span>info@kusheldigi.com</span> | Website: <span>www.kusheldigi.com</span></p>
+                      </footer>
+
+
                     </div>
 
                     <hr />
@@ -808,7 +835,21 @@ const QuotationForm = ({ setAlert, pop, setPop }) => {
                       >
                         <span>Print</span>
                       </button>
+
+                      <style>
+        {`
+         
+          @media print {
+
+}
+ 
+          
+        `}
+      </style>
+
                     </div>
+
+
                   </div>
                 </div>
               )}

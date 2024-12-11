@@ -1763,6 +1763,7 @@ const DocumentManagement = ({ setAlert, pop, setPop }) => {
     allEmployee,
     saveDocs,
     freelencerOfferApi,
+    partTimeOfferApi,
     saveRelivingLetterapi,
     saveExperienceLetterapi,
     saveLORLetterApi,
@@ -1822,6 +1823,20 @@ const DocumentManagement = ({ setAlert, pop, setPop }) => {
     toast.dismiss(toastid);
   };
 
+  const partTimeOffterLetter = async () => {
+    if (SelectEmpId === "" || SelectEmpId === "Select") {
+      toast.error("Please select the user");
+      return;
+    }
+    const toastid = toast.loading("Loading...");
+    const ans = await freelencerOfferApi({ id: SelectEmpId, content8 });
+    if (ans?.status) {
+      toast.success("Successfuly created");
+    } else {
+      toast.error("Too large Content");
+    }
+    toast.dismiss(toastid);
+  };
 
   const freelencerOffterLetter = async () => {
     if (SelectEmpId === "" || SelectEmpId === "Select") {
@@ -3703,7 +3718,7 @@ const DocumentManagement = ({ setAlert, pop, setPop }) => {
                     </div>
 
                     <button
-                      onClick={() => freelencerOffterLetter()}
+                      onClick={() => partTimeOffterLetter()}
                       className="doSaveBtn"
                     >
                       <span>Save</span>
