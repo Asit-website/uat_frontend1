@@ -175,12 +175,7 @@ color: #101820;
     max-width: 630px !important;
     width: 100% !important;
 }
-.awardpopupcont{
-    max-width: 600px !important;
-    width: 100% !important;
-    border-radius: 15px !important;
-    padding: 15px 30px !important;
-}
+
 .lableawaiwrap{
     gap: 20px !important;
 }

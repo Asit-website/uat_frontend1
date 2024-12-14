@@ -1157,6 +1157,10 @@ input{
   white-space: nowrap !important;
 }
 
+.taskAns{
+  text-align: center;
+}
+
 .forget {
   color: #0B56E4 !important;
   font-family: inter !important;
@@ -3578,6 +3582,8 @@ abbr:where([title]) {
 .allPopupWrap{
   z-index: 1000 !important;
 }
+
+
 .input{
   outline: none !important;
 }
@@ -5224,6 +5230,12 @@ input::-webkit-inner-spin-button {
   display: flex;
   align-items: center;
 }
+.sunis h3{
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+  min-width: fit-content
+}
 
 .sunis img {
   position: absolute;
@@ -6258,8 +6270,16 @@ input::-webkit-inner-spin-button {
 .testok {
   display: flex;
   align-items: center;
-  justify-content: center;
   gap: 10px;
+  transform: translateX(50px);
+}
+
+
+.morevertimg{
+  margin: 0 auto;
+}
+.makedivcent{
+  text-align: center;
 }
 
 .noteLabel p {
@@ -7533,4 +7553,49 @@ input::-webkit-inner-spin-button {
 
 .addonefont{
   font-size: 15px !important;
+}
+
+
+.connected{
+  background: #FFD22E;
+  color: white;
+
+}
+.Nurturing{
+  background-color: #FF8F2C;
+  color: white;
+}
+.Qualified{
+  background-color: #35ff3e;
+  color: white;
+}
+.Unqualified{
+  background-color: #3342FF;
+  color: white;
+}
+.Converted{
+  background-color: #FF31ED;
+  color: white;
+}
+.Converteds{
+  background-color: #692DFE;
+  color: white;
+}
+.Newleadstatus{
+  background-color: #2FE7FF;
+  color: white;
+}
+.Junk{
+  background-color: #FF3033;
+  color: white;
+}
+
+.lessfontparas{
+  font-weight: 400 !important;
+  font-size: 14px !important;
+}
+
+.anDesWrap.makefdufsld {
+  grid-column: 1 / -1; 
+  width: 100%; 
 }

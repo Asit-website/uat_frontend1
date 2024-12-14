@@ -406,9 +406,7 @@ const MyLead2 = ({ setAlert, pop, setPop }) => {
                       <th scope="col" className="px-6 py-3 taskTitl ">
                         LeadName
                       </th>
-                      <th scope="col" className="px-6 py-3 taskTitl ">
-                        Email
-                      </th>
+                
                       <th scope="col" className="px-6 py-3 taskTitl ">
                         Website
                       </th>
@@ -428,7 +426,7 @@ const MyLead2 = ({ setAlert, pop, setPop }) => {
                   <tbody>
                     {currentItems.map((item, index) => (
                       <tr key={index} className="bg-white border-b fdf">
-                        <th scope="col" className="px-6 py-3 taskTitl ">
+                        <td scope="col" className="px-6 py-3 taskTitl ">
                           <input
                             onClick={() => {
                               if (checkInpId.includes(item?._id)) {
@@ -444,22 +442,26 @@ const MyLead2 = ({ setAlert, pop, setPop }) => {
                             type="checkbox"
                             className="checkboxes"
                           />
-                        </th>
+                        </td>
 
                         <td className="px-6 py-4 taskAns">{item?.Company}</td>
                         <td className="px-6 py-4 taskAns">
                           {item?.FirstName} {item?.LastName}
                         </td>
-                        <td className="px-6 py-4 taskAns">{item?.Email}</td>
                         <td className="px-6 py-4 taskAns">{item?.Website}</td>
 
                         <td scope="col" className="px-3 py-3">
-                          <div
+                        <div
                             scope="col"
-                            className={`statussame ${item?.LeadStatus === "Follow-up" && "followUp"
-                              } ${item?.LeadStatus == "Hot" && "Hot"} ${item?.LeadStatus == "Cold" && "Cold"
-                              } ${item?.LeadStatus == "cold" && "Cold"}  ${item?.LeadStatus == "Warm" && "Warm"
-                              }`}
+                            className={`statussame 
+                              ${item?.LeadStatus === "Connected" && "connected"  } 
+                              ${item?.LeadStatus == "Nurturing" && "Nurturing"} ${item?.LeadStatus == "Qualified" && "Qualified"} 
+                              ${item?.LeadStatus == "Unqualified" && "Unqualified"}  ${item?.LeadStatus == "Converted" && "Converted" }
+                               ${item?.LeadStatus == "Not Converted" && "Converteds" }
+                               ${item?.LeadStatus == "Junk" && "Junk" }
+                               ${item?.LeadStatus === "New" && "Newleadstatus"}
+                              
+                               `}
                           >
                             {item?.LeadStatus}
                           </div>
@@ -471,13 +473,8 @@ const MyLead2 = ({ setAlert, pop, setPop }) => {
 
                        
                           <div className="viewOnwWRAP">
-                            <td
+                            <td className="px-6 py-4 taskAns cursor-pointer" >
                               
-                              className="px-6 py-4 taskAns cursor-pointer"
-                            >
-                              
-                            </td>
-
                             <div className="testok">
                             <svg className="cursor-pointer" onClick={() => navigate("/employeeDash/editLead", { state: item })} width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                               <path d="M9.71569 5.51667L10.4824 6.28333L2.93236 13.8333H2.16569V13.0667L9.71569 5.51667ZM12.7157 0.5C12.5074 0.5 12.2907 0.583333 12.1324 0.741667L10.6074 2.26667L13.7324 5.39167L15.2574 3.86667C15.5824 3.54167 15.5824 3.01667 15.2574 2.69167L13.3074 0.741667C13.1407 0.575 12.9324 0.5 12.7157 0.5ZM9.71569 3.15833L0.499023 12.375V15.5H3.62402L12.8407 6.28333L9.71569 3.15833Z" fill="#383838" />
@@ -506,6 +503,7 @@ const MyLead2 = ({ setAlert, pop, setPop }) => {
 
                             </div>
                             </div>
+                            </td>
                           </div>
                        
                       </tr>

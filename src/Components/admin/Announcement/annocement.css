@@ -266,6 +266,34 @@ color: #293240;
     
 }
 
+.openform4{
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    max-width: 650px;
+    max-height: 550px;
+    width: 100%;
+    margin-top: 60px;
+    padding: 15px 30px;
+    border-radius: 20px;
+    gap: 15px;
+}
+.openform4 nav{
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+}
+.openform4 nav h2{
+    font-family: Inter;
+    color: #1B2533;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 24px;
+    letter-spacing: 0.0015em;
+    text-align: left;
+    
+}
+
 
 .fullLabel{
     display: flex;
@@ -317,6 +345,8 @@ text-align: left;
 }
 
 
+
+
 .allInputFileds{
     display: flex;
     flex-wrap: wrap;
@@ -347,6 +377,41 @@ text-align: left;
 }
 .allInputFileds label input , select{
     width: 354px;
+    height: 44px;
+    border-radius: 3px;
+    border: 1px solid #293240;
+    padding: 10px;
+    background: #FFFFFF;
+    border: 1px solid #D0D4DC;
+}
+
+
+.allInputFileds4{
+
+    display: grid;
+    grid-template-columns: repeat(2 , 1fr);
+     gap: 20px 30px;
+}
+.allInputFileds4 label{
+   width:100%;
+   display: flex;
+   flex-direction: column;
+   gap: 0.5rem;
+
+}
+.allInputFileds4 label p{
+    font-family: Inter;
+    color: #1B2533;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    letter-spacing: 0.0025em;
+    text-align: left;
+    
+
+}
+.allInputFileds4 label input , .allInputFileds4 label select{
+    width: 100%;
     height: 44px;
     border-radius: 3px;
     border: 1px solid #293240;

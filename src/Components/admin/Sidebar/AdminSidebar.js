@@ -729,7 +729,7 @@ const AdminSidebar = ({ pop, setPop }) => {
                   >
                     <div className="dash-wrap">
                       <img src={reading} alt="dasg" />
-                      <p>Leave Management Setup</p>
+                      <p className="lessfontparas">Leave Management Setup</p>
                     </div>
 
                     <img src={vect} alt="vect" />
@@ -791,7 +791,7 @@ const AdminSidebar = ({ pop, setPop }) => {
                   >
                     <div className="dash-wrap">
                       <img src={anal} alt="dasg" />
-                      <p>Payroll Management</p>
+                      <p className="lessfontparas">Payroll Management</p>
                     </div>
 
                     <img src={vect} alt="" />
@@ -884,7 +884,7 @@ const AdminSidebar = ({ pop, setPop }) => {
                   >
                     <div className="dash-wrap">
                       <img src={reading} alt="dasg" />
-                      <p>Performance Setup</p>
+                      <p className="lessfontparas">Performance Setup</p>
                     </div>
 
                     <img src={vect} alt="vect" />
@@ -1255,7 +1255,7 @@ const AdminSidebar = ({ pop, setPop }) => {
                   >
                     <div className="dash-wrap">
                       <img src={anal} alt="dasg" />
-                      <p>Payroll Management</p>
+                      <p className="lessfontparas">Payroll Management</p>
                     </div>
 
                     <img src={vect} alt="" />
@@ -1468,7 +1468,7 @@ const AdminSidebar = ({ pop, setPop }) => {
                   >
                     <div className="dash-wrap">
                       <img src={reading} alt="dasg" />
-                      <p>Leave Management Setup</p>
+                      <p className="lessfontparas">Leave Management Setup</p>
                     </div>
 
                     <img src={vect} alt="vect" />
@@ -1531,7 +1531,7 @@ const AdminSidebar = ({ pop, setPop }) => {
                   >
                     <div className="dash-wrap">
                       <img src={reading} alt="dasg" />
-                      <p>Performance Setup</p>
+                      <p className="lessfontparas">Performance Setup</p>
                     </div>
 
                     <img src={vect} alt="vect" />

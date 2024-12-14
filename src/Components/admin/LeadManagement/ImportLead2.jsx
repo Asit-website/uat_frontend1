@@ -443,27 +443,7 @@ const ImportLead2 = ({ setAlert, pop, setPop }) => {
                   <span className="ref1">Edit</span>
                 </button>
 
-                {/* <button
-                  id="dropdownDefaultButton"
-                  data-dropdown-toggle="dropdown"
-                  className="text-white silo   px-5 py-2.5 text-center inline-flex items-center"
-                  type="button"
-                >
-                  Actions{" "}
-                  <svg
-                    className="ml-2"
-                    width="30"
-                    height="30"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M16.293 9.29303L12 13.586L7.70697 9.29303L6.29297 10.707L12 16.414L17.707 10.707L16.293 9.29303Z"
-                      fill="#666D76"
-                    />
-                  </svg>
-                </button> */}
+               
               </div>
             </section>
 
@@ -586,7 +566,7 @@ const ImportLead2 = ({ setAlert, pop, setPop }) => {
 
               {/* third  */}
               <div className="leadFirs">
-                <h2 className="ehading">Description Information</h2>
+                <h2 className="ehading">Descriptive Information</h2>
 
                 <div className="eladinfoWrap secondWRap">
                   <p>

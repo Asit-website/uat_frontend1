@@ -396,9 +396,9 @@ const MyLead = ({ setAlert, pop, setPop }) => {
                       <th scope="col" className="px-6 py-3 taskTitl ">
                         LeadName
                       </th>
-                      <th scope="col" className="px-6 py-3 taskTitl ">
+                      {/* <th scope="col" className="px-6 py-3 taskTitl ">
                         Email
-                      </th>
+                      </th> */}
                       <th scope="col" className="px-6 py-3 taskTitl ">
                         Website
                       </th>
@@ -440,16 +440,21 @@ const MyLead = ({ setAlert, pop, setPop }) => {
                         <td className="px-6 py-4 taskAns">
                           {item?.FirstName} {item?.LastName}
                         </td>
-                        <td className="px-6 py-4 taskAns">{item?.Email}</td>
+                        {/* <td className="px-6 py-4 taskAns">{item?.Email}</td> */}
                         <td className="px-6 py-4 taskAns">{item?.Website}</td>
 
                         <td scope="col" className="px-3 py-3">
-                          <div
+                        <div
                             scope="col"
-                            className={`statussame ${item?.LeadStatus === "Follow-up" && "followUp"
-                              } ${item?.LeadStatus == "Hot" && "Hot"} ${item?.LeadStatus == "Cold" && "Cold"
-                              } ${item?.LeadStatus == "cold" && "Cold"}  ${item?.LeadStatus == "Warm" && "Warm"
-                              }`}
+                            className={`statussame 
+                              ${item?.LeadStatus === "Connected" && "connected"  } 
+                              ${item?.LeadStatus == "Nurturing" && "Nurturing"} ${item?.LeadStatus == "Qualified" && "Qualified"} 
+                              ${item?.LeadStatus == "Unqualified" && "Unqualified"}  ${item?.LeadStatus == "Converted" && "Converted" }
+                               ${item?.LeadStatus == "Not Converted" && "Converteds" }
+                               ${item?.LeadStatus == "Junk" && "Junk" }
+                               ${item?.LeadStatus === "New" && "Newleadstatus"}
+                              
+                               `}
                           >
                             {item?.LeadStatus}
                           </div>
@@ -459,17 +464,11 @@ const MyLead = ({ setAlert, pop, setPop }) => {
                           {new Date(item?.createAt).toLocaleDateString("en-CA")}
                         </td>
 
-                        {/* <OutsideClickHandler
-                          onOutsideClick={() => {
-                            if (index == currView) {
-                              setCurrView(-1);
-                            }
-                          }}
-                        > */}
+                       
                         <div className="viewOnwWRAP">
                           <td
 
-                            className="px-6 py-4 taskAns cursor-pointer"
+                            className="px-6 py-4 taskAns  cursor-pointer"
                           >
                             <div className="testok">
                               <svg className="cursor-pointer" onClick={() => navigate("/adminDash/editLead", { state: item })} width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
