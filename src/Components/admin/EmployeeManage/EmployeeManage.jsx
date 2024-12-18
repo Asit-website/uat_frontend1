@@ -12,6 +12,8 @@ import bxUser from "../../images/bx-user-pin.png";
 import { ImCross } from "react-icons/im";
 import * as EmailValidator from "email-validator";
 import validator from 'validator';
+import EmployeeSidebar from "../../Employee/Sidebar/EmployeeSidebar";
+import EmployeeNavbar from "../../Employee/Navbar/EmployeeNavbar";
 
 const item = [
   {
@@ -38,6 +40,10 @@ const EmployeeManage = ({
   const [currEmp, setCurrEmp] = useState(0);
 
   const navigate = useNavigate();
+
+  let hrms_user = JSON?.parse(localStorage.getItem("hrms_user"));
+
+  const { role } = hrms_user;
 
   const {
     user,
@@ -607,16 +613,25 @@ const EmployeeManage = ({
   return (
     <>
       <div className="employee-dash h-full">
-        {isHr ? <HrSidebar /> : <AdminSidebar pop={pop} setPop={setPop} />}
+      {isHr ? (
+          <HrSidebar />
+        ) : role === "EMPLOYEE" ? (
+          <EmployeeSidebar pop={pop} setPop={setPop} />
+        ) : (
+          <AdminSidebar pop={pop} setPop={setPop} />
+        )}
+
 
         <div className="tm">
-          {isHr ? (
+        {isHr ? (
             <HrNavbar
               user={user}
               setAlert={setAlert}
               pop1={pop1}
               setPop1={setPop1}
             />
+          ) : role === "EMPLOYEE" ? (
+            <EmployeeNavbar user={user} setAlert={setAlert} />
           ) : (
             <AdminNavbar user={user} setAlert={setAlert} />
           )}

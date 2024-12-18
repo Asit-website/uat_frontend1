@@ -70,10 +70,6 @@ const EmployeeHRM = ({
   } = useMain();
 
 
-
- 
-
-
   const user2 = JSON.parse(localStorage.getItem("hrms_user"));
 
   const [counts, setCounts] = useState({
@@ -110,7 +106,6 @@ const EmployeeHRM = ({
 
   const fetchUserOwnDetailHandler = async()=>{
     const ans = await fetchUserOwnDetailApi(hrms_user?._id);
-    console.log("ans " ,ans);
     if(ans?.status){
       localStorage.setItem("hrms_user", JSON.stringify(ans?.data));
       localStorage.setItem("hrms_permission", JSON.stringify(ans?.data?.PermissionRole || {}));
@@ -806,8 +801,7 @@ const EmployeeHRM = ({
                     {(activeEmployeePermission || role === "ADMIN") && (
                       <NavLink
                         className="skm"
-                        to={`/adminDash/HRM/activeEmployee`}
-                      >
+                        to={`${role==="ADMIN" ? "/adminDash/HRM/activeEmployee":"/employeeDash/HRM/activeEmployee"} `}  >
                         <div className="sinActDat colorChange1 ">
                           <img className="firImg" src={ac1} alt="" />
 
@@ -838,7 +832,7 @@ const EmployeeHRM = ({
                     {(leaveRequestPermission || role === "ADMIN") && (
                       <NavLink
                         className="skm"
-                        to={`/adminDash/HRM/leaveRequest`}
+                        to={`${role === "ADMIN"?"/adminDash/HRM/leaveRequest":"/employeeDash/HRM/leaveRequest"}`}
                       >
                         <div className="sinActDat colorChange2">
                           <img className="firImg" src={ac2} alt="" />
@@ -854,7 +848,7 @@ const EmployeeHRM = ({
                     {(employeeOnLeavePermission || role === "ADMIN") && (
                       <NavLink
                         className="skm"
-                        to={`/adminDash/HRM/LeaveEmployee`}
+                        to={`${role==="ADMIN" ? "/adminDash/HRM/LeaveEmployee":"/employeeDash/HRM/LeaveEmployee"}`}
                       >
                         <div className="sinActDat colorChange3">
                           <img className="firImg" src={ac3} alt="" />
@@ -871,7 +865,7 @@ const EmployeeHRM = ({
                     {(totalEmployeePermission || role === "ADMIN") && (
                       <NavLink
                         className="skm"
-                        to={`/adminDash/HRM/totalEmployee`}
+                        to={`${role ==="ADMIN"?"/adminDash/HRM/totalEmployee":"/employeeDash/HRM/totalEmployee" }`}
                       >
                         <div className="sinActDat colorChange4">
                           <img className="firImg" src={ac4} alt="" />
@@ -1631,7 +1625,6 @@ const EmployeeHRM = ({
                         type="button"
                         onClick={() => {
                           setOpenExpense(true);
-                          // navigate("/adminDash/HRM/Expense")
                         }}
                       >
                         <span>Create Expense</span>

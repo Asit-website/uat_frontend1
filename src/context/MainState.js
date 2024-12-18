@@ -3,8 +3,8 @@ import MainContext from './MainContext';
 import { deleteReq, get, post, put, postDocuments } from '../Api/api'
 import { useState } from 'react';
 
-// const baseUrl = "http://localhost:5000";
-
+const baseUrl = "http://localhost:5000";
+// 
 // const baseUrl = "https://hrms-backend-code.onrender.com"
 
 // const baseUrl = "http://localhost:5000";
@@ -12,7 +12,7 @@ import { useState } from 'react';
 // const baseUrl = "https://hrms-backend-q2ta.onrender.com";
 
 // this is production baseurl 
-const baseUrl = "https://hmsbackend.kusheldigi.com";
+// const baseUrl = "https://hmsbackend.kusheldigi.com";
 
 // const baseUrl = "https://hrms-backend-g3wt.onrender.com";
 
@@ -482,7 +482,7 @@ const MainState = (props) => {
          AccountNumber,
          confirmAccount,
          Branch,
-         image,
+         profileImage,
          _id,
          dob , 
          updatePassword
@@ -534,17 +534,16 @@ const MainState = (props) => {
          AccountNumber,
          confirmAccount,
          Branch,
-         image , 
+         profileImage , 
          dob , 
          updatePassword
       }, true);
 
-      if (image) {
-         const formdata = new FormData();
-         formdata.append("image", image);
-         const resp = await postDocuments(`${baseUrl}/user/updateProfile/${_id}`, formdata);
+      // if (image) {
+      //    const formdata = new FormData();
+      //    const resp = await postDocuments(`${baseUrl}/user/updateProfile/${_id}`, formdata);
 
-      }
+      // }
 
       return data;
 
