@@ -48,6 +48,9 @@ const MarkAttendance = ({
   const [departments, setDepartments] = useState([]);
   const [allDash, setAllDash] = useState([]);
 
+  // dumy state to force rerender to show more text 
+  const [updateFlag, setUpdateFlag] = useState(false);
+
   let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
 
   const { role } = hrms_user;
@@ -111,6 +114,7 @@ const MarkAttendance = ({
 
   const getData = async () => {
     let ans = await getAllActivities();
+    console.log(ans)
     setAllDash(ans?.data);
     const ans1 = await allEmployee();
     setUsers(ans1?.emp);
@@ -449,6 +453,18 @@ const MarkAttendance = ({
       toast.error("Something went wrong , please try again");
     }
   }
+
+  //=======function to trim words to 15 length only ======
+  const truncateText = (text, wordLimit, isExpanded) => {
+    if (isExpanded) return text; 
+    const words = text.split(" ");
+    if (words.length > wordLimit) {
+      return words.slice(0, wordLimit).join(" ") + "..."; 
+    }
+    return text; 
+  };
+  
+  
 
   return (
     <>
@@ -913,6 +929,9 @@ const MarkAttendance = ({
                             <th scope="col" className="px-6 py-3 currentText">
                               Break
                             </th>
+                            <th scope="col" className="px-6 py-3 currentText">
+                              Task
+                            </th>
 
                             <th scope="col" className="px-6 py-3 currentText">
                               action
@@ -952,6 +971,36 @@ const MarkAttendance = ({
                               <td className="px-6 py-4 itemANs">
                                 {item?.breakTime ? item?.breakTime : "No break"}
                               </td>
+
+                             <td className="px-6 py-4 itemANs">
+  {item?.todayTask ? (
+    <span>
+      {truncateText(item.todayTask, 15, item.isExpanded)}{" "}
+      {item.todayTask.split(" ").length > 15 && (
+        <button
+          onClick={() => {
+            item.isExpanded = !item.isExpanded; 
+            setUpdateFlag((prev) => !prev); 
+          }}
+          style={{
+            color: "blue",
+            cursor: "pointer",
+            border: "none",
+            background: "none",
+            padding: "0",
+            textDecoration: "underline",
+          }}
+        >
+          {item.isExpanded ? "Show Less" : "See More"}
+        </button>
+      )}
+    </span>
+  ) : (
+    "No Task"
+  )}
+</td>
+
+
 
                               <td
 
