@@ -440,6 +440,7 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
                     ,
                   </label>
                 </div>
+                
               </div>
 
               <div className="btnWrap Award-popup-btn">
@@ -472,6 +473,7 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
                   <span>Create</span>
                 </button>
               </div>
+
             </div>
           </div>
         )}

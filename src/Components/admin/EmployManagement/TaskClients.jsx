@@ -363,7 +363,11 @@ const TaskClients = ({ setAlert, pop, setPop }) => {
 
             <hr />
 
-            <form onSubmit={isEdit ? editHandler : submitHandler}>
+            <form className="" onSubmit={isEdit ? editHandler : submitHandler}>
+
+              <div className="adclient_form">
+
+              
               <label>
                 <p>Name</p>
                 <input
@@ -456,6 +460,8 @@ const TaskClients = ({ setAlert, pop, setPop }) => {
                 />
               </label>
 
+              </div>
+
               <div className="btnsss">
                 <button type="submit" className="saveclient">
                   <span>Save Client</span>
@@ -469,7 +475,10 @@ const TaskClients = ({ setAlert, pop, setPop }) => {
                   <span>Cancel</span>
                 </button>
               </div>
+
             </form>
+
+
           </div>
         </div>
       )}
