@@ -353,7 +353,7 @@ const checkallinput = () => {
 
                     <tbody>
                       {
-                        paginatedData.filter(x => x.designation !== "CEO" && x._id !== user._id)?.map((item, index) => (
+                        paginatedData.filter(x => x.designation !== "CEO" && x._id !== user._id && x.isDeactivated == "No")?.map((item, index) => (
                           <tr key={index} className="bg-white border-b fdf">
                             <th scope="col" className="px-6 py-3 taskTitl ">
                               <input onClick={()=>{
