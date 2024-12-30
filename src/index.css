@@ -7628,7 +7628,7 @@ min-width: 50%;
 }
 
 /* Awards button css is written here  */
-.createAwardBtn {
+.adminsetupBtn {
   background-color: #007bff;
   color: white;
   border: none;
@@ -7636,16 +7636,16 @@ min-width: 50%;
   padding: 10px 20px;
   font-size: 16px;
   font-weight: bold;
-  font-family: sans-serif;
+  font-family:  sans-serif;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-.createAwardBtn:hover {
+.adminsetupBtn:hover {
   background-color: #0056b3;
   transform: scale(1.05);
 }
 
-.createAwardBtn:focus {
+.adminsetupBtn:focus {
   outline: none;
 }

@@ -245,7 +245,7 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
     onClick={() => {
       setPopup1(true);
     }}
-    className="createAwardBtn"
+    className="adminsetupBtn"
   >
     Create Awards
   </button>
