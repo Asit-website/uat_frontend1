@@ -755,9 +755,10 @@ color: #666D76;
     gap: 16px;
 }
 .card {
-   
     width: 300px;
     border-radius: 8px;
+    max-height: 400px;
+    height: 100%;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     overflow: hidden;
     background-color: #fff;
@@ -765,11 +766,12 @@ color: #666D76;
   }
 .card img {
     width: 100%;
+    height: 200px;
     display: block;
   }
 
   .card-content {
-    padding: 16px;
+    padding: 16px 0px 0px 0px;
   }
 
   .card-title {

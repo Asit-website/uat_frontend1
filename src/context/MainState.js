@@ -2167,8 +2167,12 @@ const MainState = (props) => {
       const data = await post(`${baseUrl}/payslip/setUserTotalLeave`, {  }, true);
       return data;
    };
-   const postQuotationFormApi = async ({  customerName, customerReq,  quotationDate, introduction , additional , costhead ,timeline, technology, userId , leadId}) => {
-      const data = await post(`${baseUrl}/lead/postQuotationForm`, { customerName, customerReq,  quotationDate, introduction , additional , costhead ,timeline , technology, userId , leadId  }, true);
+   const postQuotationFormApi = async ({  customerName, customerReq,  quotationDate, introduction , additional , costhead ,timeline, technology, userId , leadId , isSave}) => {
+      const data = await post(`${baseUrl}/lead/postQuotationForm`, { customerName, customerReq,  quotationDate, introduction , additional , costhead ,timeline , technology, userId , leadId , isSave  }, true);
+      return data;
+   };
+   const getSaveTempalte = async (leadId) => {
+      const data = await get(`${baseUrl}/lead/getSaveTempalte/${leadId}`, true);
       return data;
    };
    // const postQuotationFormApi = async ({  quotationNum, customerName, customerReq,mobileNum,  quotationDate, validUntil, customerId,companyName,companyAddress,   companyGSTIN,companyWebsite , content , items, userId , leadId}) => {
@@ -2474,7 +2478,7 @@ const MainState = (props) => {
          deleteQuotation1 , 
          uploadSingleImage , 
          getAllProjectUserApi , 
-         savenoteatt ,AllRolesapi ,  closeLead , deleteQproapi , createExpenseApi , changeStatusBreak , deleteProjectTaskapi22 , EditProjectTask , postHalfDay , closeLeadApiFetch2 , closeLeadApiFetch , postNotification2 , getUserHalfDay , rejectHalfDay , acceptHalf , acceptassetsapi , getTodayLead , getTodayLead2
+         savenoteatt ,AllRolesapi ,  closeLead , deleteQproapi , createExpenseApi , changeStatusBreak , deleteProjectTaskapi22 , EditProjectTask , postHalfDay , closeLeadApiFetch2 , closeLeadApiFetch , postNotification2 , getUserHalfDay , rejectHalfDay , acceptHalf , acceptassetsapi , getTodayLead , getTodayLead2 , getSaveTempalte
       }}> 
          {props.children}
       </MainContext.Provider>
