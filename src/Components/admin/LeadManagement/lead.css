@@ -748,3 +748,39 @@ color: white;
     letter-spacing: 0.005em;
 color: #666D76;        
 }
+/* ==Quotation cards css is here == */
+.allCards{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+.card {
+   
+    width: 300px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    background-color: #fff;
+    padding: 20px;
+  }
+.card img {
+    width: 100%;
+    display: block;
+  }
+
+  .card-content {
+    padding: 16px;
+  }
+
+  .card-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 0;
+  }
+
+  .card-meta {
+    font-size: 14px;
+    color: #888;
+    margin-top: 4px;
+  }
+  

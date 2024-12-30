@@ -6059,7 +6059,7 @@ input::-webkit-inner-spin-button {
   border-radius: 10px;
   border: 1px solid #0B56E4;
   font-family: Inter;
-  color: #0B56E4;
+  color:black;
   background: linear-gradient(131.78deg, #D1E8FD 6.87%, #EDEFFF 91.67%);
   font-size: 16px;
   font-weight: 500;
@@ -7625,4 +7625,27 @@ min-width: 50%;
 .adclient_form::-webkit-scrollbar-thumb {
   border-radius: 10px;
   background: #cccccc;
+}
+
+/* Awards button css is written here  */
+.createAwardBtn {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  font-family: sans-serif;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.createAwardBtn:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
+}
+
+.createAwardBtn:focus {
+  outline: none;
 }
