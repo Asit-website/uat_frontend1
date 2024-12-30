@@ -80,11 +80,6 @@ const paginatedData = filteredData.slice((currentPage - 1) * itemsPerPage, curre
       setDesignation(ans?.data);
   }
   
-  // const getData = async () => {
-  //   const ans = await getUsers();
-  //   setAllData(ans?.data);
-  //   setData(ans.data);
-  // };
 
   const getData = async () => {
     const ans = await getUsers();

@@ -81,7 +81,8 @@ const EmployeeManage = ({
     reportingManager: "",
     designation: "",
     joiningDate: "",
-    PermissionRole: ""
+    PermissionRole: "" , 
+    employeeCode:""
   });
 
   const [emailisValid, setIsemailValid] = useState(null);
@@ -373,7 +374,6 @@ const EmployeeManage = ({
   const handleSubmit = async (e, type) => {
     e.preventDefault();
 
-    const toastId = toast.loading("Loading...");
 
    
         if (emailisValid === false && value1?.email !== "") {
@@ -385,6 +385,13 @@ const EmployeeManage = ({
           toast.dismiss(toastId);
           return toast.error("Please Enter Correct Gmail")
       }
+
+      if(value1.employeeCode === ""){
+        return toast.error("Please Enter Employee Code")
+      }
+
+      const toastId = toast.loading("Loading...");
+
 
     if (!id) {
       const {
@@ -742,6 +749,19 @@ const EmployeeManage = ({
                               </select>
                             </label>
 
+                            <label htmlFor="">
+                              <p>Employee Code</p>
+
+                              <input
+                                onChange={(e) => {
+                                  handleChange(e, "form1");
+                                }}
+                                type="email"
+                                name="employeeCode"
+                                value={value1?.employeeCode}
+                                placeholder="Enter Employee Code"
+                              />
+                            </label>
                             <label htmlFor="">
                               <p>Company Email</p>
 
