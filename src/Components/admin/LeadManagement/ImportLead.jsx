@@ -15,7 +15,6 @@ import "react-confirm-alert/src/react-confirm-alert.css";
 import cancel from "../../images/cancell.png";
 import { useLocation } from "react-router-dom";
 
-
 const ImportLead = ({ setAlert, pop, setPop }) => {
   const {
     user,
@@ -36,7 +35,8 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
     getFollowUp,
     getUserByDesignation1,
     getQuotationApi,
-    deleteQuotationapi , deleteQproapi
+    deleteQuotationapi,
+    deleteQproapi,
   } = useMain();
 
   const { id } = useParams();
@@ -311,36 +311,34 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
 
   const getQuotationOfLead = async () => {
     const ans = await getQuotationApi(id);
-    console.log('ans',ans);
+    console.log("ans", ans);
     setAllQuota(ans?.quotations);
     setAllPropo(ans?.proposals);
   };
 
-  const deleteQuotationApi = async(id)=>{
+  const deleteQuotationApi = async (id) => {
     const toastId = toast.loading("Loading...");
     const ans = await deleteQuotationapi(id);
-      if(ans?.status){
-         getQuotationOfLead();
-        toast.success("Successfuly deleted");
-      }
-      else {
-        toast.error("Something went wrong");
-      }
-      toast.dismiss(toastId);
-  }
+    if (ans?.status) {
+      getQuotationOfLead();
+      toast.success("Successfuly deleted");
+    } else {
+      toast.error("Something went wrong");
+    }
+    toast.dismiss(toastId);
+  };
 
-  const deletePropsalApi = async(id)=>{
+  const deletePropsalApi = async (id) => {
     const toastId = toast.loading("Loading...");
     const ans = await deleteQproapi(id);
-      if(ans?.status){
-         getQuotationOfLead();
-        toast.success("Successfuly deleted");
-      }
-      else {
-        toast.error("Something went wrong");
-      }
-      toast.dismiss(toastId);
-  }
+    if (ans?.status) {
+      getQuotationOfLead();
+      toast.success("Successfuly deleted");
+    } else {
+      toast.error("Something went wrong");
+    }
+    toast.dismiss(toastId);
+  };
 
   useEffect(() => {
     if (type === "meet" && data1) {
@@ -376,7 +374,6 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
       LeadName: `${data?.FirstName || ""} ${data?.LastName || ""}`,
     }));
   }, [data]);
-
 
   useEffect(() => {
     const size = allNote.length;
@@ -425,8 +422,6 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
 
               {/* right side  */}
               <div className="laedRight">
-               
-
                 <button
                   onClick={() =>
                     navigate("/adminDash/editLead", { state: data })
@@ -435,8 +430,6 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
                 >
                   <span className="ref1">Edit</span>
                 </button>
-
-               
               </div>
             </section>
 
@@ -480,7 +473,6 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
                       <h3>Annual Revenue :</h3>
                       <p>${data?.AnnualRevenue}</p>
                     </div>
-
                   </div>
 
                   {/* right side  */}
@@ -514,7 +506,6 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
                       <h3>Lead Status :</h3>
                       <p>{data?.LeadStatus}</p>
                     </div>
-                  
                   </div>
                 </div>
               </div>
@@ -708,7 +699,7 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
                 </div>
               </div>
 
-              {/* third third  */}
+              {/* quotation */}
               <div className="leadFirs">
                 <div className="LEADSsTunav litu">
                   <h2 className="ehading">Quotation</h2>
@@ -750,8 +741,10 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
                             //     state: item,
                             //   })
                             // }
-                            onClick={()=>{
-                              navigate("/adminDash/HRM/QuotationForm" , {state:{item}})
+                            onClick={() => {
+                              navigate("/adminDash/HRM/QuotationForm", {
+                                state: { item },
+                              });
                             }}
                             className="cursor-pointer"
                             src={veci}
@@ -782,6 +775,35 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
                 )}
               </div>
 
+              {/* Quotation cards is here  */}
+
+              <div className="leadFirs">
+  <div className="LEADSsTunav litu">
+    <h2 className="ehading">Quotation Cards</h2>
+  </div>
+
+  <hr />
+  <div className="allCards">
+    {allQuota?.length > 0 ? (
+      allQuota.map((item, index) => (
+        <div key={index} className="card">
+          <img src="https://picsum.photos/300" alt={`Card ${item.customerName}`} />
+          <div className="card-content">
+            <h3 className="card-title">Customer Name: {item.customerName}</h3>
+            <p className="card-meta">Customer ID: {item.customerId}</p>
+            <p className="card-meta">
+              Quotation Date: {new Date(item.createdAt).toLocaleDateString("en-GB")}
+            </p>
+          </div>
+        </div>
+      ))
+    ) : (
+      <span className="norecord">No records found</span>
+    )}
+  </div>
+</div>
+
+
               {/* fourth third  */}
               <div className="leadFirs">
                 <div className="LEADSsTunav litu">
@@ -807,11 +829,9 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
                       <div key={index} className="sakacont">
                         <div className="singlquot" key={index}>
                           <p className="invId">
-                          Proposal For: {item?.proposalFor}
+                            Proposal For: {item?.proposalFor}
                           </p>
-                          <p className="invId">
-                          Created By: {item?.createdBy}
-                          </p>
+                          <p className="invId">Created By: {item?.createdBy}</p>
                           <p className="date">
                             {new Date(item?.createdAt).toLocaleDateString(
                               "en-GB"
@@ -821,9 +841,10 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
 
                         <div className="dj">
                           <img
-                          
-                            onClick={()=>{
-                              navigate("/adminDash/HRM/ProposalForm" , {state:{item}})
+                            onClick={() => {
+                              navigate("/adminDash/HRM/ProposalForm", {
+                                state: { item },
+                              });
                             }}
                             className="cursor-pointer"
                             src={veci}

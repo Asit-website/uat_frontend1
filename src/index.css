@@ -6059,7 +6059,7 @@ input::-webkit-inner-spin-button {
   border-radius: 10px;
   border: 1px solid #0B56E4;
   font-family: Inter;
-  color: #0B56E4;
+  color:black;
   background: linear-gradient(131.78deg, #D1E8FD 6.87%, #EDEFFF 91.67%);
   font-size: 16px;
   font-weight: 500;

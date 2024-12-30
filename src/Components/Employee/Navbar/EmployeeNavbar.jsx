@@ -1,7 +1,7 @@
 import React, { useState , useEffect } from "react";
 import lok from "../../images/lok.png";
 import bottom from "../../images/bottom.png";
-import bell from "../../images/bell.png";
+import notifications from "../../images/notifications.png";
 import OutsideClickHandler from "react-outside-click-handler";
 import { NavLink } from "react-router-dom";
 import "react-circular-progressbar/dist/styles.css";
@@ -282,7 +282,7 @@ useEffect(()=>{
 
        
         <div onClick={()=>setShownotify(true)} className="fifth-logo ">
-          <img  src={bell} alt="" />
+          <img style={{width:"32px"}} src={notifications} alt="" />
         </div>
 
         <OutsideClickHandler
