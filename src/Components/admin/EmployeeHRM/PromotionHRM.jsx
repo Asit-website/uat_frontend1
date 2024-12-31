@@ -157,7 +157,7 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
     }}
     className="adminsetupBtn"
   >
-    Promotion
+   Create Promotion
   </button>
 </div>
 

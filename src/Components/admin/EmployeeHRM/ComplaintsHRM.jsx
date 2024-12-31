@@ -185,7 +185,7 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
     }}
     className="adminsetupBtn"
   >
-    Complain
+  Create  Complain
   </button>
 </div>
 

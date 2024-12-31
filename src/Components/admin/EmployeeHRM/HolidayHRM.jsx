@@ -176,7 +176,7 @@ const HolidayHRM = ({ setAlert, pop, setPop }) => {
     }}
     className="adminsetupBtn"
   >
-    Holiday
+   Create Holiday
   </button>
 </div>
 

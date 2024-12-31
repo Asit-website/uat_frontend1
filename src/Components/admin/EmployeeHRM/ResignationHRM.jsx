@@ -187,7 +187,7 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
     }}
     className="adminsetupBtn"
   >
-    Resignation
+  Create  Resignation
   </button>
 </div>
 

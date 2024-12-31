@@ -180,7 +180,7 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
     }}
     className="adminsetupBtn"
   >
-    Termination
+   Create Termination
   </button>
 </div>
 

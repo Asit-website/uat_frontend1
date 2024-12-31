@@ -188,7 +188,7 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
     }}
     className="adminsetupBtn"
   >
-    Warning
+  Create Warning
   </button>
 </div>
 
