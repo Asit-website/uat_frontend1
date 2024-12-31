@@ -21,8 +21,6 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
     getLead2,
     updateLeadStatus,
     CreateNoteApi,
-    getQuotationAll,
-    deleteQuotation,
     taskCreateApi,
     meetCreateApi,
     taskEditApi,
@@ -37,6 +35,7 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
     getQuotationApi,
     deleteQuotationapi,
     deleteQproapi,
+    getSaveTempalte
   } = useMain();
 
   const { id } = useParams();
@@ -309,9 +308,24 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
   const [allQuota, setAllQuota] = useState([]);
   const [allPropo, setAllPropo] = useState([]);
 
+  const [saveTemplate , setSaveTemplate ] = useState([]);
+
+   const fetchSaveTemplates = async()=>{
+     try{
+
+      const ans = await getSaveTempalte(id);
+      console.log("savetemplate ",ans);
+       if(ans?.status){
+         setSaveTemplate(ans?.data);
+       }
+
+     }catch(error){
+      toast.error("Something went wrong , Please try again");
+     }
+   }
+
   const getQuotationOfLead = async () => {
     const ans = await getQuotationApi(id);
-    console.log("ans", ans);
     setAllQuota(ans?.quotations);
     setAllPropo(ans?.proposals);
   };
@@ -389,6 +403,7 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
     getNotes();
     fetchFollowUp();
     getQuotationOfLead();
+    fetchSaveTemplates();
   }, []);
 
   return (
@@ -736,11 +751,7 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
 
                         <div className="dj">
                           <img
-                            // onClick={() =>
-                            //   navigate("/adminDash/editQuotation", {
-                            //     state: item,
-                            //   })
-                            // }
+                          
                             onClick={() => {
                               navigate("/adminDash/HRM/QuotationForm", {
                                 state: { item },
@@ -758,14 +769,7 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
                             src={deli}
                             alt="deli"
                           />
-                          {/* <img
-                            onClick={() =>
-                              navigate("/invoicePage", { state: item })
-                            }
-                            className="dli cursor-pointer"
-                            src={semi}
-                            alt="semi"
-                          /> */}
+                        
                         </div>
                       </div>
                     ))}
@@ -779,20 +783,23 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
 
               <div className="leadFirs">
   <div className="LEADSsTunav litu">
-    <h2 className="ehading">Quotation Cards</h2>
+    <h2 className="ehading">Recent Templates</h2>
   </div>
 
   <hr />
   <div className="allCards">
-    {allQuota?.length > 0 ? (
-      allQuota.map((item, index) => (
-        <div key={index} className="card">
-          <img src="https://picsum.photos/300" alt={`Card ${item.customerName}`} />
+    {saveTemplate?.length > 0 ? (
+      saveTemplate.map((item, index) => (
+        <div     onClick={() => {
+          navigate("/adminDash/HRM/QuotationForm", {
+            state: { item },
+          });
+        }} key={index} className="card cursor-pointer">
+          <img src="https://res.cloudinary.com/dd9tagtiw/image/upload/v1735558409/WhatsApp_Image_2024-12-30_at_17.02.43_160b7501_fg2z1u.jpg" alt={`Card ${item?.customerName}`} />
           <div className="card-content">
-            <h3 className="card-title">Customer Name: {item.customerName}</h3>
-            <p className="card-meta">Customer ID: {item.customerId}</p>
+            <h3 className="card-title">Name: {item?.customerName}</h3>
             <p className="card-meta">
-              Quotation Date: {new Date(item.createdAt).toLocaleDateString("en-GB")}
+              Quotation Date: {new Date(item?.createdAt).toLocaleDateString("en-GB")}
             </p>
           </div>
         </div>

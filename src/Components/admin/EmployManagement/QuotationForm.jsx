@@ -156,12 +156,58 @@ const QuotationForm = ({ setAlert, pop, setPop }) => {
       introduction : content,
       additional: content2 , 
       technology:rows2 , 
-      timeline: rows3
+      timeline: rows3 , 
+      isSave:false 
 
     });
 
     if (ans?.status) {
       toast.success("Successfuly created");
+      setFormdata({
+        quotationNum: "",
+        customerName: "",
+        customerReq: "",
+        mobileNum: "",
+        quotationDate: "",
+        validUntil: "",
+        customerId: "",
+        companyName: "",
+        companyAddress: "",
+        companyGSTIN: "",
+        companyWebsite: "",
+      });
+
+      sessionStorage.removeItem("quotationLogoLink");
+
+      setRows([]);
+      setContent(data);
+    }
+    toast.dismiss(toastId);
+  };
+
+
+  const saveTemplateHandler = async () => {
+    const toastId = toast.loading("Loading...");
+
+    const {customerName , customerReq , quotationDate} = formdata;
+
+    const ans = await postQuotationFormApi({
+      customerName , 
+      customerReq , 
+      quotationDate ,
+      costhead: rows,
+      userId: hrms_user?._id,
+      leadId: id,
+      introduction : content,
+      additional: content2 , 
+      technology:rows2 , 
+      timeline: rows3 , 
+      isSave:true, 
+
+    });
+
+    if (ans?.status) {
+      toast.success("Successfuly Saved");
       setFormdata({
         quotationNum: "",
         customerName: "",
@@ -274,8 +320,6 @@ const QuotationForm = ({ setAlert, pop, setPop }) => {
 
   const contonentPDF = useRef();
 
-
-
   const generatePdf = useReactToPrint({
     content: () => printRef.current,
     documentTitle: "Quotation",
@@ -307,10 +351,11 @@ const QuotationForm = ({ setAlert, pop, setPop }) => {
             <div className="qutaWrap">
               <div className="qutaLeft">
                 <div className="qutLTo">
-                  {/* <h2>Quotation Form</h2> */}
-
                   <div className="qutolobutons">
+
                     <button onClick={() => setPreview(true)}>Preview</button>
+                    <button onClick={() => saveTemplateHandler()}>Save</button>
+
                     <button
                       onClick={() => {
                         if (item) {
@@ -322,6 +367,7 @@ const QuotationForm = ({ setAlert, pop, setPop }) => {
                     >
                       Create
                     </button>
+
                     <button
                       onClick={() => {
                         navigate(-1);
@@ -330,21 +376,14 @@ const QuotationForm = ({ setAlert, pop, setPop }) => {
                     >
                       Cancel
                     </button>
+
                   </div>
                 </div>
 
                 <div className="allwhitebg">
+                  
                   <form className="qtoform">
-                    {/* <label>
-                      <p>Quotation No*</p>
-                      <input
-                        value={formdata.quotationNum}
-                        name="quotationNum"
-                        onChange={textChangeHandler}
-                        type="text"
-                        placeholder="#01"
-                      />
-                    </label> */}
+                   
 
                     <label>
                       <p>Customer Name*</p>
@@ -408,26 +447,7 @@ const QuotationForm = ({ setAlert, pop, setPop }) => {
                         type="text"
                       />
                     </label> */}
-                  </form>
-
-                  {/* <div
-                    className="adddbunelogo cursor-pointer"
-                    onClick={handleImageClick}
-                  >
-                    <img src={pluslogo} width={50} alt="" />
-                    <p>
-                      {" "}
-                      {buislogoname
-                        ? buislogoname?.name
-                        : "Add Business Logo"}{" "}
-                    </p>
-                    <input
-                      type="file"
-                      ref={fileInputRef}
-                      style={{ display: "none" }}
-                      onChange={handleFileChange}
-                    />
-                  </div> */}
+                  </form>            
 
                   <div className="docuThird">
                     <h3>Introduction And Key Features </h3>
@@ -588,54 +608,7 @@ const QuotationForm = ({ setAlert, pop, setPop }) => {
                     <span>Add Cost Estimate</span>
                   </div>
 
-                  {/* <div className="comapnydetail">
-                    <h3 className="comdetail">Company Details</h3>
-
-                    <form className="qtoform">
-                      <label>
-                        <p>Company Name*</p>
-                        <input
-                          value={formdata.companyName}
-                          name="companyName"
-                          onChange={textChangeHandler}
-                          type="text"
-                          placeholder=""
-                        />
-                      </label>
-
-                      <label>
-                        <p>Company Address*</p>
-                        <input
-                          value={formdata.companyAddress}
-                          name="companyAddress"
-                          onChange={textChangeHandler}
-                          type="text"
-                          placeholder=""
-                        />
-                      </label>
-
-                      <label>
-                        <p>Company GSTIN*</p>
-                        <input
-                          value={formdata.companyGSTIN}
-                          name="companyGSTIN"
-                          onChange={textChangeHandler}
-                          type="text"
-                        />
-                      </label>
-
-                      <label>
-                        <p>Company Website*</p>
-                        <input
-                          value={formdata.companyWebsite}
-                          name="companyWebsite"
-                          onChange={textChangeHandler}
-                          type="text"
-                        />
-                      </label>
-                    </form>
-                  </div> */}
-
+              
                   {/* Addition consideration  */}
                   <div className="docuThird">
                     <h3>
