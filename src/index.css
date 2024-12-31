@@ -27,7 +27,11 @@ body {
   z-index: 1000;
   right: 35px;
 }
-
+.yasir{
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 0px;
+}
 .such_thing {
   display: flex;
   align-items: center;
