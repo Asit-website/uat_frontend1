@@ -106,6 +106,7 @@ import AcceptPage from "./Components/AcceptPage.jsx";
 import PermissionData from "./Components/admin/Permission/PermissionData.js";
 import { useMain } from "./hooks/useMain.js";
 import ScrollTop from "./Components/utils/ScrollTop.jsx";
+import DeactivateEmployee from "./Components/admin/EmployManagement/DeactivateEmployee.jsx";
 var tc;
 
 const ROLES = {
@@ -248,6 +249,7 @@ function App() {
               <Route path="/employeeDash" element={<EmployeeHRM pop={pop} setPop={setPop} setAlert={setAlert} />} />
               <Route path="/adminDash/HRM/createEmployee" element={<CreateEmployee pop={pop} setPop={setPop} setAlert={setAlert} />} />
               <Route path="/adminDash/HRM/EmployeeManagement" element={<EmployeeManagement pop={pop} setPop={setPop} setAlert={setAlert} />} />
+              <Route path="/adminDash/HRM/deactivate" element={<DeactivateEmployee pop={pop} setPop={setPop} setAlert={setAlert} />} />
               <Route path="/employeeDash/HRM/EmployeeManagement" element={<EmployeeManagement pop={pop} setPop={setPop} setAlert={setAlert} />} />
               <Route path="/adminDash/HRM/EmployeeManagement/:id" element={<EmployeeManagementID pop={pop} setPop={setPop} setAlert={setAlert} />} />
               <Route path="/employeeDash/HRM/EmployeeManagement/:id" element={<EmployeeManagementID pop={pop} setPop={setPop} setAlert={setAlert} />} />
