@@ -117,7 +117,38 @@ const AttendenceCalendar = ({ setAlert, pop1, setPop1 }) => {
             setPop1={setPop1}
           />
           <div className="em">
+
             <div className="flex-col">
+            <button
+  style={{
+    
+    
+    borderRadius: "50%", 
+    color: "white",
+    cursor: "pointer",
+    width: "30px",
+    height: "30px",
+    display:"flex",
+   justifyContent: "center",
+   backgroundColor:"blueviolet",
+   float:"right"
+   
+  }}
+>
+  <a
+    href="/employeeDash"
+    style={{
+      textDecoration: "none",
+      color: "white",
+      fontSize: "20px",
+      fontWeight: "bold",
+    }}
+  >
+    X
+  </a>
+</button>
+
+
               <div className="distinguish flex">
                 <div className="distinguish1 w-full">
                   <div className="calend calend1">
@@ -166,7 +197,9 @@ const AttendenceCalendar = ({ setAlert, pop1, setPop1 }) => {
 
                           <p className="prasj">{task}</p>
                         </div>
+
                       </div>
+
                     ) : null}
                   </div>
                 </div>
