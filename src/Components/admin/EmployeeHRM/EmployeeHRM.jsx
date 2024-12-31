@@ -735,7 +735,7 @@ const EmployeeHRM = ({
         setFormdata3({  title:"" ,itemCode:"" , quantity:"" , unit:"" ,  purchasePrice:"" , salesPrice:"" , purchaseDate:"" ,  category:""})
      }
 
-
+     const [showMore, setShowMore] = useState(false);
   return (
     <>
       <div className="employee-dash relative h-full">
@@ -1740,60 +1740,70 @@ const EmployeeHRM = ({
                     </div>
 
                     {/* this is for annoucement  */}
+                   
                     <div className="hrLefThi">
-                      <div className="adflex">
-                        <img src={annNav} alt="" />
-                        <h3>Announcement Lists </h3>
-                      </div>
+  <div className="adflex">
+    <img src={annNav} alt="" />
+    <h3>Announcement Lists </h3>
+  </div>
 
-                      <div className="relative overflow-x-auto annTable">
-                        <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                          <thead className="text-xs uppercase textALLtITL ">
-                            <tr>
-                              <th scope="col" className="px-6 py-3 taskTitl">
-                                TITLE
-                              </th>
-                              <th scope="col" className="px-2 py-3 taskTitl">
-                                START DATE
-                              </th>
-                              <th scope="col" className="px-6 py-3 taskTitl">
-                                END DATE
-                              </th>
+  <div className="relative overflow-x-auto annTable">
+    <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+      <thead className="text-xs uppercase textALLtITL ">
+        <tr>
+          <th scope="col" className="px-6 py-3 taskTitl">
+            TITLE
+          </th>
+          <th scope="col" className="px-2 py-3 taskTitl">
+            START DATE
+          </th>
+          <th scope="col" className="px-6 py-3 taskTitl">
+            END DATE
+          </th>
+        </tr>
+      </thead>
 
-                            
-                            </tr>
-                          </thead>
+      <tbody>
+        {announce?.slice(0, showMore ? announce.length : 5).map((val, index) => (
+          <tr
+            onClick={() => setOpenAnn(val)}
+            key={index}
+            className="bg-white border-b singleannoucs "
+          >
+            <th
+              scope="row"
+              className="px-3 py-4 font-medium tasklo whitespace-nowrap taskAns taskans11"
+            >
+              {val?.title}
+            </th>
+            <td className="px-3 py-4 taskAns lolo taskans11">
+              {val?.startDate}
+            </td>
+            <td className="px-3 py-4 taskAns lolo taskans11">
+              {val?.endDate}
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
 
-                          <tbody>
-                            {announce?.map((val, index) => {
-                              return (
-                                <tr
-                                onClick={()=>setOpenAnn(val)}
-                                  key={index}
-                                  className="bg-white border-b singleannoucs "
-                                >
-                                  <th
-                                    scope="row"
-                                    className="px-3 py-4 font-medium tasklo  whitespace-nowrap taskAns taskans11"
-                                  >
-                                    {val?.title}
-                                  </th>
-                                  <td className="px-3 py-4 taskAns lolo taskans11">
-                                    {val?.startDate}
-                                  </td>
-                                  <td className="px-3 py-4 taskAns lolo taskans11">
-                                    {val?.endDate}
-                                  </td>
-                                  {/* <td className="px-3 py-4 taskAns taskans11">
-                                    {val?.description}
-                                  </td> */}
-                                </tr>
-                              );
-                            })}
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
+    <button
+        style={{
+          backgroundColor: '#007bff', 
+          color: 'white',
+          padding: '0.5rem 1rem',
+         margin:"10px",
+          borderRadius: '4px',
+          cursor: 'pointer',
+          float: "right"
+        }}
+        onClick={() => setShowMore(!showMore)}
+      >
+        {showMore ? 'See Less' : 'See More'}
+      </button>
+</div>
+
                   </>
                 )}
 
