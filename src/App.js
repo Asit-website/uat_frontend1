@@ -107,6 +107,7 @@ import PermissionData from "./Components/admin/Permission/PermissionData.js";
 import { useMain } from "./hooks/useMain.js";
 import ScrollTop from "./Components/utils/ScrollTop.jsx";
 import DeactivateEmployee from "./Components/admin/EmployManagement/DeactivateEmployee.jsx";
+import MyLeaves from "./Components/admin/EmployeeHRM/MyLeaves.js";
 
 var tc;
 
@@ -196,7 +197,6 @@ function App() {
               <Route path="/employeeDash/taskLead" element={<TaskLead />}  />      
               <Route path="/employeeDash/meetLead" element={<MeetLead />}  />
 
-              {/* <Route path="/employeeDash/employeeLeave" element={<LeaveManagement/>}  /> */}
            
               <Route path="/accept/:userId" element={<AcceptPage />} />
 
@@ -300,9 +300,9 @@ function App() {
               <Route path="/employeeDash/HRM/activeEmployee" element={<ActiveEmplyee pop={pop} setPop={setPop} setAlert={setAlert} />} />
               <Route path="/adminDash/HRM/leaveRequest" element={<LeaveRequest pop={pop} setPop={setPop} setAlert={setAlert} />} />
               <Route path="/employeeDash/HRM/leaveRequest" element={<LeaveRequest pop={pop} setPop={setPop} setAlert={setAlert} />} />
+              <Route path="/employeeDash/employeeLeave" element={<MyLeaves pop={pop} setPop={setPop} setAlert={setAlert} />} />
               <Route path="/adminDash/HRM/halfDayRequest" element={<HalfRequest pop={pop} setPop={setPop} setAlert={setAlert} />} />
               <Route path="/employeeDash/HRM/halfDayRequest" element={<HalfRequest pop={pop} setPop={setPop} setAlert={setAlert} />} />
-              <Route path="/employeeDash/HRM/leaveRequest" element={<LeaveRequest pop={pop} setPop={setPop} setAlert={setAlert} />} />
               <Route path="/adminDash/HRM/markAttendance" element={<MarkAttendance pop={pop} setPop={setPop} setAlert={setAlert} />} />
               <Route path="/employeeDash/HRM/markAttendance" element={<MarkAttendance pop={pop} setPop={setPop} setAlert={setAlert} />} />
               <Route path="/adminDash/HRM/userAttendence" element={<EmployeAttendence pop={pop} setPop={setPop} setAlert={setAlert} />} />

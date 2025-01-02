@@ -7,12 +7,12 @@ import { useState } from 'react';
 // 
 // const baseUrl = "https://hrms-backend-code.onrender.com"
 
-// const baseUrl = "http://localhost:5000";
+const baseUrl = "http://localhost:5000";
 
 // const baseUrl = "https://hrms-backend-q2ta.onrender.com";
 
 // this is production baseurl 
-const baseUrl = "https://hmsbackend.kusheldigi.com";
+// const baseUrl = "https://hmsbackend.kusheldigi.com";
 
 // const baseUrl = "https://hrms-backend-g3wt.onrender.com";
 
@@ -288,6 +288,11 @@ const MainState = (props) => {
 
    const getUserLeaves = async () => {
       const data = await get(`${baseUrl}/leave/getUserLeaves`, true);
+      return data;
+   };
+   const FetchMyLeave = async () => {
+      let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
+      const data = await get(`${baseUrl}/leave/fetchUserLeaves/${hrms_user?._id}`, true);
       return data;
    };
    const getUserHalfDay = async () => {
@@ -2478,7 +2483,7 @@ const MainState = (props) => {
          deleteQuotation1 , 
          uploadSingleImage , 
          getAllProjectUserApi , 
-         savenoteatt ,AllRolesapi ,  closeLead , deleteQproapi , createExpenseApi , changeStatusBreak , deleteProjectTaskapi22 , EditProjectTask , postHalfDay , closeLeadApiFetch2 , closeLeadApiFetch , postNotification2 , getUserHalfDay , rejectHalfDay , acceptHalf , acceptassetsapi , getTodayLead , getTodayLead2 , getSaveTempalte
+         savenoteatt ,AllRolesapi , FetchMyLeave ,  closeLead , deleteQproapi , createExpenseApi , changeStatusBreak , deleteProjectTaskapi22 , EditProjectTask , postHalfDay , closeLeadApiFetch2 , closeLeadApiFetch , postNotification2 , getUserHalfDay , rejectHalfDay , acceptHalf , acceptassetsapi , getTodayLead , getTodayLead2 , getSaveTempalte
       }}> 
          {props.children}
       </MainContext.Provider>
