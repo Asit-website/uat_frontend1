@@ -7653,3 +7653,46 @@ min-width: 50%;
 .adminsetupBtn:focus {
   outline: none;
 }
+
+.thredotwrap{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.threedot_lead{
+  cursor: pointer;
+  min-width: 25px;
+  max-width: 25px;
+  font: 30px;
+
+}
+
+.dropswrap{
+  width: 100px;
+  height: fit-content;
+  background-color: white;
+  box-shadow: -1px -1px 19px -9px rgba(0,0,0,0.75);
+position: absolute;
+bottom: 60px;
+right: 30px;
+
+}
+
+.dropswrap p{
+  display: flex;
+  align-items: center;
+  padding: 10px 5px;
+  gap: 5px;
+  cursor: pointer;
+  border-bottom: 1px solid #ccc;
+}
+.dropswrap p span{
+  font-weight: 500 !important;
+  font-family: Inter !important;
+  font-size: 14px !important;
+}
+
+.dropswrap .lead_icon{
+  font-size: 20px;
+}

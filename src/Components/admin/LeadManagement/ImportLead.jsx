@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import AdminNavbar from "../../admin/Navbar/AdminNavbar";
 import AdminSidebar from "../../admin/Sidebar/AdminSidebar";
 import "react-calendar/dist/Calendar.css";
@@ -14,6 +14,12 @@ import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import cancel from "../../images/cancell.png";
 import { useLocation } from "react-router-dom";
+import { BsThreeDotsVertical } from "react-icons/bs";
+import { MdEdit } from "react-icons/md";
+import { MdDelete } from "react-icons/md";
+import useOnClickOutside from "../../../hooks/useOnClickOutside";
+
+
 
 const ImportLead = ({ setAlert, pop, setPop }) => {
   const {
@@ -308,6 +314,11 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
   const [allQuota, setAllQuota] = useState([]);
   const [allPropo, setAllPropo] = useState([]);
 
+  const [openDrops , setOpenDrops] = useState(null);
+
+  const proNavRef = useRef(null);
+  useOnClickOutside(proNavRef, () => setOpenDrops(null));
+
   const [saveTemplate , setSaveTemplate ] = useState([]);
 
    const fetchSaveTemplates = async()=>{
@@ -335,6 +346,7 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
     const ans = await deleteQuotationapi(id);
     if (ans?.status) {
       getQuotationOfLead();
+      fetchSaveTemplates();
       toast.success("Successfuly deleted");
     } else {
       toast.error("Something went wrong");
@@ -790,18 +802,46 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
   <div className="allCards">
     {saveTemplate?.length > 0 ? (
       saveTemplate.map((item, index) => (
-        <div     onClick={() => {
-          navigate("/adminDash/HRM/QuotationForm", {
-            state: { item },
-          });
-        }} key={index} className="card cursor-pointer">
+        <div   
+       
+         key={index} className="card ">
           <img src="https://res.cloudinary.com/dd9tagtiw/image/upload/v1735558409/WhatsApp_Image_2024-12-30_at_17.02.43_160b7501_fg2z1u.jpg" alt={`Card ${item?.customerName}`} />
+         
+         
+           <div className="thredotwrap">
+
+          
           <div className="card-content">
+
             <h3 className="card-title">Name: {item?.customerName}</h3>
             <p className="card-meta">
               Quotation Date: {new Date(item?.createdAt).toLocaleDateString("en-GB")}
             </p>
           </div>
+
+          <BsThreeDotsVertical onClick={()=> {
+            setOpenDrops(index);
+          }} className="threedot_lead" />
+
+          {
+       openDrops === index && 
+        <div className="dropswrap" ref={proNavRef} >
+           <p    onClick={() => {
+          navigate("/adminDash/HRM/QuotationForm", {
+            state: { item },
+          });
+        }}><MdEdit className="lead_icon" />     <span>Edit</span>  </p>
+           <p 
+            onClick={()=>{
+              deleteQuotationApi(item?._id);
+            }}
+           >  <MdDelete className="lead_icon" /> <span>Delete</span>  </p>
+        </div>
+          }
+
+          </div>
+
+
         </div>
       ))
     ) : (

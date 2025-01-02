@@ -1114,14 +1114,14 @@ const EmployeeSidebar = () => {
               </li>
             </NavLink>
             
-            <NavLink to="/employeeDash/employeeLeave">
+            {/* <NavLink to="/employeeDash/employeeLeave">
               <li className="indefy adpading">
                 <img src={shop} alt="" />
                 <a href="#" className=" ">
                   <span className="">Leaves Managment</span>
                 </a>
               </li>
-            </NavLink>
+            </NavLink> */}
 
             {/* <NavLink to="/employeeDash/update">
               <li className="indefy adpading">

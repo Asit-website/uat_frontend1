@@ -6,6 +6,9 @@ import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import { useEffect } from "react";
 import toast from "react-hot-toast";
+import { FaArrowLeft } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
+
 
 const AttendenceCalendar = ({ setAlert, pop1, setPop1 }) => {
   let todayDate = new Date().toLocaleDateString("en-GB");
@@ -47,6 +50,7 @@ const AttendenceCalendar = ({ setAlert, pop1, setPop1 }) => {
 
     const id = userDetail?._id;
 
+
     const attendece = await getAttendence({ id, date });
 
     if (attendece.status) {
@@ -73,6 +77,8 @@ const AttendenceCalendar = ({ setAlert, pop1, setPop1 }) => {
       }
     }
   };
+
+  const navigate = useNavigate();
 
   const handleCalendar = (e) => {
     let date = new Date(e).toLocaleDateString("en-GB");
@@ -119,34 +125,12 @@ const AttendenceCalendar = ({ setAlert, pop1, setPop1 }) => {
           <div className="em">
 
             <div className="flex-col">
-            <button
-  style={{
-    
-    
-    borderRadius: "50%", 
-    color: "white",
-    cursor: "pointer",
-    width: "30px",
-    height: "30px",
-    display:"flex",
-   justifyContent: "center",
-   backgroundColor:"blueviolet",
-   float:"right"
-   
-  }}
->
-  <a
-    href="/employeeDash"
-    style={{
-      textDecoration: "none",
-      color: "white",
-      fontSize: "20px",
-      fontWeight: "bold",
-    }}
-  >
-    X
-  </a>
-</button>
+            <button  style={{
+              marginBottom:"20px",
+              fontSize: "34px"
+            }}>
+            <FaArrowLeft onClick={()=>navigate(-1)} />
+           </button>
 
 
               <div className="distinguish flex">

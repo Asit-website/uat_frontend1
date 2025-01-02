@@ -10,6 +10,8 @@ import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css'; 
 import toast from "react-hot-toast";
 import { RxCross2 } from "react-icons/rx";
+import EmployeeNavbar from "../../Employee/Navbar/EmployeeNavbar";
+import EmployeeSidebar from "../../Employee/Sidebar/EmployeeSidebar";
 
 
 
@@ -20,6 +22,12 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
   const [open, setOpen] = useState(0);
   const [allTransfer, setAllTransfer] = useState([]);
 
+
+  let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
+
+  const { role } = hrms_user;
+
+  
   const [refreshFlag, setRefreshFlag] = useState(false);
 
   const [popup1, setPopup1] = useState(false);
@@ -132,39 +140,25 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
   return (
     <>
       <div className="employee-dash h-full">
-        <AdminSidebar pop={pop} setPop={setPop} />
+      {role === "EMPLOYEE" ? (
+          <EmployeeSidebar pop={pop} setPop={setPop} />
+        ) : (
+          <AdminSidebar pop={pop} setPop={setPop} />
+        )}
 
         <div className="tm awardtm">
-          <AdminNavbar user={user} setAlert={setAlert} />
+        {role === "EMPLOYEE" ? (
+            <EmployeeNavbar user={user} setAlert={setAlert} />
+          ) : (
+            <AdminNavbar user={user} setAlert={setAlert} />
+          )}
 
           <div className="em">
             <div className="flex-col">
               <div className="admin-main adminmain">
 
 
-                {/* <div className="plusSection">
-                  <div className="adminFirt">
-                    <h2 className="hrmShed">Manage Transfer</h2>
-
-                    <div className="hrmDoHe">
-                      <p>Dashboard</p>
-                      <img src={chevron} alt="" />
-                      <span>Transfer</span>
-                    </div>
-                  </div>
-
-
-                  <img
-                    onClick={() => {
-                      if (open === 0) {
-                        setPopup1(true);
-                      }
-                    }}
-                    className="plusiCON"
-                    src={plusIcon}
-                    alt=""
-                  />
-                </div> */}
+                
                 <div className="plusSection">
   <div className="adminFirt">
     <h2 className="hrmShed">Manage Transfer</h2>
@@ -184,7 +178,7 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
     }}
     className="adminsetupBtn"
   >
-    Transfer
+    Create Transfer
   </button>
 </div>
 

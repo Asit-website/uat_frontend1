@@ -110,7 +110,7 @@ const AdminNavbar = ({ setAlert }) => {
 
         </div> */}
         <div className="logo-namewrap">
-          <NavLink to="/adminDash">
+          <NavLink to="/adminDash/HRM">
             <div className="logo">
               <img src={kushel1} alt="" />
             </div>
