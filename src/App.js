@@ -107,6 +107,7 @@ import PermissionData from "./Components/admin/Permission/PermissionData.js";
 import { useMain } from "./hooks/useMain.js";
 import ScrollTop from "./Components/utils/ScrollTop.jsx";
 import DeactivateEmployee from "./Components/admin/EmployManagement/DeactivateEmployee.jsx";
+
 var tc;
 
 const ROLES = {
@@ -195,8 +196,8 @@ function App() {
               <Route path="/employeeDash/taskLead" element={<TaskLead />}  />      
               <Route path="/employeeDash/meetLead" element={<MeetLead />}  />
 
-              
-
+              {/* <Route path="/employeeDash/employeeLeave" element={<LeaveManagement/>}  /> */}
+           
               <Route path="/accept/:userId" element={<AcceptPage />} />
 
 
