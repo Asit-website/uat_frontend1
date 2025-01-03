@@ -66,7 +66,7 @@ const EmployeeHRM = ({
     getTodayBirthday,
     changeStatusBreak,
     allEmployee , 
-    LeaveAllowApihandler , leaveTypeApi , postHalfDay , CreateExpense
+    LeaveAllowApihandler , leaveTypeApi , postHalfDay , CreateExpense ,getTasks
   } = useMain();
 
 
@@ -164,7 +164,7 @@ const EmployeeHRM = ({
   const [star2, setStar2] = useState(false);
 
   const [openAnn, setOpenAnn] = useState(false);
-
+  // const [task, setTask] = useState()
   const [task, setTask] = useState([
     {
       name: "Chirag",
@@ -191,6 +191,14 @@ const EmployeeHRM = ({
       task: "Madfish",
     },
   ]);
+ 
+  // const getTaskAnnouncement=async()=>{
+  //   const ans=await getTasks() 
+  //   setTask(ans?.data);
+  // }
+  // useEffect(() => {
+  //   getTaskAnnouncement();
+  // }, []);
 
   const getData = async () => {
     setLoadFlag(true);

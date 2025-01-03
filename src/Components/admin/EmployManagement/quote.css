@@ -174,7 +174,10 @@ color: #101820;
 .openform{
     max-width: 630px !important;
     width: 100% !important;
+    position: sticky !important;
+    top: 0;
 }
+
 
 .lableawaiwrap{
     gap: 20px !important;
