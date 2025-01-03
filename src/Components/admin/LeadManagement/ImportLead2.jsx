@@ -16,6 +16,8 @@ import { useLocation } from 'react-router-dom';
 
 import EmployeeSidebar from "../../Employee/Sidebar/EmployeeSidebar";
 import EmployeeNavbar from "../../Employee/Navbar/EmployeeNavbar";
+import { RxCross2 } from "react-icons/rx";
+
 
 
 const ImportLead2 = ({ setAlert, pop, setPop }) => {
@@ -180,6 +182,8 @@ const ImportLead2 = ({ setAlert, pop, setPop }) => {
       ],
     });
   };
+
+  const [openSharePop , setOpenSharePop] = useState(true);
 
   const [openCreateTask, setOpenCreateTask] = useState(false);
   const [openCreateMeet, setOpenCreateMeet] = useState(false);
@@ -427,12 +431,12 @@ const ImportLead2 = ({ setAlert, pop, setPop }) => {
 
               {/* right side  */}
               <div className="laedRight">
-                {/* <button
-                  type="button"
-                  class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2  dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 sendBtn"
-                >
-                  Send Email
-                </button> */}
+              
+              <button onClick={()=>{
+                setOpenSharePop(true);
+              }} className="refresh1"  >
+                  <span className="ref1">Share</span>
+                </button>
 
                 <button
                   onClick={() =>
@@ -1011,6 +1015,37 @@ const ImportLead2 = ({ setAlert, pop, setPop }) => {
           </div>
 
         </div>
+      }
+
+
+      {
+         openSharePop && 
+
+         <div className="opensharpopwra">
+          <div className="opensharecont">
+
+            <nav>
+               <h2>Share Lead</h2>
+               <RxCross2 onClick={()=>{
+                setOpenSharePop(false);
+               }} className="sharecross" />
+
+            </nav>
+
+            <hr />
+
+            <div className="popup_formdiv2">
+              jfdljflkdf dsjs
+            </div>
+
+            
+            <div className="sharebutons">
+               <button>Cancel</button>
+               <button>Share</button>
+            </div>
+
+          </div>
+         </div>
       }
 
 

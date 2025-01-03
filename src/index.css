@@ -7696,3 +7696,71 @@ right: 30px;
 .dropswrap .lead_icon{
   font-size: 20px;
 }
+
+.opensharpopwra{
+  background-color: rgb(0, 0, 0 , 0.4);
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+
+}
+
+.opensharecont{
+  background-color: white;
+  width: 500px;
+  max-height: 500px;
+  height: fit-content;
+  margin-top: 120px;
+  padding: 10px 0px;
+  display: flex;
+  flex-direction: column;
+}
+
+
+.opensharecont nav{
+  display:flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 10px;
+  
+}
+.opensharecont nav h2{
+  font-size: 16px;
+  font-weight: bold;
+  font-family: inter !important;
+
+}
+
+.sharecross{
+  font-size: 24px;
+  cursor: pointer;
+}
+
+
+.popup_formdiv2{
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  overflow-y: scroll;
+  padding: 0px 10px 0px 0px;
+  /* height: ; */
+}
+
+.popup_formdiv2::-webkit-scrollbar {
+  width: 1em;
+}
+
+.popup_formdiv2::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px #cccccc;
+}
+
+.popup_formdiv2::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background: #cccccc;
+}

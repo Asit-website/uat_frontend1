@@ -756,7 +756,7 @@ const EmployeeManage = ({
                                 onChange={(e) => {
                                   handleChange(e, "form1");
                                 }}
-                                type="email"
+                                type="text"
                                 name="employeeCode"
                                 value={value1?.employeeCode}
                                 placeholder="Enter Employee Code"

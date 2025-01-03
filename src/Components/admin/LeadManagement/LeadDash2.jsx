@@ -687,6 +687,8 @@ const closeLead = async()=>{
                     </button>
                   </div>
                 </div>
+
+                
               </div>
               <div className="table22">
                 <div className="my_open">

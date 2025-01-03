@@ -7,10 +7,8 @@ import { useMain } from "../../../hooks/useMain";
 import { RxCross2 } from "react-icons/rx";
 import "./award.css";
 import ReactStars from "react-rating-stars-component";
-import { confirmAlert } from "react-confirm-alert"; // Import
-import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
-
-import plusIcon from "../../images/plusIcon.png";
+import { confirmAlert } from "react-confirm-alert"; 
+import "react-confirm-alert/src/react-confirm-alert.css"; 
 import toast from "react-hot-toast";
 import EmployeeNavbar from "../../Employee/Navbar/EmployeeNavbar";
 import EmployeeSidebar from "../../Employee/Sidebar/EmployeeSidebar";
@@ -72,8 +70,8 @@ const sidebarItem = [
 ];
 
 const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
-  const { user, postAward, getAward, allEmployee, deleteAward, updateAward } =
-    useMain();
+
+  const { user, postAward, getAward, allEmployee, deleteAward, updateAward } = useMain();
 
   const [onEdit, setOnEdit] = useState(false);
   const [editData, setEditData] = useState({});
@@ -210,26 +208,7 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
           <div className="em">
             <div className="flex-col">
               <div className="admin-main adminmain">
-                {/* <div className="plusSection">
-                  <div className="adminFirt">
-                    <h2 className="hrmShed">Manage Award</h2>
-
-                    <div className="hrmDoHe">
-                      <p>Dashboard</p>
-                      <img src={chevron} alt="" />
-                      <span>Award</span>
-                    </div>
-                  </div>
-
-                  <img
-                    onClick={() => {
-                      setPopup1(true);
-                    }}
-                    className="plusiCON"
-                    src={plusIcon}
-                    alt=""
-                  />
-                </div> */}
+               
                 <div className="plusSection">
   <div className="adminFirt">
     <h2 className="hrmShed">Manage Award</h2>

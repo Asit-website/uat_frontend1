@@ -449,6 +449,11 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
 
               {/* right side  */}
               <div className="laedRight">
+
+                <button className="refresh1" >
+                  <span className="ref1">Share</span>
+                </button>
+
                 <button
                   onClick={() =>
                     navigate("/adminDash/editLead", { state: data })
@@ -457,7 +462,9 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
                 >
                   <span className="ref1">Edit</span>
                 </button>
+                
               </div>
+
             </section>
 
             {/* second sect */}
