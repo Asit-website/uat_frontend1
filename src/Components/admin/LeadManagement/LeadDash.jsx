@@ -1097,7 +1097,7 @@ const LeadDash = ({ setAlert, pop, setPop }) => {
                 </table>
               </div>
 
-              {/* <div className="emPaginate">
+              <div className="emPaginate">
                 <button className={`prepaginate ${currentPage !== 1 && "putthehovebtn"}`} onClick={() => {
                   handlePageChange(currentPage - 1);
                 }} disabled={currentPage === 1}>
@@ -1110,27 +1110,9 @@ const LeadDash = ({ setAlert, pop, setPop }) => {
                 }} disabled={currentPage === totalPages}>
                   Next
                 </button>
-              </div> */}
+              </div> 
               
-               {totalPages > 1 && (
-  <div className="emPaginate">
-    <button
-      className={`prepaginate ${currentPage !== 1 && "putthehovebtn"}`}
-      onClick={() => handlePageChange(currentPage - 1)}
-      disabled={currentPage === 1}
-    >
-      Previous
-    </button>
-    <span className="pagenum">Page {currentPage} of {totalPages}</span>
-    <button
-      className={`prepaginate ${currentPage !== totalPages && "putthehovebtn"}`}
-      onClick={() => handlePageChange(currentPage + 1)}
-      disabled={currentPage === totalPages}
-    >
-      Next
-    </button>
-  </div>
-)} 
+ 
             </div>
 
             {/* this is lastest */}

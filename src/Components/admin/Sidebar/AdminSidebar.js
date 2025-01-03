@@ -443,6 +443,38 @@ const AdminSidebar = ({ pop, setPop }) => {
                       </div>
                     </div>
                   </NavLink>
+                  <NavLink to="/adminDash/LeadSystemSetting">
+                    <div
+                      className={`${
+                        window.location.pathname ===
+                        "/adminDash/LeadSystemSetting"
+                          ? "hh"
+                          : ""
+                      } setWrap`}
+                    >
+                      <div className="systSset">
+                        <img
+                          src={`${
+                            window.location.pathname ===
+                            "/adminDash/LeadSystemSetting"
+                              ? perty
+                              : employee
+                          }`}
+                          alt=""
+                        />
+                        <span
+                          className={`${
+                            window.location.pathname ===
+                            "/adminDash/LeadSystemSetting"
+                              ? "fan"
+                              : ""
+                          }  lessfontweight`}
+                        >
+                          Recent Template
+                        </span>
+                      </div>
+                    </div>
+                  </NavLink>
 
                   <NavLink to="/adminDash/LeadSystemSetting">
                     <div

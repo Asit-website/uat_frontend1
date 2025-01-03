@@ -7562,16 +7562,16 @@ input::-webkit-inner-spin-button {
 
 .connected{
   background: #FFD22E;
-  color: white;
+  color: black;
 
 }
 .Nurturing{
   background-color: #FF8F2C;
-  color: white;
+  color: black;
 }
 .Qualified{
   background-color: #35ff3e;
-  color: white;
+  color: black;
 }
 .Unqualified{
   background-color: #3342FF;
@@ -7579,7 +7579,7 @@ input::-webkit-inner-spin-button {
 }
 .Converted{
   background-color: #FF31ED;
-  color: white;
+  color: black;
 }
 .Converteds{
   background-color: #692DFE;

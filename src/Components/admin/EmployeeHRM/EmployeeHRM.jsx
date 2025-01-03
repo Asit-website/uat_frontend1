@@ -66,7 +66,7 @@ const EmployeeHRM = ({
     getTodayBirthday,
     changeStatusBreak,
     allEmployee , 
-    LeaveAllowApihandler , leaveTypeApi , postHalfDay , CreateExpense ,getTasks
+    LeaveAllowApihandler , leaveTypeApi , postHalfDay , CreateExpense
   } = useMain();
 
 
@@ -164,7 +164,7 @@ const EmployeeHRM = ({
   const [star2, setStar2] = useState(false);
 
   const [openAnn, setOpenAnn] = useState(false);
-  // const [task, setTask] = useState()
+
   const [task, setTask] = useState([
     {
       name: "Chirag",
@@ -191,14 +191,6 @@ const EmployeeHRM = ({
       task: "Madfish",
     },
   ]);
- 
-  // const getTaskAnnouncement=async()=>{
-  //   const ans=await getTasks() 
-  //   setTask(ans?.data);
-  // }
-  // useEffect(() => {
-  //   getTaskAnnouncement();
-  // }, []);
 
   const getData = async () => {
     setLoadFlag(true);
@@ -901,6 +893,7 @@ const EmployeeHRM = ({
                             {" "}
                             <img src={annouce} alt="" />{" "}
                             <span>Announcement Lists</span>
+                          
                           </h2>
 
                           <div className="relative overflow-x-auto">
@@ -930,7 +923,7 @@ const EmployeeHRM = ({
                                 </tr>
                               </thead>
                               <tbody>
-                                {announce?.map((val, index) => {
+                              {announce?.slice(0, 5).map((val, index) =>{
                                   return (
                                     <tr
                                       key={index}
@@ -1249,7 +1242,7 @@ const EmployeeHRM = ({
                       {/* second  */}
 
                       <NavLink to="/adminDash/HRM/holiday">
-                        <div className="hrLefThi">
+                        <div className="hrLefThi ">
                           <h2 className="holiHead4">
                             <img src={holi} alt="" /> <span>Holiday Lists</span>
                           </h2>
@@ -1279,7 +1272,7 @@ const EmployeeHRM = ({
                                 </tr>
                               </thead>
                               <tbody>
-                                {holiday?.map((val, index) => {
+                                {holiday?.slice(0,5).map((val, index) => {
                                   return (
                                     <tr
                                       key={index}
@@ -1772,7 +1765,7 @@ const EmployeeHRM = ({
       </thead>
 
       <tbody>
-        {announce?.slice(0, showMore ? announce.length : 5).map((val, index) => (
+        {announce?.map((val, index) => (
           <tr
             onClick={() => setOpenAnn(val)}
             key={index}

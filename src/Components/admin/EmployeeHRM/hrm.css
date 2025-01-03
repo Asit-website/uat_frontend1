@@ -301,6 +301,7 @@ text-align: left;
 .serrup th,
 .serrup td{
     font-family: inter !important; 
+    text-align: left;
 }
 .deel {
     color: #DD3409 !important;
@@ -668,10 +669,12 @@ text-align: left;
 
 .textALLtITL {
     background-color: #F8F9FD;
+   
 }
 
 .textALLtITL th {
    font-size: 12px;
+   /* text-align: left; */
 }
 
 .trtextalltr td{
@@ -736,6 +739,7 @@ position: fixed;
     background-color: #FFFFFF;
     border-radius: 10px;
     width: 100%;
+    
 }
 
 .singleannoucs{
