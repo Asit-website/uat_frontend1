@@ -136,12 +136,18 @@ const Appraisal = ({ pop, setPop, setAlert }) => {
     }
   };
   const [searchTerm, setSearchTerm] = useState('');
-  const filteredData = data.filter(item => 
-    item.GoalType.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    item.subject.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    item.Branch.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    item.target.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredData = data.filter((item) =>
+    (item.GoalType?.toLowerCase() || "").includes(searchTerm.toLowerCase().trim()) ||
+    (item.subject?.toLowerCase() || "").includes(searchTerm.toLowerCase().trim()) ||
+    (item.Branch?.toLowerCase() || "").includes(searchTerm.toLowerCase().trim()) ||
+    (item.target?.toLowerCase() || "").includes(searchTerm.toLowerCase().trim())
   );
+  
+  useEffect(() => {
+    console.log("Search Term:", searchTerm);
+    console.log("Filtered Data Length:", filteredData.length);
+  }, [searchTerm, data]);
+  
   const [currentPage, setCurrentPage] = useState(1); 
   const entriesPerPage = 5; 
   const indexOfLastEntry = currentPage * entriesPerPage; 
