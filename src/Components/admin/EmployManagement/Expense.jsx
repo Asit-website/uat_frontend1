@@ -61,6 +61,7 @@ const Expense = ({ setAlert, pop, setPop }) => {
   useEffect(()=>{
     getExpense();
   },[])
+  
 
   return (
     <>
@@ -259,7 +260,8 @@ const Expense = ({ setAlert, pop, setPop }) => {
                    />
               </label>
 
-              <div className="btnWrap">
+             <div style={{position:"sticky",top:"0",padding:"5px"}}>
+             <div className="btnWrap ">
                 <button className="cencel" onClick={() => setOpenExpense(false)}>
                   <span>Cancel</span>
                 </button>
@@ -268,6 +270,7 @@ const Expense = ({ setAlert, pop, setPop }) => {
                   <span>Create</span>
                 </button>
               </div>
+             </div>
 
             </div>
           </div>

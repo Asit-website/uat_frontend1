@@ -152,11 +152,21 @@ const TaskProjects = ({ setAlert, pop, setPop }) => {
     toast.dismiss(toastId);
   };
 
+  // const fetchemp = async () => {
+  //   const ans = await allEmployee();
+    
+  //   setAllEmp(ans?.emp);
+  // };
+  
   const fetchemp = async () => {
     const ans = await allEmployee();
-    setAllEmp(ans?.emp);
+   // Filter active employees
+    const activeEmployees = ans?.emp?.filter(emp => emp.isDeactivated === "No");
+  console.log("activeEmployee",activeEmployees)
+    setAllEmp(activeEmployees);
   };
-
+  
+ 
   const deleteApi = async (id) => {
     const toastId = toast.loading("Loading...");
     setShowIndex(null);
@@ -199,7 +209,7 @@ const TaskProjects = ({ setAlert, pop, setPop }) => {
       setAllProjects(fitlerdata);
     }
   }, [optIndex]);
-
+  console.log("all employee list ",allEmp)
   return (
     <>
       <div className="employee-dash h-full">
@@ -437,6 +447,7 @@ const TaskProjects = ({ setAlert, pop, setPop }) => {
                   value={formdata.Members}
                   onChange={changeHandler2}
                 >
+                  console.log("all employee list ",allEmp)
                   <option value="Select">Select Employee</option>
                   {allEmp?.map((emp, index) => (
                     <option value={emp?._id} key={index}>

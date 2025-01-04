@@ -167,6 +167,10 @@ color: #101820;
 .expensepop{
     height: 600px !important;
     overflow-y: scroll !important;
+   
+    margin-bottom: 200px;
+   
+   
 }
 .allInputFileds label input, select{
     width: 100% !important;
@@ -1728,3 +1732,4 @@ padding: 30px 0px;
 .qoformfooter span{
     color: #0B56E3;
 }
+
