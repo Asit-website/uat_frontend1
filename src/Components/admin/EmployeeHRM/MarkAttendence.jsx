@@ -60,7 +60,7 @@ const MarkAttendance = ({
 
   const [currentPage2, setCurrentPage2] = useState(1);
 
-  const pageSize2 = 10;
+  const pageSize2 = 5;
 
   const handleNextPage = () => {
     if (currentPage < totalPages) {
@@ -1021,7 +1021,8 @@ const MarkAttendance = ({
                         </tbody>
                       </table>
 
-                      <div className="prevNextWrap">
+                    {totalPages2 > 1 && (
+                        <div className="prevNextWrap">
                         <button
                           className="prebBtN"
                           onClick={handlePrevPage2}
@@ -1040,6 +1041,7 @@ const MarkAttendance = ({
                           Next
                         </button>
                       </div>
+                    )}
                     </div>
                   )
                 )}
@@ -1150,7 +1152,8 @@ const MarkAttendance = ({
                       </tbody>
                     </table>
 
-                    <div className="prevNextWrap">
+                    {totalPages > 1 && (
+                      <div className="prevNextWrap">
                       <button
                         className="prebBtN"
                         onClick={handlePrevPage}
@@ -1169,6 +1172,7 @@ const MarkAttendance = ({
                         Next
                       </button>
                     </div>
+                    )}
                   </div>
                 )}
 

@@ -190,30 +190,32 @@ useEffect(() => {
 
                                 </div>
 
-                                <div className="prev_next">
+                              
+                                  <div className="prev_next">
 
-                                    <div className="next">
-                                        <button onClick={handlePrevPage} disabled={currentPage === 1}>
-                                            <span>Prev</span>
-                                            <svg width="8" height="10" viewBox="0 0 8 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M2.08748 0L0.912476 1.175L4.72914 5L0.912476 8.825L2.08748 10L7.08748 5L2.08748 0Z" fill="#666D76" />
-                                            </svg>
+                                  <div className="next">
+                                      <button onClick={handlePrevPage} disabled={currentPage === 1}>
+                                          <span>Prev</span>
+                                          <svg width="8" height="10" viewBox="0 0 8 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                              <path d="M2.08748 0L0.912476 1.175L4.72914 5L0.912476 8.825L2.08748 10L7.08748 5L2.08748 0Z" fill="#666D76" />
+                                          </svg>
 
-                                        </button>
-                                    </div>
+                                      </button>
+                                  </div>
 
-                                    <div className="on1">
-                                        <p> <p>{currentPage}</p></p>
-                                    </div>
+                                  <div className="on1">
+                                      <p> <p>{currentPage}</p></p>
+                                  </div>
 
-                                    <div className="next">
-                                        <button onClick={handleNextPage} disabled={currentItems.length < itemsPerPage}> <span>Next</span>
-                                            <svg width="8" height="10" viewBox="0 0 8 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M2.08748 0L0.912476 1.175L4.72914 5L0.912476 8.825L2.08748 10L7.08748 5L2.08748 0Z" fill="#666D76" />
-                                            </svg>
-                                        </button>
-                                    </div>
-                                </div>
+                                  <div className="next">
+                                      <button onClick={handleNextPage} disabled={currentItems.length < itemsPerPage}> <span>Next</span>
+                                          <svg width="8" height="10" viewBox="0 0 8 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                              <path d="M2.08748 0L0.912476 1.175L4.72914 5L0.912476 8.825L2.08748 10L7.08748 5L2.08748 0Z" fill="#666D76" />
+                                          </svg>
+                                      </button>
+                                  </div>
+                              </div>
+                            
 
                             </div>
                         </div>

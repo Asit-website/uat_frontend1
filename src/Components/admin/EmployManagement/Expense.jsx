@@ -157,7 +157,7 @@ const Expense = ({ setAlert, pop, setPop }) => {
 
 
 
-      {openExpense && (
+      {/* {openExpense && (
           <div className="allPopupWrap incheight">
             <div className="popup1 expensepop">
               <div className="popNav">
@@ -274,7 +274,120 @@ const Expense = ({ setAlert, pop, setPop }) => {
 
             </div>
           </div>
-        )}
+        )} */}
+        {openExpense && (
+  <div className="allPopupWrap incheight">
+    <div className="popup1 expensepop" style={{ display: "flex", flexDirection: "column", height: "100%"  }}>
+      <div className="popNav">
+        <h2>Create Expense</h2>
+        <img onClick={() => setOpenExpense(false)} src={cross1} alt="" />
+      </div>
+      <hr />
+      <div style={{ flex: "1", overflowY: "auto" }}>
+        <label>
+          <p className="popTitl">Title</p>
+          <input
+            type="text"
+            placeholder="Enter Leave Type Name"
+            name="title"
+            value={formdata.title}
+            onChange={changeHandler}
+          />
+        </label>
+
+        <label>
+          <p className="popTitl">Item Code</p>
+          <input
+            type="text"
+            placeholder="Enter ItemCode"
+            name="itemCode"
+            value={formdata.itemCode}
+            onChange={changeHandler}
+          />
+        </label>
+
+        <label>
+          <p className="popTitl">Quantity</p>
+          <input
+            type="number"
+            placeholder="Enter Quantity"
+            name="quantity"
+            value={formdata.quantity}
+            onChange={changeHandler}
+          />
+        </label>
+
+        <label>
+          <p className="popTitl">Unit</p>
+          <input
+            type="text"
+            placeholder="Enter unit"
+            name="unit"
+            value={formdata.unit}
+            onChange={changeHandler}
+          />
+        </label>
+
+        <label>
+          <p className="popTitl">Purchase Price</p>
+          <input
+            type="number"
+            placeholder="Enter purchasePrice"
+            name="purchasePrice"
+            value={formdata.purchasePrice}
+            onChange={changeHandler}
+          />
+        </label>
+
+        <label>
+          <p className="popTitl">Sales Price</p>
+          <input
+            type="number"
+            placeholder="Enter purchasePrice"
+            name="salesPrice"
+            value={formdata.salesPrice}
+            onChange={changeHandler}
+          />
+        </label>
+
+        <label>
+          <p className="popTitl">Purchase Date</p>
+          <input
+            type="date"
+            placeholder="Enter purchase Date"
+            name="purchaseDate"
+            value={formdata.purchaseDate}
+            onChange={changeHandler}
+          />
+        </label>
+
+        <label>
+          <p className="popTitl">Category</p>
+          <input
+            type="text"
+            placeholder="Enter purchase Date"
+            name="category"
+            value={formdata.category}
+            onChange={changeHandler}
+          />
+        </label>
+      </div>
+
+      <div style={{ padding: "10px", background: "#fff", borderTop: "1px solid #ddd" }}>
+        <div className="btnWrap" style={{ display: "flex", justifyContent: "space-between" }}>
+          <button className="cencel" onClick={() => setOpenExpense(false)}>
+            <span>Cancel</span>
+          </button>
+
+          <button onClick={cretaeHandler} className="create">
+            <span>Create</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+)}
+
 
  {/* <i className="fa-solid fa-pen-to-square"></i> */}
 

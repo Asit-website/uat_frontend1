@@ -458,22 +458,24 @@ const EmployeeManagement = ({
 
             </div>
 
-            <div className="emPaginate">
-              <button className={`prepaginate ${currentPage !== 1 && "putthehovebtn"}`} onClick={() => {
-                handlePageChange(currentPage - 1);
-                scrollToTop();
-              }} disabled={currentPage === 1}>
-                Previous
-              </button>
-              <span className="pagenum">Page {currentPage} of {totalPages}</span>
-              <button className={`prepaginate ${currentPage !== totalPages && "putthehovebtn"} `} onClick={() => {
-                handlePageChange(currentPage + 1)
-                scrollToTop();
+           {totalPages > 1 && (
+             <div className="emPaginate">
+             <button className={`prepaginate ${currentPage !== 1 && "putthehovebtn"}`} onClick={() => {
+               handlePageChange(currentPage - 1);
+               scrollToTop();
+             }} disabled={currentPage === 1}>
+               Previous
+             </button>
+             <span className="pagenum">Page {currentPage} of {totalPages}</span>
+             <button className={`prepaginate ${currentPage !== totalPages && "putthehovebtn"} `} onClick={() => {
+               handlePageChange(currentPage + 1)
+               scrollToTop();
 
-              }} disabled={currentPage === totalPages}>
-                Next
-              </button>
-            </div>
+             }} disabled={currentPage === totalPages}>
+               Next
+             </button>
+           </div>
+           )}
           </div>
         </div>
       </div>

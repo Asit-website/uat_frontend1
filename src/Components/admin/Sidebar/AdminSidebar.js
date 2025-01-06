@@ -443,7 +443,7 @@ const AdminSidebar = ({ pop, setPop }) => {
                       </div>
                     </div>
                   </NavLink>
-                  <NavLink to="/adminDash/LeadSystemSetting">
+                  {/* <NavLink to="/adminDash/LeadSystemSetting">
                     <div
                       className={`${
                         window.location.pathname ===
@@ -474,7 +474,7 @@ const AdminSidebar = ({ pop, setPop }) => {
                         </span>
                       </div>
                     </div>
-                  </NavLink>
+                  </NavLink> */}
 
                   <NavLink to="/adminDash/LeadSystemSetting">
                     <div

@@ -85,7 +85,7 @@ const MyLead = ({ setAlert, pop, setPop }) => {
 
   const [currentPage, setCurrentPage] = useState(1);
 
-  let itemsPerPage = 10;
+  let itemsPerPage = 5;
 
   const totalPages = Math?.ceil(allLead?.length / itemsPerPage);
 
@@ -513,7 +513,7 @@ const MyLead = ({ setAlert, pop, setPop }) => {
               
             </div>
 
-            <div className="emPaginate">
+          {totalPages > 1 && (  <div className="emPaginate">
               <button
                 className={`prepaginate ${currentPage !== 1 && "putthehovebtn"
                   }`}
@@ -539,7 +539,7 @@ const MyLead = ({ setAlert, pop, setPop }) => {
               >
                 Next
               </button>
-            </div>
+            </div>)}
             
           </div>
         </div>

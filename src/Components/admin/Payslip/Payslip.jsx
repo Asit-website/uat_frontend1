@@ -179,6 +179,27 @@ const Payslip = ({ pop, setPop }) => {
 
     }, [srchtxt])
 
+//Pagination part is implemented here
+
+    const [currentPage, setCurrentPage] = useState(1);
+const [itemsPerPage] = useState(10); 
+const indexOfLastItem = currentPage * itemsPerPage;
+const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+const currentItems = data.slice(indexOfFirstItem, indexOfLastItem);
+const totalPages = Math.ceil(data.length / itemsPerPage);
+
+const handleNextPage = () => {
+    if (currentPage < totalPages) {
+        setCurrentPage(currentPage + 1);
+    }
+};
+
+const handlePrevPage = () => {
+    if (currentPage > 1) {
+        setCurrentPage(currentPage - 1);
+    }
+};
+
     return (
         <>
             <div className={`employee-dash  h-full`}>
@@ -328,7 +349,7 @@ const Payslip = ({ pop, setPop }) => {
                                         <tbody>
 
                                             {
-                                                data.filter(x => x.user.designation !== "CEO" && x.user._id !== user._id)?.map((item, index) => (
+                                                currentItems.filter(x => x.user.designation !== "CEO" && x.user._id !== user._id)?.map((item, index) => (
                                                     <tr key={index} className="bg-white opos border-b dark:bg-gray-800 dark:border-gray-700">
 
                                                         <td className="px-6 py-4">#KDS{item?.user?.employeeCode}</td>
@@ -382,29 +403,26 @@ const Payslip = ({ pop, setPop }) => {
                                 </div>
 
                                 <div className="prev_next">
-
-                                    <div className="next">
-                                        <button>
-                                            <span>Prev</span>
-                                            <svg width="8" height="10" viewBox="0 0 8 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M2.08748 0L0.912476 1.175L4.72914 5L0.912476 8.825L2.08748 10L7.08748 5L2.08748 0Z" fill="#666D76" />
-                                            </svg>
-
-                                        </button>
-                                    </div>
-
-                                    <div className="on1">
-                                        <p>1</p>
-                                    </div>
-
-                                    <div className="next">
-                                        <button><span>Next</span>
-                                            <svg width="8" height="10" viewBox="0 0 8 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M2.08748 0L0.912476 1.175L4.72914 5L0.912476 8.825L2.08748 10L7.08748 5L2.08748 0Z" fill="#666D76" />
-                                            </svg>
-                                        </button>
-                                    </div>
-                                </div>
+    <div className="next">
+        <button onClick={handlePrevPage} disabled={currentPage === 1}>
+            <span>Prev</span>
+            <svg width="8" height="10" viewBox="0 0 8 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M2.08748 0L0.912476 1.175L4.72914 5L0.912476 8.825L2.08748 10L7.08748 5L2.08748 0Z" fill="#666D76" />
+            </svg>
+        </button>
+    </div>
+    <div className="on1">
+        <p>{currentPage}</p>
+    </div>
+    <div className="next">
+        <button onClick={handleNextPage} disabled={currentPage === totalPages}>
+            <span>Next</span>
+            <svg width="8" height="10" viewBox="0 0 8 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M2.08748 0L0.912476 1.175L4.72914 5L0.912476 8.825L2.08748 10L7.08748 5L2.08748 0Z" fill="#666D76" />
+            </svg>
+        </button>
+    </div>
+</div>
 
                             </div>
 

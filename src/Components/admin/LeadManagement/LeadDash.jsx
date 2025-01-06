@@ -140,7 +140,7 @@ const LeadDash = ({ setAlert, pop, setPop }) => {
   const [optionedit2, setOptionEdit2] = useState(null);
 
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 5;
+  const itemsPerPage = 4;
 
   const totalPages = Math.ceil(allLeads.length / itemsPerPage);
 
@@ -174,6 +174,7 @@ const LeadDash = ({ setAlert, pop, setPop }) => {
   const [allCloseForSrch, setAllCloseFroSrch] = useState([]);
   const [closeSerch, setCloseSrch] = useState("");
 
+
   const closeLead = async () => {
     const ans = await closeLeadApiFetch();
     setAllCloseFroSrch(ans?.status);
@@ -195,6 +196,7 @@ const LeadDash = ({ setAlert, pop, setPop }) => {
     }
 
   }, [closeSerch])
+  
 
   useEffect(() => {
     fetchLead();
@@ -667,7 +669,8 @@ const LeadDash = ({ setAlert, pop, setPop }) => {
                   </table>
                 </div>
 
-                {/* <div className="prev_next">
+               {totalPages > 1 && (
+                  <div className="prev_next">
                   <div className="on1">
                     <p>1</p>
                   </div>
@@ -691,36 +694,12 @@ const LeadDash = ({ setAlert, pop, setPop }) => {
                       </svg>
                     </button>
                   </div>
-                </div> */}
+                </div> 
+               )}
 
-                {/* on the basis of conditional rendering  */}
-                {totalPages > 1 && (
-  <div className="prev_next">
-    <div className="on1">
-      <p>1</p>
-    </div>
-    <div className="on1">
-      <p>2</p>
-    </div>
-    <div className="next">
-      <button>
-        <span>Next</span>
-        <svg
-          width="8"
-          height="10"
-          viewBox="0 0 8 10"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M2.08748 0L0.912476 1.175L4.72914 5L0.912476 8.825L2.08748 10L7.08748 5L2.08748 0Z"
-            fill="#666D76"
-          />
-        </svg>
-      </button>
-    </div>
-  </div>
-)}
+               
+
+   
 
               </div>
 
@@ -1096,7 +1075,7 @@ const LeadDash = ({ setAlert, pop, setPop }) => {
                   </tbody>
                 </table>
               </div>
-
+{totalPages > 1 && (
               <div className="emPaginate">
                 <button className={`prepaginate ${currentPage !== 1 && "putthehovebtn"}`} onClick={() => {
                   handlePageChange(currentPage - 1);
@@ -1110,7 +1089,7 @@ const LeadDash = ({ setAlert, pop, setPop }) => {
                 }} disabled={currentPage === totalPages}>
                   Next
                 </button>
-              </div> 
+              </div> )}
               
  
             </div>
@@ -1200,31 +1179,35 @@ const LeadDash = ({ setAlert, pop, setPop }) => {
                 </table>
               </div>
 
-              <div className="prev_next">
-                <div className="on1">
-                  <p>1</p>
+           
+              {totalPages > 1 && (
+                  <div className="prev_next">
+                  <div className="on1">
+                    <p>1</p>
+                  </div>
+                  <div className="on1">
+                    <p>2</p>
+                  </div>
+                  <div className="next">
+                    <button>
+                      <span>Next</span>
+                      <svg
+                        width="8"
+                        height="10"
+                        viewBox="0 0 8 10"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M2.08748 0L0.912476 1.175L4.72914 5L0.912476 8.825L2.08748 10L7.08748 5L2.08748 0Z"
+                          fill="#666D76"
+                        />
+                      </svg>
+                    </button>
+                  </div>
                 </div>
-                <div className="on1">
-                  <p>2</p>
-                </div>
-                <div className="next">
-                  <button>
-                    <span>Next</span>
-                    <svg
-                      width="8"
-                      height="10"
-                      viewBox="0 0 8 10"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M2.08748 0L0.912476 1.175L4.72914 5L0.912476 8.825L2.08748 10L7.08748 5L2.08748 0Z"
-                        fill="#666D76"
-                      />
-                    </svg>
-                  </button>
-                </div>
-              </div>
+              )}
+           
             </div>
           </div>
         </div>
