@@ -1173,9 +1173,9 @@ input{
   font-family: inter !important;
 }
 
-.login_new_div {
-  /* padding: 50px; */
-}
+/* .login_new_div {
+  padding: 50px;
+} */
 
 .popup110 {
   height: 420px !important;
@@ -7134,10 +7134,10 @@ input::-webkit-inner-spin-button {
 .docInputs {
   background-color: white;
   border-radius: 10px;
-  padding: 10px;
+  padding: 8px;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 20px 20px;
+  gap: 12px 12px;
   width: 100%;
   height: fit-content;
 }

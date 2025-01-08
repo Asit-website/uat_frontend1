@@ -178,7 +178,8 @@ color: #101820;
 .openform{
     max-width: 630px !important;
     width: 100% !important;
-    position: sticky !important;
+    position: fixed !important;
+    margin-left: 15px;
     top: 0;
 }
 
@@ -1044,8 +1045,9 @@ color: #101820;
 }
 
 .addheight {
-    min-height: 652px !important;
-    height: fit-content;
+    /* min-height: 400px !important; */
+    /* height: fit-content; */
+    max-height: 773px;
 }
 
 .addClieCont nav {
@@ -1152,7 +1154,8 @@ color: #101820;
     display: flex;
     align-items: center;
     gap: 16px;
-    margin: 20px 0px;
+    /* margin: 20px 0px; */
+    margin-bottom: 10px;
 }
 
 .addClieCont .btnsss .saveclient {
@@ -1732,4 +1735,3 @@ padding: 30px 0px;
 .qoformfooter span{
     color: #0B56E3;
 }
-

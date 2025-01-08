@@ -1743,10 +1743,12 @@ const EmployeeHRM = ({
                     {/* this is for annoucement  */}
                    
                     <div className="hrLefThi">
+  <NavLink to="/adminDash/announcement">
   <div className="adflex">
     <img src={annNav} alt="" />
     <h3>Announcement Lists </h3>
   </div>
+  </NavLink>
 
   <div className="relative overflow-x-auto annTable">
     <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -1765,7 +1767,7 @@ const EmployeeHRM = ({
       </thead>
 
       <tbody>
-        {announce?.map((val, index) => (
+        {announce?.slice(0,5).map((val, index) => (
           <tr
             onClick={() => setOpenAnn(val)}
             key={index}
@@ -1789,20 +1791,7 @@ const EmployeeHRM = ({
     </table>
   </div>
 
-    <button
-        style={{
-          backgroundColor: '#007bff', 
-          color: 'white',
-          padding: '0.5rem 1rem',
-         margin:"10px",
-          borderRadius: '4px',
-          cursor: 'pointer',
-          float: "right"
-        }}
-        onClick={() => setShowMore(!showMore)}
-      >
-        {showMore ? 'See Less' : 'See More'}
-      </button>
+   
 </div>
 
                   </>

@@ -1326,13 +1326,16 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
                 />
               </label>
 
-              <label>
-                <p className="popTitl">Required Field</p>
-                <Selectmultidropdown
-                  setDocdata={setDocdata}
-                  docData={docData}
-                />
-              </label>
+              <label style={{ display: "block", marginBottom: "12px" }}>
+  <p className="popTitl" style={{ marginBottom: "8px" }}>Required Field</p>
+  <div style={{ position: "relative" }}>
+    <Selectmultidropdown
+      setDocdata={setDocdata}
+      docData={docData}
+      
+    />
+  </div>
+</label>
 
               <div className="btnWrap">
                 <button

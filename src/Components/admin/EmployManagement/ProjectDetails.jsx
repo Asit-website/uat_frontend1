@@ -126,6 +126,7 @@ const ProjectDetails = ({ setAlert, pop, setPop }) => {
       setAddClientPop(false);
       setisEdit(false);
       getProjectTaskapi();
+     
       setFormdata({
         Title: "",
         Description: "",
@@ -380,23 +381,25 @@ const ProjectDetails = ({ setAlert, pop, setPop }) => {
                   </tbody>
                 </table>
 
-                <div className="navbuttons flex justify-between items-center mt-4">
-                  <button
-                    onClick={handlePrev}
-                    disabled={currentPage === 1}
-                    className="px-4 py-2 bg-gray-300 rounded-md disabled:bg-gray-200"
-                  >
-                    Prev
-                  </button>
-                  <span className="px-4">{currentPage}</span>
-                  <button
-                    onClick={handleNext}
-                    disabled={currentPage === totalPages}
-                    className="px-4 py-2 bg-gray-300 rounded-md disabled:bg-gray-200"
-                  >
-                    Next
-                  </button>
-                </div>
+             {totalPages > 1 && (
+                 <div className="navbuttons flex justify-between items-center mt-4">
+                 <button
+                   onClick={handlePrev}
+                   disabled={currentPage === 1}
+                   className="px-4 py-2 bg-gray-300 rounded-md disabled:bg-gray-200"
+                 >
+                   Prev
+                 </button>
+                 <span className="px-4">{currentPage}</span>
+                 <button
+                   onClick={handleNext}
+                   disabled={currentPage === totalPages}
+                   className="px-4 py-2 bg-gray-300 rounded-md disabled:bg-gray-200"
+                 >
+                   Next
+                 </button>
+               </div>
+             )}
               </div>
             </div>
           </div>
@@ -404,8 +407,8 @@ const ProjectDetails = ({ setAlert, pop, setPop }) => {
       </div>
 
       {addClientPop && (
-        <div className="addCliWrap">
-          <div className="addClieCont addheight">
+        <div className="addCliWrap" >
+          <div className="addClieCont addheight" >
             <nav>
               <p>Create New Task</p>
               <img

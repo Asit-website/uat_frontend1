@@ -576,7 +576,7 @@ toast.dismiss(toastId);
                           </thead>
                           <tbody>
                             {
-                              announce?.map((val, index) => {
+                              announce.map((val, index) => {
                                 return (
                                   <tr key={index} className="bg-white border-b  ">
                                     <th scope="row" className="px-3 py-4 font-medium tasklo  whitespace-nowrap taskAns taskans11">
