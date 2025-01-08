@@ -34,7 +34,6 @@ import annNav from "../../images/annNav.png";
 import cutt from "../../images/cutt.png";
 import cross1 from "../../images/cross1.png";
 
-
 import toast from "react-hot-toast";
 
 var tc3;
@@ -51,7 +50,7 @@ const EmployeeHRM = ({
   const {
     user,
     getUsers,
-    fetchUserOwnDetailApi , 
+    fetchUserOwnDetailApi,
     getActiveUsersCount,
     postActivity,
     getTotalLeavesCount,
@@ -60,15 +59,17 @@ const EmployeeHRM = ({
     postAttendence,
     fetchTodayLeave,
     postLeave,
-    postNotification, 
-    postNotification2, 
+    postNotification,
+    postNotification2,
     getLeaveTypes,
     getTodayBirthday,
     changeStatusBreak,
-    allEmployee , 
-    LeaveAllowApihandler , leaveTypeApi , postHalfDay , CreateExpense
+    allEmployee,
+    LeaveAllowApihandler,
+    leaveTypeApi,
+    postHalfDay,
+    CreateExpense,
   } = useMain();
-
 
   const user2 = JSON.parse(localStorage.getItem("hrms_user"));
 
@@ -77,7 +78,7 @@ const EmployeeHRM = ({
     leaveRequest: 0,
     employeesLeaves: 0,
     totalEmployees: 0,
-    halfDayRequest:0 
+    halfDayRequest: 0,
   });
 
   const [loadFlag, setLoadFlag] = useState(true);
@@ -95,30 +96,30 @@ const EmployeeHRM = ({
 
   const {
     activeEmployeePermission,
-    halfDayPermission ,
+    halfDayPermission,
     leaveRequestPermission,
     employeeOnLeavePermission,
     totalEmployeePermission,
-    
   } = hrms_permission;
 
   const { role } = hrms_user;
 
-  const fetchUserOwnDetailHandler = async()=>{
+  const fetchUserOwnDetailHandler = async () => {
     const ans = await fetchUserOwnDetailApi(hrms_user?._id);
-    if(ans?.status){
+    if (ans?.status) {
       localStorage.setItem("hrms_user", JSON.stringify(ans?.data));
-      localStorage.setItem("hrms_permission", JSON.stringify(ans?.data?.PermissionRole || {}));
+      localStorage.setItem(
+        "hrms_permission",
+        JSON.stringify(ans?.data?.PermissionRole || {})
+      );
     }
- }
+  };
 
-  useEffect(()=>{
-
-   if(hrms_user){
+  useEffect(() => {
+    if (hrms_user) {
       fetchUserOwnDetailHandler();
-   }
-
-  },[hrms_user])
+    }
+  }, [hrms_user]);
 
   const [formdata, setFormdata] = useState({
     employeeName: "",
@@ -196,7 +197,7 @@ const EmployeeHRM = ({
     setLoadFlag(true);
     const ans = await getUsers();
     const ans1 = await getActiveUsersCount();
-    
+
     const ans2 = await getTotalLeavesCount();
     setTotalLeave(ans2.totalLeave);
     setTotalHalfDay(ans2?.halfDay);
@@ -216,9 +217,9 @@ const EmployeeHRM = ({
 
   const [mount, setMount] = useState(false);
 
-  const [leavedata , setLeavedata] = useState({
-    casualLeave:0 , 
-    paidLeave:0
+  const [leavedata, setLeavedata] = useState({
+    casualLeave: 0,
+    paidLeave: 0,
   });
 
   useEffect(() => {
@@ -558,8 +559,6 @@ const EmployeeHRM = ({
       reason: formdata.reason,
     });
 
-
-
     const notify = await postNotification(
       daysGap,
       formdata.employeeName,
@@ -583,7 +582,6 @@ const EmployeeHRM = ({
   };
 
   const submitHandler2 = async (e) => {
-
     const toastId = toast.loading("Loading...");
 
     const startDate = new Date(formdata2.start);
@@ -644,98 +642,111 @@ const EmployeeHRM = ({
   useEffect(() => {
     const delay = 10 * 60 * 60 * 1000; // 10 hours in milliseconds
 
-    let timeoutId; 
+    let timeoutId;
 
-    
     const clockInTime = localStorage.getItem("clockInTime");
 
     if (clockInTime) {
-      
       timeoutId = setTimeout(() => {
-        clockOut(); 
+        clockOut();
       }, delay);
     }
 
-
     return () => clearTimeout(timeoutId);
-  }, []); 
+  }, []);
 
+  // THIS IS FOR LEAVE ALLOWANCE
+  const [leaveAllowance, setLeaveAllow] = useState(false);
+  const [expenseShow, setExpenseShow] = useState(false);
 
-  // THIS IS FOR LEAVE ALLOWANCE 
-   const [leaveAllowance , setLeaveAllow] = useState(false);
-   const [expenseShow , setExpenseShow] = useState(false);
+  const [allowData, setAllowData] = useState({
+    user: "",
+    allowance: "",
+  });
 
-   const [allowData , setAllowData] = useState({
-    user:"" ,
-    allowance:""
-   })
+  const [allEmp, setAllEmp] = useState([]);
 
-   const [allEmp , setAllEmp] = useState([]);
+  const fetchemployess = async () => {
+    const resp = await allEmployee();
+    setAllEmp(resp?.emp);
+  };
 
-    const fetchemployess = async()=>{
-      const resp = await allEmployee();
-       setAllEmp(resp?.emp);
+  const LeaveAllowApi = async () => {
+    if (!allowData?.user || !allowData?.allowance) {
+      return alert("Please Provide the complete details");
     }
+    const toastId = toast.loading("Loading...");
+    const resp = await LeaveAllowApihandler(
+      allowData?.user,
+      allowData?.allowance
+    );
 
-    const LeaveAllowApi = async()=>{
-
-       if(!allowData?.user || !allowData?.allowance){
-        return alert("Please Provide the complete details")
-       }
-      const toastId = toast.loading("Loading...");
-       const resp = await LeaveAllowApihandler(allowData?.user , allowData?.allowance);
-       
-       if(resp?.success){
-         toast.success("Successfuly Added");
-         localStorage.setItem("hrms_user" , JSON.stringify(resp?.userDetail));
-        }
-        toast.dismiss(toastId);
-        setAllowData({
-           user:"" ,
-          allowance:""
-        })
+    if (resp?.success) {
+      toast.success("Successfuly Added");
+      localStorage.setItem("hrms_user", JSON.stringify(resp?.userDetail));
     }
+    toast.dismiss(toastId);
+    setAllowData({
+      user: "",
+      allowance: "",
+    });
+  };
 
-    const leavestypecount = async()=>{
-      const resp = await leaveTypeApi({id:user2?._id});
-       setLeaveTaken(resp?.data?.totalLeaves)
-       setLeavedata({
-        casualLeave: resp?.data?.casualLeave , 
-        paidLeave: resp?.data?.paidLeave
-       })
-    }
+  const leavestypecount = async () => {
+    const resp = await leaveTypeApi({ id: user2?._id });
+    setLeaveTaken(resp?.data?.totalLeaves);
+    setLeavedata({
+      casualLeave: resp?.data?.casualLeave,
+      paidLeave: resp?.data?.paidLeave,
+    });
+  };
 
-    useEffect(()=>{
-      fetchemployess();
-      leavestypecount();
-    },[])
+  useEffect(() => {
+    fetchemployess();
+    leavestypecount();
+  }, []);
 
+  const [openExpense, setOpenExpense] = useState(false);
 
-    const [openExpense , setOpenExpense] = useState(false);
+  const [formdata3, setFormdata3] = useState({
+    title: "",
+    itemCode: "",
+    quantity: "",
+    unit: "",
+    purchasePrice: "",
+    salesPrice: "",
+    purchaseDate: "",
+    category: "",
+  });
 
-    const [formdata3 ,setFormdata3] = useState({
-      title:"" ,itemCode:"" , quantity:"" , unit:"" ,  purchasePrice:"" , salesPrice:"" , purchaseDate:"" ,  category:""
-    })
+  const changeHandler3 = (e) => {
+    const { name, value } = e.target;
+    setFormdata3((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
 
-    const changeHandler3 = (e)=>{
-      const {name ,value} = e.target;
-      setFormdata3((prev)=>({
-          ...prev ,
-          [name]:value
-      }))
-    }
+  const expenseHandler = async (e) => {
+    const toastId = toast.loading("Loading...");
+    e.preventDefault();
+    const resp = await CreateExpense({ ...formdata3 });
+    toast.success("Successfuly Created");
+    toast.dismiss(toastId);
+    setOpenExpense(false);
+    setFormdata3({
+      title: "",
+      itemCode: "",
+      quantity: "",
+      unit: "",
+      purchasePrice: "",
+      salesPrice: "",
+      purchaseDate: "",
+      category: "",
+    });
+  };
 
-    const expenseHandler = async(e)=>{
-      const toastId =  toast.loading("Loading...");
-       e.preventDefault();
-       const resp= await CreateExpense({...formdata3});
-        toast.success("Successfuly Created");
-        toast.dismiss(toastId);
-        setOpenExpense(false);
-        setFormdata3({  title:"" ,itemCode:"" , quantity:"" , unit:"" ,  purchasePrice:"" , salesPrice:"" , purchaseDate:"" ,  category:""})
-     }
-
-     const [showMore, setShowMore] = useState(false);
+  const [showMore, setShowMore] = useState(false);
   return (
     <>
       <div className="employee-dash relative h-full">
@@ -794,14 +805,18 @@ const EmployeeHRM = ({
                   activeEmployeePermission ||
                   leaveRequestPermission ||
                   employeeOnLeavePermission ||
-                  halfDayPermission || 
+                  halfDayPermission ||
                   totalEmployeePermission) && (
                   <div className="hrLefFir">
-
                     {(activeEmployeePermission || role === "ADMIN") && (
                       <NavLink
                         className="skm"
-                        to={`${role==="ADMIN" ? "/adminDash/HRM/activeEmployee":"/employeeDash/HRM/activeEmployee"} `}  >
+                        to={`${
+                          role === "ADMIN"
+                            ? "/adminDash/HRM/activeEmployee"
+                            : "/employeeDash/HRM/activeEmployee"
+                        } `}
+                      >
                         <div className="sinActDat colorChange1 ">
                           <img className="firImg" src={ac1} alt="" />
 
@@ -816,7 +831,11 @@ const EmployeeHRM = ({
                     {(halfDayPermission || role === "ADMIN") && (
                       <NavLink
                         className="skm"
-                        to={role === "ADMIN" ? `/adminDash/HRM/halfDayRequest`:"/employeeDash/HRM/halfDayRequest"}
+                        to={
+                          role === "ADMIN"
+                            ? `/adminDash/HRM/halfDayRequest`
+                            : "/employeeDash/HRM/halfDayRequest"
+                        }
                       >
                         <div className="sinActDat colorChange1">
                           <img className="firImg" src={ac1} alt="" />
@@ -832,7 +851,11 @@ const EmployeeHRM = ({
                     {(leaveRequestPermission || role === "ADMIN") && (
                       <NavLink
                         className="skm"
-                        to={`${role === "ADMIN"?"/adminDash/HRM/leaveRequest":"/employeeDash/HRM/leaveRequest"}`}
+                        to={`${
+                          role === "ADMIN"
+                            ? "/adminDash/HRM/leaveRequest"
+                            : "/employeeDash/HRM/leaveRequest"
+                        }`}
                       >
                         <div className="sinActDat colorChange2">
                           <img className="firImg" src={ac2} alt="" />
@@ -848,7 +871,11 @@ const EmployeeHRM = ({
                     {(employeeOnLeavePermission || role === "ADMIN") && (
                       <NavLink
                         className="skm"
-                        to={`${role==="ADMIN" ? "/adminDash/HRM/LeaveEmployee":"/employeeDash/HRM/LeaveEmployee"}`}
+                        to={`${
+                          role === "ADMIN"
+                            ? "/adminDash/HRM/LeaveEmployee"
+                            : "/employeeDash/HRM/LeaveEmployee"
+                        }`}
                       >
                         <div className="sinActDat colorChange3">
                           <img className="firImg" src={ac3} alt="" />
@@ -865,7 +892,11 @@ const EmployeeHRM = ({
                     {(totalEmployeePermission || role === "ADMIN") && (
                       <NavLink
                         className="skm"
-                        to={`${role ==="ADMIN"?"/adminDash/HRM/totalEmployee":"/employeeDash/HRM/totalEmployee" }`}
+                        to={`${
+                          role === "ADMIN"
+                            ? "/adminDash/HRM/totalEmployee"
+                            : "/employeeDash/HRM/totalEmployee"
+                        }`}
                       >
                         <div className="sinActDat colorChange4">
                           <img className="firImg" src={ac4} alt="" />
@@ -893,7 +924,6 @@ const EmployeeHRM = ({
                             {" "}
                             <img src={annouce} alt="" />{" "}
                             <span>Announcement Lists</span>
-                          
                           </h2>
 
                           <div className="relative overflow-x-auto">
@@ -918,12 +948,10 @@ const EmployeeHRM = ({
                                   >
                                     END DATE
                                   </th>
-
-                                 
                                 </tr>
                               </thead>
                               <tbody>
-                              {announce?.slice(0, 5).map((val, index) =>{
+                                {announce?.slice(0, 5).map((val, index) => {
                                   return (
                                     <tr
                                       key={index}
@@ -941,7 +969,6 @@ const EmployeeHRM = ({
                                       <td className="px-3 py-4 taskAns lolo taskans11">
                                         {val?.endDate}
                                       </td>
-                                    
                                     </tr>
                                   );
                                 })}
@@ -952,74 +979,61 @@ const EmployeeHRM = ({
                       </NavLink>
 
                       {/* third  */}
-                     
-                        <div className="hrLefThi">
-                          <h2 className="headind">
-                            {" "}
-                            <img src={taskA} alt="" /> <span>Task Assign</span>
-                          </h2>
 
-                          <div className="relative overflow-x-auto">
-                            <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                              <thead className="text-xs uppercase textALLtITL ">
-                                <tr>
-                                  <th
-                                    scope="col"
-                                    className="px-2  py-3 taskTitl"
-                                  >
-                                    Name
-                                  </th>
-                                  <th
-                                    scope="col"
-                                    className="px-3  py-3 taskTitl"
-                                  >
-                                    Assign Date
-                                  </th>
-                                  <th
-                                    scope="col"
-                                    className="px-3 py-3 taskTitl"
-                                  >
-                                    END DATE
-                                  </th>
+                      <div className="hrLefThi">
+                        <h2 className="headind">
+                          {" "}
+                          <img src={taskA} alt="" /> <span>Task Assign</span>
+                        </h2>
 
-                                  <th
-                                    scope="col"
-                                    className="px-3 py-3 taskTitl"
+                        <div className="relative overflow-x-auto">
+                          <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                            <thead className="text-xs uppercase textALLtITL ">
+                              <tr>
+                                <th scope="col" className="px-2  py-3 taskTitl">
+                                  Name
+                                </th>
+                                <th scope="col" className="px-3  py-3 taskTitl">
+                                  Assign Date
+                                </th>
+                                <th scope="col" className="px-3 py-3 taskTitl">
+                                  END DATE
+                                </th>
+
+                                <th scope="col" className="px-3 py-3 taskTitl">
+                                  Tasks
+                                </th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              {task?.map((val, index) => {
+                                return (
+                                  <tr
+                                    key={index}
+                                    className="bg-white border-b  "
                                   >
-                                    Tasks
-                                  </th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                {task?.map((val, index) => {
-                                  return (
-                                    <tr
-                                      key={index}
-                                      className="bg-white border-b  "
+                                    <th
+                                      scope="row"
+                                      className="px-2 py-4 font-medium tasklo whitespace-nowrap taskAns "
                                     >
-                                      <th
-                                        scope="row"
-                                        className="px-2 py-4 font-medium tasklo whitespace-nowrap taskAns "
-                                      >
-                                        {val?.name}
-                                      </th>
-                                      <td className="px-2 py-4 taskAns">
-                                        {val?.assignDate}
-                                      </td>
-                                      <td className="px-2 py-4 taskAns">
-                                        {val?.endDate}
-                                      </td>
-                                      <td className="px-2 py-4 taskAns">
-                                        {val?.task}
-                                      </td>
-                                    </tr>
-                                  );
-                                })}
-                              </tbody>
-                            </table>
-                          </div>
+                                      {val?.name}
+                                    </th>
+                                    <td className="px-2 py-4 taskAns">
+                                      {val?.assignDate}
+                                    </td>
+                                    <td className="px-2 py-4 taskAns">
+                                      {val?.endDate}
+                                    </td>
+                                    <td className="px-2 py-4 taskAns">
+                                      {val?.task}
+                                    </td>
+                                  </tr>
+                                );
+                              })}
+                            </tbody>
+                          </table>
                         </div>
-                    
+                      </div>
                     </div>
 
                     {/* right side */}
@@ -1159,8 +1173,8 @@ const EmployeeHRM = ({
                           </div> */}
 
                           <div className="timelogscont">
-                             <img src={timeLog} alt="" />
-                              <span>Time Log</span>
+                            <img src={timeLog} alt="" />
+                            <span>Time Log</span>
                           </div>
 
                           <hr />
@@ -1272,7 +1286,7 @@ const EmployeeHRM = ({
                                 </tr>
                               </thead>
                               <tbody>
-                                {holiday?.slice(0,5).map((val, index) => {
+                                {holiday?.slice(0, 5).map((val, index) => {
                                   return (
                                     <tr
                                       key={index}
@@ -1481,11 +1495,10 @@ const EmployeeHRM = ({
                             href="#"
                             className="block serad max-w-2xl p-5 bg-white border timeWrap border-gray-200 rounded-lg shadow    "
                           >
-                           
-                       <div className="timelogscont">
-                             <img src={timeLog} alt="" />
+                            <div className="timelogscont">
+                              <img src={timeLog} alt="" />
                               <span>Time Log</span>
-                          </div>
+                            </div>
 
                             <hr />
 
@@ -1549,7 +1562,9 @@ const EmployeeHRM = ({
 
                             <hr />
 
-                            <h5 className="thisMonText addpading">This month</h5>
+                            <h5 className="thisMonText addpading">
+                              This month
+                            </h5>
 
                             <hr />
 
@@ -1567,102 +1582,89 @@ const EmployeeHRM = ({
 
                     <div className="hrLefThi22">
                       <div className="leaves_request_emp">
-
                         <div className="adflex">
                           <img src={leavimg} alt="" />
                           <h3>Leaves</h3>
                         </div>
 
                         <div className="flex addpages items-center">
+                          <button
+                            data-modal-target="authentication-modal"
+                            data-modal-toggle="authentication-modal"
+                            class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                            type="button"
+                            onClick={() => {
+                              setStar2(!star1);
+                              setShowLeave2(true);
+                            }}
+                          >
+                            <span> Create Half Day</span>
+                          </button>
 
-                        <button
-                          data-modal-target="authentication-modal"
-                          data-modal-toggle="authentication-modal"
-                          class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                          type="button"
-                          onClick={() => {
-                            setStar2(!star1);
-                            setShowLeave2(true);
-                          }}
-                        >
-                          <span> Create Half Day</span>
-                        </button>
+                          <button
+                            data-modal-target="authentication-modal"
+                            data-modal-toggle="authentication-modal"
+                            class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                            type="button"
+                            onClick={() => {
+                              setStar1(!star1);
+                              setShowLeave(true);
+                            }}
+                          >
+                            <span> Create Leave</span>
+                          </button>
 
-                        <button
-                          data-modal-target="authentication-modal"
-                          data-modal-toggle="authentication-modal"
-                          class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                          type="button"
-                          onClick={() => {
-                            setStar1(!star1);
-                            setShowLeave(true);
-                          }}
-                        >
-                          <span> Create Leave</span>
-                        </button>
+                          {(hrms_permission?.userAllowCrtPermission ||
+                            hrms_user?.role === "ADMIN") && (
+                            <button
+                              data-modal-target="authentication-modal"
+                              data-modal-toggle="authentication-modal"
+                              class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                              type="button"
+                              onClick={() => {
+                                setLeaveAllow(true);
+                              }}
+                            >
+                              <span>Leave Allowance</span>
+                            </button>
+                          )}
 
-                      {
-                       ( hrms_permission?.userAllowCrtPermission || hrms_user?.role === "ADMIN") && 
-                        <button
-                        data-modal-target="authentication-modal"
-                        data-modal-toggle="authentication-modal"
-                        class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                        type="button"
-                        onClick={() => {
-                          setLeaveAllow(true);
-                        }}
-                      >
-                        <span>Leave Allowance</span>
-                      </button>
-                      }
+                          {(hrms_permission?.createExpensePermission ||
+                            hrms_user?.role === "ADMIN") && (
+                            <button
+                              data-modal-target="authentication-modal"
+                              data-modal-toggle="authentication-modal"
+                              class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                              type="button"
+                              onClick={() => {
+                                setOpenExpense(true);
+                              }}
+                            >
+                              <span>Create Expense</span>
+                            </button>
+                          )}
 
-{
-  (hrms_permission?.createExpensePermission || hrms_user?.role === "ADMIN") && 
-
-<button
-                        data-modal-target="authentication-modal"
-                        data-modal-toggle="authentication-modal"
-                        class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                        type="button"
-                        onClick={() => {
-                          setOpenExpense(true);
-                        }}
-                      >
-                        <span>Create Expense</span>
-                      </button>
-
-}
-
-{
-    (hrms_permission?.showExpensePermission || hrms_user?.role === "ADMIN") && 
-
-                      <button
-                        data-modal-target="authentication-modal"
-                        data-modal-toggle="authentication-modal"
-                        class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                        type="button"
-                        onClick={() => {
-                          navigate("/adminDash/HRM/Expense")
-                        }}
-                      >
-                        <span>All Expense</span>
-                      </button>
-
-}
-
+                          {(hrms_permission?.showExpensePermission ||
+                            hrms_user?.role === "ADMIN") && (
+                            <button
+                              data-modal-target="authentication-modal"
+                              data-modal-toggle="authentication-modal"
+                              class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                              type="button"
+                              onClick={() => {
+                                navigate("/adminDash/HRM/Expense");
+                              }}
+                            >
+                              <span>All Expense</span>
+                            </button>
+                          )}
                         </div>
-
-
                       </div>
 
                       <hr />
 
                       <div className="leave_setion_emp">
-
-                        
                         <div className="totel_leave_allowance1">
-
-                          
                           <div className="totalLeaText">
                             <h5>{user2?.userAllowance}</h5>
                             <p>Total leave allowance</p>
@@ -1671,14 +1673,18 @@ const EmployeeHRM = ({
                           <div>
                             <p>
                               <img src={cas} alt="" />
-                              <span className="cas"> casual - {leavedata?.casualLeave}</span>
+                              <span className="cas">
+                                {" "}
+                                casual - {leavedata?.casualLeave}
+                              </span>
                             </p>
                             <p>
                               <img src={sick2} alt="" />
-                              <span className="cas">Paid - {leavedata?.paidLeave}</span>{" "}
+                              <span className="cas">
+                                Paid - {leavedata?.paidLeave}
+                              </span>{" "}
                             </p>
                           </div>
-
                         </div>
 
                         <div className="totel_leave_allowance1">
@@ -1689,11 +1695,16 @@ const EmployeeHRM = ({
                           <div>
                             <p>
                               <img src={cas} alt="" />
-                              <span className="cas"> casual - {leavedata?.casualLeave} </span>
+                              <span className="cas">
+                                {" "}
+                                casual - {leavedata?.casualLeave}{" "}
+                              </span>
                             </p>
                             <p>
                               <img src={sick2} alt="" />
-                              <span className="cas">Paid - {leavedata?.paidLeave}</span>{" "}
+                              <span className="cas">
+                                Paid - {leavedata?.paidLeave}
+                              </span>{" "}
                             </p>
                           </div>
                         </div>
@@ -1703,8 +1714,11 @@ const EmployeeHRM = ({
                         <div className="totel_leave_allowance1">
                           <div className="totalLeaText">
                             <h5>
-                              {parseInt(user2?.userAllowance) - parseInt(totalLeavetaken) >= 0
-                                ? parseInt(user2?.userAllowance) - parseInt(totalLeavetaken)
+                              {parseInt(user2?.userAllowance) -
+                                parseInt(totalLeavetaken) >=
+                              0
+                                ? parseInt(user2?.userAllowance) -
+                                  parseInt(totalLeavetaken)
                                 : 0}
                             </h5>
                             <p>Total leave available</p>
@@ -1712,11 +1726,16 @@ const EmployeeHRM = ({
                           <div>
                             <p>
                               <img src={cas} alt="" />
-                              <span className="cas"> casual - {leavedata?.casualLeave}</span>
+                              <span className="cas">
+                                {" "}
+                                casual - {leavedata?.casualLeave}
+                              </span>
                             </p>
                             <p>
                               <img src={sick2} alt="" />
-                              <span className="cas">Paid - {leavedata?.paidLeave}</span>{" "}
+                              <span className="cas">
+                                Paid - {leavedata?.paidLeave}
+                              </span>{" "}
                             </p>
                           </div>
                         </div>
@@ -1729,11 +1748,16 @@ const EmployeeHRM = ({
                           <div>
                             <p>
                               <img src={cas} alt="" />
-                              <span className="cas"> casual - {leavedata?.casualLeave}</span>
+                              <span className="cas">
+                                {" "}
+                                casual - {leavedata?.casualLeave}
+                              </span>
                             </p>
                             <p>
                               <img src={sick2} alt="" />
-                              <span className="cas">Paid - {leavedata?.paidLeave}</span>{" "}
+                              <span className="cas">
+                                Paid - {leavedata?.paidLeave}
+                              </span>{" "}
                             </p>
                           </div>
                         </div>
@@ -1741,59 +1765,63 @@ const EmployeeHRM = ({
                     </div>
 
                     {/* this is for annoucement  */}
-                   
+
                     <div className="hrLefThi">
-  <NavLink to="/adminDash/announcement">
-  <div className="adflex">
-    <img src={annNav} alt="" />
-    <h3>Announcement Lists </h3>
-  </div>
-  </NavLink>
+                      <div className="adflex" style={{ display: "flex" }}>
+                        <img src={annNav} alt="" />
+                        <h3>Announcement Lists </h3>
+                        <NavLink to="/adminDash/announcement">
+                          <button
+                            class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                            type="button"
+                            style={{marginLeft:"18rem"}}
+                          >
+                            <span style={{color:"white"}}> View All</span>
+                          </button>
+                        </NavLink>
+                      </div>
 
-  <div className="relative overflow-x-auto annTable">
-    <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-      <thead className="text-xs uppercase textALLtITL ">
-        <tr>
-          <th scope="col" className="px-6 py-3 taskTitl">
-            TITLE
-          </th>
-          <th scope="col" className="px-2 py-3 taskTitl">
-            START DATE
-          </th>
-          <th scope="col" className="px-6 py-3 taskTitl">
-            END DATE
-          </th>
-        </tr>
-      </thead>
+                      <div className="relative overflow-x-auto annTable">
+                        <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                          <thead className="text-xs uppercase textALLtITL ">
+                            <tr>
+                              <th scope="col" className="px-6 py-3 taskTitl">
+                                TITLE
+                              </th>
+                              <th scope="col" className="px-2 py-3 taskTitl">
+                                START DATE
+                              </th>
+                              <th scope="col" className="px-6 py-3 taskTitl">
+                                END DATE
+                              </th>
+                            </tr>
+                          </thead>
 
-      <tbody>
-        {announce?.slice(0,5).map((val, index) => (
-          <tr
-            onClick={() => setOpenAnn(val)}
-            key={index}
-            className="bg-white border-b singleannoucs "
-          >
-            <th
-              scope="row"
-              className="px-3 py-4 font-medium tasklo whitespace-nowrap taskAns taskans11"
-            >
-              {val?.title}
-            </th>
-            <td className="px-3 py-4 taskAns lolo taskans11">
-              {val?.startDate}
-            </td>
-            <td className="px-3 py-4 taskAns lolo taskans11">
-              {val?.endDate}
-            </td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  </div>
-
-   
-</div>
-
+                          <tbody>
+                            {announce?.slice(0, 5).map((val, index) => (
+                              <tr
+                                onClick={() => setOpenAnn(val)}
+                                key={index}
+                                className="bg-white border-b singleannoucs "
+                              >
+                                <th
+                                  scope="row"
+                                  className="px-3 py-4 font-medium tasklo whitespace-nowrap taskAns taskans11"
+                                >
+                                  {val?.title}
+                                </th>
+                                <td className="px-3 py-4 taskAns lolo taskans11">
+                                  {val?.startDate}
+                                </td>
+                                <td className="px-3 py-4 taskAns lolo taskans11">
+                                  {val?.endDate}
+                                </td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
                   </>
                 )}
 
@@ -2039,7 +2067,6 @@ const EmployeeHRM = ({
                   <>
                     <div className="leavewrapping">
                       <div className="crelevecont2">
-
                         <div class="crelavetopsec">
                           <h3 class="leaveHead "> Annoucement </h3>
 
@@ -2053,249 +2080,248 @@ const EmployeeHRM = ({
                         <hr />
 
                         {/* <!-- Modal body --> */}
-                          <div class="showann">
-                            <label>Title</label>
+                        <div class="showann">
+                          <label>Title</label>
 
-                            <span>{openAnn?.title}</span>
-                          </div>
+                          <span>{openAnn?.title}</span>
+                        </div>
 
-                          <div class="showann">
-                            <label
-                              for="message"
-                              class="block mb-2 mt-2 text-sm font-medium text-gray-900 employName"
-                            >
-                              Description
-                            </label>
-                            <span>{openAnn?.description}</span>
-                          </div>
-
-                                   </div>
+                        <div class="showann">
+                          <label
+                            for="message"
+                            class="block mb-2 mt-2 text-sm font-medium text-gray-900 employName"
+                          >
+                            Description
+                          </label>
+                          <span>{openAnn?.description}</span>
+                        </div>
+                      </div>
                     </div>
                   </>
                 )}
 
+                {leaveAllowance && (
+                  <>
+                    <div className="leavewrapping">
+                      <div className="crelevecont">
+                        <div class="crelavetopsec">
+                          <h3 class="leaveHead "> Leave Allowance </h3>
 
-    {
-      leaveAllowance && 
-      <>
-      <div className="leavewrapping">
-        <div className="crelevecont">
-          <div class="crelavetopsec">
-            <h3 class="leaveHead "> Leave Allowance </h3>
+                          <img
+                            src={cutt}
+                            onClick={() => setLeaveAllow(false)}
+                          />
+                        </div>
 
-            <img
-              src={cutt}
-              onClick={() => setLeaveAllow(false)}
-            />
-          </div>
+                        <hr />
 
-          <hr />
+                        {/* <!-- Modal body --> */}
+                        <form className="levaecretaeform" action="#">
+                          <div class="user_classleave">
+                            <label>Select Employee</label>
 
-          {/* <!-- Modal body --> */}
-          <form className="levaecretaeform" action="#">
+                            <select
+                              name="user"
+                              onChange={(e) => {
+                                setAllowData((prev) => ({
+                                  ...prev,
+                                  user: e.target.value,
+                                }));
+                              }}
+                              value={allowData?.user}
+                              required
+                            >
+                              <option value="Select">Select</option>
+                              {allEmp?.map((emp, index) => (
+                                <option key={index} value={emp?._id}>
+                                  {emp?.fullName}
+                                </option>
+                              ))}
+                            </select>
+                          </div>
 
-            <div class="user_classleave">
-              <label>Select Employee</label>
+                          <div class="user_classleave">
+                            <label>Total Allowance</label>
 
-              <select
-                name="user"
-                onChange={(e)=>{
-                  setAllowData((prev)=>({
-                    ...prev ,
-                    user:e.target.value
-                  }))
-                }}
-                value={allowData?.user}
+                            <select
+                              name="allowance"
+                              onChange={(e) => {
+                                setAllowData((prev) => ({
+                                  ...prev,
+                                  allowance: e.target.value,
+                                }));
+                              }}
+                              value={allowData?.allowance}
+                              required
+                            >
+                              <option value="Select">Select</option>
+                              <option value="1">1</option>
+                              <option value="2">2</option>
+                              <option value="3">3</option>
+                              <option value="4">4</option>
+                              <option value="5">5</option>
+                              <option value="6">6</option>
+                              <option value="7">7</option>
+                              <option value="8">8</option>
+                              <option value="9">9</option>
+                              <option value="10">10</option>
+                              <option value="11">11</option>
+                              <option value="12">12</option>
+                              <option value="13">13</option>
+                              <option value="14">14</option>
+                              <option value="15">15</option>
+                            </select>
+                          </div>
 
-                required
-              >
-               <option value="Select">Select</option>
-               {
-                allEmp?.map((emp , index)=>(
-                  <option key={index} value={emp?._id}>{emp?.fullName}</option>
-                ))
-               }
-              </select>
-            </div>
+                          <div className="leavebuttons">
+                            <button
+                              onClick={(e) => {
+                                e.preventDefault();
+                                LeaveAllowApi();
+                              }}
+                              type="button"
+                              className="leaverqbtns"
+                            >
+                              <span>Create</span>
+                            </button>
 
-            <div class="user_classleave">
-              <label>Total Allowance</label>
+                            <button
+                              onClick={() => setLeaveAllow(false)}
+                              type="button"
+                              class="levacanclebtns"
+                            >
+                              <span>Cancel</span>
+                            </button>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </>
+                )}
 
-              <select
-                name="allowance"
-                onChange={(e)=>{
-                  setAllowData((prev)=>({
-                    ...prev ,
-                    allowance:e.target.value
-                  }))
-                }}
-                value={allowData?.allowance}
-                 
-                required
-              >
-               <option value="Select">Select</option>
-               <option value="1">1</option>
-               <option value="2">2</option>
-               <option value="3">3</option>
-               <option value="4">4</option>
-               <option value="5">5</option>
-               <option value="6">6</option>
-               <option value="7">7</option>
-               <option value="8">8</option>
-               <option value="9">9</option>
-               <option value="10">10</option>
-               <option value="11">11</option>
-               <option value="12">12</option>
-               <option value="13">13</option>
-               <option value="14">14</option>
-               <option value="15">15</option>
-              </select>
-            </div>
+                {openExpense && (
+                  <div className="allPopupWrap incheight">
+                    <div className="popup1 expensepop">
+                      <div className="popNav">
+                        <h2>Create Expense </h2>
+                        <img
+                          onClick={() => setOpenExpense(false)}
+                          src={cross1}
+                          alt=""
+                        />
+                      </div>
+                      <hr />
+                      <label>
+                        <p className="popTitl">Title</p>
 
-            <div className="leavebuttons">
-              <button
-                onClick={(e) => {
-                  e.preventDefault();
-            LeaveAllowApi();
-                }}
-                type="button"
-                className="leaverqbtns"
-              >
-                <span>Create</span>
-              </button>
+                        <input
+                          type="text"
+                          placeholder="Enter Leave Type Name"
+                          name="title"
+                          value={formdata3.title}
+                          onChange={changeHandler3}
+                        />
+                      </label>
 
-              <button
-                onClick={() => setLeaveAllow(false)}
-                type="button"
-                class="levacanclebtns"
-              >
-                <span>Cancel</span>
-              </button>
-            </div>
+                      <label>
+                        <p className="popTitl">Item Code</p>
 
-          </form>
-        </div>
-      </div>
-    </>
-    }
+                        <input
+                          type="text"
+                          placeholder="Enter ItemCode"
+                          name="itemCode"
+                          value={formdata3.itemCode}
+                          onChange={changeHandler3}
+                        />
+                      </label>
 
-{openExpense && (
-          <div className="allPopupWrap incheight">
-            <div className="popup1 expensepop">
-              <div className="popNav">
-                <h2>Create Expense  </h2>
-                <img onClick={() => setOpenExpense(false)} src={cross1} alt="" />
-              </div>
-              <hr />
-              <label>
-                <p className="popTitl">Title</p>
+                      <label>
+                        <p className="popTitl">Quantity</p>
 
-                <input
-                  type="text"
-                  placeholder="Enter Leave Type Name"
-                  name="title"
-                  value={formdata3.title}
-                  onChange={changeHandler3}
-                />
-              </label>
+                        <input
+                          type="number"
+                          placeholder="Enter Quantity"
+                          name="quantity"
+                          value={formdata3.quantity}
+                          onChange={changeHandler3}
+                        />
+                      </label>
 
-              <label>
-                <p className="popTitl">Item Code</p>
+                      <label>
+                        <p className="popTitl">Unit</p>
 
-                <input
-                  type="text"
-                  placeholder="Enter ItemCode"
-                  name="itemCode"
-                  value={formdata3.itemCode}
-                  onChange={changeHandler3} />
-              </label>
+                        <input
+                          type="text"
+                          placeholder="Enter unit"
+                          name="unit"
+                          value={formdata3.unit}
+                          onChange={changeHandler3}
+                        />
+                      </label>
 
-              <label>
-                <p className="popTitl">Quantity</p>
+                      <label>
+                        <p className="popTitl">Purchase Price</p>
 
-                <input
-                  type="number"
-                  placeholder="Enter Quantity"
-                  name="quantity"
-                  value={formdata3.quantity}
-                  onChange={changeHandler3}
-                   />
-              </label>
-              
-              <label>
-                <p className="popTitl">Unit</p>
+                        <input
+                          type="number"
+                          placeholder="Enter purchasePrice"
+                          name="purchasePrice"
+                          value={formdata3.purchasePrice}
+                          onChange={changeHandler3}
+                        />
+                      </label>
 
-                <input
-                  type="text"
-                  placeholder="Enter unit"
-                  name="unit"
-                  value={formdata3.unit}
-                  onChange={changeHandler3}
-                   />
-              </label>
+                      <label>
+                        <p className="popTitl">Sales Price</p>
 
-              <label>
-                <p className="popTitl">Purchase Price</p>
+                        <input
+                          type="number"
+                          placeholder="Enter purchasePrice"
+                          name="salesPrice"
+                          value={formdata3.salesPrice}
+                          onChange={changeHandler3}
+                        />
+                      </label>
 
-                <input
-                  type="number"
-                  placeholder="Enter purchasePrice"
-                  name="purchasePrice"
-                  value={formdata3.purchasePrice}
-                  onChange={changeHandler3}
-                   />
-              </label>
+                      <label>
+                        <p className="popTitl">Purchase Date</p>
 
-              <label>
-                <p className="popTitl">Sales Price</p>
+                        <input
+                          type="date"
+                          placeholder="Enter purchase Date"
+                          name="purchaseDate"
+                          value={formdata3.purchaseDate}
+                          onChange={changeHandler3}
+                        />
+                      </label>
 
-                <input
-                  type="number"
-                  placeholder="Enter purchasePrice"
-                  name="salesPrice"
-                  value={formdata3.salesPrice}
-                  onChange={changeHandler3}
-                   />
-              </label>
+                      <label>
+                        <p className="popTitl">category</p>
 
-              <label>
-                <p className="popTitl">Purchase Date</p>
+                        <input
+                          type="text"
+                          placeholder="Enter purchase Date"
+                          name="category"
+                          value={formdata3.category}
+                          onChange={changeHandler3}
+                        />
+                      </label>
 
-                <input
-                  type="date"
-                  placeholder="Enter purchase Date"
-                  name="purchaseDate"
-                  value={formdata3.purchaseDate}
-                  onChange={changeHandler3}
-                   />
-              </label>
+                      <div className="btnWrap">
+                        <button
+                          className="cencel"
+                          onClick={() => setOpenExpense(false)}
+                        >
+                          <span>Cancel</span>
+                        </button>
 
-              <label>
-                <p className="popTitl">category</p>
-
-                <input
-                  type="text"
-                  placeholder="Enter purchase Date"
-                  name="category"
-                  value={formdata3.category}
-                  onChange={changeHandler3}
-                   />
-              </label>
-
-              <div className="btnWrap">
-                <button className="cencel" onClick={() => setOpenExpense(false)}>
-                  <span>Cancel</span>
-                </button>
-
-                <button onClick={expenseHandler} className="create" >
-                  <span>Create</span>
-                </button>
-              </div>
-
-            </div>
-          </div>
-        )}
-
+                        <button onClick={expenseHandler} className="create">
+                          <span>Create</span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           )}
