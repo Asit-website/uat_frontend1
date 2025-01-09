@@ -69,6 +69,7 @@ const EmployeeHRM = ({
     leaveTypeApi,
     postHalfDay,
     CreateExpense,
+    
   } = useMain();
 
   const user2 = JSON.parse(localStorage.getItem("hrms_user"));
@@ -78,7 +79,9 @@ const EmployeeHRM = ({
     leaveRequest: 0,
     employeesLeaves: 0,
     totalEmployees: 0,
+    totalDeactivated:0,
     halfDayRequest: 0,
+    
   });
 
   const [loadFlag, setLoadFlag] = useState(true);
@@ -196,15 +199,21 @@ const EmployeeHRM = ({
   const getData = async () => {
     setLoadFlag(true);
     const ans = await getUsers();
+    const totalactiveEmployees = ans?.data?.filter(emp => emp.isDeactivated === "No");
     const ans1 = await getActiveUsersCount();
-
+    // console.log("total user  user count",totalactiveEmployees)
+    const totalDeactivated=ans?.data?.filter(emp => emp.isDeactivated !== "No");
+// console.log("total decativated employee",totalDeactivated);
     const ans2 = await getTotalLeavesCount();
     setTotalLeave(ans2.totalLeave);
     setTotalHalfDay(ans2?.halfDay);
 
     setCounts({
       ...counts,
-      totalEmployees: ans.data.length,
+      totalEmployees: totalactiveEmployees.length,
+      totalDeactivated: totalDeactivated.length,
+
+
       activeEmployees: ans1.data,
     });
     setLoadFlag(false);
@@ -521,7 +530,8 @@ const EmployeeHRM = ({
 
   const getHolidays = async () => {
     const ans = await getHoliday();
-    setHoliday(ans?.data);
+    const reversedData = ans?.data?.slice().reverse();
+    setHoliday(reversedData);
   };
 
   useEffect(() => {
@@ -668,8 +678,18 @@ const EmployeeHRM = ({
 
   const fetchemployess = async () => {
     const resp = await allEmployee();
-    setAllEmp(resp?.emp);
+  const activeEmployees = resp?.emp?.filter(emp => emp.isDeactivated === "No");
+   setAllEmp(activeEmployees);
   };
+   
+  const[deactivated,setDeactivated]=useState([]);
+  const fetchDeactivated = async () => {
+    const resp = await allEmployee();
+  const deactivatedEmployees = resp?.emp?.filter(emp => emp.isDeactivated !== "No");
+  setDeactivated(deactivatedEmployees);
+  };
+  
+ 
 
   const LeaveAllowApi = async () => {
     if (!allowData?.user || !allowData?.allowance) {
@@ -905,6 +925,26 @@ const EmployeeHRM = ({
                             <h3>Total Employee</h3>
 
                             <p className="hrmlRNu">{counts?.totalEmployees}</p>
+                          </div>
+                        </div>
+                      </NavLink>
+                    )}
+                     {(totalEmployeePermission || role === "ADMIN") && (
+                      <NavLink
+                        className="skm"
+                        to={`${
+                          role === "ADMIN"
+                            ? "/adminDash/HRM/deactivate"
+                            : "/adminDash/HRM/deactivate"
+                        }`}
+                      >
+                        <div className="sinActDat colorChange4">
+                          <img className="firImg" src={ac4} alt="" />
+
+                          <div className="titWrap">
+                            <h3>Deactivated Employee</h3>
+
+                            <p className="hrmlRNu">{counts?.totalDeactivated}</p>
                           </div>
                         </div>
                       </NavLink>

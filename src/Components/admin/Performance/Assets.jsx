@@ -107,7 +107,8 @@ const Assets = ({ pop, setPop, setAlert }) => {
 
   const fetchEmployee = async () => {
     const ans = await allEmployee();
-    setEmployee(ans?.emp);
+    const activeEmployees = ans?.emp?.filter(emp => emp.isDeactivated === "No");
+    setEmployee(activeEmployees);
 
   }
 

@@ -26,7 +26,8 @@ const ProjectDetails = ({ setAlert, pop, setPop }) => {
     CreateProjectTask,
     getProjectTask,
     deleteProjectTaskapi,
-    EditProjectTask,  } = useMain();
+    EditProjectTask, 
+   } = useMain();
 
   const location = useLocation();
 
@@ -70,6 +71,7 @@ const ProjectDetails = ({ setAlert, pop, setPop }) => {
 
   const getProjectTaskapi = async () => {
     const ans = await getProjectTask(data?._id);
+    console.log("task project  data",ans )
     const reversedTasks = ans?.data.reverse();
     setAllTaskDetail(ans?.data2);
     setAllTasks(reversedTasks);
@@ -431,7 +433,7 @@ const ProjectDetails = ({ setAlert, pop, setPop }) => {
 
             <hr />
 
-            <form
+            <form 
               onSubmit={(e) => {
                 e.preventDefault();
                 if (isEdit) {
@@ -441,7 +443,7 @@ const ProjectDetails = ({ setAlert, pop, setPop }) => {
                 }
               }}
             >
-              <label>
+              <label >
                 <p>Subject</p>
                 <input
                   name="Title"
@@ -525,7 +527,9 @@ const ProjectDetails = ({ setAlert, pop, setPop }) => {
                 />
               </label>
 
-              <div className="btnsss">
+              
+            </form>
+            <div className="btnsss">
                 <button type="submit" className="saveclient">
                   <span>{isEdit ? "Update" : "Add Task"}</span>
                 </button>
@@ -547,7 +551,6 @@ const ProjectDetails = ({ setAlert, pop, setPop }) => {
                   <span>Cancel</span>
                 </button>
               </div>
-            </form>
           </div>
         </div>
       )}

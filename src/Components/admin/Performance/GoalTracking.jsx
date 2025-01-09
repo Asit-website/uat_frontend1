@@ -147,13 +147,13 @@ const GoalTracking = ({ pop, setPop, setAlert }) => {
   
 
   // Pagination states
-  const [currentPage, setCurrentPage] = useState(1);
-  const entriesPerPage = 4;
-  const indexOfLastEntry = currentPage * entriesPerPage;
-  const indexOfFirstEntry = indexOfLastEntry - entriesPerPage;
-  const currentEntries = data.slice(indexOfFirstEntry, indexOfLastEntry);
+  const [currentPage, setCurrentPage] = useState(1); 
+  const entriesPerPage = 5; 
+  const indexOfLastEntry = currentPage * entriesPerPage; 
+  const indexOfFirstEntry = indexOfLastEntry - entriesPerPage; 
+  const currentEntries = filteredData.slice(indexOfFirstEntry, indexOfLastEntry);
 
-  const totalPages = Math.ceil(filteredData.length / entriesPerPage);
+  const totalPages = Math.ceil(filteredData.length / entriesPerPage); 
 
   const handlePrevPage = () => {
     if (currentPage > 1) setCurrentPage(currentPage - 1);
@@ -299,7 +299,8 @@ const GoalTracking = ({ pop, setPop, setAlert }) => {
                     ))}
                   </tbody>
                 </table>
-                <div className="pagination navbuttons flex justify-between items-center mt-4">
+              {totalPages >1 && (
+                  <div className="pagination navbuttons flex justify-between items-center mt-4">
                   <button
                     onClick={handlePrevPage}
                     disabled={currentPage === 1}
@@ -317,6 +318,7 @@ const GoalTracking = ({ pop, setPop, setAlert }) => {
                     Next
                   </button>
                 </div>
+              )}
                 {/* <p className="showText">Showing 1 to 1 of 1 entries</p> */}
               </div>
             </main>

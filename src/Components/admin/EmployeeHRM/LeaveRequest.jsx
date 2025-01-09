@@ -106,58 +106,108 @@ const LeaveRequest = ({
 
    }
 
-   const rejectHandler = async(form)=>{
+  //  const rejectHandler = async(form)=>{
 
-    const toastId = toast.loading("Loading...");
-    const {user , _id} = form;
+  //   const toastId = toast.loading("Loading...");
+  //   const {user , _id} = form;
 
-    const userName = user.fullName;
+  //   const userName = user.fullName;
 
     
-   const ans = await rejectLeave(form , _id);
+  //  const ans = await rejectLeave(form , _id);
 
-    const notify = await postNotifyLeavereq(userName , "Rejected");
+  //   const notify = await postNotifyLeavereq(userName , "Rejected");
 
-    if(ans?.status){
-      toast.success("Successfuly reject the leave");
-      setShowPlay(-1);
-      getData();
+  //   if(ans?.status){
+  //     toast.success("Successfuly reject the leave");
+  //     setShowPlay(-1);
+  //     getData();
 
-      if(userName){
-        setAccept(!accept);
-      }
+  //     if(userName){
+  //       setAccept(!accept);
+  //     }
   
-    }
+  //   }
 
-    toast.dismiss(toastId);
-  }
+  //   toast.dismiss(toastId);
+  // }
   
-  const acceptHandler = async(form)=>{  
+  // const acceptHandler = async(form)=>{  
         
-    const toastId =toast.loading("Loading...");
-    const {user ,_id ,from ,to } = form;
+  //   const toastId =toast.loading("Loading...");
+  //   const {user ,_id ,from ,to } = form;
+  //   const userId = form?.user?._id;
+  //   const userName = user.fullName;
+
+  //   const ans = await acceptLeave(form , _id , userId , from , to);
+
+  //   const notify = await postNotifyLeavereq(userName , "Accepted");
+
+  //   window.prompt("notification reached successfully");
+
+  //   if(ans?.status){
+      
+  //     toast.success("Successfuly Accepted the leave");
+  //     setShowPlay(-1);
+  //     getData();
+  //     if(userName){
+  //       setAccept(!accept);
+  //     }
+  //   }
+  //   toast.dismiss(toastId);
+
+  //  }
+  const acceptHandler = async (form) => {  
+    const toastId = toast.loading("Loading...");
+    const { user, _id, from, to } = form;
     const userId = form?.user?._id;
     const userName = user.fullName;
-
-    const ans = await acceptLeave(form , _id , userId , from , to);
-
-    const notify = await postNotifyLeavereq(userName , "Accepted");
-
-    window.prompt("notification reached successfully");
-
-    if(ans?.status){
-      
-      toast.success("Successfuly Accepted the leave");
-      setShowPlay(-1);
-      getData();
-      if(userName){
-        setAccept(!accept);
+  
+    try {
+      const ans = await acceptLeave(form, _id, userId, from, to);
+      const notify = await postNotifyLeavereq(userName, "Accepted");
+  
+      if (ans?.status) {
+        toast.success("Successfully Accepted the leave");
+        setShowPlay(-1); // Reset the dropdown visibility
+        getData();
+        if (userName) {
+          setAccept((prev) => !prev);
+        }
       }
+    } catch (error) {
+      console.error("Error accepting leave:", error);
+      toast.error("Failed to accept the leave");
+    } finally {
+      toast.dismiss(toastId);
     }
-    toast.dismiss(toastId);
-
-   }
-
+  };
+  
+  const rejectHandler = async (form) => {
+    const toastId = toast.loading("Loading...");
+    const { user, _id } = form;
+    const userName = user.fullName;
+  
+    try {
+      const ans = await rejectLeave(form, _id);
+      const notify = await postNotifyLeavereq(userName, "Rejected");
+  
+      if (ans?.status) {
+        toast.success("Successfully Rejected the leave");
+        setShowPlay(-1); // Reset the dropdown visibility
+        getData();
+        if (userName) {
+          setAccept((prev) => !prev);
+        }
+      }
+    } catch (error) {
+      console.error("Error rejecting leave:", error);
+      toast.error("Failed to reject the leave");
+    } finally {
+      toast.dismiss(toastId);
+    }
+  };
+  
 
   return (
     <>
@@ -206,7 +256,7 @@ const LeaveRequest = ({
                   <span>
                     <img src={chevron} alt="" />
                   </span>{" "}
-                  <span className="thml">manage Leave</span>
+                  <span className="thml">Leave Request</span>
                 </div>
                 
               </div>
