@@ -51,7 +51,8 @@ const HolidayHRM = ({ setAlert, pop, setPop }) => {
 
   const getData = async () => {
     const ans = await getHoliday();
-    setData(ans?.data);
+    const reversedData = ans?.data?.slice().reverse(); 
+    setData(reversedData);
   }
 
   useEffect(() => {

@@ -40,10 +40,17 @@ const TotalEmployee = ({
     getData();
   }, []);
 
+  // const getData = async () => {
+  //   const ans = await getUsers();
+  //   // console.log(ans);
+  //   setData(ans.data);
+  // };
   const getData = async () => {
     const ans = await getUsers();
-    // console.log(ans);
-    setData(ans.data);
+    // Filter active employees
+    const activeEmployees = ans?.data?.filter(emp => emp.isDeactivated === "No");
+    console.log("activeEmployees", activeEmployees);
+    setData(activeEmployees);
   };
 
 

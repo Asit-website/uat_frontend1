@@ -1045,11 +1045,11 @@ color: #101820;
 }
 
 .addheight {
-    /* min-height: 400px !important; */
-    /* height: fit-content; */
-    max-height: 773px;
+    min-height: 400px !important; 
+    height: fit-content; 
+   
 }
-
+/* mediaquery for form  */
 .addClieCont nav {
     display: flex;
     align-items: center;
@@ -1119,6 +1119,8 @@ color: #101820;
     display: flex;
     flex-direction: column;
     gap: 12px;
+    overflow-y: auto;
+    height: 450px;
 
 }
 

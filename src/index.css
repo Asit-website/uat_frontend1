@@ -1155,6 +1155,7 @@ input{
 
 .emm {
   margin-top: 80px !important;
+  margin-right: 14px !important;
 }
 
 .taskans11 {
@@ -6864,7 +6865,7 @@ input::-webkit-inner-spin-button {
 }
 
 .showoffercont {
-  width: 100%;
+  width: 95%;
   background: #FFFFFF;
   border-radius: 18px;
   padding: 20px;
@@ -7139,7 +7140,7 @@ input::-webkit-inner-spin-button {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 12px 12px;
-  width: 100%;
+  width: 95%;
   height: fit-content;
 }
 

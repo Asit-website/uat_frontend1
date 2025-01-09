@@ -90,8 +90,8 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
     setAllProject(ans?.data);
   };
 
-  const submitHandler = async (e) => {
-    e.preventDefault();
+  const submitHandler = async () => {
+    // e.preventDefault();
     try {
       const toastId = toast.loading("Loading....");
 

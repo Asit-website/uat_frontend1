@@ -235,6 +235,7 @@ text-align: left;
 
     padding: 10px;
     border: 1px solid black;
+    height: 130px;
 }
 
 .allInputFileds .halfLabel select {

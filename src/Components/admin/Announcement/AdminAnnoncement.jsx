@@ -61,7 +61,9 @@ const AdminProfile = ({ pop, setPop, setAlert }) => {
 
   const getAnnoucement = async () => {
     const ans = await fetchAnnoucement();
-    setAllAnouce(ans?.data);
+    const reversedData = ans?.data?.slice().reverse(); 
+    
+    setAllAnouce(reversedData);
   };
 
   useEffect(() => {

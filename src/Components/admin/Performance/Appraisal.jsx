@@ -63,7 +63,9 @@ const Appraisal = ({ pop, setPop, setAlert }) => {
 
   const fetchEmployee = async () => {
     const ans = await allEmployee();
-    setEmployee(ans?.emp);
+    const activeEmployees = ans?.emp?.filter(emp => emp.isDeactivated === "No");
+    console.log("active employees", activeEmployees);
+    setEmployee(activeEmployees);
   };
 
   const deleteProject = async (id) => {
@@ -292,24 +294,26 @@ const Appraisal = ({ pop, setPop, setAlert }) => {
                     ))}
                   </tbody>
                 </table>
-                <div className="pagination navbuttons flex justify-between items-center mt-4">
-                  <button
-                    onClick={handlePrevPage}
-                    disabled={currentPage === 1}
-                    className="px-4 py-2 bg-gray-300 rounded-md disabled:bg-gray-200"
-                  >
-                    Previous
-                  </button>
-       
-                  <span className="px-4">{currentPage}</span>
-                  <button
-                    onClick={handleNextPage}
-                    disabled={currentPage === totalPages}
-                    className="px-4 py-2 bg-gray-300 rounded-md disabled:bg-gray-200"
-                  >
-                    Next
-                  </button>
-                </div>
+             {totalPages >1 && (
+                 <div className="pagination navbuttons flex justify-between items-center mt-4">
+                 <button
+                   onClick={handlePrevPage}
+                   disabled={currentPage === 1}
+                   className="px-4 py-2 bg-gray-300 rounded-md disabled:bg-gray-200"
+                 >
+                   Previous
+                 </button>
+      
+                 <span className="px-4">{currentPage}</span>
+                 <button
+                   onClick={handleNextPage}
+                   disabled={currentPage === totalPages}
+                   className="px-4 py-2 bg-gray-300 rounded-md disabled:bg-gray-200"
+                 >
+                   Next
+                 </button>
+               </div>
+             )}
 
                 {/* <p className="showText">Showing 1 to 1 of 1 entries</p> */}
               </div>
