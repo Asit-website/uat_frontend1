@@ -373,7 +373,7 @@ const Expense = ({ setAlert, pop, setPop }) => {
         </label>
       </div>
 
-      <div style={{ padding: "10px", background: "#fff", borderTop: "1px solid #ddd" }}>
+      <div style={{ padding: "10px", background: "#fff", borderTop: "1px solid #ddd",height:"72px" }}>
         <div className="btnWrap" style={{ display: "flex", justifyContent: "space-between" }}>
           <button className="cencel" onClick={() => setOpenExpense(false)}>
             <span>Cancel</span>

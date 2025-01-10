@@ -7142,6 +7142,7 @@ input::-webkit-inner-spin-button {
   gap: 12px 12px;
   width: 95%;
   height: fit-content;
+  overflow-y: auto;
 }
 
 .docInputs label {
@@ -7152,7 +7153,7 @@ input::-webkit-inner-spin-button {
 }
 
 .docInputs label input {
-  width: 415px;
+  width: 369px;
   height: 44px;
   padding: 8px 16px;
   border-radius: 10px;
