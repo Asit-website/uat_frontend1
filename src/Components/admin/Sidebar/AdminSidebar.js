@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import chakka from "../../images/chakka.png";
 import Managment from "../Management/Managment";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate ,useLocation} from "react-router-dom";
 import gridDas from "../../images/gridDas.svg";
 import saka from "../../images/saka.svg";
 import adminSetting from "../../images/adminSetting.png";
@@ -132,6 +132,7 @@ const AdminSidebar = ({ pop, setPop }) => {
   const { role } = hrms_user;
 
   let hrms_permission = JSON?.parse(localStorage.getItem("hrms_permission"));
+  
 
   const {
     leadPermission,
@@ -251,6 +252,27 @@ const AdminSidebar = ({ pop, setPop }) => {
       setOpenPerform2(false);
     }
   }, []);
+  // const [openHr, setOpenHr] = useState(false);
+  const [activeLink, setActiveLink] = useState(""); // Tracks the currently active link
+  // const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    // Set the active link based on the current path
+    setActiveLink(location.pathname);
+
+    // Ensure the dropdown is open if an HR Management link is active
+    if (
+      hrAdminItems.some((item) => item.link === location.pathname)
+    ) {
+      setOpenHr(true);
+    }
+  }, [location.pathname]);
+
+  const handleLinkClick = (link) => {
+    setActiveLink(link); // Update active link
+    navigate(link); // Navigate to the clicked link
+  };
 
   return (
     <>
