@@ -63,9 +63,9 @@ const EmployeeManage = ({
 
   const getEmployee = async () => {
     const ans = await allEmployee();
+    console.log("Total employee here",ans)
     setEmployee(ans?.emp);
   };
-
   useEffect(() => {
     getEmployee();
   }, []);
@@ -102,6 +102,7 @@ const EmployeeManage = ({
     mobile: "",
     gender: "",
     dob: "",
+    leaveNumber:"",
   });
 
   const handleValidation1 = () => {
@@ -125,6 +126,7 @@ const EmployeeManage = ({
     Martial: "",
     nationality: "",
     Mother: "",
+    
   });
 
   const [value4, setValue4] = useState({
@@ -250,6 +252,7 @@ const EmployeeManage = ({
       email1: ans.data.email1,
       mobile: ans.data.mobile,
       gender: ans.data.gender,
+      leaveNumber:ans.data.leaveNumber,
       dob: ans.data.dob,
     });
     setValue3({
@@ -268,6 +271,7 @@ const EmployeeManage = ({
       Martial: ans.data.Martial,
       nationality: ans.data.nationality,
       Mother: ans.data.Mother,
+     
     });
     setValue4({
       status: false,
@@ -304,6 +308,13 @@ const EmployeeManage = ({
     }
     else if (type === "form2") {
       if (e.target.name === "mobile" && e.target.value.length > 10) {
+        return
+      }
+      setValue2({ ...value2, [e.target.name]: e.target.value });
+
+    }
+    else if (type === "form2") {
+      if (e.target.name === "leaveNumber" && e.target.value.length >2) {
         return
       }
       setValue2({ ...value2, [e.target.name]: e.target.value });
@@ -492,6 +503,7 @@ const EmployeeManage = ({
         email1: "",
         mobile: "",
         gender: "",
+        leaveNumber:"",
         dob: "",
       });
       setValue3({
@@ -510,6 +522,7 @@ const EmployeeManage = ({
         Martial: "",
         nationality: "",
         Mother: "",
+        
       });
       setValue4({
         status: false,
@@ -648,7 +661,7 @@ const EmployeeManage = ({
             {/* first  */}
             <section className="adFri">
               {/* left side  */}
-              <h2>Add Employee</h2>
+              <h2>Add Employee </h2>
 
               {/* right side  */}
               <div className="adFrRIH">
@@ -915,6 +928,28 @@ const EmployeeManage = ({
                               </select>
                             </label>
 
+                            <div className="flex w-full">
+                            <div className="mb-6 w-full try">
+                              <label
+                                for="currentAddress"
+                                className="block mb-0  font-medium "
+                              >
+                                Total Leaves
+                              </label>
+                              <input
+                                type="number"
+                                id="leaveNumber"
+                                className="rounded-lg  w-full"
+                                // required
+                                name="leaveNumber"
+                                value={value2?.leaveNumber}
+                                onChange={(e) => {
+                                  handleChange(e, "form2");
+                                }}
+                                disabled={value2.status}
+                              />
+                            </div>
+                          </div>
 
 
                           </div>
@@ -1298,6 +1333,7 @@ const EmployeeManage = ({
                                 disabled={value3.status}
                               />
                             </div>
+                           
                           </div>
 
                         </div>

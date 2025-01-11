@@ -83,6 +83,7 @@ const paginatedData = filteredData.slice((currentPage - 1) * itemsPerPage, curre
 
   const getData = async () => {
     const ans = await getUsers();
+  
     const reversedData = ans?.data?.slice().reverse(); 
     setAllData(reversedData);
     setData(reversedData);

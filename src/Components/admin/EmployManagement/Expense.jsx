@@ -277,7 +277,7 @@ const Expense = ({ setAlert, pop, setPop }) => {
         )} */}
         {openExpense && (
   <div className="allPopupWrap incheight">
-    <div className="popup1 expensepop" style={{ display: "flex", flexDirection: "column", height: "100%"  }}>
+    <div className="popup1 expensepop extpo" style={{ display: "flex", flexDirection: "column", height: "100%"  }}>
       <div className="popNav">
         <h2>Create Expense</h2>
         <img onClick={() => setOpenExpense(false)} src={cross1} alt="" />

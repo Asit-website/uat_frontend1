@@ -39,7 +39,7 @@ const trainingItems = [
 
 const LeaveManItem = [
   {
-    title: "Manage Leave",
+    title: "Employees on Leave",
     link: "/adminDash/HRM/LeaveEmployee",
   },
   {
@@ -111,10 +111,10 @@ const payrols2 = [
 ];
 
 const performances = [
-  {
-    title: "Indicator",
-    link: "/performance/indicator",
-  },
+  // {
+  //   title: "Indicator",
+  //   link: "/performance/indicator",
+  // },
   {
     title: "Appraisal",
     link: "/performance/appraisal",
@@ -198,8 +198,50 @@ const AdminSidebar = ({ pop, setPop }) => {
       setOpenHr(sessionStorage.getItem("adminHRSetup"));
     }
 
-    //  SECOND CONDITION
+    // =========================hr management ke andar wale======================
+    if (sessionStorage.getItem("adminLeaveManagement")) {
+      setOpenLeaveMan(sessionStorage.getItem("adminLeaveManagement"));
+    }
+    if (sessionStorage.getItem("adminPayrollManagement")) {
+      setOpenPayroll(sessionStorage.getItem("adminPayrollManagement"));
+    }
+    if (sessionStorage.getItem("adminPerformManagement")) {
+      setOpenPerform(sessionStorage.getItem("adminPerformManagement"));
+    }
 
+
+    //  SECOND CONDITION
+    if(!
+      (
+         window.location.pathname === "/adminDash/HRM/LeaveEmployee" ||
+         window.location.pathname === "/adminDash/HRM/leaveRequest" 
+    )
+    
+  ){
+    setOpenLeaveMan(false)
+  }
+
+  if(!
+    (
+       window.location.pathname === "/adminDash/setSallary" ||
+       window.location.pathname === "/adminDash/payslip" 
+  )
+  
+){
+  setOpenPayroll(false)
+}
+
+if(!
+  (
+     window.location.pathname === "/performance/appraisal" ||
+     window.location.pathname === "/performance/goalTracking" 
+)
+
+){
+setOpenPerform(false)
+}
+
+  // ============hr ke andar end=========
     if (
       !(
         window.location.pathname === "/adminDash/leadDash" ||
@@ -250,6 +292,7 @@ const AdminSidebar = ({ pop, setPop }) => {
       )
     ) {
       setOpenPerform2(false);
+      // setOpenLeaveMan(false)
     }
   }, []);
   // const [openHr, setOpenHr] = useState(false);
@@ -752,12 +795,16 @@ const AdminSidebar = ({ pop, setPop }) => {
 
                   {/* ==================leave Management start============= */}
                   <div
-                    onClick={() => setOpenLeaveMan((prev) => !prev)}
+                    onClick={() => {
+                      setOpenLeaveMan((prev) => !prev)
+                      sessionStorage.setItem("adminLeaveManagement", !openLeaveMan);
+                    }}
+                    
                     className="side-dash-box silom"
                   >
                     <div className="dash-wrap">
-                      <img src={reading} alt="dasg" />
-                      <p className="lessfontparas">Leave Management Setup</p>
+                      <img src={`${window.location.pathname === "/adminDash/HRM/LeaveEmployee" || window.location.pathname === "/adminDash/HRM/leaveRequest" ? readliness : reading}`} alt="dasg" />
+                      <p  className={`lessfontparas ${openLeaveMan && "semo"} ${window.location.pathname === "/adminDash/HRM/LeaveEmployee" || window.location.pathname === "/adminDash/HRM/leaveRequest" ? "semo":""}`}>Leave Management Setup</p>
                     </div>
 
                     <img src={vect} alt="vect" />
@@ -810,12 +857,15 @@ const AdminSidebar = ({ pop, setPop }) => {
                   {/* =================payroll management start============ */}
 
                   <div
-                    onClick={() => setOpenPayroll((prev) => !prev)}
+                    onClick={() => {
+                      setOpenPayroll((prev) => !prev);
+                      sessionStorage.setItem("adminPayrollManagement", !openPayroll);
+                    }}
                     className="side-dash-box silom"
                   >
                     <div className="dash-wrap">
-                      <img src={anal} alt="dasg" />
-                      <p className="lessfontparas">Payroll Management</p>
+                      <img src={`${window.location.pathname === "/adminDash/setSallary" || window.location.pathname === "/adminDash/payslip" ? analytics : anal}`} alt="dasg" />
+                      <p className={`lessfontparas ${openPayroll && "semo"} ${window.location.pathname === "/adminDash/setSallary" || window.location.pathname === "/adminDash/payslip" ? "semo":""}`}>Payroll Management</p>
                     </div>
 
                     <img src={vect} alt="" />
@@ -897,12 +947,15 @@ const AdminSidebar = ({ pop, setPop }) => {
 
                   {/* ===================performance setup start========= */}
                   <div
-                    onClick={() => setOpenPerform((prev) => !prev)}
+                    onClick={() => {
+                      setOpenPerform((prev) => !prev);
+                      sessionStorage.setItem("adminPerformManagement", !openPerform);
+                    }}
                     className="side-dash-box silom"
                   >
                     <div className="dash-wrap">
-                      <img src={reading} alt="dasg" />
-                      <p className="lessfontparas">Performance Setup</p>
+                      <img src={`${window.location.pathname === "/performance/appraisal" || window.location.pathname === "/performance/goalTracking" ? readliness : reading}`} alt="dasg" />
+                      <p className={`lessfontparas ${openPayroll && "semo"} ${window.location.pathname === "/performance/appraisal" || window.location.pathname === "/performance/goalTracking" ? "semo":""}`}>Performance Setup</p>
                     </div>
 
                     <img src={vect} alt="vect" />

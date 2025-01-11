@@ -304,7 +304,7 @@ const LeaveRequest = ({
                     <tbody>
                       {data?.map((e,index)=>{
                         return (
-                          <tr  onClick={()=>setLeavePopup(e)} key={index} className="bg-white trtextalltr cursor-pointer gfg border-b">
+                          <tr   key={index} className="bg-white trtextalltr cursor-pointer gfg border-b">
                          
                           <td className="px-2 py-3">  {e?.user?.fullName}</td>
                           <td className="px-2 py-3">{e?.leaveType}</td>
@@ -313,7 +313,7 @@ const LeaveRequest = ({
                           <td className="px-2 py-3"> {e?.to} </td>
                           <td className="px-2 py-3"> {(e?.days) - 1 + 2} </td>
                           
-                          <td className="px-2 py-3">{e?.reason?.slice(1,34)}...</td>
+                          <td onClick={()=>setLeavePopup(e)} className="px-2 py-3">{e?.reason?.slice(1,34)}...</td>
   
                           <td className="px-2 py-3">
                             <div className="ACTIVITYsss">{

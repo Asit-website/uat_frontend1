@@ -74,7 +74,7 @@ const LeaveEmployee = ({
                     <img src={chevron} alt="" />
                   </span>{" "}
                   <NavLink to={`/adminDash/HRM`}>
-                    <span className="hrFirDs">HRM</span>
+                    <span className="hrFirDs">Leave Management</span>
                   </NavLink>
                   <span>
                     <img src={chevron} alt="" />

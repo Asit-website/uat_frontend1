@@ -1713,7 +1713,10 @@ input[type="search"]::-webkit-search-cancel-button {
   gap: 18px;
   /* padding: 12px; */
 }
-
+.joindatewrap{
+  width: 100% !important;
+  max-width: 100% !important;
+}
 .dashNW span {
   font-family: Inter;
   color: black;
@@ -7153,7 +7156,7 @@ input::-webkit-inner-spin-button {
 }
 
 .docInputs label input {
-  width: 369px;
+  width: 100%;
   height: 44px;
   padding: 8px 16px;
   border-radius: 10px;
@@ -7767,4 +7770,23 @@ right: 30px;
 .popup_formdiv2::-webkit-scrollbar-thumb {
   border-radius: 10px;
   background: #cccccc;
+}
+
+.leadInFir2{
+  width: 100% !important;
+}
+.docuSec{
+  width: 100% !important;
+}
+.docInputs{
+  width: 100% !important;
+}
+.showoffercont{
+  width: 100% !important;
+}
+.docuThird{
+  width: 100% !important;
+}
+.extpo{
+  height: 450px !important;
 }

@@ -90,6 +90,7 @@ const ProjectDetails = ({ setAlert, pop, setPop }) => {
         ...formdata,
         projectId: data?._id,
       });
+      console.log(ans);
       if (ans?.status) {
         toast.success("Successfuly created task");
       }

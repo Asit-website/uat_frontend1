@@ -11,7 +11,7 @@ import ac4 from "../../images/ac4.png";
 import clock2 from "../../images/clock2.png";
 import timeLog from "../../images/timeLog.png";
 import "./hrm.css";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import refresh from "../../images/bx-refresh.png";
 import annouce from "../../images/annouce.png";
@@ -69,10 +69,13 @@ const EmployeeHRM = ({
     leaveTypeApi,
     postHalfDay,
     CreateExpense,
+    getAllProjectAllTaskApi
     
   } = useMain();
 
   const user2 = JSON.parse(localStorage.getItem("hrms_user"));
+
+  const [allTasks, setAllTasks] = useState([]);
 
   const [counts, setCounts] = useState({
     activeEmployees: 0,
@@ -83,6 +86,23 @@ const EmployeeHRM = ({
     halfDayRequest: 0,
     
   });
+
+    const location = useLocation();
+  
+    const data = location?.state;
+
+  const getProjectTaskapi = async () => {
+    const ans = await getAllProjectAllTaskApi();
+
+    console.log(ans);
+    const reversedTasks = ans?.data?.reverse(); // Reverse the array
+    console.log(reversedTasks)
+    setAllTasks(reversedTasks); // Set the reversed array
+  };
+
+  useEffect(()=>{
+    getProjectTaskapi()
+  },[]);
 
   const [loadFlag, setLoadFlag] = useState(true);
 
@@ -1046,7 +1066,7 @@ const EmployeeHRM = ({
                               </tr>
                             </thead>
                             <tbody>
-                              {task?.map((val, index) => {
+                              {allTasks?.slice(0,5)?.map((val, index) => {
                                 return (
                                   <tr
                                     key={index}
@@ -1056,16 +1076,16 @@ const EmployeeHRM = ({
                                       scope="row"
                                       className="px-2 py-4 font-medium tasklo whitespace-nowrap taskAns "
                                     >
-                                      {val?.name}
+                                      {val?.Members?.fullName}
                                     </th>
                                     <td className="px-2 py-4 taskAns">
-                                      {val?.assignDate}
+                                      {val?.StartDate}
                                     </td>
                                     <td className="px-2 py-4 taskAns">
-                                      {val?.endDate}
+                                      {val?.DueDate}
                                     </td>
                                     <td className="px-2 py-4 taskAns">
-                                      {val?.task}
+                                      {val?.Title}
                                     </td>
                                   </tr>
                                 );
@@ -1706,8 +1726,8 @@ const EmployeeHRM = ({
                       <div className="leave_setion_emp">
                         <div className="totel_leave_allowance1">
                           <div className="totalLeaText">
-                            <h5>{user2?.userAllowance}</h5>
-                            <p>Total leave allowance</p>
+                            <h5>{user2?.leaveNumber}</h5>
+                            <p>Total leave allowanc</p>
                           </div>
 
                           <div>
@@ -1757,7 +1777,7 @@ const EmployeeHRM = ({
                               {parseInt(user2?.userAllowance) -
                                 parseInt(totalLeavetaken) >=
                               0
-                                ? parseInt(user2?.userAllowance) -
+                                ? parseInt(user2?.leaveNumber) -
                                   parseInt(totalLeavetaken)
                                 : 0}
                             </h5>
