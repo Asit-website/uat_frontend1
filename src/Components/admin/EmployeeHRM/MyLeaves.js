@@ -33,17 +33,17 @@ const MyLeaves = ({
     display: star1 ? "block" : "none",
   };
 
-  const { user, FetchMyLeave  } = useMain();
-
+  const { user, FetchMyLeave } = useMain();
+   
   const [data, setData] = useState([]);
 
   let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
   let hrms_permission = JSON.parse(localStorage.getItem("hrms_permission"));
 
-  const {role } = hrms_user;
-  const {  leaveReqestEditPermission } = hrms_permission;
+  const { role } = hrms_user;
+  const { leaveReqestEditPermission } = hrms_permission;
 
-  
+
   const formatDate = (dateString) => {
     const dateObject = new Date(dateString);
     const formattedDate = dateObject.toLocaleDateString('en-GB', {
@@ -56,34 +56,34 @@ const MyLeaves = ({
 
 
 
-  const getData=async()=>{
+  const getData = async () => {
     let ans = await FetchMyLeave();
-    console.log("my leaves",ans);
+    console.log("my leaves", ans);
     const reverseData = ans?.data?.reverse();
     setData(reverseData);
   };
 
-  useEffect(()=>{
+  useEffect(() => {
     getData();
 
-  },[]);
+  }, []);
 
 
-   const [showPlay , setShowPlay] = useState(-1);
+  const [showPlay, setShowPlay] = useState(-1);
 
-   const [leavePopup , setLeavePopup] = useState(false);
+  const [leavePopup, setLeavePopup] = useState(false);
 
   return (
     <>
       <div className="employee-dash h-full">
         {isHr ? <HrSidebar /> :
 
-        
-  role=== "EMPLOYEE" ?
-  <EmployeeSidebar pop={pop} setPop={setPop} />
-   :
-<AdminSidebar pop={pop} setPop={setPop} />
-                
+
+          role === "EMPLOYEE" ?
+            <EmployeeSidebar pop={pop} setPop={setPop} />
+            :
+            <AdminSidebar pop={pop} setPop={setPop} />
+
         }
         <div className="tm">
           {isHr ? (
@@ -94,12 +94,12 @@ const MyLeaves = ({
               setPop1={setPop1}
             />
           ) : (
-            
-              role === "EMPLOYEE" ?
-               <EmployeeNavbar user={user} setAlert={setAlert}  />:
-  
-            <AdminNavbar user={user} setAlert={setAlert} />
-            
+
+            role === "EMPLOYEE" ?
+              <EmployeeNavbar user={user} setAlert={setAlert} /> :
+
+              <AdminNavbar user={user} setAlert={setAlert} />
+
           )}
 
           <div className="em">
@@ -122,7 +122,7 @@ const MyLeaves = ({
                   </span>{" "}
                   <span className="thml">manage Leave</span>
                 </div>
-                
+
               </div>
 
               {/* second  */}
@@ -133,14 +133,14 @@ const MyLeaves = ({
 
                     <thead className="text-xs textALLtITL ">
                       <tr className="gfg">
-                       
+
                         <th scope="col" className="px-2 py-3 ">
                           LEAVE TYPES
                         </th>
                         <th scope="col" className="px-2 py-3">
                           APPLIED ON
                         </th>
-                      
+
                         <th scope="col" className="px-2 py-3">
                           START DATE
                         </th>
@@ -156,37 +156,37 @@ const MyLeaves = ({
                         <th scope="col" className="px-2 py-3">
                           STATUS
                         </th>
-                     
+
                       </tr>
                     </thead>
 
                     <tbody>
-                      {data?.map((e,index)=>{
+                      {data?.map((e, index) => {
                         return (
-                          <tr  onClick={()=>setLeavePopup(e)} key={index} className="bg-white trtextalltr cursor-pointer gfg border-b">
-                         
-                          <td className="px-2 py-3">{e?.leaveType}</td>
-                          <td className="px-2 py-3">{formatDate(e?.appliedOn)}</td>
-                          <td className="px-2 py-3">  {e?.from}</td>
-                          <td className="px-2 py-3"> {e?.to} </td>
-                          <td className="px-2 py-3"> {(e?.days) - 1 + 2} </td>
-                          
-                          <td className="px-2 py-3">{e?.reason?.slice(1,34)}...</td>
-  
-                          <td className="px-2 py-3">
-                            <div className="ACTIVITYsss">{
-                              e?.status === "" ?"Pending":e?.status
-                            }</div>
-                          </td>
+                          <tr onClick={() => setLeavePopup(e)} key={index} className="bg-white trtextalltr cursor-pointer gfg border-b">
 
-                       
+                            <td className="px-2 py-3">{e?.leaveType}</td>
+                            <td className="px-2 py-3">{formatDate(e?.appliedOn)}</td>
+                            <td className="px-2 py-3">  {e?.from}</td>
+                            <td className="px-2 py-3"> {e?.to} </td>
+                            <td className="px-2 py-3"> {(e?.days) - 1 + 2} </td>
 
-                        </tr>
+                            <td className="px-2 py-3">{e?.reason?.slice(1, 34)}...</td>
+
+                            <td className="px-2 py-3">
+                              <div className="ACTIVITYsss">{
+                                e?.status === "" ? "Pending" : e?.status
+                              }</div>
+                            </td>
+
+
+
+                          </tr>
                         )
                       })}
-               
 
-                     
+
+
                     </tbody>
 
 
@@ -197,20 +197,20 @@ const MyLeaves = ({
             </div>
           </div>
 
-     
-          {
-            leavePopup && 
-            <div className="leavePopupwrap2">
-                <div className="leavepopconta2">
 
-                  <nav><RxCross2 fontSize={24} className="cursor-pointer" onClick={()=>setLeavePopup(false)} /></nav>
- 
+          {
+            leavePopup &&
+            <div className="leavePopupwrap2">
+              <div className="leavepopconta2">
+
+                <nav><RxCross2 fontSize={24} className="cursor-pointer" onClick={() => setLeavePopup(false)} /></nav>
+
                 <label htmlFor="">
                   <h4>FullName: </h4>
                   <p>{leavePopup?.user?.fullName}</p>
                 </label>
 
-              
+
                 <label htmlFor="">
                   <h4>From: </h4>
                   <p>{leavePopup?.from}</p>
@@ -225,12 +225,12 @@ const MyLeaves = ({
                   <p>{leavePopup?.reason}</p>
                 </label>
 
-                   
-                </div>
+
+              </div>
             </div>
           }
 
-  
+
         </div>
       </div>
     </>

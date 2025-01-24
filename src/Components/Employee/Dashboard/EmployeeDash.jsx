@@ -741,7 +741,7 @@ toast.dismiss(toastId);
 
                        <div className="ladHead2">
                 <img src={leavimg} alt="" />
-                      <h3>Leaves</h3>
+                      <h3>Leaves </h3>
                        </div>
 
                       <button

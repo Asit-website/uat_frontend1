@@ -108,6 +108,7 @@ import { useMain } from "./hooks/useMain.js";
 import ScrollTop from "./Components/utils/ScrollTop.jsx";
 import DeactivateEmployee from "./Components/admin/EmployManagement/DeactivateEmployee.jsx";
 import MyLeaves from "./Components/admin/EmployeeHRM/MyLeaves.js";
+import EmployeeAnnouncement from "./Components/admin/EmployeeHRM/EmployeeAnnouncement.jsx";
 
 var tc;
 
@@ -196,7 +197,8 @@ function App() {
               <Route path="/employeeDash/editQuotation" element={<EditQuotation />} />
               <Route path="/employeeDash/taskLead" element={<TaskLead />}  />      
               <Route path="/employeeDash/meetLead" element={<MeetLead />}  />
-
+              <Route path="/employeeDash/announcement" element={<EmployeeAnnouncement pop={pop} setPop={setPop} setAlert={setAlert} />} />
+               
            
               <Route path="/accept/:userId" element={<AcceptPage />} />
 
@@ -315,7 +317,7 @@ function App() {
               <Route path="/employeeDash/PermissionDetail" element={<PermissionData pop={pop} setAlert={setAlert} setPop={setPop} />} />
               <Route path="/adminDash/profile" element={<AdminProfile pop={pop} setPop={setPop} setAlert={setAlert} />} />
               <Route path="/adminDash/announcement" element={<AdminAnnoncement pop={pop} setPop={setPop} setAlert={setAlert} />} />
-              <Route path="/employeeDash/announcement" element={<AdminAnnoncement pop={pop} setPop={setPop} setAlert={setAlert} />} />
+              {/* <Route path="/employeeDash/announcement" element={<AdminAnnoncement pop={pop} setPop={setPop} setAlert={setAlert} />} /> */}
               <Route path="/performance/indicator" element={<Indicator pop={pop} setPop={setPop} setAlert={setAlert} />} />
               <Route path="/performance/appraisal" element={<Appraisal pop={pop} setPop={setPop} setAlert={setAlert} />} />
               <Route path="/performance/goalTracking" element={<GoalTracking pop={pop} setPop={setPop} setAlert={setAlert} />} />
@@ -343,7 +345,8 @@ function App() {
               <Route path="/adminDash/createLead" element={<CreateLead />} />
               <Route path="/adminDash/editLead" element={<EditLead />} />
               <Route path="/adminDash/importLead/:id" element={<ImportLead />} />
-              <Route path="/adminDash/mySelf" element={<MySelf />} />
+              <Route path="/adminDash/import EmployeeAnnouncement from './Components/Employee/EmployeeAnnouncement';
+mySelf" element={<MySelf />} />
               <Route path="/adminDash/EmployeeDetails" element={<EmployeeSelf />} />
               <Route path="/adminDash/leadFile" element={<LeadFile />} />
               <Route path="/adminDash/createQuotation" element={<CreateQuotation />} />

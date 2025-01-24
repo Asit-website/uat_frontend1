@@ -438,7 +438,7 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
                 </div>
 
                 {/* right side */}
-                <div className="righprodetail">
+                {/* <div className="righprodetail">
                   <div className="timerdives">
                     <p>{Math.floor(clock / 3600)}</p>:
                     <p>{Math.floor((clock % 3600) / 60)}</p>:<p>{clock % 60}</p>
@@ -456,7 +456,7 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
                   <div>
                     <img src={predel} alt="" />
                   </div>
-                </div>
+                </div> */}
               </div>
 
               {/* this is all tasks now  */}
@@ -551,23 +551,25 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
                   </tbody>
                 </table>
 
-                <div className="navbuttons flex justify-between items-center mt-4">
-                  <button
-                    onClick={handlePrev}
-                    disabled={currentPage === 1}
-                    className="px-4 py-2 bg-gray-300 rounded-md disabled:bg-gray-200"
-                  >
-                    Prev
-                  </button>
-                  <span className="px-4">{currentPage}</span>
-                  <button
-                    onClick={handleNext}
-                    disabled={currentPage === totalPages}
-                    className="px-4 py-2 bg-gray-300 rounded-md disabled:bg-gray-200"
-                  >
-                    Next
-                  </button>
-                </div>
+               {totalPages >1 && (
+                 <div className="navbuttons flex justify-between items-center mt-4">
+                 <button
+                   onClick={handlePrev}
+                   disabled={currentPage === 1}
+                   className="px-4 py-2 bg-gray-300 rounded-md disabled:bg-gray-200"
+                 >
+                   Prev
+                 </button>
+                 <span className="px-4">{currentPage}</span>
+                 <button
+                   onClick={handleNext}
+                   disabled={currentPage === totalPages}
+                   className="px-4 py-2 bg-gray-300 rounded-md disabled:bg-gray-200"
+                 >
+                   Next
+                 </button>
+               </div>
+               )}
               </div>
             </div>
           </div>

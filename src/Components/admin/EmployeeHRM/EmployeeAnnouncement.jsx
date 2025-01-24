@@ -2,7 +2,7 @@ import AdminSidebar from "../Sidebar/AdminSidebar";
 import AdminNavbar from "../Navbar/AdminNavbar";
 import { useMain } from "../../../hooks/useMain";
 import annPlus from "../../images/annPlus.png";
-import "./annocement.css";
+// import "./annocement.css";
 import { useState, useEffect } from "react";
 import cross from "../../images/crossAn.png";
 import { confirmAlert } from "react-confirm-alert";
@@ -13,7 +13,7 @@ import EmployeeNavbar from "../../Employee/Navbar/EmployeeNavbar";
 import { RxCross2 } from "react-icons/rx";
 
 
-const AdminProfile = ({ pop, setPop, setAlert }) => {
+const EmployeeAnnouncement = ({ pop, setPop, setAlert }) => {
   const {
     user,
     createAnnouncement,
@@ -218,7 +218,7 @@ const AdminProfile = ({ pop, setPop, setAlert }) => {
 
             <div className="anNav">
 
-              {/* left sie */}
+             
               <div className="anNavLeft">
                 <h2>Manage Announcement</h2>
                 <p>
@@ -226,10 +226,10 @@ const AdminProfile = ({ pop, setPop, setAlert }) => {
                 </p>
               </div>
 
-              {/* right side  */}
-              <div onClick={() => setOpenForm(true)} className="plusImg6">
+              
+              {/* <div onClick={() => setOpenForm(true)} className="plusImg6">
                 <img src={annPlus} alt="" />  <span>ADD</span>
-              </div>
+              </div> */}
             </div>
 
             <main className="anMain">
@@ -259,9 +259,9 @@ const AdminProfile = ({ pop, setPop, setAlert }) => {
                       <th scope="col" class="px-3 py-3">
                         DESCRIPTION
                       </th>
-                      <th scope="col" class="px-3 py-3">
+                      {/* <th scope="col" class="px-3 py-3">
                         ACTION
-                      </th>
+                      </th> */}
                     </tr>
                   </thead>
 
@@ -274,20 +274,20 @@ const AdminProfile = ({ pop, setPop, setAlert }) => {
                         <td class="px-3 py-4">{item.description?.slice(0,50)}...</td>
                         <td class="px-3 py-4">
                           <div className="flex items-center sk">
-                            <i
+                            {/* <i
                               onClick={() => {
                                 setOnEdit(true);
                                 setEditData(item);
                                 setOpenForm(true);
                               }}
                               className="fa-solid fa-pen-to-square"
-                            ></i>
-                            <i
+                            ></i> */}
+                            {/* <i
                               onClick={() => {
                                 deleteProject(item?._id);
                               }}
                               className="fa-solid fa-trash"
-                            ></i>
+                            ></i> */}
                           </div>
                         </td>
                       </tr>
@@ -297,7 +297,7 @@ const AdminProfile = ({ pop, setPop, setAlert }) => {
               </div>
             </main>
 
-           {totalPages > 1 && (
+           {totalPages >1 && (
              <div className="emPaginate">
              <button
                className={`prepaginate ${currentPage !== 1 && "putthehovebtn"
@@ -550,4 +550,4 @@ const AdminProfile = ({ pop, setPop, setAlert }) => {
   );
 };
 
-export default AdminProfile;
+export default EmployeeAnnouncement;

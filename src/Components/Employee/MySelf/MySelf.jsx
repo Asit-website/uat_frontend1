@@ -13,7 +13,7 @@ const MySelf = ({ setAlert, pop1, setPop1 }) => {
   const { postActivity, getStatisticsByUser, getMyOfferLetter } = useMain();
 
   const [user, setUser] = useState();
-
+   console.log("user details",user)
   const [curenpage, setCurrPage] = useState("Document");
   let user1 = JSON?.parse(localStorage.getItem("hrms_user"));
   let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
@@ -167,6 +167,11 @@ const MySelf = ({ setAlert, pop1, setPop1 }) => {
                     <div className="singfirst">
                       <p>Date of Joining :</p>
                       <span>{user1?.joiningDate}</span>
+                    </div>
+
+                    <div className="singfirst">
+                      <p>Date of Birth :</p>
+                      <span>{user1?.dob}</span>
                     </div>
 
                     <div className="singfirst">

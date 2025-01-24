@@ -62,15 +62,17 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
   }
 
   const submitHandler = async (e) => {
+    const toastId = toast.loading("Loading...");
     try {
       if (onEdit) {
-        e.preventDefault();
+        // e.preventDefault();
+        
         await updateWarning({ ...formdata });
         toast.success("update successfully");
         setRefreshFlag(!refreshFlag);
       }
       else {
-        e.preventDefault();
+        // e.preventDefault();
         await createWarning({ ...formdata });
         toast.success("Successfuly Created");
         setRefreshFlag(!refreshFlag);
@@ -79,6 +81,7 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
     } catch (error) {
       console.log(error);
     }
+    toast.dismiss(toastId);
   }
 
   useEffect(() => {

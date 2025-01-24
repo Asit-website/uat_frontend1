@@ -369,12 +369,12 @@ const EmployeeNavbar = ({ setAlert, pop1, setPop1 }) => {
                     </>
                   ))}
 
-                  <button
+                  {/* <button
                     onClick={() => setCurrLoad(currLoad + 1)}
                     className="lodmorebtns"
                   >
                     <span>Load More...</span>
-                  </button>
+                  </button> */}
                 </div>
               ) : (
                 <div className="nonotify">

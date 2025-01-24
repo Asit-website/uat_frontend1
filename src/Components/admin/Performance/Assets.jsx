@@ -356,7 +356,7 @@ const Assets = ({ pop, setPop, setAlert }) => {
             <form onSubmit={() => {
               submitHandler();
               setOpenForm(false);
-            }} className='openform' >
+            }} className='openform openformisk' >
 
               <nav>
                 {/* left  */}

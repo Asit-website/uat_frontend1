@@ -40,7 +40,7 @@ const EmployeeManagement = ({
 
   const [currentPage, setCurrentPage] = useState(1);
 
-  const itemsPerPage = 10;
+  const itemsPerPage = 5;
 
   const filteredData = data.filter((item) => item.designation !== "CEO" && item._id !== user._id && item.isDeactivated == "No");
   const totalPages = Math.ceil(filteredData.length / itemsPerPage);

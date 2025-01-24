@@ -669,7 +669,7 @@ const LeadDash = ({ setAlert, pop, setPop }) => {
                   </table>
                 </div>
 
-               {totalPages > 1 && (
+               {totalPages > 5 && (
                   <div className="prev_next">
                   <div className="on1">
                     <p>1</p>
@@ -918,7 +918,7 @@ const LeadDash = ({ setAlert, pop, setPop }) => {
                     </tbody>
                   </table>
                 </div>
-{totalPages > 1 && 
+{totalPages > 5 && 
                 <div className="prev_next">
                   <div className="on1">
                     <p>1</p>
@@ -1075,7 +1075,7 @@ const LeadDash = ({ setAlert, pop, setPop }) => {
                   </tbody>
                 </table>
               </div>
-{totalPages > 1 && (
+{totalPages > 5 && (
               <div className="emPaginate">
                 <button className={`prepaginate ${currentPage !== 1 && "putthehovebtn"}`} onClick={() => {
                   handlePageChange(currentPage - 1);
@@ -1180,7 +1180,7 @@ const LeadDash = ({ setAlert, pop, setPop }) => {
               </div>
 
            
-              {totalPages > 1 && (
+              {totalPages > 5 && (
                   <div className="prev_next">
                   <div className="on1">
                     <p>1</p>

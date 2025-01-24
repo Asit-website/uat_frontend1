@@ -139,10 +139,10 @@ const Appraisal = ({ pop, setPop, setAlert }) => {
   };
   const [searchTerm, setSearchTerm] = useState('');
   const filteredData = data.filter((item) =>
-    (item.GoalType?.toLowerCase() || "").includes(searchTerm.toLowerCase().trim()) ||
-    (item.subject?.toLowerCase() || "").includes(searchTerm.toLowerCase().trim()) ||
-    (item.Branch?.toLowerCase() || "").includes(searchTerm.toLowerCase().trim()) ||
-    (item.target?.toLowerCase() || "").includes(searchTerm.toLowerCase().trim())
+    (item.Employee?.toLowerCase() || "").includes(searchTerm.toLowerCase().trim()) ||
+    
+    (item.Branch?.toLowerCase() || "").includes(searchTerm.toLowerCase().trim()) 
+    
   );
   
   useEffect(() => {

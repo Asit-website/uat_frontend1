@@ -64,7 +64,7 @@ const sidebarItem = [
   {
     title: "Leave Type",
     img: hub3,
-    class:"syss",
+    class: "syss",
     tableData: [
       {
         title: "LEAVE TYPE",
@@ -137,10 +137,13 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
   let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
   let hrms_permission = JSON.parse(localStorage.getItem("hrms_permission"));
 
+  const { role } = hrms_user;
 
-  const { role, } = hrms_user;
-
-  const {hrmsSetupEditPermission,hrmsSetupDeletePermission,hrmsSetupCreatePermission, } = hrms_permission;
+  const {
+    hrmsSetupEditPermission,
+    hrmsSetupDeletePermission,
+    hrmsSetupCreatePermission,
+  } = hrms_permission;
 
   const [popup, setPopup] = useState(false);
 
@@ -274,11 +277,11 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
   };
 
   const handleCreateDepartment = async () => {
-      // Validation to check if both fields are filled
-  if (!departmentValue.name || !departmentValue.branch) {
-    toast.error("Both department name and branch are required!");
-    return;
-  }
+    // Validation to check if both fields are filled
+    if (!departmentValue.name || !departmentValue.branch) {
+      toast.error("Both department name and branch are required!");
+      return;
+    }
     const toastId = toast.loading("Loading...");
     const ans = await postDepartment({
       name: departmentValue.name,
@@ -389,7 +392,8 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
     const ans = await updateDepartment({
       id,
       name: departmentValue1?.name,
-      branch: branches?.find((x) => x?._id === departmentValue1?.branch),
+      // branch: branches?.find((x) => x?._id === departmentValue1?.branch),
+      branch: departmentValue1?.branch,
     });
     if (ans.success) {
       setDepartmentValue1({
@@ -617,7 +621,11 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
                           open === index && "openItem"
                         } `}
                       >
-                        <img className={`${item?.class}`} src={item.img} alt="" />
+                        <img
+                          className={`${item?.class}`}
+                          src={item.img}
+                          alt=""
+                        />
                         <span>{item.title}</span>
                       </div>
                     ))}
@@ -1310,8 +1318,9 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
                 />
               </div>
               <hr />
-
-              <label>
+<div style={{overflowY:"auto"}}>
+  
+<label>
                 <p className="popTitl">Document Name</p>
                 <input
                   type="text"
@@ -1326,16 +1335,18 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
                 />
               </label>
 
-              <label style={{ display: "block", marginBottom: "12px" }}>
-  <p className="popTitl" style={{ marginBottom: "8px" }}>Required Field</p>
-  <div style={{ position: "relative" }}>
-    <Selectmultidropdown
-      setDocdata={setDocdata}
-      docData={docData}
-      
-    />
-  </div>
-</label>
+              <label >
+                <p className="popTitl" >
+                  Required Field
+                </p>
+                <div style={{ position: "relative" }}>
+                  <Selectmultidropdown
+                    setDocdata={setDocdata}
+                    docData={docData}
+                  />
+                </div>
+              </label>
+</div>
 
               <div className="btnWrap">
                 <button

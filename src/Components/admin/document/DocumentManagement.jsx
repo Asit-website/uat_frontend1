@@ -10,7 +10,7 @@ import "./document.css";
 import EmployeeSidebar from "../../Employee/Sidebar/EmployeeSidebar";
 import EmployeeNavbar from "../../Employee/Navbar/EmployeeNavbar";
 import toast from "react-hot-toast";
-
+import  data1 from "./Document1"
 const item = [
   {
     title: "Full-time Employee",
@@ -79,20 +79,20 @@ const data = `<p class="MsoNormal" align="left" style="text-indent: -1px; color:
 <p class="MsoNormal" align="left" style="margin: 0in 0in 0px; color: black; text-align: left; text-indent: 0in; line-height: normal; font-size: 16px;"><strong><span style="color: windowtext; font-family: Inter, sans-serif;">Responsibilities:</span></strong></p>
 
 <ol start="1" type="1" style="margin-bottom: 0in;">
-    <li class="MsoNormal" style="margin: 0in 0in 0px 0.5in; color: windowtext; text-align: left; text-indent: -0.25in; line-height: normal; font-size: 16px;"><span style="background: yellow; font-family: Inter, sans-serif;">Identify
-            and pursue new business opportunities to generate leads and increase
+    <li class="MsoNormal" style="margin: 0in 0in 0px 0.5in; color: windowtext; text-align: left; text-indent: -0.25in; line-height: normal; font-size: 16px;"><span style="background: orange; font-family: Inter, sans-serif;">Identify
+            and pursue new business opportunities to generate leads and increase  
             revenue.</span></li>
-    <li class="MsoNormal" style="margin: 0in 0in 0px 0.5in; color: windowtext; text-align: left; text-indent: -0.25in; line-height: normal; font-size: 16px;"><span style="background: yellow; font-family: Inter, sans-serif;">Develop
+    <li class="MsoNormal" style="margin: 0in 0in 0px 0.5in; color: windowtext; text-align: left; text-indent: -0.25in; line-height: normal; font-size: 16px;"><span style="background:orange; font-family: Inter, sans-serif;">Develop
             and maintain relationships with clients and key stakeholders.</span></li>
-    <li class="MsoNormal" style="margin: 0in 0in 0px 0.5in; color: windowtext; text-align: left; text-indent: -0.25in; line-height: normal; font-size: 16px;"><span style="background: yellow; font-family: Inter, sans-serif;">Collaborate
+    <li class="MsoNormal" style="margin: 0in 0in 0px 0.5in; color: windowtext; text-align: left; text-indent: -0.25in; line-height: normal; font-size: 16px;"><span style="background: orange; font-family: Inter, sans-serif;">Collaborate
             with the sales and marketing teams to develop strategies for business
             growth.</span></li>
-    <li class="MsoNormal" style="margin: 0in 0in 0px 0.5in; color: windowtext; text-align: left; text-indent: -0.25in; line-height: normal; font-size: 16px;"><span style="background: yellow; font-family: Inter, sans-serif;">Analyze
+    <li class="MsoNormal" style="margin: 0in 0in 0px 0.5in; color: windowtext; text-align: left; text-indent: -0.25in; line-height: normal; font-size: 16px;"><span style="background: orange; font-family: Inter, sans-serif;">Analyze
             market trends and competitor activities to identify potential areas for
             expansion.</span></li>
-    <li class="MsoNormal" style="margin: 0in 0in 0px 0.5in; color: windowtext; text-align: left; text-indent: -0.25in; line-height: normal; font-size: 16px;"><span style="background: yellow; font-family: Inter, sans-serif;">Prepare
+    <li class="MsoNormal" style="margin: 0in 0in 0px 0.5in; color: windowtext; text-align: left; text-indent: -0.25in; line-height: normal; font-size: 16px;"><span style="background: orange; font-family: Inter, sans-serif;">Prepare
             and deliver presentations to prospective clients.</span></li>
-    <li class="MsoNormal" style="margin: 0in 0in 0px 0.5in; color: windowtext; text-align: left; text-indent: -0.25in; line-height: normal; font-size: 16px;"><span style="background: yellow; font-family: Inter, sans-serif;">Negotiate
+    <li class="MsoNormal" style="margin: 0in 0in 0px 0.5in; color: windowtext; text-align: left; text-indent: -0.25in; line-height: normal; font-size: 16px;"><span style="background: orange; font-family: Inter, sans-serif;">Negotiate
             contracts and agreements with clients.</span></li><li class="MsoNormal" style="margin: 0in 0in 0px 0.5in; color: windowtext; text-align: left; text-indent: -0.25in; line-height: normal; font-size: 16px;"><span style="background: yellow; font-family: Inter, sans-serif;"><br></span></li>
 </ol>
 
@@ -118,7 +118,7 @@ const data = `<p class="MsoNormal" align="left" style="text-indent: -1px; color:
         successful completion of any background checks or screenings required by <strong>KUSHEL DIGI SOLUTIONS</strong>.</span></p><p class="MsoNormal" align="left" style="margin: 0in 0in 0px; color: black; text-align: left; text-indent: 0in; line-height: normal; font-size: 16px;"><span style="color: windowtext; font-family: Inter, sans-serif;"><br></span></p>
 
 <p class="MsoNormal" align="left" style="margin: 0in 0in 0px; color: black; text-align: left; text-indent: 0in; line-height: normal; font-size: 16px;"><span style="color: windowtext; font-family: Inter, sans-serif;">Please indicate your
-        acceptance of this offer by signing and returning a copy of this letter by <strong><span style="background: yellow;"> [RETURNINGDAY] </span></strong></span></p><p class="MsoNormal" align="left" style="margin: 0in 0in 0px; color: black; text-align: left; text-indent: 0in; line-height: normal; font-size: 16px;"><span style="color: windowtext;"><strong><span style="background: yellow; font-family: Inter, sans-serif;"> [RETURNINGDATE] </span></strong></span></p>
+        acceptance of this offer by signing and returning a copy of this letter by  <strong><span style="background: yellow;">[RETURNINGDATE] </span></strong></span></p><p class="MsoNormal" align="left" style="margin: 0in 0in 0px; color: black; text-align: left; text-indent: 0in; line-height: normal; font-size: 16px;"><span style="color: windowtext;"><strong><span style="background: yellow; font-family: Inter, sans-serif;">  </span></strong></span></p>
 
 <p class="MsoNormal" align="left" style="margin: 0in 0in 0px; color: black; text-align: left; text-indent: 0in; line-height: normal; font-size: 16px;"><span style="font-family: Inter, sans-serif;">The above mentioned
         offer shall be valid if you join us on or before <strong><span style="background: yellow;"> [VALIDJOIN] </span></strong></span></p>
@@ -256,7 +256,7 @@ the time being in force.</span></p>
  </tr>
  <tr style="height: 21px;">
   <td width="338" valign="top" style="width: 337px; padding: 0in; height: 21px;">
-  <p class="TableParagraph" style="font-family: Arial, sans-serif; margin: 3px 0in 0px 10px; font-size: 15px;"><strong><span style="font-family: Inter, sans-serif; font-size: 13px;">PerMonthFixed</span></strong></p>
+  <p class="TableParagraph" style="font-family: Arial, sans-serif; margin: 3px 0in 0px 10px; font-size: 15px;"><strong><span style="font-family: Inter, sans-serif; font-size: 13px;">Per Month Fixed</span></strong></p>
   </td>
   <td width="362" valign="top" style="width: 361px; padding: 0in; height: 21px;">
   <p class="TableParagraph" align="right" style="font-family: Arial, sans-serif; margin: 3px 2px 0px 0in; text-align: right; font-size: 15px;"><strong><span style="font-family: Inter, sans-serif; background: yellow; font-size: 13px;"> [COMPENSATION].00 </span></strong></p>
@@ -264,7 +264,7 @@ the time being in force.</span></p>
  </tr>
  <tr style="height: 21px;">
   <td width="338" valign="top" style="width: 337px; background: rgb(217, 217, 217); padding: 0in; height: 21px;">
-  <p class="TableParagraph" style="font-family: Arial, sans-serif; margin: 3px 0in 0px 10px; font-size: 15px;"><strong><span style="font-family: Inter, sans-serif; color: black; font-size: 13px;">SalaryBreak -upComponents</span></strong></p>
+  <p class="TableParagraph" style="font-family: Arial, sans-serif; margin: 3px 0in 0px 10px; font-size: 15px;"><strong><span style="font-family: Inter, sans-serif; color: black; font-size: 13px;">Salary Break-up Components</span></strong></p>
   </td>
   <td width="362" valign="top" style="width: 361px; background: rgb(217, 217, 217); padding: 0in; height: 21px;">
   <p class="TableParagraph" align="right" style="font-family: Arial, sans-serif; margin: 3px 2px 0px 0in; text-align: right; font-size: 15px;"><strong><span style="font-family: Inter, sans-serif; color: black; font-size: 13px;">Monthly
@@ -289,7 +289,7 @@ the time being in force.</span></p>
  </tr>
  <tr style="height: 21px;">
   <td width="338" valign="top" style="width: 337px; padding: 0in; height: 21px;">
-  <p class="TableParagraph" style="font-family: Arial, sans-serif; margin: 1px 0in 0px 10px; font-size: 15px;"><span style="font-family: Inter, sans-serif; font-size: 13px;">ConveyanceAllowance</span></p>
+  <p class="TableParagraph" style="font-family: Arial, sans-serif; margin: 1px 0in 0px 10px; font-size: 15px;"><span style="font-family: Inter, sans-serif; font-size: 13px;">Conveyance Allowance</span></p>
   </td>
   <td width="362" valign="top" style="width: 361px; padding: 0in; height: 21px;">
   <p class="TableParagraph" align="right" style="font-family: Arial, sans-serif; margin: 1px 2px 0px 0in; text-align: right; font-size: 15px;"><span style="font-family: Inter, sans-serif; background: yellow; font-size: 13px;">000.00</span></p>
@@ -306,7 +306,7 @@ the time being in force.</span></p>
  </tr>
  <tr style="height: 21px;">
   <td width="338" valign="top" style="width: 337px; padding: 0in; height: 21px;">
-  <p class="TableParagraph" style="margin: 0in 0in 0in 10px; font-family: Arial, sans-serif; font-size: 15px;"><span style="font-family: Inter, sans-serif; font-size: 13px;">EducationAllowance</span></p>
+  <p class="TableParagraph" style="margin: 0in 0in 0in 10px; font-family: Arial, sans-serif; font-size: 15px;"><span style="font-family: Inter, sans-serif; font-size: 13px;">Education Allowance</span></p>
   </td>
   <td width="362" valign="top" style="width: 361px; padding: 0in; height: 21px;">
   <p class="TableParagraph" align="right" style="margin: 0in 2px 0in 0in; font-family: Arial, sans-serif; text-align: right; font-size: 15px;"><span style="font-family: Inter, sans-serif; background: yellow; font-size: 13px;">0.00</span></p>
@@ -338,7 +338,7 @@ the time being in force.</span></p>
  </tr>
  <tr style="height: 21px;">
   <td width="338" valign="top" style="width: 337px; padding: 0in; height: 21px;">
-  <p class="TableParagraph" style="font-family: Arial, sans-serif; margin: 1px 0in 0px 10px; font-size: 15px;"><span style="font-family: Inter, sans-serif; font-size: 13px;">Bonus</span></p>
+  <p class="TableParagraph" style="font-family: Arial, sans-serif; margin: 1px 0in 0px 10px; font-size: 15px;"><span style="font-family: Inter, sans-serif; font-size: 13px;">Bonus</span></p> 
   </td>
   <td width="362" valign="top" style="width: 361px; padding: 0in; height: 21px;">
   <p class="TableParagraph" align="right" style="font-family: Arial, sans-serif; margin: 1px 2px 0px 0in; text-align: right; font-size: 15px;"><span style="font-family: Inter, sans-serif; background: yellow; font-size: 13px;">0.00</span></p>
@@ -346,7 +346,7 @@ the time being in force.</span></p>
  </tr>
  <tr style="height: 21px;">
   <td width="338" valign="top" style="width: 337px; background: rgb(217, 217, 217); padding: 0in; height: 21px;">
-  <p class="TableParagraph" style="font-family: Arial, sans-serif; margin: 3px 0in 0px 10px; font-size: 15px;"><strong><span style="font-family: Inter, sans-serif; color: black; font-size: 13px;">Net TakeHome(PerMonth)</span></strong></p>
+  <p class="TableParagraph" style="font-family: Arial, sans-serif; margin: 3px 0in 0px 10px; font-size: 15px;"><strong><span style="font-family: Inter, sans-serif; color: black; font-size: 13px;">Net Take Home(Per Month)</span></strong></p>
   </td>
   <td width="362" valign="top" style="width: 361px; background: rgb(217, 217, 217); padding: 0in; height: 21px;">
   <p class="TableParagraph" align="right" style="font-family: Arial, sans-serif; margin: 3px 2px 0px 0in; text-align: right; font-size: 15px;"><strong><span style="font-family: Inter, sans-serif; color: black; background: yellow; font-size: 13px;"> [COMPENSATION] </span></strong></p>
@@ -354,18 +354,18 @@ the time being in force.</span></p>
  </tr>
  <tr style="height: 21px;">
   <td width="338" valign="top" style="width: 337px; background: rgb(217, 217, 217); padding: 0in; height: 21px;">
-  <p class="TableParagraph" style="font-family: Arial, sans-serif; margin: 3px 0in 0px 10px; font-size: 15px;"><strong><span style="font-family: Inter, sans-serif; color: black; font-size: 13px;">TOTALCOSTTOTHECOMPANY(PerAnnum)</span></strong></p>
+  <p class="TableParagraph" style="font-family: Arial, sans-serif; margin: 3px 0in 0px 10px; font-size: 15px;"><strong><span style="font-family: Inter, sans-serif; color: black; font-size: 13px;">TOTAL COST TO THE COMPANY (Per Annum)</span></strong></p>
   </td>
   <td width="362" valign="top" style="width: 361px; background: rgb(217, 217, 217); padding: 0in; height: 21px;">
-  <p class="TableParagraph" align="right" style="font-family: Arial, sans-serif; margin: 3px 2px 0px 0in; text-align: right; font-size: 15px;"><strong><span style="font-family: Inter, sans-serif; color: black; background: yellow; font-size: 13px;">0000.00</span></strong></p>
+  <p class="TableParagraph" align="right" style="font-family: Arial, sans-serif; margin: 3px 2px 0px 0in; text-align: right; font-size: 15px;"><strong><span style="font-family: Inter, sans-serif; color: black; background: yellow; font-size: 13px;"></span></strong></p>
   </td>
  </tr>
 </tbody></table>
 
 
 
-<p class="MsoBodyText" style="margin: 0px 70px 0px 0in; line-height: 103%; font-size: 16px;"><span style="font-family: Inter, sans-serif;">Pleasenotethatirrespectiveofwhetheryoujoin<strong>KUSHEL
-DIGI SOLUTIONS</strong>ornot,youneedtokeepallthedetailscontainedinthisletterconfidential.</span></p>
+<p class="MsoBodyText" style="margin: 0px 70px 0px 0in; line-height: 103%; font-size: 16px;"><span style="font-family: Inter, sans-serif;">Please note that irrespective of whether you join<strong>KUSHEL
+DIGI SOLUTIONS</strong> or not,you need to keep all the details contained in this letter confidential.</span></p>
 
 <p class="MsoNormal" style="margin: 0in 1px 0px 31px; text-align: justify; text-indent: -1px; line-height: 104%; font-family: Inter, sans-serif; color: black; font-size: 16px;"><span>&nbsp;</span><br></p>
 
@@ -375,7 +375,7 @@ DIGI SOLUTIONS</strong>ornot,youneedtokeepallthedetailscontainedinthisletterconf
 
 <p class="MsoNormal" style="margin: 0in 1px 0px 31px; text-align: justify; text-indent: -1px; line-height: 104%; font-family: Inter, sans-serif; color: black; font-size: 16px;"><span>&nbsp;</span><br></p>
 
-<p class="MsoBodyText" style="margin: 0in; font-size: 16px;"><span style="font-family: Inter, sans-serif;">Welookforwardto yourjoiningand alongassociation.</span></p>
+<p class="MsoBodyText" style="margin: 0in; font-size: 16px;"><span style="font-family: Inter, sans-serif;">We look forward to your joining and along as sociation.</span></p>
 
 <p class="MsoNormal" style="margin: 0in 1px 0px 31px; text-align: justify; text-indent: -1px; line-height: 104%; font-family: Inter, sans-serif; color: black; font-size: 16px;"><span>&nbsp;</span><br></p>
 
@@ -971,14 +971,14 @@ const data3 = `
 
 const data4 = `
 <br>
- <p><span style="font-family: Helvetica, sans-serif;"><strong style="font-size: 14px;">Date</strong></span>: 27th JULY 2024</p>
+ <p><span style="font-family: Helvetica, sans-serif;"><strong style="font-size: 14px;">Date</strong></span>: [issueDate]</p>
  
  <p><br></p><p><strong style="font-size: 14px;">Position:</strong> [POSITION] Intern</p><p><br></p><p><strong style="font-size: 14px;">Work Hours:</strong> [WORKHOUR] Hours</p><p><br></p><p>
 <strong style="font-size: 14px;">Location: </strong> [LOCATION] </p><p><br></p><p>
 <strong style="font-size: 14px;">Duration: </strong> [DURATION]
 </p><p><br></p><p><strong style="font-size: 14px;">Job Profile</strong>: [POSITION] Intern</p><p><br></p><p>
 <strong style="font-size: 14px;">Salary: </strong> [SALARY]
-</p><p><br></p><p><strong style="font-size: 14px;">Joining Date:</strong> 29 June 2024
+</p><p><br></p><p><strong style="font-size: 14px;">Joining Date:</strong> [joiningDate]
 </p><p><br></p><p> [NAME] ,
 I am pleased to extend an offer to you for the position of [POSITION] with KUSHEL DIGI SOLUTIONS,
 effective [EFFECTIVE]. This position is an [SALARY] internship for [DURATION], aimed at providing valuable handson experience in [EXPERIENCEAT].</p><p><br></p><p>
@@ -1068,6 +1068,7 @@ For and on behalf of
 <br>Kushel Digi Solutions.<br><br><br>&nbsp; &nbsp;<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<strong style="font-size: 16px;">Appendix A</strong></p><p><br></p><p><strong>Name: </strong>[NAME]<br>
 <strong>Designation:</strong> [DESIGNATION]
 <br><strong>Location: </strong>[LOCATION]<br><br><br><br><strong style="font-size: 16px;">Compensation Details</strong>
+
 </p><p><br>All the above amounts are based on a full year of service. The amount payable to you will be
 determined on pro-rata based on the number of days that you serve with the Company during the
 applicable financial year. The annual payable to you shall be liable to tax deduction at source as
@@ -1090,7 +1091,7 @@ need to keep all the details contained in this letter confidential.
  </tr>
  <tr style="height: 21px;">
   <td width="338" valign="top" style="width: 337px; padding: 0in; height: 21px;">
-  <p class="TableParagraph" style="font-family: Arial, sans-serif; margin: 3px 0in 0px 10px; font-size: 15px;"><strong><span style="font-family: Inter, sans-serif; font-size: 13px;">PerMonthFixed</span></strong></p>
+  <p class="TableParagraph" style="font-family: Arial, sans-serif; margin: 3px 0in 0px 10px; font-size: 15px;"><strong><span style="font-family: Inter, sans-serif; font-size: 13px;">Per MonthFixed</span></strong></p>
   </td>
   <td width="362" valign="top" style="width: 361px; padding: 0in; height: 21px;">
   <p class="TableParagraph" align="right" style="font-family: Arial, sans-serif; margin: 3px 2px 0px 0in; text-align: right; font-size: 15px;"><strong><span style="font-family: Inter, sans-serif; background: yellow; font-size: 13px;"> [COMPENSATION].00 </span></strong></p>
@@ -1123,7 +1124,7 @@ need to keep all the details contained in this letter confidential.
  </tr>
  <tr style="height: 21px;">
   <td width="338" valign="top" style="width: 337px; padding: 0in; height: 21px;">
-  <p class="TableParagraph" style="font-family: Arial, sans-serif; margin: 1px 0in 0px 10px; font-size: 15px;"><span style="font-family: Inter, sans-serif; font-size: 13px;">ConveyanceAllowance</span></p>
+  <p class="TableParagraph" style="font-family: Arial, sans-serif; margin: 1px 0in 0px 10px; font-size: 15px;"><span style="font-family: Inter, sans-serif; font-size: 13px;">Conveyance Allowance</span></p>
   </td>
   <td width="362" valign="top" style="width: 361px; padding: 0in; height: 21px;">
   <p class="TableParagraph" align="right" style="font-family: Arial, sans-serif; margin: 1px 2px 0px 0in; text-align: right; font-size: 15px;"><span style="font-family: Inter, sans-serif; background: yellow; font-size: 13px;">000.00</span></p>
@@ -1140,7 +1141,7 @@ need to keep all the details contained in this letter confidential.
  </tr>
  <tr style="height: 21px;">
   <td width="338" valign="top" style="width: 337px; padding: 0in; height: 21px;">
-  <p class="TableParagraph" style="margin: 0in 0in 0in 10px; font-family: Arial, sans-serif; font-size: 15px;"><span style="font-family: Inter, sans-serif; font-size: 13px;">EducationAllowance</span></p>
+  <p class="TableParagraph" style="margin: 0in 0in 0in 10px; font-family: Arial, sans-serif; font-size: 15px;"><span style="font-family: Inter, sans-serif; font-size: 13px;">Education Allowance</span></p>
   </td>
   <td width="362" valign="top" style="width: 361px; padding: 0in; height: 21px;">
   <p class="TableParagraph" align="right" style="margin: 0in 2px 0in 0in; font-family: Arial, sans-serif; text-align: right; font-size: 15px;"><span style="font-family: Inter, sans-serif; background: yellow; font-size: 13px;">0.00</span></p>
@@ -1180,7 +1181,7 @@ need to keep all the details contained in this letter confidential.
  </tr>
  <tr style="height: 21px;">
   <td width="338" valign="top" style="width: 337px; background: rgb(217, 217, 217); padding: 0in; height: 21px;">
-  <p class="TableParagraph" style="font-family: Arial, sans-serif; margin: 3px 0in 0px 10px; font-size: 15px;"><strong><span style="font-family: Inter, sans-serif; color: black; font-size: 13px;">Net TakeHome(PerMonth)</span></strong></p>
+  <p class="TableParagraph" style="font-family: Arial, sans-serif; margin: 3px 0in 0px 10px; font-size: 15px;"><strong><span style="font-family: Inter, sans-serif; color: black; font-size: 13px;">Net Take Home(PerMonth)</span></strong></p>
   </td>
   <td width="362" valign="top" style="width: 361px; background: rgb(217, 217, 217); padding: 0in; height: 21px;">
   <p class="TableParagraph" align="right" style="font-family: Arial, sans-serif; margin: 3px 2px 0px 0in; text-align: right; font-size: 15px;"><strong><span style="font-family: Inter, sans-serif; color: black; background: yellow; font-size: 13px;"> [COMPENSATION] </span></strong></p>
@@ -1188,7 +1189,7 @@ need to keep all the details contained in this letter confidential.
  </tr>
  <tr style="height: 21px;">
   <td width="338" valign="top" style="width: 337px; background: rgb(217, 217, 217); padding: 0in; height: 21px;">
-  <p class="TableParagraph" style="font-family: Arial, sans-serif; margin: 3px 0in 0px 10px; font-size: 15px;"><strong><span style="font-family: Inter, sans-serif; color: black; font-size: 13px;">TOTALCOSTTOTHECOMPANY(PerAnnum)</span></strong></p>
+  <p class="TableParagraph" style="font-family: Arial, sans-serif; margin: 3px 0in 0px 10px; font-size: 15px;"><strong><span style="font-family: Inter, sans-serif; color: black; font-size: 13px;">TOTAL COST TO THE COMPANY(PerAnnum)</span></strong></p>
   </td>
   <td width="362" valign="top" style="width: 361px; background: rgb(217, 217, 217); padding: 0in; height: 21px;">
   <p class="TableParagraph" align="right" style="font-family: Arial, sans-serif; margin: 3px 2px 0px 0in; text-align: right; font-size: 15px;"><strong><span style="font-family: Inter, sans-serif; color: black; background: yellow; font-size: 13px;">0000.00</span></strong></p>
@@ -1486,7 +1487,7 @@ need to keep all the details contained in this letter confidential.
  </tr>
  <tr style="height: 21px;">
   <td width="338" valign="top" style="width: 337px; padding: 0in; height: 21px;">
-  <p class="TableParagraph" style="font-family: Arial, sans-serif; margin: 1px 0in 0px 10px; font-size: 15px;"><span style="font-family: Inter, sans-serif; font-size: 13px;">ConveyanceAllowance</span></p>
+  <p class="TableParagraph" style="font-family: Arial, sans-serif; margin: 1px 0in 0px 10px; font-size: 15px;"><span style="font-family: Inter, sans-serif; font-size: 13px;">Conveyance Allowance</span></p>
   </td>
   <td width="362" valign="top" style="width: 361px; padding: 0in; height: 21px;">
   <p class="TableParagraph" align="right" style="font-family: Arial, sans-serif; margin: 1px 2px 0px 0in; text-align: right; font-size: 15px;"><span style="font-family: Inter, sans-serif; background: yellow; font-size: 13px;">000.00</span></p>
@@ -1503,7 +1504,7 @@ need to keep all the details contained in this letter confidential.
  </tr>
  <tr style="height: 21px;">
   <td width="338" valign="top" style="width: 337px; padding: 0in; height: 21px;">
-  <p class="TableParagraph" style="margin: 0in 0in 0in 10px; font-family: Arial, sans-serif; font-size: 15px;"><span style="font-family: Inter, sans-serif; font-size: 13px;">EducationAllowance</span></p>
+  <p class="TableParagraph" style="margin: 0in 0in 0in 10px; font-family: Arial, sans-serif; font-size: 15px;"><span style="font-family: Inter, sans-serif; font-size: 13px;">Education Allowance</span></p>
   </td>
   <td width="362" valign="top" style="width: 361px; padding: 0in; height: 21px;">
   <p class="TableParagraph" align="right" style="margin: 0in 2px 0in 0in; font-family: Arial, sans-serif; text-align: right; font-size: 15px;"><span style="font-family: Inter, sans-serif; background: yellow; font-size: 13px;">0.00</span></p>
@@ -1543,7 +1544,7 @@ need to keep all the details contained in this letter confidential.
  </tr>
  <tr style="height: 21px;">
   <td width="338" valign="top" style="width: 337px; background: rgb(217, 217, 217); padding: 0in; height: 21px;">
-  <p class="TableParagraph" style="font-family: Arial, sans-serif; margin: 3px 0in 0px 10px; font-size: 15px;"><strong><span style="font-family: Inter, sans-serif; color: black; font-size: 13px;">Net TakeHome(PerMonth)</span></strong></p>
+  <p class="TableParagraph" style="font-family: Arial, sans-serif; margin: 3px 0in 0px 10px; font-size: 15px;"><strong><span style="font-family: Inter, sans-serif; color: black; font-size: 13px;">Net Take Home(PerMonth)</span></strong></p>
   </td>
   <td width="362" valign="top" style="width: 361px; background: rgb(217, 217, 217); padding: 0in; height: 21px;">
   <p class="TableParagraph" align="right" style="font-family: Arial, sans-serif; margin: 3px 2px 0px 0in; text-align: right; font-size: 15px;"><strong><span style="font-family: Inter, sans-serif; color: black; background: yellow; font-size: 13px;"> [COMPENSATION] </span></strong></p>
@@ -1551,7 +1552,7 @@ need to keep all the details contained in this letter confidential.
  </tr>
  <tr style="height: 21px;">
   <td width="338" valign="top" style="width: 337px; background: rgb(217, 217, 217); padding: 0in; height: 21px;">
-  <p class="TableParagraph" style="font-family: Arial, sans-serif; margin: 3px 0in 0px 10px; font-size: 15px;"><strong><span style="font-family: Inter, sans-serif; color: black; font-size: 13px;">TOTALCOSTTOTHECOMPANY(PerAnnum)</span></strong></p>
+  <p class="TableParagraph" style="font-family: Arial, sans-serif; margin: 3px 0in 0px 10px; font-size: 15px;"><strong><span style="font-family: Inter, sans-serif; color: black; font-size: 13px;">TOTAL COST TO THE COMPANY (PerAnnum)</span></strong></p>
   </td>
   <td width="362" valign="top" style="width: 361px; background: rgb(217, 217, 217); padding: 0in; height: 21px;">
   <p class="TableParagraph" align="right" style="font-family: Arial, sans-serif; margin: 3px 2px 0px 0in; text-align: right; font-size: 15px;"><strong><span style="font-family: Inter, sans-serif; color: black; background: yellow; font-size: 13px;">0000.00</span></strong></p>
@@ -1949,6 +1950,7 @@ const DocumentManagement = ({ setAlert, pop, setPop }) => {
     workingHour: "[WORKHOUR]",
     workingDays: "[WORKINGDAYS]",
     compensation: "[COMPENSATION]",
+    annualCompensation:"[annualCompensation]",
     returningDay: "[RETURNINGDAY]",
     returningDate: "[RETURNINGDATE]",
     validJoin: "[VALIDJOIN]",
@@ -2014,6 +2016,8 @@ const DocumentManagement = ({ setAlert, pop, setPop }) => {
     experienceat: "[EXPERIENCEAT]",
     acceptDate: "[ACCEPTDATE]",
     startDate: "[STARTDATE]",
+    joiningDate:"[joiningDate]",
+    issueDate :"[issueDate]"
   });
 
   const [replaceData3, setReplaceData3] = useState({
@@ -2028,6 +2032,7 @@ const DocumentManagement = ({ setAlert, pop, setPop }) => {
     dear: "",
     post: "",
     compensation: "",
+    annualCompensation:"",
     joiningDate: "",
     employeeType: "Full-time Employee",
     workingHour: "",
@@ -2051,6 +2056,8 @@ const DocumentManagement = ({ setAlert, pop, setPop }) => {
     experienceat: "",
     acceptDate: "",
     startDate: "",
+    joiningDate:"",
+    issueDate:""
   });
 
   const [detail3, setDetail3] = useState({
@@ -2104,6 +2111,7 @@ const DocumentManagement = ({ setAlert, pop, setPop }) => {
     leave:""
 
   });
+  
 
   const handleNameChange = (e) => {
     const { name, value } = e.target;
@@ -2284,6 +2292,15 @@ const DocumentManagement = ({ setAlert, pop, setPop }) => {
   useEffect(() => {
     handleInsert1("employeeType");
   }, [currEmp]);
+    
+   // Calculate yearly compensation
+  
+   console.log(detail);
+   
+   const yearlyCompensation = detail.compensation
+   ? (parseFloat(detail.compensation) * 12).toFixed(2)
+   : "0.00";
+   console.log("yearly compensation",yearlyCompensation)
 
   return (
     <>
@@ -2418,13 +2435,24 @@ const DocumentManagement = ({ setAlert, pop, setPop }) => {
                           name="compensation"
                           value={detail.compensation}
                           onChange={handleNameChange}
-                          placeholder="Enter compensation"
+                          placeholder="Enter compensation monthly"
                         />
                         <button onClick={() => handleInsert1("compensation")}>
                           Insert
                         </button>
                       </label>
-
+                      <label>
+                        <input
+                          type="text"
+                          name="annualCompensation"
+                          value={detail.annualCompensation}
+                          onChange={handleNameChange}
+                          placeholder="Enter annual Compensation"
+                        />
+                        <button onClick={() => handleInsert1("annualCompensation")}>
+                          Insert
+                        </button>
+                      </label>
               
                       <label>
                         <div className="joindatewrap">
@@ -2447,13 +2475,19 @@ const DocumentManagement = ({ setAlert, pop, setPop }) => {
                   
 
                       <label>
-                        <input
-                          type="text"
+                       <div className="joindatewrap">
+                       <input
+                          type="time"
                           name="workingHour"
                           value={detail.workingHour}
                           onChange={handleNameChange}
-                          placeholder="Enter working Hour"
+                          placeholder="working Hour"
+                          
                         />
+                        
+                        <p>working Hour</p>
+                       </div>
+                        
                         <button onClick={() => handleInsert1("workingHour")}>
                           Insert
                         </button>
@@ -2484,7 +2518,7 @@ const DocumentManagement = ({ setAlert, pop, setPop }) => {
                           Insert
                         </button>
                       </label>
-
+{/* 
                       <label>
                         <input
                           type="text"
@@ -2496,7 +2530,7 @@ const DocumentManagement = ({ setAlert, pop, setPop }) => {
                         <button onClick={() => handleInsert1("returningDay")}>
                           Insert
                         </button>
-                      </label>
+                      </label> */}
 
                       <label>
                         <div className="joindatewrap">
@@ -2517,13 +2551,16 @@ const DocumentManagement = ({ setAlert, pop, setPop }) => {
                       </label>
 
                       <label>
-                        <input
-                          type="text"
+                       <div className="joindatewrap">
+                       <input
+                          type="Date"
                           name="validJoin"
                           value={detail.validJoin}
                           onChange={handleNameChange}
                           placeholder="Joining Time and Day"
                         />
+                         <p>Valid Join</p>
+                       </div>
                         <button onClick={() => handleInsert1("validJoin")}>
                           Insert
                         </button>
@@ -2569,7 +2606,7 @@ const DocumentManagement = ({ setAlert, pop, setPop }) => {
 
                     <div className="showoffercont">
                       <h2>OFFER CONFIRMATION LETTER</h2>
-
+                     
                       <div>
                         <div dangerouslySetInnerHTML={{ __html: content }} />
                       </div>
@@ -2609,6 +2646,7 @@ const DocumentManagement = ({ setAlert, pop, setPop }) => {
                       <div className="doSubFir">
                         <img src={docSub} alt="" />
                         <span>Offer Letter</span>
+                        
                       </div>
 
                       <hr />
@@ -2666,13 +2704,16 @@ const DocumentManagement = ({ setAlert, pop, setPop }) => {
                       </label>
 
                       <label>
-                        <input
-                          type="text"
+                       <div className="joindatewrap">
+                       <input
+                          type="time"
                           name="workHour"
                           value={detail2.workHour}
                           onChange={handleNameChange2}
                           placeholder="Work Hour"
                         />
+                       <p>work hour</p>
+                       </div>
                         <button onClick={() => handleInsert3("workHour")}>
                           Insert
                         </button>
@@ -2703,7 +2744,30 @@ const DocumentManagement = ({ setAlert, pop, setPop }) => {
                           Insert
                         </button>
                       </label>
-
+                      <label>
+                        <input
+                          type="text"
+                          name="joiningDate"
+                          value={detail2.joiningDate}
+                          onChange={handleNameChange2}
+                          placeholder="joining date"
+                        />
+                        <button onClick={() => handleInsert3("joiningDate")}>
+                          Insert
+                        </button>
+                      </label>
+                      <label>
+                        <input
+                          type="text"
+                          name="issueDate"
+                          value={detail2.issueDate}
+                          onChange={handleNameChange2}
+                          placeholder="issue Date"
+                        />
+                        <button onClick={() => handleInsert3("issueDate")}>
+                          Insert
+                        </button>
+                      </label>
                       <label>
                         <input
                           type="text"
@@ -2774,7 +2838,7 @@ const DocumentManagement = ({ setAlert, pop, setPop }) => {
 
                     <div className="showoffercont">
                       <h2>OFFER CONFIRMATION LETTER</h2>
-
+                 
                       <div>
                         <div dangerouslySetInnerHTML={{ __html: content4 }} />
                       </div>
@@ -3267,7 +3331,7 @@ const DocumentManagement = ({ setAlert, pop, setPop }) => {
                           name="annualIncome"
                           value={detail4.annualIncome}
                           onChange={handleNameChange4}
-                          placeholder="Enter annual Income"
+                          placeholder="Enter annual Income "
                         />
                         <button onClick={() => handleInsert5("annualIncome")}>
                           Insert
@@ -3674,7 +3738,7 @@ const DocumentManagement = ({ setAlert, pop, setPop }) => {
                       <label>
                         <div className="joindatewrap">
                           <input
-                            type="text"
+                            type="number"
                             name="workingDays"
                             value={detail5.workingDays}
                             onChange={handleNameChange5}

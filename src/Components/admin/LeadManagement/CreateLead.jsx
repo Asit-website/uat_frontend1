@@ -138,6 +138,15 @@ const CreateLead = ({ setAlert, pop, setPop }) => {
 
     const submitHandler = async () => {
         const toastId = toast.loading("Loading...");
+  // Check all required fields are filled
+  if (!formdata.Company || !formdata.FirstName || !formdata.Email || !formdata.Phone || !formdata.LeadStatus) {
+    toast.dismiss(toastId);
+    return toast.error("Please fill in all required fields.");
+}
+
+
+
+
         if (emailisValid === false && formdata.Email !== "") {
             toast.dismiss(toastId);
             return toast.error("Please Enter Correct Gmail")

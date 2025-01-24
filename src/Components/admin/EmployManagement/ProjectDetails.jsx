@@ -436,6 +436,7 @@ const ProjectDetails = ({ setAlert, pop, setPop }) => {
 
             <form 
               onSubmit={(e) => {
+                console.log("hi")
                 e.preventDefault();
                 if (isEdit) {
                   edittaskhandler();
@@ -528,6 +529,7 @@ const ProjectDetails = ({ setAlert, pop, setPop }) => {
                 />
               </label>
 
+              
               
             </form>
             <div className="btnsss">

@@ -18,7 +18,7 @@ const EmployeeSelf = ({ setAlert, pop1, setPop1 }) => {
 
    const location = useLocation();
    const state = location.state;
-
+   console.log("user details",user1)
    const [isChecked, setIsChecked] = useState(false);
    const [isChecked2, setIsChecked2] = useState(false);
    const [isChecked3, setIsChecked3] = useState(false);

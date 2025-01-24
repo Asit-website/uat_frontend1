@@ -873,7 +873,7 @@ color: #101820;
 
 .allClients {
     display: flex;
-    gap: 24px;
+    gap: 15px;
     flex-wrap: wrap;
 }
 
@@ -891,7 +891,7 @@ color: #101820;
     flex-direction: column;
     gap: 12px;
     align-items: center;
-    width: 373px;
+    width: 32%;
     padding: 10px 16px;
     background: #FFFFFF;
     border: 1px solid #E8E9EB;
@@ -1160,7 +1160,7 @@ color: #101820;
     align-items: center;
     gap: 16px;
     /* margin: 20px 0px; */
-    margin-bottom: 10px;
+    /* margin-bottom: 10px; */
 }
 
 .addClieCont .btnsss .saveclient {

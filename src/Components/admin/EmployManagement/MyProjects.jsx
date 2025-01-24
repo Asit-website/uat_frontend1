@@ -192,20 +192,20 @@ const MyProjects = ({ setAlert, pop, setPop }) => {
   projectCreatePermission && 
 
                 <div className="clibtns">
-                  <button
+                  {/* <button
                     onClick={() => {
                       setAddClientPop(true);
                     }}
                     className="newcli"
                   >
                     <img src={pluss} /> <span>Add Project</span>
-                  </button>
-                  <button className="impcli">
+                  </button> */}
+                  {/* <button className="impcli">
                     <span>Import Project</span>
                   </button>
                   <button className="expoclient">
                     <span>Export Project</span>
-                  </button>
+                  </button> */}
                 </div>
 
    }
@@ -378,7 +378,9 @@ const MyProjects = ({ setAlert, pop, setPop }) => {
                 />
               </label>
 
-              <div className="btnsss">
+             
+            </form>
+            <div className="btnsss">
                 <button type="submit" className="saveclient">
                   <span>Add Project</span>
                 </button>
@@ -400,8 +402,6 @@ const MyProjects = ({ setAlert, pop, setPop }) => {
                   <span>Cancel</span>
                 </button>
               </div>
-            </form>
-
           </div>
         </div>
       )}

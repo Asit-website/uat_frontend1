@@ -11,7 +11,7 @@ import toast from "react-hot-toast";
 import bxUser from "../../images/bx-user-pin.png";
 import { ImCross } from "react-icons/im";
 import * as EmailValidator from "email-validator";
-import validator from 'validator';
+import validator from "validator";
 import EmployeeSidebar from "../../Employee/Sidebar/EmployeeSidebar";
 import EmployeeNavbar from "../../Employee/Navbar/EmployeeNavbar";
 
@@ -56,21 +56,19 @@ const EmployeeManage = ({
     getDesignations,
     uploadDocuments,
     allEmployee,
-    uploadToCloudinaryImg
+    uploadToCloudinaryImg,
   } = useMain();
 
   const [employee, setEmployee] = useState([]);
 
   const getEmployee = async () => {
     const ans = await allEmployee();
-    console.log("Total employee here",ans)
+
     setEmployee(ans?.emp);
   };
   useEffect(() => {
     getEmployee();
   }, []);
-
-  
 
   const [value1, setValue1] = useState({
     status: false,
@@ -81,8 +79,8 @@ const EmployeeManage = ({
     reportingManager: "",
     designation: "",
     joiningDate: "",
-    PermissionRole: "" , 
-    employeeCode:""
+    PermissionRole: "",
+    employeeCode: "",
   });
 
   const [emailisValid, setIsemailValid] = useState(null);
@@ -91,9 +89,7 @@ const EmployeeManage = ({
   const handleValidation = () => {
     const valid = EmailValidator.validate(value1.email);
     setIsemailValid(valid);
-};
-
-
+  };
 
   const [value2, setValue2] = useState({
     status: false,
@@ -102,7 +98,7 @@ const EmployeeManage = ({
     mobile: "",
     gender: "",
     dob: "",
-    leaveNumber:"",
+    leaveNumber: "",
   });
 
   const handleValidation1 = () => {
@@ -126,7 +122,6 @@ const EmployeeManage = ({
     Martial: "",
     nationality: "",
     Mother: "",
-    
   });
 
   const [value4, setValue4] = useState({
@@ -165,7 +160,7 @@ const EmployeeManage = ({
   const fetchAllRoles = async () => {
     const ans = await AllRolesapi();
     setPermRole(ans?.data);
-  }
+  };
 
   useEffect(() => {
     let form1 = localStorage.getItem("form1");
@@ -220,7 +215,7 @@ const EmployeeManage = ({
     const { EmployeeType } = ans?.data || {};
 
     if (EmployeeType) {
-      const index = item.findIndex(i => i.title === EmployeeType);
+      const index = item.findIndex((i) => i.title === EmployeeType);
       if (index !== -1) {
         setCurrEmp(index);
       }
@@ -229,7 +224,9 @@ const EmployeeManage = ({
     let perm = "";
 
     if (ans?.data?.PermissionRole) {
-      const foundRole = PermRole?.find((role) => role?._id === ans.data.PermissionRole);
+      const foundRole = PermRole?.find(
+        (role) => role?._id === ans.data.PermissionRole
+      );
       if (foundRole) {
         perm = foundRole._id;
       }
@@ -244,7 +241,7 @@ const EmployeeManage = ({
       designation: ans.data.designation,
       joiningDate: ans.data.joiningDate,
       password: "",
-      PermissionRole: perm
+      PermissionRole: perm,
     });
     setValue2({
       status: false,
@@ -252,7 +249,7 @@ const EmployeeManage = ({
       email1: ans.data.email1,
       mobile: ans.data.mobile,
       gender: ans.data.gender,
-      leaveNumber:ans.data.leaveNumber,
+      leaveNumber: ans.data.leaveNumber,
       dob: ans.data.dob,
     });
     setValue3({
@@ -271,7 +268,6 @@ const EmployeeManage = ({
       Martial: ans.data.Martial,
       nationality: ans.data.nationality,
       Mother: ans.data.Mother,
-     
     });
     setValue4({
       status: false,
@@ -304,41 +300,31 @@ const EmployeeManage = ({
   const handleChange = (e, type) => {
     if (type === "form1") {
       setValue1({ ...value1, [e.target.name]: e.target.value });
-
-    }
-    else if (type === "form2") {
+    } else if (type === "form2") {
       if (e.target.name === "mobile" && e.target.value.length > 10) {
-        return
+        return;
+      }
+      if (e.target.name === "leaveNumber" && e.target.value.length > 0) {
+        // leaveNumber validation can be added here if needed
       }
       setValue2({ ...value2, [e.target.name]: e.target.value });
-
-    }
-    else if (type === "form2") {
-      if (e.target.name === "leaveNumber" && e.target.value.length >2) {
-        return
-      }
-      setValue2({ ...value2, [e.target.name]: e.target.value });
-
-    }
-    else if (type === "form3") {
+    } else if (type === "form3") {
       if (e.target.name === "pan" && e.target.value.length > 10) {
-        return
+        return;
       }
       if (e.target.name === "adhar" && e.target.value.length > 12) {
-        return
+        return;
       }
       if (e.target.name === "currentPin" && e.target.value.length > 6) {
-        return
+        return;
       }
       if (e.target.name === "perPin" && e.target.value.length > 6) {
-        return
+        return;
       }
       setValue3({ ...value3, [e.target.name]: e.target.value });
-    }
-    else if (type === "form4") {
+    } else if (type === "form4") {
       setValue4({ ...value4, [e.target.name]: e.target.value });
-    }
-    else if (type === "form5") {
+    } else if (type === "form5") {
       setValue5({ ...value5, [e.target.name]: e.target.value });
     }
   };
@@ -353,11 +339,9 @@ const EmployeeManage = ({
     RelievingLetter: "",
     OfferLetter: "",
     ExperienceLetter: "",
-
-
   });
 
-  const [previewImages, setPreviewImages] = useState({})
+  const [previewImages, setPreviewImages] = useState({});
 
   const handleFileChange = async (event, name) => {
     const file = event.target.files[0];
@@ -368,7 +352,7 @@ const EmployeeManage = ({
       }));
     }
 
-    // upload to cludinary for preview 
+    // upload to cludinary for preview
     const toastId = toast.loading("Wait...");
     const ans = await uploadToCloudinaryImg({ image: file });
 
@@ -376,8 +360,8 @@ const EmployeeManage = ({
       toast.success("Successfuly");
       setPreviewImages((prev) => ({
         ...prev,
-        [name]: ans?.data
-      }))
+        [name]: ans?.data,
+      }));
     }
     toast.dismiss(toastId);
   };
@@ -385,24 +369,29 @@ const EmployeeManage = ({
   const handleSubmit = async (e, type) => {
     e.preventDefault();
 
+    if (emailisValid === false && value1?.email !== "") {
+      toast.dismiss(toastId);
+      return toast.error("Please Enter Correct Gmail");
+    }
 
-   
-        if (emailisValid === false && value1?.email !== "") {
-            toast.dismiss(toastId);
-            return toast.error("Please Enter Correct Gmail")
-        }
+    if (emailisValid1 === false && value2?.email1 !== "") {
+      toast.dismiss(toastId);
+      return toast.error("Please Enter Correct Gmail");
+    }
 
-        if (emailisValid1 === false && value2?.email1 !== "") {
-          toast.dismiss(toastId);
-          return toast.error("Please Enter Correct Gmail")
-      }
+    if (value1.fullName === "") {
+      return toast.error("Please Enter Full Name");
+    }
 
-      if(value1.employeeCode === ""){
-        return toast.error("Please Enter Employee Code")
-      }
+    if (value1.department === "") {
+      return toast.error("Please Select Department");
+    }
 
-      const toastId = toast.loading("Loading...");
+    if (value1.employeeCode === "") {
+      return toast.error("Please Enter Employee Code");
+    }
 
+    const toastId = toast.loading("Loading...");
 
     if (!id) {
       const {
@@ -445,8 +434,15 @@ const EmployeeManage = ({
       if (documents.ExperienceLetter) {
         formData.append("ExperienceLetter", ExperienceLetter);
       }
-
-
+ // Log form data to console
+ console.log("Form Data being sent:", {
+  ...value1,
+  ...value2,
+  ...value3,
+  ...value4,
+  ...value5,
+  leaveNumber: value2.leaveNumber,
+});
       if (
         documents.adharCard !== "" ||
         documents.pancard !== "" ||
@@ -465,9 +461,8 @@ const EmployeeManage = ({
           ...value4,
           ...value5,
           formData,
-          employeeType: item[currEmp].title
+          employeeType: item[currEmp].title,
         });
-
       } else {
         const ans = await createEmployee1({
           ...value1,
@@ -475,9 +470,8 @@ const EmployeeManage = ({
           ...value3,
           ...value4,
           ...value5,
-          employeeType: item[currEmp].title
+          employeeType: item[currEmp].title,
         });
-
       }
 
       localStorage.removeItem("form1");
@@ -495,7 +489,7 @@ const EmployeeManage = ({
         reportingManager: "",
         designation: "",
         joiningDate: "",
-        PermissionRole: ""
+        PermissionRole: "",
       });
       setValue2({
         status: false,
@@ -503,7 +497,7 @@ const EmployeeManage = ({
         email1: "",
         mobile: "",
         gender: "",
-        leaveNumber:"",
+        leaveNumber: "",
         dob: "",
       });
       setValue3({
@@ -522,7 +516,6 @@ const EmployeeManage = ({
         Martial: "",
         nationality: "",
         Mother: "",
-        
       });
       setValue4({
         status: false,
@@ -563,7 +556,6 @@ const EmployeeManage = ({
         RelievingLetter,
         OfferLetter,
         ExperienceLetter,
-
       } = documents;
 
       const formData = new FormData();
@@ -593,7 +585,6 @@ const EmployeeManage = ({
       }
 
       if (
-
         adharCard !== "" ||
         pancard !== "" ||
         tenCert !== "" ||
@@ -604,7 +595,6 @@ const EmployeeManage = ({
         OfferLetter !== "" ||
         ExperienceLetter !== ""
       ) {
-
         const ans = await uploadDocuments(id, formData);
         if (ans?.success) {
           toast.success("Successfuly updated the documents");
@@ -627,13 +617,12 @@ const EmployeeManage = ({
 
   useEffect(() => {
     fetchAllRoles();
-  }, [])
-
+  }, []);
 
   return (
     <>
       <div className="employee-dash h-full">
-      {isHr ? (
+        {isHr ? (
           <HrSidebar />
         ) : role === "EMPLOYEE" ? (
           <EmployeeSidebar pop={pop} setPop={setPop} />
@@ -641,9 +630,8 @@ const EmployeeManage = ({
           <AdminSidebar pop={pop} setPop={setPop} />
         )}
 
-
         <div className="tm">
-        {isHr ? (
+          {isHr ? (
             <HrNavbar
               user={user}
               setAlert={setAlert}
@@ -657,7 +645,6 @@ const EmployeeManage = ({
           )}
 
           <div className="em">
-
             {/* first  */}
             <section className="adFri">
               {/* left side  */}
@@ -665,9 +652,11 @@ const EmployeeManage = ({
 
               {/* right side  */}
               <div className="adFrRIH">
-                <NavLink to="/adminDash/HRM/employeeManagement"><button className="calce">
-                  <span>Cancel</span>
-                </button></NavLink>
+                <NavLink to="/adminDash/HRM/employeeManagement">
+                  <button className="calce">
+                    <span>Cancel</span>
+                  </button>
+                </NavLink>
                 {/* <button className="register">
                   <span>Register New</span>
                 </button> */}
@@ -675,7 +664,6 @@ const EmployeeManage = ({
             </section>
 
             <div className="flex-col">
-
               {/* first sec */}
               <div className="leadInFir">
                 {item.map((e, index) => (
@@ -700,16 +688,13 @@ const EmployeeManage = ({
                 className="empmanagform"
               >
                 <div className="admin-mainnew ">
-
                   <div className="admin-form">
-
                     <div className="admin-form1">
                       <h2 className="admfperh2">Personal Detail</h2>
 
                       <div className="form-section">
                         <div>
                           <div className="flex flex-col emmanformwrap1">
-
                             <label>
                               <p>Full Name</p>
                               <input
@@ -781,9 +766,13 @@ const EmployeeManage = ({
                               <input
                                 onChange={(e) => {
                                   handleChange(e, "form1");
-                                  handleValidation(e.target.value)
+                                  handleValidation(e.target.value);
                                 }}
-                                className={`${(emailisValid === false && value1.email !== "") && "emailvalidinput"}`}
+                                className={`${
+                                  emailisValid === false &&
+                                  value1.email !== "" &&
+                                  "emailvalidinput"
+                                }`}
                                 type="email"
                                 // name="gmail"
                                 name="email"
@@ -883,25 +872,26 @@ const EmployeeManage = ({
                               for="email1"
                               className="block mb-0  font-medium"
                             >
-
                               <p> Personal Email Address</p>
                               <input
                                 type="email"
                                 id="email1"
                                 // rounded-lg  w-full
-                                className={`${(emailisValid1 === false && value2.email1 !== "") && "emailvalidinput"} rounded-lg  w-full`}
-                                
+                                className={`${
+                                  emailisValid1 === false &&
+                                  value2.email1 !== "" &&
+                                  "emailvalidinput"
+                                } rounded-lg  w-full`}
                                 // required
                                 name="email1"
                                 value={value2?.email1}
                                 onChange={(e) => {
                                   handleChange(e, "form2");
-                                  handleValidation1(e.target.value)
+                                  handleValidation1(e.target.value);
                                 }}
                                 disabled={value2.status}
                               />
                             </label>
-
 
                             <label
                               for="gender"
@@ -929,29 +919,23 @@ const EmployeeManage = ({
                             </label>
 
                             <div className="flex w-full">
-                            <div className="mb-6 w-full try">
-                              <label
-                                for="currentAddress"
-                                className="block mb-0  font-medium "
-                              >
-                                Total Leaves
-                              </label>
-                              <input
-                                type="number"
-                                id="leaveNumber"
-                                className="rounded-lg  w-full"
-                                // required
-                                name="leaveNumber"
-                                value={value2?.leaveNumber}
-                                onChange={(e) => {
-                                  handleChange(e, "form2");
-                                }}
-                                disabled={value2.status}
-                              />
+                              <div className="mb-6 w-full try">
+                                <label
+                                  htmlFor="leaveNumber"
+                                  className="block mb-0 font-medium"
+                                >
+                                  Total Leaves
+                                </label>
+                                <input
+                                  type="number"
+                                  id="leaveNumber"
+                                  className="rounded-lg w-full"
+                                  name="leaveNumber"
+                                  value={value2?.leaveNumber}
+                                  onChange={(e) => handleChange(e, "form2")}
+                                />
+                              </div>
                             </div>
-                          </div>
-
-
                           </div>
                         </div>
                       </div>
@@ -965,7 +949,6 @@ const EmployeeManage = ({
 
                       <div className="form2-class">
                         <div className="w-full mt-2 form2wrap">
-
                           <div className="makethisflex1">
                             <div className="mb-6 w-full try">
                               <label
@@ -1147,9 +1130,7 @@ const EmployeeManage = ({
                                 >
                                   Permanent Residence Address{" "}
                                 </label>
-                                <div className="flex items-center">
-
-                                </div>
+                                <div className="flex items-center"></div>
                               </div>
                               <input
                                 type="text"
@@ -1268,7 +1249,6 @@ const EmployeeManage = ({
                             />
                           </div>
 
-
                           <div className="flex w-full makethisflex1">
                             <div className="mb-6 w-full try">
                               <label
@@ -1333,20 +1313,16 @@ const EmployeeManage = ({
                                 disabled={value3.status}
                               />
                             </div>
-                           
                           </div>
-
                         </div>
                       </div>
                     </div>
-
                   </div>
 
                   <div className="admin-form">
                     {/* this is doc side  */}
 
                     <div className="admin-form1">
-
                       <div className="basics">
                         <h3>Documents</h3>
                       </div>
@@ -1370,31 +1346,37 @@ const EmployeeManage = ({
                                 className="filesjila"
                                 name="adharCard"
                                 type="file"
-                                onChange={(e) => handleFileChange(e, "adharCard")}
+                                onChange={(e) =>
+                                  handleFileChange(e, "adharCard")
+                                }
                               />
                             </div>
 
-                            {
-                              previewImages?.adharCard &&
+                            {previewImages?.adharCard && (
                               <div className="previewiamges">
-                                <nav> <ImCross onClick={() => {
-                                  setPreviewImages((prev) => {
-                                    const updatedPreviewImages = { ...prev };
-                                    delete updatedPreviewImages.adharCard;
-                                    return updatedPreviewImages
-                                  });
+                                <nav>
+                                  {" "}
+                                  <ImCross
+                                    onClick={() => {
+                                      setPreviewImages((prev) => {
+                                        const updatedPreviewImages = {
+                                          ...prev,
+                                        };
+                                        delete updatedPreviewImages.adharCard;
+                                        return updatedPreviewImages;
+                                      });
 
-                                  setDocuments((prev) => ({
-                                    ...prev,
-                                    adharCard: ""
-                                  }))
-
-
-                                }} className="cursor-pointer" /> </nav>
+                                      setDocuments((prev) => ({
+                                        ...prev,
+                                        adharCard: "",
+                                      }));
+                                    }}
+                                    className="cursor-pointer"
+                                  />{" "}
+                                </nav>
                                 <img src={previewImages?.adharCard} alt="" />
                               </div>
-                            }
-
+                            )}
                           </div>
 
                           {/* second */}
@@ -1415,29 +1397,32 @@ const EmployeeManage = ({
                               />
                             </div>
 
-                            {
-                              previewImages?.pancard &&
+                            {previewImages?.pancard && (
                               <div className="previewiamges">
-                                <nav> <ImCross onClick={() => {
-                                  setPreviewImages((prev) => {
-                                    const updatedPreviewImages = { ...prev };
-                                    delete updatedPreviewImages?.pancard;
-                                    return updatedPreviewImages
-                                  });
+                                <nav>
+                                  {" "}
+                                  <ImCross
+                                    onClick={() => {
+                                      setPreviewImages((prev) => {
+                                        const updatedPreviewImages = {
+                                          ...prev,
+                                        };
+                                        delete updatedPreviewImages?.pancard;
+                                        return updatedPreviewImages;
+                                      });
 
-                                  setDocuments((prev) => ({
-                                    ...prev,
-                                    pancard: ""
-                                  }))
-
-
-                                }} className="cursor-pointer" /> </nav>
+                                      setDocuments((prev) => ({
+                                        ...prev,
+                                        pancard: "",
+                                      }));
+                                    }}
+                                    className="cursor-pointer"
+                                  />{" "}
+                                </nav>
                                 <img src={previewImages?.pancard} alt="" />
                               </div>
-                            }
-
+                            )}
                           </div>
-
                         </div>
 
                         {/* this is second doc row  */}
@@ -1459,26 +1444,31 @@ const EmployeeManage = ({
                                 onChange={(e) => handleFileChange(e, "tenCert")}
                               />
                             </div>
-                            {
-                              previewImages?.tenCert &&
+                            {previewImages?.tenCert && (
                               <div className="previewiamges">
-                                <nav> <ImCross onClick={() => {
-                                  setPreviewImages((prev) => {
-                                    const updatedPreviewImages = { ...prev };
-                                    delete updatedPreviewImages?.tenCert;
-                                    return updatedPreviewImages
-                                  });
+                                <nav>
+                                  {" "}
+                                  <ImCross
+                                    onClick={() => {
+                                      setPreviewImages((prev) => {
+                                        const updatedPreviewImages = {
+                                          ...prev,
+                                        };
+                                        delete updatedPreviewImages?.tenCert;
+                                        return updatedPreviewImages;
+                                      });
 
-                                  setDocuments((prev) => ({
-                                    ...prev,
-                                    tenCert: ""
-                                  }))
-
-
-                                }} className="cursor-pointer" /> </nav>
+                                      setDocuments((prev) => ({
+                                        ...prev,
+                                        tenCert: "",
+                                      }));
+                                    }}
+                                    className="cursor-pointer"
+                                  />{" "}
+                                </nav>
                                 <img src={previewImages?.tenCert} alt="" />
                               </div>
-                            }
+                            )}
                           </div>
 
                           {/* second  */}
@@ -1492,31 +1482,38 @@ const EmployeeManage = ({
 
                               <input
                                 name="twevelCert"
-                                onChange={(e) => handleFileChange(e, "twevelCert")}
+                                onChange={(e) =>
+                                  handleFileChange(e, "twevelCert")
+                                }
                                 className="filesjila"
                                 type="file"
                               />
                             </div>
-                            {
-                              previewImages?.twevelCert &&
+                            {previewImages?.twevelCert && (
                               <div className="previewiamges">
-                                <nav> <ImCross onClick={() => {
-                                  setPreviewImages((prev) => {
-                                    const updatedPreviewImages = { ...prev };
-                                    delete updatedPreviewImages?.twevelCert;
-                                    return updatedPreviewImages
-                                  });
+                                <nav>
+                                  {" "}
+                                  <ImCross
+                                    onClick={() => {
+                                      setPreviewImages((prev) => {
+                                        const updatedPreviewImages = {
+                                          ...prev,
+                                        };
+                                        delete updatedPreviewImages?.twevelCert;
+                                        return updatedPreviewImages;
+                                      });
 
-                                  setDocuments((prev) => ({
-                                    ...prev,
-                                    twevelCert: ""
-                                  }))
-
-
-                                }} className="cursor-pointer" /> </nav>
+                                      setDocuments((prev) => ({
+                                        ...prev,
+                                        twevelCert: "",
+                                      }));
+                                    }}
+                                    className="cursor-pointer"
+                                  />{" "}
+                                </nav>
                                 <img src={previewImages?.twevelCert} alt="" />
                               </div>
-                            }
+                            )}
                           </div>
                         </div>
 
@@ -1534,35 +1531,41 @@ const EmployeeManage = ({
                                 className="filesjila"
                                 type="file"
                                 name="cancelCheque"
-                                onChange={(e) => handleFileChange(e, "cancelCheque")}
+                                onChange={(e) =>
+                                  handleFileChange(e, "cancelCheque")
+                                }
                               />
                             </div>
-                            {
-                              previewImages?.cancelCheque &&
+                            {previewImages?.cancelCheque && (
                               <div className="previewiamges">
-                                <nav> <ImCross onClick={() => {
-                                  setPreviewImages((prev) => {
-                                    const updatedPreviewImages = { ...prev };
-                                    delete updatedPreviewImages?.cancelCheque;
-                                    return updatedPreviewImages
-                                  });
+                                <nav>
+                                  {" "}
+                                  <ImCross
+                                    onClick={() => {
+                                      setPreviewImages((prev) => {
+                                        const updatedPreviewImages = {
+                                          ...prev,
+                                        };
+                                        delete updatedPreviewImages?.cancelCheque;
+                                        return updatedPreviewImages;
+                                      });
 
-                                  setDocuments((prev) => ({
-                                    ...prev,
-                                    cancelCheque: ""
-                                  }))
-
-
-                                }} className="cursor-pointer" /> </nav>
+                                      setDocuments((prev) => ({
+                                        ...prev,
+                                        cancelCheque: "",
+                                      }));
+                                    }}
+                                    className="cursor-pointer"
+                                  />{" "}
+                                </nav>
                                 <img src={previewImages?.cancelCheque} alt="" />
                               </div>
-                            }
+                            )}
                           </div>
 
                           {currEmp === 0 && (
                             <div className="thiddrapgsingl">
                               <h4>Last Organization</h4>
-
 
                               <div className="drag-area ">
                                 <img src={uploadFile} alt="" />
@@ -1571,31 +1574,41 @@ const EmployeeManage = ({
 
                                 <input
                                   name="LastOrganization"
-                                  onChange={(e) => handleFileChange(e, "LastOrganization")}
+                                  onChange={(e) =>
+                                    handleFileChange(e, "LastOrganization")
+                                  }
                                   className="filesjila"
                                   type="file"
                                 />
                               </div>
-                              {
-                                previewImages?.LastOrganization &&
+                              {previewImages?.LastOrganization && (
                                 <div className="previewiamges">
-                                  <nav> <ImCross onClick={() => {
-                                    setPreviewImages((prev) => {
-                                      const updatedPreviewImages = { ...prev };
-                                      delete updatedPreviewImages?.LastOrganization;
-                                      return updatedPreviewImages
-                                    });
+                                  <nav>
+                                    {" "}
+                                    <ImCross
+                                      onClick={() => {
+                                        setPreviewImages((prev) => {
+                                          const updatedPreviewImages = {
+                                            ...prev,
+                                          };
+                                          delete updatedPreviewImages?.LastOrganization;
+                                          return updatedPreviewImages;
+                                        });
 
-                                    setDocuments((prev) => ({
-                                      ...prev,
-                                      LastOrganization: ""
-                                    }))
-
-
-                                  }} className="cursor-pointer" /> </nav>
-                                  <img src={previewImages?.LastOrganization} alt="" />
+                                        setDocuments((prev) => ({
+                                          ...prev,
+                                          LastOrganization: "",
+                                        }));
+                                      }}
+                                      className="cursor-pointer"
+                                    />{" "}
+                                  </nav>
+                                  <img
+                                    src={previewImages?.LastOrganization}
+                                    alt=""
+                                  />
                                 </div>
-                              }
+                              )}
                             </div>
                           )}
                         </div>
@@ -1612,7 +1625,6 @@ const EmployeeManage = ({
                               <div className="thiddrapgsingl">
                                 <h4>Relieving Letter</h4>
 
-
                                 <div className="drag-area try">
                                   <img src={uploadFile} alt="" />
 
@@ -1622,36 +1634,45 @@ const EmployeeManage = ({
                                     className="filesjila "
                                     type="file"
                                     name="RelievingLetter"
-                                    onChange={(e) => handleFileChange(e, "RelievingLetter")}
+                                    onChange={(e) =>
+                                      handleFileChange(e, "RelievingLetter")
+                                    }
                                   />
                                 </div>
-                                {
-                                  previewImages?.RelievingLetter &&
+                                {previewImages?.RelievingLetter && (
                                   <div className="previewiamges">
-                                    <nav> <ImCross onClick={() => {
-                                      setPreviewImages((prev) => {
-                                        const updatedPreviewImages = { ...prev };
-                                        delete updatedPreviewImages?.RelievingLetter;
-                                        return updatedPreviewImages
-                                      });
+                                    <nav>
+                                      {" "}
+                                      <ImCross
+                                        onClick={() => {
+                                          setPreviewImages((prev) => {
+                                            const updatedPreviewImages = {
+                                              ...prev,
+                                            };
+                                            delete updatedPreviewImages?.RelievingLetter;
+                                            return updatedPreviewImages;
+                                          });
 
-                                      setDocuments((prev) => ({
-                                        ...prev,
-                                        RelievingLetter: ""
-                                      }))
-
-
-                                    }} className="cursor-pointer" /> </nav>
-                                    <img src={previewImages?.RelievingLetter} alt="" />
+                                          setDocuments((prev) => ({
+                                            ...prev,
+                                            RelievingLetter: "",
+                                          }));
+                                        }}
+                                        className="cursor-pointer"
+                                      />{" "}
+                                    </nav>
+                                    <img
+                                      src={previewImages?.RelievingLetter}
+                                      alt=""
+                                    />
                                   </div>
-                                }
+                                )}
                               </div>
 
                               {/* second  */}
 
                               <div className="thiddrapgsingl">
                                 <h4>Offer letter</h4>
-
 
                                 <div className="drag-area try">
                                   <img src={uploadFile} alt="" />
@@ -1662,29 +1683,39 @@ const EmployeeManage = ({
                                     name="OfferLetter"
                                     className="filesjila"
                                     type="file"
-                                    onChange={(e) => handleFileChange(e, "OfferLetter")}
+                                    onChange={(e) =>
+                                      handleFileChange(e, "OfferLetter")
+                                    }
                                   />
                                 </div>
-                                {
-                                  previewImages?.OfferLetter &&
+                                {previewImages?.OfferLetter && (
                                   <div className="previewiamges">
-                                    <nav> <ImCross onClick={() => {
-                                      setPreviewImages((prev) => {
-                                        const updatedPreviewImages = { ...prev };
-                                        delete updatedPreviewImages?.OfferLetter;
-                                        return updatedPreviewImages
-                                      });
+                                    <nav>
+                                      {" "}
+                                      <ImCross
+                                        onClick={() => {
+                                          setPreviewImages((prev) => {
+                                            const updatedPreviewImages = {
+                                              ...prev,
+                                            };
+                                            delete updatedPreviewImages?.OfferLetter;
+                                            return updatedPreviewImages;
+                                          });
 
-                                      setDocuments((prev) => ({
-                                        ...prev,
-                                        OfferLetter: ""
-                                      }))
-
-
-                                    }} className="cursor-pointer" /> </nav>
-                                    <img src={previewImages?.OfferLetter} alt="" />
+                                          setDocuments((prev) => ({
+                                            ...prev,
+                                            OfferLetter: "",
+                                          }));
+                                        }}
+                                        className="cursor-pointer"
+                                      />{" "}
+                                    </nav>
+                                    <img
+                                      src={previewImages?.OfferLetter}
+                                      alt=""
+                                    />
                                   </div>
-                                }
+                                )}
                               </div>
                             </div>
 
@@ -1703,29 +1734,39 @@ const EmployeeManage = ({
                                     className="filesjila"
                                     type="file"
                                     name="ExperienceLetter"
-                                    onChange={(e) => handleFileChange(e, "ExperienceLetter")}
+                                    onChange={(e) =>
+                                      handleFileChange(e, "ExperienceLetter")
+                                    }
                                   />
                                 </div>
-                                {
-                                  previewImages?.ExperienceLetter &&
+                                {previewImages?.ExperienceLetter && (
                                   <div className="previewiamges">
-                                    <nav> <ImCross onClick={() => {
-                                      setPreviewImages((prev) => {
-                                        const updatedPreviewImages = { ...prev };
-                                        delete updatedPreviewImages?.ExperienceLetter;
-                                        return updatedPreviewImages
-                                      });
+                                    <nav>
+                                      {" "}
+                                      <ImCross
+                                        onClick={() => {
+                                          setPreviewImages((prev) => {
+                                            const updatedPreviewImages = {
+                                              ...prev,
+                                            };
+                                            delete updatedPreviewImages?.ExperienceLetter;
+                                            return updatedPreviewImages;
+                                          });
 
-                                      setDocuments((prev) => ({
-                                        ...prev,
-                                        ExperienceLetter: ""
-                                      }))
-
-
-                                    }} className="cursor-pointer" /> </nav>
-                                    <img src={previewImages?.ExperienceLetter} alt="" />
+                                          setDocuments((prev) => ({
+                                            ...prev,
+                                            ExperienceLetter: "",
+                                          }));
+                                        }}
+                                        className="cursor-pointer"
+                                      />{" "}
+                                    </nav>
+                                    <img
+                                      src={previewImages?.ExperienceLetter}
+                                      alt=""
+                                    />
                                   </div>
-                                }
+                                )}
                               </div>
 
                               {/* second  */}
@@ -1749,9 +1790,7 @@ const EmployeeManage = ({
                             </div>
                           </>
                         )}
-
                       </div>
-
                     </div>
 
                     {/* this is backend acc side  */}
@@ -1916,7 +1955,6 @@ const EmployeeManage = ({
                         </div>
                       </div>
                     </div>
-
                   </div>
 
                   {/* this is button  */}
@@ -1929,12 +1967,9 @@ const EmployeeManage = ({
                       Register
                     </button>
                   </div>
-
                 </div>
               </form>
-
             </div>
-
           </div>
         </div>
       </div>
