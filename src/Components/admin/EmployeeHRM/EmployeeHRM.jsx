@@ -99,7 +99,7 @@ const EmployeeHRM = ({
   
       if (tasksData && tasksData.data) {
            
-        const reversedTasks = tasksData.data.slice(0,6);
+        const reversedTasks = tasksData.data.slice(0,5);
         
         setTasks(reversedTasks);
        }
