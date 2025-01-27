@@ -26,11 +26,10 @@ const ProjectDetails = ({ setAlert, pop, setPop }) => {
     CreateProjectTask,
     getProjectTask,
     deleteProjectTaskapi,
-    EditProjectTask, 
-   } = useMain();
+    EditProjectTask,
+  } = useMain();
 
   const location = useLocation();
-
   const data = location?.state;
 
   const [percentage, setPercentage] = useState(0);
@@ -39,7 +38,6 @@ const ProjectDetails = ({ setAlert, pop, setPop }) => {
   const [startedTask, setstartedTask] = useState(0);
 
   let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
-
   const { role } = hrms_user;
 
   const [formdata, setFormdata] = useState({
@@ -48,7 +46,6 @@ const ProjectDetails = ({ setAlert, pop, setPop }) => {
     Members: "",
     StartDate: "",
     DueDate: "",
-    // Project: "",
     Priority: "",
     Github: "",
   });
@@ -62,16 +59,13 @@ const ProjectDetails = ({ setAlert, pop, setPop }) => {
   };
 
   const [addClientPop, setAddClientPop] = useState(false);
-
   const [allEmp, setAllEmp] = useState([]);
-
   const [allProject, setAllProject] = useState([]);
   const [allTasks, setAllTasks] = useState([]);
   const [allTaskDetail, setAllTaskDetail] = useState([]);
 
   const getProjectTaskapi = async () => {
     const ans = await getProjectTask(data?._id);
-    console.log("task project  data",ans )
     const reversedTasks = ans?.data.reverse();
     setAllTaskDetail(ans?.data2);
     setAllTasks(reversedTasks);
@@ -82,19 +76,17 @@ const ProjectDetails = ({ setAlert, pop, setPop }) => {
     setAllProject(ans?.data);
   };
 
-  const submitHandler = async () => {
+  const submitHandler = async (e) => {
+    e.preventDefault();
     try {
       const toastId = toast.loading("Loading....");
-
       const ans = await CreateProjectTask({
         ...formdata,
         projectId: data?._id,
       });
-      console.log(ans);
       if (ans?.status) {
-        toast.success("Successfuly created task");
+        toast.success("Successfully created task");
       }
-
       setAddClientPop(false);
       getProjectTaskapi();
       setFormdata({
@@ -105,31 +97,27 @@ const ProjectDetails = ({ setAlert, pop, setPop }) => {
         DueDate: "",
         Github: "",
       });
-
       toast.dismiss(toastId);
     } catch (error) {
-      console.log(error);
-      toast.error("Something went wrong , please try again");
+      toast.error("Something went wrong, please try again");
     }
   };
 
-  const edittaskhandler = async () => {
+  const edittaskhandler = async (e) => {
+    e.preventDefault();
     try {
       const toastId = toast.loading("Loading....");
-
       const ans = await EditProjectTask({
         ...formdata,
         projectId: data?._id,
         taskId: isEdit,
       });
       if (ans?.status) {
-        toast.success("Successfuly Updated task");
+        toast.success("Successfully updated task");
       }
-
       setAddClientPop(false);
       setisEdit(false);
       getProjectTaskapi();
-     
       setFormdata({
         Title: "",
         Description: "",
@@ -138,11 +126,9 @@ const ProjectDetails = ({ setAlert, pop, setPop }) => {
         DueDate: "",
         Github: "",
       });
-
       toast.dismiss(toastId);
     } catch (error) {
-      console.log(error);
-      toast.error("Something went wrong , please try again");
+      toast.error("Something went wrong, please try again");
     }
   };
 
@@ -159,26 +145,14 @@ const ProjectDetails = ({ setAlert, pop, setPop }) => {
 
   useEffect(() => {
     const totalTasks = allTasks.length;
-    const completedTasks = allTasks.filter(
-      (task) => task.Status === "Completed"
-    ).length;
-
-    const notStartTasks = allTasks.filter(
-      (task) => task.Status === "Not Started"
-    ).length;
-
-    const startedtasks = allTasks.filter(
-      (task) => task.Status === "Started"
-    ).length;
-    const Pendingtasks = allTasks.filter(
-      (task) => task.Status === "Pending"
-    ).length;
-
+    const completedTasks = allTasks.filter((task) => task.Status === "Completed").length;
+    const notStartTasks = allTasks.filter((task) => task.Status === "Not Started").length;
+    const startedtasks = allTasks.filter((task) => task.Status === "Started").length;
+    const Pendingtasks = allTasks.filter((task) => task.Status === "Pending").length;
     const completedPercentage = (completedTasks / totalTasks) * 100;
     const notStartPercentage = (notStartTasks / totalTasks) * 100;
     const startedPercentage = (startedtasks / totalTasks) * 100;
     const PendingPercentage = (Pendingtasks / totalTasks) * 100;
-
     setPercentage(completedPercentage);
     setnotStartedTask(notStartPercentage);
     setstartedTask(startedPercentage);
@@ -186,27 +160,18 @@ const ProjectDetails = ({ setAlert, pop, setPop }) => {
   }, [allTasks]);
 
   const [isEdit, setisEdit] = useState(false);
-
   const [currentPage, setCurrentPage] = useState(1);
   const tasksPerPage = 5;
 
-  // Calculate the total number of pages
   const totalPages = Math.ceil(allTasks.length / tasksPerPage);
+  const currentTasks = allTasks.slice((currentPage - 1) * tasksPerPage, currentPage * tasksPerPage);
 
-  // Get the tasks for the current page
-  const currentTasks = allTasks.slice(
-    (currentPage - 1) * tasksPerPage,
-    currentPage * tasksPerPage
-  );
-
-  // Handle click for previous button
   const handlePrev = () => {
     if (currentPage > 1) {
       setCurrentPage(currentPage - 1);
     }
   };
 
-  // Handle click for next button
   const handleNext = () => {
     if (currentPage < totalPages) {
       setCurrentPage(currentPage + 1);
@@ -217,13 +182,12 @@ const ProjectDetails = ({ setAlert, pop, setPop }) => {
     const resp = await deleteProjectTaskapi(id);
     if (resp.status) {
       getProjectTaskapi();
-      toast.success("Succesfuly deleted");
+      toast.success("Successfully deleted");
     } else {
       toast.error("Something went wrong");
     }
   };
 
-  // THIS IS FOR  POPUP SHOW TASK TIMER DETAILS
   const [timerPop, setTimerPop] = useState(false);
 
   return (
@@ -234,14 +198,12 @@ const ProjectDetails = ({ setAlert, pop, setPop }) => {
         ) : (
           <AdminSidebar pop={pop} setPop={setPop} />
         )}
-
         <div className="tm">
           {role === "EMPLOYEE" ? (
             <EmployeeNavbar user={user} setAlert={setAlert} />
           ) : (
             <AdminNavbar user={user} setAlert={setAlert} />
           )}
-
           <div className="em">
             <div className="tclwrap">
               <nav>
@@ -257,7 +219,6 @@ const ProjectDetails = ({ setAlert, pop, setPop }) => {
                     {allProject?.Status}
                   </p>
                 </div>
-
                 <div className="clibtns">
                   <NavLink to="/adminDash/HRM/taskProjects">
                     <button className="backpro">
@@ -271,13 +232,11 @@ const ProjectDetails = ({ setAlert, pop, setPop }) => {
                     }}
                     className="newcli"
                   >
-                    <img src={pluss} /> <span>Add Task</span>
+                    <img src={pluss} alt="Add Task" /> <span>Add Task </span>
                   </button>
                 </div>
               </nav>
-
               <div className="prodlefriwrap">
-                {/* left side */}
                 <div className="leftprodetail">
                   <label>
                     <p className="filn">Start Date:</p>
@@ -294,8 +253,6 @@ const ProjectDetails = ({ setAlert, pop, setPop }) => {
                     <p className="proand">{data.Members?.length}</p>
                   </label>
                 </div>
-
-                {/* right side */}
                 <div className="righprodetail">
                   <div>
                     <img src={predit} alt="" />
@@ -305,9 +262,6 @@ const ProjectDetails = ({ setAlert, pop, setPop }) => {
                   </div>
                 </div>
               </div>
-
-              {/* this is all tasks now  */}
-
               <div className="relative overflow-x-auto">
                 <table className="w-full prodetailTable text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                   <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -341,7 +295,6 @@ const ProjectDetails = ({ setAlert, pop, setPop }) => {
                       </th>
                     </tr>
                   </thead>
-
                   <tbody>
                     {currentTasks.map((task, index) => (
                       <tr
@@ -383,35 +336,33 @@ const ProjectDetails = ({ setAlert, pop, setPop }) => {
                     ))}
                   </tbody>
                 </table>
-
-             {totalPages > 1 && (
-                 <div className="navbuttons flex justify-between items-center mt-4">
-                 <button
-                   onClick={handlePrev}
-                   disabled={currentPage === 1}
-                   className="px-4 py-2 bg-gray-300 rounded-md disabled:bg-gray-200"
-                 >
-                   Prev
-                 </button>
-                 <span className="px-4">{currentPage}</span>
-                 <button
-                   onClick={handleNext}
-                   disabled={currentPage === totalPages}
-                   className="px-4 py-2 bg-gray-300 rounded-md disabled:bg-gray-200"
-                 >
-                   Next
-                 </button>
-               </div>
-             )}
+                {totalPages > 1 && (
+                  <div className="navbuttons flex justify-between items-center mt-4">
+                    <button
+                      onClick={handlePrev}
+                      disabled={currentPage === 1}
+                      className="px-4 py-2 bg-gray-300 rounded-md disabled:bg-gray-200"
+                    >
+                      Prev
+                    </button>
+                    <span className="px-4">{currentPage}</span>
+                    <button
+                      onClick={handleNext}
+                      disabled={currentPage === totalPages}
+                      className="px-4 py-2 bg-gray-300 rounded-md disabled:bg-gray-200"
+                    >
+                      Next
+                    </button>
+                  </div>
+                )}
               </div>
             </div>
           </div>
         </div>
       </div>
-
       {addClientPop && (
-        <div className="addCliWrap" >
-          <div className="addClieCont addheight" >
+        <div className="addCliWrap">
+          <div className="addClieCont addheight">
             <nav>
               <p>Create New Task</p>
               <img
@@ -419,33 +370,31 @@ const ProjectDetails = ({ setAlert, pop, setPop }) => {
                   setAddClientPop(false);
                   setisEdit(false);
                   setFormdata({
-                    Name: "",
+                    Title: "",
                     Description: "",
                     Members: "",
-                    Status: "Ongoing",
+                    StartDate: "",
                     DueDate: "",
-                    Members: "",
+                    Priority: "",
+                    Github: "",
                   });
                 }}
                 src={cut}
-                alt=""
+                alt="Close"
               />
             </nav>
-
             <hr />
-
-            <form 
+            <form
               onSubmit={(e) => {
-                console.log("hi")
-                e.preventDefault();
                 if (isEdit) {
-                  edittaskhandler();
+                  edittaskhandler(e);
                 } else {
-                  submitHandler();
+                  submitHandler(e);
                 }
               }}
             >
-              <label >
+             <div style={{overflowY:"auto"}}>
+             <label>
                 <p>Subject</p>
                 <input
                   name="Title"
@@ -455,10 +404,8 @@ const ProjectDetails = ({ setAlert, pop, setPop }) => {
                   placeholder="Name"
                 />
               </label>
-
               <label>
                 <p>Assign To </p>
-
                 <select
                   name="Members"
                   value={formdata.Members}
@@ -472,10 +419,8 @@ const ProjectDetails = ({ setAlert, pop, setPop }) => {
                   ))}
                 </select>
               </label>
-
               <label>
                 <p>Priority </p>
-
                 <select
                   name="Priority"
                   value={formdata.Priority}
@@ -487,7 +432,6 @@ const ProjectDetails = ({ setAlert, pop, setPop }) => {
                   <option value="High">High</option>
                 </select>
               </label>
-
               <label>
                 <p>Start Date </p>
                 <input
@@ -497,7 +441,6 @@ const ProjectDetails = ({ setAlert, pop, setPop }) => {
                   type="date"
                 />
               </label>
-
               <label>
                 <p>Due Date</p>
                 <input
@@ -507,7 +450,6 @@ const ProjectDetails = ({ setAlert, pop, setPop }) => {
                   type="date"
                 />
               </label>
-
               <label>
                 <p>Github Link</p>
                 <input
@@ -517,7 +459,6 @@ const ProjectDetails = ({ setAlert, pop, setPop }) => {
                   type="text"
                 />
               </label>
-
               <label>
                 <p>Description</p>
                 <textarea
@@ -528,36 +469,35 @@ const ProjectDetails = ({ setAlert, pop, setPop }) => {
                   placeholder="Description"
                 />
               </label>
-
-              
-              
-            </form>
-            <div className="btnsss">
+             </div>
+              <div className="btnsss">
                 <button type="submit" className="saveclient">
-                  <span>{isEdit ? "Update" : "Add Task"}</span>
+                  <span>{isEdit ? "Update" : "Add Task "}</span>
                 </button>
                 <button
+                  type="button"
                   onClick={() => {
                     setAddClientPop(false);
                     setisEdit(false);
                     setFormdata({
-                      Name: "",
+                      Title: "",
                       Description: "",
                       Members: "",
-                      Status: "Ongoing",
+                      StartDate: "",
                       DueDate: "",
-                      Members: "",
+                      Priority: "",
+                      Github: "",
                     });
                   }}
                   className="cancel"
                 >
-                  <span>Cancel</span>
+                  <span>Cancel </span>
                 </button>
               </div>
+            </form>
           </div>
         </div>
       )}
-
       {timerPop && (
         <div className="addCliWrap">
           <div className="addClieCont fitheight">
@@ -568,50 +508,42 @@ const ProjectDetails = ({ setAlert, pop, setPop }) => {
                   setTimerPop(false);
                 }}
                 src={cut}
+                alt="Close"
               />
             </nav>
-
             <hr />
-
             <p>
-  Time In:{" "}
-  <input
-    type="datetime-local" 
-    onChange={(e) =>
-      setTimerPop((prev) => ({
-        ...prev,
-        timeIn: new Date(e.target.value).toISOString(), 
-      }))
-    }
-    value={
-      new Date(timerPop.timeIn).toISOString().slice(0, 16) 
-    }
-  />
-</p>
-
-
-<p>
-  Time Out:{" "}
-  <input
-    type="datetime-local" 
-    onChange={(e) =>
-      setTimerPop((prev) => ({
-        ...prev,
-        timeOut: new Date(e.target.value).getTime().toString(), 
-      }))
-    }
-    value={
-      new Date(Number(timerPop.timeOut)).toISOString().slice(0, 16) 
-    }
-  />
-</p>
-
-
-            <p>Total Time: <input type="text" value={timerPop?.totalTime} /> </p>
+              Time In:
+              <input
+                type="datetime-local"
+                onChange={(e) =>
+                  setTimerPop((prev) => ({
+                    ...prev,
+                    timeIn: new Date(e.target.value).toISOString(),
+                  }))
+                }
+                value={new Date(timerPop.timeIn).toISOString().slice(0, 16)}
+              />
+            </p>
+            <p>
+              Time Out:
+              <input
+                type="datetime-local"
+                onChange={(e) =>
+                  setTimerPop((prev) => ({
+                    ...prev,
+                    timeOut: new Date(e.target.value).getTime().toString(),
+                  }))
+                }
+                value={new Date(Number(timerPop.timeOut)).toISOString().slice(0, 16)}
+              />
+            </p>
+            <p>Total Time: <input type="text" value={timerPop?.totalTime} readOnly /> </p>
           </div>
         </div>
       )}
     </>
   );
 };
+
 export default ProjectDetails;

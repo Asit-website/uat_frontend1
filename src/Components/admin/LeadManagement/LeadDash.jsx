@@ -94,6 +94,8 @@ const LeadDash = ({ setAlert, pop, setPop }) => {
 
   const fetchTask = async () => {
     const data = await getTaskApi({ userId: hrms_user?._id });
+   
+
     if (data?.status) {
       setAllTask(data?.allTask);
     }

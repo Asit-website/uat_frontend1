@@ -926,7 +926,7 @@ toast.dismiss(toastId);
                         <div class="leaHEcUTwRAP">
 
                           <h3 class="leaveHead ">
-                             Leave Request
+                             Leave Request  
                           </h3>
 
                           <img src={cutt}  onClick={() => setStar1(false)} alt="" />

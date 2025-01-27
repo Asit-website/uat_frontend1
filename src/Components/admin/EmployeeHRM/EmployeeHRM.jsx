@@ -71,12 +71,13 @@ const EmployeeHRM = ({
     CreateExpense,
     getUserHalfDay,
     getProjectTask,
-    getTasks
+    
+    getAllTaskUser
     
   } = useMain();
 
   const user2 = JSON.parse(localStorage.getItem("hrms_user"));
-  console.log("Userdata is here",user2)
+  // console.log("Userdata is here",user2)
 
   const [counts, setCounts] = useState({
     activeEmployees: 0,
@@ -88,32 +89,29 @@ const EmployeeHRM = ({
    
     
   });
-  const [task, setTask] = useState([
-    {
-      name: "Chirag",
-      assignDate: "31/05/2023",
-      endDate: "31/05/2023",
-      task: "Madfish"
-    },
-    {
-      name: "Chirag",
-      assignDate: "31/05/2023",
-      endDate: "31/05/2023",
-      task: "Madfish"
-    },
-    {
-      name: "Chirag",
-      assignDate: "31/05/2023",
-      endDate: "31/05/2023",
-      task: "Madfish"
-    },
-    {
-      name: "Chirag",
-      assignDate: "31/05/2023",
-      endDate: "31/05/2023",
-      task: "Madfish"
-    },
-  ])
+  
+  const [tasks, setTasks] = useState([]);
+
+  const fetchTasks = async () => {
+    try {
+      const tasksData = await getAllTaskUser();
+
+  
+      if (tasksData && tasksData.data) {
+           
+        const reversedTasks = tasksData.data.slice(0,6);
+        
+        setTasks(reversedTasks);
+       }
+    } catch (error) {
+      console.error("Error fetching tasks:", error);
+    }
+  };
+  
+   useEffect(() => {
+    fetchTasks();
+  }, []);
+
   const [loadFlag, setLoadFlag] = useState(true);
 
   const [loading, setLoading] = useState(false);
@@ -226,7 +224,7 @@ const EmployeeHRM = ({
     setLoadFlag(false);
   };
 
-console.log("userdata".user)
+// console.log("userdata".user)
 
   var [clock, setClock] = useState(0);
   var [breakClock, setBreakClock] = useState(0);
@@ -729,7 +727,7 @@ console.log("userdata".user)
   const leavestypecount = async () => {
     const resp = await leaveTypeApi({ id: user2?._id });
 
-    console.log("total all type of  leaves is here",resp)
+    // console.log("total all type of  leaves is here",resp)
     setLeaveTaken(resp?.data?.totalLeaves);
     setLeavedata({
       casualLeave: resp?.data?.casualLeave,
@@ -891,7 +889,7 @@ console.log("userdata".user)
                           <img className="firImg" src={ac1} alt="" />
 
                           <div className="titWrap">
-                            <h3>Half Day Request</h3>
+                            <h3>Half Day Request </h3>
                             <p className="hrmlRNu">{totalHalfDay}</p>
                           </div>
                         </div>
@@ -911,7 +909,7 @@ console.log("userdata".user)
                           <img className="firImg" src={ac2} alt="" />
 
                           <div className="titWrap">
-                            <h3>Leave Request</h3>
+                            <h3>Leave Request </h3>
                             <p className="hrmlRNu">{totalLeave}</p>
                           </div>
                         </div>
@@ -1053,7 +1051,7 @@ console.log("userdata".user)
                       <div className="hrLefThi">
                         <h2 className="headind">
                           {" "}
-                          <img src={taskA} alt="" /> <span>Task Assign</span>
+                          <img src={taskA} alt="" /> <span>Task Assign  </span>
                         </h2>
 
                         <div className="relative overflow-x-auto">
@@ -1076,31 +1074,36 @@ console.log("userdata".user)
                               </tr>
                             </thead>
                             <tbody>
-                              {task?.map((val, index) => {
-                                return (
-                                  <tr
-                                    key={index}
-                                    className="bg-white border-b  "
-                                  >
-                                    <th
-                                      scope="row"
-                                      className="px-2 py-4 font-medium tasklo whitespace-nowrap taskAns "
-                                    >
-                                      {val?.name}
-                                    </th>
-                                    <td className="px-2 py-4 taskAns">
-                                      {val?.assignDate}
-                                    </td>
-                                    <td className="px-2 py-4 taskAns">
-                                      {val?.endDate}
-                                    </td>
-                                    <td className="px-2 py-4 taskAns">
-                                      {val?.task}
-                                    </td>
-                                  </tr>
-                                );
-                              })}
-                            </tbody>
+  {tasks?.length > 0 ? (
+    tasks.map((val, index) => (
+      <tr key={index} className="bg-white border-b">
+       
+        <th scope="row" className="px-2 py-4 font-medium tasklo whitespace-nowrap taskAns">
+          {val?.Members.fullName || "N/A"}
+        </th>
+       
+        <td className="px-2 py-4 taskAns">
+          {val?.StartDate || "N/A"}
+        </td>
+        {/* Render DueDate */}
+        <td className="px-2 py-4 taskAns">
+          {val?.DueDate || "N/A"}
+        </td>
+        {/* Render Description */}
+        <td className="px-2 py-4 taskAns">
+          {val?.Description || "N/A"}
+        </td>
+      </tr>
+    ))
+  ) : (
+    <tr>
+      <td colSpan="4" className="text-center py-4">
+        No tasks available.
+      </td>
+    </tr>
+  )}
+</tbody>
+
                           </table>
                         </div>
                       </div> 
@@ -1681,7 +1684,7 @@ console.log("userdata".user)
                               setShowLeave(true);
                             }}
                           >
-                            <span> Create Leave</span>
+                            <span style={{textDecoration:"none !important"}} > Create Leave</span>
                           </button>
 
                           {(hrms_permission?.userAllowCrtPermission ||
@@ -1934,7 +1937,7 @@ console.log("userdata".user)
     <div className="leavewrapping">
       <div className="crelevecont">
         <div class="crelavetopsec">
-          <h3 class="leaveHead">Leave Request</h3>
+          <h3 class="leaveHead">Leave Request </h3>
           <img src={cutt} onClick={() => setShowLeave(false)} alt="" />
         </div>
 
@@ -1942,104 +1945,101 @@ console.log("userdata".user)
 
         {/* <!-- Modal body --> */}
         <form className="levaecretaeform" action="#">
-          <div class="user_classleave">
-            <label>Leave type</label>
-            <select
-              name="leaveType"
-              onChange={changeHandler}
-              value={formdata.leaveType}
-              required
-            >
-              {leaveType.map((item, index) => (
-                <option value={item?.name} key={index}>
-                  {item?.name}
-                </option>
-              ))}
-            </select>
-          </div>
+  <div className="user_classleave">
+    <label>Leave type</label>
+    <select
+      name="leaveType"
+      onChange={changeHandler}
+      value={formdata.leaveType}
+      required
+    >
+      {leaveType.map((item, index) => (
+        <option value={item?.name} key={index}>
+          {item?.name}
+        </option>
+      ))}
+    </select>
+  </div>
 
-          <div className="levaecreflex">
-            <div class="user_class_input3 w-full mt-2">
-              <label
-                for="text"
-                class="block mb-2 text-sm font-medium text-gray-900 employName"
-              >
-                Start
-              </label>
-              <input
-                value={formdata.start}
-                onChange={changeHandler}
-                type="date"
-                name="start"
-                id="text"
-                class="startDate"
-                required
-              />
-            </div>
+  <div className="levaecreflex">
+    <div className="user_class_input3 w-full mt-2">
+      <label
+        htmlFor="text"
+        className="block mb-2 text-sm font-medium text-gray-900 employName"
+      >
+        Start
+      </label>
+      <input
+        value={formdata.start}
+        onChange={changeHandler}
+        type="date"
+        name="start"
+        id="text"
+        className="startDate"
+        required
+      />
+    </div>
 
-            <div class="user_class_input3 w-full ml-2 mt-2">
-              <label
-                for="text"
-                class="block mb-2 text-sm font-medium text-gray-900 employName"
-              >
-                End
-              </label>
-              <input
-                value={formdata.end}
-                onChange={changeHandler}
-                type="date"
-                name="end"
-                id="text"
-                class="startDate"
-                required
-              />
-            </div>
-          </div>
+    <div className="user_class_input3 w-full ml-2 mt-2">
+      <label
+        htmlFor="text"
+        className="block mb-2 text-sm font-medium text-gray-900 employName"
+      >
+        End
+      </label>
+      <input
+        value={formdata.end}
+        onChange={changeHandler}
+        type="date"
+        name="end"
+        id="text"
+        className="startDate"
+        required
+      />
+    </div>
+  </div>
 
-          <div class="levelreasons">
-            <label
-              for="message"
-              class="block mb-2 mt-2 text-sm font-medium text-gray-900 employName"
-            >
-              Reason
-            </label>
-            <textarea
-              required
-              name="reason"
-              onChange={changeHandler}
-              value={formdata.reason}
-              id="message"
-              rows="4"
-              class="reasonText2"
-              placeholder="Enter your reason..."
-            ></textarea>
-          </div>
+  <div className="levelreasons">
+    <label
+      htmlFor="message"
+      className="block mb-2 mt-2 text-sm font-medium text-gray-900 employName"
+    >
+      Reason
+    </label>
+    <textarea
+      required
+      name="reason"
+      onChange={changeHandler}
+      value={formdata.reason}
+      id="message"
+      rows="4"
+      className="reasonText2"
+      placeholder="Enter your reason..."
+    ></textarea>
+  </div>
 
-          <div className="leavebuttons">
-            <button
-              onClick={(e) => {
-                e.preventDefault();
-                if (validateForm(formdata)) {
-                  submitHandler(e);
-                } else {
-                  alert("Please fill out all required fields.");
-                }
-              }}
-              type="button"
-              className="leaverqbtns"
-            >
-              <span>Request send</span>
-            </button>
+  <div className="leavebuttons">
+    <button
+      onClick={(e) => {
+        e.preventDefault();
+        submitHandler(e);
+      }}
+      type="button"
+      className="leaverqbtns"
+    >
+      <span style={{ textDecoration: "none!important" }}>Request send</span>
+    </button>
 
-            <button
-              onClick={() => setStar1(false)}
-              type="button"
-              class="levacanclebtns"
-            >
-              <span>Cancel</span>
-            </button>
-          </div>
-        </form>
+    <button
+      onClick={() => setStar1(false)}
+      type="button"
+      className="levacanclebtns"
+    >
+      <span>Cancel</span>
+    </button>
+  </div>
+</form>
+
       </div>
     </div>
   </>

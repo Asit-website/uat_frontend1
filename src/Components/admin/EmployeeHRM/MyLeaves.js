@@ -26,7 +26,7 @@ const MyLeaves = ({
   isHr = false,
 }) => {
 
-  const [star1, setStar1] = useState(false);
+ const [star1, setStar1] = useState(false);
 
 
   const styleThing = {
@@ -56,18 +56,37 @@ const MyLeaves = ({
 
 
 
+  // const getData = async () => {
+  //   let ans = await FetchMyLeave();
+  //   console.log("my leaves data ", ans);
+  //   const reverseData = ans?.data?.reverse();
+  //   setData(reverseData);
+  // };
+
+  // useEffect(() => {
+  //   getData();
+
+  // }, []);
   const getData = async () => {
     let ans = await FetchMyLeave();
-    console.log("my leaves", ans);
-    const reverseData = ans?.data?.reverse();
+    console.log("my leaves data ", ans);
+  
+    // Combine full-day and half-day leaves with an additional property
+    const fullDayLeaves = ans?.data?.fullDayLeaves.map(leave => ({ ...leave, isHalfDay: false })) || [];
+    const halfDayLeaves = ans?.data?.halfDayLeaves.map(leave => ({ ...leave, isHalfDay: true })) || [];
+  
+    // Combine both arrays
+    const combinedLeaves = [...fullDayLeaves, ...halfDayLeaves];
+  
+    // Sort the combined array if needed
+    const reverseData = combinedLeaves.reverse();
+    
     setData(reverseData);
   };
-
+  
   useEffect(() => {
     getData();
-
   }, []);
-
 
   const [showPlay, setShowPlay] = useState(-1);
 
@@ -154,12 +173,12 @@ const MyLeaves = ({
                           LEAVE REASON
                         </th>
                         <th scope="col" className="px-2 py-3">
-                          STATUS
+                          STATUS 
                         </th>
 
                       </tr>
                     </thead>
-
+{/* 
                     <tbody>
                       {data?.map((e, index) => {
                         return (
@@ -187,8 +206,26 @@ const MyLeaves = ({
 
 
 
-                    </tbody>
-
+                    </tbody> */}
+<tbody>
+  {data?.map((e, index) => {
+    return (
+      <tr onClick={() => setLeavePopup(e)} key={index} className="bg-white trtextalltr cursor-pointer gfg border-b">
+        <td className="px-2 py-3">{e?.leaveType}</td>
+        <td className="px-2 py-3">{formatDate(e?.appliedOn)}</td>
+        <td className="px-2 py-3">{e?.from}</td>
+        <td className="px-2 py-3">{e?.to}</td>
+        <td className="px-2 py-3">
+          {e?.isHalfDay ? 0.5 : (Number(e?.days) || 1)}
+        </td>
+        <td className="px-2 py-3">{e?.reason?.slice(0, 34)}...</td>
+        <td className="px-2 py-3">
+          <div className="ACTIVITYsss">{e?.status === "" ? "Pending" : e?.status}</div>
+        </td>
+      </tr>
+    );
+  })}
+</tbody>
 
                   </table>
                 </div>

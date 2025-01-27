@@ -438,7 +438,7 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
                 </div>
 
                 {/* right side */}
-                {/* <div className="righprodetail">
+                <div className="righprodetail">
                   <div className="timerdives">
                     <p>{Math.floor(clock / 3600)}</p>:
                     <p>{Math.floor((clock % 3600) / 60)}</p>:<p>{clock % 60}</p>
@@ -450,13 +450,13 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
                     </div>
                   )}
 
-                  <div>
+                  {/* <div>
                     <img src={predit} alt="" />
                   </div>
                   <div>
                     <img src={predel} alt="" />
-                  </div>
-                </div> */}
+                  </div> */}
+                </div>
               </div>
 
               {/* this is all tasks now  */}

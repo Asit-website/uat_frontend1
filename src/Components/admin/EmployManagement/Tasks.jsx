@@ -67,6 +67,7 @@ const Tasks = ({ setAlert, pop, setPop }) => {
 
   const getAllProjectAllTask = async()=>{
     const ans = await getAllProjectAllTaskApi();
+    console.log("getAllProjectAllTaskApi",ans)
      setAllTasks(ans?.data);
 
  }
