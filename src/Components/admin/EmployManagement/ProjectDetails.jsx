@@ -254,12 +254,12 @@ const ProjectDetails = ({ setAlert, pop, setPop }) => {
                   </label>
                 </div>
                 <div className="righprodetail">
-                  <div>
+                  {/* <div>
                     <img src={predit} alt="" />
                   </div>
                   <div>
                     <img src={predel} alt="" />
-                  </div>
+                  </div> */}
                 </div>
               </div>
               <div className="relative overflow-x-auto">
@@ -364,7 +364,7 @@ const ProjectDetails = ({ setAlert, pop, setPop }) => {
         <div className="addCliWrap">
           <div className="addClieCont addheight">
             <nav>
-              <p>Create New Task</p>
+              <p>{isEdit ? "Edit" : "Create" }</p>
               <img
                 onClick={() => {
                   setAddClientPop(false);

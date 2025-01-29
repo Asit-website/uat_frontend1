@@ -57,7 +57,7 @@ const EmployeeNavbar = ({ setAlert, pop1, setPop1 }) => {
 
   const getData = async () => {
     let data = await getActivitiesByUser(todayDate, "", "", 0, 10, "");
-    console.log(data);
+    // console.log(data);
 
     if (data.data.length > 0) {
       let isLoggedOut =
@@ -167,7 +167,7 @@ const EmployeeNavbar = ({ setAlert, pop1, setPop1 }) => {
           status,
         });
 
-        console.log(ans);
+        // console.log(ans);
       } else {
         setIsPunched(false);
         clearInterval(tc);
@@ -218,7 +218,7 @@ const EmployeeNavbar = ({ setAlert, pop1, setPop1 }) => {
           hours: timer,
           status,
         });
-        console.log(ans);
+        // console.log(ans);
       }
     } else {
       // alert("you have been logged out. Please login next working day!");
@@ -246,6 +246,7 @@ const EmployeeNavbar = ({ setAlert, pop1, setPop1 }) => {
 
   const fetchNotification = async () => {
     const ans = await fetchUserNotify();
+    // console.log("fetch notifiaction",ans)
     if (ans.status) {
       // setAllNotification(ans?.notifications);
       let notifications = ans?.notifications;

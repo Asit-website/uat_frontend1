@@ -5100,7 +5100,7 @@ abbr:where([title]) {
 
 .user_class_input textarea {
   width: 100%;
-  height: 100px;
+  height: 60px;
   resize: none;
   padding: 8px 16px;
   border-radius: 10px;

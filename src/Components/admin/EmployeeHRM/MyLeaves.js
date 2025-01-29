@@ -26,7 +26,7 @@ const MyLeaves = ({
   isHr = false,
 }) => {
 
- const [star1, setStar1] = useState(false);
+  const [star1, setStar1] = useState(false);
 
 
   const styleThing = {
@@ -34,8 +34,7 @@ const MyLeaves = ({
   };
 
   const { user, FetchMyLeave } = useMain();
-   
-  const [data, setData] = useState([]);
+
 
   let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
   let hrms_permission = JSON.parse(localStorage.getItem("hrms_permission"));
@@ -67,23 +66,26 @@ const MyLeaves = ({
   //   getData();
 
   // }, []);
+
+  const [data, setData] = useState([]);
+
   const getData = async () => {
     let ans = await FetchMyLeave();
     console.log("my leaves data ", ans);
-  
+
     // Combine full-day and half-day leaves with an additional property
     const fullDayLeaves = ans?.data?.fullDayLeaves.map(leave => ({ ...leave, isHalfDay: false })) || [];
     const halfDayLeaves = ans?.data?.halfDayLeaves.map(leave => ({ ...leave, isHalfDay: true })) || [];
-  
+
+
     // Combine both arrays
     const combinedLeaves = [...fullDayLeaves, ...halfDayLeaves];
-  
-    // Sort the combined array if needed
-    const reverseData = combinedLeaves.reverse();
-    
-    setData(reverseData);
+    const sortedLeaves = combinedLeaves.sort((a, b) => new Date(b.appliedOn) - new Date(a.appliedOn));
+    // const reverseData = sortedLeaves.reverse();
+
+    setData(sortedLeaves);
   };
-  
+
   useEffect(() => {
     getData();
   }, []);
@@ -173,12 +175,12 @@ const MyLeaves = ({
                           LEAVE REASON
                         </th>
                         <th scope="col" className="px-2 py-3">
-                          STATUS 
+                          STATUS
                         </th>
 
                       </tr>
                     </thead>
-{/* 
+                    {/* 
                     <tbody>
                       {data?.map((e, index) => {
                         return (
@@ -203,29 +205,27 @@ const MyLeaves = ({
                           </tr>
                         )
                       })}
-
-
-
                     </tbody> */}
-<tbody>
-  {data?.map((e, index) => {
-    return (
-      <tr onClick={() => setLeavePopup(e)} key={index} className="bg-white trtextalltr cursor-pointer gfg border-b">
-        <td className="px-2 py-3">{e?.leaveType}</td>
-        <td className="px-2 py-3">{formatDate(e?.appliedOn)}</td>
-        <td className="px-2 py-3">{e?.from}</td>
-        <td className="px-2 py-3">{e?.to}</td>
-        <td className="px-2 py-3">
-          {e?.isHalfDay ? 0.5 : (Number(e?.days) || 1)}
-        </td>
-        <td className="px-2 py-3">{e?.reason?.slice(0, 34)}...</td>
-        <td className="px-2 py-3">
-          <div className="ACTIVITYsss">{e?.status === "" ? "Pending" : e?.status}</div>
-        </td>
-      </tr>
-    );
-  })}
-</tbody>
+                    <tbody>
+                      {data?.map((e, index) => {
+                        return (
+                          <tr onClick={() => setLeavePopup(e)} key={index} className="bg-white trtextalltr cursor-pointer gfg border-b">
+                            {/* <td className="px-2 py-3">{e?.leaveType}</td> */}
+                            <td className="px-2 py-3"> {e?.isHalfDay ? "Half Day" : e?.leaveType || "Full Day"}</td>
+                            <td className="px-2 py-3">{formatDate(e?.appliedOn)}</td>
+                            <td className="px-2 py-3">{e?.from}</td>
+                            <td className="px-2 py-3">{e?.to}</td>
+                            <td className="px-2 py-3">
+                              {e?.isHalfDay ? 0.5 : (Number(e?.days) || 1)}
+                            </td>
+                            <td className="px-2 py-3">{e?.reason?.slice(0, 34)}...</td>
+                            <td className="px-2 py-3">
+                              <div className="ACTIVITYsss">{e?.status === "" ? "Pending" : e?.status}</div>
+                            </td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
 
                   </table>
                 </div>

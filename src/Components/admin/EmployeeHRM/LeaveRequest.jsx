@@ -8,15 +8,14 @@ import chevron from "../../images/chevron_right.png";
 import "./hrm.css";
 import "./leaveReq.css";
 import { NavLink } from "react-router-dom";
-import cancel from "../../images/cancell.png"
+import cancel from "../../images/cancell.png";
 
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import EmployeeSidebar from "../../Employee/Sidebar/EmployeeSidebar";
 import EmployeeNavbar from "../../Employee/Navbar/EmployeeNavbar";
 import { RxCross2 } from "react-icons/rx";
-import Alert from './../../Alert/Alert';
-
+import Alert from "./../../Alert/Alert";
 
 const LeaveRequest = ({
   pop1,
@@ -26,86 +25,99 @@ const LeaveRequest = ({
   setAlert,
   isHr = false,
 }) => {
-
   const [star1, setStar1] = useState(false);
-
 
   const styleThing = {
     display: star1 ? "block" : "none",
   };
 
-  const { user, getUserLeaves , deleteLeave , updateLeave , acceptLeave , rejectLeave , postNotifyLeavereq } = useMain();
+  const {
+    user,
+    getUserLeaves,
+    deleteLeave,
+    updateLeave,
+    acceptLeave,
+    rejectLeave,
+    postNotifyLeavereq,
+  } = useMain();
 
   const [data, setData] = useState([]);
 
   let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
   let hrms_permission = JSON.parse(localStorage.getItem("hrms_permission"));
 
+  const { role } = hrms_user;
+  const { leaveReqestEditPermission } = hrms_permission;
 
-  const {role } = hrms_user;
-  const {  leaveReqestEditPermission } = hrms_permission;
+  const [accept, setAccept] = useState("reject", user);
 
-
-  const [accept,setAccept] = useState("reject",user);
-
-
-  const getData=async()=>{
+  const getData = async () => {
     let ans = await getUserLeaves();
     const reverseArray = ans?.data?.reverse();
     setData(reverseArray);
   };
 
-  useEffect(()=>{
+  useEffect(() => {
     getData();
-
-  },[]);
+  }, []);
 
   const formatDate = (dateString) => {
     const dateObject = new Date(dateString);
-    const formattedDate = dateObject.toLocaleDateString('en-GB', {
-      day: '2-digit',
-      month: 'short',
-      year: 'numeric',
+    const formattedDate = dateObject.toLocaleDateString("en-GB", {
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
     });
     return formattedDate;
   };
 
+  const [formdata, setFormdata] = useState({
+    employeeName: "",
+    leaveType: "",
+    start: "",
+    end: "",
+    reason: "",
+    id: "",
+  });
 
-  const [formdata , setFormdata] = useState({
-    employeeName:"" , leaveType:"" , start:"" , end:"" , reason:"" , id:""
-  })
+  const changeHandler = (e) => {
+    const { name, value } = e.target;
 
-  const changeHandler = (e)=>{
-    const {name ,value} = e.target;
+    setFormdata((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
 
-    setFormdata((prev)=>({
-      ...prev ,
-      [name]:value
-    }))
-  }
+  const [showPlay, setShowPlay] = useState(-1);
 
-   const [showPlay , setShowPlay] = useState(-1);
+  const [leavePopup, setLeavePopup] = useState(false);
 
-   const [leavePopup , setLeavePopup] = useState(false);
-
-   const submitHandler = async()=>{
+  const submitHandler = async () => {
     const toastId = toast.loading("Loading...");
     const startDate = new Date(formdata.start);
     const endDate = new Date(formdata.end);
     const timeDifference = Math.abs(endDate - startDate);
     const daysGap = Math.ceil(timeDifference / (1000 * 60 * 60 * 24));
 
-  const ans = await updateLeave({ employeeName: formdata.employeeName ,  id:formdata.id ,  type: formdata.leaveType, from: formdata.start, to: formdata.end, days: daysGap, reason: formdata.reason});
+    const ans = await updateLeave({
+      employeeName: formdata.employeeName,
+      id: formdata.id,
+      type: formdata.leaveType,
+      from: formdata.start,
+      to: formdata.end,
+      days: daysGap,
+      reason: formdata.reason,
+    });
 
-   if(ans.success){
-    toast.success("Successfuly updated");
-    setStar1(false);
-    getData();
-   }
+    if (ans.success) {
+      toast.success("Successfuly updated");
+      setStar1(false);
+      getData();
+    }
 
-   toast.dismiss(toastId);
-
-   }
+    toast.dismiss(toastId);
+  };
 
   //  const rejectHandler = async(form)=>{
 
@@ -114,7 +126,6 @@ const LeaveRequest = ({
 
   //   const userName = user.fullName;
 
-    
   //  const ans = await rejectLeave(form , _id);
 
   //   const notify = await postNotifyLeavereq(userName , "Rejected");
@@ -127,14 +138,14 @@ const LeaveRequest = ({
   //     if(userName){
   //       setAccept(!accept);
   //     }
-  
+
   //   }
 
   //   toast.dismiss(toastId);
   // }
-  
-  // const acceptHandler = async(form)=>{  
-        
+
+  // const acceptHandler = async(form)=>{
+
   //   const toastId =toast.loading("Loading...");
   //   const {user ,_id ,from ,to } = form;
   //   const userId = form?.user?._id;
@@ -147,7 +158,7 @@ const LeaveRequest = ({
   //   window.prompt("notification reached successfully");
 
   //   if(ans?.status){
-      
+
   //     toast.success("Successfuly Accepted the leave");
   //     setShowPlay(-1);
   //     getData();
@@ -158,16 +169,16 @@ const LeaveRequest = ({
   //   toast.dismiss(toastId);
 
   //  }
-  const acceptHandler = async (form) => {  
+  const acceptHandler = async (form) => {
     const toastId = toast.loading("Loading...");
     const { user, _id, from, to } = form;
     const userId = form?.user?._id;
     const userName = user.fullName;
-  
+
     try {
       const ans = await acceptLeave(form, _id, userId, from, to);
       const notify = await postNotifyLeavereq(userName, "Accepted");
-  
+
       if (ans?.status) {
         toast.success("Successfully Accepted the leave");
         setShowPlay(-1); // Reset the dropdown visibility
@@ -183,16 +194,16 @@ const LeaveRequest = ({
       toast.dismiss(toastId);
     }
   };
-  
+
   const rejectHandler = async (form) => {
     const toastId = toast.loading("Loading...");
     const { user, _id } = form;
     const userName = user.fullName;
-  
+
     try {
       const ans = await rejectLeave(form, _id);
       const notify = await postNotifyLeavereq(userName, "Rejected");
-  
+
       if (ans?.status) {
         toast.success("Successfully Rejected the leave");
         setShowPlay(-1); // Reset the dropdown visibility
@@ -208,20 +219,17 @@ const LeaveRequest = ({
       toast.dismiss(toastId);
     }
   };
-  
 
   return (
     <>
       <div className="employee-dash h-full">
-        {isHr ? <HrSidebar /> :
-
-        
-  role=== "EMPLOYEE" ?
-  <EmployeeSidebar pop={pop} setPop={setPop} />
-   :
-<AdminSidebar pop={pop} setPop={setPop} />
-                
-        }
+        {isHr ? (
+          <HrSidebar />
+        ) : role === "EMPLOYEE" ? (
+          <EmployeeSidebar pop={pop} setPop={setPop} />
+        ) : (
+          <AdminSidebar pop={pop} setPop={setPop} />
+        )}
         <div className="tm">
           {isHr ? (
             <HrNavbar
@@ -230,13 +238,10 @@ const LeaveRequest = ({
               pop1={pop1}
               setPop1={setPop1}
             />
+          ) : role === "EMPLOYEE" ? (
+            <EmployeeNavbar user={user} setAlert={setAlert} />
           ) : (
-            
-              role === "EMPLOYEE" ?
-               <EmployeeNavbar user={user} setAlert={setAlert}  />:
-  
             <AdminNavbar user={user} setAlert={setAlert} />
-            
           )}
 
           <div className="em">
@@ -259,7 +264,6 @@ const LeaveRequest = ({
                   </span>{" "}
                   <span className="thml">Leave Request</span>
                 </div>
-                
               </div>
 
               {/* second  */}
@@ -267,10 +271,8 @@ const LeaveRequest = ({
               <main className="leaveReqWrap">
                 <div className="relative overflow-x-auto">
                   <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-
                     <thead className="text-xs textALLtITL ">
                       <tr className="gfg">
-                       
                         <th scope="col" className="px-2 py-3 ">
                           EMPLOYEE
                         </th>
@@ -280,7 +282,7 @@ const LeaveRequest = ({
                         <th scope="col" className="px-2 py-3">
                           APPLIED ON
                         </th>
-                      
+
                         <th scope="col" className="px-2 py-3">
                           START DATE
                         </th>
@@ -303,123 +305,148 @@ const LeaveRequest = ({
                     </thead>
 
                     <tbody>
-                      {data?.map((e,index)=>{
+                      {data?.map((e, index) => {
                         return (
-                          <tr  onClick={()=>setLeavePopup(e)} key={index} className="bg-white trtextalltr cursor-pointer gfg border-b">
-                         
-                          <td className="px-2 py-3">  {e?.user?.fullName}</td>
-                          <td className="px-2 py-3">{e?.leaveType}</td>
-                          <td className="px-2 py-3">{formatDate(e?.appliedOn)}</td>
-                          <td className="px-2 py-3">  {e?.from}</td>
-                          <td className="px-2 py-3"> {e?.to} </td>
-                          <td className="px-2 py-3"> {(e?.days) - 1 + 2} </td>
-                          
-                          <td className="px-2 py-3">{e?.reason?.slice(1,34)}...</td>
-  
-                          <td className="px-2 py-3">
-                            <div className="ACTIVITYsss">{
-                              e?.status === "" ?"Pending":e?.status
-                            }</div>
-                          </td>
+                          <tr
+                            onClick={() => setLeavePopup(e)}
+                            key={index}
+                            className="bg-white trtextalltr cursor-pointer gfg border-b"
+                          >
+                            <td className="px-2 py-3"> {e?.user?.fullName}</td>
+                            <td className="px-2 py-3">{e?.leaveType}</td>
+                            <td className="px-2 py-3">
+                              {formatDate(e?.appliedOn)}
+                            </td>
+                            <td className="px-2 py-3"> {e?.from}</td>
+                            <td className="px-2 py-3"> {e?.to} </td>
+                            <td className="px-2 py-3"> {e?.days - 1 + 2} </td>
 
-                          <td className="px-2 py-3  flex items-center hiii_gap">
-                            
-                            {
-                              (leaveReqestEditPermission || role === "ADMIN") && 
-                          
-                             <div className="relative">
+                            <td className="px-2 py-3">
+                              {e?.reason?.slice(0,34)}...
+                            </td>
 
-                           
-                              <button
-                               onClick={()=>{
-                                 if(showPlay === index){
-                                  setShowPlay(-1);
-                                 }
-                                 else {
-                                setShowPlay(index);
-                                 }
-                               }}
-
-                                id="dropdownMenuIconButton2222"
-                                data-dropdown-toggle="dropdownDots2222"
-                                className="inline-flex items-center p-2 text-sm font-medium text-center text-gray-900 bg-white rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none dark:text-white focus:ring-gray-50 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
-                                type="button"
-                              >
-                                <svg
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  fill="none"
-                                  viewBox="0 0 24 24"
-                                  stroke-width="1.5"
-                                  stroke="currentColor"
-                                  className="w-6 h-6"
-                                >
-                                  <path
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.347a1.125 1.125 0 0 1 0 1.972l-11.54 6.347a1.125 1.125 0 0 1-1.667-.986V5.653Z"
-                                  />
-                                </svg>
-                              </button>
-
-                               <div style={{ gap:"5px" }} className={`absolute ${showPlay === index ? "showPlay":"hidenPlay"}`}>
-
-                                  <p onClick={
-                                    ()=>{
-                                      acceptHandler(e );
-                                    }
-                                  } style={{backgroundColor:"green" , color:"white", padding:"10px" , borderRadius:"10px" , cursor:"pointer" , transform:"translateX(-20px)"  , zIndex:"100" }} >Accept </p>
-                                  <p onClick={()=>{
-                                    rejectHandler(e);
-                                    // toggleStatus(e?._id)
-                                  }} style={{backgroundColor:"red" , color:"white", padding:"10px"  , borderRadius:"10px", cursor:"pointer" , transform:"translateX(-20px)" , zIndex:"100"  }} >Reject</p>
-
-                               </div>
-
+                            <td className="px-2 py-3">
+                              <div className="ACTIVITYsss">
+                                {e?.status === "" ? "Pending" : e?.status}
                               </div>
-                      }       
+                            </td>
 
-{
-  (leaveReqestEditPermission || role === "ADMIN") && 
+                            <td className="px-2 py-3  flex items-center hiii_gap">
+                              {(leaveReqestEditPermission ||
+                                role === "ADMIN") && (
+                                <div className="relative">
+                                  <button
+                                    onClick={() => {
+                                      if (showPlay === index) {
+                                        setShowPlay(-1);
+                                      } else {
+                                        setShowPlay(index);
+                                      }
+                                    }}
+                                    id="dropdownMenuIconButton2222"
+                                    data-dropdown-toggle="dropdownDots2222"
+                                    className="inline-flex items-center p-2 text-sm font-medium text-center text-gray-900 bg-white rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none dark:text-white focus:ring-gray-50 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+                                    type="button"
+                                  >
+                                    <svg
+                                      xmlns="http://www.w3.org/2000/svg"
+                                      fill="none"
+                                      viewBox="0 0 24 24"
+                                      stroke-width="1.5"
+                                      stroke="currentColor"
+                                      className="w-6 h-6"
+                                    >
+                                      <path
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.347a1.125 1.125 0 0 1 0 1.972l-11.54 6.347a1.125 1.125 0 0 1-1.667-.986V5.653Z"
+                                      />
+                                    </svg>
+                                  </button>
 
-                              <button
-                                onClick={()=>{
-                                  setFormdata((prev)=>({
-                                    ...prev ,
-                                    
-                                      reason: e.reason , 
-                                      leaveType: e.leaveType ,
-                                      employeeName: e?.user?.fullName , 
-                                      start: e.from , 
-                                      end: e.to , 
-                                      id: e._id
-                                    
-                                  }))
-                                  setStar1((prev)=>!prev);
-                                }}
-                                id="dropdownMenuIconButton2222"
-                                data-dropdown-toggle="dropdownDots2222"
-                                className="inline-flex items-center p-2 text-sm font-medium text-center text-gray-900 bg-white rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none dark:text-white focus:ring-gray-50 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
-                                type="button"
-                              >
-                                <svg
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  fill="none"
-                                  viewBox="0 0 24 24"
-                                  stroke-width="1.5"
-                                  stroke="currentColor"
-                                  className="w-6 h-6"
+                                  <div
+                                    style={{ gap: "5px" }}
+                                    className={`absolute ${
+                                      showPlay === index
+                                        ? "showPlay"
+                                        : "hidenPlay"
+                                    }`}
+                                  >
+                                    <p
+                                      onClick={() => {
+                                        acceptHandler(e);
+                                      }}
+                                      style={{
+                                        backgroundColor: "green",
+                                        color: "white",
+                                        padding: "10px",
+                                        borderRadius: "10px",
+                                        cursor: "pointer",
+                                        transform: "translateX(-20px)",
+                                        zIndex: "100",
+                                      }}
+                                    >
+                                      Accept{" "}
+                                    </p>
+                                    <p
+                                      onClick={() => {
+                                        rejectHandler(e);
+                                        // toggleStatus(e?._id)
+                                      }}
+                                      style={{
+                                        backgroundColor: "red",
+                                        color: "white",
+                                        padding: "10px",
+                                        borderRadius: "10px",
+                                        cursor: "pointer",
+                                        transform: "translateX(-20px)",
+                                        zIndex: "100",
+                                      }}
+                                    >
+                                      Reject
+                                    </p>
+                                  </div>
+                                </div>
+                              )}
+
+                              {(leaveReqestEditPermission ||
+                                role === "ADMIN") && (
+                                <button
+                                  onClick={() => {
+                                    setFormdata((prev) => ({
+                                      ...prev,
+
+                                      reason: e.reason,
+                                      leaveType: e.leaveType,
+                                      employeeName: e?.user?.fullName,
+                                      start: e.from,
+                                      end: e.to,
+                                      id: e._id,
+                                    }));
+                                    setStar1((prev) => !prev);
+                                  }}
+                                  id="dropdownMenuIconButton2222"
+                                  data-dropdown-toggle="dropdownDots2222"
+                                  className="inline-flex items-center p-2 text-sm font-medium text-center text-gray-900 bg-white rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none dark:text-white focus:ring-gray-50 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+                                  type="button"
                                 >
-                                  <path
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125"
-                                  />
-                                </svg>
-                              </button>
+                                  <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke-width="1.5"
+                                    stroke="currentColor"
+                                    className="w-6 h-6"
+                                  >
+                                    <path
+                                      stroke-linecap="round"
+                                      stroke-linejoin="round"
+                                      d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125"
+                                    />
+                                  </svg>
+                                </button>
+                              )}
 
-    }
-
-                    
                               <div
                                 id="dropdownDots2222"
                                 className="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600"
@@ -462,38 +489,33 @@ const LeaveRequest = ({
                                   </a>
                                 </div>
                               </div>
-                            
-                          </td>
-
-                        </tr>
-                        )
+                            </td>
+                          </tr>
+                        );
                       })}
-               
-
-                     
                     </tbody>
-
-
                   </table>
                 </div>
               </main>
-
             </div>
           </div>
 
-          {
-            leavePopup && 
+          {leavePopup && (
             <div className="leavePopupwrap2">
-                <div className="leavepopconta2">
+              <div className="leavepopconta2">
+                <nav>
+                  <RxCross2
+                    fontSize={24}
+                    className="cursor-pointer"
+                    onClick={() => setLeavePopup(false)}
+                  />
+                </nav>
 
-                  <nav><RxCross2 fontSize={24} className="cursor-pointer" onClick={()=>setLeavePopup(false)} /></nav>
- 
                 <label htmlFor="">
                   <h4>FullName: </h4>
                   <p>{leavePopup?.user?.fullName}</p>
                 </label>
 
-              
                 <label htmlFor="">
                   <h4>From: </h4>
                   <p>{leavePopup?.from}</p>
@@ -507,16 +529,13 @@ const LeaveRequest = ({
                   <h4>Reason: </h4>
                   <p>{leavePopup?.reason}</p>
                 </label>
-
-                   
-                </div>
+              </div>
             </div>
-          }
+          )}
 
-     
-     {/* this is edit form of leave rqeuest  */}
+          {/* this is edit form of leave rqeuest  */}
 
-            <div
+          <div
             style={styleThing}
             id="authentication-modal"
             tabindex="-1"
@@ -528,45 +547,32 @@ const LeaveRequest = ({
               <div class="relative bg-white rounded-lg shadow dark:bg-gray-700 swer">
                 {/* <!-- Modal header --> */}
                 <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
-                  <h3 class="editLeadreq">
-                    Edit Leave Request
-                  </h3>
-                  <img onClick={()=> setStar1(false)} src={cancel} alt="" />
-
+                  <h3 class="editLeadreq">Edit Leave Request</h3>
+                  <img onClick={() => setStar1(false)} src={cancel} alt="" />
                 </div>
                 {/* <!-- Modal body --> */}
                 <div class="p-4 md:p-5">
-
-                  <form  className="space-y-4 fkl" action="#">
-
+                  <form className="space-y-4 fkl" action="#">
                     <div class="mt-2 user_class_input">
-                      <label
-
-                      >
-                        Employee Name
-                      </label>
+                      <label>Employee Name</label>
 
                       <input
-           value={formdata.employeeName}
-           onChange={changeHandler}
-             
+                        value={formdata.employeeName}
+                        onChange={changeHandler}
                         type="text"
                         name="employeeName"
                         id="text"
-                       className=""
+                        className=""
                         placeholder="Enter the name"
                         required
                       />
                     </div>
 
                     <div class="mt-2 user_class_input">
-                      <label                  >
-                        Leave type
-                      </label>
+                      <label>Leave type</label>
                       <input
-                      value={formdata.leaveType}
-                      
-                      onChange={changeHandler}
+                        value={formdata.leaveType}
+                        onChange={changeHandler}
                         type="text"
                         name="leaveType"
                         id="text"
@@ -585,12 +591,11 @@ const LeaveRequest = ({
                           Start
                         </label>
                         <input
-                         value={formdata.start}
-                         onChange={changeHandler}
+                          value={formdata.start}
+                          onChange={changeHandler}
                           type="date"
                           name="start"
                           id="text"
-                         
                           required
                         />
                       </div>
@@ -603,81 +608,70 @@ const LeaveRequest = ({
                           End
                         </label>
                         <input
-                         value={formdata.end}
+                          value={formdata.end}
                           onChange={changeHandler}
                           type="date"
                           name="end"
                           id="text"
-                       
                           required
                         />
                       </div>
-                      
                     </div>
 
                     <div class="user_class_input">
-                        <label
-                          for="message"
-                          class="block mb-2 mt-2 text-sm font-medium text-gray-900 dark:text-white"
-                        >
-                          Reason
-                        </label>
-                        <textarea
+                      <label
+                        for="message"
+                        class="block mb-2 mt-2 text-sm font-medium text-gray-900 dark:text-white"
+                      >
+                        Reason
+                      </label>
+                      <textarea
                         required
                         name="reason"
                         onChange={changeHandler}
                         value={formdata.reason}
-                          id="message"
-                          rows="4"
-                         
-                          placeholder="Enter your reason..."
-                        ></textarea>
-                      </div>
-
-                      <div className="safar">
-
-                    <button
-                      onClick={(e) =>{
-                        
-                        e.preventDefault();
-                       
-                      //  submitHandler(e);
-                      const confirmAction = window.confirm("Are you sure you want to edit the leave again?");
-                      if (confirmAction) {
-                        submitHandler(e);
-                      }
-
-                      }}
-                      type="button" 
-                      class="w-full mt-5 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                    >
-                      
-                      send
-                    </button>
-
-                    <button
-                      onClick={(e) =>{
-                        
-                      setStar1(false);
-                      }}
-                      type="button" 
-                      class="w-full mt-5 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                    >
-                      Cancel
-                    </button>
+                        id="message"
+                        rows="4"
+                        placeholder="Enter your reason..."
+                      ></textarea>
                     </div>
 
-                  </form>
+                    <div className="safar">
+                      <button
+                        onClick={(e) => {
+                          e.preventDefault();
 
+                          //  submitHandler(e);
+                          const confirmAction = window.confirm(
+                            "Are you sure you want to edit the leave again?"
+                          );
+                          if (confirmAction) {
+                            submitHandler(e);
+                          }
+                        }}
+                        type="button"
+                        class="w-full mt-5 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                      >
+                        update
+                      </button>
+
+                      <button
+                        onClick={(e) => {
+                          setStar1(false);
+                        }}
+                        type="button"
+                        class="w-full mt-5 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                      >
+                        Cancel
+                      </button>
+                    </div>
+                  </form>
                 </div>
               </div>
             </div>
           </div>
-           
-           
-           {/* } */}
 
-
+          {/* } */}
         </div>
       </div>
     </>

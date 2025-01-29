@@ -393,7 +393,7 @@ const TaskProjects = ({ setAlert, pop, setPop }) => {
         <div className="addCliWrap">
           <div className="addClieCont addheight">
             <nav>
-              <p>Create New Project</p>
+              <p>{isEdit ? "Edit" : "Create"} </p>
               <img
                 onClick={() => {
                   setAddClientPop(false);
@@ -495,7 +495,7 @@ const TaskProjects = ({ setAlert, pop, setPop }) => {
               </div>
               <div className="btnsss">
                 <button type="submit" className="saveclient">
-                  <span>Add Project </span>
+                  <span>{isEdit ? "Edit Project" : "Add Project"}</span>
                 </button>
                 <button
                   onClick={() => {

@@ -424,7 +424,9 @@ toast.dismiss(toastId);
 
   const fetchLeaveType = async () => {
     const resp = await getLeaveTypes();
+
     if (resp.success) {
+      console.log("fetch leaves type ",resp?.data)
       setLeaveType(resp?.data);
     }
   };
@@ -767,7 +769,7 @@ toast.dismiss(toastId);
                           <h5 >
                             15
                           </h5>
-                          <p>Total leave allowance</p>
+                          <p>Total leave allowance </p>
                         </div>
 
                         <div>

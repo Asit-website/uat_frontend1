@@ -502,21 +502,59 @@ if(name === "pan" && value.length > 10){
                   />
                 </div>
                 <div className="">
-                  <label htmlFor="currentState" className="block mb-1">
+                  <label htmlFor="perState" className="block mb-1">
                     Current state
                   </label>
-            
-                  <input
+                  <select
+                    className=" block  "
                     type="text"
                     id="currentState"
-                    className="rounded-lg  "
+                    // className="rounded-lg  "
                     // required
                     name="currentState"
                     value={value.currentState}
                     onChange={handleChange}
                     disabled={!!user?.currentState}
 
-                  />
+                  >
+                    <option>Current State</option>
+                    <option>Andhra Pradesh</option>
+                    <option>Arunachal Pradesh</option>
+                    <option>Assam</option>
+                    <option>Bihar</option>
+                    <option>Chhattisgarh</option>
+                    <option>Goa</option>
+                    <option>Gujarat</option>
+                    <option>Haryana</option>
+                    <option>Himachal Pradesh</option>
+                    <option>Jharkhand</option>
+                    <option>Karnataka</option>
+                    <option>Kerala</option>
+                    <option>Maharashtra</option>
+                    <option>Madhya Pradesh</option>
+                    <option>Manipur</option>
+                    <option>Meghalaya</option>
+                    <option>Mizoram</option>
+                    <option>Nagaland</option>
+                    <option>Odisha</option>
+                    <option>Punjab</option>
+                    <option>Rajasthan</option>
+                    <option>Sikkim</option>
+                    <option>Tamil Nadu</option>
+                    <option>Tripura</option>
+                    <option>Telangana</option>
+                    <option>Uttar Pradesh</option>
+                    <option>Uttarakhand</option>
+                    <option>West Bengal</option>
+                    <option>Andaman & Nicobar (UT)</option>
+                    <option>Chandigarh (UT)</option>
+                    <option>Dadra & Nagar Haveli and Daman & Diu (UT)</option>
+                    <option>Delhi [National Capital Territory (NCT)]</option>
+                    <option>Jammu & Kashmir (UT)</option>
+                    <option>Ladakh (UT)</option>
+                    <option>Lakshadweep (UT)</option>
+                    <option>Puducherry (UT)</option>
+                  </select>
                 </div>
                 <div className="">
                   <label htmlFor="currentCity" className="block mb-1">

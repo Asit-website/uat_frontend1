@@ -71,44 +71,39 @@ const EmployeeHRM = ({
     CreateExpense,
     getUserHalfDay,
     getProjectTask,
-    
-    getAllTaskUser
-    
+
+    getAllTaskUser,
   } = useMain();
 
   const user2 = JSON.parse(localStorage.getItem("hrms_user"));
-  // console.log("Userdata is here",user2)
+  // console.log("Userdata is here", user2);
 
   const [counts, setCounts] = useState({
     activeEmployees: 0,
     leaveRequest: 0,
     employeesLeaves: 0,
     totalEmployees: 0,
-    totalDeactivated:0,
+    totalDeactivated: 0,
     halfDayRequest: 0,
-   
-    
   });
-  
+
   const [tasks, setTasks] = useState([]);
 
   const fetchTasks = async () => {
     try {
       const tasksData = await getAllTaskUser();
 
-  
       if (tasksData && tasksData.data) {
-           
-        const reversedTasks = tasksData.data.slice(0,5);
-        
+        const reversedTasks = tasksData.data.slice(0, 6);
+
         setTasks(reversedTasks);
-       }
+      }
     } catch (error) {
       console.error("Error fetching tasks:", error);
     }
   };
-  
-   useEffect(() => {
+
+  useEffect(() => {
     fetchTasks();
   }, []);
 
@@ -118,7 +113,6 @@ const EmployeeHRM = ({
   const [clockoutLoading, setClockOutLoading] = useState(false);
 
   const [totalLeave, setTotalLeave] = useState(0);
-  
 
   let hrms_user = JSON?.parse(localStorage.getItem("hrms_user"));
   let hrms_permission = JSON?.parse(localStorage.getItem("hrms_permission"));
@@ -197,34 +191,36 @@ const EmployeeHRM = ({
 
   const [openAnn, setOpenAnn] = useState(false);
   const [totalHalfDay, setTotalHalfDay] = useState(0);
-  
-
 
   const getData = async () => {
     setLoadFlag(true);
     const ans = await getUsers();
-    const totalactiveEmployees = ans?.data?.filter(emp => emp.isDeactivated === "No");
+    const totalactiveEmployees = ans?.data?.filter(
+      (emp) => emp.isDeactivated === "No"
+    );
     const ans1 = await getActiveUsersCount();
-    
-    const totalDeactivated=ans?.data?.filter(emp => emp.isDeactivated !== "No");
-    
+
+    const totalDeactivated = ans?.data?.filter(
+      (emp) => emp.isDeactivated !== "No"
+    );
+
     const ans2 = await getTotalLeavesCount();
-     console.log("user total leaves count ",ans2)
+    //  console.log("user totalleavescount ",ans2)
+
     setTotalLeave(ans2.totalLeave);
-   
+    setTotalHalfDay(ans2.halfDay);
 
     setCounts({
       ...counts,
       totalEmployees: totalactiveEmployees.length,
       totalDeactivated: totalDeactivated.length,
 
-
       activeEmployees: ans1.data,
     });
     setLoadFlag(false);
   };
 
-// console.log("userdata".user)
+  // console.log("userdata".user)
 
   var [clock, setClock] = useState(0);
   var [breakClock, setBreakClock] = useState(0);
@@ -232,13 +228,6 @@ const EmployeeHRM = ({
   const navigate = useNavigate();
 
   const [mount, setMount] = useState(false);
-
-  const [leavedata, setLeavedata] = useState({
-    casualLeave: 0,
-    paidLeave: 0,
-    halfDays:0,
-   
-  });
 
   useEffect(() => {
     document.addEventListener("visibilitychange", handleVisibilityChange);
@@ -528,7 +517,6 @@ const EmployeeHRM = ({
 
   useEffect(() => {
     getData();
-   
   }, []);
 
   const getAnnoucement = async () => {
@@ -554,7 +542,6 @@ const EmployeeHRM = ({
   const getLeavesEmp = async () => {
     const ans = await fetchTodayLeave();
     if (ans?.status) {
-     
       setLeaveCount(ans?.data?.length);
     }
   };
@@ -641,23 +628,67 @@ const EmployeeHRM = ({
   const fetchLeaveType = async () => {
     const resp = await getLeaveTypes();
     if (resp.success) {
+      // console.log("leaves type ",resp?.data)
       setLeaveType(resp?.data);
     }
   };
 
   const [userbirth, setUserBirth] = useState([]);
-  const [totalLeavetaken, setLeaveTaken] = useState("00");
+  const [anniversaryEmployees, setAnniversaryEmployees] = useState([]);
+  const [totalLeavetaken, setLeaveTaken] = useState("0");
 
   const getTodayBirthdayapi = async () => {
     const ans = await getTodayBirthday();
+    console.log("get bday employee", ans);
     setUserBirth(ans);
+  };
+
+  const checkWorkAnniversary = async () => {
+    try {
+      // Fetch all employees
+      const response = await allEmployee();
+      console.log("All employee",response)
+      console.log("Employee data response:", response._id.joiningDate);
+
+      // Ensure we are working with an array
+      const employees = Array.isArray(response)
+        ? response
+        : response?.data || [];
+
+      if (!Array.isArray(employees)) {
+        console.error("Expected an array but got:", employees);
+        return;
+      }
+
+      const today = new Date();
+
+      const oneYearCompleted = employees.filter((employee) => {
+        if (employee?.joiningDate) {
+          // Convert joiningDate to proper Date object
+          const joiningDate = new Date(employee.joiningDate + "T00:00:00Z");
+
+          return (
+            today.getUTCDate() === joiningDate.getUTCDate() &&
+            today.getUTCMonth() === joiningDate.getUTCMonth() &&
+            today.getUTCFullYear() - joiningDate.getUTCFullYear() === 1
+          );
+        }
+        return false;
+      });
+
+      console.log("Anniversary Employees:", oneYearCompleted);
+      setAnniversaryEmployees(oneYearCompleted);
+    } catch (error) {
+      console.error("Error fetching employee anniversaries:", error);
+    }
   };
 
   useEffect(() => {
     getLeavesEmp();
     fetchLeaveType();
     getTodayBirthdayapi();
-   
+    checkWorkAnniversary();
+
     // setLeaveTaken(hrms_user?.totalLeaves);
   }, []);
 
@@ -690,18 +721,21 @@ const EmployeeHRM = ({
 
   const fetchemployess = async () => {
     const resp = await allEmployee();
-  const activeEmployees = resp?.emp?.filter(emp => emp.isDeactivated === "No");
-   setAllEmp(activeEmployees);
+    // console.log("all employee",resp)
+    const activeEmployees = resp?.emp?.filter(
+      (emp) => emp.isDeactivated === "No"
+    );
+    setAllEmp(activeEmployees);
   };
-   
-  const[deactivated,setDeactivated]=useState([]);
+
+  const [deactivated, setDeactivated] = useState([]);
   const fetchDeactivated = async () => {
     const resp = await allEmployee();
-  const deactivatedEmployees = resp?.emp?.filter(emp => emp.isDeactivated !== "No");
-  setDeactivated(deactivatedEmployees);
+    const deactivatedEmployees = resp?.emp?.filter(
+      (emp) => emp.isDeactivated !== "No"
+    );
+    setDeactivated(deactivatedEmployees);
   };
-  
- 
 
   const LeaveAllowApi = async () => {
     if (!allowData?.user || !allowData?.allowance) {
@@ -727,14 +761,33 @@ const EmployeeHRM = ({
   const leavestypecount = async () => {
     const resp = await leaveTypeApi({ id: user2?._id });
 
-    // console.log("total all type of  leaves is here",resp)
-    setLeaveTaken(resp?.data?.totalLeaves);
+    // console.log("Leaves Type Count:", resp);
+
+    const totalLeaves =
+      (resp?.data?.casualLeave || 0) +
+      (resp?.data?.paidLeave || 0) +
+      (resp?.data?.halfDays || 0) * 0.5;
+
+    setLeaveTaken(totalLeaves); 
+
     setLeavedata({
-      casualLeave: resp?.data?.casualLeave,
-      paidLeave: resp?.data?.paidLeave,
-      halfDays: resp?.data?.halfDays,
+      casualLeave: resp?.data?.casualLeave || 0,
+      paidLeave: resp?.data?.paidLeave || 0,
+      halfDays: resp?.data?.halfDays || 0,
     });
   };
+
+  const [leavedata, setLeavedata] = useState({
+    casualLeave: 0,
+    paidLeave: 0,
+    halfDays: 0,
+  });
+
+  // Calculate remaining leave correctly
+  const remainingLeave = Math.max(
+    parseInt(user2?.leaveNumber) - totalLeavetaken,
+    0
+  );
 
   useEffect(() => {
     fetchemployess();
@@ -790,10 +843,6 @@ const EmployeeHRM = ({
       data.reason !== ""
     );
   }
-
-
-  
-
 
   return (
     <>
@@ -957,7 +1006,7 @@ const EmployeeHRM = ({
                         </div>
                       </NavLink>
                     )}
-                     {(totalEmployeePermission || role === "ADMIN") && (
+                    {(totalEmployeePermission || role === "ADMIN") && (
                       <NavLink
                         className="skm"
                         to={`${
@@ -972,7 +1021,9 @@ const EmployeeHRM = ({
                           <div className="titWrap">
                             <h3>Deactivated Employee</h3>
 
-                            <p className="hrmlRNu">{counts?.totalDeactivated}</p>
+                            <p className="hrmlRNu">
+                              {counts?.totalDeactivated}
+                            </p>
                           </div>
                         </div>
                       </NavLink>
@@ -1051,7 +1102,7 @@ const EmployeeHRM = ({
                       <div className="hrLefThi">
                         <h2 className="headind">
                           {" "}
-                          <img src={taskA} alt="" /> <span>Task Assign  </span>
+                          <img src={taskA} alt="" /> <span>Task Assign </span>
                         </h2>
 
                         <div className="relative overflow-x-auto">
@@ -1074,39 +1125,40 @@ const EmployeeHRM = ({
                               </tr>
                             </thead>
                             <tbody>
-  {tasks?.length > 0 ? (
-    tasks.map((val, index) => (
-      <tr key={index} className="bg-white border-b">
-       
-        <th scope="row" className="px-2 py-4 font-medium tasklo whitespace-nowrap taskAns">
-          {val?.Members.fullName || "N/A"}
-        </th>
-       
-        <td className="px-2 py-4 taskAns">
-          {val?.StartDate || "N/A"}
-        </td>
-        {/* Render DueDate */}
-        <td className="px-2 py-4 taskAns">
-          {val?.DueDate || "N/A"}
-        </td>
-        {/* Render Description */}
-        <td className="px-2 py-4 taskAns">
-          {val?.Description || "N/A"}
-        </td>
-      </tr>
-    ))
-  ) : (
-    <tr>
-      <td colSpan="4" className="text-center py-4">
-        No tasks available.
-      </td>
-    </tr>
-  )}
-</tbody>
+                              {tasks?.length > 0 ? (
+                                tasks.map((val, index) => (
+                                  <tr key={index} className="bg-white border-b">
+                                    <th
+                                      scope="row"
+                                      className="px-2 py-4 font-medium tasklo whitespace-nowrap taskAns"
+                                    >
+                                      {val?.Members.fullName || "N/A"}
+                                    </th>
 
+                                    <td className="px-2 py-4 taskAns">
+                                      {val?.StartDate || "N/A"}
+                                    </td>
+                                    {/* Render DueDate */}
+                                    <td className="px-2 py-4 taskAns">
+                                      {val?.DueDate || "N/A"}
+                                    </td>
+                                    {/* Render Description */}
+                                    <td className="px-2 py-4 taskAns">
+                                      {val?.Description || "N/A"}
+                                    </td>
+                                  </tr>
+                                ))
+                              ) : (
+                                <tr>
+                                  <td colSpan="4" className="text-center py-4">
+                                    No tasks available.
+                                  </td>
+                                </tr>
+                              )}
+                            </tbody>
                           </table>
                         </div>
-                      </div> 
+                      </div>
                     </div>
 
                     {/* right side */}
@@ -1416,6 +1468,21 @@ const EmployeeHRM = ({
                                 </div>
                               </div>
                             ))}
+                            {anniversaryEmployees.map((data, index) => (
+                              <div className="singcel" key={index}>
+                                <div className="capWrap">
+                                  <img
+                                    src={data.profileImage}
+                                    className="phrofileimg"
+                                  />
+                                  <img src={cap} alt="" className="cap" />
+                                </div>
+                                <div>
+                                  <h3>{data.fullName}</h3>
+                                  <p>{data?.designation}</p>
+                                </div>
+                              </div>
+                            ))}
                           </div>
                         </div>
 
@@ -1684,7 +1751,10 @@ const EmployeeHRM = ({
                               setShowLeave(true);
                             }}
                           >
-                            <span style={{textDecoration:"none !important"}} > Create Leave</span>
+                            <span style={{ textDecoration: "none !important" }}>
+                              {" "}
+                              Create Leave
+                            </span>
                           </button>
 
                           {(hrms_permission?.userAllowCrtPermission ||
@@ -1760,7 +1830,7 @@ const EmployeeHRM = ({
                             <p>
                               <img src={sick2} alt="" />
                               <span className="cas">
-                              Half Days - {leavedata?.halfDays}
+                                Half Days - {leavedata?.halfDays}
                               </span>{" "}
                             </p>
                           </div>
@@ -1769,7 +1839,7 @@ const EmployeeHRM = ({
                         <div className="totel_leave_allowance1">
                           <div className="totalLeaText">
                             <h5>{totalLeavetaken}</h5>
-                            <p>Total leave taken</p>
+                            <p>Total leave taken </p>
                           </div>
                           <div>
                             <p>
@@ -1788,7 +1858,7 @@ const EmployeeHRM = ({
                             <p>
                               <img src={sick2} alt="" />
                               <span className="cas">
-                              Half Days - {leavedata?.halfDays}
+                                Half Days - {leavedata?.halfDays}
                               </span>{" "}
                             </p>
                           </div>
@@ -1806,15 +1876,8 @@ const EmployeeHRM = ({
                                   parseInt(totalLeavetaken)
                                 : 0}
                             </h5> */}
-                              <h5>
-        {parseInt(user2?.leaveNumber) - 
-         (parseInt(totalLeavetaken) + 
-          parseFloat(leavedata?.halfDays) * 0.5) >= 0
-          ? parseInt(user2?.leaveNumber) - 
-            (parseInt(totalLeavetaken) + 
-             parseFloat(leavedata?.halfDays) * 0.5)
-          : 0}
-      </h5>
+                            {remainingLeave}
+
                             <p>Total leave available</p>
                           </div>
                           <div>
@@ -1834,7 +1897,7 @@ const EmployeeHRM = ({
                             <p>
                               <img src={sick2} alt="" />
                               <span className="cas">
-                               Half Days - {leavedata?.halfDays}
+                                Half Days - {leavedata?.halfDays}
                               </span>{" "}
                             </p>
                           </div>
@@ -1862,7 +1925,7 @@ const EmployeeHRM = ({
                             <p>
                               <img src={sick2} alt="" />
                               <span className="cas">
-                              Half Days - {leavedata?.halfDays}
+                                Half Days - {leavedata?.halfDays}
                               </span>{" "}
                             </p>
                           </div>
@@ -1880,9 +1943,9 @@ const EmployeeHRM = ({
                           <button
                             class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                             type="button"
-                            style={{marginLeft:"18rem"}}
+                            style={{ marginLeft: "18rem" }}
                           >
-                            <span style={{color:"white"}}> View All</span>
+                            <span style={{ color: "white" }}> View All</span>
                           </button>
                         </NavLink>
                       </div>
@@ -1933,219 +1996,228 @@ const EmployeeHRM = ({
 
                 {/* this is create leave  */}
                 {showleave && (
-  <>
-    <div className="leavewrapping">
-      <div className="crelevecont">
-        <div class="crelavetopsec">
-          <h3 class="leaveHead">Leave Request </h3>
-          <img src={cutt} onClick={() => setShowLeave(false)} alt="" />
-        </div>
+                  <>
+                    <div className="leavewrapping">
+                      <div className="crelevecont">
+                        <div class="crelavetopsec">
+                          <h3 class="leaveHead">Leave Request </h3>
+                          <img
+                            src={cutt}
+                            onClick={() => setShowLeave(false)}
+                            alt=""
+                          />
+                        </div>
 
-        <hr />
+                        <hr />
 
-        {/* <!-- Modal body --> */}
-        <form className="levaecretaeform" action="#">
-  <div className="user_classleave">
-    <label>Leave type</label>
-    <select
-      name="leaveType"
-      onChange={changeHandler}
-      value={formdata.leaveType}
-      required
-    >
-      {leaveType.map((item, index) => (
-        <option value={item?.name} key={index}>
-          {item?.name}
-        </option>
-      ))}
-    </select>
-  </div>
+                        {/* <!-- Modal body --> */}
+                        <form className="levaecretaeform" action="#">
+                          <div className="user_classleave">
+                            <label>Leave type</label>
+                            <select
+                              name="leaveType"
+                              onChange={changeHandler}
+                              value={formdata.leaveType}
+                              required
+                            >
+                              {leaveType.map((item, index) => (
+                                <option value={item?.name} key={index}>
+                                  {item?.name}
+                                </option>
+                              ))}
+                            </select>
+                          </div>
 
-  <div className="levaecreflex">
-    <div className="user_class_input3 w-full mt-2">
-      <label
-        htmlFor="text"
-        className="block mb-2 text-sm font-medium text-gray-900 employName"
-      >
-        Start
-      </label>
-      <input
-        value={formdata.start}
-        onChange={changeHandler}
-        type="date"
-        name="start"
-        id="text"
-        className="startDate"
-        required
-      />
-    </div>
+                          <div className="levaecreflex">
+                            <div className="user_class_input3 w-full mt-2">
+                              <label
+                                htmlFor="text"
+                                className="block mb-2 text-sm font-medium text-gray-900 employName"
+                              >
+                                Start
+                              </label>
+                              <input
+                                value={formdata.start}
+                                onChange={changeHandler}
+                                type="date"
+                                name="start"
+                                id="text"
+                                className="startDate"
+                                required
+                              />
+                            </div>
 
-    <div className="user_class_input3 w-full ml-2 mt-2">
-      <label
-        htmlFor="text"
-        className="block mb-2 text-sm font-medium text-gray-900 employName"
-      >
-        End
-      </label>
-      <input
-        value={formdata.end}
-        onChange={changeHandler}
-        type="date"
-        name="end"
-        id="text"
-        className="startDate"
-        required
-      />
-    </div>
-  </div>
+                            <div className="user_class_input3 w-full ml-2 mt-2">
+                              <label
+                                htmlFor="text"
+                                className="block mb-2 text-sm font-medium text-gray-900 employName"
+                              >
+                                End
+                              </label>
+                              <input
+                                value={formdata.end}
+                                onChange={changeHandler}
+                                type="date"
+                                name="end"
+                                id="text"
+                                className="startDate"
+                                required
+                              />
+                            </div>
+                          </div>
 
-  <div className="levelreasons">
-    <label
-      htmlFor="message"
-      className="block mb-2 mt-2 text-sm font-medium text-gray-900 employName"
-    >
-      Reason
-    </label>
-    <textarea
-      required
-      name="reason"
-      onChange={changeHandler}
-      value={formdata.reason}
-      id="message"
-      rows="4"
-      className="reasonText2"
-      placeholder="Enter your reason..."
-    ></textarea>
-  </div>
+                          <div className="levelreasons">
+                            <label
+                              htmlFor="message"
+                              className="block mb-2 mt-2 text-sm font-medium text-gray-900 employName"
+                            >
+                              Reason
+                            </label>
+                            <textarea
+                              required
+                              name="reason"
+                              onChange={changeHandler}
+                              value={formdata.reason}
+                              id="message"
+                              rows="4"
+                              className="reasonText2"
+                              placeholder="Enter your reason..."
+                            ></textarea>
+                          </div>
 
-  <div className="leavebuttons">
-    <button
-      onClick={(e) => {
-        e.preventDefault();
-        submitHandler(e);
-      }}
-      type="button"
-      className="leaverqbtns"
-    >
-      <span style={{ textDecoration: "none!important" }}>Request send</span>
-    </button>
+                          <div className="leavebuttons">
+                            <button
+                              onClick={(e) => {
+                                e.preventDefault();
+                                submitHandler(e);
+                              }}
+                              type="button"
+                              className="leaverqbtns"
+                            >
+                              <span style={{ color: "white" }}>
+                                Request send{" "}
+                              </span>
+                            </button>
 
-    <button
-      onClick={() => setStar1(false)}
-      type="button"
-      className="levacanclebtns"
-    >
-      <span>Cancel</span>
-    </button>
-  </div>
-</form>
+                            <button
+                              onClick={() => setStar1(false)}
+                              type="button"
+                              className="levacanclebtns"
+                            >
+                              <span>Cancel</span>
+                            </button>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </>
+                )}
 
-      </div>
-    </div>
-  </>
-)}
+                {showleave2 && (
+                  <>
+                    <div className="leavewrapping">
+                      <div className="crelevecont">
+                        <div class="crelavetopsec">
+                          <h3 class="leaveHead">Half Day Request</h3>
+                          <img
+                            src={cutt}
+                            onClick={() => setShowLeave2(false)}
+                            alt=""
+                          />
+                        </div>
 
-{showleave2 && (
-  <>
-    <div className="leavewrapping">
-      <div className="crelevecont">
-        <div class="crelavetopsec">
-          <h3 class="leaveHead">Half Day Request</h3>
-          <img src={cutt} onClick={() => setShowLeave2(false)} alt="" />
-        </div>
+                        <hr />
 
-        <hr />
+                        {/* <!-- Modal body --> */}
+                        <form className="levaecretaeform" action="#">
+                          <div className="levaecreflex">
+                            <div class="user_class_input3 w-full mt-2">
+                              <label
+                                for="text"
+                                class="block mb-2 text-sm font-medium text-gray-900 employName"
+                              >
+                                Start
+                              </label>
+                              <input
+                                value={formdata2.start}
+                                onChange={changeHandler2}
+                                type="date"
+                                name="start"
+                                id="text"
+                                class="startDate"
+                                required
+                              />
+                            </div>
 
-        {/* <!-- Modal body --> */}
-        <form className="levaecretaeform" action="#">
-          <div className="levaecreflex">
-            <div class="user_class_input3 w-full mt-2">
-              <label
-                for="text"
-                class="block mb-2 text-sm font-medium text-gray-900 employName"
-              >
-                Start
-              </label>
-              <input
-                value={formdata2.start}
-                onChange={changeHandler2}
-                type="date"
-                name="start"
-                id="text"
-                class="startDate"
-                required
-              />
-            </div>
+                            <div class="user_class_input3 w-full ml-2 mt-2">
+                              <label
+                                for="text"
+                                class="block mb-2 text-sm font-medium text-gray-900 employName"
+                              >
+                                End
+                              </label>
+                              <input
+                                value={formdata2.end}
+                                onChange={changeHandler2}
+                                type="date"
+                                name="end"
+                                id="text"
+                                class="startDate"
+                                required
+                              />
+                            </div>
+                          </div>
 
-            <div class="user_class_input3 w-full ml-2 mt-2">
-              <label
-                for="text"
-                class="block mb-2 text-sm font-medium text-gray-900 employName"
-              >
-                End
-              </label>
-              <input
-                value={formdata2.end}
-                onChange={changeHandler2}
-                type="date"
-                name="end"
-                id="text"
-                class="startDate"
-                required
-              />
-            </div>
-          </div>
+                          <div class="levelreasons">
+                            <label
+                              for="message"
+                              class="block mb-2 mt-2 text-sm font-medium text-gray-900 employName"
+                            >
+                              Reason
+                            </label>
+                            <textarea
+                              required
+                              name="reason"
+                              onChange={changeHandler2}
+                              value={formdata2.reason}
+                              id="message"
+                              rows="4"
+                              class="reasonText2"
+                              placeholder="Enter your reason..."
+                            ></textarea>
+                          </div>
 
-          <div class="levelreasons">
-            <label
-              for="message"
-              class="block mb-2 mt-2 text-sm font-medium text-gray-900 employName"
-            >
-              Reason
-            </label>
-            <textarea
-              required
-              name="reason"
-              onChange={changeHandler2}
-              value={formdata2.reason}
-              id="message"
-              rows="4"
-              class="reasonText2"
-              placeholder="Enter your reason..."
-            ></textarea>
-          </div>
+                          <div className="leavebuttons">
+                            <button
+                              onClick={(e) => {
+                                e.preventDefault();
+                                if (validateForm(formdata2)) {
+                                  submitHandler2();
+                                } else {
+                                  alert("Please fill out all required fields.");
+                                }
+                              }}
+                              type="button"
+                              className="leaverqbtns"
+                            >
+                              <span style={{ color: "white" }}>
+                                Request send
+                              </span>
+                            </button>
 
-          <div className="leavebuttons">
-            <button
-              onClick={(e) => {
-                e.preventDefault();
-                if (validateForm(formdata2)) {
-                  submitHandler2();
-                } else {
-                  alert("Please fill out all required fields.");
-                }
-              }}
-              type="button"
-              className="leaverqbtns"
-            >
-              <span>Request send</span>
-            </button>
-
-            <button
-              onClick={() => setShowLeave2(false)}
-              type="button"
-              class="levacanclebtns"
-            >
-              <span>Cancel</span>
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </>
-)}
-
-
+                            <button
+                              onClick={() => setShowLeave2(false)}
+                              type="button"
+                              class="levacanclebtns"
+                            >
+                              <span>Cancel</span>
+                            </button>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </>
+                )}
 
                 {openAnn && (
                   <>
