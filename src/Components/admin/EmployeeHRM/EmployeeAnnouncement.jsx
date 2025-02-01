@@ -226,10 +226,14 @@ const EmployeeAnnouncement = ({ pop, setPop, setAlert }) => {
                 </p>
               </div>
 
-              
-              {/* <div onClick={() => setOpenForm(true)} className="plusImg6">
+              {
+                hrms_user?.designation === "HR Admin" &&  <div onClick={() => setOpenForm(true)} className="plusImg6">
                 <img src={annPlus} alt="" />  <span>ADD</span>
-              </div> */}
+              </div>
+              }
+             
+
+
             </div>
 
             <main className="anMain">
