@@ -2606,11 +2606,12 @@ const DocumentManagement = ({ setAlert, pop, setPop }) => {
                     {/* content */}
 
                     <div className="showoffercont">
+                      {/* <img className="offer_header11" src="https://res.cloudinary.com/dgif730br/image/upload/v1738591193/Screenshot_2025-02-03_192851_hfwgrb.png" alt="" /> */}
                       <h2>OFFER CONFIRMATION LETTER</h2>
-                     
                       <div>
                         <div dangerouslySetInnerHTML={{ __html: content }} />
                       </div>
+                      {/* <img className="offer_footer11" src="https://res.cloudinary.com/dgif730br/image/upload/v1738591575/Screenshot_2025-02-03_191909_vxo9ly.png" alt="" /> */}
                     </div>
 
                     {/* third  */}

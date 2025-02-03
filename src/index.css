@@ -7789,4 +7789,17 @@ right: 30px;
 .openformisk{
   height: 400px !important;
 }
-
+.offer_header11{
+  display: block;
+  margin: auto;
+  width: 100%;
+  position: relative;
+  top: -23px;
+}
+.offer_footer11{
+  display: block;
+  margin: auto;
+  width: 100%;
+  position: relative;
+  top: 18px;
+}
