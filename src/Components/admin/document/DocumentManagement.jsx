@@ -1816,7 +1816,10 @@ const DocumentManagement = ({ setAlert, pop, setPop }) => {
       return;
     }
     const toastid = toast.loading("Loading...");
+    //  console.log("content",content);
     const ans = await saveDocs({ id: SelectEmpId, content });
+    // let ans = true;
+    console.log("anss",ans);
     if (ans?.status) {
       toast.success("Successfuly created");
     } else {
@@ -1831,7 +1834,7 @@ const DocumentManagement = ({ setAlert, pop, setPop }) => {
       return;
     }
     const toastid = toast.loading("Loading...");
-    const ans = await freelencerOfferApi({ id: SelectEmpId, content8 });
+    const ans = await partTimeOfferApi({ id: SelectEmpId, content8 });
     if (ans?.status) {
       toast.success("Successfuly created");
     } else {
@@ -2295,13 +2298,6 @@ const DocumentManagement = ({ setAlert, pop, setPop }) => {
   }, [currEmp]);
     
    // Calculate yearly compensation
-  
-   console.log(detail);
-   
-   const yearlyCompensation = detail.compensation
-   ? (parseFloat(detail.compensation) * 12).toFixed(2)
-   : "0.00";
-   console.log("yearly compensation",yearlyCompensation)
 
   return (
     <>
@@ -2472,9 +2468,6 @@ const DocumentManagement = ({ setAlert, pop, setPop }) => {
                           Insert
                         </button>
                       </label>
-
-                  
-
                       <label>
                        <div className="joindatewrap">
                        <input
@@ -2519,19 +2512,6 @@ const DocumentManagement = ({ setAlert, pop, setPop }) => {
                           Insert
                         </button>
                       </label>
-{/* 
-                      <label>
-                        <input
-                          type="text"
-                          name="returningDay"
-                          value={detail.returningDay}
-                          onChange={handleNameChange}
-                          placeholder="Offer Letter Returning Date"
-                        />
-                        <button onClick={() => handleInsert1("returningDay")}>
-                          Insert
-                        </button>
-                      </label> */}
 
                       <label>
                         <div className="joindatewrap">
@@ -2603,18 +2583,15 @@ const DocumentManagement = ({ setAlert, pop, setPop }) => {
                       </label>
                     </div>
 
-                    {/* content */}
 
                     <div className="showoffercont">
-                      {/* <img className="offer_header11" src="https://res.cloudinary.com/dgif730br/image/upload/v1738591193/Screenshot_2025-02-03_192851_hfwgrb.png" alt="" /> */}
+                    
                       <h2>OFFER CONFIRMATION LETTER</h2>
                       <div>
                         <div dangerouslySetInnerHTML={{ __html: content }} />
                       </div>
-                      {/* <img className="offer_footer11" src="https://res.cloudinary.com/dgif730br/image/upload/v1738591575/Screenshot_2025-02-03_191909_vxo9ly.png" alt="" /> */}
+                  
                     </div>
-
-                    {/* third  */}
 
                     <div className="docuThird">
                       <h3>Format</h3>
@@ -2625,7 +2602,6 @@ const DocumentManagement = ({ setAlert, pop, setPop }) => {
                         ref={editor}
                         value={content}
                         tabIndex={1}
-                        // config={config}
                         onBlur={(newContent) => setContent(newContent)}
                         onChange={(newContent) => {
                           setContent(newContent);
@@ -2633,10 +2609,7 @@ const DocumentManagement = ({ setAlert, pop, setPop }) => {
                       />
                     </div>
 
-                    <button
-                      onClick={() => saveDocumentApi()}
-                      className="doSaveBtn"
-                    >
+                    <button onClick={() => saveDocumentApi()} className="doSaveBtn" >
                       <span>Save</span>
                     </button>
                   </>

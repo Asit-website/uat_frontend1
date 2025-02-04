@@ -345,8 +345,7 @@ function App() {
               <Route path="/adminDash/createLead" element={<CreateLead />} />
               <Route path="/adminDash/editLead" element={<EditLead />} />
               <Route path="/adminDash/importLead/:id" element={<ImportLead />} />
-              <Route path="/adminDash/import EmployeeAnnouncement from './Components/Employee/EmployeeAnnouncement';
-mySelf" element={<MySelf />} />
+              <Route path="/adminDash/mySelf" element={<MySelf />} />
               <Route path="/adminDash/EmployeeDetails" element={<EmployeeSelf />} />
               <Route path="/adminDash/leadFile" element={<LeadFile />} />
               <Route path="/adminDash/createQuotation" element={<CreateQuotation />} />

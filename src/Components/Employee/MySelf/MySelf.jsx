@@ -13,11 +13,9 @@ const MySelf = ({ setAlert, pop1, setPop1 }) => {
   const { postActivity, getStatisticsByUser, getMyOfferLetter } = useMain();
 
   const [user, setUser] = useState();
-   console.log("user details",user)
   const [curenpage, setCurrPage] = useState("Document");
   let user1 = JSON?.parse(localStorage.getItem("hrms_user"));
   let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
-  const { offerLetterPermission } = hrms_user;
 
   const [offerContent, setOfferContent] = useState(``);
   const [reliveContent, setReliveContent] = useState(``);
@@ -80,9 +78,8 @@ const MySelf = ({ setAlert, pop1, setPop1 }) => {
 
   useEffect(() => {
     setUser(hrms_user);
-    if (offerLetterPermission) {
       getOfferletter();
-    }
+    
   }, []);
 
   useEffect(() => {
