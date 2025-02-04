@@ -355,11 +355,12 @@ const MySelf = ({ setAlert, pop1, setPop1 }) => {
             )}
 
             {curenpage === "Offer Letter" && (
-              <div className="showoffercont">
+               <div>
+                <div ref={contonentPDF} className="showoffercont">
                  <img className="offer_header11" src="https://res.cloudinary.com/dgif730br/image/upload/v1738591193/Screenshot_2025-02-03_192851_hfwgrb.png" alt="" />
                 <h2>OFFER LETTER</h2>
 
-                <div ref={contonentPDF} className="font-wrapper p-4">
+                <div  className="font-wrapper p-4">
                   <div
                     className="addfont"
                     dangerouslySetInnerHTML={{ __html: offerContent }}
@@ -367,44 +368,60 @@ const MySelf = ({ setAlert, pop1, setPop1 }) => {
                    <img className="offer_footer11" src="https://res.cloudinary.com/dgif730br/image/upload/v1738591575/Screenshot_2025-02-03_191909_vxo9ly.png" alt="" />
                 </div>
 
-                <div className="prntBtn">
+              
+              </div>
+
+              <div className="prntBtn">
                   <button onClick={() => generatePdf()}>
                     <span>Print</span>
                   </button>
                 </div>
-              </div>
+
+               </div>
             )}
             {curenpage === "Relieving Letter" && (
-              <div className="showoffercont">
+          <div>
+             <div ref={contonentPDF2} >
+                 <div  className="showoffercont">
                  <img className="offer_header11" src="https://res.cloudinary.com/dgif730br/image/upload/v1738591193/Screenshot_2025-02-03_192851_hfwgrb.png" alt="" />
                 <h2>RELIEVING LETTER</h2>
 
-                <div ref={contonentPDF2} className=" p-4">
+                <div  className=" p-4">
                   <div dangerouslySetInnerHTML={{ __html: reliveContent }} />
                 </div>
                 <img className="offer_footer11" src="https://res.cloudinary.com/dgif730br/image/upload/v1738591575/Screenshot_2025-02-03_191909_vxo9ly.png" alt="" />
 
-                <div className="prntBtn">
-                  <button onClick={() => generatePdf2()}>
-                    <span>Print</span>
-                  </button>
-                </div>
+               
               </div>
+
+
+          </div>
+
+<div className="prntBtn">
+<button onClick={() => generatePdf2()}>
+  <span>Print</span>
+</button>
+</div>
+          </div>
             )}
 
             {curenpage === "Experience Letter" && (
-              <div className="showoffercont">
+              <div>
+                 <div ref={contonentPDF3} className="showoffercont">
                  <img className="offer_header11" src="https://res.cloudinary.com/dgif730br/image/upload/v1738591193/Screenshot_2025-02-03_192851_hfwgrb.png" alt="" />
                 <h2>EXPERIENCE LETTER</h2>
 
-                <div ref={contonentPDF3} className="p-4">
+                <div  className="p-4">
                   <div
                     dangerouslySetInnerHTML={{ __html: experienceContent }}
                   />
                 </div>
                 <img className="offer_footer11" src="https://res.cloudinary.com/dgif730br/image/upload/v1738591575/Screenshot_2025-02-03_191909_vxo9ly.png" alt="" />
 
-                <div className="prntBtn">
+               
+              </div>
+
+              <div className="prntBtn">
                   <button onClick={() => generatePdf3()}>
                     <span>Print</span>
                   </button>
@@ -413,23 +430,27 @@ const MySelf = ({ setAlert, pop1, setPop1 }) => {
             )}
 
             {curenpage === "Internship Letter" && (
-              <div className="showoffercont">
+             <div>
+                <div ref={contonentPDF4} className="showoffercont">
                  <img className="offer_header11" src="https://res.cloudinary.com/dgif730br/image/upload/v1738591193/Screenshot_2025-02-03_192851_hfwgrb.png" alt="" />
                 <h2>INTERNSHIP LETTER</h2>
 
-                <div ref={contonentPDF4} className="p-4">
+                <div  className="p-4">
                   <div
                     dangerouslySetInnerHTML={{ __html: internshipContent }}
                   />
                 </div>
                 <img className="offer_footer11" src="https://res.cloudinary.com/dgif730br/image/upload/v1738591575/Screenshot_2025-02-03_191909_vxo9ly.png" alt="" />
 
-                <div className="prntBtn">
+               
+              </div>
+
+              <div className="prntBtn">
                   <button onClick={() => generatePdf4()}>
                     <span>Print</span>
                   </button>
                 </div>
-              </div>
+             </div>
             )}
           </div>
         </div>
