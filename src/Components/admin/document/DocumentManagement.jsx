@@ -1816,10 +1816,7 @@ const DocumentManagement = ({ setAlert, pop, setPop }) => {
       return;
     }
     const toastid = toast.loading("Loading...");
-    //  console.log("content",content);
     const ans = await saveDocs({ id: SelectEmpId, content });
-    // let ans = true;
-    console.log("anss",ans);
     if (ans?.status) {
       toast.success("Successfuly created");
     } else {

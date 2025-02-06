@@ -19,7 +19,7 @@ const MySelf = ({ setAlert, pop1, setPop1 }) => {
 
   const [offerContent, setOfferContent] = useState(``);
   const [reliveContent, setReliveContent] = useState(``);
-
+  const [internOffer , setInternOffer] = useState(``);
   const [experienceContent, setExperienceContent] = useState(``);
   const [internshipContent, setinternshipContent] = useState(``);
 
@@ -452,6 +452,15 @@ const MySelf = ({ setAlert, pop1, setPop1 }) => {
                 </div>
              </div>
             )}
+
+            {
+              setCurrPage === "Intenship Offer Letter" && 
+              (
+                <div>
+
+                </div>
+              )
+            }
           </div>
         </div>
       </div>
