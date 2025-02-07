@@ -358,7 +358,7 @@ the time being in force.</span></p>
   <p class="TableParagraph" style="font-family: Arial, sans-serif; margin: 3px 0in 0px 10px; font-size: 15px;"><strong><span style="font-family: Inter, sans-serif; color: black; font-size: 13px;">TOTAL COST TO THE COMPANY (Per Annum)</span></strong></p>
   </td>
   <td width="362" valign="top" style="width: 361px; background: rgb(217, 217, 217); padding: 0in; height: 21px;">
-  <p class="TableParagraph" align="right" style="font-family: Arial, sans-serif; margin: 3px 2px 0px 0in; text-align: right; font-size: 15px;"><strong><span style="font-family: Inter, sans-serif; color: black; background: yellow; font-size: 13px;">[annualcompensation]</span></strong></p>
+  <p class="TableParagraph" align="right" style="font-family: Arial, sans-serif; margin: 3px 2px 0px 0in; text-align: right; font-size: 15px;"><strong><span style="font-family: Inter, sans-serif; color: black; background: yellow; font-size: 13px;">[ANNUALCOMPENSATION]</span></strong></p>
   </td>
  </tr>
 </tbody></table>
@@ -1951,7 +1951,7 @@ const DocumentManagement = ({ setAlert, pop, setPop }) => {
     workingHour: "[WORKHOUR]",
     workingDays: "[WORKINGDAYS]",
     compensation: "[COMPENSATION]",
-    
+    annualCompensation:"[ANNUALCOMPENSATION]",
     returningDay: "[RETURNINGDAY]",
     returningDate: "[RETURNINGDATE]",
     validJoin: "[VALIDJOIN]",
