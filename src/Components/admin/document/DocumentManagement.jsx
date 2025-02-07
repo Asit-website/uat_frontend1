@@ -2600,9 +2600,10 @@ const DocumentManagement = ({ setAlert, pop, setPop }) => {
                         value={content}
                         tabIndex={1}
                         onBlur={(newContent) => setContent(newContent)}
-                        onChange={(newContent) => {
-                          setContent(newContent);
-                        }}
+                        
+                        // onChange={(newContent) => {
+                        //   setContent(newContent);
+                        // }}
                       />
                     </div>
 
@@ -2826,9 +2827,9 @@ const DocumentManagement = ({ setAlert, pop, setPop }) => {
                         value={content4}
                         tabIndex={1}
                         onBlur={(newContent) => setContent4(newContent)}
-                        onChange={(newContent) => {
-                          setContent4(newContent);
-                        }}
+                        // onChange={(newContent) => {
+                        //   setContent4(newContent);
+                        // }}
                       />
                     </div>
 
@@ -2939,9 +2940,9 @@ const DocumentManagement = ({ setAlert, pop, setPop }) => {
                         value={content2}
                         tabIndex={1}
                         onBlur={(newContent) => setContent2(newContent)}
-                        onChange={(newContent) => {
-                          setContent2(newContent);
-                        }}
+                        // onChange={(newContent) => {
+                        //   setContent2(newContent);
+                        // }}
                       />
                     </div>
 
@@ -3039,9 +3040,9 @@ const DocumentManagement = ({ setAlert, pop, setPop }) => {
                         value={content3}
                         tabIndex={1}
                         onBlur={(newContent) => setContent3(newContent)}
-                        onChange={(newContent) => {
-                          setContent3(newContent);
-                        }}
+                        // onChange={(newContent) => {
+                        //   setContent3(newContent);
+                        // }}
                       />
                     </div>
 
@@ -3110,9 +3111,9 @@ const DocumentManagement = ({ setAlert, pop, setPop }) => {
                         value={content5}
                         tabIndex={1}
                         onBlur={(newContent) => setContent5(newContent)}
-                        onChange={(newContent) => {
-                          setContent5(newContent);
-                        }}
+                        // onChange={(newContent) => {
+                        //   setContent5(newContent);
+                        // }}
                       />
                     </div>
 
@@ -3209,9 +3210,9 @@ const DocumentManagement = ({ setAlert, pop, setPop }) => {
                         value={content6}
                         tabIndex={1}
                         onBlur={(newContent) => setContent6(newContent)}
-                        onChange={(newContent) => {
-                          setContent6(newContent);
-                        }}
+                        // onChange={(newContent) => {
+                        //   setContent6(newContent);
+                        // }}
                       />
                     </div>
 
@@ -3476,9 +3477,9 @@ const DocumentManagement = ({ setAlert, pop, setPop }) => {
                         value={content7}
                         tabIndex={1}
                         onBlur={(newContent) => setContent7(newContent)}
-                        onChange={(newContent) => {
-                          setContent7(newContent);
-                        }}
+                        // onChange={(newContent) => {
+                        //   setContent7(newContent);
+                        // }}
                       />
                     </div>
 
@@ -3747,9 +3748,9 @@ const DocumentManagement = ({ setAlert, pop, setPop }) => {
                         value={content8}
                         tabIndex={1}
                         onBlur={(newContent) => setContent8(newContent)}
-                        onChange={(newContent) => {
-                          setContent8(newContent);
-                        }}
+                        // onChange={(newContent) => {
+                        //   setContent8(newContent);
+                        // }}
                       />
                     </div>
 
