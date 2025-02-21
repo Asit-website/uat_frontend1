@@ -25,6 +25,7 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
   const {
     user,
     getLead2,
+    allEmployee,
     updateLeadStatus,
     CreateNoteApi,
     taskCreateApi,
@@ -32,6 +33,7 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
     taskEditApi,
     meetEditApi,
     GetNoteApi,
+    ShareLeadApi,
     DeleteNoteApi,
     updateNoteApi,
     FetchFollowApi,
@@ -47,11 +49,25 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
   const { id } = useParams();
 
   const location = useLocation();
+
+  const [shareOpen , setShareOpen] = useState(false);
+
+  const [shareList, setShareList] = useState([]);
   const { type, data1 } = location.state || {};
 
   const [data, setData] = useState({});
+  const [shareSrch , setShareSrch] = useState("");
+  const [shareemp , setShareEmp] = useState([]);
 
   const [LeadStatus, setLeadStatus] = useState("");
+
+  const handleCheckboxChange = (empId) => {
+    setShareList((prevList) =>
+      prevList.includes(empId)
+        ? prevList.filter((id) => id !== empId) 
+        : [...prevList, empId] 
+    );
+  };
 
   const [leadStat, setLeadStat] = useState([]);
 
@@ -59,9 +75,24 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
 
   const [Note, setNote] = useState("");
 
+  const proNavRef2 = useRef(null);
+  useOnClickOutside(proNavRef2, () => setShareOpen(false));
+
   const navigate = useNavigate();
 
   const [allFollowUp, setAllFollowUp] = useState([]);
+
+  const [allEmple , setAllEmple] = useState([]);
+
+  const fetchAllEmp = async()=>{
+     const ans = await allEmployee();
+     setAllEmple(ans?.emp);
+     setShareEmp(ans?.emp);
+  }
+
+  useEffect(()=>{
+    fetchAllEmp();
+  },[])
 
   const fetchFollowUp = async () => {
     const ans = await FetchFollowApi(id);
@@ -69,6 +100,19 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
       setAllFollowUp(ans?.data);
     }
   };
+
+  useEffect(()=>{
+
+    if(shareSrch === ""){
+     setShareEmp([...allEmple]);
+    }
+    else{
+     const data = allEmple.filter((emp)=> emp?.fullName?.toLowerCase()?.includes(shareSrch.toLowerCase()));
+     setShareEmp(data);
+
+    }
+   
+ },[shareSrch])
 
   const fetchUserDesignation = async () => {
     const ans = await getUserByDesignation1();
@@ -91,6 +135,8 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
   const getData = async () => {
     let ans = await getLead2(id, "", "", "");
     setData(ans.data[0]);
+    const leadOwnerIds = ans?.data[0]?.LeadOwner.map(owner => owner._id);
+    setShareList(leadOwnerIds);
   };
 
   const [allFollow2, setAllFollow2] = useState([]);
@@ -149,6 +195,15 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
       getNotes();
     }
   };
+
+  
+   const shareleads = async()=>{
+    const toastId = toast.loading("Loading...");
+     const resp = await ShareLeadApi(id , shareList);
+      toast.success("Successfuly shared");
+      toast.dismiss(toastId);
+      getData();
+    }
 
   const [openCreateTask, setOpenCreateTask] = useState(false);
   const [openCreateMeet, setOpenCreateMeet] = useState(false);
@@ -450,9 +505,29 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
               {/* right side  */}
               <div className="laedRight">
 
-                <button className="refresh1" >
-                  <span className="ref1">Share</span>
-                </button>
+              <button className="refresh1 relative" >
+      <span onClick={()=>setShareOpen((prev)=>!prev)} className="ref1">Share</span>
+      {shareOpen && (
+        <div ref={proNavRef2} className="shareopen">
+           <div className="share_wraps">
+           <div className="sendbtns">
+             <input onChange={(e)=>setShareSrch(e.target.value)} value={shareSrch} type="text" placeholder="Search..." />
+             <button  onClick={()=>shareleads()} >Send</button>
+           </div>
+          {shareemp?.map((emp, index) => (
+            <div key={index} className="singluser">
+              <input
+                type="checkbox"
+                checked={shareList.includes(emp?._id)}
+                onChange={() => handleCheckboxChange(emp?._id)}
+              />
+              <span>{emp?.fullName}</span>
+            </div>
+          ))}
+           </div>
+        </div>
+      )}
+    </button>
 
                 <button
                   onClick={() =>
@@ -478,9 +553,15 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
                 <div className="eladinfoWrap">
                   {/* left side  */}
                   <div className="lleaiFOlEFT">
-                    <div className="subPart">
+                  <div className="subPart">
                       <h3>Lead Owner :</h3>
-                      <p>{data?.LeadOwner?.fullName}</p>
+                       <div className="leanwlonwers">
+                       {
+                        data?.LeadOwner?.map((own , index)=>(
+                          <p className="makesonsmall" key={index}>{own?.fullName} , </p>
+                        ))
+                      }
+                       </div>
                     </div>
 
                     <div className="subPart">
@@ -1226,6 +1307,8 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
       )}
     </div>
   );
-};
+
+}
+
 
 export default ImportLead;

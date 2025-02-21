@@ -7803,3 +7803,76 @@ right: 30px;
   position: relative;
   top: 18px;
 }
+
+
+.shareopen{
+  position: absolute;
+  top: 40px;
+  right: 0px;
+  width: 370px;
+  height: 300px;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+border-radius: 10px;
+
+
+}
+
+.share_wraps{
+  background-color: white;
+  width: 370px;
+  height: 300px;
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+ align-items: flex-start;
+ position: relative;
+
+}
+
+.singluser{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0px 14px;
+ 
+}
+
+.sendbtns{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  position: sticky;
+  top: 0px;
+  background-color: white;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  padding: 10px 14px;
+width: 100%;
+  
+}
+
+.sendbtns input{
+  border: 1px solid black;
+  border-radius: 5px;
+  width: 200px;
+  padding: 0px 10px;
+
+}
+
+
+
+.leanwlonwers{
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.sendbtns button{
+  background-color: #0056b3;
+   color:white;
+    width: 100px;
+    height: 34px;
+    border-radius: 10px;
+    padding: 0px 10px;
+  font-weight: 500;
+}
+

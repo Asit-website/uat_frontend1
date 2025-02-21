@@ -111,6 +111,11 @@ const MainState = (props) => {
       return data;
    };
 
+   const ShareLeadApi = async ( leadId , shareList ) => {
+      const data = await post(`${baseUrl}/lead/sharelead`, { leadId , shareList }, true);
+      return data;
+   }
+
    const createEmployee = async ({ fullName, password, department, employeeId, gmail, reportingManager, designation, joiningDate, email, email1, mobile, gender, dob, pan, adhar, father, currentAddress, currentState, currentCity, currentPin, residence, perState, perCity, perPin, Martial, nationality, Mother, employeeCode, qualification, specialization, qualificationType, yearPass, university, college, percentage, previousCompany, previousDesignation, toDate, fromDate, numberOfMonth, Jobdescription, SalaryPay, SalaryBankName, BeneficiaryName, BankIfsc, AccountNumber, confirmAccount, Branch }) => {
       const data = await post(`${baseUrl}/hr/createUser`, {
          fullName,
@@ -1943,7 +1948,9 @@ const MainState = (props) => {
    // for task and meet 
 
 
-   const taskCreateApi = async ({ LeadName, FollowUpType, Date, Time, Remark, LeadId, userId }) => {
+   const taskCreateApi = async ({ LeadName, FollowUpType, Date, Time, Remark, LeadId,  }) => {
+      let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
+         let userId = hrms_user?._id;
       const data = await post(`${baseUrl}/openActivity/createTask`, { LeadName, FollowUpType, Date, Time, Remark, LeadId, userId }, true);
       return data;
 
@@ -2493,6 +2500,7 @@ const MainState = (props) => {
          getQuotationAll1,
          updateQuotation1,
          deleteQuotation1 , 
+         ShareLeadApi,
          uploadSingleImage , 
          getAllProjectUserApi , 
          savenoteatt ,AllRolesapi , FetchMyLeave ,  closeLead , deleteQproapi , createExpenseApi , changeStatusBreak , deleteProjectTaskapi22 , EditProjectTask , postHalfDay , closeLeadApiFetch2 , closeLeadApiFetch , postNotification2 , getUserHalfDay , rejectHalfDay , acceptHalf , acceptassetsapi , getTodayLead , getTodayLead2 , getSaveTempalte,partTimeOfferApi
