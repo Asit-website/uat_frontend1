@@ -177,7 +177,7 @@ const AdminSidebar = ({ pop, setPop }) => {
 
   const [openLead, setOpenLead] = useState(false);
 
-  console.log("openLead", openLead);
+  // console.log("openLead", openLead);
 
   const stylepoo = {
     display: start ? "block" : "none",

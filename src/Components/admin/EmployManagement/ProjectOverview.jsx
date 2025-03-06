@@ -11,93 +11,147 @@ import { useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import CircularProgress from "./CircularProgress";
 import ProgressBar from "@ramonak/react-progress-bar";
-
+import ProjectOverview2 from "../../admin/EmployManagement/ProjectOverview2";
+import toast from "react-hot-toast";
+import ClientNavbar from "../../Client/ClientNavbar";
 
 
 const ProjectOverview = ({ setAlert, pop, setPop }) => {
-  const { user, getProjectTask } =
+  const { user, getProjectTask, getClientapi, UploadFileProjectapi, allfilesproject, fetchAllTimesheetapi } =
     useMain();
+
+  const [allTasks, setAllTasks] = useState([]);
 
   const location = useLocation();
 
   const data = location?.state;
+  console.log(data)
 
   const [percentage, setPercentage] = useState(0);
 
-  let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
+  let hrms_user = JSON.parse(localStorage.getItem("hrms_user"))
 
-  const { role } = hrms_user;
+  const role = hrms_user.Role || hrms_user.role;
+  console.log(role)
 
-  const [allTasks, setAllTasks] = useState([]);
+  const [allClients, setAllClients] = useState();
+
+  const projectOpt = ["Overview", "Task", "Files", "Timesheets"];
+  const [optIndex, setOptIndex] = useState(0);
+  const [openTask, setOpenTask] = useState(0);
+  const [OpenTaskper, setOpenTaskper] = useState(0);
+
+  const [daysleft, setDaysleft] = useState(0);
+  const [daysleftper, setDaysleftper] = useState(0);
 
   const getProjectTaskapi = async () => {
     const ans = await getProjectTask(data?._id);
-    const reversedTasks = ans?.data.reverse(); // Reverse the array
-    setAllTasks(reversedTasks); // Set the reversed array
+    setAllTasks(ans?.tasks);
   };
+  const gettAllClients = async() => {
+    try {
+      const ans = await getClientapi();
+      console.log("ans", ans);
+      if (ans?.status) {
+        setAllClients(ans?.data);
+        // console.log(allClient)
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("sometinng went wrong ,please try agin");
+    }
+  }
 
   useEffect(() => {
-    getProjectTaskapi();
-  }, []);
-
-
-  const [openTask ,setOpenTask] =useState(0);
-  const [OpenTaskper ,setOpenTaskper] =useState(0);
-
-  const [daysleft , setDaysleft] =useState(0);
-  const [daysleftper , setDaysleftper] =useState(0);
-
-
-  useEffect(() => {
-    
     const totalTasks = allTasks.length;
     const completedTasks = allTasks.filter(
       (task) => task.Status === "Completed"
     ).length;
 
-    
     const openTaskse = allTasks.filter(
       (task) => task.Status !== "Completed"
     ).length;
 
+    setOpenTask(openTaskse);
 
-     setOpenTask(openTaskse);
-
-     
     const completedPercentage = (completedTasks / totalTasks) * 100;
     const opentaskper = ((openTaskse / totalTasks) * 100).toFixed(0);
 
     setPercentage(completedPercentage);
     setOpenTaskper(opentaskper);
-
+    gettAllClients();
   }, [allTasks]);
 
+  useEffect(() => {
+    const today = new Date();
 
-  useEffect(()=>{
- // Calculate today's date
- const today = new Date();
-    
- // Set your due date
- const dueDate = new Date('2024-07-26');
- 
- // Calculate the difference in milliseconds
- const differenceMs = dueDate - today;
- 
- // Convert milliseconds to days
- const daysDifference = Math.ceil(differenceMs / (1000 * 60 * 60 * 24));
- 
- // Update state with the number of days left
- setDaysleft(daysDifference);
- 
- // Calculate percentage of days left (assuming 365 days in a year)
- const totalDaysInYear = 20;
- const daysLeftPercentage = Math.ceil((daysDifference / totalDaysInYear) * 100);
- 
- // Update state with the percentage of days left
- setDaysleftper(daysLeftPercentage);
-  },[data])
+    const dueDate = new Date("2024-07-26");
 
- 
+    const differenceMs = dueDate - today;
+
+    const daysDifference = Math.ceil(differenceMs / (1000 * 60 * 60 * 24));
+
+    setDaysleft(daysDifference);
+
+    const totalDaysInYear = 20;
+    const daysLeftPercentage = Math.ceil(
+      (daysDifference / totalDaysInYear) * 100
+    );
+
+    setDaysleftper(daysLeftPercentage);
+
+    // getProjectTaskapi();
+  }, [data]);
+
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [allfiles, setAllFiles] = useState([]);
+
+
+  const fetchAllFile = async () => {
+    const resp = await allfilesproject(data?._id);
+    setAllFiles(resp?.files);
+  };
+
+  const handleFileChange = (event) => {
+    const toastId = toast.loading("Loading...");
+    const file = event.target.files[0];
+    setSelectedFile(file);
+    toast.dismiss(toastId);
+  };
+
+  const uploadFileProject = async () => {
+    if (selectedFile) {
+      const toastId = toast.loading("Loading...");
+      const resp = await UploadFileProjectapi(selectedFile, data?._id);
+      toast.success("Successfuly upload");
+      toast.dismiss(toastId);
+      fetchAllFile();
+    }
+  };
+
+  const [altimesheet, setTimesheet] = useState([]);
+
+
+  const fetchAllTimesheet = async () => {
+    const resp = await fetchAllTimesheetapi(data?._id);
+    console.log("res", resp);
+    setTimesheet(resp?.taskTimelines);
+
+  }
+
+  const dateFormate = (timestamp) => {
+    const date = new Date(timestamp);
+    return date.toISOString()
+
+    // console.log(date.toISOString()); 
+    // console.log(date.toLocaleString());
+  }
+
+  useEffect(() => {
+    fetchAllFile();
+    fetchAllTimesheet();
+    gettAllClients()
+  }, []);
 
   return (
     <>
@@ -111,99 +165,221 @@ const ProjectOverview = ({ setAlert, pop, setPop }) => {
         <div className="tm">
           {role === "EMPLOYEE" ? (
             <EmployeeNavbar user={user} setAlert={setAlert} />
+          ) : role === "Client" ? (
+            <ClientNavbar user={user} setAlert={setAlert} />
           ) : (
             <AdminNavbar user={user} setAlert={setAlert} />
           )}
 
           <div className="em">
-            <div className="tclwrap2">
-
-
-            <div className="projectOverView">
-
-                 
-              <nav>
-                <div className="pronaheading">
-                  <h2>OVERVIEW {data?.Name}</h2>
-                
+            <div
+              className=""
+              style={{
+                width: "338px",
+                height: "42px",
+                display: "flex",
+                alignItems: "center",
+              }}
+            >
+              {projectOpt.map((pr, index) => (
+                <div
+                  onClick={() => setOptIndex(index)}
+                  key={index}
+                  className={`cursor-pointer singelPr ${index === 0 && "addlefborder"
+                    }  ${index === 3 && "addBorder"} ${optIndex === index && "adddbg"
+                    }`}
+                >
+                  <span>{pr}</span>
                 </div>
+              ))}
+            </div>
 
-             
-              </nav>
+            {optIndex === 1 && (
+              <>
+                <div style={{ marginTop: "-1px", paddingTop: "-20px" }}>
+                  <ProjectOverview2
+                    getProjectTaskapi={getProjectTaskapi}
+                    allTasks={allTasks}
+                    setAllTasks={setAllTasks}
+                    data={data}
+                  />
+                </div>
+              </>
+            )}
 
-               <div className="cont">
-                {/* left  */}
-                <div className="proleft">
-                     <p>Project</p>
-                      <p>{data?.Name}</p>
+            {optIndex === 0 && (
+              <div className="tclwrap2" style={{ marginTop: "40px" }}>
+                <div className="projectOverView">
+                  <nav>
+                    <div className="pronaheading">
+                      <h2>OVERVIEW {data?.projectName}</h2>
+                    </div>
+                  </nav>
+
+                  <div className="cont">
+                    {/* left  */}
+                    <div className="proleft">
+                      <p>Project</p>
+                      <p>{data?.projectName}</p>
                       <p>Status</p>
                       <p>{data?.Status}</p>
                       <p>Date Created </p>
-                       <p>{new Date(data?.createdAt).toISOString().split('T')[0]}</p>
-                       <p>Deadline</p>
-                       <p>{data?.DueDate}</p>
+                      <p>
+                        {new Date(data?.createdAt).toISOString().split("T")[0]}
+                      </p>
+                      <p>Deadline</p>
+                      <p>{data?.deadline}</p>
+                    </div>
+
+                    <div className="eachProgeer">
+                      <h4>Project Progress</h4>
+                      <CircularProgress
+                        percentage={percentage}
+                        color={"#4caf50"}
+                      />
+                    </div>
+                  </div>
+
+                  <hr />
+
+                  <div className="Decr">
+                    <h3>DESCRIPTION</h3>
+                    <p>{data?.Description}</p>
+                  </div>
+
+                  <hr />
+
+                  <div className="embers">
+                    <h3>MEMBERS</h3>
+
+                    <div className="allMEmb">
+                      {data?.Members?.map((mem, index) => (
+                        <div key={index} className="snglme">
+                          <img src={mem?.profileImage} alt="" />
+                          <p>{mem?.fullName}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
                 </div>
 
-                <div className="eachProgeer">
-                   <h4>Project Progress</h4>
-                  <CircularProgress percentage={percentage} color={'#4caf50'} />
+                <div className="secnoveview">
+                  <div className="navrighdiv">
+                    <nav>
+                      <p>{openTask}/{allTasks?.length} OPEN TASKS</p>
+                      <ProgressBar completed={OpenTaskper} />
+                    </nav>
+                    <nav>
+                      <p>Total logged Hour's</p>
+                      <p>0</p>
+                    </nav>
+                  </div>
                 </div>
-
-               </div>
-
-               <hr />
-
-               <div className="Decr">
-                <h3>DESCRIPTION</h3>
-                 <p>{data?.Description}</p>
-               </div>
-
-               <hr />
-
-               <div className="embers">
-                <h3>MEMBERS</h3>
-
-                 <div className="allMEmb">
-                    {
-                        data?.Members?.map((mem , index)=>(
-                            <div key={index} className="snglme">
-                                <img src={mem?.profileImage} alt="" />
-                                <p>{mem?.fullName}</p>
-                            </div>
-                        ))
-                    }
-                 </div>
-               </div>
-
-
               </div>
+            )}
 
-              <div className="secnoveview">
-
-
-                <div className="navrighdiv">
-
-
-                <nav>
-                     <p>{openTask}/10 OPEN TASKS</p>
-                     <ProgressBar completed={OpenTaskper} />
-                </nav>
-
-                <nav>
-                     <p>{daysleft} DAYS LEFT</p>
-                     <ProgressBar completed={daysleftper} />
-                </nav>
+            {optIndex === 2 && (
+              <div className="upload_projewra">
+                <div className="uploadfilebt">
+                  <h4>ALL Files</h4>
+                  {
+                    allfiles?.map((file, index) => (
+                      <div key={index} className="singlefile">
+                        <p>FileName: {file?.fileName}</p>
+                        <p>download link: <a target="_blank" href={`${file?.filePath}`}>{file?.filePath}</a></p>
+                        <p>Uploaded by : {file?.uploadedBy?.fullName}</p>
+                      </div>
+                    ))
+                  }
                 </div>
 
+                <div className="uploadfilebt">
+                  <h4>Upload File or Folder</h4>
+                  <input
+                    type="file"
+                    webkitdirectory
+                    directory="true"
+                    onChange={handleFileChange}
+                  />
 
+                  <button onClick={uploadFileProject}>upload</button>
+                </div>
               </div>
+              // <ViewTask/>
+            )}
 
-            </div>
+            {
+              optIndex === 3 &&
+              <div className="timehssepwrap">
+
+
+                <table className="w-full prodetailTable text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                  <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                    <tr>
+                      <th scope="col" className="px-6 py-3">
+                        clockIn
+                      </th>
+                      <th scope="col" className="px-6 py-3">
+                        clockOut
+                      </th>
+                      <th scope="col" className="px-6 py-3">
+                        Date
+                      </th>
+                      <th scope="col" className="px-6 py-3">
+                        Members
+                      </th>
+
+                      <th scope="col" className="px-6 py-3">
+                        totalTime
+                      </th>
+
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {altimesheet?.map((task, index) => (
+                      <tr key={index} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700" >
+
+                        <td className="px-6 py-3">{task?.clockIn}</td>
+                        <td className="px-6 py-3">{(task?.clockOut)}</td>
+                        {/* <td>{dateFormate(task?.clockOut)}</td> */}
+                        <td className="px-6 py-3">{task?.createdAt}</td>
+                        <td className="px-6 py-3">
+                          <div className="flex">
+                            {
+                              task?.taskId?.Members?.map((member) => (
+                                <img
+                                  src={`${member?.profileImage
+                                    ? member?.profileImage
+                                    : "https://png.pngtree.com/png-vector/20231019/ourmid/pngtree-user-profile-avatar-png-image_10211467.png"
+                                    }`}
+                                  className="w-20 h-20"
+                                  alt="Member Avatar "
+                                  key={member._id}
+
+                                  style={{
+                                    borderRadius: "50%",
+                                    cursor: "pointer",
+                                    transition:
+                                      "color 0.3s ease, text-decoration 0.3s ease",
+                                    height: "40px",
+                                    width: "40px",
+                                  }}
+                                />
+                              ))
+                            }
+                          </div>
+                        </td>
+                        <td className="px-6 py-3">{task?.totalTime}</td>
+
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            }
           </div>
         </div>
       </div>
-
-      
     </>
   );
 };

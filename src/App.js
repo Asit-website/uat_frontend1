@@ -109,7 +109,12 @@ import ScrollTop from "./Components/utils/ScrollTop.jsx";
 import DeactivateEmployee from "./Components/admin/EmployManagement/DeactivateEmployee.jsx";
 import MyLeaves from "./Components/admin/EmployeeHRM/MyLeaves.js";
 import EmployeeAnnouncement from "./Components/admin/EmployeeHRM/EmployeeAnnouncement.jsx";
-
+import NotFoundPage from "./Components/Error.jsx";
+import ClientDashboard from "./Components/Client/ClientDashboard.jsx";
+import ViewTask from "./Components/Client/ViewTask.jsx";
+import ProgressBar from "@ramonak/react-progress-bar";
+import AdminClientDashboard from "./Components/admin/Client/AdminClientDashboard.jsx";
+import ClientProjectOverview from "./Components/Client/ClientProjectOverview.jsx"
 var tc;
 
 const ROLES = {
@@ -173,6 +178,12 @@ function App() {
             <Route path="/forget" element={<ForgetPassword setAlert={setAlert} />} />
             <Route path="/forget1" element={<ForgetPassword1 setAlert={setAlert} />} />
             <Route path="/forget2" element={<ForgetPassword2 setAlert={setAlert} />} />
+            <Route path="*" element={<NotFoundPage />} />
+            <Route path="/client" element={<ClientDashboard />} />
+            <Route path="/client/task" element={<ClientProjectOverview />} />
+
+
+            
 
             {/* =================Employee routing=========== */}
             <Route
@@ -270,9 +281,17 @@ function App() {
               <Route path="/employeeDash/HRM/myProjects" element={<MyProjects />} />
               <Route path="/employeeDash/HRM/projectDetails" element={<ProjectDetails2 />} />
               <Route path="/adminDash/HRM/taskClients" element={<TaskClients />} />
+              <Route path="/employeeDash/HRM/taskClients" element={<TaskClients />} />
+
               <Route path="/adminDash/HRM/taskProjects" element={<TaskProjects />} />
+              <Route path="/employeeDash/HRM/taskProjects" element={<TaskProjects />} />
+
               <Route path="/adminDash/HRM/projectDetails" element={<ProjectDetails />} />
               <Route path="/adminDash/HRM/projectOverview" element={<ProjectOverview />} />
+              <Route path="/adminDash/HRM/clientsProject" element={<AdminClientDashboard />} />
+              <Route path="/employeeDash/HRM/clientsProject" element={<AdminClientDashboard />} />
+
+
               <Route path="/adminDash/HRM/Tasks" element={<Tasks />} />
               <Route path="/adminDash/HRM/AwardHRM" element={<AwardHRM />} />
               <Route path="/adminDash/HRM/trip" element={<Trip />} />
@@ -345,7 +364,8 @@ function App() {
               <Route path="/adminDash/createLead" element={<CreateLead />} />
               <Route path="/adminDash/editLead" element={<EditLead />} />
               <Route path="/adminDash/importLead/:id" element={<ImportLead />} />
-              <Route path="/adminDash/mySelf" element={<MySelf />} />
+              <Route path="/adminDash/import EmployeeAnnouncement from './Components/Employee/EmployeeAnnouncement';
+mySelf" element={<MySelf />} />
               <Route path="/adminDash/EmployeeDetails" element={<EmployeeSelf />} />
               <Route path="/adminDash/leadFile" element={<LeadFile />} />
               <Route path="/adminDash/createQuotation" element={<CreateQuotation />} />
@@ -377,4 +397,3 @@ function App() {
 };
 
 export default App;
-

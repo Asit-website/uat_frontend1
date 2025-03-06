@@ -30,6 +30,7 @@ const TaskProjects = ({ setAlert, pop, setPop }) => {
     getAllProjectApi,
     createProjectapi,
     deleteTaskProject,
+    getClientapi,
   } = useMain();
 
   let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
@@ -40,12 +41,29 @@ const TaskProjects = ({ setAlert, pop, setPop }) => {
     Name: "",
     Description: "",
     Members: [],
+    startDate: "",
     Status: "Ongoing",
     DueDate: "",
   });
-
+  const [clientInfo, setClientInfo] = useState("")
   const [proUser, setProUser] = useState([]);
-
+  const [allClient, setAllClient] = useState([]);
+  const getAllClient = async () => {
+    try {
+      const ans = await getClientapi();
+      console.log("ans", ans);
+      if (ans?.status) {
+        setAllClient(ans?.data);
+        console.log(allClient)
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("sometinng went wrong ,please try agin");
+    }
+  };
+  useEffect(() => {
+    // console.log(clientInfo)
+  }, [clientInfo])
 
   const changeHandler = (e) => {
     const { name, value } = e.target;
@@ -57,7 +75,8 @@ const TaskProjects = ({ setAlert, pop, setPop }) => {
 
   const changeHandler2 = (e) => {
     const selectedEmpId = e.target.value;
-    if (selectedEmpId === 'Select' || formdata.Members.includes(selectedEmpId)) return;
+    if (selectedEmpId === "Select" || formdata.Members.includes(selectedEmpId))
+      return;
 
     const selectedEmp = allEmp.find((emp) => emp._id === selectedEmpId);
     setProUser([...proUser, selectedEmp.fullName]);
@@ -90,8 +109,8 @@ const TaskProjects = ({ setAlert, pop, setPop }) => {
   const getAllProject = async () => {
     const ans = await getAllProjectApi();
     if (ans?.status) {
-      setAllProjects(ans?.data);
-      setStorePro(ans?.data);
+      setAllProjects(ans?.projects);
+      setStorePro(ans?.projects);
     }
   };
 
@@ -129,7 +148,10 @@ const TaskProjects = ({ setAlert, pop, setPop }) => {
     setShowIndex(null);
     const toastId = toast.loading("Loading...");
     try {
-      const ans = await createProjectapi({ ...formdata });
+      const ans = await createProjectapi({
+        ...formdata, projectOwner: clientInfo,
+        client: clientInfo
+      });
       if (ans?.status) {
         toast.success("Successfuly created");
         getAllProject();
@@ -139,6 +161,7 @@ const TaskProjects = ({ setAlert, pop, setPop }) => {
           Members: "",
           Status: "Ongoing",
           DueDate: "",
+          startDate: "",
           Members: "",
         });
         setAddClientPop(false);
@@ -154,19 +177,20 @@ const TaskProjects = ({ setAlert, pop, setPop }) => {
 
   // const fetchemp = async () => {
   //   const ans = await allEmployee();
-    
+
   //   setAllEmp(ans?.emp);
   // };
-  
+
   const fetchemp = async () => {
     const ans = await allEmployee();
-   // Filter active employees
-    const activeEmployees = ans?.emp?.filter(emp => emp.isDeactivated === "No");
-  console.log("activeEmployee",activeEmployees)
+    // Filter active employees
+    const activeEmployees = ans?.emp?.filter(
+      (emp) => emp.isDeactivated === "No"
+    );
+    // console.log("activeEmployee",activeEmployees)
     setAllEmp(activeEmployees);
   };
-  
- 
+
   const deleteApi = async (id) => {
     const toastId = toast.loading("Loading...");
     setShowIndex(null);
@@ -177,13 +201,17 @@ const TaskProjects = ({ setAlert, pop, setPop }) => {
   };
 
   const handleEditClick = (client) => {
-    const membersNames = client.Members.map(memberId => {
-      const member = allEmp.find(emp => emp._id === memberId?._id);
-      return member ? member.fullName : '';
+    const membersNames = client.Members.map((memberId) => {
+      const member = allEmp.find((emp) => emp._id === memberId?._id);
+      return member ? member.fullName : "";
     });
 
     setIsEdit(client._id);
-    setFormdata(client);
+    setFormdata({
+      Name: client?.projectName,
+      DueDate: client.deadline,
+      ...client,
+    });
     setProUser(membersNames);
     setAddClientPop(true);
   };
@@ -191,6 +219,7 @@ const TaskProjects = ({ setAlert, pop, setPop }) => {
   useEffect(() => {
     fetchemp();
     getAllProject();
+    getAllClient()
   }, []);
 
   useEffect(() => {
@@ -209,7 +238,7 @@ const TaskProjects = ({ setAlert, pop, setPop }) => {
       setAllProjects(fitlerdata);
     }
   }, [optIndex]);
-  console.log("all employee list ",allEmp)
+
   return (
     <>
       <div className="employee-dash h-full">
@@ -240,12 +269,6 @@ const TaskProjects = ({ setAlert, pop, setPop }) => {
                   >
                     <img src={pluss} /> <span>Add Project</span>
                   </button>
-                  {/* <button className="impcli">
-                    <span>Import Project</span>
-                  </button>
-                  <button className="expoclient">
-                    <span>Export Project</span>
-                  </button> */}
                 </div>
               </nav>
 
@@ -255,11 +278,9 @@ const TaskProjects = ({ setAlert, pop, setPop }) => {
                   <div
                     onClick={() => setOptIndex(index)}
                     key={index}
-                    className={`cursor-pointer singelPr ${
-                      index === 0 && "addlefborder"
-                    }  ${index === 3 && "addBorder"} ${
-                      optIndex === index && "adddbg"
-                    }`}
+                    className={`cursor-pointer singelPr ${index === 0 && "addlefborder"
+                      }  ${index === 3 && "addBorder"} ${optIndex === index && "adddbg"
+                      }`}
                   >
                     <span>{pr}</span>
                   </div>
@@ -267,122 +288,106 @@ const TaskProjects = ({ setAlert, pop, setPop }) => {
               </div>
 
               <div className="allClients">
-                {allProjects.map((client, index) => (
-                  <div key={index} className="singleProject">
-                    
-                    <div
-                     
-                      className="projnav"
-                    >
-                      <div  onClick={()=>navigate("/adminDash/HRM/projectDetails" , {state: client})} className="leftnav cursor-pointer">
-                        <Avatar
-                        
-                          name={client?.Name}
-                          colour={
-                            index % 3 == 0
-                              ? "#3C78E9"
-                              : `${index % 2 == 0 ? "#E45D3A" : "#F7A539"}`
+                <table>
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>Project Name</th>
+                      <th>Start Date</th>
+                      <th>Deadline</th>
+                      <th>Members</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+
+                  <tbody>
+                    {allProjects.map((client, index) => (
+                      <tr key={index}>
+                        <td>{index + 1}</td>
+                        <td>
+                          <span>{client.projectName}</span>
+                          <div
+                            style={{
+                              display: "flex",
+                              gap: "10px",
+                              marginTop: "2px",
+                              fontSize: "0.875rem",
+                              color: "#2563eb",
+                            }}
+                          >
+                            <p
+                              onClick={() =>
+                                navigate("/adminDash/HRM/projectOverview", {
+                                  state: client,
+                                })
+                              }
+                              style={{ margin: 0, cursor: "pointer" }}
+                            >
+                              View
+                            </p>
+                            <span>|</span>
+                            <p
+                              onClick={() => {
+                                handleEditClick(client);
+                              }}
+                              style={{ margin: 0, cursor: "pointer" }}
+                            >
+                              Edit
+                            </p>
+                            <span>|</span>
+                            <p
+                              onClick={() => deleteApi(client?._id)}
+                              style={{ margin: 0, cursor: "pointer" }}
+                            >
+                              Delete
+                            </p>
+                          </div>
+                        </td>
+                        <td>
+                          {
+                            new Date(client?.createdAt)
+                              .toISOString()
+                              .split("T")[0]
                           }
-                          size={32}
-                          className="avatarclient"
-                        />
-                        <p>{client.Name}</p>
-                      </div>
+                        </td>
+                        <td>{client?.deadline}</td>
 
-                      <img  className="cursor-pointer" onClick={() => {
-                        if (showIndex === index) {
-                          setShowIndex(null);
-                        } else {
-                          setShowIndex(index);
-                        }
-                      }} src={threedots} alt="" />
+                        <td style={{ display: "flex", gap: "-2px" }}>
+                          {client?.Members?.map((member) => (
+                            <img
+                              src={`${member?.profileImage
+                                ? member?.profileImage
+                                : "https://png.pngtree.com/png-vector/20231019/ourmid/pngtree-user-profile-avatar-png-image_10211467.png"
+                                }`}
+                              className="w-20 h-20"
+                              alt="Member Avatar "
+                              key={member._id}
+                              onClick={() =>
+                                navigate("/adminDash/EmployeeDetails", {
+                                  state: member?._id,
+                                })
+                              }
+                              style={{
+                                borderRadius: "50%",
+                                cursor: "pointer",
+                                transition:
+                                  "color 0.3s ease, text-decoration 0.3s ease",
+                                height: "40px",
+                                width: "40px",
+                              }}
+                            />
+                          ))}
+                        </td>
+                        <td>
+                          <span className="text-blue-600 border border-blue-200 bg-blue-50 flex items-center rounded-md text-xs font-medium leading-4 px-2 py-1">
+                            {client.Status}
+                          </span>
 
-                    </div>
-
-                    <hr />
-
-                    <div className="statusdue">
-                      <div
-                        className={`stapro ${
-                          client.Status === "Finished" && "finibg"
-                        } ${client.Status === "Ongoing" && "Ongoingbg"} ${
-                          client.Status === "OnHold" && "OnHoldbg"
-                        }`}
-                      >
-                        <span className={`${client?.Status === "onHold" || "onHoldbg"}`}>{client.Status}</span>
-                      </div>
-
-                      <p className="duedate">
-                        {" "}
-                        <span>Due Date:</span>
-                        {client?.DueDate}
-                      </p>
-                    </div>
-
-                    <div className="propara">
-                      <p className="">{client?.Description}</p>
-                    </div>
-
-                    <div className="mem">
-                      <p>Members</p>
-                       <p>{client?.Members?.length}</p>
-                    </div>
-
-                    <div className="protasjwon">
-                      <p className="proteast">{client.task} Tasks</p>
-                    </div>
-
- <div className="mem">
-                     <p onClick={()=>navigate("/adminDash/HRM/projectOverview" , {state:client})} className="oveviewBtn">Overview </p>
- </div>
-
-                    {showIndex === index && (
-                      <div className="showIndexcont2">
-                        {/* <div className="singlinpro">
-                          <img src={invidd} alt="" />
-                          <span>Invite Employee</span>
-                        </div>
-
-                        <hr /> */}
-
-                        <div
-                          onClick={() => {
-                        
-                            handleEditClick(client);
-                          }}
-                          className="singlinpro"
-                        >
-                          <img src={edit} alt="" />
-                          <span>Edit</span>
-                        </div>
-
-                        <hr />
-
-                        {/* <div className="singlinpro">
-                          <img src={share} alt="" />
-                          <span>Share to Clients</span>
-                        </div>
-
-                        <hr /> */}
-
-                        {/* <div className="singlinpro">
-                          <img src={bxcopy} alt="" />
-                          <span>Duplicate</span>
-                        </div>
-
-                        <hr /> */}
-
-                        <div
-                          onClick={() => deleteApi(client?._id)}
-                          className="singlinpro"
-                        >
-                          <img src={disable} alt="" />
-                          <span className="delspan">Delete</span>
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                ))}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>
@@ -393,19 +398,19 @@ const TaskProjects = ({ setAlert, pop, setPop }) => {
         <div className="addCliWrap">
           <div className="addClieCont addheight">
             <nav>
-              <p>{isEdit ? "Edit" : "Create"} </p>
+              <p>Create New Project</p>
               <img
                 onClick={() => {
                   setAddClientPop(false);
                   setProUser([]);
                   setFormdata({
-                   Name: "",
-                   Description: "",
-                   Members: "",
-                   Status: "Ongoing",
-                   DueDate: "",
-                   Members: "",
-                  })
+                    Name: "",
+                    Description: "",
+                    Members: "",
+                    Status: "Ongoing",
+                    DueDate: "",
+                    Members: "",
+                  });
                 }}
                 src={cut}
                 alt=""
@@ -415,100 +420,123 @@ const TaskProjects = ({ setAlert, pop, setPop }) => {
             <hr />
 
             <form onSubmit={isEdit ? editHandler : submitHandler}>
-              <div style={{overflowY:"auto"}}>
-              <label>
-                <p>Name</p>
-                <input
-                  name="Name"
-                  value={formdata.Name}
-                  onChange={changeHandler}
-                  type="text"
-                  placeholder="Name"
-                />
-              </label>
+              <div style={{ overflowY: "auto" }}>
+                <label>
+                  <p>Name</p>
+                  <input
+                    name="Name"
+                    value={formdata.Name}
+                    onChange={changeHandler}
+                    type="text"
+                    placeholder="Name"
+                  />
+                </label>
 
-              <label>
-                <p>Employee </p>
+                <label>
+                  <p>Employee </p>
 
-                <div className="allempid">
-                  {proUser.map((pro, index) => (
-                    <div key={index} className="sinproid">
-                      <p >{pro}</p>
-                      <img
-                        src={cut}
-                        alt="Remove"
-                        onClick={() => removeUser(index)}
-                      />
-                    </div>
-                  ))}
-                </div>
+                  <div className="allempid">
+                    {proUser.map((pro, index) => (
+                      <div key={index} className="sinproid">
+                        <p>{pro}</p>
+                        <img
+                          src={cut}
+                          alt="Remove"
+                          onClick={() => removeUser(index)}
+                        />
+                      </div>
+                    ))}
+                  </div>
 
-                <select
-                  name="Members"
-                  value={formdata.Members}
-                  onChange={changeHandler2}
-                >
-                  console.log("all employee list ",allEmp)
-                  <option value="Select">Select Employee</option>
-                  {allEmp?.map((emp, index) => (
-                    <option value={emp?._id} key={index}>
-                      {emp?.fullName}
-                    </option>
-                  ))}
-                </select>
-              </label>
+                  <select
+                    name="Members"
+                    value={formdata.Members}
+                    onChange={changeHandler2}
+                  >
+                    console.log("all employee list ",allEmp)
+                    <option value="Select">Select Employee</option>
+                    {allEmp?.map((emp, index) => (
+                      <option value={emp?._id} key={index}>
+                        {emp?.fullName}
+                      </option>
+                    ))}
+                  </select>
+                </label>
 
-              <label>
-                <p>Status </p>
-                <select
-                  name="Status"
-                  value={formdata.Status}
-                  onChange={changeHandler}
-                >
-                  <option value="Ongoing">Ongoing</option>
-                  <option value="OnHold">OnHold</option>
-                  <option value="Finished">Finished</option>
-                </select>
-              </label>
+                <label>
+                  <p>Status </p>
+                  <select
+                    name="Status"
+                    value={formdata.Status}
+                    onChange={changeHandler}
+                  >
+                    <option value="Ongoing">Ongoing</option>
+                    <option value="OnHold">OnHold</option>
+                    <option value="Finished">Finished</option>
+                  </select>
+                </label>
 
-              <label>
-                <p>Due Date</p>
-                <input
-                  name="DueDate"
-                  value={formdata.DueDate}
-                  onChange={changeHandler}
-                  type="date"
-                />
-              </label>
+                <label>
+                  <p>Client</p>
+                  <select
+                    value={clientInfo}
+                    onChange={(e) => setClientInfo(e.target.value)}  // Update state with the selected client
+                  >
+                    <option value="Select">Select</option>
+                    {allClient.map((e, index) => (
+                      <option value={e._id} key={index}>
+                        {e.Name}
+                      </option>
+                    ))}
+                  </select>
+                </label>
 
-              <label>
-                <p>Description</p>
-                <textarea
-                  type="text"
-                  name="Description"
-                  value={formdata.Description}
-                  onChange={changeHandler}
-                  placeholder="Description"
-                />
-              </label>
+                <label>
+                  <p>Start Date</p>
+                  <input
+                    name="startDate"
+                    value={formdata.startDate}
+                    onChange={changeHandler}
+                    type="date"
+                  />
+                </label>
+                <label>
+                  <p>Due Date</p>
+                  <input
+                    name="DueDate"
+                    value={formdata.DueDate}
+                    onChange={changeHandler}
+                    type="date"
+                  />
+                </label>
 
+                <label>
+                  <p>Description</p>
+                  <textarea
+                    type="text"
+                    name="Description"
+                    value={formdata.Description}
+                    onChange={changeHandler}
+                    placeholder="Description"
+                  />
+                </label>
               </div>
               <div className="btnsss">
                 <button type="submit" className="saveclient">
-                  <span>{isEdit ? "Edit Project" : "Add Project"}</span>
+                  <span>Add Project </span>
                 </button>
                 <button
                   onClick={() => {
                     setAddClientPop(false);
                     setProUser([]);
-                     setFormdata({
+                    setFormdata({
                       Name: "",
                       Description: "",
                       Members: "",
                       Status: "Ongoing",
                       DueDate: "",
                       Members: "",
-                     })
+                    });
                   }}
                   className="cancel"
                 >
@@ -516,7 +544,6 @@ const TaskProjects = ({ setAlert, pop, setPop }) => {
                 </button>
               </div>
             </form>
-
           </div>
         </div>
       )}

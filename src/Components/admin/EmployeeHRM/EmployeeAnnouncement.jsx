@@ -227,7 +227,7 @@ const EmployeeAnnouncement = ({ pop, setPop, setAlert }) => {
               </div>
 
               {
-                hrms_user?.designation === "HR Admin" &&  <div onClick={() => setOpenForm(true)} className="plusImg6">
+                hrms_user?.designation === "HR Admin" || hrms_user?.designation === "Director of Strategic Partnership" &&   <div onClick={() => setOpenForm(true)} className="plusImg6">
                 <img src={annPlus} alt="" />  <span>ADD</span>
               </div>
               }
@@ -263,9 +263,9 @@ const EmployeeAnnouncement = ({ pop, setPop, setAlert }) => {
                       <th scope="col" class="px-3 py-3">
                         DESCRIPTION
                       </th>
-                      {/* <th scope="col" class="px-3 py-3">
+                      <th scope="col" class="px-3 py-3">
                         ACTION
-                      </th> */}
+                      </th>
                     </tr>
                   </thead>
 
@@ -278,20 +278,26 @@ const EmployeeAnnouncement = ({ pop, setPop, setAlert }) => {
                         <td class="px-3 py-4">{item.description?.slice(0,50)}...</td>
                         <td class="px-3 py-4">
                           <div className="flex items-center sk">
-                            {/* <i
+                            {
+                              hrms_user?.designation === "HR Admin" || hrms_user?.designation === "Director of Strategic Partnership" &&
+                              <>
+                              <i
                               onClick={() => {
                                 setOnEdit(true);
                                 setEditData(item);
                                 setOpenForm(true);
                               }}
                               className="fa-solid fa-pen-to-square"
-                            ></i> */}
-                            {/* <i
+                            ></i> 
+                            <i
                               onClick={() => {
                                 deleteProject(item?._id);
                               }}
                               className="fa-solid fa-trash"
-                            ></i> */}
+                            ></i> 
+                            </>
+                            }
+                           
                           </div>
                         </td>
                       </tr>

@@ -18,18 +18,23 @@ import cut from "../../images/cutt.png";
 import bxfile from "../../images/bx-file.svg";
 import toast from "react-hot-toast";
 import * as XLSX from "xlsx";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const TaskClients = ({ setAlert, pop, setPop }) => {
   const { user, createClientapi, getClientapi, editTaskapi, disableClientapi } =
     useMain();
+    const navigate = useNavigate();
+    // alert('this')
 
   let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
 
   const { role } = hrms_user;
+  // alert('jj')
 
   const [formdata, setFormdata] = useState({
     Name: "",
     Email: "",
+    Password:"",
     City: "",
     State: "",
     ZipCode: "",
@@ -68,6 +73,7 @@ const TaskClients = ({ setAlert, pop, setPop }) => {
       console.log("ans", ans);
       if (ans?.status) {
         setAllClient(ans?.data);
+        console.log(allClient)
       }
     } catch (error) {
       console.log(error);
@@ -86,6 +92,7 @@ const TaskClients = ({ setAlert, pop, setPop }) => {
         setFormdata({
           Name: "",
           Email: "",
+          Password:"",
           City: "",
           State: "",
           ZipCode: "",
@@ -224,6 +231,7 @@ const TaskClients = ({ setAlert, pop, setPop }) => {
 
   useEffect(() => {
     getAllClient();
+    
   }, []);
 
   return (
@@ -305,7 +313,12 @@ const TaskClients = ({ setAlert, pop, setPop }) => {
                       <div className="showIndexcont">
                         <div className="singlinpro">
                           <img src={happy} alt="" />
-                          <span>View</span>
+                          <span onClick={() =>
+                          
+                          navigate(role==="EMPLOYEE"?"/employeeDash/HRM/clientsProject":"/adminDash/HRM/clientsProject", {
+                                  state: client,
+                                })
+                              }>View</span>
                         </div>
 
                         <hr />
@@ -387,6 +400,17 @@ const TaskClients = ({ setAlert, pop, setPop }) => {
                   value={formdata.Email}
                   onChange={changeHandler}
                   placeholder="Email"
+                />
+              </label>
+
+              <label>
+                <p>Password</p>
+                <input
+                  type="text"
+                  name="Password"
+                  value={formdata.Password}
+                  onChange={changeHandler}
+                  placeholder="Password"
                 />
               </label>
 

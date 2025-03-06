@@ -5,7 +5,8 @@ const Alert = (props) => {
       {props.color === "error" ? (
         <div
           id="alert-border-2"
-          className="flex fixed alert-min alert-bar z-50 w-full p-4 mb-4 text-red-700 bg-red-100 border-t-4 border-red-500 dark:text-red-400 dark:bg-gray-800 indexest"
+          className="p-4 mb-4 text-sm w-full mt-5 content-center flex text-red-700 bg-red-100 dark:bg-gray-800 border-t-4 border-red-500 dark:text-blue-400 absolute left-1/2 transform -translate-x-1/2 top-0 sm:w-1/2"
+
           role="alert"
         >
           <svg
@@ -47,7 +48,7 @@ const Alert = (props) => {
       ) : (
         <div
           id="alert-border-3"
-          className="flex fixed w-full alert-min alert-bar p-4 mb-4 text-green-700 bg-green-100 border-t-4 border-green-500 dark:text-green-400 dark:bg-gray-800"
+         className="p-4 mb-4 text-sm w-full mt-5 content-center flex text-red-700 bg-red-100 dark:bg-gray-800 border-t-4 border-red-500 dark:text-blue-400 absolute left-1/2 transform -translate-x-1/2 top-0 sm:w-1/2"
           role="alert"
         >
           <svg

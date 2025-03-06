@@ -60,12 +60,25 @@ const performances = [
   },
 ];
 
+const projectRole = [
+  {
+    title: "Clients",
+    link: "/employeeDash/HRM/taskClients",
+  },
+  {
+    title: "Projects",
+    link: "/employeeDash/HRM/taskProjects",
+  },
+]
+
 const payrols2 = [
   {
     title: "My Projects",
     link: "/employeeDash/HRM/myProjects",
   },
 ];
+
+
 
 const hrAdminItems = [
   {
@@ -122,6 +135,10 @@ const EmployeeSidebar = () => {
     employeeManagePermission,
     hrAdminSetupPermission,
     permissionPagePermission,
+    showTasksDetailPermission,
+    showProjectPermission
+
+
   } = hrms_permission;
 
   const [openPayroll, setOpenPayroll] = useState(false);
@@ -1063,6 +1080,44 @@ const EmployeeSidebar = () => {
 
             {openPayroll2 && (
               <div className="alladminDash-item " >
+              {showTasksDetailPermission && projectRole?.map((item, index) => (
+                <div
+                onClick={() => {
+                  setPayrollItem(index);
+                  navigate(item?.link);
+                  // setOpenPayroll2(true);
+                }}
+                className="sinADDasItem"
+                key={index}
+              >
+                {payrollItem == index ? (
+                  <img
+                    src={`${window.location.pathname === `${item?.link}`
+                        ? fiber
+                        : tyming
+                      }`}
+                    alt=""
+                  />
+                ) : (
+                  <img
+                    src={`${window.location.pathname === `${item?.link}`
+                        ? fiber
+                        : tyming
+                      }`}
+                    alt=""
+                  />
+                )}
+                <p
+                  className={`lessfontweight ${payrollItem === index ? "dashItemp" : "dITitl"
+                    } ${window.location.pathname === `${item?.link}`
+                      ? "fan"
+                      : ""
+                    }`}
+                >
+                  {item?.title}
+                </p>
+              </div>
+              ))}
                 {payrols2?.map((item, index) => (
                   <div
                     onClick={() => {

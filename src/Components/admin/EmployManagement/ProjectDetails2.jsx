@@ -31,6 +31,7 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
     getMyProjectTask,
     timerHandlerapi,
     getProjectTask,
+    statuschangeapi,
     deleteProjectTaskapi22 , EditProjectTask
   } = useMain();
 
@@ -38,9 +39,10 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
 
   const data = location?.state;
 
+  // console.log("daa",data);
+
   let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
   let hrms_permission = JSON.parse(localStorage.getItem("hrms_permission"));
-
 
   const { role,  } = hrms_user;
   const {  showTasksDetailPermission , showAllProjectPermission , addTaskPermission ,  deleteTaskPermission , editTaskPermission ,  } = hrms_permission;
@@ -73,15 +75,13 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
 
   const getProjectTaskapi = async () => {
     const ans = await getMyProjectTask(data?._id, hrms_user?._id);
-    const reversedTasks = ans?.data.reverse(); // Reverse the array
-    setAllTasks(reversedTasks); // Set the reversed array
+    setAllTasks(ans?.tasks); 
   };
 
   const getProjectTaskapiPermi = async () => {
     const ans = await getProjectTask(data?._id);
-    const reversedTasks = ans?.data.reverse();
-    setAllTaskDetail(ans?.data2);
-    setAllTasks(reversedTasks);
+    setAllTaskDetail(ans?.tasks);
+    setAllTasks(ans?.tasks);
   };
 
 
@@ -234,16 +234,15 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
 
     const diffTime = `${hours}:${minutes}:${seconds}`;
 
+
     const resp = await timerHandlerapi({
       Note: timerData.Note,
       taskId: timerData?.taskId,
-      timeIn: timeIn,
-      timeOut: timeOut,
+      clockIn: timeIn,
+      clockOut: timeOut,
       totalTime: diffTime,
-      user: hrms_user?._id,
-      projectId: data?._id,
+      projectId: data?._id
     });
-
     if (resp?.status) {
       closeTimer();
       toast.success("Successfuly done");
@@ -338,7 +337,7 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
   const deleteTasks = async (id) => {
     const toastId = toast.loading("Loading...");
     const resp = await deleteProjectTaskapi22(id);
-    if (resp.status) {
+    if (resp?.status) {
       getProjectTaskapi();
       getProjectTaskapiPermi();
       toast.success("Succesfuly deleted");
@@ -360,6 +359,20 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
     }
     getAllProject();
   }, []);
+
+
+  const statuschangehadler = async(taskId , status)=>{
+    const toastId = toast.loading("Loading...");
+     const resp = await statuschangeapi(taskId, status );
+      toast.success("Successfuly done");
+      toast.dismiss(toastId);
+      if(showAllProjectPermission){
+        getProjectTaskapiPermi();
+      }
+      else{
+        getProjectTaskapi();
+      }
+  }
 
   return (
     <>
@@ -384,9 +397,9 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
                   <h2>{data?.Name}</h2>
                   <p
                     className={`stapro ${
-                      allProject.Status === "Finished" && "finibg"
-                    } ${allProject.Status === "Ongoing" && "Ongoingbg"} ${
-                      allProject.Status === "OnHold" && "OnHoldbg"
+                      allProject?.Status === "Finished" && "finibg"
+                    } ${allProject?.Status === "Ongoing" && "Ongoingbg"} ${
+                      allProject?.Status === "OnHold" && "OnHoldbg"
                     }`}
                   >
                     {allProject?.Status}
@@ -480,9 +493,7 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
                       <th scope="col" className="px-6 py-3">
                         Priority
                       </th>
-                      <th scope="col" className="px-6 py-3">
-                        Github
-                      </th>
+                    
                       <th scope="col" className="px-6 py-3">
                         Description
                       </th>
@@ -500,16 +511,48 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
                     {currentTasks?.map((task, index) => (
                       <tr
                         key={index}
-                        className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+                        className="bg-white"
                       >
-                        <td className="px-6 py-4">{task.Title}</td>
-                        <td className="px-6 py-4">{task?.Members?.fullName}</td>
-                        <td className="px-6 py-4">{task?.StartDate}</td>
-                        <td className="px-6 py-4">{task?.DueDate}</td>
-                        <td className="px-6 py-4">{task?.Priority}</td>
-                        <td className="px-6 py-4">{task?.Github}</td>
-                        <td className="px-6 py-4">{task?.Description}</td>
-                        <td className="px-6 py-4">{task?.Status}</td>
+                        <td className="px-6 py-4">{task?.taskName}</td>
+                        <td className="px-6 py-4 flex items-center justify-center ">
+                           {
+                            task?.Members?.map((member)=>(
+                              <img
+                              src={`${
+                                member?.profileImage
+                                  ? member?.profileImage
+                                  : "https://png.pngtree.com/png-vector/20231019/ourmid/pngtree-user-profile-avatar-png-image_10211467.png"
+                              }`}
+                              className="w-20 h-20"
+                              alt="Member Avatar "
+                              key={member._id}
+                            
+                              style={{
+                                borderRadius: "50%",
+                                cursor: "pointer",
+                                transition:
+                                  "color 0.3s ease, text-decoration 0.3s ease",
+                                height: "40px",
+                                width: "40px",
+                              }}
+                            />
+                            ))
+                           }
+                        </td>
+                        <td className="px-6 py-4">{task?.startDate}</td>
+                        <td className="px-6 py-4">{task?.dueDate}</td>
+                        <td className="px-6 py-4">{task?.priority}</td>
+                        {/* <td className="px-6 py-4">{task?.Github}</td> */}
+                        <td className="px-6 py-4">{task?.description}</td>
+                        <td className="px-6 py-4">
+                           <select name="status" id="" onChange={(e)=>statuschangehadler(task?._id , e.target.value)} value={task?.Status} >
+                            {/* <option value=""></option> */}
+                             <option value="Not Started">Not Started</option>
+                             <option value="Started">Started</option>
+                              <option value="Pending">Pending</option>
+                              <option value="Completed">Completed</option>
+                           </select>
+                        </td>
 
                         {showTasksDetailPermission && (
                           <td className="px-6 py-4 adddsomflex">
@@ -580,7 +623,7 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
         <div className="addCliWrap">
           <div className="addClieCont addheight">
             <nav>
-              <p>Create New Task</p>
+              <p>{isEdit?'Update Task':'Create New Task'}</p>
               <img
                 onClick={() => {
                   setAddClientPop(false);
@@ -720,6 +763,7 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
           </div>
         </div>
       )}
+      {/* {alert('yes....')} */}
 
       {timerPop && (
         <div className="addCliWrap">
@@ -745,7 +789,7 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
                 <option value="Select">Select Task</option>
                 {allTasks?.map((task, index) => (
                   <option key={index} value={task?._id}>
-                    {task?.Title}
+                    {"hi"}
                   </option>
                 ))}
               </select>
@@ -823,4 +867,3 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
   );
 };
 export default ProjectDetails2;
-
