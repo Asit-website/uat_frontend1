@@ -149,8 +149,8 @@ const TaskProjects = ({ setAlert, pop, setPop }) => {
     const toastId = toast.loading("Loading...");
     try {
       const ans = await createProjectapi({
-        ...formdata, projectOwner: clientInfo,
-        client: clientInfo
+        ...formdata, projectOwner: clientInfo || hrms_user._id,
+        client: clientInfo || hrms_user._id
       });
       if (ans?.status) {
         toast.success("Successfuly created");
@@ -359,7 +359,7 @@ const TaskProjects = ({ setAlert, pop, setPop }) => {
                                 ? member?.profileImage
                                 : "https://png.pngtree.com/png-vector/20231019/ourmid/pngtree-user-profile-avatar-png-image_10211467.png"
                                 }`}
-                              className="w-20 h-20"
+                              className="w-20 h-20 rounded-full cursor-pointer transition-colors duration-300 ease-in-out"
                               alt="Member Avatar "
                               key={member._id}
                               onClick={() =>
@@ -367,14 +367,7 @@ const TaskProjects = ({ setAlert, pop, setPop }) => {
                                   state: member?._id,
                                 })
                               }
-                              style={{
-                                borderRadius: "50%",
-                                cursor: "pointer",
-                                transition:
-                                  "color 0.3s ease, text-decoration 0.3s ease",
-                                height: "40px",
-                                width: "40px",
-                              }}
+                             
                             />
                           ))}
                         </td>
@@ -482,7 +475,7 @@ const TaskProjects = ({ setAlert, pop, setPop }) => {
                     value={clientInfo}
                     onChange={(e) => setClientInfo(e.target.value)}  // Update state with the selected client
                   >
-                    <option value="Select">Select</option>
+                    <option value={hrms_user._id}>Select</option>
                     {allClient.map((e, index) => (
                       <option value={e._id} key={index}>
                         {e.Name}

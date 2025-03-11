@@ -50,13 +50,15 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
   const [formdata, setFormdata] = useState({
     Title: "",
     Description: "",
-    Members: "",
+    Members: [],
+    taskfile: "",
     StartDate: "",
     DueDate: "",
-    // Project: "",
     Priority: "",
     Github: "",
   });
+  const [proUser, setProUser] = useState([]);
+  const [viewTask, setViewTask] = useState(false);
 
   const changeHandler = (e) => {
     const { name, value } = e.target;
@@ -65,7 +67,22 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
       [name]: value,
     }));
   };
+  const changeHandler2 = (e) => {
+    const selectedEmpId = e.target.value;
+    if (selectedEmpId === "Select" || formdata.Members.includes(selectedEmpId))
+      return;
 
+    const selectedEmp = allEmp.find((emp) => emp._id === selectedEmpId);
+    setProUser([...proUser, selectedEmp.fullName]);
+    setFormdata({ ...formdata, Members: [...formdata.Members, selectedEmpId] });
+  };
+
+  const removeUser = (index) => {
+    const newProUser = proUser.filter((_, i) => i !== index);
+    const newMembers = formdata.Members.filter((_, i) => i !== index);
+    setProUser(newProUser);
+    setFormdata({ ...formdata, Members: newMembers });
+  };
   const [addClientPop, setAddClientPop] = useState(false);
 
   const [allEmp, setAllEmp] = useState([]);
@@ -90,35 +107,34 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
     setAllProject(ans?.data);
   };
 
-  const submitHandler = async () => {
-    // e.preventDefault();
+  const submitHandler = async (e) => {
+    e.preventDefault();
+    const toastId = toast.loading("Loading....");
     try {
-      const toastId = toast.loading("Loading....");
-
       const ans = await CreateProjectTask({
         ...formdata,
         projectId: data?._id,
       });
       if (ans?.status) {
-        toast.success("Successfuly created task");
+        toast.success("Successfully created task");
+        getProjectTaskapi();
+        setFormdata({
+          Title: "",
+          Description: "",
+          Members: "",
+          StartDate: "",
+          DueDate: "",
+          Github: "",
+          Members: "",
+        });
+        setAddClientPop(false);
+        setProUser([]);
+
       }
-
-      setAddClientPop(false);
-      getProjectTaskapi();
-      setFormdata({
-        Title: "",
-        Description: "",
-        Members: "",
-        StartDate: "",
-        DueDate: "",
-        Github: "",
-      });
-
-      toast.dismiss(toastId);
     } catch (error) {
-      console.log(error);
-      toast.error("Something went wrong , please try again");
+      toast.error("Something went wrong, please try again");
     }
+    toast.dismiss(toastId);
   };
 
   useEffect(() => {
@@ -292,38 +308,61 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
     initializeTimer();
   }, []);
 
-  const edittaskhandler = async () => {
+  const edittaskhandler = async (e) => {
+    e.preventDefault();
+    const toastId = toast.loading("Loading....");
     try {
-      const toastId = toast.loading("Loading....");
-
       const ans = await EditProjectTask({
         ...formdata,
         projectId: data?._id,
         taskId: isEdit,
       });
       if (ans?.status) {
-        toast.success("Successfuly Updated task");
+        toast.success("Successfully updated task");
+        getProjectTaskapi();
+        setFormdata({
+          Title: "",
+          Description: "",
+          Members: [],
+          StartDate: "",
+          DueDate: "",
+          Github: "",
+          Members: "",
+
+        });
+        setAddClientPop(false);
+        setProUser([]);
+        setisEdit(false);
       }
-
-      setAddClientPop(false);
-      setisEdit(false);
-      getProjectTaskapiPermi();
-      getProjectTaskapi();
-    
-      setFormdata({
-        Title: "",
-        Description: "",
-        Members: "",
-        StartDate: "",
-        DueDate: "",
-        Github: "",
-      });
-
       toast.dismiss(toastId);
     } catch (error) {
-      console.log(error);
-      toast.error("Something went wrong , please try again");
+      toast.error("Something went wrong, please try again");
     }
+  };
+
+  const handleEditClick = (client) => {
+    const membersNames = client.Members.map((memberId) => {
+      const member = allEmp.find((emp) => emp._id === memberId?._id);
+      return member ? member.fullName : "";
+    });
+
+    setisEdit(client._id);
+    setFormdata({
+      Name: client?.projectName,
+      DueDate: client.deadline,
+      ...client,
+    });
+    setProUser(membersNames);
+    setAddClientPop(true);
+  };
+  
+  // setisEdit(client._id);
+  const changeHandler3 = (event) => {
+    const file = event.target.files[0];
+    setFormdata((prevData) => ({
+      ...prevData,
+      taskfile: file,
+    }));
   };
 
   const [allTaskDetail, setAllTaskDetail] = useState([]);
@@ -508,7 +547,7 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
                     </tr>
                   </thead>
                   <tbody>
-                    {currentTasks?.map((task, index) => (
+                    {allTasks?.map((task, index) => (
                       <tr
                         key={index}
                         className="bg-white"
@@ -623,140 +662,159 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
         <div className="addCliWrap">
           <div className="addClieCont addheight">
             <nav>
-              <p>{isEdit?'Update Task':'Create New Task'}</p>
+              <p>Create New Task</p>
               <img
                 onClick={() => {
                   setAddClientPop(false);
+                  // setisEdit(false);
+                  setProUser([]);
                   setFormdata({
-                    Name: "",
+                    Title: "",
                     Description: "",
                     Members: "",
-                    Status: "Ongoing",
+                    StartDate: "",
                     DueDate: "",
+                    Priority: "",
+                    Github: "",
                     Members: "",
                   });
                 }}
                 src={cut}
-                alt=""
+                alt="Close"
               />
             </nav>
-
             <hr />
+            <form
+              onSubmit={(e) => {
+                if (isEdit) {
+                  edittaskhandler(e);
+                } else {
+                  submitHandler(e);
+                }
+              }}
+            >
+              <div style={{ overflowY: "auto" }}>
+                <label>
+                  <p>Add File</p>
+                  <input
+                    name="taskfile"
+                    // value={formdata.taskfile}
+                    onChange={changeHandler3}
+                    type="file"
+                    placeholder="file"
+                  />
+                </label>
+                <label>
+                  <p>Subject</p>
+                  <input
+                    name="Title"
+                    value={formdata.Title}
+                    onChange={changeHandler}
+                    type="text"
+                    placeholder="Name"
+                  />
+                </label>
+                <label>
+                  <p>Assign To </p>
+                  <div className="allempid">
+                    {proUser.map((pro, index) => (
+                      <div key={index} className="sinproid">
+                        <p >{pro}</p>
+                        <img
+                          src={cut}
+                          alt="Remove"
+                          onClick={() => removeUser(index)}
+                        />
+                      </div>
+                    ))}
+                  </div>
 
-            <form 
-             onSubmit={(e) => {
-              e.preventDefault();
-              if (isEdit) {
-                edittaskhandler();
-              } else {
-                submitHandler();
-              }
-            }}>
-              <label>
-                <p>Subject</p>
-                <input
-                  name="Title"
-                  value={formdata.Title}
-                  onChange={changeHandler}
-                  type="text"
-                  placeholder="Name"
-                />
-              </label>
+                  <select
+                    name="Members"
+                    onChange={changeHandler2}
+                    disabled={formdata.Members.length >= allEmp.length} // Disable if all members are assigned
+                  >
+                    <option value="Select">Select Employee</option>
+                    {allEmp?.map((emp, index) => {
+                      // Check if emp._id is already in formdata.Members
+                      const isAlreadySelected = formdata.Members.includes(emp._id);
 
-              <label>
-                <p>Assign To </p>
+                      return (
+                        <option value={emp?._id} key={index} disabled={isAlreadySelected}>
+                          {emp?.fullName}
+                        </option>
+                      );
+                    })}
+                  </select>
 
-                <select
-                  name="Members"
-                  value={formdata.Members}
-                  onChange={changeHandler}
-                >
-                  <option value="Select">Select Employee</option>
-                  {allEmp?.map((emp, index) => (
-                    <option value={emp?._id} key={index}>
-                      {emp?.fullName}
-                    </option>
-                  ))}
-                </select>
-              </label>
 
-           
-
-              <label>
-                <p>Priority </p>
-
-                <select
-                  name="Priority"
-                  value={formdata.Priority}
-                  onChange={changeHandler}
-                >
-                  <option value="Select">Select Priority</option>
-                  <option value="Normal">Normal</option>
-                  <option value="Medium">Medium</option>
-                  <option value="High">High</option>
-                </select>
-              </label>
-
-              <label>
-                <p>Start Date </p>
-                <input
-                  name="StartDate"
-                  value={formdata.StartDate}
-                  onChange={changeHandler}
-                  type="date"
-                />
-              </label>
-
-              <label>
-                <p>Due Date</p>
-                <input
-                  name="DueDate"
-                  value={formdata.DueDate}
-                  onChange={changeHandler}
-                  type="date"
-                />
-              </label>
-
-              <label>
-                <p>Github Link</p>
-                <input
-                  name="Github"
-                  value={formdata.Github}
-                  onChange={changeHandler}
-                  type="text"
-                />
-              </label>
-
-              <label>
-                <p>Description</p>
-                <textarea
-                  type="text"
-                  name="Description"
-                  value={formdata.Description}
-                  onChange={changeHandler}
-                  placeholder="Description"
-                />
-              </label>
-
+                </label>
+                <label>
+                  <p>Priority </p>
+                  <select
+                    name="Priority"
+                    value={formdata.Priority}
+                    onChange={changeHandler}
+                  >
+                    <option value="Select">Select Priority</option>
+                    <option value="Normal">Normal</option>
+                    <option value="Medium">Medium</option>
+                    <option value="High">High</option>
+                  </select>
+                </label>
+                <label>
+                  <p>Start Date </p>
+                  <input
+                    name="StartDate"
+                    value={formdata.StartDate}
+                    onChange={changeHandler}
+                    type="date"
+                  />
+                </label>
+                <label>
+                  <p>Due Date</p>
+                  <input
+                    name="DueDate"
+                    value={formdata.DueDate}
+                    onChange={changeHandler}
+                    type="date"
+                  />
+                </label>
+                <label>
+                  <p>Description</p>
+                  <textarea
+                    type="text"
+                    name="Description"
+                    value={formdata.Description}
+                    onChange={changeHandler}
+                    placeholder="Description"
+                  />
+                </label>
+              </div>
               <div className="btnsss">
                 <button type="submit" className="saveclient">
-                  <span>Add Task</span>
+                  <span>{isEdit ? "Update" : "Add Task "}</span>
                 </button>
                 <button
+                  type="button"
                   onClick={() => {
                     setAddClientPop(false);
+                    setisEdit(false);
+                    setProUser([]);
                     setFormdata({
-                      Name: "",
+                      Title: "",
                       Description: "",
                       Members: "",
-                      Status: "Ongoing",
+                      StartDate: "",
                       DueDate: "",
+                      Priority: "",
+                      Github: "",
                       Members: "",
                     });
                   }}
                   className="cancel"
                 >
-                  <span>Cancel</span>
+                  <span>Cancel </span>
                 </button>
               </div>
             </form>

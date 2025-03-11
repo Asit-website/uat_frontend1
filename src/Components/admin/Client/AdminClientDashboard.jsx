@@ -10,7 +10,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 
 const AdminClientDashboard = () => {
-    const { getClientProject, createProjectapi, allEmployee, editProjectapi, getAllProject, deleteTaskProject } = useMain();
+    const { getClientProject, createProjectapi, allEmployee, editProjectapi, deleteTaskProject, getAllProjectApi } = useMain();
     const navigate = useNavigate();
     const location = useLocation();
     const data = location?.state;
@@ -27,7 +27,7 @@ const AdminClientDashboard = () => {
         client: data && data._id,
         projectOwner: data && data._id
     });
-    const [projects,setProjects] = useState([])
+    const [projects, setProjects] = useState([])
 
     const [proUser, setProUser] = useState([]);
     const [showIndex, setShowIndex] = useState(null);
@@ -61,6 +61,19 @@ const AdminClientDashboard = () => {
         const newMembers = formdata.Members.filter((_, i) => i !== index);
         setProUser(newProUser);
         setFormdata({ ...formdata, Members: newMembers });
+    };
+
+
+    const getAllProject = async (clientId) => {
+        const ans = await getAllProjectApi();
+        if (ans?.status) {
+            const res = ans?.projects.filter(e => e.client === clientId);
+            // console.log(res)
+            setProjects(res)
+            
+            // setAllProjects(ans?.projects);
+            // setStorePro(ans?.projects);
+        }
     };
 
     const fetchClientProjects = async (clientId) => {
@@ -178,29 +191,29 @@ const AdminClientDashboard = () => {
 
     useEffect(() => {
         const client = JSON.parse(localStorage.getItem("hrms_user"));
-        data && fetchClientProjects(data._id);
+        data && getAllProject(data._id);
         fetchemp()
     }, []);
 
     return (
         <>
             <div className="employee-dash h-full pb-40">
-            {role === "EMPLOYEE" ? (
-          <EmployeeSidebar/>
-        ) : (
-          <AdminSidebar/>
-        )}
-                <div className="tm">
                 {role === "EMPLOYEE" ? (
-            <EmployeeNavbar/>
-          ) : (
-            <AdminNavbar />
-          )}
+                    <EmployeeSidebar />
+                ) : (
+                    <AdminSidebar />
+                )}
+                <div className="tm">
+                    {role === "EMPLOYEE" ? (
+                        <EmployeeNavbar />
+                    ) : (
+                        <AdminNavbar />
+                    )}
                     <div className="em">
                         <div className="tclwrap">
                             <nav>
                                 <h1 className="my-5 text-3xl font-bold">{role === "Client" ? 'My Projects' : `${data?.Name} Projects`}</h1>
-                                {/* <div className="clibtns">
+                                <div className="clibtns">
                                     <button
                                         onClick={() => {
                                             setAddClientPop(true);
@@ -210,7 +223,7 @@ const AdminClientDashboard = () => {
                                         <img src={pluss} />
                                         <span>Add Project</span>
                                     </button>
-                                </div> */}
+                                </div>
                             </nav>
 
                             <nav>
@@ -233,7 +246,7 @@ const AdminClientDashboard = () => {
                                     </thead>
 
                                     <tbody>
-                                        {projects.map((project, index) => (
+                                        {projects?.map((project, index) => (
                                             <tr key={index}>
                                                 <td>{index + 1}</td>
                                                 <td>
@@ -273,21 +286,25 @@ const AdminClientDashboard = () => {
                                                 </td>
                                                 <td>{project.startDate}</td>
                                                 <td>{project.deadline}</td>
-                                                <td>
-                                                    {project?.Member?.map((member) => {
+                                                <td className="flex">
+                                                    {project?.Members?.map((member,index) => {
+                                                        console.log(member)
+                                                        return <>
                                                         <img
-                                                            src={`${"https://png.pngtree.com/png-vector/20231019/ourmid/pngtree-user-profile-avatar-png-image_10211467.png"
-                                                                }`}
-                                                            className="w-20 h-20"
-                                                            alt="Member Avatar "
-                                                            key={member._id}
-                                                            style={{
-                                                                borderRadius: "50%",
-                                                                cursor: "pointer",
-                                                                height: "40px",
-                                                                width: "40px",
-                                                            }}
-                                                        />
+                                                        src={`${member?.profileImage
+                                                            ? member?.profileImage
+                                                            : "https://png.pngtree.com/png-vector/20231019/ourmid/pngtree-user-profile-avatar-png-image_10211467.png"
+                                                            }`}
+                                                        className="w-20 h-20 rounded-full cursor-pointer transition-colors duration-300 ease-in-out"
+                                                        alt="Member Avatar "
+                                                        key={index}
+                                                        onClick={() =>
+                                                          navigate("/adminDash/EmployeeDetails", {
+                                                            state: member?._id,
+                                                          })
+                                                        }
+                                                        
+                                                      /></>
                                                     })}
                                                 </td>
                                                 <td>{project.Status}</td>
@@ -305,7 +322,7 @@ const AdminClientDashboard = () => {
                 <div className="addCliWrap">
                     <div className="addClieCont addheight">
                         <nav>
-                            <p>{!isEdit ?'Create New Project':"Edit Project"}</p>
+                            <p>{!isEdit ? 'Create New Project' : "Edit Project"}</p>
                             <img
                                 onClick={() => {
                                     setAddClientPop(false);
@@ -413,7 +430,7 @@ const AdminClientDashboard = () => {
                             </div>
                             <div className="btnsss">
                                 <button type="submit" className="saveclient">
-                                    <span>{isEdit ?"Update":'Add Project'} </span>
+                                    <span>{isEdit ? "Update" : 'Add Project'} </span>
                                 </button>
                                 <button
                                     onClick={() => {

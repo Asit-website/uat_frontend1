@@ -14,6 +14,7 @@ import ProgressBar from "@ramonak/react-progress-bar";
 import ProjectOverview2 from "../../admin/EmployManagement/ProjectOverview2";
 import toast from "react-hot-toast";
 import ClientNavbar from "../../Client/ClientNavbar";
+import ClientSideBar from "../../Client/ClientSideBar";
 
 
 const ProjectOverview = ({ setAlert, pop, setPop }) => {
@@ -48,7 +49,7 @@ const ProjectOverview = ({ setAlert, pop, setPop }) => {
     const ans = await getProjectTask(data?._id);
     setAllTasks(ans?.tasks);
   };
-  const gettAllClients = async() => {
+  const gettAllClients = async () => {
     try {
       const ans = await getClientapi();
       console.log("ans", ans);
@@ -131,20 +132,44 @@ const ProjectOverview = ({ setAlert, pop, setPop }) => {
 
   const [altimesheet, setTimesheet] = useState([]);
 
+  function findTime(timestamp, state) {
+    // Timestamp
+    // const timestamp = "2025-03-05T15:44:14.112Z";
 
+    // Convert to Date object
+    const date = new Date(timestamp);
+    if (state === "time") {
+      const time = date.toISOString().slice(11, 19);  // Extracts HH:MM:SS
+
+      console.log(time);  // Output: "15:44:14"
+
+      return time;
+    }
+    else {
+      const date = new Date(timestamp);
+
+      // Extract and format the date
+      const formattedDate = date.toISOString().slice(0, 10);
+      return formattedDate
+    }
+
+    // Extract and format the time
+
+
+  }
   const fetchAllTimesheet = async () => {
     const resp = await fetchAllTimesheetapi(data?._id);
     console.log("res", resp);
     setTimesheet(resp?.taskTimelines);
+    console.log(resp)
+    // console.log(new Date(resp[0]))
 
   }
+
 
   const dateFormate = (timestamp) => {
     const date = new Date(timestamp);
     return date.toISOString()
-
-    // console.log(date.toISOString()); 
-    // console.log(date.toLocaleString());
   }
 
   useEffect(() => {
@@ -156,11 +181,13 @@ const ProjectOverview = ({ setAlert, pop, setPop }) => {
   return (
     <>
       <div className="employee-dash h-full">
-        {role === "EMPLOYEE" ? (
-          <EmployeeSidebar pop={pop} setPop={setPop} />
-        ) : (
-          <AdminSidebar pop={pop} setPop={setPop} />
-        )}
+      {role === "EMPLOYEE" ? (
+            <EmployeeSidebar user={user} setAlert={setAlert} />
+          ) : role === "Client" ? (
+            <ClientSideBar user={user} setAlert={setAlert} />
+          ) : (
+            <AdminSidebar user={user} setAlert={setAlert} />
+          )}
 
         <div className="tm">
           {role === "EMPLOYEE" ? (
@@ -187,7 +214,7 @@ const ProjectOverview = ({ setAlert, pop, setPop }) => {
                   key={index}
                   className={`cursor-pointer singelPr ${index === 0 && "addlefborder"
                     }  ${index === 3 && "addBorder"} ${optIndex === index && "adddbg"
-                    }`}
+                    } ${role === "Client" && index === 1 || index===3 ?"hide" :""}`}
                 >
                   <span>{pr}</span>
                 </div>
@@ -234,7 +261,7 @@ const ProjectOverview = ({ setAlert, pop, setPop }) => {
                     <div className="eachProgeer">
                       <h4>Project Progress</h4>
                       <CircularProgress
-                        percentage={percentage}
+                        percentage={percentage || 0}
                         color={"#4caf50"}
                       />
                     </div>
@@ -279,38 +306,92 @@ const ProjectOverview = ({ setAlert, pop, setPop }) => {
             )}
 
             {optIndex === 2 && (
-              <div className="upload_projewra">
-                <div className="uploadfilebt">
-                  <h4>ALL Files</h4>
-                  {
-                    allfiles?.map((file, index) => (
-                      <div key={index} className="singlefile">
-                        <p>FileName: {file?.fileName}</p>
-                        <p>download link: <a target="_blank" href={`${file?.filePath}`}>{file?.filePath}</a></p>
-                        <p>Uploaded by : {file?.uploadedBy?.fullName}</p>
-                      </div>
-                    ))
-                  }
-                </div>
-
-                <div className="uploadfilebt">
-                  <h4>Upload File or Folder</h4>
+              <div className="p-6 bg-gray-50 rounded-lg shadow-md mt-10">
+                {/* Upload File Section */}
+                <div className="bg-white p-6 rounded-lg shadow-md mb-8">
+                  <h4 className="text-xl font-semibold text-gray-800 mb-4">Upload File or Folder</h4>
                   <input
                     type="file"
                     webkitdirectory
                     directory="true"
                     onChange={handleFileChange}
+                    className="border border-gray-300 rounded-md p-2 mb-4 w-full"
                   />
-
-                  <button onClick={uploadFileProject}>upload</button>
+                  <button
+                    onClick={uploadFileProject}
+                    className="w-full bg-blue-600 text-white p-3 rounded-md hover:bg-blue-700 transition duration-300"
+                  >
+                    Upload
+                  </button>
                 </div>
+                {/* All Files Section */}
+                <div>
+                  <h4 className="text-xl font-semibold text-gray-800 mb-4">All Files</h4>
+                  <div className="space-y-6">
+                    {allfiles?.map((file, index) => (
+                      <div key={index} className="p-4 bg-white rounded-lg shadow-md">
+                        <div className="flex justify-between items-center">
+                          <div>
+                            <p className="text-gray-600">
+                              <strong>File Name:</strong> {file?.fileName}
+                            </p>
+                            <p className="text-gray-600">
+                              <strong>Download Link:</strong>{" "}
+                              <a
+                                target="_blank"
+                                href={`${file?.filePath}`}
+                                className="text-blue-500 hover:underline"
+                              >
+                                {file?.filePath}
+                              </a>
+                            </p>
+                            <p className="text-gray-600">
+                              <strong>Uploaded by:</strong> {file?.uploadedBy?.fullName}
+                            </p>
+                          </div>
+
+                          {/* Image or file preview */}
+                          <div>
+                            {file?.filePath && /\.(jpg|jpeg|png|gif)$/i.test(file?.filePath) ? (
+                              // Show Image Preview
+                              <a
+                                target="_blank"
+                                href={`${file?.filePath}`}
+                                className="text-blue-500 hover:underline"
+                              >
+                                <img
+                                  src={file?.filePath}
+                                  alt={file?.fileName}
+                                  className="h-20 w-20 object-cover rounded-md"
+                                />
+                              </a>
+                            ) : (
+                              <a
+                                target="_blank"
+                                href={`${file?.filePath}`}
+                                className="text-blue-500 hover:underline"
+                              >
+
+                                <p className="text-gray-500 text-sm">{file?.fileName}</p>
+                              </a>
+                              // Show File Name if not an image
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+
               </div>
-              // <ViewTask/>
             )}
+
+
 
             {
               optIndex === 3 &&
-              <div className="timehssepwrap">
+              <div className="timehssepwrap mt-10">
 
 
                 <table className="w-full prodetailTable text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -339,10 +420,10 @@ const ProjectOverview = ({ setAlert, pop, setPop }) => {
                     {altimesheet?.map((task, index) => (
                       <tr key={index} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700" >
 
-                        <td className="px-6 py-3">{task?.clockIn}</td>
+                        <td className="px-6 py-3">{findTime(task?.clockIn, "time")}</td>
                         <td className="px-6 py-3">{(task?.clockOut)}</td>
                         {/* <td>{dateFormate(task?.clockOut)}</td> */}
-                        <td className="px-6 py-3">{task?.createdAt}</td>
+                        <td className="px-6 py-3">{findTime(task?.createdAt)}</td>
                         <td className="px-6 py-3">
                           <div className="flex">
                             {
