@@ -414,6 +414,7 @@ const AdminClientDashboard = () => {
                                         value={formdata.DueDate}
                                         onChange={changeHandler}
                                         type="date"
+                                        min = {formdata.startDate}
                                     />
                                 </label>
 

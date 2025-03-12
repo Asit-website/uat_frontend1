@@ -343,6 +343,7 @@ const Tasks = ({ setAlert, pop, setPop }) => {
                   value={formdata.DueDate}
                   onChange={changeHandler}
                   type="date"
+                  min={formdata.StartDate}
                 />
               </label>
 

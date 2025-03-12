@@ -72,7 +72,7 @@ const TaskClients = ({ setAlert, pop, setPop }) => {
       const ans = await getClientapi();
       console.log("ans", ans);
       if (ans?.status) {
-        setAllClient(ans?.data);
+        setAllClient(ans?.data.reverse());
         console.log(allClient)
       }
     } catch (error) {
@@ -264,19 +264,21 @@ const TaskClients = ({ setAlert, pop, setPop }) => {
                   >
                     <img src={pluss} alt="" /> <span>New Client</span>
                   </button>
-                  <button
+                  {/* <button
                     onClick={() => {
                       setShowImport(true);
                     }}
                     className="impcli"
                   >
                     <span>Import Client</span>
-                  </button>
+                  </button> */}
                   {/* <button className="expoclient">
                     <span>Export Client</span>
                   </button> */}
                 </div>
               </nav>
+
+              <p className="totalRecord">Total Records: {allClient?.length || 0}</p>
 
               <div className="allClients">
                 {allClient.map((client, index) => (
@@ -408,7 +410,7 @@ const TaskClients = ({ setAlert, pop, setPop }) => {
                 <input
                   type="text"
                   name="Password"
-                  value={formdata.Password}
+                  value={formdata.Password || (isEdit ? "" : formdata.Password)}
                   onChange={changeHandler}
                   placeholder="Password"
                 />

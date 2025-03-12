@@ -133,29 +133,17 @@ const ProjectOverview = ({ setAlert, pop, setPop }) => {
   const [altimesheet, setTimesheet] = useState([]);
 
   function findTime(timestamp, state) {
-    // Timestamp
-    // const timestamp = "2025-03-05T15:44:14.112Z";
-
-    // Convert to Date object
     const date = new Date(timestamp);
     if (state === "time") {
-      const time = date.toISOString().slice(11, 19);  // Extracts HH:MM:SS
-
-      console.log(time);  // Output: "15:44:14"
-
-      return time;
+      const time = date.toISOString().slice(11, 19);
+        console.log(time);
+        return time
     }
     else {
       const date = new Date(timestamp);
-
-      // Extract and format the date
       const formattedDate = date.toISOString().slice(0, 10);
       return formattedDate
     }
-
-    // Extract and format the time
-
-
   }
   const fetchAllTimesheet = async () => {
     const resp = await fetchAllTimesheetapi(data?._id);
@@ -261,7 +249,7 @@ const ProjectOverview = ({ setAlert, pop, setPop }) => {
                     <div className="eachProgeer">
                       <h4>Project Progress</h4>
                       <CircularProgress
-                        percentage={percentage || 0}
+                        percentage={ (data?.Status === "Finished") ? 100 : (percentage || 0)}
                         color={"#4caf50"}
                       />
                     </div>
@@ -407,11 +395,18 @@ const ProjectOverview = ({ setAlert, pop, setPop }) => {
                         Date
                       </th>
                       <th scope="col" className="px-6 py-3">
-                        Members
+                        Submited By
                       </th>
 
                       <th scope="col" className="px-6 py-3">
                         totalTime
+                      </th>
+
+                      <th scope="col" className="px-6 py-3">
+                       Worked on
+                      </th>
+                      <th scope="col" className="px-6 py-3">
+                       Note
                       </th>
 
                     </tr>
@@ -425,32 +420,15 @@ const ProjectOverview = ({ setAlert, pop, setPop }) => {
                         {/* <td>{dateFormate(task?.clockOut)}</td> */}
                         <td className="px-6 py-3">{findTime(task?.createdAt)}</td>
                         <td className="px-6 py-3">
-                          <div className="flex">
-                            {
-                              task?.taskId?.Members?.map((member) => (
-                                <img
-                                  src={`${member?.profileImage
-                                    ? member?.profileImage
-                                    : "https://png.pngtree.com/png-vector/20231019/ourmid/pngtree-user-profile-avatar-png-image_10211467.png"
-                                    }`}
-                                  className="w-20 h-20"
-                                  alt="Member Avatar "
-                                  key={member._id}
-
-                                  style={{
-                                    borderRadius: "50%",
-                                    cursor: "pointer",
-                                    transition:
-                                      "color 0.3s ease, text-decoration 0.3s ease",
-                                    height: "40px",
-                                    width: "40px",
-                                  }}
-                                />
-                              ))
-                            }
+                          <div className="flex w-10 h-10 items-center justify-center">
+                            <img src={task?.submitedBy?.profileImage ? task?.submitedBy?.profileImage :  "https://png.pngtree.com/png-vector/20231019/ourmid/pngtree-user-profile-avatar-png-image_10211467.png"} alt="" srcset="" />
+                            <p>{task?.submitedBy?.fullName}</p>
                           </div>
                         </td>
                         <td className="px-6 py-3">{task?.totalTime}</td>
+                        <td className="px-6 py-3">{task?.taskId?.taskName}</td>
+                        <td className="px-6 py-3">{task?.Note}</td>
+
 
                       </tr>
                     ))}

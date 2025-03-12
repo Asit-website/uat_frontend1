@@ -522,6 +522,7 @@ const ProjectOverview2 = ({ allTasks, getProjectTaskapi }) => {
                     value={formdata.DueDate}
                     onChange={changeHandler}
                     type="date"
+                    min={formdata.StartDate}
                   />
                 </label>
                 <label>

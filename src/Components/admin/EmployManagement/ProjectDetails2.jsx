@@ -241,6 +241,32 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
 
     const timeIn = new Date(localStorage.getItem("timeIn"));
     const timeOut = currentTime.getTime();
+    function convertTimestampToTime(timestamp) {
+      // Create a new Date object with the timestamp (milliseconds)
+      const date = new Date(timestamp);
+      
+      // Get the hours, minutes, and seconds from the Date object
+      const hours = date.getHours().toString().padStart(2, '0');
+      const minutes = date.getMinutes().toString().padStart(2, '0');
+      const seconds = date.getSeconds().toString().padStart(2, '0');
+      
+      // Format the time as HH:MM:SS
+      return `${hours}:${minutes}:${seconds}`;
+  }
+  console.log(convertTimestampToTime(timeOut))
+  function convertToIST(utcDate) {
+    const date = new Date(utcDate);
+
+    // Add 5 hours and 30 minutes (IST is UTC +5:30)
+    const istOffsetInMs = 5.5 * 60 * 60 * 1000; // 5 hours 30 minutes in milliseconds
+    const istTime = new Date(date.getTime() + istOffsetInMs); // Convert to IST
+
+    // Format the date in 'YYYY-MM-DDTHH:mm:ss.sss+05:30' format (IST)
+    const formattedDate = istTime.toISOString().slice(0, 19) + "." + istTime.getMilliseconds().toString().padStart(3, '0') + "+05:30";
+
+    return istTime;  // Return the Date object in IST
+}
+
 
     const difference = currentTime.getTime() - timeIn.getTime();
 
@@ -254,10 +280,11 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
     const resp = await timerHandlerapi({
       Note: timerData.Note,
       taskId: timerData?.taskId,
-      clockIn: timeIn,
-      clockOut: timeOut,
+      clockIn: convertToIST(timeIn),
+      clockOut: convertTimestampToTime(timeOut),
       totalTime: diffTime,
-      projectId: data?._id
+      projectId: data?._id,
+      submitedBy: hrms_user?._id
     });
     if (resp?.status) {
       closeTimer();
@@ -476,12 +503,12 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
                   <label>
                     <p className="filn">Start Date:</p>
                     <p className="proand">
-                      {new Date(data?.createdAt).toLocaleDateString("en-GB")}
+                      {new Date(data?.createdAt).toISOString().split("T")[0]}
                     </p>
                   </label>
                   <label>
                     <p className="filn">Due Date:</p>
-                    <p className="proand">{data?.DueDate}</p>
+                    <p className="proand">{data?.deadline}</p>
                   </label>
                   <label>
                     <p className="filn">Total Members</p>
@@ -778,6 +805,7 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
                     value={formdata.DueDate}
                     onChange={changeHandler}
                     type="date"
+                    min={formdata.StartDate}
                   />
                 </label>
                 <label>
@@ -847,7 +875,8 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
                 <option value="Select">Select Task</option>
                 {allTasks?.map((task, index) => (
                   <option key={index} value={task?._id}>
-                    {"hi"}
+                    {task?.taskName}
+                    {/* {console.log(task)} */}
                   </option>
                 ))}
               </select>

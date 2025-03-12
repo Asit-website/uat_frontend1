@@ -500,6 +500,7 @@ const TaskProjects = ({ setAlert, pop, setPop }) => {
                     value={formdata.DueDate}
                     onChange={changeHandler}
                     type="date"
+                    min={formdata.startDate}
                   />
                 </label>
 
