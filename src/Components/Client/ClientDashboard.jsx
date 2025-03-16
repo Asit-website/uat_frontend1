@@ -21,26 +21,6 @@ const ClientDashboard = () => {
 
     const role = hrms_user?.Role || hrms_user?.role;
 
-
-
-
-    const clientData = {
-        _id: "67c17062a6cdc041b8342967",
-        Name: "Akash Negi",
-        Email: "akashnegi.kushel@gmail.com",
-        Password: "123456",
-        City: "Ghaziabad",
-        State: "",
-        ZipCode: "",
-        PhoneNumber: "",
-        Country: "",
-        Address: "",
-        isDisable: false,
-        createdAt: "2025-02-28T08:14:26.402Z",
-        updatedAt: "2025-02-28T08:14:26.402Z",
-        __v: 0,
-    };
-
     const [projects, setProjects] = useState([]);
 
 
@@ -103,7 +83,8 @@ const ClientDashboard = () => {
                             </nav>
 
                             <div className="allClients">
-                                <table>
+                                {projects.length>0?(
+                                    <table>
                                     <thead>
 
                                         <tr>
@@ -167,6 +148,10 @@ const ClientDashboard = () => {
                                         ))}
                                     </tbody>
                                 </table>
+                                ):(
+                                    <h1>No have any project</h1>
+                                )}
+                                
                             </div>
 
                         </div>

@@ -1,13 +1,15 @@
-import React, { useState, useEffect } from "react";
-import kushel from "../images/kushel.png";
-import { NavLink, useNavigate, useLocation } from "react-router-dom";
-import { useMain } from "../../hooks/useMain";
+import React, { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa6";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import { useMain } from "../../hooks/useMain";
 import frame from "../images/Frame.png";
+import kushel from "../images/kushel.png";
+
 
 const Auth = (props) => {
-  const { login, clientLogin, setUser } = useMain();
+  const { login, clientLogin, setUser,loading } = useMain();
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -60,30 +62,45 @@ const Auth = (props) => {
     e.preventDefault();
     setTab(1);
     setButtonStyles("btn1");
+    setValue({
+      email: "",
+      password: "",
+      employeeCode: ""
+    })
   };
 
   const userLogin = (e) => {
     e.preventDefault();
     setTab(2);
     setButtonStyles("btn2");
+    setValue({
+      email: "",
+      password: "",
+      employeeCode: ""
+    })
   };
 
   const clientsLogin = (e) => {
     e.preventDefault();
     setTab(3);
     setButtonStyles("btn3");
+    setValue({
+      email: "",
+      password: "",
+      employeeCode: ""
+    })
   };
 
 
   const handleChange = (e) => {
-    setValue({ ...value, [e.target.name]: e.target.value });
+    setValue({ ...value, [e.target.name]: e.target.value.trim('') });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (tab === 3) {
-      const ans = await clientLogin(value.email, value.password);
+      const ans = await clientLogin(value.email.trim(""), value.password);
       console.log("Client Login Response: ", ans);
       console.log(ans?.data?.client);
 
@@ -98,11 +115,16 @@ const Auth = (props) => {
             role: ans?.data?.client?.Role
           })
         );
+        props.setAlert("success", ans.message);
         // alert("success")
+        if (ans.data.client.Role === "Client") {
+          navigate("/client");
+        }
       }
-      if (ans.data.client.Role === "Client") {
-        navigate("/client");
+      else {
+        props.setAlert("error", ans.message);
       }
+      
 
     }
 
@@ -122,7 +144,6 @@ const Auth = (props) => {
           })
         );
 
-        props.setAlert("success", ans.message);
 
         if (ans.user.role === "HR") {
           navigate("/hrDash");
@@ -131,6 +152,9 @@ const Auth = (props) => {
         } else {
           navigate("/adminDash/HRM");
         }
+        // toast.success(ans?.message)
+        props.setAlert("success", ans.message);
+
 
       } else {
         props.setAlert("error", ans.message);
@@ -197,7 +221,10 @@ const Auth = (props) => {
                   </div>
                 </div>
 
-                <button className="yui">Log in</button>
+                <button disabled={loading} className="yui flex justify-center items-center p-2 bg-blue-500 text-white rounded-lg w-full transition-all duration-300 ease-in-out">
+                  {loading ? ( <div className="w-6 h-6 border-4 border-white border-t-transparent rounded-full animate-spin"></div>)
+                  : ('Log in')}
+                </button>
               </form>
             </div>
           </div>

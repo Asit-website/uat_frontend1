@@ -1,24 +1,17 @@
-import AdminNavbar from "../../admin/Navbar/AdminNavbar";
-import AdminSidebar from "../../admin/Sidebar/AdminSidebar";
+import { useEffect, useState } from "react";
 import "react-calendar/dist/Calendar.css";
-import { useMain } from "../../../hooks/useMain";
-import "./HRMsystem.css";
-import EmployeeSidebar from "../../Employee/Sidebar/EmployeeSidebar";
-import EmployeeNavbar from "../../Employee/Navbar/EmployeeNavbar";
-import "./quote.css";
-import pluss from "../../images/pluss.png";
+import toast from "react-hot-toast";
+import { FaEye } from "react-icons/fa";
+import { MdDelete, MdOutlineEdit } from "react-icons/md";
 import "react-profile-avatar/dist/index.css";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useMain } from "../../../hooks/useMain";
+import cut from "../../images/cutt.png";
 import predit from "../../images/Frame 9740.png";
 import predel from "../../images/Frame 9741.png";
-import { NavLink, useLocation } from "react-router-dom";
-import { useState, useEffect } from "react";
-import toast from "react-hot-toast";
-import cut from "../../images/cutt.png";
-import CircularProgress from "./CircularProgress";
-import { MdDelete } from "react-icons/md";
-import { MdOutlineEdit } from "react-icons/md";
-import { FaEye } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
+import pluss from "../../images/pluss.png";
+import "./HRMsystem.css";
+import "./quote.css";
 import ViewTask from "./ViewTask";
 
 const ProjectOverview2 = ({ allTasks, getProjectTaskapi }) => {
@@ -38,6 +31,7 @@ const ProjectOverview2 = ({ allTasks, getProjectTaskapi }) => {
   console.log("alltask", allTasks);
 
   let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
+  const role = hrms_user?.Role
 
   const [formdata, setFormdata] = useState({
     Title: "",
@@ -230,7 +224,7 @@ const ProjectOverview2 = ({ allTasks, getProjectTaskapi }) => {
     setProUser(membersNames);
     setAddClientPop(true);
   };
-  
+
   // setisEdit(client._id);
   const changeHandler3 = (event) => {
     const file = event.target.files[0];
@@ -259,7 +253,8 @@ const ProjectOverview2 = ({ allTasks, getProjectTaskapi }) => {
                     {allProject?.Status}
                   </p>
                 </div>
-                <div className="clibtns">
+                {role!=="Client" && (
+                  <div className="clibtns">
                   <button
                     onClick={() => {
                       setAddClientPop(true);
@@ -270,6 +265,8 @@ const ProjectOverview2 = ({ allTasks, getProjectTaskapi }) => {
                     <img src={pluss} alt="Add Task" /> <span>Add Task </span>
                   </button>
                 </div>
+                )}
+                
               </nav>
               <div className="prodlefriwrap">
                 <div className="leftprodetail">
@@ -358,10 +355,17 @@ const ProjectOverview2 = ({ allTasks, getProjectTaskapi }) => {
                         <td className="px-6 py-4">{task?.startDate}</td>
                         <td className="px-6 py-4">{task?.dueDate}</td>
                         <td className="px-6 py-4">{task?.priority}</td>
-                        <td className="px-6 py-4">{task?.description}</td>
+                        <td className="px-6 py-4">
+                          {task?.description?.length > 40
+                            ? task.description.slice(0, 30) + "..."
+                            : task.description}
+                        </td>
+
                         <td className="px-6 py-4">{task?.Status}</td>
                         <td className="px-6 py-4 adddsomflex">
-                          <MdDelete
+                          {role !== "Client" && (
+                            <>
+                            <MdDelete
                             onClick={() => deleteTasks(task?._id)}
                             className="iconsss"
                           />
@@ -369,6 +373,9 @@ const ProjectOverview2 = ({ allTasks, getProjectTaskapi }) => {
                             onClick={() => { handleEditClick(task) }}
                             className="iconsss2"
                           />
+                            </>
+                          )}
+                          
                           <FaEye
                             onClick={() => getTask(task?._id)}
                             className="iconsss"
@@ -406,7 +413,7 @@ const ProjectOverview2 = ({ allTasks, getProjectTaskapi }) => {
         <div className="addCliWrap">
           <div className="addClieCont addheight">
             <nav>
-              <p>Create New Task</p>
+              <p>{isEdit ? "Edit Task" : "Create New Task"}</p>
               <img
                 onClick={() => {
                   setAddClientPop(false);
@@ -615,7 +622,7 @@ const ProjectOverview2 = ({ allTasks, getProjectTaskapi }) => {
       {viewTask && (<>
         <div className="addCliWrap">
           <div className="addClieCont addheight flex">
-            <ViewTask src={cut} data = {formdata} onClick={()=>setViewTask(false)}/>
+            <ViewTask src={cut} data={formdata} onClick={() => setViewTask(false)} />
           </div>
         </div>
       </>)}

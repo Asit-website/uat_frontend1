@@ -118,7 +118,8 @@ const TaskProjects = ({ setAlert, pop, setPop }) => {
     e.preventDefault();
     const toastId = toast.loading("Loading...");
     try {
-      const ans = await editProjectapi({ ...formdata, projectId: isEdit });
+      const ans = await editProjectapi({ ...formdata,...formdata, projectOwner: clientInfo || hrms_user._id,
+        client: clientInfo || hrms_user._id, projectId: isEdit });
       if (ans?.status) {
         toast.success("Successfuly updated");
         getAllProject();
@@ -129,6 +130,8 @@ const TaskProjects = ({ setAlert, pop, setPop }) => {
           Status: "Ongoing",
           DueDate: "",
           Members: "",
+          projectOwner: clientInfo || hrms_user._id,
+        client: clientInfo || hrms_user._id
         });
         setAddClientPop(false);
         setProUser([]);
@@ -352,14 +355,14 @@ const TaskProjects = ({ setAlert, pop, setPop }) => {
                         </td>
                         <td>{client?.deadline}</td>
 
-                        <td style={{ display: "flex", gap: "-2px" }}>
+                        <td className="flex ">
                           {client?.Members?.map((member) => (
                             <img
                               src={`${member?.profileImage
                                 ? member?.profileImage
                                 : "https://png.pngtree.com/png-vector/20231019/ourmid/pngtree-user-profile-avatar-png-image_10211467.png"
                                 }`}
-                              className="w-20 h-20 rounded-full cursor-pointer transition-colors duration-300 ease-in-out"
+                              className="w-10 h-10 rounded-full cursor-pointer transition-colors duration-300 ease-in-out"
                               alt="Member Avatar "
                               key={member._id}
                               onClick={() =>
@@ -391,7 +394,7 @@ const TaskProjects = ({ setAlert, pop, setPop }) => {
         <div className="addCliWrap">
           <div className="addClieCont addheight">
             <nav>
-              <p>Create New Project</p>
+              <p>{isEdit?"Edit Project":"Create New Project"}</p>
               <img
                 onClick={() => {
                   setAddClientPop(false);
@@ -517,7 +520,7 @@ const TaskProjects = ({ setAlert, pop, setPop }) => {
               </div>
               <div className="btnsss">
                 <button type="submit" className="saveclient">
-                  <span>Add Project </span>
+                  <span>{isEdit?"Update":"Add Project"} </span>
                 </button>
                 <button
                   onClick={() => {

@@ -1,24 +1,20 @@
+import { useEffect, useState } from "react";
+import "react-calendar/dist/Calendar.css";
+import toast from "react-hot-toast";
+import { FaEye } from "react-icons/fa";
+import { IoMdTimer } from "react-icons/io";
+import { MdDelete, MdOutlineEdit } from "react-icons/md";
+import "react-profile-avatar/dist/index.css";
+import { NavLink, useLocation } from "react-router-dom";
+import { useMain } from "../../../hooks/useMain";
 import AdminNavbar from "../../admin/Navbar/AdminNavbar";
 import AdminSidebar from "../../admin/Sidebar/AdminSidebar";
-import "react-calendar/dist/Calendar.css";
-import { useMain } from "../../../hooks/useMain";
-import "./HRMsystem.css";
-import EmployeeSidebar from "../../Employee/Sidebar/EmployeeSidebar";
 import EmployeeNavbar from "../../Employee/Navbar/EmployeeNavbar";
-import "./quote.css";
-import pluss from "../../images/pluss.png";
-import "react-profile-avatar/dist/index.css";
-import predit from "../../images/Frame 9740.png";
-import predel from "../../images/Frame 9741.png";
-import { NavLink, useLocation } from "react-router-dom";
-import { useState, useEffect } from "react";
-import toast from "react-hot-toast";
+import EmployeeSidebar from "../../Employee/Sidebar/EmployeeSidebar";
 import cut from "../../images/cutt.png";
-import CircularProgress from "./CircularProgress";
-import { IoMdTimer } from "react-icons/io";
-import { FaEye } from "react-icons/fa";
-import { MdDelete } from "react-icons/md";
-import { MdOutlineEdit } from "react-icons/md";
+import pluss from "../../images/pluss.png";
+import "./HRMsystem.css";
+import "./quote.css";
 
 var tc3;
 var tc4;
@@ -32,20 +28,22 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
     timerHandlerapi,
     getProjectTask,
     statuschangeapi,
-    deleteProjectTaskapi22 , EditProjectTask
+    deleteProjectTaskapi22, EditProjectTask,
+    UploadFileProjectapi, allfilesproject 
   } = useMain();
 
   const location = useLocation();
 
   const data = location?.state;
+  const projectOpt = ["MyTask", "Files"];
+  const [optIndex, setOptIndex] = useState(0);
 
-  // console.log("daa",data);
 
   let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
   let hrms_permission = JSON.parse(localStorage.getItem("hrms_permission"));
 
-  const { role,  } = hrms_user;
-  const {  showTasksDetailPermission , showAllProjectPermission , addTaskPermission ,  deleteTaskPermission , editTaskPermission ,  } = hrms_permission;
+  const { role, } = hrms_user;
+  const { showTasksDetailPermission, showAllProjectPermission, addTaskPermission, deleteTaskPermission, editTaskPermission, } = hrms_permission;
 
   const [formdata, setFormdata] = useState({
     Title: "",
@@ -92,7 +90,7 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
 
   const getProjectTaskapi = async () => {
     const ans = await getMyProjectTask(data?._id, hrms_user?._id);
-    setAllTasks(ans?.tasks); 
+    setAllTasks(ans?.tasks);
   };
 
   const getProjectTaskapiPermi = async () => {
@@ -244,28 +242,28 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
     function convertTimestampToTime(timestamp) {
       // Create a new Date object with the timestamp (milliseconds)
       const date = new Date(timestamp);
-      
+
       // Get the hours, minutes, and seconds from the Date object
       const hours = date.getHours().toString().padStart(2, '0');
       const minutes = date.getMinutes().toString().padStart(2, '0');
       const seconds = date.getSeconds().toString().padStart(2, '0');
-      
+
       // Format the time as HH:MM:SS
       return `${hours}:${minutes}:${seconds}`;
-  }
-  console.log(convertTimestampToTime(timeOut))
-  function convertToIST(utcDate) {
-    const date = new Date(utcDate);
+    }
+    console.log(convertTimestampToTime(timeOut))
+    function convertToIST(utcDate) {
+      const date = new Date(utcDate);
 
-    // Add 5 hours and 30 minutes (IST is UTC +5:30)
-    const istOffsetInMs = 5.5 * 60 * 60 * 1000; // 5 hours 30 minutes in milliseconds
-    const istTime = new Date(date.getTime() + istOffsetInMs); // Convert to IST
+      // Add 5 hours and 30 minutes (IST is UTC +5:30)
+      const istOffsetInMs = 5.5 * 60 * 60 * 1000; // 5 hours 30 minutes in milliseconds
+      const istTime = new Date(date.getTime() + istOffsetInMs); // Convert to IST
 
-    // Format the date in 'YYYY-MM-DDTHH:mm:ss.sss+05:30' format (IST)
-    const formattedDate = istTime.toISOString().slice(0, 19) + "." + istTime.getMilliseconds().toString().padStart(3, '0') + "+05:30";
+      // Format the date in 'YYYY-MM-DDTHH:mm:ss.sss+05:30' format (IST)
+      const formattedDate = istTime.toISOString().slice(0, 19) + "." + istTime.getMilliseconds().toString().padStart(3, '0') + "+05:30";
 
-    return istTime;  // Return the Date object in IST
-}
+      return istTime;  // Return the Date object in IST
+    }
 
 
     const difference = currentTime.getTime() - timeIn.getTime();
@@ -382,7 +380,7 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
     setProUser(membersNames);
     setAddClientPop(true);
   };
-  
+
   // setisEdit(client._id);
   const changeHandler3 = (event) => {
     const file = event.target.files[0];
@@ -413,31 +411,68 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
     toast.dismiss(toastId);
   };
 
+  const [selectedFiles, setSelectedFiles] = useState([]);
+  const [allfiles, setAllFiles] = useState([]);
+  const handleFileChange = (event) => {
+    const toastId = toast.loading("Loading...");
+    const files = Array.from(event.target.files); // Get all files
+    setSelectedFiles(files); // Set files array to the state
+    toast.dismiss(toastId);
+  };
+  const fetchAllFile = async () => {
+    const resp = await allfilesproject(data?._id);
+    setAllFiles(resp?.files);
+  };
 
+  const uploadFileProject = async () => {
+    if (selectedFiles.length > 0) {
+      const toastId = toast.loading("Loading...");
+
+      try {
+        await Promise.all(
+          selectedFiles.map(async (file) => {
+            const resp = await UploadFileProjectapi(file, data?._id);
+          })
+        );
+
+        toast.success("Successfully uploaded");
+        fetchAllFile();
+        setSelectedFiles([]);
+      } catch (error) {
+        toast.error("Failed to upload files");
+      } finally {
+        toast.dismiss(toastId);
+        setSelectedFiles([]);
+      }
+    } else {
+      toast.error("No files selected");
+    }
+  };
 
   useEffect(() => {
-    if(showAllProjectPermission){
+    if (showAllProjectPermission) {
       getProjectTaskapiPermi();
 
     }
-    else{
+    else {
       getProjectTaskapi();
     }
     getAllProject();
+    fetchAllFile();
   }, []);
 
 
-  const statuschangehadler = async(taskId , status)=>{
+  const statuschangehadler = async (taskId, status) => {
     const toastId = toast.loading("Loading...");
-     const resp = await statuschangeapi(taskId, status );
-      toast.success("Successfuly done");
-      toast.dismiss(toastId);
-      if(showAllProjectPermission){
-        getProjectTaskapiPermi();
-      }
-      else{
-        getProjectTaskapi();
-      }
+    const resp = await statuschangeapi(taskId, status);
+    toast.success("Successfuly done");
+    toast.dismiss(toastId);
+    if (showAllProjectPermission) {
+      getProjectTaskapiPermi();
+    }
+    else {
+      getProjectTaskapi();
+    }
   }
 
   return (
@@ -457,229 +492,339 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
           )}
 
           <div className="em">
+            <div
+              className=""
+              style={{
+                width: "338px",
+                height: "42px",
+                display: "flex",
+                alignItems: "center",
+              }}
+            >
+              {projectOpt.map((pr, index) => (
+                <div
+                  onClick={() => setOptIndex(index)}
+                  key={index}
+                  className={`cursor-pointer singelPr ${index === 0 && "addlefborder"
+                    }  ${index === 1 && "addBorder"} ${optIndex === index && "adddbg"
+                    } ${role === "Client" && index === 1 || index === 1 ? "hide" : ""}`}
+                >
+                  <span>{pr}</span>
+                </div>
+              ))}
+            </div>
+
+
+
             <div className="tclwrap">
-              <nav>
-                <div className="pronaheading">
-                  <h2>{data?.Name}</h2>
-                  <p
-                    className={`stapro ${
-                      allProject?.Status === "Finished" && "finibg"
-                    } ${allProject?.Status === "Ongoing" && "Ongoingbg"} ${
-                      allProject?.Status === "OnHold" && "OnHoldbg"
-                    }`}
-                  >
-                    {allProject?.Status}
-                  </p>
-                </div>
-
-               
-               {
-
-            addTaskPermission && 
-               
-                    <div className="clibtns">
-                      <NavLink to="employeeDash/HRM/myProjects">
-                        <button className="backpro">
-                          <span>Back</span>
-                        </button>
-                      </NavLink>
-                      <button
-                        onClick={() => {
-                          setAddClientPop(true);
-                        }}
-                        className="newcli"
+              {optIndex === 0 && (
+                <>
+                  <nav>
+                    <div className="pronaheading">
+                      <h2>{data?.Name}</h2>
+                      <p
+                        className={`stapro ${allProject?.Status === "Finished" && "finibg"
+                          } ${allProject?.Status === "Ongoing" && "Ongoingbg"} ${allProject?.Status === "OnHold" && "OnHoldbg"
+                          }`}
                       >
-                        <img src={pluss} /> <span>Add Task</span>
-                      </button>
+                        {allProject?.Status}
+                      </p>
                     </div>
 
-                      }
-                
-              </nav>
 
-              <div className="prodlefriwrap">
-                {/* left side */}
-                <div className="leftprodetail">
-                  <label>
-                    <p className="filn">Start Date:</p>
-                    <p className="proand">
-                      {new Date(data?.createdAt).toISOString().split("T")[0]}
-                    </p>
-                  </label>
-                  <label>
-                    <p className="filn">Due Date:</p>
-                    <p className="proand">{data?.deadline}</p>
-                  </label>
-                  <label>
-                    <p className="filn">Total Members</p>
-                    <p className="proand">{data.Members?.length}</p>
-                  </label>
-                </div>
+                    {
 
-                {/* right side */}
-                <div className="righprodetail">
-                  <div className="timerdives">
-                    <p>{Math.floor(clock / 3600)}</p>:
-                    <p>{Math.floor((clock % 3600) / 60)}</p>:<p>{clock % 60}</p>
-                  </div>
+                      addTaskPermission &&
 
-                  {allTasks?.length > 0 && (
-                    <div>
-                      <IoMdTimer onClick={clockIn} className="cursor-pointer" />
+                      <div className="clibtns">
+                        <NavLink to="employeeDash/HRM/myProjects">
+                          <button className="backpro">
+                            <span>Back</span>
+                          </button>
+                        </NavLink>
+                        <button
+                          onClick={() => {
+                            setAddClientPop(true);
+                          }}
+                          className="newcli"
+                        >
+                          <img src={pluss} /> <span>Add Task</span>
+                        </button>
+                      </div>
+
+                    }
+
+                  </nav>
+
+                  <div className="prodlefriwrap">
+                    {/* left side */}
+                    <div className="leftprodetail">
+                      <label>
+                        <p className="filn">Start Date:</p>
+                        <p className="proand">
+                          {new Date(data?.createdAt).toISOString().split("T")[0]}
+                        </p>
+                      </label>
+                      <label>
+                        <p className="filn">Due Date:</p>
+                        <p className="proand">{data?.deadline}</p>
+                      </label>
+                      <label>
+                        <p className="filn">Total Members</p>
+                        <p className="proand">{data.Members?.length}</p>
+                      </label>
                     </div>
-                  )}
 
-                  {/* <div>
+                    {/* right side */}
+                    <div className="righprodetail">
+                      <div className="timerdives">
+                        <p>{Math.floor(clock / 3600)}</p>:
+                        <p>{Math.floor((clock % 3600) / 60)}</p>:<p>{clock % 60}</p>
+                      </div>
+
+                      {allTasks?.length > 0 && (
+                        <div>
+                          <IoMdTimer onClick={clockIn} className="cursor-pointer" />
+                        </div>
+                      )}
+
+                      {/* <div>
                     <img src={predit} alt="" />
                   </div>
                   <div>
                     <img src={predel} alt="" />
                   </div> */}
+                    </div>
+                  </div>
+
+                  {/* this is all tasks now  */}
+
+                  <div className="relative overflow-x-auto">
+                    <table className="w-full prodetailTable text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                      <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                        <tr>
+                          <th scope="col" className="px-6 py-3">
+                            Subject
+                          </th>
+                          <th scope="col" className="px-6 py-3">
+                            Assign To
+                          </th>
+                          <th scope="col" className="px-6 py-3">
+                            StartDate
+                          </th>
+                          <th scope="col" className="px-6 py-3">
+                            DueDate
+                          </th>
+                          <th scope="col" className="px-6 py-3">
+                            Priority
+                          </th>
+
+                          <th scope="col" className="px-6 py-3">
+                            Description
+                          </th>
+                          <th scope="col" className="px-6 py-3">
+                            Status
+                          </th>
+                          {showTasksDetailPermission && (
+                            <th scope="col" className="px-6 py-3">
+                              Actions
+                            </th>
+                          )}
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {allTasks?.map((task, index) => (
+                          <tr
+                            key={index}
+                            className="bg-white"
+                          >
+                            <td className="px-6 py-4">{task?.taskName}</td>
+                            <td className="px-6 py-4 flex items-center justify-center ">
+                              {
+                                task?.Members?.map((member) => (
+                                  <img
+                                    src={`${member?.profileImage
+                                        ? member?.profileImage
+                                        : "https://png.pngtree.com/png-vector/20231019/ourmid/pngtree-user-profile-avatar-png-image_10211467.png"
+                                      }`}
+                                    className="w-20 h-20"
+                                    alt="Member Avatar "
+                                    key={member._id}
+
+                                    style={{
+                                      borderRadius: "50%",
+                                      cursor: "pointer",
+                                      transition:
+                                        "color 0.3s ease, text-decoration 0.3s ease",
+                                      height: "40px",
+                                      width: "40px",
+                                    }}
+                                  />
+                                ))
+                              }
+                            </td>
+                            <td className="px-6 py-4">{task?.startDate}</td>
+                            <td className="px-6 py-4">{task?.dueDate}</td>
+                            <td className="px-6 py-4">{task?.priority}</td>
+                            {/* <td className="px-6 py-4">{task?.Github}</td> */}
+                            <td className="px-6 py-4">{task?.description}</td>
+                            <td className="px-6 py-4">
+                              <select name="status" id="" onChange={(e) => statuschangehadler(task?._id, e.target.value)} value={task?.Status} >
+                                {/* <option value=""></option> */}
+                                <option value="Not Started">Not Started</option>
+                                <option value="Started">Started</option>
+                                <option value="Pending">Pending</option>
+                                <option value="Completed">Completed</option>
+                              </select>
+                            </td>
+
+                            {showTasksDetailPermission && (
+                              <td className="px-6 py-4 adddsomflex">
+                                {
+                                  showTasksDetailPermission &&
+                                  <FaEye
+                                    onClick={() => {
+                                      const filterData = allTaskDetail?.find(
+                                        (t) => t?.taskId === task?._id
+                                      );
+                                      setTimerPop2(filterData);
+                                    }}
+                                    className="iconsss"
+                                  />
+                                }
+                                {
+                                  deleteTaskPermission &&
+                                  <MdDelete
+                                    onClick={() => deleteTasks(task?._id)}
+                                    className="iconsss"
+                                  />
+                                }
+                                {
+                                  editTaskPermission &&
+                                  <MdOutlineEdit
+                                    onClick={() => {
+                                      setAddClientPop(true);
+                                      setFormdata(task);
+                                      setisEdit(task?._id);
+                                    }}
+                                    className="iconsss2"
+                                  />
+                                }
+
+                              </td>
+                            )}
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+
+                    {totalPages > 1 && (
+                      <div className="navbuttons flex justify-between items-center mt-4">
+                        <button
+                          onClick={handlePrev}
+                          disabled={currentPage === 1}
+                          className="px-4 py-2 bg-gray-300 rounded-md disabled:bg-gray-200"
+                        >
+                          Prev
+                        </button>
+                        <span className="px-4">{currentPage}</span>
+                        <button
+                          onClick={handleNext}
+                          disabled={currentPage === totalPages}
+                          className="px-4 py-2 bg-gray-300 rounded-md disabled:bg-gray-200"
+                        >
+                          Next
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                </>
+              )}
+
+              {optIndex === 1 && (
+                <div className="p-6 bg-gray-50 rounded-lg shadow-md mt-10">
+                  {/* Upload File Section */}
+                  <div className="bg-white p-6 rounded-lg shadow-md mb-8">
+                    <h4 className="text-xl font-semibold text-gray-800 mb-4">
+                      Upload File or Folder
+                    </h4>
+                    <input
+                      type="file"
+                      webkitdirectory="true"
+                      directory="true"
+                      onChange={handleFileChange}
+                      className="border border-gray-300 rounded-md p-2 mb-4 w-full"
+                    />
+                    <button
+                      onClick={uploadFileProject}
+                      className="w-full bg-blue-600 text-white p-3 rounded-md hover:bg-blue-700 transition duration-300"
+                    >
+                      Upload
+                    </button>
+                  </div>
+
+                  {/* All Files Section */}
+                  <div>
+                    <h4 className="text-xl font-semibold text-gray-800 mb-4">{allfiles?.length > 0 ? "All Files" : "No Files"}</h4>
+                    <div className="space-y-6">
+                      {allfiles?.map((file, index) => (
+                        <div key={index} className="p-4 bg-white rounded-lg shadow-md">
+                          <div className="flex justify-between items-center">
+                            <div>
+                              <p className="text-gray-600">
+                                <strong>File Name:</strong> {file?.fileName}
+                              </p>
+                              <p className="text-gray-600">
+                                <strong>Download Link:</strong>{" "}
+                                <a
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  href={file?.filePath}
+                                  className="text-blue-500 hover:underline"
+                                >
+                                  {file?.filePath}
+                                </a>
+                              </p>
+                              <p className="text-gray-600">
+                                <strong>Uploaded by:</strong> {file?.uploadedBy?.fullName}
+                              </p>
+                            </div>
+
+                            {/* Image or file preview */}
+                            <div>
+                              {file?.filePath && /\.(jpg|jpeg|png|gif)$/i.test(file?.filePath) ? (
+                                <a
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  href={file?.filePath}
+                                  className="text-blue-500 hover:underline"
+                                >
+                                  <img
+                                    src={file?.filePath}
+                                    alt={file?.fileName}
+                                    className="h-20 w-20 object-cover rounded-md"
+                                  />
+                                </a>
+                              ) : (
+                                <a
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  href={file?.filePath}
+                                  className="text-blue-500 hover:underline"
+                                >
+                                  <p className="text-gray-500 text-sm">{file?.fileName}</p>
+                                </a>
+                              )}
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
                 </div>
-              </div>
+              )}
 
-              {/* this is all tasks now  */}
 
-              <div className="relative overflow-x-auto">
-                <table className="w-full prodetailTable text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                  <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                    <tr>
-                      <th scope="col" className="px-6 py-3">
-                        Subject
-                      </th>
-                      <th scope="col" className="px-6 py-3">
-                        Assign To
-                      </th>
-                      <th scope="col" className="px-6 py-3">
-                        StartDate
-                      </th>
-                      <th scope="col" className="px-6 py-3">
-                        DueDate
-                      </th>
-                      <th scope="col" className="px-6 py-3">
-                        Priority
-                      </th>
-                    
-                      <th scope="col" className="px-6 py-3">
-                        Description
-                      </th>
-                      <th scope="col" className="px-6 py-3">
-                        Status
-                      </th>
-                      {showTasksDetailPermission && (
-                        <th scope="col" className="px-6 py-3">
-                          Actions
-                        </th>
-                      )}
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {allTasks?.map((task, index) => (
-                      <tr
-                        key={index}
-                        className="bg-white"
-                      >
-                        <td className="px-6 py-4">{task?.taskName}</td>
-                        <td className="px-6 py-4 flex items-center justify-center ">
-                           {
-                            task?.Members?.map((member)=>(
-                              <img
-                              src={`${
-                                member?.profileImage
-                                  ? member?.profileImage
-                                  : "https://png.pngtree.com/png-vector/20231019/ourmid/pngtree-user-profile-avatar-png-image_10211467.png"
-                              }`}
-                              className="w-20 h-20"
-                              alt="Member Avatar "
-                              key={member._id}
-                            
-                              style={{
-                                borderRadius: "50%",
-                                cursor: "pointer",
-                                transition:
-                                  "color 0.3s ease, text-decoration 0.3s ease",
-                                height: "40px",
-                                width: "40px",
-                              }}
-                            />
-                            ))
-                           }
-                        </td>
-                        <td className="px-6 py-4">{task?.startDate}</td>
-                        <td className="px-6 py-4">{task?.dueDate}</td>
-                        <td className="px-6 py-4">{task?.priority}</td>
-                        {/* <td className="px-6 py-4">{task?.Github}</td> */}
-                        <td className="px-6 py-4">{task?.description}</td>
-                        <td className="px-6 py-4">
-                           <select name="status" id="" onChange={(e)=>statuschangehadler(task?._id , e.target.value)} value={task?.Status} >
-                            {/* <option value=""></option> */}
-                             <option value="Not Started">Not Started</option>
-                             <option value="Started">Started</option>
-                              <option value="Pending">Pending</option>
-                              <option value="Completed">Completed</option>
-                           </select>
-                        </td>
-
-                        {showTasksDetailPermission && (
-                          <td className="px-6 py-4 adddsomflex">
-                            {
-                              showTasksDetailPermission &&   
-                               <FaEye
-                              onClick={() => {
-                                const filterData = allTaskDetail?.find(
-                                  (t) => t?.taskId === task?._id
-                                );
-                                setTimerPop2(filterData);
-                              }}
-                              className="iconsss"
-                            />
-                            }
-                            {
-                              deleteTaskPermission && 
-                               <MdDelete
-                              onClick={() => deleteTasks(task?._id)}
-                              className="iconsss"
-                            />
-                            }
-                            {
-                              editTaskPermission && 
-                              <MdOutlineEdit
-                              onClick={() => {
-                                setAddClientPop(true);
-                                setFormdata(task);
-                                setisEdit(task?._id);
-                              }}
-                              className="iconsss2"
-                            />
-                            }
-                          
-                          </td>
-                        )}
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-
-               {totalPages >1 && (
-                 <div className="navbuttons flex justify-between items-center mt-4">
-                 <button
-                   onClick={handlePrev}
-                   disabled={currentPage === 1}
-                   className="px-4 py-2 bg-gray-300 rounded-md disabled:bg-gray-200"
-                 >
-                   Prev
-                 </button>
-                 <span className="px-4">{currentPage}</span>
-                 <button
-                   onClick={handleNext}
-                   disabled={currentPage === totalPages}
-                   className="px-4 py-2 bg-gray-300 rounded-md disabled:bg-gray-200"
-                 >
-                   Next
-                 </button>
-               </div>
-               )}
-              </div>
             </div>
           </div>
         </div>

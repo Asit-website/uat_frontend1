@@ -3,7 +3,7 @@ import lok from "../../images/lok.png";
 import bottom from "../../images/bottom.png";
 import notifications from "../../images/notifications.png";
 import OutsideClickHandler from "react-outside-click-handler";
-import { NavLink } from "react-router-dom";
+import { NavLink,useNavigate } from "react-router-dom";
 import "react-circular-progressbar/dist/styles.css";
 import LogoutPop from "../Popup/LogoutPop";
 import { useMain } from "../../../hooks/useMain";
@@ -25,6 +25,7 @@ const EmployeeNavbar = ({ setAlert, pop1, setPop1 }) => {
   let todayDate = new Date().toLocaleDateString("en-GB");
   const [pass, setPass] = useState(false);
   const [user, setUser] = useState({});
+  const navigate = useNavigate()
 
   useEffect(() => {
     let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
@@ -36,10 +37,9 @@ const EmployeeNavbar = ({ setAlert, pop1, setPop1 }) => {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem("hrms_token");
-    localStorage.removeItem("hrms_user");
-    window.location.href = "/login";
+    localStorage.clear()
     setAlert("success", "logout successfully");
+    navigate('/login')
   };
 
   const [startTs, setStartTs] = useState("");

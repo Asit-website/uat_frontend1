@@ -7,10 +7,11 @@ import { NavLink } from "react-router-dom";
 import { useMain } from '../../../hooks/useMain'
 import notifyy from "../../images/notifyy.png"
 import redcancel from "../../images/redcancel.png"
+import { useNavigate } from "react-router-dom";
 
 
 const AdminNavbar = ({ setAlert }) => {
-
+  const navigate = useNavigate();
   const { fetchUserNotifyHR } = useMain();
 
   // let user = JSON?.parse(localStorage.getItem("hrms_user"));
@@ -42,9 +43,8 @@ const AdminNavbar = ({ setAlert }) => {
     localStorage.removeItem("break-seconds");
     localStorage.removeItem("break-time");
 
-
-    window.location.href = "/login";
     setAlert("success", "logout successfully");
+    navigate('/login')
   };
 
   useEffect(() => {

@@ -1,7 +1,6 @@
-import React from 'react'
+import React, { useState } from 'react';
+import { deleteReq, get, post, postDocuments, put } from '../Api/api';
 import MainContext from './MainContext';
-import { deleteReq, get, post, put, postDocuments } from '../Api/api'
-import { useState } from 'react';
 
 // const baseUrl = "https://my-backend-blond.vercel.app";
 // 
@@ -25,11 +24,13 @@ const MainState = (props) => {
    const [user, setUser] = useState({});
    const [flag, setFlag] = useState(false);
    const [chatUser, setChatUser] = useState({});
+   const [loading,setLoading] = useState(false);
 
    const login = async ({ email, employeeCode, password }) => {
+      setLoading(true)
 
       const data = await post(`${baseUrl}/auth/login`, { email, employeeCode, password }, false);
-
+      setLoading(false)
       return data;
    };
 
@@ -2251,8 +2252,8 @@ const MainState = (props) => {
       return data;
    };
 
-   const editProjectapi = async ({ Name, Description, Employee, Status, DueDate, startDate, Members, projectId }) => {
-      const data = await post(`${baseUrl}/latest_project/editProject`, { projectName: Name, Description, Employee, Status, deadline: DueDate, startDate, Members, projectId }, true);
+   const editProjectapi = async ({ Name, Description, Employee, Status, DueDate, startDate, Members, projectId,client }) => {
+      const data = await post(`${baseUrl}/latest_project/editProject`, { projectName: Name, Description, Employee, Status, deadline: DueDate, startDate, Members, projectId,projectOwner: client,client:client }, true);
       return data;
    }
 
@@ -2462,7 +2463,7 @@ const MainState = (props) => {
          acceptLeave, rejectLeave, leaveTypeApi,
          ProvideRemovePermission, postQuotationFormApi, updatePropsalFormApi, postProposalFormApi, createClientapi,
          updateQuotationFormApi, changeRelivingLetterPer, getThisMonthLeave,
-         uploadOwnDocs,
+         uploadOwnDocs,loading,
 
          getAllLeads,
          updateDocSetup,

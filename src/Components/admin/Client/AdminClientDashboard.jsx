@@ -295,7 +295,7 @@ const AdminClientDashboard = () => {
                                                             ? member?.profileImage
                                                             : "https://png.pngtree.com/png-vector/20231019/ourmid/pngtree-user-profile-avatar-png-image_10211467.png"
                                                             }`}
-                                                        className="w-20 h-20 rounded-full cursor-pointer transition-colors duration-300 ease-in-out"
+                                                        className="w-10 h-10 rounded-full cursor-pointer transition-colors duration-300 ease-in-out"
                                                         alt="Member Avatar "
                                                         key={index}
                                                         onClick={() =>

@@ -48,7 +48,7 @@ const ProjectOverview = ({ setAlert, pop, setPop }) => {
   const getProjectTaskapi = async () => {
     const ans = await getProjectTask(data?._id);
     setAllTasks(ans?.tasks);
-  };
+};
   const gettAllClients = async () => {
     try {
       const ans = await getClientapi();
@@ -161,10 +161,20 @@ const ProjectOverview = ({ setAlert, pop, setPop }) => {
   }
 
   useEffect(() => {
-    fetchAllFile();
-    fetchAllTimesheet();
     gettAllClients()
   }, []);
+
+  useEffect(() => {
+    if(optIndex===1){
+      getProjectTaskapi()
+    }
+    if (optIndex === 3) {
+        fetchAllTimesheet();
+    }if(optIndex === 2){
+    fetchAllFile();
+
+    }
+}, [optIndex]);
 
   return (
     <>
