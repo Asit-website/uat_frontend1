@@ -25,7 +25,9 @@ const ForgetPassword = () => {
     let ans = await forgetPassword(value);
     if (ans.success) {
       localStorage.setItem('kds-reset-email', ans.email);
-      navigate("/forget1");
+      navigate("/forget1", {
+        state: { email: value.email }
+      });
     }
   };
 

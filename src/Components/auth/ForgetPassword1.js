@@ -2,11 +2,13 @@ import React, { useState } from 'react'
 import photo from "../images/Photo.png";
 import kushel from "../images/kushel.png";
 import path from '../images/path.png';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useMain } from '../../hooks/useMain';
 
 const ForgetPassword1 = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  console.log(location.state)
   const { forgetPassword1 } = useMain();
   const [value, setValue] = useState({
     n1: '',
@@ -21,9 +23,10 @@ const ForgetPassword1 = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    let ans = await forgetPassword1({ email: localStorage.getItem('kds-reset-email'), otp: value.n1 + value.n2 + value.n3 + value.n4 })
+    console.log(value.n1 + value.n2 + value.n3 + value.n4)
+    let ans = await forgetPassword1({ email: location.state.email, otp: value.n1 + value.n2 + value.n3 + value.n4 })
     if (ans.success) {
-      navigate("/forget2");
+      navigate("/forget2",{state:{ email: location.state.email, otp: value.n1 + value.n2 + value.n3 + value.n4 }});
     }
   };
 

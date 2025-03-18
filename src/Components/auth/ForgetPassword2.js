@@ -3,11 +3,12 @@ import photo from "../images/Photo.png";
 import kushel from "../images/kushel.png";
 import path from '../images/path.png';
 import { useMain } from '../../hooks/useMain';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate,useLocation } from 'react-router-dom';
 import toast from 'react-hot-toast';
 
 const ForgetPassword2 = ({ setAlert }) => {
   const { forgetPassword2 } = useMain();
+  const location = useLocation()
 
   const [value, setValue] = useState({
     password: '',
@@ -22,7 +23,7 @@ const ForgetPassword2 = ({ setAlert }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (value.password === value.password1) {
-      const ans = await forgetPassword2({ email: localStorage.getItem('kds-reset-email'), password: value.password });
+      const ans = await forgetPassword2({ email: location.state.email, otp:location.state.otp, password: value.password });
 
       if (ans.success) {
         localStorage.removeItem('hrms_token');

@@ -6,14 +6,14 @@ import MainContext from './MainContext';
 // 
 // const baseUrl = "https://hrms-backend-code.onrender.com"
 
-const baseUrl = "http://localhost:5000";
+// const baseUrl = "http://localhost:5000";
 
 // const baseUrl = "https://hrms-backend-q2ta.onrender.com";
 
 // const baseUrl = "https://uat-backend-o1wm.onrender.com"
 
 // this is production baseurl 
-// const baseUrl = "https://hmsbackend.kusheldigi.com";
+const baseUrl = "https://hmsbackend.kusheldigi.com";
    
 
 // const baseUrl = "https://hrms-backend-g3wt.onrender.com";
@@ -449,12 +449,12 @@ const MainState = (props) => {
    };
 
    const forgetPassword1 = async ({ email, otp }) => {
-      const data = await post(`${baseUrl}/user/forgetPassword1`, { email, otp }, false);
+      const data = await post(`${baseUrl}/user/forgetPasswordVerifyOTP`, { email, otp }, false);
       return data;
    };
 
-   const forgetPassword2 = async ({ email, password }) => {
-      const data = await post(`${baseUrl}/user/forgetPassword2`, { email, password }, false);
+   const forgetPassword2 = async ({ email, password,otp }) => {
+      const data = await post(`${baseUrl}/user/resetPassword`, { email, newPassword:password,otp }, false);
       return data;
    };
 
