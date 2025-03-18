@@ -278,16 +278,16 @@ function App() {
               <Route path="/employeeDash/HRM/QuotationForm" element={<QuotationForm />} />
               <Route path="/employeeDash/HRM/ProposalForm" element={<ProposalForm />} />
               <Route path="/adminDash/HRM/ProposalForm" element={<ProposalForm />} />
-              <Route path="/employeeDash/HRM/myProjects" element={<MyProjects />} />
-              <Route path="/employeeDash/HRM/projectDetails" element={<ProjectDetails2 />} />
-              <Route path="/adminDash/HRM/taskClients" element={<TaskClients />} />
-              <Route path="/employeeDash/HRM/taskClients" element={<TaskClients />} />
+              <Route path="/employeeDash/HRM/myProjects" element={<MyProjects setAlert={setAlert}/>} />
+              <Route path="/employeeDash/HRM/projectDetails" element={<ProjectDetails2 setAlert={setAlert}/>} />
+              <Route path="/adminDash/HRM/taskClients" element={<TaskClients setAlert={setAlert}/>} />
+              <Route path="/employeeDash/HRM/taskClients" element={<TaskClients setAlert={setAlert}/>} />
 
               <Route path="/adminDash/HRM/taskProjects" element={<TaskProjects />} />
               <Route path="/employeeDash/HRM/taskProjects" element={<TaskProjects />} />
 
               <Route path="/adminDash/HRM/projectDetails" element={<ProjectDetails />} />
-              <Route path="/adminDash/HRM/projectOverview" element={<ProjectOverview />} />
+              <Route path="/adminDash/HRM/projectOverview" element={<ProjectOverview/>} />
               <Route path="/adminDash/HRM/clientsProject" element={<AdminClientDashboard />} />
               <Route path="/employeeDash/HRM/clientsProject" element={<AdminClientDashboard />} />
 

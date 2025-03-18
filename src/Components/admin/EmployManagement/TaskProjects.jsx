@@ -118,7 +118,8 @@ const TaskProjects = ({ setAlert, pop, setPop }) => {
     e.preventDefault();
     const toastId = toast.loading("Loading...");
     try {
-      const ans = await editProjectapi({ ...formdata, projectId: isEdit });
+      const ans = await editProjectapi({ ...formdata,...formdata, projectOwner: clientInfo || hrms_user._id,
+        client: clientInfo || hrms_user._id, projectId: isEdit });
       if (ans?.status) {
         toast.success("Successfuly updated");
         getAllProject();
@@ -129,6 +130,8 @@ const TaskProjects = ({ setAlert, pop, setPop }) => {
           Status: "Ongoing",
           DueDate: "",
           Members: "",
+          projectOwner: clientInfo || hrms_user._id,
+        client: clientInfo || hrms_user._id
         });
         setAddClientPop(false);
         setProUser([]);
@@ -149,8 +152,8 @@ const TaskProjects = ({ setAlert, pop, setPop }) => {
     const toastId = toast.loading("Loading...");
     try {
       const ans = await createProjectapi({
-        ...formdata, projectOwner: clientInfo,
-        client: clientInfo
+        ...formdata, projectOwner: clientInfo || hrms_user._id,
+        client: clientInfo || hrms_user._id
       });
       if (ans?.status) {
         toast.success("Successfuly created");
@@ -352,14 +355,14 @@ const TaskProjects = ({ setAlert, pop, setPop }) => {
                         </td>
                         <td>{client?.deadline}</td>
 
-                        <td style={{ display: "flex", gap: "-2px" }}>
+                        <td className="flex ">
                           {client?.Members?.map((member) => (
                             <img
                               src={`${member?.profileImage
                                 ? member?.profileImage
                                 : "https://png.pngtree.com/png-vector/20231019/ourmid/pngtree-user-profile-avatar-png-image_10211467.png"
                                 }`}
-                              className="w-20 h-20"
+                              className="w-10 h-10 rounded-full cursor-pointer transition-colors duration-300 ease-in-out"
                               alt="Member Avatar "
                               key={member._id}
                               onClick={() =>
@@ -367,14 +370,7 @@ const TaskProjects = ({ setAlert, pop, setPop }) => {
                                   state: member?._id,
                                 })
                               }
-                              style={{
-                                borderRadius: "50%",
-                                cursor: "pointer",
-                                transition:
-                                  "color 0.3s ease, text-decoration 0.3s ease",
-                                height: "40px",
-                                width: "40px",
-                              }}
+                             
                             />
                           ))}
                         </td>
@@ -398,7 +394,7 @@ const TaskProjects = ({ setAlert, pop, setPop }) => {
         <div className="addCliWrap">
           <div className="addClieCont addheight">
             <nav>
-              <p>Create New Project</p>
+              <p>{isEdit?"Edit Project":"Create New Project"}</p>
               <img
                 onClick={() => {
                   setAddClientPop(false);
@@ -482,7 +478,7 @@ const TaskProjects = ({ setAlert, pop, setPop }) => {
                     value={clientInfo}
                     onChange={(e) => setClientInfo(e.target.value)}  // Update state with the selected client
                   >
-                    <option value="Select">Select</option>
+                    <option value={hrms_user._id}>Select</option>
                     {allClient.map((e, index) => (
                       <option value={e._id} key={index}>
                         {e.Name}
@@ -507,6 +503,7 @@ const TaskProjects = ({ setAlert, pop, setPop }) => {
                     value={formdata.DueDate}
                     onChange={changeHandler}
                     type="date"
+                    min={formdata.startDate}
                   />
                 </label>
 
@@ -523,7 +520,7 @@ const TaskProjects = ({ setAlert, pop, setPop }) => {
               </div>
               <div className="btnsss">
                 <button type="submit" className="saveclient">
-                  <span>Add Project </span>
+                  <span>{isEdit?"Update":"Add Project"} </span>
                 </button>
                 <button
                   onClick={() => {

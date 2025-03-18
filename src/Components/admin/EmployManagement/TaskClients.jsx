@@ -1,40 +1,39 @@
-import AdminNavbar from "../../admin/Navbar/AdminNavbar";
-import AdminSidebar from "../../admin/Sidebar/AdminSidebar";
+import { useEffect, useRef, useState } from "react";
 import "react-calendar/dist/Calendar.css";
-import { useMain } from "../../../hooks/useMain";
-import "./HRMsystem.css";
-import EmployeeSidebar from "../../Employee/Sidebar/EmployeeSidebar";
-import EmployeeNavbar from "../../Employee/Navbar/EmployeeNavbar";
-import "./quote.css";
-import pluss from "../../images/pluss.png";
+import toast from "react-hot-toast";
 import { Avatar } from "react-profile-avatar";
 import "react-profile-avatar/dist/index.css";
-import threedots from "../../images/thredonts.png";
-import { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import * as XLSX from "xlsx";
+import { useMain } from "../../../hooks/useMain";
+import AdminNavbar from "../../admin/Navbar/AdminNavbar";
+import AdminSidebar from "../../admin/Sidebar/AdminSidebar";
+import EmployeeNavbar from "../../Employee/Navbar/EmployeeNavbar";
+import EmployeeSidebar from "../../Employee/Sidebar/EmployeeSidebar";
+import bxfile from "../../images/bx-file.svg";
 import happy from "../../images/bx-happy-heart-eyes.png";
-import edit from "../../images/edit.png";
 import disable from "../../images/bx-hide.png";
 import cut from "../../images/cutt.png";
-import bxfile from "../../images/bx-file.svg";
-import toast from "react-hot-toast";
-import * as XLSX from "xlsx";
-import { Navigate, useNavigate } from "react-router-dom";
+import edit from "../../images/edit.png";
+import pluss from "../../images/pluss.png";
+import threedots from "../../images/thredonts.png";
+import "./HRMsystem.css";
+import "./quote.css";
 
 const TaskClients = ({ setAlert, pop, setPop }) => {
   const { user, createClientapi, getClientapi, editTaskapi, disableClientapi } =
     useMain();
-    const navigate = useNavigate();
-    // alert('this')
+  const navigate = useNavigate();
+  // alert('this')
 
   let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
 
   const { role } = hrms_user;
-  // alert('jj')
 
   const [formdata, setFormdata] = useState({
     Name: "",
     Email: "",
-    Password:"",
+    Password: "",
     City: "",
     State: "",
     ZipCode: "",
@@ -72,7 +71,7 @@ const TaskClients = ({ setAlert, pop, setPop }) => {
       const ans = await getClientapi();
       console.log("ans", ans);
       if (ans?.status) {
-        setAllClient(ans?.data);
+        setAllClient(ans?.data.reverse());
         console.log(allClient)
       }
     } catch (error) {
@@ -101,6 +100,10 @@ const TaskClients = ({ setAlert, pop, setPop }) => {
           Address: "",
         });
         setAddClientPop(false);
+      }
+      else{
+      toast.error(ans?.message);
+
       }
     } catch (error) {
       console.log(error);
@@ -212,17 +215,17 @@ const TaskClients = ({ setAlert, pop, setPop }) => {
       setExcelData(data?.slice(0, 10));
 
       for (let i = 0; i < data?.length; i++) {
-         console.log("data ",data);
+        console.log("data ",data);
         const {
-          Name , Email , City , State , ZipCode , PhoneNumber , Country , Address
+          Name, Email, City, State, ZipCode, PhoneNumber, Country, Address
         } = data[i];
 
         const ans = await createClientapi({
-          Name , Email , City , State , ZipCode , PhoneNumber , Country , Address
+          Name, Email, City, State, ZipCode, PhoneNumber, Country, Address
         });
       }
-       setShowImport(false);
-     getAllClient();
+      setShowImport(false);
+      getAllClient();
       toast.success("Successfuly uploaded");
 
       toast.dismiss(toastId);
@@ -231,7 +234,7 @@ const TaskClients = ({ setAlert, pop, setPop }) => {
 
   useEffect(() => {
     getAllClient();
-    
+
   }, []);
 
   return (
@@ -264,19 +267,21 @@ const TaskClients = ({ setAlert, pop, setPop }) => {
                   >
                     <img src={pluss} alt="" /> <span>New Client</span>
                   </button>
-                  <button
+                  {/* <button
                     onClick={() => {
                       setShowImport(true);
                     }}
                     className="impcli"
                   >
                     <span>Import Client</span>
-                  </button>
+                  </button> */}
                   {/* <button className="expoclient">
                     <span>Export Client</span>
                   </button> */}
                 </div>
               </nav>
+
+              <p className="totalRecord">Total Records: {allClient?.length || 0}</p>
 
               <div className="allClients">
                 {allClient.map((client, index) => (
@@ -314,11 +319,11 @@ const TaskClients = ({ setAlert, pop, setPop }) => {
                         <div className="singlinpro">
                           <img src={happy} alt="" />
                           <span onClick={() =>
-                          
-                          navigate(role==="EMPLOYEE"?"/employeeDash/HRM/clientsProject":"/adminDash/HRM/clientsProject", {
-                                  state: client,
-                                })
-                              }>View</span>
+
+                            navigate(role === "EMPLOYEE" ? "/employeeDash/HRM/clientsProject" : "/adminDash/HRM/clientsProject", {
+                              state: client,
+                            })
+                          }>View</span>
                         </div>
 
                         <hr />
@@ -363,11 +368,22 @@ const TaskClients = ({ setAlert, pop, setPop }) => {
         <div className="addCliWrap">
           <div className="addClieCont">
             <nav>
-              <p>Add Client</p>
+              <p>{isEdit?"Edit Client":'Add Client'}</p>
               <img
                 onClick={() => {
                   setAddClientPop(false);
                   setIsEdit(false);
+                  setFormdata({
+                    Name: "",
+                    Email: "",
+                    Password: "",
+                    City: "",
+                    State: "",
+                    ZipCode: "",
+                    PhoneNumber: "",
+                    Country: "",
+                    Address: "",
+                  })
                 }}
                 src={cut}
                 alt=""
@@ -380,109 +396,109 @@ const TaskClients = ({ setAlert, pop, setPop }) => {
 
               <div className="adclient_form">
 
-              
-              <label>
-                <p>Name</p>
-                <input
-                  type="text"
-                  name="Name"
-                  value={formdata.Name}
-                  onChange={changeHandler}
-                  placeholder="Name"
-                />
-              </label>
 
-              <label>
-                <p>Email</p>
-                <input
-                  type="text"
-                  name="Email"
-                  value={formdata.Email}
-                  onChange={changeHandler}
-                  placeholder="Email"
-                />
-              </label>
-
-              <label>
-                <p>Password</p>
-                <input
-                  type="text"
-                  name="Password"
-                  value={formdata.Password}
-                  onChange={changeHandler}
-                  placeholder="Password"
-                />
-              </label>
-
-              <div className="citstateCont">
                 <label>
-                  <p>City</p>
+                  <p>Name</p>
                   <input
                     type="text"
-                    name="City"
-                    value={formdata.City}
+                    name="Name"
+                    value={formdata.Name}
                     onChange={changeHandler}
-                    placeholder="City"
+                    placeholder="Name"
                   />
                 </label>
 
                 <label>
-                  <p>State</p>
+                  <p>Email</p>
                   <input
                     type="text"
-                    name="State"
-                    value={formdata.State}
+                    name="Email"
+                    value={formdata.Email}
                     onChange={changeHandler}
-                    placeholder="State"
-                  />
-                </label>
-              </div>
-
-              <div className="citstateCont">
-                <label>
-                  <p>Zip/Post Code</p>
-                  <input
-                    type="text"
-                    name="ZipCode"
-                    value={formdata.ZipCode}
-                    onChange={changeHandler}
-                    placeholder="Zip/Post Code"
+                    placeholder="Email"
                   />
                 </label>
 
                 <label>
-                  <p>Country</p>
+                  <p>Password</p>
                   <input
-                    type="text"
-                    name="Country"
-                    value={formdata.Country}
+                    type="password"
+                    name="Password"
+                    value={formdata.Password}
                     onChange={changeHandler}
-                    placeholder="Country"
+                    placeholder="Password"
                   />
                 </label>
-              </div>
 
-              <label>
-                <p>Phone Number</p>
-                <input
-                  type="text"
-                  name="PhoneNumber"
-                  value={formdata.PhoneNumber}
-                  onChange={changeHandler}
-                  placeholder="Phone Number"
-                />
-              </label>
+                <div className="citstateCont">
+                  <label>
+                    <p>City</p>
+                    <input
+                      type="text"
+                      name="City"
+                      value={formdata.City}
+                      onChange={changeHandler}
+                      placeholder="City"
+                    />
+                  </label>
 
-              <label>
-                <p>Address</p>
-                <input
-                  type="text"
-                  name="Address"
-                  value={formdata.Address}
-                  onChange={changeHandler}
-                  placeholder="Address"
-                />
-              </label>
+                  <label>
+                    <p>State</p>
+                    <input
+                      type="text"
+                      name="State"
+                      value={formdata.State}
+                      onChange={changeHandler}
+                      placeholder="State"
+                    />
+                  </label>
+                </div>
+
+                <div className="citstateCont">
+                  <label>
+                    <p>Zip/Post Code</p>
+                    <input
+                      type="text"
+                      name="ZipCode"
+                      value={formdata.ZipCode}
+                      onChange={changeHandler}
+                      placeholder="Zip/Post Code"
+                    />
+                  </label>
+
+                  <label>
+                    <p>Country</p>
+                    <input
+                      type="text"
+                      name="Country"
+                      value={formdata.Country}
+                      onChange={changeHandler}
+                      placeholder="Country"
+                    />
+                  </label>
+                </div>
+
+                <label>
+                  <p>Phone Number</p>
+                  <input
+                    type="text"
+                    name="PhoneNumber"
+                    value={formdata.PhoneNumber}
+                    onChange={changeHandler}
+                    placeholder="Phone Number"
+                  />
+                </label>
+
+                <label>
+                  <p>Address</p>
+                  <input
+                    type="text"
+                    name="Address"
+                    value={formdata.Address}
+                    onChange={changeHandler}
+                    placeholder="Address"
+                  />
+                </label>
 
               </div>
 
@@ -493,6 +509,17 @@ const TaskClients = ({ setAlert, pop, setPop }) => {
                 <button
                   onClick={() => {
                     setAddClientPop(false);
+                    setFormdata({
+                      Name: "",
+                      Email: "",
+                      Password: "",
+                      City: "",
+                      State: "",
+                      ZipCode: "",
+                      PhoneNumber: "",
+                      Country: "",
+                      Address: "",
+                    })
                   }}
                   className="cancel"
                 >
@@ -541,17 +568,17 @@ const TaskClients = ({ setAlert, pop, setPop }) => {
                   style={{ display: "none" }}
                   onChange={handleFile}
                   accept=".csv, application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-                  />
+                />
               </div>
             </div>
 
             <div className="uplbtns">
-              <button onClick={()=>handleFileSubmit()} className="up">
+              <button onClick={() => handleFileSubmit()} className="up">
                 <span>Upload</span>
               </button>
               <button onClick={() => {
-                  setShowImport(false);
-                }} className="clos">
+                setShowImport(false);
+              }} className="clos">
                 <span>Close</span>
               </button>
             </div>

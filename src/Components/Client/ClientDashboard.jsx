@@ -12,7 +12,7 @@ import toast from "react-hot-toast";
 
 
 const ClientDashboard = () => {
-    const { getClientProject, createProjectapi,allEmployee, editProjectapi, getAllProject } = useMain();
+    const { getClientProject, createProjectapi,allEmployee, editProjectapi,getAllProjectApi } = useMain();
     const navigate = useNavigate();
     const location = useLocation();
     const data = location?.state
@@ -21,27 +21,20 @@ const ClientDashboard = () => {
 
     const role = hrms_user?.Role || hrms_user?.role;
 
-
-
-
-    const clientData = {
-        _id: "67c17062a6cdc041b8342967",
-        Name: "Akash Negi",
-        Email: "akashnegi.kushel@gmail.com",
-        Password: "123456",
-        City: "Ghaziabad",
-        State: "",
-        ZipCode: "",
-        PhoneNumber: "",
-        Country: "",
-        Address: "",
-        isDisable: false,
-        createdAt: "2025-02-28T08:14:26.402Z",
-        updatedAt: "2025-02-28T08:14:26.402Z",
-        __v: 0,
-    };
-
     const [projects, setProjects] = useState([]);
+
+
+    const getAllProject = async (clientId) => {
+        const ans = await getAllProjectApi();
+        if (ans?.status) {
+            const res = ans?.projects.filter(e => e.client === clientId);
+            // console.log(res)
+            setProjects(res)
+            
+            // setAllProjects(ans?.projects);
+            // setStorePro(ans?.projects);
+        }
+    };
 
     const fetchClientProjects = async (clientId) => {
         try {
@@ -57,7 +50,7 @@ const ClientDashboard = () => {
 
     useEffect(() => {
         const client = JSON.parse(localStorage.getItem("hrms_user"));
-        fetchClientProjects(client._id);
+        getAllProject(client._id);
         
     }, []);
 
@@ -90,7 +83,8 @@ const ClientDashboard = () => {
                             </nav>
 
                             <div className="allClients">
-                                <table>
+                                {projects.length>0?(
+                                    <table>
                                     <thead>
 
                                         <tr>
@@ -129,26 +123,22 @@ const ClientDashboard = () => {
                                                 </td>
                                                 <td>{project.startDate}</td>
                                                 <td>{project.deadline}</td>
-                                                <td>
-                                                    {project?.Member?.map((member) => {
+                                                <td className="flex">
+                                                    {project?.Members?.map((member,index) => {
+                                                        console.log(member)
+                                                        return <>
                                                         <img
-                                                            src={`${"https://png.pngtree.com/png-vector/20231019/ourmid/pngtree-user-profile-avatar-png-image_10211467.png"
-                                                                }`}
-                                                            className="w-20 h-20"
-                                                            alt="Member Avatar "
-                                                            key={member._id}
-                                                            // ?
-                                                            style={{
-                                                                borderRadius: "50%",
-                                                                cursor: "pointer",
-                                                                transition:
-                                                                    "color 0.3s ease, text-decoration 0.3s ease",
-                                                                height: "40px",
-                                                                width: "40px",
-                                                            }}
-                                                        />
+                                                        src={`${member?.profileImage
+                                                            ? member?.profileImage
+                                                            : "https://png.pngtree.com/png-vector/20231019/ourmid/pngtree-user-profile-avatar-png-image_10211467.png"
+                                                            }`}
+                                                        className="w-10 h-10 rounded-full cursor-pointer transition-colors duration-300 ease-in-out"
+                                                        alt="Member Avatar "
+                                                        key={index}
+                                                        
+                                                        
+                                                      /></>
                                                     })}
-
                                                 </td>
                                                 <td>{project.Status}</td>
 
@@ -158,6 +148,10 @@ const ClientDashboard = () => {
                                         ))}
                                     </tbody>
                                 </table>
+                                ):(
+                                    <h1>No have any project</h1>
+                                )}
+                                
                             </div>
 
                         </div>

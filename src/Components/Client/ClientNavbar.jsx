@@ -3,11 +3,12 @@ import lok from "../../../src/Components//images/lok.png";
 import bottom from "../../../src/Components/images/bottom.png";
 import notification from "../../../src/Components/images/notifications.png";
 // import OutsideClickHandler from "react-outside-click-handler";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 // import "react-circular-progressbar/dist/styles.css";
 // import LogoutPop from "../Popup/LogoutPop";
 // import { useMain } from "../../../hooks/useMain";
 import kushel1 from "../../../src/Components/images/kushel1.png"
+import toast from "react-hot-toast";
 // import kushel1 from "../../../";
 
 // import redcancel from "../../images/redcancel.png";
@@ -15,7 +16,9 @@ import kushel1 from "../../../src/Components/images/kushel1.png"
 
 
 
-const ClientNavbar = () => {
+
+const ClientNavbar = ({setAlert}) => {
+  const navigate = useNavigate();
   const data = true
   const [shownotify, setShownotify] = useState(false);
   const updateUser = () => {
@@ -29,7 +32,10 @@ const ClientNavbar = () => {
   const handleLogout = () => {
     localStorage.removeItem("hrms_token");
     localStorage.removeItem("hrms_user");
-    window.location.href = "/login";
+    navigate('/login')
+    setAlert("success", "logout successfully");
+    toast.success("logout successfully")
+
   };
 
 

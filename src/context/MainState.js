@@ -1,9 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react';
+import { deleteReq, get, post, postDocuments, put } from '../Api/api';
 import MainContext from './MainContext';
-import { deleteReq, get, post, put, postDocuments } from '../Api/api'
-import { useState } from 'react';
 
-// const baseUrl = "http://localhost:5000";
+// const baseUrl = "https://my-backend-blond.vercel.app";
 // 
 // const baseUrl = "https://hrms-backend-code.onrender.com"
 
@@ -25,11 +24,13 @@ const MainState = (props) => {
    const [user, setUser] = useState({});
    const [flag, setFlag] = useState(false);
    const [chatUser, setChatUser] = useState({});
+   const [loading,setLoading] = useState(false);
 
    const login = async ({ email, employeeCode, password }) => {
+      setLoading(true)
 
       const data = await post(`${baseUrl}/auth/login`, { email, employeeCode, password }, false);
-
+      setLoading(false)
       return data;
    };
 
@@ -448,12 +449,12 @@ const MainState = (props) => {
    };
 
    const forgetPassword1 = async ({ email, otp }) => {
-      const data = await post(`${baseUrl}/user/forgetPassword1`, { email, otp }, false);
+      const data = await post(`${baseUrl}/user/forgetPasswordVerifyOTP`, { email, otp }, false);
       return data;
    };
 
-   const forgetPassword2 = async ({ email, password }) => {
-      const data = await post(`${baseUrl}/user/forgetPassword2`, { email, password }, false);
+   const forgetPassword2 = async ({ email, password,otp }) => {
+      const data = await post(`${baseUrl}/user/resetPassword`, { email, newPassword:password,otp }, false);
       return data;
    };
 
@@ -2251,8 +2252,8 @@ const MainState = (props) => {
       return data;
    };
 
-   const editProjectapi = async ({ Name, Description, Employee, Status, DueDate, startDate, Members, projectId }) => {
-      const data = await post(`${baseUrl}/latest_project/editProject`, { projectName: Name, Description, Employee, Status, deadline: DueDate, startDate, Members, projectId }, true);
+   const editProjectapi = async ({ Name, Description, Employee, Status, DueDate, startDate, Members, projectId,client }) => {
+      const data = await post(`${baseUrl}/latest_project/editProject`, { projectName: Name, Description, Employee, Status, deadline: DueDate, startDate, Members, projectId,projectOwner: client,client:client }, true);
       return data;
    }
 
@@ -2447,8 +2448,8 @@ const MainState = (props) => {
       const data = await post(`${baseUrl}/leave/leaveTypeApi`, { id }, true);
       return data;
    }
-   const timerHandlerapi = async ({ taskId, Note, clockIn, clockOut, totalTime, projectId }) => {
-      const data = await post(`${baseUrl}/latest_project/createTaskTimer`, { taskId, Note, clockIn, clockOut, totalTime, projectId }, true);
+   const timerHandlerapi = async ({ taskId, Note, clockIn, clockOut, totalTime, projectId, submitedBy }) => {
+      const data = await post(`${baseUrl}/latest_project/createTaskTimer`, { taskId, Note, clockIn, clockOut, totalTime, projectId,submitedBy }, true);
       return data;
    }
 
@@ -2462,7 +2463,7 @@ const MainState = (props) => {
          acceptLeave, rejectLeave, leaveTypeApi,
          ProvideRemovePermission, postQuotationFormApi, updatePropsalFormApi, postProposalFormApi, createClientapi,
          updateQuotationFormApi, changeRelivingLetterPer, getThisMonthLeave,
-         uploadOwnDocs,
+         uploadOwnDocs,loading,
 
          getAllLeads,
          updateDocSetup,

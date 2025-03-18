@@ -357,7 +357,7 @@ const MySelf = ({ setAlert, pop1, setPop1 }) => {
             {curenpage === "Offer Letter" && (
                <div>
                 <div ref={contonentPDF} className="showoffercont">
-                 <img className="offer_header11" src="https://res.cloudinary.com/dgif730br/image/upload/v1738591193/Screenshot_2025-02-03_192851_hfwgrb.png" alt="" />
+                 <img className="offer_header11" src="https://res.cloudinary.com/dd9tagtiw/image/upload/v1741687779/aman_bhai_1_jlctyt.png" alt="" />
                 <h2>OFFER LETTER</h2>
 
                 <div  className="font-wrapper p-4">
@@ -365,7 +365,7 @@ const MySelf = ({ setAlert, pop1, setPop1 }) => {
                     className="addfont"
                     dangerouslySetInnerHTML={{ __html: offerContent }}
                   />
-                   <img className="offer_footer11" src="https://res.cloudinary.com/dgif730br/image/upload/v1738591575/Screenshot_2025-02-03_191909_vxo9ly.png" alt="" />
+                   <img className="offer_footer11" src="https://res.cloudinary.com/dd9tagtiw/image/upload/v1741681598/imageee_h3x8so.png" alt="" />
                 </div>
 
               
@@ -383,13 +383,13 @@ const MySelf = ({ setAlert, pop1, setPop1 }) => {
           <div>
              <div ref={contonentPDF2} >
                  <div  className="showoffercont">
-                 <img className="offer_header11" src="https://res.cloudinary.com/dgif730br/image/upload/v1738591193/Screenshot_2025-02-03_192851_hfwgrb.png" alt="" />
+                 <img className="offer_header11" src="https://res.cloudinary.com/dd9tagtiw/image/upload/v1741687779/aman_bhai_1_jlctyt.png" alt="" />
                 <h2>RELIEVING LETTER</h2>
 
                 <div  className=" p-4">
                   <div dangerouslySetInnerHTML={{ __html: reliveContent }} />
                 </div>
-                <img className="offer_footer11" src="https://res.cloudinary.com/dgif730br/image/upload/v1738591575/Screenshot_2025-02-03_191909_vxo9ly.png" alt="" />
+                <img className="offer_footer11" src="https://res.cloudinary.com/dd9tagtiw/image/upload/v1741681598/imageee_h3x8so.png" alt="" />
 
                
               </div>
@@ -408,7 +408,7 @@ const MySelf = ({ setAlert, pop1, setPop1 }) => {
             {curenpage === "Experience Letter" && (
               <div>
                  <div ref={contonentPDF3} className="showoffercont">
-                 <img className="offer_header11" src="https://res.cloudinary.com/dgif730br/image/upload/v1738591193/Screenshot_2025-02-03_192851_hfwgrb.png" alt="" />
+                 <img className="offer_header11" src="https://res.cloudinary.com/dd9tagtiw/image/upload/v1741687779/aman_bhai_1_jlctyt.png" alt="" />
                 <h2>EXPERIENCE LETTER</h2>
 
                 <div  className="p-4">
@@ -416,7 +416,7 @@ const MySelf = ({ setAlert, pop1, setPop1 }) => {
                     dangerouslySetInnerHTML={{ __html: experienceContent }}
                   />
                 </div>
-                <img className="offer_footer11" src="https://res.cloudinary.com/dgif730br/image/upload/v1738591575/Screenshot_2025-02-03_191909_vxo9ly.png" alt="" />
+                <img className="offer_footer11" src="https://res.cloudinary.com/dd9tagtiw/image/upload/v1741681598/imageee_h3x8so.png" alt="" />
 
                
               </div>
@@ -432,7 +432,7 @@ const MySelf = ({ setAlert, pop1, setPop1 }) => {
             {curenpage === "Internship Letter" && (
              <div>
                 <div ref={contonentPDF4} className="showoffercont">
-                 <img className="offer_header11" src="https://res.cloudinary.com/dgif730br/image/upload/v1738591193/Screenshot_2025-02-03_192851_hfwgrb.png" alt="" />
+                 <img className="offer_header11" src="https://res.cloudinary.com/dd9tagtiw/image/upload/v1741687779/aman_bhai_1_jlctyt.png" alt="" />
                 <h2>INTERNSHIP LETTER</h2>
 
                 <div  className="p-4">
@@ -440,7 +440,7 @@ const MySelf = ({ setAlert, pop1, setPop1 }) => {
                     dangerouslySetInnerHTML={{ __html: internshipContent }}
                   />
                 </div>
-                <img className="offer_footer11" src="https://res.cloudinary.com/dgif730br/image/upload/v1738591575/Screenshot_2025-02-03_191909_vxo9ly.png" alt="" />
+                <img className="offer_footer11" src="https://res.cloudinary.com/dd9tagtiw/image/upload/v1741681598/imageee_h3x8so.png" alt="" />
 
                
               </div>

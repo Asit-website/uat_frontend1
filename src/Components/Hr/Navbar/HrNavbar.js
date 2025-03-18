@@ -14,6 +14,7 @@ import { useMain } from '../../../hooks/useMain'
 const HrNavbar = ({ setAlert}) => {
   
   let user = JSON?.parse(localStorage.getItem("hrms_user"));
+  const navigate = useNavigate();
 
   const { fetchUserNotifyHR , deleteNotification } = useMain();
 
@@ -42,11 +43,10 @@ const HrNavbar = ({ setAlert}) => {
     localStorage.removeItem("break-time");
    
 
-    window.location.href = "/login";
+    navigate('/login')
     setAlert("success", "logout successfully");
   };
 
-  const navigate = useNavigate();
 
   // ===============logic for good morning, good afternoon and evening accorroding to time====
   let myDate = new Date();

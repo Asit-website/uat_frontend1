@@ -227,10 +227,12 @@ const EmployeeAnnouncement = ({ pop, setPop, setAlert }) => {
               </div>
 
               {
-                hrms_user?.designation === "HR Admin" || hrms_user?.designation === "Director of Strategic Partnership" &&   <div onClick={() => setOpenForm(true)} className="plusImg6">
+                (hrms_user?.designation === "HR Admin" || hrms_user?.designation === "Director of Strategic Partnership") &&   <div onClick={() => setOpenForm(true)} className="plusImg6">
                 <img src={annPlus} alt="" />  <span>ADD</span>
               </div>
               }
+
+              {/* <p>{hrms_user?.designation}</p> */}
              
 
 
@@ -279,7 +281,7 @@ const EmployeeAnnouncement = ({ pop, setPop, setAlert }) => {
                         <td class="px-3 py-4">
                           <div className="flex items-center sk">
                             {
-                              hrms_user?.designation === "HR Admin" || hrms_user?.designation === "Director of Strategic Partnership" &&
+                              (hrms_user?.designation === "HR Admin" || hrms_user?.designation === "Director of Strategic Partnership") &&
                               <>
                               <i
                               onClick={() => {
