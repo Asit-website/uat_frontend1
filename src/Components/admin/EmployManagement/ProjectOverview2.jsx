@@ -210,7 +210,7 @@ const ProjectOverview2 = ({ allTasks, getProjectTaskapi }) => {
   };
 
   const handleEditClick = (client) => {
-    const membersNames = client.Members.map((memberId) => {
+        const membersNames = client.Members.map((memberId) => {
       const member = allEmp.find((emp) => emp._id === memberId?._id);
       return member ? member.fullName : "";
     });
@@ -253,20 +253,20 @@ const ProjectOverview2 = ({ allTasks, getProjectTaskapi }) => {
                     {allProject?.Status}
                   </p>
                 </div>
-                {role!=="Client" && (
+                {role !== "Client" && (
                   <div className="clibtns">
-                  <button
-                    onClick={() => {
-                      setAddClientPop(true);
-                      setisEdit(false);
-                    }}
-                    className="newcli"
-                  >
-                    <img src={pluss} alt="Add Task" /> <span>Add Task </span>
-                  </button>
-                </div>
+                    <button
+                      onClick={() => {
+                        setAddClientPop(true);
+                        setisEdit(false);
+                      }}
+                      className="newcli"
+                    >
+                      <img src={pluss} alt="Add Task" /> <span>Add Task </span>
+                    </button>
+                  </div>
                 )}
-                
+
               </nav>
               <div className="prodlefriwrap">
                 <div className="leftprodetail">
@@ -365,17 +365,17 @@ const ProjectOverview2 = ({ allTasks, getProjectTaskapi }) => {
                         <td className="px-6 py-4 adddsomflex">
                           {role !== "Client" && (
                             <>
-                            <MdDelete
-                            onClick={() => deleteTasks(task?._id)}
-                            className="iconsss"
-                          />
-                          <MdOutlineEdit
+                              <MdDelete
+                                onClick={() => deleteTasks(task?._id)}
+                                className="iconsss"
+                              />
+                              <MdOutlineEdit
                             onClick={() => { handleEditClick(task) }}
-                            className="iconsss2"
-                          />
+                                className="iconsss2"
+                              />
                             </>
                           )}
-                          
+
                           <FaEye
                             onClick={() => getTask(task?._id)}
                             className="iconsss"
@@ -514,12 +514,14 @@ const ProjectOverview2 = ({ allTasks, getProjectTaskapi }) => {
                   </select>
                 </label>
                 <label>
-                  <p>Start Date </p>
+                  <p>Start Date</p>
                   <input
                     name="StartDate"
                     value={formdata.StartDate}
                     onChange={changeHandler}
                     type="date"
+                    min={data.startDate}
+                    max={data.deadline}
                   />
                 </label>
                 <label>
@@ -529,7 +531,8 @@ const ProjectOverview2 = ({ allTasks, getProjectTaskapi }) => {
                     value={formdata.DueDate}
                     onChange={changeHandler}
                     type="date"
-                    min={formdata.StartDate}
+                    min={formdata.StartDate || data.startDate}
+                    max={data.deadline}
                   />
                 </label>
                 <label>

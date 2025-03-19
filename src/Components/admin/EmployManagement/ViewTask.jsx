@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { CheckCircle, Clock, UserPlus, Bell } from "lucide-react";
-import cut from "../../images/cutt.png";
 import { FaFileAlt } from "react-icons/fa";
 
 export default function ViewTask({ src, onClick, data }) {
@@ -11,52 +10,40 @@ export default function ViewTask({ src, onClick, data }) {
       {/* Header */}
       <div className="flex justify-between items-center mb-4">
         <div className="flex items-center gap-2">
-          <span className="text-sm bg-green-200 text-green-800 px-3 py-1 rounded-full">Task</span>
-          <span className="text-blue-600 text-sm">In Progress</span>
+          <span className="text-xl font-bold bg-green-200 text-green-800 px-5 py-2 rounded-full">Task</span>
+          <span className="text-blue-600 text-sm font-medium">{data?.Status}</span>
         </div>
-        <img src={src} onClick={onClick} alt="Task Icon" className="w-8 h-8 cursor-pointer rounded-full border" />
+        <img
+          src={src}
+          onClick={onClick}
+          alt="Task Icon"
+          className="w-10 h-10 cursor-pointer rounded-full border hover:shadow-md transition"
+        />
       </div>
 
       {/* Title */}
-      <h2 className="text-2xl font-semibold text-gray-900">{data?.Title || "Untitled Task"}</h2>
-      <p className="text-gray-500 text-sm mt-1">
-        Private Task - <span className="text-blue-500 cursor-pointer">Make public</span>
-      </p>
+      <h2 className="text-2xl font-bold text-gray-900">{data?.Title || "Untitled Task"}</h2>
 
       {/* Task Details */}
-      <div className="mt-4 space-y-1 text-sm text-gray-600">
+      <div className="mt-3 text-sm text-gray-600">
         <p>Created at: {data?.CreatedAt || "2025-02-20 16:39:07"}</p>
-        <p>
-          Related: <span className="text-blue-500 cursor-pointer">#14 - Develop Space Rocket - Acme</span>
-        </p>
       </div>
 
       {/* File Link */}
       {data?.taskfile && (
-        <a href={data?.taskfile} className="flex flex-col space-y-2 hover:text-blue-500 cursor-pointer transition duration-300 mt-4">
-          <FaFileAlt className="p-2 h-12 w-12 text-gray-600 hover:text-blue-500 transition duration-300" />
-          <span className="text-sm font-medium text-gray-700">file</span>
+        <a
+          href={data?.taskfile}
+          className="flex items-center gap-2 text-blue-500 hover:text-blue-700 mt-4 transition"
+        >
+          <FaFileAlt className="h-5 w-5 text-gray-600" />
+          <span className="text-sm font-medium">Download file</span>
         </a>
       )}
-
-      {/* Buttons */}
-      <div className="mt-4 flex gap-3">
-        <button
-          className={`flex items-center gap-2 px-4 py-2 rounded-lg border ${isCompleted ? "bg-green-500 text-white" : "border-gray-300 text-gray-600"} hover:bg-green-400 transition-all`}
-          onClick={() => setIsCompleted(!isCompleted)}
-        >
-          <CheckCircle className={`w-5 h-5 ${isCompleted ? "text-white" : "text-gray-400"}`} />
-          {isCompleted ? "Completed" : "Mark Complete"}
-        </button>
-        <button className="flex items-center gap-2 px-4 py-2 rounded-lg border border-gray-300 text-gray-600 hover:bg-gray-100 transition-all">
-          <Clock className="w-5 h-5" /> Start Timer
-        </button>
-      </div>
 
       {/* Description */}
       <div className="mt-6 border-t pt-4">
         <h3 className="text-lg font-semibold text-gray-900">Description</h3>
-        <p className="text-gray-700 mt-2">{data?.Description || "No description available."}</p>
+        <p className="text-gray-700 mt-2 text-sm">{data?.Description || "No description available."}</p>
       </div>
 
       {/* Task Info */}
@@ -66,20 +53,29 @@ export default function ViewTask({ src, onClick, data }) {
           <p>Start Date: {data?.StartDate || "N/A"}</p>
           <p>Due Date: {data?.DueDate || "N/A"}</p>
           <p>
-            Priority: <span className="text-yellow-500">Medium</span>
+            Priority: <span className="text-yellow-500 font-medium">Medium</span>
           </p>
         </div>
       </div>
 
-      {/* Action Buttons */}
-      <div className="mt-6 border-t pt-4 flex justify-between">
-        <button className="flex items-center gap-2 px-4 py-2 rounded-lg border border-gray-300 text-gray-600 hover:bg-gray-100 transition-all">
-          <UserPlus className="w-5 h-5" /> Assign Task
-        </button>
-        <button className="flex items-center gap-2 px-4 py-2 rounded-lg border border-gray-300 text-gray-600 hover:bg-gray-100 transition-all">
-          <Bell className="w-5 h-5" /> Set Reminder
-        </button>
-      </div>
+      {/* Task Members */}
+      {data?.Members?.length > 0 && (
+        <div className="mt-6 border-t pt-4">
+          <h3 className="text-lg font-semibold text-gray-900">Assigned Members</h3>
+          <div className="flex flex-wrap gap-4 mt-3">
+            {data.Members.map((member, index) => (
+              <div key={index} className="flex items-center gap-3 bg-gray-100 p-2 rounded-lg">
+                <img
+                  src={member.ProfileImage?member.ProfileImage:"https://png.pngtree.com/png-vector/20231019/ourmid/pngtree-user-profile-avatar-png-image_10211467.png"}
+                  alt={member.fullName}
+                  className="w-10 h-10 rounded-full border"
+                />
+                <p className="text-sm text-gray-700 font-medium">{member.fullName}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

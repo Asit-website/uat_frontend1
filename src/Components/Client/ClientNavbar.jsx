@@ -33,7 +33,7 @@ const ClientNavbar = ({setAlert}) => {
     localStorage.removeItem("hrms_token");
     localStorage.removeItem("hrms_user");
     navigate('/login')
-    setAlert("success", "logout successfully");
+    // setAlert("success", "logout successfully");
     toast.success("logout successfully")
 
   };

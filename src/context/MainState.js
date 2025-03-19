@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { deleteReq, get, post, postDocuments, put } from '../Api/api';
 import MainContext from './MainContext';
 
-// const baseUrl = "https://my-backend-blond.vercel.app";
+const baseUrl = "https://my-backend-blond.vercel.app";
 // 
 // const baseUrl = "https://hrms-backend-code.onrender.com"
 
@@ -13,7 +13,7 @@ import MainContext from './MainContext';
 // const baseUrl = "https://uat-backend-o1wm.onrender.com"
 
 // this is production baseurl 
-const baseUrl = "https://hmsbackend.kusheldigi.com";
+// const baseUrl = "https://hmsbackend.kusheldigi.com";
    
 
 // const baseUrl = "https://hrms-backend-g3wt.onrender.com";
@@ -444,17 +444,23 @@ const MainState = (props) => {
    };
 
    const forgetPassword = async ({ email, employeeCode }) => {
+      setLoading(true);
       const data = await post(`${baseUrl}/user/forgetPassword`, { email, employeeCode }, false);
+      setLoading(false);
       return data;
    };
 
    const forgetPassword1 = async ({ email, otp }) => {
+      setLoading(true);
       const data = await post(`${baseUrl}/user/forgetPasswordVerifyOTP`, { email, otp }, false);
+      setLoading(false);
       return data;
    };
 
    const forgetPassword2 = async ({ email, password,otp }) => {
+      setLoading(true);
       const data = await post(`${baseUrl}/user/resetPassword`, { email, newPassword:password,otp }, false);
+      setLoading(false);
       return data;
    };
 

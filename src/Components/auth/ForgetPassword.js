@@ -6,10 +6,10 @@ import { useNavigate } from 'react-router-dom';
 import { useMain } from '../../hooks/useMain';
 import buttons from "../images/Buttons.png"
 
-const ForgetPassword = () => {
+const ForgetPassword = ({setAlert}) => {
   const navigate = useNavigate();
 
-  const { forgetPassword } = useMain();
+  const { forgetPassword,loading } = useMain();
 
   const [value, setValue] = useState({
     employeeCode: '',
@@ -28,6 +28,10 @@ const ForgetPassword = () => {
       navigate("/forget1", {
         state: { email: value.email }
       });
+      setAlert("success", ans.message);
+
+    }else {
+      setAlert("error", ans.message);
     }
   };
 
@@ -65,7 +69,11 @@ const ForgetPassword = () => {
               </div>
 
               {/* <button type='submit'>Next</button> */}
-              <button type='submit' className='forgetSumtBtn'><span>Send Reset Link</span></button>
+              {/* <button type='submit' className='forgetSumtBtn'><span>Send Reset Link</span></button> */}
+              <button  type='submit' disabled={loading} className="yui flex justify-center items-center p-2 bg-blue-500 text-white rounded-lg w-full transition-all duration-300 ease-in-out">
+                  {loading ? ( <div className="w-6 h-6 border-4 border-white border-t-transparent rounded-full animate-spin"></div>)
+                  : ('Send Reset Link')}
+                </button>
 
               {/* <div className="sign-information">
                 <p>Powered by <a target='_blank' href="https://www.kusheldigi.com/"><span>KusheldigiSolutions</span></a> </p>

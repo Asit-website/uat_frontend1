@@ -7,7 +7,7 @@ import { useNavigate,useLocation } from 'react-router-dom';
 import toast from 'react-hot-toast';
 
 const ForgetPassword2 = ({ setAlert }) => {
-  const { forgetPassword2 } = useMain();
+  const { forgetPassword2, loading } = useMain();
   const location = useLocation()
 
   const [value, setValue] = useState({
@@ -29,12 +29,12 @@ const ForgetPassword2 = ({ setAlert }) => {
         localStorage.removeItem('hrms_token');
         localStorage.removeItem('hrms_user');
         localStorage.removeItem('kds-reset-email');
-        toast.success("password changed successfully");
+        setAlert('success', ans.message);
         navigate('/login');
       }
     }
     else {
-      setAlert("error", "Password and confirm password must be same");
+      setAlert("error", "Password and confirm Password must be same");
     }
   };
 
@@ -98,7 +98,14 @@ const ForgetPassword2 = ({ setAlert }) => {
 
               </div>
 
-              <button type='submit' className='forgetSumtBtn'><span>Continue</span></button>
+              {/* <button type='submit' className='forgetSumtBtn'><span>Continue</span></button> */}
+              <button type="submit" disabled={loading} className="yui flex justify-center items-center p-2 bg-blue-500 text-white rounded-lg w-full transition-all duration-300 ease-in-out">
+                {loading ? (
+                  <div className="w-6 h-6 border-4 border-white border-t-transparent rounded-full animate-spin"></div>
+                ) : (
+                  'Continue'
+                )}
+              </button>
 
               <div className="sign-information">
                 <p>Powered by <a target='_blank' href="https://www.kusheldigi.com/"> <span>KusheldigiSolutions</span></a> </p>
