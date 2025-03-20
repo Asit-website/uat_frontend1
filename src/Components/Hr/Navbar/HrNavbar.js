@@ -8,6 +8,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import notifyy from "../../images/notifyy.png"
 import redcancel from "../../images/redcancel.png"
 import { useMain } from '../../../hooks/useMain'
+import toast from "react-hot-toast";
 
 
 
@@ -44,7 +45,7 @@ const HrNavbar = ({ setAlert}) => {
    
 
     navigate('/login')
-    setAlert("success", "logout successfully");
+    toast.success("logout successfully")
   };
 
 

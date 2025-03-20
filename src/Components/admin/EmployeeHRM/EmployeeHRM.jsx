@@ -904,7 +904,8 @@ const EmployeeHRM = ({
                   employeeOnLeavePermission ||
                   halfDayPermission ||
                   totalEmployeePermission) && (
-                  <div className="hrLefFir">
+                  // <div className="hrLefFir">
+                  <div className="flex gap-3 items-center mt-4">
                     {(activeEmployeePermission || role === "ADMIN") && (
                       <NavLink
                         className="skm"

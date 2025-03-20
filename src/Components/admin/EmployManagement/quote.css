@@ -871,6 +871,12 @@ color: #101820;
     color: #FFFFFF;
 }
 
+.clients-wrapper {
+    display: grid;
+    grid-gap: 15px;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+}
+
 .allClients {
     display: flex;
     gap: 15px;
@@ -904,7 +910,7 @@ color: #101820;
     flex-direction: column;
     gap: 12px;
     align-items: center;
-    width: 275px;
+    /* width: 275px; */
     padding: 12px 30px;
     background: #FFFFFF;
     border: 1px solid #E8E9EB;

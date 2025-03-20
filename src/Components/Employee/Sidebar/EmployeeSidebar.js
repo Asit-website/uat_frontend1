@@ -1079,7 +1079,7 @@ const EmployeeSidebar = () => {
             </div>
 
             {openPayroll2 && (
-              <div className="alladminDash-item " >
+              <div className="alladminDash-item ml-7 -mt-4" >
               {showTasksDetailPermission && projectRole?.map((item, index) => (
                 <div
                 onClick={() => {
@@ -1161,7 +1161,7 @@ const EmployeeSidebar = () => {
 
             {/* ================= tak end============ */}
 
-            <NavLink to="/employeeDash/mySelf">
+            <NavLink to="/employeeDash/mySelf" className='my-1'>
               <li className="indefy adpading">
                 <img src={shop} alt="" />
                 <a href="#" className=" ">
@@ -1170,7 +1170,7 @@ const EmployeeSidebar = () => {
               </li>
             </NavLink>
 
-            <NavLink to="/employeeDash/employeeLeave">
+            <NavLink to="/employeeDash/employeeLeave" className='my-1'>
               <li className="indefy adpading">
                 <img src={shop} alt="" />
                 <a href="#" className=" ">

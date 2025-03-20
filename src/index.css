@@ -1017,7 +1017,7 @@ td {
 .alladminDash-item {
   display: flex;
   flex-direction: column;
-  width: 100%;
+  /* width: 100%; */
   /* background-color: red; */
 
 }
@@ -1258,11 +1258,11 @@ input{
 }
 
 .olo {
-  width: 270px !important;
+  width: 290px !important;
 }
 
 .olo1 {
-  width: 270px !important;
+  width: 290px !important;
 }
 
 /* manish admin navbar css  */
@@ -1861,9 +1861,10 @@ input[type="search"]::-webkit-search-cancel-button {
 
 .em {
   /* padding: 62px 70px; */
-  padding: 32px 30px;
+  padding: 32px 20px 32px 54px;
   margin-top: 69px;
   position: relative;
+  width: 100%;
 }
 
 .em22 {
@@ -2329,6 +2330,7 @@ input[type="search"]::-webkit-search-cancel-button {
   font-size: 16px;
   letter-spacing: 0.5px;
   font-weight: 600;
+  margin-top: 6px;
 }
 
 .calend-head p {
@@ -4804,7 +4806,7 @@ abbr:where([title]) {
 
 
 .celWrap {
-  width: 672px;
+  width: 100%;
   border: 1px solid #B7DFD5;
   background: #E8F5F1;
   border-radius: 10px;
@@ -4900,6 +4902,7 @@ abbr:where([title]) {
   display: flex;
   flex-direction: column;
   gap: 32px;
+  width: 50%;
 }
 
 
@@ -6289,7 +6292,7 @@ input::-webkit-inner-spin-button {
   display: flex;
   align-items: center;
   gap: 10px;
-  transform: translateX(50px);
+  /* transform: translateX(50px); */
 }
 
 

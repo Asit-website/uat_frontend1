@@ -47,7 +47,7 @@ const ClientSideBar = () => {
 
                     <ul className="allNavItem">
                         <div className="adDasWrap">
-                            <NavLink to="#">
+                            <NavLink to="/client">
                                 <div
                                     className={`${window.location.pathname === "/employeeDash" ? "hh" : ""
                                         } side-dash-box silom `}

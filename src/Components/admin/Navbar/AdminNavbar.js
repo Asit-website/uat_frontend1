@@ -8,6 +8,7 @@ import { useMain } from '../../../hooks/useMain'
 import notifyy from "../../images/notifyy.png"
 import redcancel from "../../images/redcancel.png"
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 
 const AdminNavbar = ({ setAlert }) => {
@@ -43,7 +44,8 @@ const AdminNavbar = ({ setAlert }) => {
     localStorage.removeItem("break-seconds");
     localStorage.removeItem("break-time");
 
-    setAlert("success", "logout successfully");
+    // setAlert("success", "logout successfully");
+    toast.success("logout successfully")
     navigate('/login')
   };
 

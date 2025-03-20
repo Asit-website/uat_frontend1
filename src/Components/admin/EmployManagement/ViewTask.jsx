@@ -4,7 +4,7 @@ import { FaFileAlt } from "react-icons/fa";
 
 export default function ViewTask({ src, onClick, data }) {
   const [isCompleted, setIsCompleted] = useState(false);
-
+  
   return (
     <div className="">
       {/* Header */}
@@ -66,7 +66,7 @@ export default function ViewTask({ src, onClick, data }) {
             {data.Members.map((member, index) => (
               <div key={index} className="flex items-center gap-3 bg-gray-100 p-2 rounded-lg">
                 <img
-                  src={member.ProfileImage?member.ProfileImage:"https://png.pngtree.com/png-vector/20231019/ourmid/pngtree-user-profile-avatar-png-image_10211467.png"}
+                  src={member.profileImage ? member?.profileImage:"https://png.pngtree.com/png-vector/20231019/ourmid/pngtree-user-profile-avatar-png-image_10211467.png"}
                   alt={member.fullName}
                   className="w-10 h-10 rounded-full border"
                 />

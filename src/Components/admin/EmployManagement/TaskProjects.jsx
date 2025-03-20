@@ -33,7 +33,7 @@ const TaskProjects = ({ setAlert, pop, setPop }) => {
     getClientapi,
   } = useMain();
 
-  let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
+  let hrms_user = JSON.parse(localStorage.getItem("hrms_user")) || '';
 
   const { role } = hrms_user;
 
@@ -75,12 +75,16 @@ const TaskProjects = ({ setAlert, pop, setPop }) => {
 
   const changeHandler2 = (e) => {
     const selectedEmpId = e.target.value;
-    if (selectedEmpId === "Select" || formdata.Members.includes(selectedEmpId))
-      return;
+    if (selectedEmpId === "Select") return;
 
     const selectedEmp = allEmp.find((emp) => emp._id === selectedEmpId);
-    setProUser([...proUser, selectedEmp.fullName]);
-    setFormdata({ ...formdata, Members: [...formdata.Members, selectedEmpId] });
+    if (!selectedEmp || proUser.includes(selectedEmp.fullName)) return;
+  
+    setProUser((prev) => [...prev, selectedEmp.fullName]);
+    setFormdata((prev) => ({
+      ...prev,
+      Members: [...prev.Members, selectedEmpId],
+    }));
   };
 
   const removeUser = (index) => {
@@ -305,7 +309,7 @@ const TaskProjects = ({ setAlert, pop, setPop }) => {
 
                   <tbody>
                     {allProjects.map((client, index) => (
-                      <tr key={index}>
+                      <tr key={index}  className="border border-none">
                         <td>{index + 1}</td>
                         <td>
                           <span>{client.projectName}</span>
@@ -355,14 +359,14 @@ const TaskProjects = ({ setAlert, pop, setPop }) => {
                         </td>
                         <td>{client?.deadline}</td>
 
-                        <td className="flex ">
+                        <td className="flex items-center justify-center align-center">
                           {client?.Members?.map((member) => (
                             <img
                               src={`${member?.profileImage
                                 ? member?.profileImage
                                 : "https://png.pngtree.com/png-vector/20231019/ourmid/pngtree-user-profile-avatar-png-image_10211467.png"
                                 }`}
-                              className="w-10 h-10 rounded-full cursor-pointer transition-colors duration-300 ease-in-out"
+                              className="w-10 h-10  mt-5 rounded-full cursor-pointer transition-colors duration-300 ease-in-out"
                               alt="Member Avatar "
                               key={member._id}
                               onClick={() =>
@@ -446,14 +450,14 @@ const TaskProjects = ({ setAlert, pop, setPop }) => {
 
                   <select
                     name="Members"
-                    value={formdata.Members}
+                    value=''
                     onChange={changeHandler2}
                   >
-                    console.log("all employee list ",allEmp)
                     <option value="Select">Select Employee</option>
                     {allEmp?.map((emp, index) => (
-                      <option value={emp?._id} key={index}>
-                        {emp?.fullName}
+                      <option value={emp?._id} key={index}
+                      disabled={proUser.includes(emp.fullName)}>
+                        {emp?.fullName} {formdata.Members.includes(emp._id) ? "(Selected)" : ""}
                       </option>
                     ))}
                   </select>

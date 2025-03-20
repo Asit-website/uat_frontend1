@@ -26,14 +26,14 @@ const ProjectOverview = ({ setAlert, pop, setPop }) => {
   const location = useLocation();
 
   const data = location?.state;
-  console.log(data)
+  // // console.log(data)
 
   const [percentage, setPercentage] = useState(0);
 
   let hrms_user = JSON.parse(localStorage.getItem("hrms_user"))
 
   const role = hrms_user.Role || hrms_user.role;
-  console.log(role)
+  // // console.log(role)
 
   const [allClients, setAllClients] = useState();
 
@@ -47,29 +47,29 @@ const ProjectOverview = ({ setAlert, pop, setPop }) => {
 
   const getProjectTaskapi = async () => {
     const ans = await getProjectTask(data?._id);
-    setAllTasks(ans?.tasks);
+    setAllTasks(ans?.tasks?.reverse());
   };
   const gettAllClients = async () => {
     try {
       const ans = await getClientapi();
-      console.log("ans", ans);
+      // console.log("ans", ans);
       if (ans?.status) {
         setAllClients(ans?.data);
-        // console.log(allClient)
+        // // console.log(allClient)
       }
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       toast.error("sometinng went wrong ,please try agin");
     }
   }
 
   useEffect(() => {
-    const totalTasks = allTasks.length;
-    const completedTasks = allTasks.filter(
+    const totalTasks = allTasks?.length;
+    const completedTasks = allTasks?.filter(
       (task) => task.Status === "Completed"
     ).length;
 
-    const openTaskse = allTasks.filter(
+    const openTaskse = allTasks?.filter(
       (task) => task.Status !== "Completed"
     ).length;
 
@@ -111,7 +111,7 @@ const ProjectOverview = ({ setAlert, pop, setPop }) => {
 
   const fetchAllFile = async () => {
     const resp = await allfilesproject(data?._id);
-    setAllFiles(resp?.files);
+    setAllFiles(resp?.files?.reverse());
   };
 
   const handleFileChange = (event) => {
@@ -144,7 +144,7 @@ const ProjectOverview = ({ setAlert, pop, setPop }) => {
     const date = new Date(timestamp);
     if (state === "time") {
       const time = date.toISOString().slice(11, 19);
-      console.log(time);
+      // console.log(time);
       return time
     }
     else {
@@ -155,13 +155,29 @@ const ProjectOverview = ({ setAlert, pop, setPop }) => {
   }
   const fetchAllTimesheet = async () => {
     const resp = await fetchAllTimesheetapi(data?._id);
-    console.log("res", resp);
+    // console.log("res", resp);
     setTimesheet(resp?.taskTimelines);
-    console.log(resp)
-    // console.log(new Date(resp[0]))
+    // console.log(resp)
+    // // console.log(new Date(resp[0]))
 
   }
+  const [currentPage, setCurrentPage] = useState(1);
+  const tasksPerPage = 5;
 
+  const totalPages = Math.ceil(altimesheet?.length / tasksPerPage);
+  const currentTimeSheet = altimesheet?.slice((currentPage - 1) * tasksPerPage, currentPage * tasksPerPage);
+
+  const handlePrev = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
+  const handleNext = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
 
   const dateFormate = (timestamp) => {
     const date = new Date(timestamp);
@@ -170,6 +186,7 @@ const ProjectOverview = ({ setAlert, pop, setPop }) => {
 
   useEffect(() => {
     gettAllClients()
+    getProjectTaskapi()
   }, []);
 
   useEffect(() => {
@@ -334,7 +351,7 @@ const ProjectOverview = ({ setAlert, pop, setPop }) => {
                 </div>
                 {/* All Files Section */}
                 <div>
-                  <h4 className="text-xl font-semibold text-gray-800 mb-4">All Files</h4>
+                  <h4 className="text-xl font-semibold text-gray-800 mb-4">{allfiles?.length===0 ?"No files": "All Files"}</h4>
                   <div className="space-y-6">
                     {allfiles?.map((file, index) => (
                       <div key={index} className="p-4 bg-white rounded-lg shadow-md">
@@ -355,6 +372,9 @@ const ProjectOverview = ({ setAlert, pop, setPop }) => {
                             </p>
                             <p className="text-gray-600">
                               <strong>Uploaded by:</strong> {file?.uploadedBy?.fullName}
+                            </p>
+                            <p className="text-gray-600">
+                              <strong>Uploaded On:</strong> {new Date(file?.createdAt).toLocaleDateString()}
                             </p>
                           </div>
 
@@ -428,7 +448,7 @@ const ProjectOverview = ({ setAlert, pop, setPop }) => {
                     </tr>
                   </thead>
                   <tbody>
-                    {altimesheet?.map((task, index) => (
+                    {currentTimeSheet?.map((task, index) => (
                       <tr key={index} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                         <td className="px-4 py-3 text-center">{findTime(task?.clockIn, "time")}</td>
                         <td className="px-4 py-3 text-center">{task?.clockOut}</td>
@@ -450,6 +470,25 @@ const ProjectOverview = ({ setAlert, pop, setPop }) => {
                     ))}
                   </tbody>
                 </table>
+                {totalPages > 1 && (
+                  <div className="navbuttons flex justify-between items-center mt-4">
+                    <button
+                      onClick={handlePrev}
+                      disabled={currentPage === 1}
+                      className="px-4 py-2 bg-gray-300 rounded-md disabled:bg-gray-200"
+                    >
+                      Prev
+                    </button>
+                    <span className="px-4">{currentPage}</span>
+                    <button
+                      onClick={handleNext}
+                      disabled={currentPage === totalPages}
+                      className="px-4 py-2 bg-gray-300 rounded-md disabled:bg-gray-200"
+                    >
+                      Next
+                    </button>
+                  </div>
+                )}
 
               </div>
             }

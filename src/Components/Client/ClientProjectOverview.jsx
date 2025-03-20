@@ -71,7 +71,7 @@ const ClientProjectOverview = () => {
   useEffect(() => {
     const totalTasks = allTasks.length;
     const completedTasks = allTasks.filter(
-      (task) => task.Status === "Not Started"
+      (task) => task.Status === "Completed"
     ).length;
 
     const openTaskse = allTasks.filter(
@@ -82,6 +82,7 @@ const ClientProjectOverview = () => {
 
     const completedPercentage = (completedTasks / totalTasks) * 100;
     const opentaskper = ((openTaskse / totalTasks) * 100).toFixed(0);
+    console.log(completedPercentage)
 
     setPercentage(completedPercentage);
     setOpenTaskper(opentaskper);

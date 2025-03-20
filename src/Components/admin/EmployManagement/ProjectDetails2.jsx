@@ -15,6 +15,7 @@ import cut from "../../images/cutt.png";
 import pluss from "../../images/pluss.png";
 import "./HRMsystem.css";
 import "./quote.css";
+import ViewTask from "./ViewTask";
 
 var tc3;
 var tc4;
@@ -96,7 +97,7 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
   const getProjectTaskapiPermi = async () => {
     const ans = await getProjectTask(data?._id);
     setAllTaskDetail(ans?.tasks);
-    setAllTasks(ans?.tasks);
+    setAllTasks(ans?.tasks.reverse());
   };
 
 
@@ -449,6 +450,22 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
     }
   };
 
+  const getTask = (id) => {
+    setViewTask(true)
+    const filter = allTasks?.find(e => e._id === id)
+    if (filter) {
+      setFormdata({
+        Title: filter.taskName,
+        Description: filter.description,
+        Members: filter.Members,
+        StartDate: filter.startDate,
+        DueDate: filter.dueDate,
+        Github: "",
+        taskfile: filter.taskfile,
+      });
+    }
+  }
+
   useEffect(() => {
     if (showAllProjectPermission) {
       getProjectTaskapiPermi();
@@ -633,13 +650,17 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
                         </tr>
                       </thead>
                       <tbody>
-                        {allTasks?.map((task, index) => (
+                        {currentTasks?.map((task, index) => (
                           <tr
                             key={index}
-                            className="bg-white"
+                            className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
                           >
-                            <td className="px-6 py-4">{task?.taskName}</td>
-                            <td className="px-6 py-4 flex items-center justify-center ">
+                            <td className="px-6 py-4">
+                              <p> {task?.taskName}</p>
+                              <p className="cursor-pointer"  onClick={() => getTask(task?._id)}>View</p>
+
+                             </td>
+                            <td className="px-6 py-4 flex items-center justify-center borderNone ">
                               {
                                 task?.Members?.map((member) => (
                                   <img
@@ -788,7 +809,7 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
                               <p className="text-gray-600">
                                 <strong>Uploaded by:</strong> {file?.uploadedBy?.fullName}
                               </p>
-                            </div>
+            </div>
 
                             {/* Image or file preview */}
                             <div>
@@ -815,9 +836,9 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
                                   <p className="text-gray-500 text-sm">{file?.fileName}</p>
                                 </a>
                               )}
-                            </div>
-                          </div>
-                        </div>
+          </div>
+        </div>
+      </div>
                       ))}
                     </div>
                   </div>
@@ -1052,6 +1073,14 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
           </div>
         </div>
       )}
+
+      {viewTask && (<>
+              <div className="addCliWrap">
+                <div className="addClieCont addheight flex">
+                  <ViewTask src={cut} data={formdata} onClick={() => setViewTask(false)} />
+                </div>
+              </div>
+            </>)}
 
       {timerPop2 && (
         <div className="addCliWrap">
