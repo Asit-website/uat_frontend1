@@ -36,7 +36,6 @@ const MyLead = ({ setAlert, pop, setPop }) => {
 
   const [filterInput, setFilterInput] = useState();
 
-
   useEffect(() => {
     fetchLead();
   }, [refreshFlag]);
@@ -87,13 +86,18 @@ const MyLead = ({ setAlert, pop, setPop }) => {
 
   let itemsPerPage = 5;
 
-  const totalPages = Math?.ceil(allLead?.length / itemsPerPage);
-
+  const currentFilteredItems = allLead.filter((item) => item.status !== 'Close');
   const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = Math.min(startIndex + itemsPerPage, currentFilteredItems?.length);
+  
+  const currentItems = currentFilteredItems?.slice(startIndex,endIndex);
+  const totalPages = Math?.ceil(currentFilteredItems?.length / itemsPerPage);
 
-  const endIndex = Math.min(startIndex + itemsPerPage, allLead?.length);
-
-  const currentItems = allLead?.slice(startIndex, endIndex);
+  useEffect(() => {
+    if (currentPage > totalPages) {
+      setCurrentPage(Math.max(totalPages, 1)); 
+    }
+  }, [currentFilteredItems.length, totalPages]);
 
   const [sortDate, setSortDate] = useState("");
 
@@ -241,7 +245,6 @@ const MyLead = ({ setAlert, pop, setPop }) => {
   };
 
   const closeLeadHandler = async (id) => {
-  
 
     confirmAlert({
       title: "Are you sure to close this deal?",
@@ -257,7 +260,10 @@ const MyLead = ({ setAlert, pop, setPop }) => {
 
             const ans = await closeLead(id);
             if (ans.status) {
-              toast.success("Successfuly Done");
+              toast.success("Successfuly Closed");
+              setAllLead((prevLeads) =>
+                prevLeads.filter((lead) => lead._id !== id)
+              );
             }
 
             toast.dismiss(toastId);
@@ -377,7 +383,7 @@ const MyLead = ({ setAlert, pop, setPop }) => {
                   <thead className="text-xs uppercase textALLtITL ">
                     <tr>
                       <th scope="col" className="px-6 py-3 taskTitl ">
-                        <input
+                        {/* <input
                           onClick={() => {
                             if (checkInpId?.length === allData?.length) {
                               setCheckInpId([]);
@@ -388,7 +394,8 @@ const MyLead = ({ setAlert, pop, setPop }) => {
                           checked={checkInpId?.length === allData.length}
                           type="checkbox"
                           className="checkboxes"
-                        />
+                        /> */}
+                        S/N
                       </th>
                       <th scope="col" className="px-6 py-3 taskTitl ">
                         Company Name
@@ -419,7 +426,7 @@ const MyLead = ({ setAlert, pop, setPop }) => {
                     {currentItems.map((item, index) => (
                       <tr key={index} className="bg-white border-b fdf">
                         <th scope="col" className="px-6 py-3 taskTitl ">
-                          <input
+                          {/* <input
                             onClick={() => {
                               if (checkInpId.includes(item?._id)) {
                                 const filterdata = checkInpId.filter(
@@ -433,7 +440,11 @@ const MyLead = ({ setAlert, pop, setPop }) => {
                             checked={checkInpId.includes(item?._id)}
                             type="checkbox"
                             className="checkboxes"
-                          />
+                          /> */}
+                          {
+                            index+1                      
+                          }
+                          {console.log( currentItems , currentFilteredItems)}
                         </th>
 
                         <td className="px-6 py-4 taskAns">{item?.Company}</td>
@@ -468,7 +479,7 @@ const MyLead = ({ setAlert, pop, setPop }) => {
                         <div className="viewOnwWRAP">
                           <td
 
-                            className="px-6 py-4 taskAns  cursor-pointer"
+                            className="px-6 py-4 taskAns borderNone cursor-pointer"
                           >
                             <div className="testok">
                               <svg className="cursor-pointer" onClick={() => navigate("/adminDash/editLead", { state: item })} width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">

@@ -118,7 +118,7 @@ useEffect(()=>{
       
         <td className="px-6 py-4 taskAns">{index+1}</td>
         <td className="px-6 py-4 taskAns">{roles?.name}</td>
-        <td className="px-6 py-4 taskAns makethisflex">
+        <td className="px-6 py-4 taskAns flex items-center gap-2 borderNone">
         <MdEdit onClick={()=>navigate("/adminDash/PermissionDetail" ,{state: roles})} fontSize={20} className="cursor-pointer" />
         <MdDelete onClick={()=>deleteRole(roles?._id)} fontSize={20} className="cursor-pointer"  />
         </td>

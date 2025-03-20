@@ -10,6 +10,7 @@ import { useMain } from "../../../hooks/useMain";
 import kushel1 from "../../images/kushel1.png";
 import redcancel from "../../images/redcancel.png";
 import notifyy from "../../images/notifyy.png";
+import toast from "react-hot-toast";
 
 var tc;
 var tc2;
@@ -38,7 +39,7 @@ const EmployeeNavbar = ({ setAlert, pop1, setPop1 }) => {
 
   const handleLogout = () => {
     localStorage.clear()
-    setAlert("success", "logout successfully");
+    toast.success("logout successfully")
     navigate('/login')
   };
 
@@ -289,18 +290,17 @@ const EmployeeNavbar = ({ setAlert, pop1, setPop1 }) => {
           />
         </div>
 
-        <div onClick={() => setShownotify(true)} className="fifth-logo ">
-          <img style={{ width: "32px" }} src={notifications} alt="" />
-        </div>
-
         <OutsideClickHandler
           onOutsideClick={() => {
             document.getElementById("ty").classList.remove("tys") &&
               document.getElementById("ty").classList.add("kys");
           }}
         >
-          <div className="relative cursor-pointer" onClick={updateUser}>
-            <div className="sixth-logo flex items-center relative ">
+           <div className="relative cursor-pointer flex items-center gap-4" >
+            <div onClick={() => setShownotify(true)} className="fifth-logo ">
+              <img style={{ width: "32px" }} src={notifications} alt="" />
+            </div>
+            <div className="sixth-logo flex items-center relative " onClick={updateUser}>
               <img
                 className="john"
                 src={user?.profileImage ? user?.profileImage : lok}

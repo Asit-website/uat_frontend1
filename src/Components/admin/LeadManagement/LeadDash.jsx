@@ -143,7 +143,6 @@ const LeadDash = ({ setAlert, pop, setPop }) => {
 
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 4;
-
   const totalPages = Math.ceil(allLeads.length / itemsPerPage);
 
   const [paginatedData, setPaginationData] = useState([]);
@@ -175,7 +174,21 @@ const LeadDash = ({ setAlert, pop, setPop }) => {
   const [allCloseLead, setAllCloseLead] = useState([]);
   const [allCloseForSrch, setAllCloseFroSrch] = useState([]);
   const [closeSerch, setCloseSrch] = useState("");
+  const [currentClosedPage,setCurrentClosedPage] = useState(1);
+  const closedItemPerPage = 5;
 
+  const closeStartIndex = (currentClosedPage - 1) * closedItemPerPage;
+  const closeEndIndex = Math.min(closeStartIndex + closedItemPerPage, allCloseLead?.length);
+  const ClosedTotalPages = Math?.ceil(allCloseLead?.length / closedItemPerPage);
+  const filteredAllItems = allCloseLead?.slice(closeStartIndex,closeEndIndex);
+    useEffect(() => {
+      if (currentClosedPage > ClosedTotalPages) {
+        setCurrentClosedPage(Math.max(ClosedTotalPages, 1)); 
+      }
+    }, [allCloseLead.length, ClosedTotalPages]);
+
+    console.log('filterd',filteredAllItems);
+    console.log('ClosePage',ClosedTotalPages);
 
   const closeLead = async () => {
     const ans = await closeLeadApiFetch();
@@ -212,10 +225,14 @@ const LeadDash = ({ setAlert, pop, setPop }) => {
 
 
   const handlePageChange = (newPage) => {
-    if (newPage >= 1 && newPage <= totalPages) {
+    if (newPage >= 1 && newPage <= ClosedTotalPages) {
       setCurrentPage(newPage);
     }
   };
+
+  useEffect(()=>{
+    console.log('closed leads-->',allCloseLead);
+  })
 
   return (
     <>
@@ -1077,7 +1094,9 @@ const LeadDash = ({ setAlert, pop, setPop }) => {
                   </tbody>
                 </table>
               </div>
-{totalPages > 5 && (
+
+
+            {totalPages > 1 && (
               <div className="emPaginate">
                 <button className={`prepaginate ${currentPage !== 1 && "putthehovebtn"}`} onClick={() => {
                   handlePageChange(currentPage - 1);
@@ -1092,9 +1111,8 @@ const LeadDash = ({ setAlert, pop, setPop }) => {
                   Next
                 </button>
               </div> )}
-              
- 
             </div>
+
 
             {/* this is lastest */}
             <div className="table22 table333">
@@ -1138,7 +1156,7 @@ const LeadDash = ({ setAlert, pop, setPop }) => {
                   </thead>
                   <tbody>
                     {
-                      allCloseLead?.map((item, index) => (
+                      filteredAllItems?.map((item, index) => (
                         <tr key={index} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                           <td
                             scope="row"
@@ -1182,7 +1200,7 @@ const LeadDash = ({ setAlert, pop, setPop }) => {
               </div>
 
            
-              {totalPages > 5 && (
+              {ClosedTotalPages > 1 && (
                   <div className="prev_next">
                   <div className="on1">
                     <p>1</p>

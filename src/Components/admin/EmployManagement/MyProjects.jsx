@@ -94,7 +94,9 @@ const MyProjects = ({ setAlert, pop, setPop }) => {
                   <tbody>
                     {allProjects?.length > 0 ? (
                       allProjects.map((client, index) => (
-                        <tr key={index}>
+                        <tr key={index} 
+                        className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+                        >
                           <td>{index + 1}</td>
                           <td>
                             <span>{client.projectName}</span>
@@ -144,7 +146,7 @@ const MyProjects = ({ setAlert, pop, setPop }) => {
                           </td>
                           <td>{client?.deadline}</td>
 
-                          <td style={{ display: "flex", gap: "-2px" }}>
+                          <td style={{ display: "flex", gap: "-2px" }} className="borderNone">
                             {client?.Members?.map((member) => (
                               <img
                                 src={`${member?.profileImage
@@ -154,12 +156,7 @@ const MyProjects = ({ setAlert, pop, setPop }) => {
                                 className="w-20 h-20"
                                 alt="Member Avatar "
                                 key={member._id}
-                                onClick={() =>
-                                  navigate("/adminDash/EmployeeDetails", {
-                                    state: member?._id,
-                                  })
-                                }
-                                style={{
+                                  style={{
                                   borderRadius: "50%",
                                   cursor: "pointer",
                                   transition:

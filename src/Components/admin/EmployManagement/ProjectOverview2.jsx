@@ -28,7 +28,7 @@ const ProjectOverview2 = ({ allTasks, getProjectTaskapi }) => {
   const location = useLocation();
   const data = location?.state;
 
-  console.log("alltask", allTasks);
+  // console.log("alltask", allTasks);
 
   let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
   const role = hrms_user?.Role
@@ -36,20 +36,20 @@ const ProjectOverview2 = ({ allTasks, getProjectTaskapi }) => {
   const [formdata, setFormdata] = useState({
     Title: "",
     Description: "",
-    Members: [],
+    Members: [], // Ensure this is an array
     taskfile: "",
     StartDate: "",
     DueDate: "",
     Priority: "",
     Github: "",
-  });
+});
   const [proUser, setProUser] = useState([]);
   const [viewTask, setViewTask] = useState(false);
 
 
   const getTask = (id) => {
     setViewTask(true)
-    const filter = allTasks.find(e => e._id === id)
+    const filter = allTasks?.find(e => e._id === id)
     if (filter) {
       setFormdata({
         Title: filter.taskName,
@@ -73,17 +73,31 @@ const ProjectOverview2 = ({ allTasks, getProjectTaskapi }) => {
 
   const changeHandler2 = (e) => {
     const selectedEmpId = e.target.value;
-    if (selectedEmpId === "Select" || formdata.Members.includes(selectedEmpId))
-      return;
 
+    // Check if the selected value is "Select" or if the member is already included
+    if (selectedEmpId === "Select" || formdata?.Members?.includes(selectedEmpId)) {
+        return;
+    }
+
+    // Find the selected employee
     const selectedEmp = allEmp.find((emp) => emp._id === selectedEmpId);
-    setProUser([...proUser, selectedEmp.fullName]);
-    setFormdata({ ...formdata, Members: [...formdata.Members, selectedEmpId] });
-  };
+
+    // Check if selectedEmp is defined
+    if (selectedEmp) {
+        // Update the proUser  and formdata state
+        setProUser ([...proUser , selectedEmp.fullName]);
+        setFormdata((prev) => ({
+            ...prev,
+            Members: [...(prev.Members || []), selectedEmpId], // Ensure Members is an array
+        }));
+    } else {
+        console.error("Selected employee not found:", selectedEmpId);
+    }
+};
 
   const removeUser = (index) => {
-    const newProUser = proUser.filter((_, i) => i !== index);
-    const newMembers = formdata.Members.filter((_, i) => i !== index);
+    const newProUser = proUser?.filter((_, i) => i !== index);
+    const newMembers = formdata?.Members?.filter((_, i) => i !== index);
     setProUser(newProUser);
     setFormdata({ ...formdata, Members: newMembers });
   };
@@ -100,7 +114,7 @@ const ProjectOverview2 = ({ allTasks, getProjectTaskapi }) => {
   const getAllProject = async () => {
     const ans = await getAllProjectApi();
     setAllProject(ans?.data);
-    console.log(allProject)
+    // console.log(allProject)
   };
 
   const submitHandler = async (e) => {
@@ -117,12 +131,12 @@ const ProjectOverview2 = ({ allTasks, getProjectTaskapi }) => {
         setFormdata({
           Title: "",
           Description: "",
-          Members: "",
+          Members: [], // Reset to an empty array
           StartDate: "",
           DueDate: "",
           Github: "",
-          Members: "",
-        });
+          taskfile: "", // Ensure taskfile is also reset
+      });
         setAddClientPop(false);
         setProUser([]);
 
@@ -171,7 +185,7 @@ const ProjectOverview2 = ({ allTasks, getProjectTaskapi }) => {
   useEffect(() => {
     getAllProject();
     getProjectTaskapi();
-    console.log(allTaskDetail)
+    // console.log(allTaskDetail)
   }, []);
 
   useEffect(() => {
@@ -184,8 +198,8 @@ const ProjectOverview2 = ({ allTasks, getProjectTaskapi }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const tasksPerPage = 5;
 
-  const totalPages = Math.ceil(allTasks.length / tasksPerPage);
-  // const currentTasks = allTasks.slice((currentPage - 1) * tasksPerPage, currentPage * tasksPerPage);
+  const totalPages = Math.ceil(allTasks?.length / tasksPerPage);
+  const currentTasks = allTasks?.slice((currentPage - 1) * tasksPerPage, currentPage * tasksPerPage);
 
   const handlePrev = () => {
     if (currentPage > 1) {
@@ -210,16 +224,19 @@ const ProjectOverview2 = ({ allTasks, getProjectTaskapi }) => {
   };
 
   const handleEditClick = (client) => {
-    const membersNames = client.Members.map((memberId) => {
+    // console.log(client);
+        const membersNames = client.Members.map((memberId) => {
       const member = allEmp.find((emp) => emp._id === memberId?._id);
       return member ? member.fullName : "";
     });
 
     setisEdit(client._id);
     setFormdata({
-      Name: client?.projectName,
-      DueDate: client.deadline,
-      ...client,
+      Title: client.taskName,
+      Description: client.description,
+      StartDate: client.startDate,
+      DueDate: client.dueDate,
+      Priority:client.priority
     });
     setProUser(membersNames);
     setAddClientPop(true);
@@ -253,20 +270,20 @@ const ProjectOverview2 = ({ allTasks, getProjectTaskapi }) => {
                     {allProject?.Status}
                   </p>
                 </div>
-                {role!=="Client" && (
+                {role !== "Client" && (
                   <div className="clibtns">
-                  <button
-                    onClick={() => {
-                      setAddClientPop(true);
-                      setisEdit(false);
-                    }}
-                    className="newcli"
-                  >
-                    <img src={pluss} alt="Add Task" /> <span>Add Task </span>
-                  </button>
-                </div>
+                    <button
+                      onClick={() => {
+                        setAddClientPop(true);
+                        setisEdit(false);
+                      }}
+                      className="newcli"
+                    >
+                      <img src={pluss} alt="Add Task" /> <span>Add Task </span>
+                    </button>
+                  </div>
                 )}
-                
+
               </nav>
               <div className="prodlefriwrap">
                 <div className="leftprodetail">
@@ -284,14 +301,6 @@ const ProjectOverview2 = ({ allTasks, getProjectTaskapi }) => {
                     <p className="filn">Total Members</p>
                     <p className="proand">{data.Members?.length}</p>
                   </label>
-                </div>
-                <div className="righprodetail">
-                  <div>
-                    <img src={predit} alt="" />
-                  </div>
-                  <div>
-                    <img src={predel} alt="" />
-                  </div>
                 </div>
               </div>
               <div className="relative overflow-x-auto">
@@ -326,14 +335,14 @@ const ProjectOverview2 = ({ allTasks, getProjectTaskapi }) => {
                     </tr>
                   </thead>
                   <tbody>
-                    {allTasks.map((task, index) => (
+                    {currentTasks?.map((task, index) => (
                       // console.log(allTasks)
                       <tr
                         key={index}
                         className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
                       >
                         <td className="px-6 py-4">{task?.taskName}</td>
-                        <td style={{ display: "flex", gap: "-2px" }}>
+                        <td style={{ display: "flex", gap: "-2px" }} className="borderNone">
                           {
                             task?.Members?.map((item, index) => (
                               <img key={index}
@@ -362,7 +371,7 @@ const ProjectOverview2 = ({ allTasks, getProjectTaskapi }) => {
                         </td>
 
                         <td className="px-6 py-4">{task?.Status}</td>
-                        <td className="px-6 py-4 adddsomflex">
+                        <td className="px-6 py-4 adddsomflex borderNone">
                           {role !== "Client" && (
                             <>
                             <MdDelete
@@ -483,12 +492,12 @@ const ProjectOverview2 = ({ allTasks, getProjectTaskapi }) => {
                   <select
                     name="Members"
                     onChange={changeHandler2}
-                    disabled={formdata.Members.length >= allEmp.length} // Disable if all members are assigned
+                    disabled={formdata?.Members?.length >= allEmp?.length} // Disable if all members are assigned
                   >
                     <option value="Select">Select Employee</option>
                     {allEmp?.map((emp, index) => {
-                      // Check if emp._id is already in formdata.Members
-                      const isAlreadySelected = formdata.Members.includes(emp._id);
+                      // Check if emp._id is already in formdata?.Members
+                      const isAlreadySelected = formdata?.Members?.includes(emp._id);
 
                       return (
                         <option value={emp?._id} key={index} disabled={isAlreadySelected}>
@@ -514,12 +523,14 @@ const ProjectOverview2 = ({ allTasks, getProjectTaskapi }) => {
                   </select>
                 </label>
                 <label>
-                  <p>Start Date </p>
+                  <p>Start Date</p>
                   <input
                     name="StartDate"
                     value={formdata.StartDate}
                     onChange={changeHandler}
                     type="date"
+                    min={data.startDate}
+                    max={data.deadline}
                   />
                 </label>
                 <label>
@@ -529,7 +540,8 @@ const ProjectOverview2 = ({ allTasks, getProjectTaskapi }) => {
                     value={formdata.DueDate}
                     onChange={changeHandler}
                     type="date"
-                    min={formdata.StartDate}
+                    min={formdata.StartDate || data.startDate}
+                    max={data.deadline}
                   />
                 </label>
                 <label>

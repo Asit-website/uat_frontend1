@@ -239,6 +239,12 @@ color: #189877 !important;
         border-top: 1px solid #E8E9EB !important;
      }
   
+
+     .borderNone {
+        border-top: none !important;
+        border-bottom: none !important;
+     }
+     
     .marNavLef span{
         font-family: Gilroy-Medium;
         font-size: 14px;

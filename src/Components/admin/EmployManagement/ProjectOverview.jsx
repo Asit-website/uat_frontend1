@@ -8,7 +8,7 @@ import EmployeeNavbar from "../../Employee/Navbar/EmployeeNavbar";
 import "./quote.css";
 import "react-profile-avatar/dist/index.css";
 import { useLocation } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import CircularProgress from "./CircularProgress";
 import ProgressBar from "@ramonak/react-progress-bar";
 import ProjectOverview2 from "../../admin/EmployManagement/ProjectOverview2";
@@ -26,14 +26,14 @@ const ProjectOverview = ({ setAlert, pop, setPop }) => {
   const location = useLocation();
 
   const data = location?.state;
-  console.log(data)
+  // // console.log(data)
 
   const [percentage, setPercentage] = useState(0);
 
   let hrms_user = JSON.parse(localStorage.getItem("hrms_user"))
 
   const role = hrms_user.Role || hrms_user.role;
-  console.log(role)
+  // // console.log(role)
 
   const [allClients, setAllClients] = useState();
 
@@ -47,29 +47,29 @@ const ProjectOverview = ({ setAlert, pop, setPop }) => {
 
   const getProjectTaskapi = async () => {
     const ans = await getProjectTask(data?._id);
-    setAllTasks(ans?.tasks);
-};
+    setAllTasks(ans?.tasks?.reverse());
+  };
   const gettAllClients = async () => {
     try {
       const ans = await getClientapi();
-      console.log("ans", ans);
+      // console.log("ans", ans);
       if (ans?.status) {
         setAllClients(ans?.data);
-        // console.log(allClient)
+        // // console.log(allClient)
       }
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       toast.error("sometinng went wrong ,please try agin");
     }
   }
 
   useEffect(() => {
-    const totalTasks = allTasks.length;
-    const completedTasks = allTasks.filter(
+    const totalTasks = allTasks?.length;
+    const completedTasks = allTasks?.filter(
       (task) => task.Status === "Completed"
     ).length;
 
-    const openTaskse = allTasks.filter(
+    const openTaskse = allTasks?.filter(
       (task) => task.Status !== "Completed"
     ).length;
 
@@ -106,38 +106,46 @@ const ProjectOverview = ({ setAlert, pop, setPop }) => {
 
   const [selectedFile, setSelectedFile] = useState(null);
   const [allfiles, setAllFiles] = useState([]);
+  const fileInputRef = useRef(null);
 
 
   const fetchAllFile = async () => {
     const resp = await allfilesproject(data?._id);
-    setAllFiles(resp?.files);
+    setAllFiles(resp?.files?.reverse());
   };
 
   const handleFileChange = (event) => {
     const toastId = toast.loading("Loading...");
-    const file = event.target.files[0];
-    setSelectedFile(file);
+    const files = event.target.files; // Get all selected files
+    setSelectedFile(files); // Store the files in state
     toast.dismiss(toastId);
   };
 
   const uploadFileProject = async () => {
-    if (selectedFile) {
-      const toastId = toast.loading("Loading...");
-      const resp = await UploadFileProjectapi(selectedFile, data?._id);
-      toast.success("Successfuly upload");
+    if (selectedFile && selectedFile.length > 0) {
+      const toastId = toast.loading("Uploading...");
+
+      // Loop through the selected files and upload each one
+      for (let i = 0; i < selectedFile.length; i++) {
+        const file = selectedFile[i];
+        await UploadFileProjectapi(file, data?._id);
+      }
+      if (fileInputRef.current) {
+        fileInputRef.current.value = "";
+      }
+      toast.success("Successfully uploaded");
       toast.dismiss(toastId);
       fetchAllFile();
     }
   };
-
   const [altimesheet, setTimesheet] = useState([]);
 
   function findTime(timestamp, state) {
     const date = new Date(timestamp);
     if (state === "time") {
       const time = date.toISOString().slice(11, 19);
-        console.log(time);
-        return time
+      // console.log(time);
+      return time
     }
     else {
       const date = new Date(timestamp);
@@ -147,13 +155,29 @@ const ProjectOverview = ({ setAlert, pop, setPop }) => {
   }
   const fetchAllTimesheet = async () => {
     const resp = await fetchAllTimesheetapi(data?._id);
-    console.log("res", resp);
+    // console.log("res", resp);
     setTimesheet(resp?.taskTimelines);
-    console.log(resp)
-    // console.log(new Date(resp[0]))
+    // console.log(resp)
+    // // console.log(new Date(resp[0]))
 
   }
+  const [currentPage, setCurrentPage] = useState(1);
+  const tasksPerPage = 5;
 
+  const totalPages = Math.ceil(altimesheet?.length / tasksPerPage);
+  const currentTimeSheet = altimesheet?.slice((currentPage - 1) * tasksPerPage, currentPage * tasksPerPage);
+
+  const handlePrev = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
+  const handleNext = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
 
   const dateFormate = (timestamp) => {
     const date = new Date(timestamp);
@@ -162,30 +186,31 @@ const ProjectOverview = ({ setAlert, pop, setPop }) => {
 
   useEffect(() => {
     gettAllClients()
+    getProjectTaskapi()
   }, []);
 
   useEffect(() => {
-    if(optIndex===1){
+    if (optIndex === 1) {
       getProjectTaskapi()
     }
     if (optIndex === 3) {
-        fetchAllTimesheet();
-    }if(optIndex === 2){
-    fetchAllFile();
+      fetchAllTimesheet();
+    } if (optIndex === 2) {
+      fetchAllFile();
 
     }
-}, [optIndex]);
+  }, [optIndex]);
 
   return (
     <>
       <div className="employee-dash h-full">
-      {role === "EMPLOYEE" ? (
-            <EmployeeSidebar user={user} setAlert={setAlert} />
-          ) : role === "Client" ? (
-            <ClientSideBar user={user} setAlert={setAlert} />
-          ) : (
-            <AdminSidebar user={user} setAlert={setAlert} />
-          )}
+        {role === "EMPLOYEE" ? (
+          <EmployeeSidebar user={user} setAlert={setAlert} />
+        ) : role === "Client" ? (
+          <ClientSideBar user={user} setAlert={setAlert} />
+        ) : (
+          <AdminSidebar user={user} setAlert={setAlert} />
+        )}
 
         <div className="tm">
           {role === "EMPLOYEE" ? (
@@ -212,7 +237,7 @@ const ProjectOverview = ({ setAlert, pop, setPop }) => {
                   key={index}
                   className={`cursor-pointer singelPr ${index === 0 && "addlefborder"
                     }  ${index === 3 && "addBorder"} ${optIndex === index && "adddbg"
-                    } ${role === "Client" && index === 1 || index===3 ?"hide" :""}`}
+                    } ${role === "Client" && index === 1 || index === 3 ? "hide" : ""}`}
                 >
                   <span>{pr}</span>
                 </div>
@@ -259,7 +284,7 @@ const ProjectOverview = ({ setAlert, pop, setPop }) => {
                     <div className="eachProgeer">
                       <h4>Project Progress</h4>
                       <CircularProgress
-                        percentage={ (data?.Status === "Finished") ? 100 : (percentage || 0)}
+                        percentage={(data?.Status === "Finished") ? 100 : (percentage || 0)}
                         color={"#4caf50"}
                       />
                     </div>
@@ -312,7 +337,9 @@ const ProjectOverview = ({ setAlert, pop, setPop }) => {
                     type="file"
                     webkitdirectory
                     directory="true"
+                    multiple
                     onChange={handleFileChange}
+                    ref={fileInputRef}
                     className="border border-gray-300 rounded-md p-2 mb-4 w-full"
                   />
                   <button
@@ -324,7 +351,7 @@ const ProjectOverview = ({ setAlert, pop, setPop }) => {
                 </div>
                 {/* All Files Section */}
                 <div>
-                  <h4 className="text-xl font-semibold text-gray-800 mb-4">All Files</h4>
+                  <h4 className="text-xl font-semibold text-gray-800 mb-4">{allfiles?.length===0 ?"No files": "All Files"}</h4>
                   <div className="space-y-6">
                     {allfiles?.map((file, index) => (
                       <div key={index} className="p-4 bg-white rounded-lg shadow-md">
@@ -345,6 +372,9 @@ const ProjectOverview = ({ setAlert, pop, setPop }) => {
                             </p>
                             <p className="text-gray-600">
                               <strong>Uploaded by:</strong> {file?.uploadedBy?.fullName}
+                            </p>
+                            <p className="text-gray-600">
+                              <strong>Uploaded On:</strong> {new Date(file?.createdAt).toLocaleDateString()}
                             </p>
                           </div>
 
@@ -372,7 +402,6 @@ const ProjectOverview = ({ setAlert, pop, setPop }) => {
 
                                 <p className="text-gray-500 text-sm">{file?.fileName}</p>
                               </a>
-                              // Show File Name if not an image
                             )}
                           </div>
                         </div>
@@ -395,55 +424,72 @@ const ProjectOverview = ({ setAlert, pop, setPop }) => {
                 <table className="w-full prodetailTable text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                   <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
-                      <th scope="col" className="px-6 py-3">
-                        clockIn
+                      <th scope="col" className="px-4 py-3 text-center">
+                        Clock In
                       </th>
-                      <th scope="col" className="px-6 py-3">
-                        clockOut
+                      <th scope="col" className="px-4 py-3 text-center">
+                        Clock Out
                       </th>
-                      <th scope="col" className="px-6 py-3">
+                      <th scope="col" className="px-4 py-3 text-center">
                         Date
                       </th>
-                      <th scope="col" className="px-6 py-3">
-                        Submited By
+                      <th scope="col" className="px-4 py-3 text-center">
+                        Submitted By
                       </th>
-
-                      <th scope="col" className="px-6 py-3">
-                        totalTime
+                      <th scope="col" className="px-4 py-3 text-center">
+                        Total Time
                       </th>
-
-                      <th scope="col" className="px-6 py-3">
-                       Worked on
+                      <th scope="col" className="px-4 py-3 text-center">
+                        Worked On
                       </th>
-                      <th scope="col" className="px-6 py-3">
-                       Note
+                      <th scope="col" className="px-4 py-3 text-center">
+                        Note
                       </th>
-
                     </tr>
                   </thead>
                   <tbody>
-                    {altimesheet?.map((task, index) => (
-                      <tr key={index} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700" >
-
-                        <td className="px-6 py-3">{findTime(task?.clockIn, "time")}</td>
-                        <td className="px-6 py-3">{(task?.clockOut)}</td>
-                        {/* <td>{dateFormate(task?.clockOut)}</td> */}
-                        <td className="px-6 py-3">{findTime(task?.createdAt)}</td>
-                        <td className="px-6 py-3">
-                          <div className="flex w-10 h-10 items-center justify-center">
-                            <img src={task?.submitedBy?.profileImage ? task?.submitedBy?.profileImage :  "https://png.pngtree.com/png-vector/20231019/ourmid/pngtree-user-profile-avatar-png-image_10211467.png"} alt="" srcset="" />
-                            <p>{task?.submitedBy?.fullName}</p>
+                    {currentTimeSheet?.map((task, index) => (
+                      <tr key={index} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                        <td className="px-4 py-3 text-center">{findTime(task?.clockIn, "time")}</td>
+                        <td className="px-4 py-3 text-center">{task?.clockOut}</td>
+                        <td className="px-4 py-3 text-center">{findTime(task?.createdAt)}</td>
+                        <td className="px-4 py-3 text-center">
+                          <div className="flex items-center justify-center gap-2">
+                            <img
+                              className="rounded-full w-10 h-10"
+                              src={task?.submitedBy?.profileImage || "https://png.pngtree.com/png-vector/20231019/ourmid/pngtree-user-profile-avatar-png-image_10211467.png"}
+                              alt={task?.submitedBy?.fullName || "User profile"}
+                            />
+                            <p className="text-sm">{task?.submitedBy?.fullName || "Unknown User"}</p>
                           </div>
                         </td>
-                        <td className="px-6 py-3">{task?.totalTime}</td>
-                        <td className="px-6 py-3">{task?.taskId?.taskName}</td>
-                        <td className="px-6 py-3">{task?.Note}</td>
-
-
+                        <td className="px-4 py-3 text-center">{task?.totalTime}</td>
+                        <td className="px-4 py-3 text-center">{task?.taskId?.taskName}</td>
+                        <td className="px-4 py-3 text-center">{task?.Note}</td>
                       </tr>
                     ))}
                   </tbody>
                 </table>
+                {totalPages > 1 && (
+                  <div className="navbuttons flex justify-between items-center mt-4">
+                    <button
+                      onClick={handlePrev}
+                      disabled={currentPage === 1}
+                      className="px-4 py-2 bg-gray-300 rounded-md disabled:bg-gray-200"
+                    >
+                      Prev
+                    </button>
+                    <span className="px-4">{currentPage}</span>
+                    <button
+                      onClick={handleNext}
+                      disabled={currentPage === totalPages}
+                      className="px-4 py-2 bg-gray-300 rounded-md disabled:bg-gray-200"
+                    >
+                      Next
+                    </button>
+                  </div>
+                )}
+
               </div>
             }
           </div>

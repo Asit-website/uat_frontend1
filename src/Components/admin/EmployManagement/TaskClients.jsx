@@ -26,7 +26,7 @@ const TaskClients = ({ setAlert, pop, setPop }) => {
   const navigate = useNavigate();
   // alert('this')
 
-  let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
+  let hrms_user = JSON.parse(localStorage.getItem("hrms_user")) || '';
 
   const { role } = hrms_user;
 
@@ -283,7 +283,7 @@ const TaskClients = ({ setAlert, pop, setPop }) => {
 
               <p className="totalRecord">Total Records: {allClient?.length || 0}</p>
 
-              <div className="allClients">
+              <div className="clients-wrapper">
                 {allClient.map((client, index) => (
                   <div key={index} className="singleclient2">
                     <div

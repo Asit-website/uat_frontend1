@@ -24,6 +24,8 @@ import "./sidebar.css";
 import dock from "../../images/documenticon.png";
 import analytics from "../../images/analytics.svg";
 import readliness from "../../images/readlines.svg";
+import permissionSvg from "../../images/permission.svg";
+import item from "../../images/item.png";
 
 
 const trainingItems = [
@@ -128,7 +130,7 @@ const performances = [
 const AdminSidebar = ({ pop, setPop }) => {
   const [payrollItem, setPayrollItem] = useState(0);
 
-  let hrms_user = JSON?.parse(localStorage.getItem("hrms_user"));
+  let hrms_user = JSON?.parse(localStorage.getItem("hrms_user")) || '';
   const { role } = hrms_user;
 
   let hrms_permission = JSON?.parse(localStorage.getItem("hrms_permission"));
@@ -373,8 +375,8 @@ setOpenPerform(false)
                   <div className="systSset">
                     <img
                       src={`${window.location.pathname === "/adminDash/permission"
-                          ? leaderboard1
-                          : leaderboard
+                          ? permissionSvg
+                          : permissionSvg
                         }`}
                       alt=""
                     />
@@ -440,7 +442,7 @@ setOpenPerform(false)
               </div>
 
               {openLead && (
-                <div className="alladminDash-item">
+                <div className="alladminDash-item ml-5 -mt-3">
                   <NavLink to="/adminDash/leadDash">
                     <div
                       className={`${window.location.pathname === "/adminDash/leadDash" ||
@@ -601,7 +603,7 @@ setOpenPerform(false)
               </div>
 
               {openPayroll2 && (
-                <div className="alladminDash-item">
+                <div className="alladminDash-item ml-5 -mt-3">
                   {payrols2?.map((item, index) => (
                     <div
                       onClick={() => {
@@ -709,7 +711,7 @@ setOpenPerform(false)
               </div>
 
               {openPerform2 && (
-                <div className="alladminDash-item">
+                <div className="alladminDash-item ml-5 -mt-3">
                   {/* =====================employee management================ */}
                   <NavLink to="/adminDash/HRM/employeeManagement">
                     <div
@@ -811,7 +813,7 @@ setOpenPerform(false)
                   </div>
 
                   {openLeaveMan && (
-                    <div className="alladminDash-item">
+                    <div className="alladminDash-item ml-5">
                       {LeaveManItem?.map((item, index) => (
                         <div
                           onClick={() => {
@@ -872,7 +874,7 @@ setOpenPerform(false)
                   </div>
 
                   {openPayroll && (
-                    <div className="alladminDash-item">
+                    <div className="alladminDash-item ml-5">
                       {payrols?.map((item, index) => (
                         <div
                           onClick={() => {
@@ -962,7 +964,7 @@ setOpenPerform(false)
                   </div>
 
                   {openPerform && (
-                    <div className="alladminDash-item">
+                    <div className="alladminDash-item ml-5">
                       {performances?.map((item, index) => (
                         <div
                           onClick={() => {
@@ -1083,8 +1085,8 @@ setOpenPerform(false)
                   <div className="systSset">
                     <img
                       src={`${window.location.pathname === "/adminDash/HRM/Expense"
-                          ? leaderboard1
-                          : leaderboard
+                          ? item
+                          : item
                         }`}
                       alt=""
                     />
@@ -1122,7 +1124,7 @@ setOpenPerform(false)
               </div>
 
               {openHr && (
-                <div className="alladminDash-item">
+                <div className="alladminDash-item ml-5">
                   {hrAdminItems?.map((item, index) => (
                     <div
                       onClick={() => {

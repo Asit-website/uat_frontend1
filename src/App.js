@@ -203,7 +203,7 @@ function App() {
               <Route path="/employeeDash/leadDash" element={<LeadDash2 />} />
               <Route path="/employeeDash/importLead/:id" element={<ImportLead2 />} />
               <Route path="/employeeDash/leadFile" element={<LeadFile2 />} />
-              <Route path="/employeeDash/mySelf" element={<MySelf />} />
+              <Route path="/employeeDash/mySelf" element={<MySelf setAlert={setAlert} />} />
               <Route path="/employeeDash/createQuotation" element={<CreateQuotation />} />
               <Route path="/employeeDash/editQuotation" element={<EditQuotation />} />
               <Route path="/employeeDash/taskLead" element={<TaskLead />}  />      

@@ -215,10 +215,20 @@ const Auth = (props) => {
                   </div>
 
                   <div className="formgotPassWidht">
-                    <NavLink to="/forget">
-                      <p className="forget">Forgot password?</p>
-                    </NavLink>
-                  </div>
+                    {tab === 3 ? (
+                      <p 
+                        onClick={() => toast("Please contact the Admin")} 
+                        className="forget"
+                      >
+                        Forgot password?
+                      </p>
+                    ) : (
+                      <NavLink to="/forget">
+                        <p className="forget">Forgot password?</p>
+                      </NavLink>
+                    )}
+                </div>
+
                 </div>
 
                 <button disabled={loading} className="yui flex justify-center items-center p-2 bg-blue-500 text-white rounded-lg w-full transition-all duration-300 ease-in-out">
