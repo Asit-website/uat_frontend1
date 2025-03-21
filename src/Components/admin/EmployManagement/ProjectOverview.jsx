@@ -299,18 +299,6 @@ const ProjectOverview = ({ setAlert, pop, setPop }) => {
 
                   <hr />
 
-                  <div className="embers">
-                    <h3>MEMBERS</h3>
-
-                    <div className="allMEmb">
-                      {data?.Members?.map((mem, index) => (
-                        <div key={index} className="snglme">
-                          <img src={mem?.profileImage} alt="" />
-                          <p>{mem?.fullName}</p>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
                 </div>
 
                 <div className="secnoveview">
@@ -319,10 +307,21 @@ const ProjectOverview = ({ setAlert, pop, setPop }) => {
                       <p>{openTask}/{allTasks?.length} OPEN TASKS</p>
                       <ProgressBar completed={OpenTaskper} />
                     </nav>
-                    <nav>
-                      <p>Total logged Hour's</p>
-                      <p>0</p>
-                    </nav>
+                    
+                    <hr className="my-5 border"/>
+
+                    <div className="embers">
+                    <h3>MEMBERS</h3>
+
+                    <div className="allMEmb">
+                      {data?.Members?.map((mem, index) => (
+                        <div key={index} className="snglme">
+                          <img src={mem?.profileImage ? mem?.profileImage :"https://png.pngtree.com/png-vector/20231019/ourmid/pngtree-user-profile-avatar-png-image_10211467.png"} alt="" />
+                          <p>{mem?.fullName}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
                   </div>
                 </div>
               </div>

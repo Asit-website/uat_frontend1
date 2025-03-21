@@ -94,7 +94,7 @@ const LeadDash = ({ setAlert, pop, setPop }) => {
 
   const fetchTask = async () => {
     const data = await getTaskApi({ userId: hrms_user?._id });
-   
+
 
     if (data?.status) {
       setAllTask(data?.allTask);
@@ -174,21 +174,36 @@ const LeadDash = ({ setAlert, pop, setPop }) => {
   const [allCloseLead, setAllCloseLead] = useState([]);
   const [allCloseForSrch, setAllCloseFroSrch] = useState([]);
   const [closeSerch, setCloseSrch] = useState("");
-  const [currentClosedPage,setCurrentClosedPage] = useState(1);
+  const [currentClosedPage, setCurrentClosedPage] = useState(1);
   const closedItemPerPage = 5;
 
   const closeStartIndex = (currentClosedPage - 1) * closedItemPerPage;
   const closeEndIndex = Math.min(closeStartIndex + closedItemPerPage, allCloseLead?.length);
-  const ClosedTotalPages = Math?.ceil(allCloseLead?.length / closedItemPerPage);
-  const filteredAllItems = allCloseLead?.slice(closeStartIndex,closeEndIndex);
-    useEffect(() => {
-      if (currentClosedPage > ClosedTotalPages) {
-        setCurrentClosedPage(Math.max(ClosedTotalPages, 1)); 
-      }
-    }, [allCloseLead.length, ClosedTotalPages]);
+  const ClosedTotalPages = allCloseLead?.length 
+  ? Math.ceil(allCloseLead.length / closedItemPerPage) 
+  : 1;
+  const filteredAllItems = allCloseLead?.slice(closeStartIndex, closeEndIndex);
+  useEffect(() => {
+    if (currentClosedPage > ClosedTotalPages) {
+      setCurrentClosedPage(Math.max(ClosedTotalPages, 1));
+    }
+  }, [allCloseLead.length, ClosedTotalPages]);
 
-    console.log('filterd',filteredAllItems);
-    console.log('ClosePage',ClosedTotalPages);
+  console.log('filterd', filteredAllItems);
+  console.log('ClosePage', ClosedTotalPages);
+
+  
+  const handlePageChange = (newPage) => {
+    if (newPage >= 1 && newPage <= ClosedTotalPages) {
+      setCurrentClosedPage(newPage); 
+    }
+  };
+
+  useEffect(() => {
+    if (currentClosedPage > ClosedTotalPages) {
+      setCurrentClosedPage(1);
+    }
+  }, [allCloseLead.length, ClosedTotalPages]);
 
   const closeLead = async () => {
     const ans = await closeLeadApiFetch();
@@ -211,7 +226,7 @@ const LeadDash = ({ setAlert, pop, setPop }) => {
     }
 
   }, [closeSerch])
-  
+
 
   useEffect(() => {
     fetchLead();
@@ -223,16 +238,13 @@ const LeadDash = ({ setAlert, pop, setPop }) => {
   }, []);
 
 
-
-  const handlePageChange = (newPage) => {
-    if (newPage >= 1 && newPage <= ClosedTotalPages) {
-      setCurrentPage(newPage);
-    }
-  };
-
-  useEffect(()=>{
-    console.log('closed leads-->',allCloseLead);
+  useEffect(() => {
+    console.log('closed leads-->', allCloseLead);
+    console.log("currentClosedPage:", currentClosedPage);
+    console.log("ClosedTotalPages:", ClosedTotalPages);
+    console.log("allCloseLead length:", allCloseLead.length);
   })
+
 
   return (
     <>
@@ -688,37 +700,37 @@ const LeadDash = ({ setAlert, pop, setPop }) => {
                   </table>
                 </div>
 
-               {totalPages > 5 && (
+                {totalPages > 5 && (
                   <div className="prev_next">
-                  <div className="on1">
-                    <p>1</p>
+                    <div className="on1">
+                      <p>1</p>
+                    </div>
+                    <div className="on1">
+                      <p>2</p>
+                    </div>
+                    <div className="next">
+                      <button>
+                        <span>Next</span>
+                        <svg
+                          width="8"
+                          height="10"
+                          viewBox="0 0 8 10"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M2.08748 0L0.912476 1.175L4.72914 5L0.912476 8.825L2.08748 10L7.08748 5L2.08748 0Z"
+                            fill="#666D76"
+                          />
+                        </svg>
+                      </button>
+                    </div>
                   </div>
-                  <div className="on1">
-                    <p>2</p>
-                  </div>
-                  <div className="next">
-                    <button>
-                      <span>Next</span>
-                      <svg
-                        width="8"
-                        height="10"
-                        viewBox="0 0 8 10"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M2.08748 0L0.912476 1.175L4.72914 5L0.912476 8.825L2.08748 10L7.08748 5L2.08748 0Z"
-                          fill="#666D76"
-                        />
-                      </svg>
-                    </button>
-                  </div>
-                </div> 
-               )}
+                )}
 
-               
 
-   
+
+
 
               </div>
 
@@ -937,32 +949,32 @@ const LeadDash = ({ setAlert, pop, setPop }) => {
                     </tbody>
                   </table>
                 </div>
-{totalPages > 5 && 
-                <div className="prev_next">
-                  <div className="on1">
-                    <p>1</p>
-                  </div>
-                  <div className="on1">
-                    <p>2</p>
-                  </div>
-                  <div className="next">
-                    <button>
-                      <span>Next</span>
-                      <svg
-                        width="8"
-                        height="10"
-                        viewBox="0 0 8 10"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M2.08748 0L0.912476 1.175L4.72914 5L0.912476 8.825L2.08748 10L7.08748 5L2.08748 0Z"
-                          fill="#666D76"
-                        />
-                      </svg>
-                    </button>
-                  </div>
-                </div>}
+                {totalPages > 5 &&
+                  <div className="prev_next">
+                    <div className="on1">
+                      <p>1</p>
+                    </div>
+                    <div className="on1">
+                      <p>2</p>
+                    </div>
+                    <div className="next">
+                      <button>
+                        <span>Next</span>
+                        <svg
+                          width="8"
+                          height="10"
+                          viewBox="0 0 8 10"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M2.08748 0L0.912476 1.175L4.72914 5L0.912476 8.825L2.08748 10L7.08748 5L2.08748 0Z"
+                            fill="#666D76"
+                          />
+                        </svg>
+                      </button>
+                    </div>
+                  </div>}
               </div>
             </div>
 
@@ -1014,14 +1026,14 @@ const LeadDash = ({ setAlert, pop, setPop }) => {
                           {item?.LastName}
                         </td>
                         <td className="px-6 py-4 taskAns">
-                        <div
+                          <div
                             scope="col"
                             className={`statussame 
-                              ${item?.LeadStatus === "Connected" && "connected"  } 
+                              ${item?.LeadStatus === "Connected" && "connected"} 
                               ${item?.LeadStatus == "Nurturing" && "Nurturing"} ${item?.LeadStatus == "Qualified" && "Qualified"} 
-                              ${item?.LeadStatus == "Unqualified" && "Unqualified"}  ${item?.LeadStatus == "Converted" && "Converted" }
-                               ${item?.LeadStatus == "Not Converted" && "Converteds" }
-                               ${item?.LeadStatus == "Junk" && "Junk" }
+                              ${item?.LeadStatus == "Unqualified" && "Unqualified"}  ${item?.LeadStatus == "Converted" && "Converted"}
+                               ${item?.LeadStatus == "Not Converted" && "Converteds"}
+                               ${item?.LeadStatus == "Junk" && "Junk"}
                                ${item?.LeadStatus === "New" && "Newleadstatus"}
                               
                                `}
@@ -1030,7 +1042,7 @@ const LeadDash = ({ setAlert, pop, setPop }) => {
                           </div>
                         </td>
 
-                        <td 
+                        <td
                           onClick={() => {
                             if (optionedit === index) {
                               setOptionEdit(null);
@@ -1096,21 +1108,21 @@ const LeadDash = ({ setAlert, pop, setPop }) => {
               </div>
 
 
-            {totalPages > 1 && (
-              <div className="emPaginate">
-                <button className={`prepaginate ${currentPage !== 1 && "putthehovebtn"}`} onClick={() => {
-                  handlePageChange(currentPage - 1);
-                }} disabled={currentPage === 1}>
-                  Previous
-                </button>
-                <span className="pagenum">Page {currentPage} of {totalPages}</span>
-                <button className={`prepaginate ${currentPage !== totalPages && "putthehovebtn"} `} onClick={() => {
-                  handlePageChange(currentPage + 1)
+              {/* {totalPages > 5 && (
+                <div className="emPaginate">
+                  <button className={`prepaginate ${currentPage !== 1 && "putthehovebtn"}`} onClick={() => {
+                    handlePageChange(currentPage - 1);
+                  }} disabled={currentPage === 1}>
+                    Previous
+                  </button>
+                  <span className="pagenum">Page {currentPage} of {totalPages}</span>
+                  <button className={`prepaginate ${currentPage !== totalPages && "putthehovebtn"} `} onClick={() => {
+                    handlePageChange(currentPage + 1)
 
-                }} disabled={currentPage === totalPages}>
-                  Next
-                </button>
-              </div> )}
+                  }} disabled={currentPage === totalPages}>
+                    Next
+                  </button>
+                </div>)} */}
             </div>
 
 
@@ -1124,7 +1136,7 @@ const LeadDash = ({ setAlert, pop, setPop }) => {
                   <input type="text" className="searchclosde" value={closeSerch} onChange={(e) => setCloseSrch(e.target.value)} placeholder="Search..." />
 
 
-                
+
 
                 </div>
               </div>
@@ -1140,7 +1152,7 @@ const LeadDash = ({ setAlert, pop, setPop }) => {
                       </th>
                       <th scope="col" className="px-4 py-3 makedivcent">
                         FirstName
-                      </th> 
+                      </th>
                       <th scope="col" className="px-4 py-3 makedivcent">
                         LastName
                       </th>
@@ -1151,7 +1163,7 @@ const LeadDash = ({ setAlert, pop, setPop }) => {
                         Status
                       </th>
 
-                
+
                     </tr>
                   </thead>
                   <tbody>
@@ -1170,25 +1182,25 @@ const LeadDash = ({ setAlert, pop, setPop }) => {
                           <td className="px-4 py-4 duedatest makedivcent">{new Date(item?.closeDate).toLocaleDateString('en-GB')}</td>
                           <td className="px-4 py-4 duedatest makedivcent">
 
-                          <div
-                            scope="col"
-                            className={`statussame 
-                              ${item?.LeadStatus === "Connected" && "connected"  } 
+                            <div
+                              scope="col"
+                              className={`statussame 
+                              ${item?.LeadStatus === "Connected" && "connected"} 
                               ${item?.LeadStatus == "Nurturing" && "Nurturing"} ${item?.LeadStatus == "Qualified" && "Qualified"} 
-                              ${item?.LeadStatus == "Unqualified" && "Unqualified"}  ${item?.LeadStatus == "Converted" && "Converted" }
-                               ${item?.LeadStatus == "Not Converted" && "Converteds" }
-                               ${item?.LeadStatus == "Junk" && "Junk" }
+                              ${item?.LeadStatus == "Unqualified" && "Unqualified"}  ${item?.LeadStatus == "Converted" && "Converted"}
+                               ${item?.LeadStatus == "Not Converted" && "Converteds"}
+                               ${item?.LeadStatus == "Junk" && "Junk"}
                                ${item?.LeadStatus === "New" && "Newleadstatus"}
                               
                                `}
-                          >
-                            {item?.LeadStatus}
-                          </div>
+                            >
+                              {item?.LeadStatus}
+                            </div>
 
                           </td>
                           <td className="px-4 py-4 duedatest">{item?.staus}</td>
 
-                         
+
 
                         </tr>
 
@@ -1199,36 +1211,28 @@ const LeadDash = ({ setAlert, pop, setPop }) => {
                 </table>
               </div>
 
-           
               {ClosedTotalPages > 1 && (
-                  <div className="prev_next">
-                  <div className="on1">
-                    <p>1</p>
-                  </div>
-                  <div className="on1">
-                    <p>2</p>
-                  </div>
-                  <div className="next">
-                    <button>
-                      <span>Next</span>
-                      <svg
-                        width="8"
-                        height="10"
-                        viewBox="0 0 8 10"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M2.08748 0L0.912476 1.175L4.72914 5L0.912476 8.825L2.08748 10L7.08748 5L2.08748 0Z"
-                          fill="#666D76"
-                        />
-                      </svg>
-                    </button>
-                  </div>
-                </div>
-              )}
-           
+                <div className="navbuttons flex justify-between items-center mt-4">
+                <button
+                  onClick={()=> handlePageChange(currentClosedPage - 1)}
+                  disabled={currentClosedPage <= 1}
+                  className="px-4 py-2 bg-gray-300 rounded-md disabled:bg-gray-200"
+                >
+                  Prev
+                </button>
+                <span className="px-4">  {currentClosedPage} </span>
+                <button
+                  onClick={() => handlePageChange(currentClosedPage + 1)}
+                  disabled={currentClosedPage >= ClosedTotalPages}
+                  className="px-4 py-2 bg-gray-300 rounded-md disabled:bg-gray-200"
+                >
+                  Next
+                </button>
+              </div>)}
+
             </div>
+
+
           </div>
         </div>
       </div>

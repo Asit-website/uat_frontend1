@@ -216,9 +216,9 @@ const Auth = (props) => {
 
                   <div className="formgotPassWidht">
                     {tab === 3 ? (
-                      <p 
-                        onClick={() => toast("Please contact the Admin")} 
-                        className="forget"
+                      <p  
+                        onClick={() =>  props.setAlert("error","Please Contact The Admin")} 
+                        className="forget cursor-pointer"
                       >
                         Forgot password?
                       </p>

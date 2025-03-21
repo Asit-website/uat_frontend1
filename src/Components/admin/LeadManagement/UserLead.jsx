@@ -697,7 +697,7 @@ const UserLead = ({ setAlert, pop, setPop }) => {
                   </table>
                 </div>
 
-                <div className="prev_next">
+                {totalPages > 1 && (<div className="prev_next">
                   <div className="next">
                     <button onClick={prevPage} disabled={currentPage === 1}>
                       <span>Prev</span>
@@ -740,7 +740,7 @@ const UserLead = ({ setAlert, pop, setPop }) => {
                       </svg>
                     </button>
                   </div>
-                </div>
+                </div>)}              
               </div>
             </div>
           </div>

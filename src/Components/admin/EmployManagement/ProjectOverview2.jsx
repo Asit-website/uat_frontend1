@@ -73,27 +73,16 @@ const ProjectOverview2 = ({ allTasks, getProjectTaskapi }) => {
 
   const changeHandler2 = (e) => {
     const selectedEmpId = e.target.value;
-
-    // Check if the selected value is "Select" or if the member is already included
-    if (selectedEmpId === "Select" || formdata?.Members?.includes(selectedEmpId)) {
-        return;
-    }
-
-    // Find the selected employee
-    const selectedEmp = allEmp.find((emp) => emp._id === selectedEmpId);
-
-    // Check if selectedEmp is defined
-    if (selectedEmp) {
-        // Update the proUser  and formdata state
-        setProUser ([...proUser , selectedEmp.fullName]);
-        setFormdata((prev) => ({
-            ...prev,
-            Members: [...(prev.Members || []), selectedEmpId], // Ensure Members is an array
-        }));
-    } else {
-        console.error("Selected employee not found:", selectedEmpId);
-    }
-};
+    if (selectedEmpId === "Select") return;
+    const selectedEmp = allEmp?.find((emp) => emp?._id === selectedEmpId);
+    if (!selectedEmp || proUser?.includes(selectedEmp?.fullName)) return;
+    setProUser((prev) => [...prev, selectedEmp?.fullName]);
+    setFormdata((prev) => ({
+      ...prev,
+      Members: Array.isArray(prev?.Members) ? [...prev.Members, selectedEmpId] : [selectedEmpId],
+    }));
+  };
+  
 
   const removeUser = (index) => {
     const newProUser = proUser?.filter((_, i) => i !== index);
@@ -497,7 +486,7 @@ const ProjectOverview2 = ({ allTasks, getProjectTaskapi }) => {
                     <option value="Select">Select Employee</option>
                     {allEmp?.map((emp, index) => {
                       // Check if emp._id is already in formdata?.Members
-                      const isAlreadySelected = formdata?.Members?.includes(emp._id);
+                      const isAlreadySelected = proUser.includes(emp.fullName);
 
                       return (
                         <option value={emp?._id} key={index} disabled={isAlreadySelected}>
