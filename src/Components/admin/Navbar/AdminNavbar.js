@@ -130,10 +130,21 @@ const AdminNavbar = ({ setAlert }) => {
 
           <img onClick={
             () => {
-              setShownotify(true);
-            }
+    setShownotify(true);
+  }
 
           } src={notification} alt="" />
+          {/* <div class="relative inline-block">
+
+<img onClick={()=>{
+  setShownotify(!shownotify);
+}}  src={notification} alt="Notification" className="h-7 w-7" />
+
+
+<div class="absolute top-0 right-0 bg-red-500 text-white text-xs font-bold rounded-full w-4 h-5 flex items-center justify-center">
+  {allNotication?.length} 
+</div>
+</div> */}
 
           {/* navitem  */}
           <div className="relative cursor-pointer" onClick={updateUser}>

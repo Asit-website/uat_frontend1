@@ -18,7 +18,7 @@ import ClientSideBar from "../../Client/ClientSideBar";
 
 
 const ProjectOverview = ({ setAlert, pop, setPop }) => {
-  const { user, getProjectTask, getClientapi, UploadFileProjectapi, allfilesproject, fetchAllTimesheetapi } =
+  const { user, getProjectTask, getClientapi, UploadFileProjectapi, allfilesproject, fetchAllTimesheetapi, editProjectapi } =
     useMain();
 
   const [allTasks, setAllTasks] = useState([]);
@@ -26,7 +26,19 @@ const ProjectOverview = ({ setAlert, pop, setPop }) => {
   const location = useLocation();
 
   const data = location?.state;
-  // // console.log(data)
+  // console.log(data.projectName)
+
+  const sendData =  {
+    projectName: data.projectName,
+    Description: data.Description,
+    Status: "Finished",
+    deadline: data.deadline,
+    startDate: data.startDate,
+    Members: data.Members,
+    projectId: data._id,
+    projectOwner: data.projectOwner,
+    client: data.client
+  }
 
   const [percentage, setPercentage] = useState(0);
 
@@ -64,24 +76,48 @@ const ProjectOverview = ({ setAlert, pop, setPop }) => {
   }
 
   useEffect(() => {
+    if (!data) {
+      console.log("Data not available from location state");
+      return;
+    }
+  
     const totalTasks = allTasks?.length;
-    const completedTasks = allTasks?.filter(
-      (task) => task.Status === "Completed"
-    ).length;
-
-    const openTaskse = allTasks?.filter(
-      (task) => task.Status !== "Completed"
-    ).length;
-
-    setOpenTask(openTaskse);
-
+    const completedTasks = allTasks?.filter((task) => task.Status === "Completed").length;
+    const openTasks = allTasks?.filter((task) => task.Status !== "Completed").length;
+  
+    setOpenTask(openTasks);
+  
     const completedPercentage = (completedTasks / totalTasks) * 100;
-    const opentaskper = ((openTaskse / totalTasks) * 100).toFixed(0);
-
+    const openTaskPercentage = ((openTasks / totalTasks) * 100).toFixed(0);
+    const projectData = {
+      projectName: data.projectName,
+      Description: data.Description,
+      Status: "Finished",
+      deadline: data.deadline,
+      startDate: data.startDate,
+      Members: data.Members,
+      projectId: data._id,
+      projectOwner: data.projectOwner,
+      client: data.client,
+    };
+    if (completedPercentage === 100 && data.Status !== "Finished") {
+     
+      console.log("Project Data to Update: ", projectData);
+      editProjectapi(projectData);
+      
+    }
+    else {
+      editProjectapi({
+        ...projectData, 
+        Status: "Ongoing"
+      });
+    }
+  
     setPercentage(completedPercentage);
-    setOpenTaskper(opentaskper);
+    setOpenTaskper(openTaskPercentage);
     gettAllClients();
-  }, [allTasks]);
+  }, [allTasks, data]);
+  
 
   useEffect(() => {
     const today = new Date();
@@ -261,8 +297,8 @@ const ProjectOverview = ({ setAlert, pop, setPop }) => {
               <div className="tclwrap2" style={{ marginTop: "40px" }}>
                 <div className="projectOverView">
                   <nav>
-                    <div className="pronaheading">
-                      <h2>OVERVIEW {data?.projectName}</h2>
+                  <div className="pronaheading">
+                      <h2 className="font-semibold text-xl">{data?.projectName}</h2>
                     </div>
                   </nav>
 
@@ -370,11 +406,12 @@ const ProjectOverview = ({ setAlert, pop, setPop }) => {
                               </a>
                             </p>
                             <p className="text-gray-600">
-                              <strong>Uploaded by:</strong> {file?.uploadedBy?.fullName}
+                              <strong>Uploaded by:</strong> {file?.uploadedBy?.fullName || "Client"}
                             </p>
                             <p className="text-gray-600">
                               <strong>Uploaded On:</strong> {new Date(file?.createdAt).toLocaleDateString()}
                             </p>
+
                           </div>
 
                           {/* Image or file preview */}

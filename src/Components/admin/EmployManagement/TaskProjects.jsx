@@ -31,6 +31,7 @@ const TaskProjects = ({ setAlert, pop, setPop }) => {
     createProjectapi,
     deleteTaskProject,
     getClientapi,
+    postNotifyProject
   } = useMain();
 
   let hrms_user = JSON.parse(localStorage.getItem("hrms_user")) || '';
@@ -127,6 +128,15 @@ const TaskProjects = ({ setAlert, pop, setPop }) => {
       if (ans?.status) {
         toast.success("Successfuly updated");
         getAllProject();
+        const result = formdata.Members.map(userId => {
+          const user = allEmp.find(e => e._id === userId);
+          return user ? user.fullName : null;
+        }).filter(fullName => fullName !== null);
+        
+        console.log(result);
+        result.forEach((e)=>
+          postNotifyProject(e, formdata.Name)
+      )
         setFormdata({
           Name: "",
           Description: "",
@@ -162,6 +172,15 @@ const TaskProjects = ({ setAlert, pop, setPop }) => {
       if (ans?.status) {
         toast.success("Successfuly created");
         getAllProject();
+        const result = formdata.Members.map(userId => {
+          const user = allEmp.find(e => e._id === userId);
+          return user ? user.fullName : null;
+        }).filter(fullName => fullName !== null);
+        
+        console.log(result);
+        result.forEach((e)=>
+          postNotifyProject(e, formdata.Name)
+      )
         setFormdata({
           Name: "",
           Description: "",

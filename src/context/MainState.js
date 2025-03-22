@@ -1020,6 +1020,16 @@ const MainState = (props) => {
 
    }
 
+   const postNotifyProject = async(name,title,date)=>{
+      const data = await post(`${baseUrl}/notification/createNotification`, { title: `You have been added to ${title} !`, description: `${title} are ${date} `, users: [`${name}`] }, true);
+return data
+   }
+
+   const postNotifyTask = async(name,title,date)=>{
+      const data = await post(`${baseUrl}/notification/createNotification`, { title: `New Task Assigned: ${title} !`, description: `Deadline for ${title} ${date} `, users: [`${name}`] }, true);
+return data
+   }
+
 
    const fetchUserNotify = async () => {
       let user = JSON.parse(localStorage.getItem("hrms_user"));
@@ -2548,7 +2558,7 @@ const MainState = (props) => {
          updateQuotation1,
          deleteQuotation1,
          uploadSingleImage,
-         getAllProjectUserApi,
+         getAllProjectUserApi,postNotifyProject,postNotifyTask,
          savenoteatt, AllRolesapi, FetchMyLeave, closeLead, deleteQproapi, createExpenseApi, changeStatusBreak, deleteProjectTaskapi22, EditProjectTask, postHalfDay, closeLeadApiFetch2, closeLeadApiFetch, postNotification2, getUserHalfDay, rejectHalfDay, acceptHalf, acceptassetsapi, getTodayLead, getTodayLead2, getSaveTempalte, statuschangeapi, UploadFileProjectapi, allfilesproject, fetchAllTimesheetapi, getClientProject
       }}>
          {props.children}

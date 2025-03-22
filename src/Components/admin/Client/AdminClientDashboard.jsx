@@ -88,8 +88,9 @@ const AdminClientDashboard = () => {
     };
 
     const editHandler = async (e) => {
-        e.preventDefault();
+        e.preventDefault({ ...formdata, projectId: isEdit });
         const toastId = toast.loading("Loading...");
+        console.log("here is data" ,{ ...formdata, projectId: isEdit } )
         try {
             const ans = await editProjectapi({ ...formdata, projectId: isEdit });
             if (ans?.status) {
@@ -288,7 +289,6 @@ const AdminClientDashboard = () => {
                                                 <td>{project.deadline}</td>
                                                 <td className="flex">
                                                     {project?.Members?.map((member,index) => {
-                                                        console.log(member)
                                                         return <>
                                                         <img
                                                         src={`${member?.profileImage

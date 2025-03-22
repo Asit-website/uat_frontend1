@@ -22,7 +22,7 @@ const ProjectOverview2 = ({ allTasks, getProjectTaskapi }) => {
     CreateProjectTask,
     getProjectTask,
     deleteProjectTaskapi22,
-    EditProjectTask,
+    EditProjectTask,postNotifyTask
   } = useMain();
 
   const location = useLocation();
@@ -109,6 +109,8 @@ const ProjectOverview2 = ({ allTasks, getProjectTaskapi }) => {
   const submitHandler = async (e) => {
     e.preventDefault();
     const toastId = toast.loading("Loading....");
+    alert(`${formdata?.StartDate}-${formdata?.DueDate}}`)
+    alert()
     try {
       const ans = await CreateProjectTask({
         ...formdata,
@@ -116,7 +118,15 @@ const ProjectOverview2 = ({ allTasks, getProjectTaskapi }) => {
       });
       if (ans?.status) {
         toast.success("Successfully created task");
-        getProjectTaskapi();
+        getProjectTaskapi();const result = formdata.Members.map(userId => {
+          const user = allEmp.find(e => e._id === userId);
+          return user ? user.fullName : null;
+        }).filter(fullName => fullName !== null);
+        
+        console.log(result);
+        result.forEach((e)=>
+          postNotifyTask(e, formdata.Title,`${formdata?.DueDate}`)
+      )
         setFormdata({
           Title: "",
           Description: "",
@@ -151,6 +161,15 @@ const ProjectOverview2 = ({ allTasks, getProjectTaskapi }) => {
       if (ans?.status) {
         toast.success("Successfully updated task");
         getProjectTaskapi();
+        getProjectTaskapi();const result = formdata.Members.map(userId => {
+          const user = allEmp.find(e => e._id === userId);
+          return user ? user.fullName : null;
+        }).filter(fullName => fullName !== null);
+        
+        console.log(result);
+        result.forEach((e)=>
+          postNotifyTask(e, formdata.Title,`${formdata?.DueDate}`)
+      )        
         setFormdata({
           Title: "",
           Description: "",

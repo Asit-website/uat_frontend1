@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import "react-calendar/dist/Calendar.css";
 import toast from "react-hot-toast";
 import { FaEye } from "react-icons/fa";
@@ -412,12 +412,13 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
     toast.dismiss(toastId);
   };
 
-  const [selectedFiles, setSelectedFiles] = useState([]);
+  const [selectedFile, setSelectedFile] = useState(null);
   const [allfiles, setAllFiles] = useState([]);
+  const fileInputRef = useRef(null);
   const handleFileChange = (event) => {
     const toastId = toast.loading("Loading...");
-    const files = Array.from(event.target.files); // Get all files
-    setSelectedFiles(files); // Set files array to the state
+    const files = event.target.files; // Get all selected files
+    setSelectedFile(files); // Store the files in state
     toast.dismiss(toastId);
   };
   const fetchAllFile = async () => {
@@ -426,30 +427,22 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
   };
 
   const uploadFileProject = async () => {
-    if (selectedFiles.length > 0) {
-      const toastId = toast.loading("Loading...");
+    if (selectedFile && selectedFile.length > 0) {
+      const toastId = toast.loading("Uploading...");
 
-      try {
-        await Promise.all(
-          selectedFiles.map(async (file) => {
-            const resp = await UploadFileProjectapi(file, data?._id);
-          })
-        );
-
-        toast.success("Successfully uploaded");
-        fetchAllFile();
-        setSelectedFiles([]);
-      } catch (error) {
-        toast.error("Failed to upload files");
-      } finally {
-        toast.dismiss(toastId);
-        setSelectedFiles([]);
+      // Loop through the selected files and upload each one
+      for (let i = 0; i < selectedFile.length; i++) {
+        const file = selectedFile[i];
+        await UploadFileProjectapi(file, data?._id);
       }
-    } else {
-      toast.error("No files selected");
+      if (fileInputRef.current) {
+        fileInputRef.current.value = "";
+      }
+      toast.success("Successfully uploaded");
+      toast.dismiss(toastId);
+      fetchAllFile();
     }
   };
-
   const getTask = (id) => {
     setViewTask(true)
     const filter = allTasks?.find(e => e._id === id)
@@ -766,23 +759,23 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
                 <div className="p-6 bg-gray-50 rounded-lg shadow-md mt-10">
                   {/* Upload File Section */}
                   <div className="bg-white p-6 rounded-lg shadow-md mb-8">
-                    <h4 className="text-xl font-semibold text-gray-800 mb-4">
-                      Upload File or Folder
-                    </h4>
-                    <input
-                      type="file"
-                      webkitdirectory="true"
-                      directory="true"
-                      onChange={handleFileChange}
-                      className="border border-gray-300 rounded-md p-2 mb-4 w-full"
-                    />
-                    <button
-                      onClick={uploadFileProject}
-                      className="w-full bg-blue-600 text-white p-3 rounded-md hover:bg-blue-700 transition duration-300"
-                    >
-                      Upload
-                    </button>
-                  </div>
+                  <h4 className="text-xl font-semibold text-gray-800 mb-4">Upload File or Folder</h4>
+                  <input
+                    type="file"
+                    webkitdirectory
+                    directory="true"
+                    multiple
+                    onChange={handleFileChange}
+                    ref={fileInputRef}
+                    className="border border-gray-300 rounded-md p-2 mb-4 w-full"
+                  />
+                  <button
+                    onClick={uploadFileProject}
+                    className="w-full bg-blue-600 text-white p-3 rounded-md hover:bg-blue-700 transition duration-300"
+                  >
+                    Upload
+                  </button>
+                </div>
 
                   {/* All Files Section */}
                   <div>
@@ -807,7 +800,7 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
                                 </a>
                               </p>
                               <p className="text-gray-600">
-                                <strong>Uploaded by:</strong> {file?.uploadedBy?.fullName}
+                                <strong>Uploaded by:</strong> {file?.uploadedBy?.fullName||"Client"}
                               </p>
             </div>
 

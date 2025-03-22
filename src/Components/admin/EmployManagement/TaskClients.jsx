@@ -510,7 +510,7 @@ const TaskClients = ({ setAlert, pop, setPop }) => {
 
               <div className="btnsss">
                 <button type="submit" className="saveclient">
-                  <span>Save Client</span>
+                <span>{isEdit ? 'Update' : 'Save Client'}</span>
                 </button>
                 <button
                   onClick={() => {

@@ -26,7 +26,8 @@ import analytics from "../../images/analytics.svg";
 import readliness from "../../images/readlines.svg";
 import permissionSvg from "../../images/permission.svg";
 import item from "../../images/item.png";
-
+import clients from "../../images/clientsIcon.svg"
+import projects from "../../images/projects.svg"
 
 const trainingItems = [
   {
@@ -617,18 +618,20 @@ setOpenPerform(false)
                       {payrollItem == index ? (
                         <img
                           src={`${window.location.pathname === `${item?.link}`
-                              ? fiber
-                              : tyming
+                              ? clients
+                              : clients
                             }`}
                           alt=""
+                          className="w-6"
                         />
                       ) : (
                         <img
                           src={`${window.location.pathname === `${item?.link}`
-                              ? fiber
-                              : tyming
+                              ? projects
+                              : projects
                             }`}
                           alt=""
+                          className="w-5"
                         />
                       )}
                       <p

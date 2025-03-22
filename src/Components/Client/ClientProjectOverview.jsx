@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import ClientNavbar from "./ClientNavbar";
 import ClientSideBar from "./ClientSideBar";
 // ClientSideBar
@@ -15,48 +15,48 @@ const ClientProjectOverview = () => {
   const { getProjectTask, UploadFileProjectapi, allfilesproject } = useMain();
   const location = useLocation();
   const data = location?.state;
+  console.log(data)
   const projectOpt = ["Overview", "Task", "Files"];
   const [optIndex, setOptIndex] = useState(0);
   const [percentage, setPercentage] = useState(0);
-  const [selectedFiles, setSelectedFiles] = useState([]);
-  const [allfiles, setAllFiles] = useState([]);
   const [openTask, setOpenTask] = useState(0);
   const [OpenTaskper, setOpenTaskper] = useState(0);
-  const handleFileChange = (event) => {
-    const toastId = toast.loading("Loading...");
-    const files = Array.from(event.target.files); // Get all files
-    setSelectedFiles(files); // Set files array to the state
-    toast.dismiss(toastId);
-  };
-  const fetchAllFile = async () => {
-    const resp = await allfilesproject(data?._id);
-    setAllFiles(resp?.files);
-  };
 
-  const uploadFileProject = async () => {
-    if (selectedFiles.length > 0) {
+  
+  const [selectedFile, setSelectedFile] = useState(null);
+    const [allfiles, setAllFiles] = useState([]);
+    const fileInputRef = useRef(null);
+  
+  
+    const fetchAllFile = async () => {
+      const resp = await allfilesproject(data?._id);
+      setAllFiles(resp?.files?.reverse());
+    };
+  
+    const handleFileChange = (event) => {
       const toastId = toast.loading("Loading...");
-
-      try {
-        await Promise.all(
-          selectedFiles.map(async (file) => {
-            const resp = await UploadFileProjectapi(file, data?._id);
-          })
-        );
-
+      const files = event.target.files; // Get all selected files
+      setSelectedFile(files); // Store the files in state
+      toast.dismiss(toastId);
+    };
+  
+    const uploadFileProject = async () => {
+      if (selectedFile && selectedFile.length > 0) {
+        const toastId = toast.loading("Uploading...");
+  
+        // Loop through the selected files and upload each one
+        for (let i = 0; i < selectedFile.length; i++) {
+          const file = selectedFile[i];
+          await UploadFileProjectapi(file, data?._id);
+        }
+        if (fileInputRef.current) {
+          fileInputRef.current.value = "";
+        }
         toast.success("Successfully uploaded");
-        fetchAllFile();
-        setSelectedFiles([]);
-      } catch (error) {
-        toast.error("Failed to upload files");
-      } finally {
         toast.dismiss(toastId);
-        setSelectedFiles([]);
+        fetchAllFile();
       }
-    } else {
-      toast.error("No files selected");
-    }
-  };
+    };
 
   const [allTasks, setAllTasks] = useState([]);
   const getProjectTaskapi = async () => {
@@ -88,7 +88,7 @@ const ClientProjectOverview = () => {
     setOpenTaskper(opentaskper);
     // gettAllClients();
   }, [allTasks]);
-  useEffect(() => { }, [selectedFiles])
+  useEffect(() => { }, [selectedFile])
 
   return (
     <>
@@ -210,9 +210,10 @@ const ClientProjectOverview = () => {
                   <input
                     type="file"
                     webkitdirectory
-                    multiple
                     directory="true"
+                    multiple
                     onChange={handleFileChange}
+                    ref={fileInputRef}
                     className="border border-gray-300 rounded-md p-2 mb-4 w-full"
                   />
                   <button
@@ -244,7 +245,7 @@ const ClientProjectOverview = () => {
                               </a>
                             </p>
                             <p className="text-gray-600">
-                              <strong>Uploaded by:</strong> {file?.uploadedBy?.fullName}
+                              <strong>Uploaded by:</strong> {file?.uploadedBy?.fullName || JSON.parse(localStorage.getItem("hrms_user")).Name}
                             </p>
                           </div>
 
