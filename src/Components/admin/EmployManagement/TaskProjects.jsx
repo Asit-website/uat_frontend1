@@ -132,8 +132,6 @@ const TaskProjects = ({ setAlert, pop, setPop }) => {
           const user = allEmp.find(e => e._id === userId);
           return user ? user.fullName : null;
         }).filter(fullName => fullName !== null);
-        
-        console.log(result);
         result.forEach((e)=>
           postNotifyProject(e, formdata.Name)
       )
@@ -348,6 +346,7 @@ const TaskProjects = ({ setAlert, pop, setPop }) => {
                                 })
                               }
                               style={{ margin: 0, cursor: "pointer" }}
+                              className="underline text-blue-600"
                             >
                               View
                             </p>
@@ -357,6 +356,7 @@ const TaskProjects = ({ setAlert, pop, setPop }) => {
                                 handleEditClick(client);
                               }}
                               style={{ margin: 0, cursor: "pointer" }}
+                              className="underline text-blue-600"
                             >
                               Edit
                             </p>
@@ -364,6 +364,7 @@ const TaskProjects = ({ setAlert, pop, setPop }) => {
                             <p
                               onClick={() => deleteApi(client?._id)}
                               style={{ margin: 0, cursor: "pointer" }}
+                              className="underline text-blue-600"
                             >
                               Delete
                             </p>

@@ -109,8 +109,6 @@ const ProjectOverview2 = ({ allTasks, getProjectTaskapi }) => {
   const submitHandler = async (e) => {
     e.preventDefault();
     const toastId = toast.loading("Loading....");
-    alert(`${formdata?.StartDate}-${formdata?.DueDate}}`)
-    alert()
     try {
       const ans = await CreateProjectTask({
         ...formdata,
@@ -500,8 +498,7 @@ const ProjectOverview2 = ({ allTasks, getProjectTaskapi }) => {
                   <select
                     name="Members"
                     onChange={changeHandler2}
-                    disabled={formdata?.Members?.length >= allEmp?.length} // Disable if all members are assigned
-                  >
+                    disabled={formdata?.Members?.length >= allEmp?.length}  >
                     <option value="Select">Select Employee</option>
                     {allEmp?.map((emp, index) => {
                       // Check if emp._id is already in formdata?.Members

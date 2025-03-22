@@ -64,13 +64,10 @@ const ProjectOverview = ({ setAlert, pop, setPop }) => {
   const gettAllClients = async () => {
     try {
       const ans = await getClientapi();
-      // console.log("ans", ans);
       if (ans?.status) {
         setAllClients(ans?.data);
-        // // console.log(allClient)
       }
     } catch (error) {
-      // console.log(error);
       toast.error("sometinng went wrong ,please try agin");
     }
   }
@@ -105,12 +102,6 @@ const ProjectOverview = ({ setAlert, pop, setPop }) => {
       console.log("Project Data to Update: ", projectData);
       editProjectapi(projectData);
       
-    }
-    else {
-      editProjectapi({
-        ...projectData, 
-        Status: "Ongoing"
-      });
     }
   
     setPercentage(completedPercentage);
@@ -158,6 +149,7 @@ const ProjectOverview = ({ setAlert, pop, setPop }) => {
   };
 
   const uploadFileProject = async () => {
+    if(selectedFile === null) return toast.error('Please Choose a file !!')
     if (selectedFile && selectedFile.length > 0) {
       const toastId = toast.loading("Uploading...");
 

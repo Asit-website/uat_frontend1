@@ -227,7 +227,7 @@ const ClientProjectOverview = () => {
                 <div>
                   <h4 className="text-xl font-semibold text-gray-800 mb-4">All Files</h4>
                   <div className="space-y-6">
-                    {allfiles?.map((file, index) => (
+                    {allfiles?.reverse()?.map((file, index) => (
                       <div key={index} className="p-4 bg-white rounded-lg shadow-md">
                         <div className="flex justify-between items-center">
                           <div>

@@ -116,6 +116,7 @@ const ClientDashboard = () => {
                                                             onClick={() => navigate("/client/task", {
                                                                 state: project,
                                                             })}
+                                                            className="underline text-blue-600"
                                                         >
                                                             View
                                                         </p>

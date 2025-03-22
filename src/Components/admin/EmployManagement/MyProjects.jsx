@@ -116,6 +116,7 @@ const MyProjects = ({ setAlert, pop, setPop }) => {
                                   })
                                 }
                                 style={{ margin: 0, cursor: "pointer" }}
+                                className="underline text-blue-600"
                               >
                                 View
                               </p>

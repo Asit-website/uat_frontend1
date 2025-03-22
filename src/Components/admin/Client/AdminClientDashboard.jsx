@@ -14,7 +14,7 @@ const AdminClientDashboard = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const data = location?.state;
-    let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
+    let hrms_user = JSON.parse(localStorage.getItem("hrms_user")); 
     const role = hrms_user?.role;
 
     const [formdata, setFormdata] = useState({
@@ -48,20 +48,25 @@ const AdminClientDashboard = () => {
 
     const changeHandler2 = (e) => {
         const selectedEmpId = e.target.value;
-        if (selectedEmpId === "Select" || formdata.Members.includes(selectedEmpId))
-            return;
-
+        if (selectedEmpId === "Select") return;
+    
         const selectedEmp = allEmp.find((emp) => emp._id === selectedEmpId);
-        setProUser([...proUser, selectedEmp.fullName]);
-        setFormdata({ ...formdata, Members: [...formdata.Members, selectedEmpId] });
-    };
+        if (!selectedEmp || proUser.includes(selectedEmp.fullName)) return;
+      
+        setProUser((prev) => [...prev, selectedEmp.fullName]);
+        setFormdata((prev) => ({
+          ...prev,
+          Members: [...prev.Members, selectedEmpId],
+        }));
+      };
+    
 
-    const removeUser = (index) => {
+      const removeUser = (index) => {
         const newProUser = proUser.filter((_, i) => i !== index);
         const newMembers = formdata.Members.filter((_, i) => i !== index);
         setProUser(newProUser);
         setFormdata({ ...formdata, Members: newMembers });
-    };
+      };
 
 
     const getAllProject = async (clientId) => {
@@ -155,21 +160,22 @@ const AdminClientDashboard = () => {
         toast.dismiss(toastId);
     };
 
+
     const handleEditClick = (client) => {
         const membersNames = client.Members.map((memberId) => {
-            const member = allEmp.find((emp) => emp._id === memberId?._id);
-            return member ? member.fullName : "";
+          const member = allEmp.find((emp) => emp._id === memberId?._id);
+          return member ? member.fullName : "";
         });
-
+    
         setIsEdit(client._id);
         setFormdata({
-            Name: client?.projectName,
-            DueDate: client.deadline,
-            ...client,
+          Name: client?.projectName,
+          DueDate: client.deadline,
+          ...client,
         });
         setProUser(membersNames);
         setAddClientPop(true);
-    };
+      };
 
     const fetchemp = async () => {
         const ans = await allEmployee();
@@ -265,6 +271,7 @@ const AdminClientDashboard = () => {
                                                             onClick={() =>  navigate(role==="EMPLOYEE"?"/employeeDash/HRM/projectOverview":"/adminDash/HRM/projectOverview", {
                                                                 state: project,
                                                             })}
+                                                            className="underline text-blue-600"
                                                         >
                                                             View
                                                         </p><span>|</span>
@@ -273,6 +280,7 @@ const AdminClientDashboard = () => {
                                                                 handleEditClick(project);
                                                             }}
                                                             style={{ margin: 0, cursor: "pointer" }}
+                                                            className="underline text-blue-600"
                                                         >
                                                             Edit
                                                         </p>
@@ -280,6 +288,7 @@ const AdminClientDashboard = () => {
                                                         <p
                                                             onClick={() => deleteApi(project?._id)}
                                                             style={{ margin: 0, cursor: "pointer" }}
+                                                            className="underline text-blue-600"
                                                         >
                                                             Delete
                                                         </p>
@@ -357,33 +366,35 @@ const AdminClientDashboard = () => {
                                 </label>
 
                                 <label>
-                                    <p>Employee </p>
-                                    <div className="allempid">
-                                        {proUser.map((pro, index) => (
-                                            <div key={index} className="sinproid">
-                                                <p>{pro}</p>
-                                                <img
-                                                    src={cut}
-                                                    alt="Remove"
-                                                    onClick={() => removeUser(index)}
-                                                />
-                                            </div>
-                                        ))}
-                                    </div>
+                  <p>Employee </p>
 
-                                    <select
-                                        name="Members"
-                                        value={formdata.Members}
-                                        onChange={changeHandler2}
-                                    >
-                                        <option value="Select">Select Employee</option>
-                                        {allEmp?.map((emp, index) => (
-                                            <option value={emp?._id} key={index}>
-                                                {emp?.fullName}
-                                            </option>
-                                        ))}
-                                    </select>
-                                </label>
+                  <div className="allempid">
+                    {proUser.map((pro, index) => (
+                      <div key={index} className="sinproid">
+                        <p>{pro}</p>
+                        <img
+                          src={cut}
+                          alt="Remove"
+                          onClick={() => removeUser(index)}
+                        />
+                      </div>
+                    ))}
+                  </div>
+
+                  <select
+                    name="Members"
+                    value=''
+                    onChange={changeHandler2}
+                  >
+                    <option value="Select">Select Employee</option>
+                    {allEmp?.map((emp, index) => (
+                      <option value={emp?._id} key={index}
+                      disabled={proUser.includes(emp.fullName)}>
+                        {emp?.fullName} {formdata.Members.includes(emp._id) ? "(Selected)" : ""}
+                      </option>
+                    ))}
+                  </select>
+                </label>
 
                                 <label>
                                     <p>Status </p>
