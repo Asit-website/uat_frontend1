@@ -54,14 +54,47 @@ const TaskClients = ({ setAlert, pop, setPop }) => {
     fileInputRef.current.click();
   };
 
+  const [errors, setErrors] = useState({});
+
   const changeHandler = (e) => {
     const { name, value } = e.target;
-
+  
+    // Clone existing errors
+    let newErrors = { ...errors };
+  
+    // Email validation
+    if (name === "Email") {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.(com|in|yahoo\.com)$/;  // Fixed yahoo domain
+      if (!emailRegex.test(value)) {
+        newErrors.Email = "Invalid email format. Allowed: .com, .in, yahoo.com";
+      } else {
+        delete newErrors.Email;
+      }
+    }
+  
+    // Phone number validation (only digits, max 10)
+    if (name === "PhoneNumber") {
+      if (!/^\d*$/.test(value)) return;  // Prevents non-numeric input
+      
+      if (value.length > 10) return;  // Restricts input length to 10 digits
+      
+      if (value.length === 10) {
+        delete newErrors.PhoneNumber;  // Valid 10-digit number
+      } else {
+        newErrors.PhoneNumber = "Phone number must be exactly 10 digits.";
+      }
+    }
+  
+    // Update form data
     setFormdata((prev) => ({
       ...prev,
       [name]: value,
     }));
+  
+    // Update errors state
+    setErrors(newErrors);
   };
+  
 
   const [allClient, setAllClient] = useState([]);
   const [isEdit, setIsEdit] = useState(false);
@@ -424,7 +457,7 @@ const TaskClients = ({ setAlert, pop, setPop }) => {
                     placeholder="Email"
                   />
                 </label>
-
+                {errors.Email && <span className="text-[10px] text-red-500 -mt-5">{errors.Email}</span>}
                 <label>
                   <p>Password</p>
                   <input
@@ -485,15 +518,21 @@ const TaskClients = ({ setAlert, pop, setPop }) => {
                 </div>
 
                 <label>
-                  <p>Phone Number</p>
-                  <input
-                    type="text"
-                    name="PhoneNumber"
-                    value={formdata.PhoneNumber}
-                    onChange={changeHandler}
-                    placeholder="Phone Number"
-                  />
-                </label>
+  <p>Phone Number</p>
+  <input
+    type="number"
+    name="PhoneNumber"
+    value={formdata.PhoneNumber}
+    onChange={changeHandler}
+    placeholder="Phone Number"
+    maxLength="10"
+    className=""
+    required
+  />
+</label>
+
+
+                {errors.PhoneNumber && <span className="text-[10px] text-red-500 -mt-5 font-semibold">{errors.PhoneNumber}</span>}
 
                 <label>
                   <p>Address</p>

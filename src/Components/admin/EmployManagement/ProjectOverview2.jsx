@@ -22,12 +22,14 @@ const ProjectOverview2 = ({ allTasks, getProjectTaskapi }) => {
     CreateProjectTask,
     getProjectTask,
     deleteProjectTaskapi22,
-    EditProjectTask,postNotifyTask
+    EditProjectTask,postNotifyTask, fetchAllTimesheetapi
   } = useMain();
 
   const location = useLocation();
   const data = location?.state;
-
+    const [altimesheet, setTimesheet] = useState([]);
+  
+// console.log(data)
   // console.log("alltask", allTasks);
 
   let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
@@ -61,6 +63,7 @@ const ProjectOverview2 = ({ allTasks, getProjectTaskapi }) => {
         taskfile: filter.taskfile,
       });
     }
+    filterByTaskId(id)
   }
 
   const changeHandler = (e) => {
@@ -73,23 +76,87 @@ const ProjectOverview2 = ({ allTasks, getProjectTaskapi }) => {
 
   const changeHandler2 = (e) => {
     const selectedEmpId = e.target.value;
+  
+    // If "Select" is chosen or selectedEmpId is invalid, return
     if (selectedEmpId === "Select") return;
+  
+    // Find the selected employee using the ID
     const selectedEmp = allEmp?.find((emp) => emp?._id === selectedEmpId);
+  
+    // If no employee is found or the employee is already in proUser, return
     if (!selectedEmp || proUser?.includes(selectedEmp?.fullName)) return;
-    setProUser((prev) => [...prev, selectedEmp?.fullName]);
-    setFormdata((prev) => ({
-      ...prev,
-      Members: Array.isArray(prev?.Members) ? [...prev.Members, selectedEmpId] : [selectedEmpId],
-    }));
+  
+    // Update the proUser state by adding the selected employee's fullName
+    setProUser((prev) => {
+      const updatedProUser = [...prev, selectedEmp?.fullName];
+  
+      // Update the Members array with the selected employee's ID and existing IDs from alreadyUsers
+      const alreadyUsers = allEmp.filter((emp) => updatedProUser.includes(emp?.fullName));
+  
+      setFormdata((prevData) => {
+        // Ensure Members is an array
+        const prevMembers = Array.isArray(prevData?.Members) ? prevData?.Members : [];
+  
+        // Update the Members array with selectedEmpId and alreadyUsers _id
+        const newMembers = [
+          ...prevMembers,
+          selectedEmpId,
+          ...alreadyUsers.map((user) => user._id),
+        ];
+  
+        return {
+          ...prevData,
+          Members: Array.from(new Set(newMembers)), // Remove duplicates by converting to a Set and back to an array
+        };
+      });
+  
+      return updatedProUser;
+    });
   };
   
+  
+  
+
+  // const removeUser = (index) => {
+  //   // Remove the user from the proUser list using the provided index
+  //   const newProUser = proUser?.filter((_, i) => i !== index);
+  
+  //   // Get the remaining employees whose fullName is in the newProUser list
+  //   const alreadyUsers = allEmp.filter((emp) => newProUser.includes(emp?.fullName));
+  
+  //   // Ensure Members is an array, even if it's undefined or not an array
+  //   const newMembers = Array.isArray(formdata?.Members)
+  //     ? formdata?.Members.filter((_, i) => i !== index)
+  //     : [];
+  
+  //   // Log the newProUser and newMembers for debugging
+  //   // console.log(newProUser, newMembers);
+  
+  //   // Update the proUser state and Members array
+  //   setProUser(newProUser);
+  //   setFormdata({
+  //     ...formdata,
+  //     Members: [
+  //       ...newMembers, // Keep the remaining Members
+  //       ...alreadyUsers.map((user) => user._id), // Add the _id of the remaining users
+  //     ],
+  //   });
+  // };
 
   const removeUser = (index) => {
     const newProUser = proUser?.filter((_, i) => i !== index);
     const newMembers = formdata?.Members?.filter((_, i) => i !== index);
+    console.log(newMembers)
     setProUser(newProUser);
-    setFormdata({ ...formdata, Members: newMembers });
+    console.log(newProUser)
+  const alreadyUsers = allEmp.filter((emp) => newProUser.includes(emp?.fullName));
+    setFormdata({ ...formdata, Members: alreadyUsers.map((user) => user._id) });
   };
+  
+  
+  
+  
+  
 
   const [addClientPop, setAddClientPop] = useState(false);
   const [allEmp, setAllEmp] = useState([]);
@@ -121,7 +188,7 @@ const ProjectOverview2 = ({ allTasks, getProjectTaskapi }) => {
           return user ? user.fullName : null;
         }).filter(fullName => fullName !== null);
         
-        console.log(result);
+        // console.log(result);
         result.forEach((e)=>
           postNotifyTask(e, formdata.Title,`${formdata?.DueDate}`)
       )
@@ -164,7 +231,7 @@ const ProjectOverview2 = ({ allTasks, getProjectTaskapi }) => {
           return user ? user.fullName : null;
         }).filter(fullName => fullName !== null);
         
-        console.log(result);
+        // console.log(result);
         result.forEach((e)=>
           postNotifyTask(e, formdata.Title,`${formdata?.DueDate}`)
       )        
@@ -257,7 +324,25 @@ const ProjectOverview2 = ({ allTasks, getProjectTaskapi }) => {
     }));
   };
 
+  const fetchAllTimesheet = async () => {
+    const resp = await fetchAllTimesheetapi(data?._id);
+    // console.log("res", resp);
+    setTimesheet(resp?.taskTimelines);
 
+  }
+
+useEffect(()=>{
+  fetchAllTimesheet()
+},[])
+
+const [filterTimelines,setFilterTimelines]=useState()
+
+const filterByTaskId = (taskId) => {
+  setFilterTimelines(altimesheet.filter(item => item.taskId._id === taskId))
+  return altimesheet.filter(item => item.taskId._id === taskId);
+};
+// console.log(filterByTaskId("67e03be5b424002f7d3884bc"))
+// console.log(altimesheet)
   return (
     <>
       <div className="">
@@ -639,7 +724,7 @@ const ProjectOverview2 = ({ allTasks, getProjectTaskapi }) => {
       {viewTask && (<>
         <div className="addCliWrap">
           <div className="addClieCont addheight flex">
-            <ViewTask src={cut} data={formdata} onClick={() => setViewTask(false)} />
+            <ViewTask src={cut} data={formdata} timesheets={filterTimelines} onClick={() => setViewTask(false)} />
           </div>
         </div>
       </>)}

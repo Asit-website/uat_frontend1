@@ -2,7 +2,7 @@ import { useEffect, useState, useRef } from "react";
 import "react-calendar/dist/Calendar.css";
 import toast from "react-hot-toast";
 import { FaEye } from "react-icons/fa";
-import { IoMdTimer } from "react-icons/io";
+import { BsStopwatch  } from "react-icons/bs";
 import { MdDelete, MdOutlineEdit } from "react-icons/md";
 import "react-profile-avatar/dist/index.css";
 import { NavLink, useLocation } from "react-router-dom";
@@ -174,19 +174,23 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
   const [mount, setMount] = useState(false);
 
   const [timerPop, setTimerPop] = useState(false);
+  const [timerNote, setTimerNote] = useState();
 
-  const [timerData, setTimerData] = useState({
-    taskId: "",
-    Note: "",
-  });
 
-  const timerChange = (e) => {
-    const { name, value } = e.target;
-    setTimerData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
+  // const [timerData, setTimerData] = useState({
+  //   taskId: "",
+  //   Note: "",
+  // });
+
+  // const timerChange = (e) => {
+  //   const { name, value } = e.target;
+  //   setTimerData((prev) => ({
+  //     ...prev,
+  //     [name]: value,
+  //   }));
+  // };
+
+  const active = JSON.parse(localStorage.getItem("task"))
 
   const closeTimer = async () => {
     clearInterval(tc3);
@@ -199,8 +203,13 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
     localStorage.removeItem("timeIn");
   };
 
-  const clockIn = async () => {
+  const clockIn = async (task) => {
     let t = localStorage.getItem("taskTimer");
+    if(active && active?._id !== task?._id){
+      console.log("Stop the first timer before starting the new timer.");
+      toast("Stop the first timer before starting the new timer.")
+      return
+    }
 
     if (!t) {
       localStorage.setItem(
@@ -212,6 +221,11 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
           hour12: true,
         })
       );
+      localStorage.setItem("task", JSON.stringify(task));
+      console.log(task)
+      if(task?.Status === "Not Started"){
+        await statuschangehadler(task,"Started");
+      }
 
       const currentTime = new Date();
       const timeOut = currentTime.toISOString();
@@ -277,8 +291,8 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
 
 
     const resp = await timerHandlerapi({
-      Note: timerData.Note,
-      taskId: timerData?.taskId,
+      Note: timerNote,
+      taskId: active?._id,
       clockIn: convertToIST(timeIn),
       clockOut: convertTimestampToTime(timeOut),
       totalTime: diffTime,
@@ -289,6 +303,7 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
       closeTimer();
       toast.success("Successfuly done");
       setTimerPop(false);
+      localStorage.removeItem("task")
     } else {
       toast.error("Something went wrong");
     }
@@ -427,6 +442,7 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
   };
 
   const uploadFileProject = async () => {
+    if(selectedFile === null) return toast.error('Please Choose a file !!')
     if (selectedFile && selectedFile.length > 0) {
       const toastId = toast.loading("Uploading...");
 
@@ -592,11 +608,11 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
                         <p>{Math.floor((clock % 3600) / 60)}</p>:<p>{clock % 60}</p>
                       </div>
 
-                      {allTasks?.length > 0 && (
+                      {/* {allTasks?.length > 0 && (
                         <div>
-                          <IoMdTimer onClick={clockIn} className="cursor-pointer" />
+                          <BsStopwatch onClick={clockIn} className="cursor-pointer" />
                         </div>
-                      )}
+                      )} */}
 
                       {/* <div>
                     <img src={predit} alt="" />
@@ -640,6 +656,11 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
                               Actions
                             </th>
                           )}
+                          {allTasks.length>0 && (
+                            <th scope="col" className="px-6 py-3">
+                            Timer
+                          </th>
+                          )}
                         </tr>
                       </thead>
                       <tbody>
@@ -650,7 +671,7 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
                           >
                             <td className="px-6 py-4">
                               <p> {task?.taskName}</p>
-                              <p className="cursor-pointer"  onClick={() => getTask(task?._id)}>View</p>
+                              <p className="cursor-pointer underline text-blue-600"  onClick={() => getTask(task?._id)}>View</p>
 
                              </td>
                             <td className="px-6 py-4 flex items-center justify-center borderNone ">
@@ -727,6 +748,23 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
 
                               </td>
                             )}
+
+                            {allTasks.length>0 && (
+                            <td className="px-6 py-4">
+                             <BsStopwatch
+  onClick={() => {
+    if(active?._id === task._id){
+      clockIn(task);
+    } 
+    else {
+      clockIn(task);
+    }
+  }}
+  className={`cursor-pointer h-5 w-5 
+    ${active?._id === task?._id ? 'text-red-500' : ''} 
+    ${localStorage.getItem("taskTimer") && active?._id !== task?._id ? 'opacity-50 cursor-not-allowed' : ''} `}
+/>
+                            </td> )}
                           </tr>
                         ))}
                       </tbody>
@@ -1026,7 +1064,7 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
             <hr />
 
             <form onSubmit={timerHandler}>
-              <select
+              {/* <select
                 name="taskId"
                 onChange={timerChange}
                 value={timerData.taskId}
@@ -1035,15 +1073,14 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
                 {allTasks?.map((task, index) => (
                   <option key={index} value={task?._id}>
                     {task?.taskName}
-                    {/* {console.log(task)} */}
                   </option>
                 ))}
-              </select>
+              </select> */}
 
               <input
                 name="Note"
-                onChange={timerChange}
-                value={timerData.Note}
+                onChange={(e) => setTimerNote(e.target.value)}
+                value={timerNote}
                 type="text"
                 placeholder="Enter Note..."
                 className="noteInput"

@@ -41,6 +41,7 @@ const ClientProjectOverview = () => {
     };
   
     const uploadFileProject = async () => {
+      if(selectedFile === null) return toast.error('Please Choose a file !!')
       if (selectedFile && selectedFile.length > 0) {
         const toastId = toast.loading("Uploading...");
   
@@ -75,7 +76,7 @@ const ClientProjectOverview = () => {
     ).length;
 
     const openTaskse = allTasks.filter(
-      (task) => task.Status !== "Not Started"
+      (task) => task.Status !== "Completed"
     ).length;
 
     setOpenTask(openTaskse);
@@ -167,7 +168,7 @@ const ClientProjectOverview = () => {
                 <div className="secnoveview">
                   <div className="navrighdiv">
                     <nav>
-                      <p>{openTask}/{allTasks?.length} Completed TASKS</p>
+                      <p>{openTask}/{allTasks?.length} Open TASKS</p>
                       <ProgressBar completed={OpenTaskper} />
                     </nav>
                     <hr className="my-5"/>

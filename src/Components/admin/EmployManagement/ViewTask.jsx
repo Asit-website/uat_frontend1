@@ -2,9 +2,35 @@ import { useState } from "react";
 import { CheckCircle, Clock, UserPlus, Bell } from "lucide-react";
 import { FaFileAlt } from "react-icons/fa";
 
-export default function ViewTask({ src, onClick, data }) {
+export default function ViewTask({ src, onClick, data, timesheets }) {
   const [isCompleted, setIsCompleted] = useState(false);
-  
+
+  // Function to convert time in "hh:mm:ss" format to seconds
+function timeToSeconds(time) {
+  const [hours, minutes, seconds] = time.split(':').map(Number);
+  return (hours * 3600) + (minutes * 60) + seconds;
+}
+
+// Function to convert seconds back to "hh:mm:ss" format
+function secondsToTime(seconds) {
+  const hours = Math.floor(seconds / 3600);
+  seconds %= 3600;
+  const minutes = Math.floor(seconds / 60);
+  seconds %= 60;
+  return `${hours}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+}
+
+
+
+let totalSeconds = 0;
+timesheets.forEach(entry => {
+  totalSeconds += timeToSeconds(entry.totalTime);
+});
+
+
+const totalTime = secondsToTime(totalSeconds);
+
+
   return (
     <div className="">
       {/* Header */}
@@ -55,6 +81,8 @@ export default function ViewTask({ src, onClick, data }) {
           <p>
             Priority: <span className="text-yellow-500 font-medium">Medium</span>
           </p>
+          <p>Total Time: {totalTime|| 0}</p>
+
         </div>
       </div>
 
