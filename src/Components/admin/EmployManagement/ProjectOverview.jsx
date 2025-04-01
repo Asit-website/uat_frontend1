@@ -15,10 +15,11 @@ import ProjectOverview2 from "../../admin/EmployManagement/ProjectOverview2";
 import toast from "react-hot-toast";
 import ClientNavbar from "../../Client/ClientNavbar";
 import ClientSideBar from "../../Client/ClientSideBar";
+import fileDownload from 'js-file-download'
 
 
 const ProjectOverview = ({ setAlert, pop, setPop }) => {
-  const { user, getProjectTask, getClientapi, UploadFileProjectapi, allfilesproject, fetchAllTimesheetapi, editProjectapi } =
+  const { user, getProjectTask, getClientapi, UploadFileProjectapi, allfilesproject,deleteProjectFile, fetchAllTimesheetapi, editProjectapi } =
     useMain();
 
   const [allTasks, setAllTasks] = useState([]);
@@ -103,9 +104,17 @@ const ProjectOverview = ({ setAlert, pop, setPop }) => {
       editProjectapi(projectData);
       
     }
-  
-    setPercentage(completedPercentage);
+    if (isNaN(openTaskPercentage)) {
+      console.log("opentaskper is NaN");
+      
+      setOpenTaskper(0);
+    } else {
     setOpenTaskper(openTaskPercentage);
+
+      console.log("opentaskper is not NaN");
+  }
+    setPercentage(completedPercentage);
+    // setOpenTaskper(openTaskPercentage);
     gettAllClients();
   }, [allTasks, data]);
   
@@ -140,6 +149,13 @@ const ProjectOverview = ({ setAlert, pop, setPop }) => {
     const resp = await allfilesproject(data?._id);
     setAllFiles(resp?.files?.reverse());
   };
+
+  const deleteFile = async(id)=>{
+    console.log(id)
+    const ans = await deleteProjectFile(id);
+    await fetchAllFile()
+    return  ans;
+  }
 
   const handleFileChange = (event) => {
     const toastId = toast.loading("Loading...");
@@ -211,6 +227,29 @@ const ProjectOverview = ({ setAlert, pop, setPop }) => {
     const date = new Date(timestamp);
     return date.toISOString()
   }
+
+  const handleDownload = async (url, filename) => {
+    try {
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error(`Failed to fetch file: ${response.statusText}`);
+      }
+  
+      const blob = await response.blob();
+      const link = document.createElement("a");
+      link.href = window.URL.createObjectURL(blob);
+      link.setAttribute("download", filename || "download");
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } catch (error) {
+      console.error("Download error:", error);
+    }
+  };
+  
+  // Example usage inside a button:
+  // <button onClick={() => handleDownload(file?.filePath, file?.fileName)}>Download</button>
+  
 
   useEffect(() => {
     gettAllClients()
@@ -387,7 +426,7 @@ const ProjectOverview = ({ setAlert, pop, setPop }) => {
                             <p className="text-gray-600">
                               <strong>File Name:</strong> {file?.fileName}
                             </p>
-                            <p className="text-gray-600">
+                            {/* <p className="text-gray-600">
                               <strong>Download Link:</strong>{" "}
                               <a
                                 target="_blank"
@@ -396,19 +435,29 @@ const ProjectOverview = ({ setAlert, pop, setPop }) => {
                               >
                                 {file?.filePath}
                               </a>
-                            </p>
+                            </p> */}
                             <p className="text-gray-600">
                               <strong>Uploaded by:</strong> {file?.uploadedBy?.fullName || "Client"}
                             </p>
                             <p className="text-gray-600">
                               <strong>Uploaded On:</strong> {new Date(file?.createdAt).toLocaleDateString()}
                             </p>
+                            <div className="flex justify-between gap-5">
+
+                            <button onClick={()=>deleteFile(file?._id)} className="bg-red-500 text-white px-1 rounded py-1">Delete</button>
+
+                            {/* <a href={`${file?.filePath}`} target="_blank" download={`${file?.filePath}`}>
+  <button type="button">Download</button>
+  </a> */}
+<button onClick={() => handleDownload(file?.filePath, file?.fileName)}>Download</button>
+  </div>
+
 
                           </div>
 
                           {/* Image or file preview */}
                           <div>
-                            {file?.filePath && /\.(jpg|jpeg|png|gif)$/i.test(file?.filePath) ? (
+                            {file?.filePath && /\.(jpg|jpeg|png|gif|webp)$/i.test(file?.filePath) ? (
                               // Show Image Preview
                               <a
                                 target="_blank"

@@ -20,7 +20,7 @@ const EmployeeNavbar = ({ setAlert, pop1, setPop1 }) => {
     postActivity,
     getActivitiesByUser,
     fetchUserNotify,
-    deleteNotification,
+    deleteNotification,markedNotification
   } = useMain();
 
   let todayDate = new Date().toLocaleDateString("en-GB");
@@ -242,31 +242,60 @@ const EmployeeNavbar = ({ setAlert, pop1, setPop1 }) => {
   const [allNotication, setAllNotification] = useState([]);
   const [currLoad, setCurrLoad] = useState(1);
   const [actNotify, setActNotify] = useState([]);
+  const [loading,setLoading] = useState()
 
   const [shownotify, setShownotify] = useState(false);
 
   const fetchNotification = async () => {
     const ans = await fetchUserNotify();
-    // console.log("fetch notifiaction",ans)
-    if (ans.status) {
-      // setAllNotification(ans?.notifications);
+    if (ans?.status) {
       let notifications = ans?.notifications;
-      let reversedNotifications = notifications.slice().reverse();
+  const unreadNotifications = notifications.filter(notification => !notification.IsRead);
 
+      let reversedNotifications = unreadNotifications?.slice()?.reverse();
       setAllNotification(reversedNotifications);
     }
   };
 
+  const markAllRead = async () => {
+    setLoading(true)
+    const promises = allNotication.map((e) => markedNotification(e?._id));
+    await Promise.all(promises);
+    await fetchNotification();
+    setLoading(false)
+  }
+
+  const markedReadNotification = async (id) => {
+    setLoading(id);
+    const ans = await markedNotification(id);
+    if (ans.status === 200) {
+      fetchNotification(); // Refetch notifications after marking one as read
+      toast.success("Marked Read");
+    }
+    setLoading(null);
+  };
+
+  const unreadNotifications = allNotication.filter(notification => !notification.IsRead);
+  const unreadCount = unreadNotifications.length;
+
   useEffect(() => {
     fetchNotification();
-    setCurrLoad(1);
   }, []);
 
   useEffect(() => {
-    let num = currLoad * 10;
-    const nNotify = allNotication.slice(0, num);
-    setActNotify(nNotify);
-  }, [allNotication, currLoad]);
+    // Avoid infinite loop by checking if there's a need to update `actNotify`
+    if (unreadNotifications.length > 0 && currLoad * 10 <= unreadNotifications.length) {
+      const num = currLoad * 10;
+      const nNotify = unreadNotifications.slice(0, num);
+      setActNotify(nNotify);
+    }
+  }, [ currLoad]); // This effect now triggers only when necessary
+
+  const loadMoreNotifications = () => {
+    if (currLoad * 10 < unreadNotifications.length) {
+      setCurrLoad(currLoad + 1);
+    }
+  };
 
   return (
     <>
@@ -297,9 +326,14 @@ const EmployeeNavbar = ({ setAlert, pop1, setPop1 }) => {
           }}
         >
            <div className="relative cursor-pointer flex items-center gap-4" >
-            <div onClick={() => setShownotify(true)} className="fifth-logo ">
-              <img style={{ width: "32px" }} src={notifications} alt="" />
+           <div className="relative inline-block cursor-auto" onClick={() => setShownotify(!shownotify)}>
+            <img src={notifications} alt="Notification" className="h-7 w-7" />
+            {unreadCount>0 && (
+              <div className="absolute top-0 right-0 bg-red-500 text-white text-xs font-bold rounded-full w-4 h-5 flex items-center justify-center cursor-pointer">
+              {unreadCount}
             </div>
+            )}
+          </div>
             <div className="sixth-logo flex items-center relative " onClick={updateUser}>
               <img
                 className="john"
@@ -338,7 +372,13 @@ const EmployeeNavbar = ({ setAlert, pop1, setPop1 }) => {
         <div className="notifySidwrap">
           <div className="notifcont">
             <nav>
-              <h2>Notifications</h2>
+            <div>
+
+<h2>Notifications</h2>
+{unreadCount > 0 && 
+<button onClick={markAllRead} className="text-xs bg-red-500 px-2 py-1 rounded text-white">Mark all Read</button>
+}
+</div>
               <img
                 onClick={() => {
                   setShownotify(false);
@@ -351,29 +391,30 @@ const EmployeeNavbar = ({ setAlert, pop1, setPop1 }) => {
             <hr />
 
             <div className="allnotiftcont">
-              {allNotication?.length > 0 ? (
-                <div className="allnotifywrap">
-                  {actNotify?.map((item, index) => (
-                    <>
-                      <div key={index} className="singlnotify">
-                        <h2>{item?.title}</h2>
-
-                        <p>{item?.description}</p>
-
-                        <p>
-                          Date :{" "}
-                          {new Date(parseInt(item?.date)).toLocaleDateString()}
-                        </p>
+            {allNotication.length > 0 ? (
+                <div className="allnotiftwrap">
+                  {allNotication?.map((item, index) => (
+                    <div key={index}>
+                      <div className="flex flex-row justify-between items-center">
+                        <div className="singlnotify">
+                          <h2>{item?.title}</h2>
+                          <p>{item?.description}</p>
+                          <p>Date : {new Date(parseInt(item?.date)).toLocaleDateString()}</p>
+                        </div>
+                        {item.IsRead === false && (
+                          <button
+                            onClick={() => markedReadNotification(item._id)}
+                            className="bg-red-500 px-2 py-1 text-white rounded"
+                            disabled={loading}
+                          >
+                            {loading===item?._id ? 'Loading...' : 'Mark as Read'}
+                          </button>
+                        )}
                       </div>
-
                       <hr />
-                    </>
+                    </div>
                   ))}
-
-                  {/* <button
-                    onClick={() => setCurrLoad(currLoad + 1)}
-                    className="lodmorebtns"
-                  >
+                  {/* <button onClick={loadMoreNotifications} className="lodmorebtns">
                     <span>Load More...</span>
                   </button> */}
                 </div>

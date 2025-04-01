@@ -938,38 +938,31 @@ const data2 = `<p class="MsoNormal" style="margin: 0in 0in 11px; line-height: 10
 <p class="MsoNormal" style="margin: 0in 0in 11px; line-height: 107%; font-family: Calibri, sans-serif; font-size: 15px;"><span style="line-height: 107%; font-family: Inter, sans-serif; font-size: 16px;">Noida, Uttar
         Pradesh</span></p>`;
 
-const data3 = `
-<p style="margin-right: 0in; margin-left: 0in; font-family: &quot;Times New Roman&quot;, serif; font-size: 16px;"><span>&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;</span><span style="font-family: Inter, sans-serif; background: yellow; font-size: 17px;">19<sup>TH</sup> JULY 2024</span></p><p style="margin-right: 0in; margin-left: 0in; font-family: &quot;Times New Roman&quot;, serif; font-size: 16px;"><span style="font-family: Inter, sans-serif; background: yellow; font-size: 17px;">Dear [DEAR],</span></p><p style="margin-right: 0in; margin-left: 0in; font-family: &quot;Times New Roman&quot;, serif; font-size: 16px;"><span style="font-family: Inter, sans-serif; background: yellow; font-size: 17px;"><br></span></p><p style="margin-right: 0in; margin-left: 0in; font-family: &quot;Times New Roman&quot;, serif; font-size: 16px;"><span style="font-family: Inter, sans-serif; background: yellow; font-size: 17px;"><br></span></p><p style="margin-right: 0in; margin-left: 0in; font-family: &quot;Times New Roman&quot;, serif; font-size: 16px;"><span style="font-family: Inter, sans-serif; background: yellow; font-size: 17px;">I am writing to confirm that [DEAR] has
-        served as our [POST] at Kushel Digi Solutions from 16<sup>th</sup> September
-        2023 to 5<sup>th</sup> JUNE 2024. During her tenure, she exhibited exceptional
-        professionalism, dedication, and competence in all HR-related responsibilities.</span></p><p style="margin-right: 0in; margin-left: 0in; font-family: &quot;Times New Roman&quot;, serif; font-size: 16px;"><span style="font-family: Inter, sans-serif; background: yellow; font-size: 17px;"><br></span></p>
-
-<p style="margin-right: 0in; margin-left: 0in; font-family: &quot;Times New Roman&quot;, serif; font-size: 16px;"><span style="font-family: Inter, sans-serif; background: yellow; font-size: 17px;">Pooja effectively managed various
-        aspects of human resources, including recruitment, employee relations,
-        performance management, training and development, compensation and benefits
-        administration, and HR policy development. She played a key role in enhancing
-        our HR processes and procedures, ensuring compliance with labor laws and
-        regulations, and fostering a positive work environment.</span></p><p style="margin-right: 0in; margin-left: 0in; font-family: &quot;Times New Roman&quot;, serif; font-size: 16px;"><span style="font-family: Inter, sans-serif; background: yellow; font-size: 17px;"><br></span></p>
-
-<p style="margin-right: 0in; margin-left: 0in; font-family: &quot;Times New Roman&quot;, serif; font-size: 16px;"><span style="font-family: Inter, sans-serif; background: yellow; font-size: 17px;">She demonstrated strong leadership
-        skills by successfully leading HR initiatives and collaborating with department
-        heads to support organizational goals. Her ability to handle sensitive employee
-        issues with empathy and discretion contributed significantly to maintaining a
-        harmonious workplace.</span></p><p style="margin-right: 0in; margin-left: 0in; font-family: &quot;Times New Roman&quot;, serif; font-size: 16px;"><span style="font-family: Inter, sans-serif; background: yellow; font-size: 17px;"><br></span></p>
-
-<p style="margin-right: 0in; margin-left: 0in; font-family: &quot;Times New Roman&quot;, serif; font-size: 16px;"><span style="font-family: Inter, sans-serif; background: yellow; font-size: 17px;">Moreover, Pooja consistently exhibited
-        strong communication skills, both written and verbal, which were essential in
-        conveying HR policies and procedures effectively across the organization.</span></p><p style="margin-right: 0in; margin-left: 0in; font-family: &quot;Times New Roman&quot;, serif; font-size: 16px;"><span style="font-family: Inter, sans-serif; background: yellow; font-size: 17px;"><br></span></p>
-
-<p style="margin-right: 0in; margin-left: 0in; font-family: &quot;Times New Roman&quot;, serif; font-size: 16px;"><span style="font-family: Inter, sans-serif; font-size: 17px;">We
-        are grateful for her contributions during her tenure at Kushel Digi Solutions</span></p>
-
-<p class="MsoNormal" style="margin: 0in 0in 11px; line-height: 107%; font-family: Calibri, sans-serif; font-size: 15px;"><span style="line-height: 107%; font-size: 17px; font-family: Inter, sans-serif;">Thanks &amp; Regards</span></p>
-
-<p class="MsoNormal" style="margin: 0in 0in 11px; line-height: 107%; font-family: Calibri, sans-serif; font-size: 15px;"><span style="line-height: 107%; font-size: 17px; font-family: Inter, sans-serif;"> [SENDERNAME] </span></p>
-
-<p class="MsoNormal" style="margin: 0in 0in 11px; line-height: 107%; font-family: Calibri, sans-serif; font-size: 15px;"><span style="line-height: 107%; font-size: 17px; font-family: Inter, sans-serif;">Kushel Digi Solutions</span></p><p style="margin-right: 0in; margin-left: 0in; font-family: &quot;Times New Roman&quot;, serif; font-size: 16px;"><span style="font-family: Calibri, sans-serif; background: yellow; font-size: 17px;"><br></span></p>`;
-
+        const data3 = `<div style="font-family: Arial, sans-serif; line-height: 1.2; margin: 40px; position: relative; min-height: 100vh; padding-bottom: 100px;">
+    
+                  <!-- Flex container for Date and To Whom It May Concern -->
+<div style="display: flex; flex-direction: row; align-items: center; justify-content: space-between; margin-bottom: 20px;">
+<p><strong style="font-size: 18px;">To Whom It May Concern,</strong></p>
+<p style="font-size: 18px;"><strong>Date:</strong> 19th July 2024</p>
+</div>
+        <br>
+        
+        <p style="font-size: 16px; line-height: 1.6">This is to certify that <strong>[DEAR]</strong> was employed with Kushel Digi Solutions as <strong>[POST]</strong> from <strong>16th September 2023</strong> to <strong>5th June 2024</strong>. During her tenure, she performed her duties with dedication and professionalism.</p>
+        <br>
+        
+        <p style="font-size: 16px; line-height: 1.6">[DEAR] was responsible for various HR activities, including recruitment, employee relations, and policy development. She contributed positively to the organization and maintained a good work ethic.</p>
+        
+        <br>
+        
+        <p style="font-size: 16px; line-height: 1.6">We appreciate her contributions and wish her success in her future endeavors.</p>
+        <br>
+        
+        <p><strong style="font-size: 18px;line-height: 1.6">Thanks & Regards,</strong></p>
+        <p><strong style="font-size: 18px;line-height: 1.6">[Your Name]</strong></p>
+        <p><strong style="font-size: 18px;line-height: 1.6">Kushel Digi Solutions</strong></p>
+        
+    </div>`;
+    
 const data4 = `
 <br>
  <p><span style="font-family: Helvetica, sans-serif;"><strong style="font-size: 14px;">Date</strong></span>: [issueDate]</p>

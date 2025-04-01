@@ -326,8 +326,10 @@ const ProjectOverview2 = ({ allTasks, getProjectTaskapi }) => {
 
   const fetchAllTimesheet = async () => {
     const resp = await fetchAllTimesheetapi(data?._id);
-    // console.log("res", resp);
-    setTimesheet(resp?.taskTimelines);
+    if(resp.status === 200){
+      // console.log("res", resp);
+      setTimesheet(resp?.taskTimelines);
+    }
 
   }
 
@@ -338,8 +340,12 @@ useEffect(()=>{
 const [filterTimelines,setFilterTimelines]=useState()
 
 const filterByTaskId = (taskId) => {
-  setFilterTimelines(altimesheet.filter(item => item.taskId._id === taskId))
-  return altimesheet.filter(item => item.taskId._id === taskId);
+  if(altimesheet) {
+
+    setFilterTimelines(altimesheet.filter(item => item.taskId._id === taskId))
+    return altimesheet.filter(item => item.taskId._id === taskId);
+  }
+  return
 };
 // console.log(filterByTaskId("67e03be5b424002f7d3884bc"))
 // console.log(altimesheet)

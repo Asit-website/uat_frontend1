@@ -73,11 +73,7 @@ const AdminClientDashboard = () => {
         const ans = await getAllProjectApi();
         if (ans?.status) {
             const res = ans?.projects.filter(e => e.client === clientId);
-            // console.log(res)
-            setProjects(res)
-            
-            // setAllProjects(ans?.projects);
-            // setStorePro(ans?.projects);
+            setProjects(res);
         }
     };
 
@@ -162,10 +158,12 @@ const AdminClientDashboard = () => {
 
 
     const handleEditClick = (client) => {
+        console.log(client)
         const membersNames = client.Members.map((memberId) => {
-          const member = allEmp.find((emp) => emp._id === memberId?._id);
-          return member ? member.fullName : "";
+          const member = allEmp?.find((emp) => emp?._id === memberId?._id);
+          return member ? member?.fullName : "";
         });
+        console.log(membersNames)
     
         setIsEdit(client._id);
         setFormdata({
@@ -174,6 +172,7 @@ const AdminClientDashboard = () => {
           ...client,
         });
         setProUser(membersNames);
+        console.log(proUser)
         setAddClientPop(true);
       };
 
@@ -406,6 +405,7 @@ const AdminClientDashboard = () => {
                                         <option value="Ongoing">Ongoing</option>
                                         <option value="OnHold">OnHold</option>
                                         <option value="Finished">Finished</option>
+                                        <option value="Canceled">Canceled</option>
                                     </select>
                                 </label>
 
@@ -447,6 +447,7 @@ const AdminClientDashboard = () => {
                                 <button
                                     onClick={() => {
                                         setAddClientPop(false);
+                                        setIsEdit(false)
                                         setProUser([]);
                                         setFormdata({
                                             Name: "",
@@ -454,7 +455,6 @@ const AdminClientDashboard = () => {
                                             Members: "",
                                             Status: "Ongoing",
                                             DueDate: "",
-                                            Members: "",
                                         });
                                     }}
                                     className="cancel"

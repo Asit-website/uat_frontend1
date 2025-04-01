@@ -12,10 +12,10 @@ import ProgressBar from "@ramonak/react-progress-bar";
 
 const ClientProjectOverview = () => {
 
-  const { getProjectTask, UploadFileProjectapi, allfilesproject } = useMain();
+  const { getProjectTask, UploadFileProjectapi, allfilesproject, deleteProjectFile } = useMain();
   const location = useLocation();
   const data = location?.state;
-  console.log(data)
+  // console.log(data)
   const projectOpt = ["Overview", "Task", "Files"];
   const [optIndex, setOptIndex] = useState(0);
   const [percentage, setPercentage] = useState(0);
@@ -59,6 +59,14 @@ const ClientProjectOverview = () => {
       }
     };
 
+
+  const deleteFile = async(id)=>{
+    console.log(id)
+    const ans = await deleteProjectFile(id);
+    await fetchAllFile()
+    return  ans;
+  }
+
   const [allTasks, setAllTasks] = useState([]);
   const getProjectTaskapi = async () => {
     const ans = await getProjectTask(data?._id);
@@ -70,23 +78,30 @@ const ClientProjectOverview = () => {
   }, [])
 
   useEffect(() => {
-    const totalTasks = allTasks.length;
-    const completedTasks = allTasks.filter(
-      (task) => task.Status === "Completed"
-    ).length;
+    const totalTasks = allTasks?.length;
+    const completedTasks = allTasks?.filter(
+      (task) => task?.Status === "Completed"
+    )?.length;
 
-    const openTaskse = allTasks.filter(
-      (task) => task.Status !== "Completed"
-    ).length;
+    const openTaskse = allTasks?.filter(
+      (task) => task?.Status !== "Completed"
+    )?.length;
 
     setOpenTask(openTaskse);
-
     const completedPercentage = (completedTasks / totalTasks) * 100;
-    const opentaskper = ((openTaskse / totalTasks) * 100).toFixed(0);
-    console.log(completedPercentage)
+    const opentaskper = ((openTaskse / totalTasks) * 100)?.toFixed(0);
+    // console.log(completedPercentage)
+    if (isNaN(opentaskper)) {
+      console.log("opentaskper is NaN");
+      
+      setOpenTaskper(0);
+    } else {
+    setOpenTaskper(opentaskper);
+
+      console.log("opentaskper is not NaN");
+  }
 
     setPercentage(completedPercentage);
-    setOpenTaskper(opentaskper);
     // gettAllClients();
   }, [allTasks]);
   useEffect(() => { }, [selectedFile])
@@ -95,7 +110,7 @@ const ClientProjectOverview = () => {
     <>
       <h1>hello</h1>
       <div className="employee-dash h-full">
-        <ClientSideBar />
+        {/* <ClientSideBar /> */}
         <div className="tm">
           <ClientNavbar />
 
@@ -228,14 +243,14 @@ const ClientProjectOverview = () => {
                 <div>
                   <h4 className="text-xl font-semibold text-gray-800 mb-4">All Files</h4>
                   <div className="space-y-6">
-                    {allfiles?.reverse()?.map((file, index) => (
+                    {allfiles?.map((file, index) => (
                       <div key={index} className="p-4 bg-white rounded-lg shadow-md">
                         <div className="flex justify-between items-center">
                           <div>
                             <p className="text-gray-600">
                               <strong>File Name:</strong> {file?.fileName}
                             </p>
-                            <p className="text-gray-600">
+                            {/* <p className="text-gray-600">
                               <strong>Download Link:</strong>{" "}
                               <a
                                 target="_blank"
@@ -244,15 +259,19 @@ const ClientProjectOverview = () => {
                               >
                                 {file?.filePath}
                               </a>
-                            </p>
+                            </p> */}
                             <p className="text-gray-600">
                               <strong>Uploaded by:</strong> {file?.uploadedBy?.fullName || JSON.parse(localStorage.getItem("hrms_user")).Name}
                             </p>
+                            <p className="text-gray-600">
+                              <strong>Uploaded On:</strong> {new Date(file?.createdAt).toLocaleDateString()}
+                            </p>
+                            <button onClick={()=>deleteFile(file?._id)} className="bg-red-500 text-white px-2 rounded-l py-1">Delete</button>
                           </div>
 
                           {/* Image or file preview */}
                           <div>
-                            {file?.filePath && /\.(jpg|jpeg|png|gif)$/i.test(file?.filePath) ? (
+                            {file?.filePath && /\.(jpg|jpeg|png|gif|webp)$/i.test(file?.filePath) ? (
                               // Show Image Preview
                               <a
                                 target="_blank"

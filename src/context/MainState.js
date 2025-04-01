@@ -14,7 +14,6 @@ import MainContext from './MainContext';
 
 // this is production baseurl 
 const baseUrl = "https://hmsbackend.kusheldigi.com";
-   
 
 // const baseUrl = "https://hrms-backend-g3wt.onrender.com";
 
@@ -40,12 +39,14 @@ const MainState = (props) => {
    };
 
    const clientLogin = async (email, password) => {
+      setLoading(true);
       const data = await post(`${baseUrl}/task/clientLogin`, {
          Email: email,
          Password: password
       }, false);
 
       console.log("Login Response:", data);
+      setLoading(false)
       return data;
    }
 
@@ -1030,6 +1031,20 @@ return data
 return data
    }
 
+   const postClientNotification=async(name,title,date)=>{
+      const data = await post(`${baseUrl}/notification/clientNotification`,{ title: `New project added to dashboard.`, description: `${title}`, client: [`${name}`] }, true)
+      return data
+   }
+
+   const getClientNotification = async(id)=>{
+      const data = await get(`${baseUrl}/notification/getNotification/${id}`)
+      return data
+   }
+
+   const markedNotification = async(id)=>{
+      const data = await put(`${baseUrl}/notification/markedNotification/${id}`)
+      return data
+   }
 
    const fetchUserNotify = async () => {
       let user = JSON.parse(localStorage.getItem("hrms_user"));
@@ -2247,8 +2262,8 @@ return data
       return data;
    };
 
-   const editTaskapi = async ({ Name, Email, City, State, ZipCode, PhoneNumber, Country, Address, clientId }) => {
-      const data = await post(`${baseUrl}/task/editClient/${clientId}`, { Name, Email, City, State, ZipCode, PhoneNumber, Country, Address }, true);
+   const editTaskapi = async ({ Name, Email, City, State, ZipCode, PhoneNumber, Country, Address, clientId, Password }) => {
+      const data = await post(`${baseUrl}/task/editClient/${clientId}`, { Name, Email, City, State, ZipCode, PhoneNumber, Country, Address, Password }, true);
       return data;
    }
 
@@ -2318,6 +2333,11 @@ return data
    const allfilesproject = async (projectId) => {
       const data = await post(`${baseUrl}/latest_project/getProjectFiles/${projectId}`, {}, true);
       return data;
+   }
+   const deleteProjectFile = async(fileId)=>{
+      console.log(fileId)
+      const data = await deleteReq(`${baseUrl}/latest_project/deleteProjectFile/${fileId}`);
+      return data
    }
    const UploadFileProjectapi = async (file, projectId) => {
 
@@ -2557,9 +2577,9 @@ return data
          getQuotationAll1,
          updateQuotation1,
          deleteQuotation1,
-         uploadSingleImage,
+         uploadSingleImage, postClientNotification, getClientNotification,markedNotification,
          getAllProjectUserApi,postNotifyProject,postNotifyTask,
-         savenoteatt, AllRolesapi, FetchMyLeave, closeLead, deleteQproapi, createExpenseApi, changeStatusBreak, deleteProjectTaskapi22, EditProjectTask, postHalfDay, closeLeadApiFetch2, closeLeadApiFetch, postNotification2, getUserHalfDay, rejectHalfDay, acceptHalf, acceptassetsapi, getTodayLead, getTodayLead2, getSaveTempalte, statuschangeapi, UploadFileProjectapi, allfilesproject, fetchAllTimesheetapi, getClientProject
+         savenoteatt, AllRolesapi, FetchMyLeave, closeLead, deleteQproapi, createExpenseApi, changeStatusBreak, deleteProjectTaskapi22, EditProjectTask, postHalfDay, closeLeadApiFetch2, closeLeadApiFetch, postNotification2, getUserHalfDay, rejectHalfDay, acceptHalf, acceptassetsapi, getTodayLead, getTodayLead2, getSaveTempalte, statuschangeapi, UploadFileProjectapi, allfilesproject,deleteProjectFile, fetchAllTimesheetapi, getClientProject
       }}>
          {props.children}
       </MainContext.Provider>

@@ -7818,3 +7818,63 @@ right: 30px;
 .openformisk{
   height: 400px !important;
 }
+
+@media print {
+  /* General body styles for printing */
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+  }
+
+  /* Make the main container fit within the page */
+  .showoffercont {
+    width: 100%;
+    height: 100%; /* Ensure it takes the full height */
+    page-break-before: always;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  /* Fix the header image to stay at the top */
+  .offer_header11 {
+    width: 100%;
+    height: auto;
+  }
+
+  /* Ensure the content is properly sized */
+  .showoffercont h2 {
+    text-align: center;
+    margin: 20px 0;
+  }
+
+  .showoffercont .p-4 {
+    margin: 0;
+    padding: 0;
+    font-size: 14px; /* Adjust font size if necessary */
+    line-height: 1.5; /* Adjust line height for better readability */
+  }
+
+  /* Footer image at the bottom of the page */
+  .offer_footer11 {
+    width: 100%;
+    height: auto;
+    position: absolute;
+    bottom: 0;
+  }
+
+  /* Remove print button when printing */
+  .prntBtn {
+    display: none;
+  }
+
+  /* Set print layout for a single page */
+  .showoffercont {
+    page-break-after: avoid;
+    page-break-before: avoid;
+    page-break-inside: avoid;
+  }
+}

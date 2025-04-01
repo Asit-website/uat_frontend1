@@ -20,7 +20,7 @@ import bxcopy from "../../images/bx-copy.png";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
-const projectOpt = ["All", "Ongoing", "Finished", "OnHold"];
+const projectOpt = ["All", "Ongoing", "Finished", "OnHold", "Canceled"];
 
 const TaskProjects = ({ setAlert, pop, setPop }) => {
   const {
@@ -31,7 +31,7 @@ const TaskProjects = ({ setAlert, pop, setPop }) => {
     createProjectapi,
     deleteTaskProject,
     getClientapi,
-    postNotifyProject
+    postNotifyProject, postClientNotification
   } = useMain();
 
   let hrms_user = JSON.parse(localStorage.getItem("hrms_user")) || '';
@@ -62,6 +62,7 @@ const TaskProjects = ({ setAlert, pop, setPop }) => {
       toast.error("sometinng went wrong ,please try agin");
     }
   };
+
   useEffect(() => {
     // console.log(clientInfo)
   }, [clientInfo])
@@ -77,23 +78,40 @@ const TaskProjects = ({ setAlert, pop, setPop }) => {
   const changeHandler2 = (e) => {
     const selectedEmpId = e.target.value;
     if (selectedEmpId === "Select") return;
+    const selectedEmp = allEmp?.find((emp) => emp?._id === selectedEmpId);
+    if (!selectedEmp || proUser?.includes(selectedEmp?.fullName)) return;
+    setProUser((prev) => {
+      const updatedProUser = [...prev, selectedEmp?.fullName];
+      const alreadyUsers = allEmp.filter((emp) => updatedProUser.includes(emp?.fullName));
+      setFormdata((prevData) => {
+        const prevMembers = Array.isArray(prevData?.Members) ? prevData?.Members : [];
+        // Update the Members array with selectedEmpId
+        const newMembers = [
+          ...prevMembers,
+          selectedEmpId,
+        ];
 
-    const selectedEmp = allEmp.find((emp) => emp._id === selectedEmpId);
-    if (!selectedEmp || proUser.includes(selectedEmp.fullName)) return;
-  
-    setProUser((prev) => [...prev, selectedEmp.fullName]);
-    setFormdata((prev) => ({
-      ...prev,
-      Members: [...prev.Members, selectedEmpId],
-    }));
+        return {
+          ...prevData,
+          Members: Array.from(new Set(newMembers)),
+        };
+      });
+
+      return updatedProUser;
+    });
   };
+
 
   const removeUser = (index) => {
-    const newProUser = proUser.filter((_, i) => i !== index);
-    const newMembers = formdata.Members.filter((_, i) => i !== index);
+    const newProUser = proUser?.filter((_, i) => i !== index);
+    const newMembers = formdata?.Members?.filter((_, i) => i !== index);
+    console.log(newMembers)
     setProUser(newProUser);
-    setFormdata({ ...formdata, Members: newMembers });
+    console.log(newProUser)
+    const alreadyUsers = allEmp.filter((emp) => newProUser.includes(emp?.fullName));
+    setFormdata({ ...formdata, Members: alreadyUsers.map((user) => user._id) });
   };
+
 
   const [showIndex, setShowIndex] = useState(null);
 
@@ -110,6 +128,7 @@ const TaskProjects = ({ setAlert, pop, setPop }) => {
   const [storeProject, setStorePro] = useState([]);
 
   const [allEmp, setAllEmp] = useState([]);
+  const [selected1, setSelected] = useState();
 
   const getAllProject = async () => {
     const ans = await getAllProjectApi();
@@ -123,8 +142,10 @@ const TaskProjects = ({ setAlert, pop, setPop }) => {
     e.preventDefault();
     const toastId = toast.loading("Loading...");
     try {
-      const ans = await editProjectapi({ ...formdata,...formdata, projectOwner: clientInfo || hrms_user._id,
-        client: clientInfo || hrms_user._id, projectId: isEdit });
+      const ans = await editProjectapi({
+        ...formdata, ...formdata, projectOwner: clientInfo || hrms_user._id,
+        client: clientInfo || hrms_user._id, projectId: isEdit
+      });
       if (ans?.status) {
         toast.success("Successfuly updated");
         getAllProject();
@@ -132,9 +153,13 @@ const TaskProjects = ({ setAlert, pop, setPop }) => {
           const user = allEmp.find(e => e._id === userId);
           return user ? user.fullName : null;
         }).filter(fullName => fullName !== null);
-        result.forEach((e)=>
+        result.forEach((e) =>
           postNotifyProject(e, formdata.Name)
-      )
+        )
+        let validClient = allClient.find((e) => e._id === clientInfo)
+        if (validClient) {
+          postClientNotification(validClient.Name, formdata.Name);
+        }
         setFormdata({
           Name: "",
           Description: "",
@@ -143,7 +168,7 @@ const TaskProjects = ({ setAlert, pop, setPop }) => {
           DueDate: "",
           Members: "",
           projectOwner: clientInfo || hrms_user._id,
-        client: clientInfo || hrms_user._id
+          client: clientInfo || hrms_user._id
         });
         setAddClientPop(false);
         setProUser([]);
@@ -174,11 +199,15 @@ const TaskProjects = ({ setAlert, pop, setPop }) => {
           const user = allEmp.find(e => e._id === userId);
           return user ? user.fullName : null;
         }).filter(fullName => fullName !== null);
-        
+
         console.log(result);
-        result.forEach((e)=>
+        result.forEach((e) =>
           postNotifyProject(e, formdata.Name)
-      )
+        )
+        let validClient = allClient.find((e) => e._id === clientInfo)
+        if (validClient) {
+          postClientNotification(validClient.Name, formdata.Name);
+        }
         setFormdata({
           Name: "",
           Description: "",
@@ -225,15 +254,19 @@ const TaskProjects = ({ setAlert, pop, setPop }) => {
   };
 
   const handleEditClick = (client) => {
+    console.log(client)
     const membersNames = client.Members.map((memberId) => {
       const member = allEmp.find((emp) => emp._id === memberId?._id);
       return member ? member.fullName : "";
     });
-
+    const clientStatus = allClient.find((e) => e._id === client.client)
+    console.log(clientStatus?._id)
+    setClientInfo(clientStatus?._id)
     setIsEdit(client._id);
     setFormdata({
       Name: client?.projectName,
       DueDate: client.deadline,
+
       ...client,
     });
     setProUser(membersNames);
@@ -249,16 +282,23 @@ const TaskProjects = ({ setAlert, pop, setPop }) => {
   useEffect(() => {
     if (optIndex === 0) {
       setAllProjects([...storeProject]);
-    } else if (optIndex === 1) {
+    }
+    else if (optIndex === 1) {
       const fitlerdata = storeProject.filter((pro) => pro.Status === "Ongoing");
       setAllProjects(fitlerdata);
-    } else if (optIndex === 2) {
+    }
+    else if (optIndex === 2) {
       const fitlerdata = storeProject.filter(
         (pro) => pro.Status === "Finished"
       );
       setAllProjects(fitlerdata);
-    } else {
+    }
+    else if (optIndex === 3) {
       const fitlerdata = storeProject.filter((pro) => pro.Status === "OnHold");
+      setAllProjects(fitlerdata);
+    }
+    else {
+      const fitlerdata = storeProject.filter((pro) => pro.Status === "Canceled");
       setAllProjects(fitlerdata);
     }
   }, [optIndex]);
@@ -303,7 +343,7 @@ const TaskProjects = ({ setAlert, pop, setPop }) => {
                     onClick={() => setOptIndex(index)}
                     key={index}
                     className={`cursor-pointer singelPr ${index === 0 && "addlefborder"
-                      }  ${index === 3 && "addBorder"} ${optIndex === index && "adddbg"
+                      }  ${index === 4 && "addBorder"} ${optIndex === index && "adddbg"
                       }`}
                   >
                     <span>{pr}</span>
@@ -326,7 +366,7 @@ const TaskProjects = ({ setAlert, pop, setPop }) => {
 
                   <tbody>
                     {allProjects.map((client, index) => (
-                      <tr key={index}  className="border border-none">
+                      <tr key={index} className="border border-none">
                         <td>{index + 1}</td>
                         <td>
                           <span>{client.projectName}</span>
@@ -354,6 +394,7 @@ const TaskProjects = ({ setAlert, pop, setPop }) => {
                             <p
                               onClick={() => {
                                 handleEditClick(client);
+                                setSelected(client)
                               }}
                               style={{ margin: 0, cursor: "pointer" }}
                               className="underline text-blue-600"
@@ -394,7 +435,7 @@ const TaskProjects = ({ setAlert, pop, setPop }) => {
                                   state: member?._id,
                                 })
                               }
-                             
+
                             />
                           ))}
                         </td>
@@ -418,7 +459,7 @@ const TaskProjects = ({ setAlert, pop, setPop }) => {
         <div className="addCliWrap">
           <div className="addClieCont addheight">
             <nav>
-              <p>{isEdit?"Edit Project":"Create New Project"}</p>
+              <p>{isEdit ? "Edit Project" : "Create New Project"}</p>
               <img
                 onClick={() => {
                   setAddClientPop(false);
@@ -476,7 +517,7 @@ const TaskProjects = ({ setAlert, pop, setPop }) => {
                     <option value="Select">Select Employee</option>
                     {allEmp?.map((emp, index) => (
                       <option value={emp?._id} key={index}
-                      disabled={proUser.includes(emp.fullName)}>
+                        disabled={proUser.includes(emp.fullName)}>
                         {emp?.fullName} {formdata.Members.includes(emp._id) ? "(Selected)" : ""}
                       </option>
                     ))}
@@ -493,6 +534,7 @@ const TaskProjects = ({ setAlert, pop, setPop }) => {
                     <option value="Ongoing">Ongoing</option>
                     <option value="OnHold">OnHold</option>
                     <option value="Finished">Finished</option>
+                    <option value="Canceled">Canceled</option>
                   </select>
                 </label>
 
@@ -544,10 +586,11 @@ const TaskProjects = ({ setAlert, pop, setPop }) => {
               </div>
               <div className="btnsss">
                 <button type="submit" className="saveclient">
-                  <span>{isEdit?"Update":"Add Project"} </span>
+                  <span>{isEdit ? "Update" : "Add Project"} </span>
                 </button>
                 <button
                   onClick={() => {
+                    setClientInfo()
                     setAddClientPop(false);
                     setProUser([]);
                     setFormdata({

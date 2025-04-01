@@ -58,11 +58,7 @@ const EmployeeSelf = ({ setAlert, pop1, setPop1 }) => {
        const generatePdf3 = useReactToPrint({
          content: () => contonentPDF3.current,
          documentTitle: "Quotation",
-         parentContainer: {
-           "@media print": {
-             display: "block",
-           },
-         },
+        
        });
        const generatePdf4 = useReactToPrint({
          content: () => contonentPDF4.current,
@@ -566,27 +562,25 @@ const EmployeeSelf = ({ setAlert, pop1, setPop1 }) => {
             )}
 
             {curenpage === "Experience Letter" && (
-              <div>
-                <div ref={contonentPDF3} className="showoffercont">
-                  <img className="offer_header11" src="https://res.cloudinary.com/dd9tagtiw/image/upload/v1741687779/aman_bhai_1_jlctyt.png" alt="" />
-                  <h2>EXPERIENCE LETTER</h2>
-
-                  <div className="p-4">
-                    <div
-                      dangerouslySetInnerHTML={{ __html: experienceContent }}
-                    />
-                  </div>
-                  <img className="offer_footer11" src="https://res.cloudinary.com/dd9tagtiw/image/upload/v1741681598/imageee_h3x8so.png" alt="" />
-
-
-                </div>
-
-                <div className="prntBtn">
-                  <button onClick={() => generatePdf3()}>
-                    <span>Print</span>
-                  </button>
-                </div>
-              </div>
+             <div>
+             <div ref={contonentPDF3} className="showoffercont">
+               <img className="offer_header11" src="https://res.cloudinary.com/dd9tagtiw/image/upload/v1741687779/aman_bhai_1_jlctyt.png" alt="" />
+               <h2>EXPERIENCE LETTER</h2>
+           
+               <div className="p-4">
+                 <div dangerouslySetInnerHTML={{ __html: experienceContent }} />
+               </div>
+           
+               <img className="offer_footer11" src="https://res.cloudinary.com/dd9tagtiw/image/upload/v1741681598/imageee_h3x8so.png" alt="" />
+             </div>
+           
+             <div className="prntBtn">
+               <button onClick={() => generatePdf3()}>
+                 <span>Print</span>
+               </button>
+             </div>
+           </div>
+           
             )}
 
             {curenpage === "Internship Letter" && (

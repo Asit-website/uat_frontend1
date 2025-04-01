@@ -163,6 +163,7 @@ const TaskClients = ({ setAlert, pop, setPop }) => {
           PhoneNumber: "",
           Country: "",
           Address: "",
+          Password:"",
         });
         setAddClientPop(false);
         setIsEdit(false);
@@ -448,15 +449,18 @@ const TaskClients = ({ setAlert, pop, setPop }) => {
                 </label>
 
                 <label>
-                  <p>Email</p>
-                  <input
-                    type="text"
-                    name="Email"
-                    value={formdata.Email}
-                    onChange={changeHandler}
-                    placeholder="Email"
-                  />
-                </label>
+  <p>Email</p>
+  <input
+    className={isEdit ? "bg-[#e8ecf5]" : "text-red-500"}
+    type="email"
+    name="Email"
+    value={formdata.Email}
+    onChange={changeHandler}
+    placeholder="Enter your email"
+    disabled={isEdit}
+  />
+</label>
+
                 {errors.Email && <span className="text-[10px] text-red-500 -mt-5">{errors.Email}</span>}
                 <label>
                   <p>Password</p>

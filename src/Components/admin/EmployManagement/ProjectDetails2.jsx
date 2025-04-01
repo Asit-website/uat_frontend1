@@ -844,7 +844,7 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
 
                             {/* Image or file preview */}
                             <div>
-                              {file?.filePath && /\.(jpg|jpeg|png|gif)$/i.test(file?.filePath) ? (
+                              {file?.filePath && /\.(jpg|jpeg|png|gif|webp)$/i.test(file?.filePath) ? (
                                 <a
                                   target="_blank"
                                   rel="noopener noreferrer"

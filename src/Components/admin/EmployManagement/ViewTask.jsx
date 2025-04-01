@@ -23,7 +23,7 @@ function secondsToTime(seconds) {
 
 
 let totalSeconds = 0;
-timesheets.forEach(entry => {
+timesheets?.forEach(entry => {
   totalSeconds += timeToSeconds(entry.totalTime);
 });
 
