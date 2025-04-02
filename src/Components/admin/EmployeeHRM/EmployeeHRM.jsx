@@ -71,12 +71,46 @@ const EmployeeHRM = ({
     CreateExpense,
     getUserHalfDay,
     getProjectTask,
+    getCheckInActivity,
 
     getAllTaskUser,
   } = useMain();
 
   const user2 = JSON.parse(localStorage.getItem("hrms_user"));
   // console.log("Userdata is here", user2);
+
+  const [refresh, setRefresh] = useState(false);
+
+  const checkinActivity = async () => {
+    const ans = await getCheckInActivity(user2._id);
+    console.log("Response:", ans);
+  
+    if (ans?.success && ans.activity.length > 0) {
+      const resp = ans.activity[0];
+      console.log("Clock In:", resp?.clockIn);
+  
+      localStorage.setItem("clock-in", resp?.clockIn);
+      localStorage.setItem("clock-status", "break");
+      localStorage.setItem("date1", resp?.date1);
+      localStorage.setItem("clockInTime", resp?.clockInTime);
+      localStorage.setItem("clock-in-date", resp?.date1);
+  
+      setRefresh((prev) => !prev);
+    } else {
+      console.log("No active check-in found or success is false");
+      localStorage.removeItem("clock-in");
+      localStorage.removeItem("clock-status");
+      localStorage.removeItem("date1");
+      localStorage.removeItem("clockInTime");
+      localStorage.removeItem("clock-in-date");
+    }
+  
+    return ans;
+  };
+  
+  useEffect(()=>{
+    checkinActivity()
+  },[])
 
   const [counts, setCounts] = useState({
     activeEmployees: 0,
@@ -105,6 +139,8 @@ const EmployeeHRM = ({
 
   useEffect(() => {
     fetchTasks();
+    checkinActivity();
+    console.log(refresh, " at 140")
   }, []);
 
   const [loadFlag, setLoadFlag] = useState(true);
@@ -144,7 +180,7 @@ const EmployeeHRM = ({
     if (hrms_user) {
       fetchUserOwnDetailHandler();
     }
-  }, [hrms_user]);
+  }, []);
 
   const [formdata, setFormdata] = useState({
     employeeName: "",
@@ -314,6 +350,7 @@ const EmployeeHRM = ({
         overtime: 0,
         total: 0,
         message: "",
+        clockInTime:localStorage.getItem("clockInTime")
       });
 
       localStorage.setItem("clock-in", new Date().getTime());

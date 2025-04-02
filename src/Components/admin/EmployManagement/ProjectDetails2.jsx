@@ -30,7 +30,7 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
     getProjectTask,
     statuschangeapi,
     deleteProjectTaskapi22, EditProjectTask,
-    UploadFileProjectapi, allfilesproject
+    UploadFileProjectapi, allfilesproject, deleteProjectFile
   } = useMain();
 
   const location = useLocation();
@@ -474,6 +474,24 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
       });
     }
   }
+  const handleDownload = async (url, filename) => {
+    try {
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error(`Failed to fetch file: ${response.statusText}`);
+      }
+  
+      const blob = await response.blob();
+      const link = document.createElement("a");
+      link.href = window.URL.createObjectURL(blob);
+      link.setAttribute("download", filename || "download");
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } catch (error) {
+      console.error("Download error:", error);
+    }
+  };
 
   useEffect(() => {
     if (showAllProjectPermission) {
@@ -488,6 +506,26 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
     fetchAllFile();
   }, []);
 
+  const deleteFile = async(id,uploadedBy)=>{
+    // const hrms_user = localStorage.getItem("hrms_user")
+    console.log(id,uploadedBy,hrms_user?._id)
+    console.log(uploadedBy === hrms_user?._id)
+
+    if(uploadedBy === hrms_user?.id ){
+      console.log(uploadedBy === hrms_user?.id)
+      alert("you can't delete it")
+      return
+ 
+  }
+    const ans = await deleteProjectFile(id);
+    await fetchAllFile()
+    if(ans.status){
+      toast.success("successfully deleted")
+    }
+    return ans
+    
+     
+  }
 
   const statuschangehadler = async (taskId, status) => {
     const toastId = toast.loading("Loading...");
@@ -829,23 +867,17 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
                                 <strong>File Name:</strong> {file?.fileName}
                               </p>
                               <p className="text-gray-600">
-                                <strong>Download Link:</strong>{" "}
-                                <a
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                  href={file?.filePath}
-                                  className="text-blue-500 hover:underline"
-                                >
-                                  {file?.filePath}
-                                </a>
-                              </p>
-                              <p className="text-gray-600">
                                 <strong>Uploaded by:</strong> {file?.uploadedBy?.fullName || "Client"}
                               </p>
+                              <p className="text-gray-600">
+                              <strong>Uploaded On:</strong> {new Date(file?.createdAt).toLocaleDateString()}
+                            </p>
+                              <button onClick={()=>deleteFile(file?._id, file?.uploadedBy?._id)} className="bg-red-500 text-white px-2 rounded py-1">Delete</button>
+
                             </div>
 
                             {/* Image or file preview */}
-                            <div>
+                            <div className="flex flex-col justify-center items-center">
                               {file?.filePath && /\.(jpg|jpeg|png|gif|webp)$/i.test(file?.filePath) ? (
                                 <a
                                   target="_blank"
@@ -869,6 +901,7 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
                                   <p className="text-gray-500 text-sm">{file?.fileName}</p>
                                 </a>
                               )}
+                              <button onClick={() => handleDownload(file?.filePath, file?.fileName)} className="text-blue-500">Download</button>
                             </div>
                           </div>
                         </div>

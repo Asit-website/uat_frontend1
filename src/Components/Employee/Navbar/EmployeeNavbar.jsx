@@ -3,7 +3,7 @@ import lok from "../../images/lok.png";
 import bottom from "../../images/bottom.png";
 import notifications from "../../images/notifications.png";
 import OutsideClickHandler from "react-outside-click-handler";
-import { NavLink,useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import "react-circular-progressbar/dist/styles.css";
 import LogoutPop from "../Popup/LogoutPop";
 import { useMain } from "../../../hooks/useMain";
@@ -20,7 +20,7 @@ const EmployeeNavbar = ({ setAlert, pop1, setPop1 }) => {
     postActivity,
     getActivitiesByUser,
     fetchUserNotify,
-    deleteNotification,markedNotification
+    deleteNotification, markedNotification
   } = useMain();
 
   let todayDate = new Date().toLocaleDateString("en-GB");
@@ -242,7 +242,7 @@ const EmployeeNavbar = ({ setAlert, pop1, setPop1 }) => {
   const [allNotication, setAllNotification] = useState([]);
   const [currLoad, setCurrLoad] = useState(1);
   const [actNotify, setActNotify] = useState([]);
-  const [loading,setLoading] = useState()
+  const [loading, setLoading] = useState()
 
   const [shownotify, setShownotify] = useState(false);
 
@@ -250,7 +250,7 @@ const EmployeeNavbar = ({ setAlert, pop1, setPop1 }) => {
     const ans = await fetchUserNotify();
     if (ans?.status) {
       let notifications = ans?.notifications;
-  const unreadNotifications = notifications.filter(notification => !notification.IsRead);
+      const unreadNotifications = notifications.filter(notification => !notification.IsRead);
 
       let reversedNotifications = unreadNotifications?.slice()?.reverse();
       setAllNotification(reversedNotifications);
@@ -289,7 +289,7 @@ const EmployeeNavbar = ({ setAlert, pop1, setPop1 }) => {
       const nNotify = unreadNotifications.slice(0, num);
       setActNotify(nNotify);
     }
-  }, [ currLoad]); // This effect now triggers only when necessary
+  }, [currLoad]); // This effect now triggers only when necessary
 
   const loadMoreNotifications = () => {
     if (currLoad * 10 < unreadNotifications.length) {
@@ -325,15 +325,15 @@ const EmployeeNavbar = ({ setAlert, pop1, setPop1 }) => {
               document.getElementById("ty").classList.add("kys");
           }}
         >
-           <div className="relative cursor-pointer flex items-center gap-4" >
-           <div className="relative inline-block cursor-auto" onClick={() => setShownotify(!shownotify)}>
-            <img src={notifications} alt="Notification" className="h-7 w-7" />
-            {unreadCount>0 && (
-              <div className="absolute top-0 right-0 bg-red-500 text-white text-xs font-bold rounded-full w-4 h-5 flex items-center justify-center cursor-pointer">
-              {unreadCount}
+          <div className="relative cursor-pointer flex items-center gap-4" >
+            <div className="relative inline-block cursor-auto" onClick={() => setShownotify(!shownotify)}>
+              <img src={notifications} alt="Notification" className="h-7 w-7" />
+              {unreadCount > 0 && (
+                <div className="absolute top-0 right-0 bg-red-500 text-white text-xs font-bold rounded-full w-4 h-5 flex items-center justify-center cursor-pointer">
+                  {unreadCount}
+                </div>
+              )}
             </div>
-            )}
-          </div>
             <div className="sixth-logo flex items-center relative " onClick={updateUser}>
               <img
                 className="john"
@@ -372,13 +372,13 @@ const EmployeeNavbar = ({ setAlert, pop1, setPop1 }) => {
         <div className="notifySidwrap">
           <div className="notifcont">
             <nav>
-            <div>
+              <div>
 
-<h2>Notifications</h2>
-{unreadCount > 0 && 
-<button onClick={markAllRead} className="text-xs bg-red-500 px-2 py-1 rounded text-white">Mark all Read</button>
-}
-</div>
+                <h2>Notifications</h2>
+                {unreadCount > 0 &&
+                  <button onClick={markAllRead} className="text-xs bg-red-500 px-2 py-1 rounded text-white">Mark all Read</button>
+                }
+              </div>
               <img
                 onClick={() => {
                   setShownotify(false);
@@ -391,7 +391,7 @@ const EmployeeNavbar = ({ setAlert, pop1, setPop1 }) => {
             <hr />
 
             <div className="allnotiftcont">
-            {allNotication.length > 0 ? (
+              {allNotication.length > 0 ? (
                 <div className="allnotiftwrap">
                   {allNotication?.map((item, index) => (
                     <div key={index}>
@@ -407,7 +407,7 @@ const EmployeeNavbar = ({ setAlert, pop1, setPop1 }) => {
                             className="bg-red-500 px-2 py-1 text-white rounded"
                             disabled={loading}
                           >
-                            {loading===item?._id ? 'Loading...' : 'Mark as Read'}
+                            {loading === item?._id ? 'Loading...' : 'Mark as Read'}
                           </button>
                         )}
                       </div>

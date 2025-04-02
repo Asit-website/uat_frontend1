@@ -107,9 +107,11 @@ const ClientNavbar = ({ setAlert }) => {
           {/* Notification Icon */}
           <div className="relative inline-block cursor-pointer" onClick={() => setShownotify(prevState => !prevState)}>
             <img src={notification} alt="Notification" className="h-7 w-7" />
-            <div className="absolute top-0 right-0 bg-red-500 text-white text-xs font-bold rounded-full w-4 h-5 flex items-center justify-center">
-              {unreadCount}
-            </div>
+            {unreadCount > 0 && (
+                <div className="absolute top-0 right-0 bg-red-500 text-white text-xs font-bold rounded-full w-4 h-5 flex items-center justify-center cursor-pointer">
+                  {unreadCount}
+                </div>
+              )}
           </div>
 
 

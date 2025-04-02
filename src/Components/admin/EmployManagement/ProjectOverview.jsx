@@ -25,6 +25,7 @@ const ProjectOverview = ({ setAlert, pop, setPop }) => {
   const [allTasks, setAllTasks] = useState([]);
 
   const location = useLocation();
+  // const hrms_user = localStorage.getItem("hrms_user")
 
   const data = location?.state;
   // console.log(data.projectName)
@@ -152,6 +153,7 @@ const ProjectOverview = ({ setAlert, pop, setPop }) => {
 
   const deleteFile = async(id)=>{
     console.log(id)
+    
     const ans = await deleteProjectFile(id);
     await fetchAllFile()
     return  ans;
@@ -449,14 +451,13 @@ const ProjectOverview = ({ setAlert, pop, setPop }) => {
                             {/* <a href={`${file?.filePath}`} target="_blank" download={`${file?.filePath}`}>
   <button type="button">Download</button>
   </a> */}
-<button onClick={() => handleDownload(file?.filePath, file?.fileName)}>Download</button>
   </div>
 
 
                           </div>
 
                           {/* Image or file preview */}
-                          <div>
+                          <div className="flex flex-col items-center justify-between">
                             {file?.filePath && /\.(jpg|jpeg|png|gif|webp)$/i.test(file?.filePath) ? (
                               // Show Image Preview
                               <a
@@ -480,6 +481,8 @@ const ProjectOverview = ({ setAlert, pop, setPop }) => {
                                 <p className="text-gray-500 text-sm">{file?.fileName}</p>
                               </a>
                             )}
+                        <button className="text-blue-500" onClick={() => handleDownload(file?.filePath, file?.fileName)}>Download</button>
+
                           </div>
                         </div>
                       </div>

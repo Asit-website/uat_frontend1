@@ -60,12 +60,35 @@ const ClientProjectOverview = () => {
     };
 
 
-  const deleteFile = async(id)=>{
+  const deleteFile = async(id,uploadedBy)=>{
+    const hrms_user = localStorage.getItem("hrms_user")
     console.log(id)
+    if(uploadedBy && uploadedBy !== hrms_user?.id ){
+      alert("you can't delete it")
+      return
+    }
     const ans = await deleteProjectFile(id);
     await fetchAllFile()
     return  ans;
   }
+  const handleDownload = async (url, filename) => {
+    try {
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error(`Failed to fetch file: ${response.statusText}`);
+      }
+  
+      const blob = await response.blob();
+      const link = document.createElement("a");
+      link.href = window.URL.createObjectURL(blob);
+      link.setAttribute("download", filename || "download");
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } catch (error) {
+      console.error("Download error:", error);
+    }
+  };
 
   const [allTasks, setAllTasks] = useState([]);
   const getProjectTaskapi = async () => {
@@ -266,11 +289,11 @@ const ClientProjectOverview = () => {
                             <p className="text-gray-600">
                               <strong>Uploaded On:</strong> {new Date(file?.createdAt).toLocaleDateString()}
                             </p>
-                            <button onClick={()=>deleteFile(file?._id)} className="bg-red-500 text-white px-2 rounded-l py-1">Delete</button>
+                            <button onClick={()=>deleteFile(file?._id, file?.uploadedBy?._id)} className="bg-red-500 text-white px-2 rounded py-1">Delete</button>
                           </div>
 
                           {/* Image or file preview */}
-                          <div>
+                          <div className="flex flex-col items-center justify-center">
                             {file?.filePath && /\.(jpg|jpeg|png|gif|webp)$/i.test(file?.filePath) ? (
                               // Show Image Preview
                               <a
@@ -295,7 +318,8 @@ const ClientProjectOverview = () => {
                               </a>
                               // Show File Name if not an image
                             )}
-                          </div>
+                          
+                          </div>  <button onClick={() => handleDownload(file?.filePath, file?.fileName)} className="text-blue-500">Download</button>
                         </div>
                       </div>
                     ))}
