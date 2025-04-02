@@ -288,6 +288,7 @@ function App() {
 
               <Route path="/adminDash/HRM/projectDetails" element={<ProjectDetails />} />
               <Route path="/adminDash/HRM/projectOverview" element={<ProjectOverview/>} />
+              <Route path="/employeeDash/HRM/projectOverview" element={<ProjectOverview/>} />
               <Route path="/adminDash/HRM/clientsProject" element={<AdminClientDashboard />} />
               <Route path="/employeeDash/HRM/clientsProject" element={<AdminClientDashboard />} />
 

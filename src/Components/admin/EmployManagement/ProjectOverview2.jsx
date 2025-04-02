@@ -146,9 +146,9 @@ const ProjectOverview2 = ({ allTasks, getProjectTaskapi }) => {
   const removeUser = (index) => {
     const newProUser = proUser?.filter((_, i) => i !== index);
     const newMembers = formdata?.Members?.filter((_, i) => i !== index);
-    console.log(newMembers)
+    // console.log(newMembers)
     setProUser(newProUser);
-    console.log(newProUser)
+    // console.log(newProUser)
   const alreadyUsers = allEmp.filter((emp) => newProUser.includes(emp?.fullName));
     setFormdata({ ...formdata, Members: alreadyUsers.map((user) => user._id) });
   };
@@ -594,6 +594,7 @@ const filterByTaskId = (taskId) => {
                     {allEmp?.map((emp, index) => {
                       // Check if emp._id is already in formdata?.Members
                       const isAlreadySelected = proUser.includes(emp.fullName);
+                      console.log(proUser)
 
                       return (
                         <option value={emp?._id} key={index} disabled={isAlreadySelected}>

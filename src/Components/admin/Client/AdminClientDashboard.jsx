@@ -49,25 +49,40 @@ const AdminClientDashboard = () => {
     const changeHandler2 = (e) => {
         const selectedEmpId = e.target.value;
         if (selectedEmpId === "Select") return;
+        const selectedEmp = allEmp?.find((emp) => emp?._id === selectedEmpId);
+        if (!selectedEmp || proUser?.includes(selectedEmp?.fullName)) return;
+        setProUser((prev) => {
+          const updatedProUser = [...prev, selectedEmp?.fullName];
+          const alreadyUsers = allEmp.filter((emp) => updatedProUser.includes(emp?.fullName));
+          setFormdata((prevData) => {
+            const prevMembers = Array.isArray(prevData?.Members) ? prevData?.Members : [];
+            // Update the Members array with selectedEmpId
+            const newMembers = [
+              ...prevMembers,
+              selectedEmpId,
+            ];
     
-        const selectedEmp = allEmp.find((emp) => emp._id === selectedEmpId);
-        if (!selectedEmp || proUser.includes(selectedEmp.fullName)) return;
-      
-        setProUser((prev) => [...prev, selectedEmp.fullName]);
-        setFormdata((prev) => ({
-          ...prev,
-          Members: [...prev.Members, selectedEmpId],
-        }));
+            return {
+              ...prevData,
+              Members: Array.from(new Set(newMembers)),
+            };
+          });
+    
+          return updatedProUser;
+        });
       };
     
+    
 
-      const removeUser = (index) => {
-        const newProUser = proUser.filter((_, i) => i !== index);
-        const newMembers = formdata.Members.filter((_, i) => i !== index);
-        setProUser(newProUser);
-        setFormdata({ ...formdata, Members: newMembers });
-      };
-
+  const removeUser = (index) => {
+    const newProUser = proUser?.filter((_, i) => i !== index);
+    const newMembers = formdata?.Members?.filter((_, i) => i !== index);
+    console.log(newMembers)
+    setProUser(newProUser);
+    console.log(newProUser)
+    const alreadyUsers = allEmp.filter((emp) => newProUser.includes(emp?.fullName));
+    setFormdata({ ...formdata, Members: alreadyUsers.map((user) => user._id) });
+  };
 
     const getAllProject = async (clientId) => {
         const ans = await getAllProjectApi();
@@ -160,19 +175,18 @@ const AdminClientDashboard = () => {
     const handleEditClick = (client) => {
         console.log(client)
         const membersNames = client.Members.map((memberId) => {
-          const member = allEmp?.find((emp) => emp?._id === memberId?._id);
-          return member ? member?.fullName : "";
+          const member = allEmp.find((emp) => emp._id === memberId?._id);
+          return member ? member.fullName : "";
         });
-        console.log(membersNames)
-    
+
         setIsEdit(client._id);
         setFormdata({
           Name: client?.projectName,
           DueDate: client.deadline,
+    
           ...client,
         });
         setProUser(membersNames);
-        console.log(proUser)
         setAddClientPop(true);
       };
 

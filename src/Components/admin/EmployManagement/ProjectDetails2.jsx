@@ -2,7 +2,7 @@ import { useEffect, useState, useRef } from "react";
 import "react-calendar/dist/Calendar.css";
 import toast from "react-hot-toast";
 import { FaEye } from "react-icons/fa";
-import { BsStopwatch  } from "react-icons/bs";
+import { BsStopwatch } from "react-icons/bs";
 import { MdDelete, MdOutlineEdit } from "react-icons/md";
 import "react-profile-avatar/dist/index.css";
 import { NavLink, useLocation } from "react-router-dom";
@@ -30,7 +30,7 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
     getProjectTask,
     statuschangeapi,
     deleteProjectTaskapi22, EditProjectTask,
-    UploadFileProjectapi, allfilesproject 
+    UploadFileProjectapi, allfilesproject
   } = useMain();
 
   const location = useLocation();
@@ -205,7 +205,7 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
 
   const clockIn = async (task) => {
     let t = localStorage.getItem("taskTimer");
-    if(active && active?._id !== task?._id){
+    if (active && active?._id !== task?._id) {
       console.log("Stop the first timer before starting the new timer.");
       toast("Stop the first timer before starting the new timer.")
       return
@@ -223,8 +223,8 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
       );
       localStorage.setItem("task", JSON.stringify(task));
       console.log(task)
-      if(task?.Status === "Not Started"){
-        await statuschangehadler(task,"Started");
+      if (task?.Status === "Not Started") {
+        await statuschangehadler(task, "Started");
       }
 
       const currentTime = new Date();
@@ -329,7 +329,7 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
         setClock(++t5);
       }, 1000);
 
-      tc3 = setInterval(() => {}, 1000);
+      tc3 = setInterval(() => { }, 1000);
     } else {
       let t7 = localStorage.getItem("clock-out-time");
       let t5 = Math.floor((t7 - t) / 1000);
@@ -442,7 +442,7 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
   };
 
   const uploadFileProject = async () => {
-    if(selectedFile === null) return toast.error('Please Choose a file !!')
+    if (selectedFile === null) return toast.error('Please Choose a file !!')
     if (selectedFile && selectedFile.length > 0) {
       const toastId = toast.loading("Uploading...");
 
@@ -478,6 +478,7 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
   useEffect(() => {
     if (showAllProjectPermission) {
       getProjectTaskapiPermi();
+      // console.log(true)
 
     }
     else {
@@ -656,10 +657,10 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
                               Actions
                             </th>
                           )}
-                          {allTasks.length>0 && (
+                          {allTasks.length > 0 && (
                             <th scope="col" className="px-6 py-3">
-                            Timer
-                          </th>
+                              Timer
+                            </th>
                           )}
                         </tr>
                       </thead>
@@ -671,16 +672,16 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
                           >
                             <td className="px-6 py-4">
                               <p> {task?.taskName}</p>
-                              <p className="cursor-pointer underline text-blue-600"  onClick={() => getTask(task?._id)}>View</p>
+                              <p className="cursor-pointer underline text-blue-600" onClick={() => getTask(task?._id)}>View</p>
 
-                             </td>
+                            </td>
                             <td className="px-6 py-4 flex items-center justify-center borderNone ">
                               {
                                 task?.Members?.map((member) => (
                                   <img
                                     src={`${member?.profileImage
-                                        ? member?.profileImage
-                                        : "https://png.pngtree.com/png-vector/20231019/ourmid/pngtree-user-profile-avatar-png-image_10211467.png"
+                                      ? member?.profileImage
+                                      : "https://png.pngtree.com/png-vector/20231019/ourmid/pngtree-user-profile-avatar-png-image_10211467.png"
                                       }`}
                                     className="w-20 h-20"
                                     alt="Member Avatar "
@@ -704,13 +705,14 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
                             {/* <td className="px-6 py-4">{task?.Github}</td> */}
                             <td className="px-6 py-4">{task?.description}</td>
                             <td className="px-6 py-4">
-                              <select name="status" id="" onChange={(e) => statuschangehadler(task?._id, e.target.value)} value={task?.Status} >
+
+                              {task.Members.some(item => item._id === hrms_user._id) ? (<select name="status" id="" onChange={(e) => statuschangehadler(task?._id, e.target.value)} value={task?.Status} >
                                 {/* <option value=""></option> */}
                                 <option value="Not Started">Not Started</option>
                                 <option value="Started">Started</option>
                                 <option value="Pending">Pending</option>
                                 <option value="Completed">Completed</option>
-                              </select>
+                              </select>) : (task?.Status)}
                             </td>
 
                             {showTasksDetailPermission && (
@@ -749,22 +751,22 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
                               </td>
                             )}
 
-                            {allTasks.length>0 && (
-                            <td className="px-6 py-4">
-                             <BsStopwatch
-  onClick={() => {
-    if(active?._id === task._id){
-      clockIn(task);
-    } 
-    else {
-      clockIn(task);
-    }
-  }}
-  className={`cursor-pointer h-5 w-5 
-    ${active?._id === task?._id ? 'text-red-500' : ''} 
-    ${localStorage.getItem("taskTimer") && active?._id !== task?._id ? 'opacity-50 cursor-not-allowed' : ''} `}
-/>
-                            </td> )}
+                            {allTasks.length > 0 && (
+                              <td className="px-6 py-4">
+                                {task.Members.some(item => item._id === hrms_user._id)?(<BsStopwatch
+                                  onClick={() => {
+                                    if (active?._id === task._id) {
+                                      clockIn(task);
+                                    }
+                                    else {
+                                      clockIn(task);
+                                    }
+                                  }}
+                                  className={`cursor-pointer h-5 w-5 ${active?._id === task?._id ? 'text-red-500' : ''} ${localStorage.getItem("taskTimer") && active?._id !== task?._id ? 'opacity-50 cursor-not-allowed' : ''} `}
+                                />):(<BsStopwatch className={`cursor-pointer h-5 w-5 text-green-400 `}
+                                />)}
+                                
+                              </td>)}
                           </tr>
                         ))}
                       </tbody>
@@ -797,23 +799,23 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
                 <div className="p-6 bg-gray-50 rounded-lg shadow-md mt-10">
                   {/* Upload File Section */}
                   <div className="bg-white p-6 rounded-lg shadow-md mb-8">
-                  <h4 className="text-xl font-semibold text-gray-800 mb-4">Upload File or Folder</h4>
-                  <input
-                    type="file"
-                    webkitdirectory
-                    directory="true"
-                    multiple
-                    onChange={handleFileChange}
-                    ref={fileInputRef}
-                    className="border border-gray-300 rounded-md p-2 mb-4 w-full"
-                  />
-                  <button
-                    onClick={uploadFileProject}
-                    className="w-full bg-blue-600 text-white p-3 rounded-md hover:bg-blue-700 transition duration-300"
-                  >
-                    Upload
-                  </button>
-                </div>
+                    <h4 className="text-xl font-semibold text-gray-800 mb-4">Upload File or Folder</h4>
+                    <input
+                      type="file"
+                      webkitdirectory
+                      directory="true"
+                      multiple
+                      onChange={handleFileChange}
+                      ref={fileInputRef}
+                      className="border border-gray-300 rounded-md p-2 mb-4 w-full"
+                    />
+                    <button
+                      onClick={uploadFileProject}
+                      className="w-full bg-blue-600 text-white p-3 rounded-md hover:bg-blue-700 transition duration-300"
+                    >
+                      Upload
+                    </button>
+                  </div>
 
                   {/* All Files Section */}
                   <div>
@@ -838,9 +840,9 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
                                 </a>
                               </p>
                               <p className="text-gray-600">
-                                <strong>Uploaded by:</strong> {file?.uploadedBy?.fullName||"Client"}
+                                <strong>Uploaded by:</strong> {file?.uploadedBy?.fullName || "Client"}
                               </p>
-            </div>
+                            </div>
 
                             {/* Image or file preview */}
                             <div>
@@ -867,9 +869,9 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
                                   <p className="text-gray-500 text-sm">{file?.fileName}</p>
                                 </a>
                               )}
-          </div>
-        </div>
-      </div>
+                            </div>
+                          </div>
+                        </div>
                       ))}
                     </div>
                   </div>
@@ -1105,12 +1107,12 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
       )}
 
       {viewTask && (<>
-              <div className="addCliWrap">
-                <div className="addClieCont addheight flex">
-                  <ViewTask src={cut} data={formdata} onClick={() => setViewTask(false)} />
-                </div>
-              </div>
-            </>)}
+        <div className="addCliWrap">
+          <div className="addClieCont addheight flex">
+            <ViewTask src={cut} data={formdata} onClick={() => setViewTask(false)} />
+          </div>
+        </div>
+      </>)}
 
       {timerPop2 && (
         <div className="addCliWrap">
