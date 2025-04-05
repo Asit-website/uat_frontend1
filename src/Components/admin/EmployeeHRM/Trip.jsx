@@ -158,11 +158,11 @@ const Trip = ({ setAlert, pop, setPop }) => {
                                     <div className="adminFirt">
                                         <h2 className="hrmShed">Manage Promotion</h2>
 
-                                        <div className="hrmDoHe">
+                                        {/* <div className="hrmDoHe">
                                             <p>Dashboard</p>
                                             <img src={chevron} alt="" />
                                             <span>Promotion</span>
-                                        </div>
+                                        </div> */}
                                     </div>
 
 

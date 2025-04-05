@@ -83,34 +83,27 @@ const EmployeeHRM = ({
 
   const checkinActivity = async () => {
     const ans = await getCheckInActivity(user2._id);
-    console.log("Response:", ans);
-  
+    // console.log("Response:", ans);
+
     if (ans?.success && ans.activity.length > 0) {
-      const resp = ans.activity[0];
-      console.log("Clock In:", resp?.clockIn);
-  
+      const resp = ans.activity[ans.activity.length - 1];
       localStorage.setItem("clock-in", resp?.clockIn);
       localStorage.setItem("clock-status", "break");
       localStorage.setItem("date1", resp?.date1);
       localStorage.setItem("clockInTime", resp?.clockInTime);
-      localStorage.setItem("clock-in-date", resp?.date1);
-  
-      setRefresh((prev) => !prev);
+      localStorage.setItem("clock-in-date", resp?.date1);     
     } else {
-      console.log("No active check-in found or success is false");
       localStorage.removeItem("clock-in");
       localStorage.removeItem("clock-status");
       localStorage.removeItem("date1");
       localStorage.removeItem("clockInTime");
       localStorage.removeItem("clock-in-date");
     }
-  
+
     return ans;
   };
+
   
-  useEffect(()=>{
-    checkinActivity()
-  },[])
 
   const [counts, setCounts] = useState({
     activeEmployees: 0,
@@ -140,8 +133,9 @@ const EmployeeHRM = ({
   useEffect(() => {
     fetchTasks();
     checkinActivity();
-    console.log(refresh, " at 140")
+       console.log(refresh, " at 140")
   }, []);
+
 
   const [loadFlag, setLoadFlag] = useState(true);
 
@@ -350,7 +344,7 @@ const EmployeeHRM = ({
         overtime: 0,
         total: 0,
         message: "",
-        clockInTime:localStorage.getItem("clockInTime")
+        clockInTime: localStorage.getItem("clockInTime")
       });
 
       localStorage.setItem("clock-in", new Date().getTime());
@@ -676,7 +670,7 @@ const EmployeeHRM = ({
 
   const getTodayBirthdayapi = async () => {
     const ans = await getTodayBirthday();
-    console.log("get bday employee", ans);
+    // console.log("get bday employee", ans);
     setUserBirth(ans);
   };
 
@@ -684,8 +678,8 @@ const EmployeeHRM = ({
     try {
       // Fetch all employees
       const response = await allEmployee();
-      console.log("All employee",response)
-      console.log("Employee data response:", response._id.joiningDate);
+      // console.log("All employee",response)
+      // console.log("Employee data response:", response._id.joiningDate);
 
       // Ensure we are working with an array
       const employees = Array.isArray(response)
@@ -713,7 +707,7 @@ const EmployeeHRM = ({
         return false;
       });
 
-      console.log("Anniversary Employees:", oneYearCompleted);
+      // console.log("Anniversary Employees:", oneYearCompleted);
       setAnniversaryEmployees(oneYearCompleted);
     } catch (error) {
       console.error("Error fetching employee anniversaries:", error);
@@ -805,7 +799,7 @@ const EmployeeHRM = ({
       (resp?.data?.paidLeave || 0) +
       (resp?.data?.halfDays || 0) * 0.5;
 
-    setLeaveTaken(totalLeaves); 
+    setLeaveTaken(totalLeaves);
 
     setLeavedata({
       casualLeave: resp?.data?.casualLeave || 0,
@@ -941,133 +935,128 @@ const EmployeeHRM = ({
                   employeeOnLeavePermission ||
                   halfDayPermission ||
                   totalEmployeePermission) && (
-                  // <div className="hrLefFir">
-                  <div className="flex gap-3 items-center mt-4">
-                    {(activeEmployeePermission || role === "ADMIN") && (
-                      <NavLink
-                        className="skm"
-                        to={`${
-                          role === "ADMIN"
+                    // <div className="hrLefFir">
+                    <div className="flex gap-3 items-center mt-4">
+                      {(activeEmployeePermission || role === "ADMIN") && (
+                        <NavLink
+                          className="skm"
+                          to={`${role === "ADMIN"
                             ? "/adminDash/HRM/activeEmployee"
                             : "/employeeDash/HRM/activeEmployee"
-                        } `}
-                      >
-                        <div className="sinActDat colorChange1 ">
-                          <img className="firImg" src={ac1} alt="" />
+                            } `}
+                        >
+                          <div className="sinActDat colorChange1 ">
+                            <img className="firImg" src={ac1} alt="" />
 
-                          <div className="titWrap">
-                            <h3>Active Employee</h3>
-                            <p className="hrmlRNu">{counts?.activeEmployees}</p>
+                            <div className="titWrap">
+                              <h3>Active Employee</h3>
+                              <p className="hrmlRNu">{counts?.activeEmployees}</p>
+                            </div>
                           </div>
-                        </div>
-                      </NavLink>
-                    )}
+                        </NavLink>
+                      )}
 
-                    {(halfDayPermission || role === "ADMIN") && (
-                      <NavLink
-                        className="skm"
-                        to={
-                          role === "ADMIN"
-                            ? `/adminDash/HRM/halfDayRequest`
-                            : "/employeeDash/HRM/halfDayRequest"
-                        }
-                      >
-                        <div className="sinActDat colorChange1">
-                          <img className="firImg" src={ac1} alt="" />
+                      {(halfDayPermission || role === "ADMIN") && (
+                        <NavLink
+                          className="skm"
+                          to={
+                            role === "ADMIN"
+                              ? `/adminDash/HRM/halfDayRequest`
+                              : "/employeeDash/HRM/halfDayRequest"
+                          }
+                        >
+                          <div className="sinActDat colorChange1">
+                            <img className="firImg" src={ac1} alt="" />
 
-                          <div className="titWrap">
-                            <h3>Half Day Request </h3>
-                            <p className="hrmlRNu">{totalHalfDay}</p>
+                            <div className="titWrap">
+                              <h3>Half Day Request </h3>
+                              <p className="hrmlRNu">{totalHalfDay}</p>
+                            </div>
                           </div>
-                        </div>
-                      </NavLink>
-                    )}
+                        </NavLink>
+                      )}
 
-                    {(leaveRequestPermission || role === "ADMIN") && (
-                      <NavLink
-                        className="skm"
-                        to={`${
-                          role === "ADMIN"
+                      {(leaveRequestPermission || role === "ADMIN") && (
+                        <NavLink
+                          className="skm"
+                          to={`${role === "ADMIN"
                             ? "/adminDash/HRM/leaveRequest"
                             : "/employeeDash/HRM/leaveRequest"
-                        }`}
-                      >
-                        <div className="sinActDat colorChange2">
-                          <img className="firImg" src={ac2} alt="" />
+                            }`}
+                        >
+                          <div className="sinActDat colorChange2">
+                            <img className="firImg" src={ac2} alt="" />
 
-                          <div className="titWrap">
-                            <h3>Leave Request </h3>
-                            <p className="hrmlRNu">{totalLeave}</p>
+                            <div className="titWrap">
+                              <h3>Leave Request </h3>
+                              <p className="hrmlRNu">{totalLeave}</p>
+                            </div>
                           </div>
-                        </div>
-                      </NavLink>
-                    )}
+                        </NavLink>
+                      )}
 
-                    {(employeeOnLeavePermission || role === "ADMIN") && (
-                      <NavLink
-                        className="skm"
-                        to={`${
-                          role === "ADMIN"
+                      {(employeeOnLeavePermission || role === "ADMIN") && (
+                        <NavLink
+                          className="skm"
+                          to={`${role === "ADMIN"
                             ? "/adminDash/HRM/LeaveEmployee"
                             : "/employeeDash/HRM/LeaveEmployee"
-                        }`}
-                      >
-                        <div className="sinActDat colorChange3">
-                          <img className="firImg" src={ac3} alt="" />
+                            }`}
+                        >
+                          <div className="sinActDat colorChange3">
+                            <img className="firImg" src={ac3} alt="" />
 
-                          <div className="titWrap">
-                            <h3>Employee on Leave</h3>
+                            <div className="titWrap">
+                              <h3>Employee on Leave</h3>
 
-                            <p className="hrmlRNu">{leaveCount}</p>
+                              <p className="hrmlRNu">{leaveCount}</p>
+                            </div>
                           </div>
-                        </div>
-                      </NavLink>
-                    )}
+                        </NavLink>
+                      )}
 
-                    {(totalEmployeePermission || role === "ADMIN") && (
-                      <NavLink
-                        className="skm"
-                        to={`${
-                          role === "ADMIN"
+                      {(totalEmployeePermission || role === "ADMIN") && (
+                        <NavLink
+                          className="skm"
+                          to={`${role === "ADMIN"
                             ? "/adminDash/HRM/totalEmployee"
                             : "/employeeDash/HRM/totalEmployee"
-                        }`}
-                      >
-                        <div className="sinActDat colorChange4">
-                          <img className="firImg" src={ac4} alt="" />
+                            }`}
+                        >
+                          <div className="sinActDat colorChange4">
+                            <img className="firImg" src={ac4} alt="" />
 
-                          <div className="titWrap">
-                            <h3>Total Employee</h3>
+                            <div className="titWrap">
+                              <h3>Total Employee</h3>
 
-                            <p className="hrmlRNu">{counts?.totalEmployees}</p>
+                              <p className="hrmlRNu">{counts?.totalEmployees}</p>
+                            </div>
                           </div>
-                        </div>
-                      </NavLink>
-                    )}
-                    {(totalEmployeePermission || role === "ADMIN") && (
-                      <NavLink
-                        className="skm"
-                        to={`${
-                          role === "ADMIN"
+                        </NavLink>
+                      )}
+                      {(totalEmployeePermission || role === "ADMIN") && (
+                        <NavLink
+                          className="skm"
+                          to={`${role === "ADMIN"
                             ? "/adminDash/HRM/deactivate"
                             : "/adminDash/HRM/deactivate"
-                        }`}
-                      >
-                        <div className="sinActDat colorChange4">
-                          <img className="firImg" src={ac4} alt="" />
+                            }`}
+                        >
+                          <div className="sinActDat colorChange4">
+                            <img className="firImg" src={ac4} alt="" />
 
-                          <div className="titWrap">
-                            <h3>Deactivated Employee</h3>
+                            <div className="titWrap">
+                              <h3>Deactivated Employee</h3>
 
-                            <p className="hrmlRNu">
-                              {counts?.totalDeactivated}
-                            </p>
+                              <p className="hrmlRNu">
+                                {counts?.totalDeactivated}
+                              </p>
+                            </div>
                           </div>
-                        </div>
-                      </NavLink>
-                    )}
-                  </div>
-                )}
+                        </NavLink>
+                      )}
+                    </div>
+                  )}
 
                 {role === "ADMIN" && (
                   <main className="attend-ctiveWrap">
@@ -1281,14 +1270,14 @@ const EmployeeHRM = ({
                                       ? "Check-in"
                                       : localStorage.getItem("clock-status") ===
                                         "break"
-                                      ? "Break"
-                                      : localStorage.getItem("clock-status") ===
-                                        "resume"
-                                      ? "Resume"
-                                      : localStorage.getItem("clock-status") ===
-                                        "out"
-                                      ? "Check-in"
-                                      : null}
+                                        ? "Break"
+                                        : localStorage.getItem("clock-status") ===
+                                          "resume"
+                                          ? "Resume"
+                                          : localStorage.getItem("clock-status") ===
+                                            "out"
+                                            ? "Check-in"
+                                            : null}
                                   </span>
                                 )}
                               </button>
@@ -1353,10 +1342,10 @@ const EmployeeHRM = ({
                               )
                                 .toString()
                                 .padStart(2, "0")}:${Math.floor(
-                                (clock % 3600) / 60
-                              )
-                                .toString()
-                                .padStart(2, "0")}`}</h5>
+                                  (clock % 3600) / 60
+                                )
+                                  .toString()
+                                  .padStart(2, "0")}`}</h5>
                               <p>Scheduled</p>
                             </div>
 
@@ -1366,10 +1355,10 @@ const EmployeeHRM = ({
                               )
                                 .toString()
                                 .padStart(2, "0")}:${Math.floor(
-                                ((clock - breakClock) % 3600) / 60
-                              )
-                                .toString()
-                                .padStart(2, "0")}`}</h5>
+                                  ((clock - breakClock) % 3600) / 60
+                                )
+                                  .toString()
+                                  .padStart(2, "0")}`}</h5>
                               <p>Worked</p>
                             </div>
 
@@ -1379,10 +1368,10 @@ const EmployeeHRM = ({
                               )
                                 .toString()
                                 .padStart(2, "0")}:${Math.floor(
-                                (breakClock % 3600) / 60
-                              )
-                                .toString()
-                                .padStart(2, "0")}`}</h5>
+                                  (breakClock % 3600) / 60
+                                )
+                                  .toString()
+                                  .padStart(2, "0")}`}</h5>
                               <p>Break</p>
                             </div>
 
@@ -1392,10 +1381,10 @@ const EmployeeHRM = ({
                               )
                                 .toString()
                                 .padStart(2, "0")}:${Math.floor(
-                                ((32400 - clock) % 3600) / 60
-                              )
-                                .toString()
-                                .padStart(2, "0")}`}</h5>
+                                  ((32400 - clock) % 3600) / 60
+                                )
+                                  .toString()
+                                  .padStart(2, "0")}`}</h5>
                               <p>balance</p>
                             </div>
                           </div>
@@ -1616,18 +1605,18 @@ const EmployeeHRM = ({
                                         {!localStorage.getItem("clock-status")
                                           ? "Check-in"
                                           : localStorage.getItem(
-                                              "clock-status"
-                                            ) === "break"
-                                          ? "Break"
-                                          : localStorage.getItem(
+                                            "clock-status"
+                                          ) === "break"
+                                            ? "Break"
+                                            : localStorage.getItem(
                                               "clock-status"
                                             ) === "resume"
-                                          ? "Resume"
-                                          : localStorage.getItem(
-                                              "clock-status"
-                                            ) === "out"
-                                          ? "Check-in"
-                                          : null}
+                                              ? "Resume"
+                                              : localStorage.getItem(
+                                                "clock-status"
+                                              ) === "out"
+                                                ? "Check-in"
+                                                : null}
                                       </span>
                                     )}
                                   </button>
@@ -1639,7 +1628,7 @@ const EmployeeHRM = ({
                                     disabled={
                                       !localStorage.getItem("clock-status") ||
                                       localStorage.getItem("clock-status") ===
-                                        "out"
+                                      "out"
                                     }
                                     onClick={clockOut}
                                   >
@@ -1691,10 +1680,10 @@ const EmployeeHRM = ({
                                 )
                                   .toString()
                                   .padStart(2, "0")}:${Math.floor(
-                                  (clock % 3600) / 60
-                                )
-                                  .toString()
-                                  .padStart(2, "0")}`}</h5>
+                                    (clock % 3600) / 60
+                                  )
+                                    .toString()
+                                    .padStart(2, "0")}`}</h5>
                                 <p>Scheduled</p>
                               </div>
 
@@ -1704,10 +1693,10 @@ const EmployeeHRM = ({
                                 )
                                   .toString()
                                   .padStart(2, "0")}:${Math.floor(
-                                  ((clock - breakClock) % 3600) / 60
-                                )
-                                  .toString()
-                                  .padStart(2, "0")}`}</h5>
+                                    ((clock - breakClock) % 3600) / 60
+                                  )
+                                    .toString()
+                                    .padStart(2, "0")}`}</h5>
                                 <p>Worked</p>
                               </div>
 
@@ -1717,10 +1706,10 @@ const EmployeeHRM = ({
                                 )
                                   .toString()
                                   .padStart(2, "0")}:${Math.floor(
-                                  (breakClock % 3600) / 60
-                                )
-                                  .toString()
-                                  .padStart(2, "0")}`}</h5>
+                                    (breakClock % 3600) / 60
+                                  )
+                                    .toString()
+                                    .padStart(2, "0")}`}</h5>
                                 <p>Break</p>
                               </div>
 
@@ -1730,10 +1719,10 @@ const EmployeeHRM = ({
                                 )
                                   .toString()
                                   .padStart(2, "0")}:${Math.floor(
-                                  ((32400 - clock) % 3600) / 60
-                                )
-                                  .toString()
-                                  .padStart(2, "0")}`}</h5>
+                                    ((32400 - clock) % 3600) / 60
+                                  )
+                                    .toString()
+                                    .padStart(2, "0")}`}</h5>
                                 <p>balance</p>
                               </div>
                             </div>
@@ -1797,48 +1786,48 @@ const EmployeeHRM = ({
 
                           {(hrms_permission?.userAllowCrtPermission ||
                             hrms_user?.role === "ADMIN") && (
-                            <button
-                              data-modal-target="authentication-modal"
-                              data-modal-toggle="authentication-modal"
-                              class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                              type="button"
-                              onClick={() => {
-                                setLeaveAllow(true);
-                              }}
-                            >
-                              <span>Leave Allowance</span>
-                            </button>
-                          )}
+                              <button
+                                data-modal-target="authentication-modal"
+                                data-modal-toggle="authentication-modal"
+                                class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                                type="button"
+                                onClick={() => {
+                                  setLeaveAllow(true);
+                                }}
+                              >
+                                <span>Leave Allowance</span>
+                              </button>
+                            )}
 
                           {(hrms_permission?.createExpensePermission ||
                             hrms_user?.role === "ADMIN") && (
-                            <button
-                              data-modal-target="authentication-modal"
-                              data-modal-toggle="authentication-modal"
-                              class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                              type="button"
-                              onClick={() => {
-                                setOpenExpense(true);
-                              }}
-                            >
-                              <span>Create Expense</span>
-                            </button>
-                          )}
+                              <button
+                                data-modal-target="authentication-modal"
+                                data-modal-toggle="authentication-modal"
+                                class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                                type="button"
+                                onClick={() => {
+                                  setOpenExpense(true);
+                                }}
+                              >
+                                <span>Create Expense</span>
+                              </button>
+                            )}
 
                           {(hrms_permission?.showExpensePermission ||
                             hrms_user?.role === "ADMIN") && (
-                            <button
-                              data-modal-target="authentication-modal"
-                              data-modal-toggle="authentication-modal"
-                              class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                              type="button"
-                              onClick={() => {
-                                navigate("/adminDash/HRM/Expense");
-                              }}
-                            >
-                              <span>All Expense</span>
-                            </button>
-                          )}
+                              <button
+                                data-modal-target="authentication-modal"
+                                data-modal-toggle="authentication-modal"
+                                class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                                type="button"
+                                onClick={() => {
+                                  navigate("/adminDash/HRM/Expense");
+                                }}
+                              >
+                                <span>All Expense</span>
+                              </button>
+                            )}
                         </div>
                       </div>
 

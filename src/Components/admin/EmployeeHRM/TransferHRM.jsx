@@ -12,6 +12,7 @@ import toast from "react-hot-toast";
 import { RxCross2 } from "react-icons/rx";
 import EmployeeNavbar from "../../Employee/Navbar/EmployeeNavbar";
 import EmployeeSidebar from "../../Employee/Sidebar/EmployeeSidebar";
+import { DescriptionModal } from "../../Description";
 
 
 
@@ -40,6 +41,8 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
 
   const [onEdit, setOnEdit] = useState(false);
   const [editData, setEditData] = useState({});
+    const [viewPop, setViewPop] = useState(false)
+  
 
   const fetchAllEmp = async () => {
     const ans = await allEmployee();
@@ -163,11 +166,11 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
   <div className="adminFirt">
     <h2 className="hrmShed">Manage Transfer</h2>
 
-    <div className="hrmDoHe">
+    {/* <div className="hrmDoHe">
       <p>Dashboard</p>
       <img src={chevron} alt="" />
       <span>Transfer</span>
-    </div>
+    </div> */}
   </div>
 
   <button
@@ -221,7 +224,16 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
                           <td className="px-6 py-4 taskAns">{item?.Department}</td>
                           <td className="px-6 py-4 taskAns">{item?.TransferDate}</td>
 
-                          <td className="px-6 py-4 taskAns">{item?.Description}</td>
+                          <td className="px-6 py-4 taskAns">{item?.Description.length > 30 ?
+                                item?.Description.substring(0, 30) :
+                                item?.Description}
+                                <span className='text-blue-400 cursor-pointer' onClick={() => {
+                                setViewPop(true)
+                                setFormdata({
+                                  branch: item.branch, Employee: item.Employee, Department: item.Department, TransferDate: item.TransferDate, Description: item.Description
+                                })
+                                console.log(formdata)
+                              }}>{item?.Description.length > 30 && ' more...'}</span></td>
 
                           <div className="viewOnwWRAP">
 
@@ -269,6 +281,17 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
             </div>
           </div>
         </div>
+
+                {viewPop && <DescriptionModal
+                  title="Details"
+                  data={Object.fromEntries(
+                    Object.entries(formdata).filter(([key]) => key !== "id")
+                  )}
+                  onClose={() => {
+                    setViewPop(false);
+                    setFormdata({});
+                  }}
+                />}
 
         {popup1 && (
           <div className="allPopupWrap">

@@ -31,6 +31,7 @@ const AdminProfile = ({ pop, setPop, setAlert }) => {
   const [department, setDepartment] = useState([]);
   const [branch, setBranch] = useState([]);
 
+  const [searchTerm, setSearchTerm] = useState('')
   const [refreshFlag, setRefreshFlag] = useState(false);
 
   const [onEdit, setOnEdit] = useState(false);
@@ -56,13 +57,13 @@ const AdminProfile = ({ pop, setPop, setAlert }) => {
   };
 
   const [allAnnoucement, setAllAnouce] = useState([]);
-  const [announcementList,setAnnouncementList] = useState([]);
-  const [AnnoucSearch,setAnnounceSearch] = useState([]);
+  const [announcementList, setAnnouncementList] = useState([]);
+  const [AnnoucSearch, setAnnounceSearch] = useState([]);
 
   const getAnnoucement = async () => {
     const ans = await fetchAnnoucement();
-    const reversedData = ans?.data?.slice().reverse(); 
-    
+    const reversedData = ans?.data?.slice().reverse();
+
     setAllAnouce(reversedData);
   };
 
@@ -169,7 +170,7 @@ const AdminProfile = ({ pop, setPop, setAlert }) => {
 
   let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
 
-  const [leavePopup , setLeavePopup] = useState(false);
+  const [leavePopup, setLeavePopup] = useState(false);
 
   const { role } = hrms_user;
 
@@ -185,16 +186,23 @@ const AdminProfile = ({ pop, setPop, setAlert }) => {
 
   const currentItems = allAnnoucement?.slice(startIndex, endIndex);
 
+  const filteredAnnoucements = allAnnoucement.filter((item) =>
+    item.title.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  // Paginate filtered announcements
+  const paginatedAnnouncements = filteredAnnoucements.slice(startIndex, endIndex);
+
   const handlePageChange = (newPage) => {
     if (newPage >= 1 && newPage <= totalPages) {
       setCurrentPage(newPage);
     }
   };
-  
+
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
-      behavior: "smooth", 
+      behavior: "smooth",
     });
   };
 
@@ -235,11 +243,17 @@ const AdminProfile = ({ pop, setPop, setAlert }) => {
             <main className="anMain">
               {/* top */}
               <div className="anmainTop">
-               
+
 
                 {/* right side  */}
                 <div className="anMaRi">
-                  <input type="text" placeholder="Search..." />
+                  <input
+                    type="text"
+                    placeholder="Search..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    className="mb-4 p-2 border border-gray-300 rounded"
+                  />
                 </div>
               </div>
 
@@ -266,12 +280,12 @@ const AdminProfile = ({ pop, setPop, setAlert }) => {
                   </thead>
 
                   <tbody>
-                    {currentItems.map((item, index) => (
-                      <tr onClick={()=>setLeavePopup(item)} key={index} class="bg-white cursor-pointer">
+                    {paginatedAnnouncements?.map((item, index) => (
+                      <tr onClick={() => setLeavePopup(item)} key={index} class="bg-white cursor-pointer">
                         <td class="px-3 py-4">{item.title?.slice(0, 30)}...</td>
                         <td class="px-3 py-4">{item.startDate}</td>
                         <td class="px-3 py-4">{item.endDate}</td>
-                        <td class="px-3 py-4">{item.description?.slice(0,50)}...</td>
+                        <td class="px-3 py-4">{item.description?.slice(0, 50)}...</td>
                         <td class="px-3 py-4">
                           <div className="flex items-center sk">
                             <i
@@ -297,35 +311,35 @@ const AdminProfile = ({ pop, setPop, setAlert }) => {
               </div>
             </main>
 
-           {totalPages > 1 && (
-             <div className="emPaginate">
-             <button
-               className={`prepaginate ${currentPage !== 1 && "putthehovebtn"
-                 }`}
-               onClick={() => {
-                 handlePageChange(currentPage - 1);
-                 scrollToTop();
-               }}
-               disabled={currentPage === 1}
-             >
-               Previous
-             </button>
-             <span className="pagenum">
-               Page {currentPage} of {totalPages}
-             </span>
-             <button
-               className={`prepaginate ${currentPage !== totalPages && "putthehovebtn"
-                 } `}
-               onClick={() => {
-                 handlePageChange(currentPage + 1);
-                 scrollToTop();
-               }}
-               disabled={currentPage === totalPages}
-             >
-               Next
-             </button>
-           </div>
-           )}
+            {totalPages > 1 && (
+              <div className="emPaginate">
+                <button
+                  className={`prepaginate ${currentPage !== 1 && "putthehovebtn"
+                    }`}
+                  onClick={() => {
+                    handlePageChange(currentPage - 1);
+                    scrollToTop();
+                  }}
+                  disabled={currentPage === 1}
+                >
+                  Previous
+                </button>
+                <span className="pagenum">
+                  Page {currentPage} of {totalPages}
+                </span>
+                <button
+                  className={`prepaginate ${currentPage !== totalPages && "putthehovebtn"
+                    } `}
+                  onClick={() => {
+                    handlePageChange(currentPage + 1);
+                    scrollToTop();
+                  }}
+                  disabled={currentPage === totalPages}
+                >
+                  Next
+                </button>
+              </div>
+            )}
 
 
 
@@ -333,18 +347,18 @@ const AdminProfile = ({ pop, setPop, setAlert }) => {
 
 
           {
-            leavePopup && 
+            leavePopup &&
             <div className="leavePopupwrap2">
-                <div className="leavepopconta2">
+              <div className="leavepopconta2">
 
-                  <nav><RxCross2 fontSize={24} className="cursor-pointer" onClick={()=>setLeavePopup(false)} /></nav>
- 
+                <nav><RxCross2 fontSize={24} className="cursor-pointer" onClick={() => setLeavePopup(false)} /></nav>
+
                 <label htmlFor="">
                   <h4>Title: </h4>
                   <p>{leavePopup?.title}</p>
                 </label>
 
-              
+
                 <label htmlFor="">
                   <h4>From: </h4>
                   <p>{leavePopup?.startDate}</p>
@@ -359,8 +373,8 @@ const AdminProfile = ({ pop, setPop, setAlert }) => {
                   <p>{leavePopup?.description}</p>
                 </label>
 
-                   
-                </div>
+
+              </div>
             </div>
           }
 
@@ -379,25 +393,25 @@ const AdminProfile = ({ pop, setPop, setAlert }) => {
               <div className="allform_header">
                 {/* left  */}
                 <h2>Create New Announcement</h2>
-                 <RxCross2  onClick={() => {
-                    setOpenForm(false);
-                    setOnEdit(false);
-                    setEditData({});
-                    setFormdata({
-                      title: "",
-                      Branch: "",
-                      Department: "",
-                      Employee: "",
-                      startDate: "",
-                      endDate: "",
-                      description: "",
-                    });
-                  }} className="RxCross2_form" />
+                <RxCross2 onClick={() => {
+                  setOpenForm(false);
+                  setOnEdit(false);
+                  setEditData({});
+                  setFormdata({
+                    title: "",
+                    Branch: "",
+                    Department: "",
+                    Employee: "",
+                    startDate: "",
+                    endDate: "",
+                    description: "",
+                  });
+                }} className="RxCross2_form" />
               </div>
 
               <hr />
 
-<div className="popup_formdiv allInputFileds4">
+              <div className="popup_formdiv allInputFileds4">
 
 
                 <label htmlFor="title">
@@ -508,7 +522,7 @@ const AdminProfile = ({ pop, setPop, setAlert }) => {
                   ></textarea>
                 </div>
 
-              {/* </div> */}
+                {/* </div> */}
 
 
               </div>

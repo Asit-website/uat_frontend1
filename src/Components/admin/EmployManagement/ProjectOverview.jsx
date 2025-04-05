@@ -16,6 +16,8 @@ import toast from "react-hot-toast";
 import ClientNavbar from "../../Client/ClientNavbar";
 import ClientSideBar from "../../Client/ClientSideBar";
 import fileDownload from 'js-file-download'
+import { FaFileAlt } from "react-icons/fa";
+
 
 
 const ProjectOverview = ({ setAlert, pop, setPop }) => {
@@ -472,14 +474,7 @@ const ProjectOverview = ({ setAlert, pop, setPop }) => {
                                 />
                               </a>
                             ) : (
-                              <a
-                                target="_blank"
-                                href={`${file?.filePath}`}
-                                className="text-blue-500 hover:underline"
-                              >
-
-                                <p className="text-gray-500 text-sm">{file?.fileName}</p>
-                              </a>
+                             <FaFileAlt onClick={() => handleDownload(file?.filePath, file?.fileName)} className="h-10 w-10"/>
                             )}
                         <button className="text-blue-500" onClick={() => handleDownload(file?.filePath, file?.fileName)}>Download</button>
 

@@ -13,35 +13,41 @@ import ccc from "../../images/ccc.png"
 import EmployeeSidebar from '../../Employee/Sidebar/EmployeeSidebar';
 import EmployeeNavbar from '../../Employee/Navbar/EmployeeNavbar';
 import { filter } from 'd3';
+import { DescriptionModal } from '../../Description';
 
 
 const Assets = ({ pop, setPop, setAlert }) => {
-  const { user, createAssets, allEmployee, getAssets,deleteAssets,updateAssets  , getDepartments , getDesignations } = useMain();
+  const { user, createAssets, allEmployee, getAssets, deleteAssets, updateAssets, getDepartments, getDesignations } = useMain();
 
   const [openForm, setOpenForm] = useState(false);
 
   let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
 
-  const {role} = hrms_user;
+  const { role } = hrms_user;
 
   const [employee, setEmployee] = useState([]);
 
   const [data, setData] = useState([]);
-  const [allAsset,setAllAsset] = useState([])
-  const [assetSearch,setAssetSearch] = useState("")
+  const [allAsset, setAllAsset] = useState([])
+  const [assetSearch, setAssetSearch] = useState("")
+
+  const filterAssets = allAsset.filter((asset) => asset?.Employee?.toLowerCase()?.includes(assetSearch.toLowerCase()))
+
 
   const [refreshFlag, setRefreshFlag] = useState(false);
   const [onEdit, setOnEdit] = useState(false);
   const [editData, setEditData] = useState({});
 
   const [formdata, setFormdata] = useState({
-    Employee:"",
-    designation:"",
-    department:"",
-    product:"",
-    purchaseDate:"",
-    additonal:"",
-    description:""
+    Employee: "",
+    designation: "",
+    department: "",
+    product: "",
+    purchaseDate: "",
+    additonal: "",
+    description: "",
+    id: "",
+    status: ""
   })
 
   const changeHandler = (e) => {
@@ -57,18 +63,20 @@ const Assets = ({ pop, setPop, setAlert }) => {
 
   useEffect(() => {
     if (onEdit) {
-      setFormdata({
-        id: editData._id,
-        Employee: editData.Employee,
-        designation: editData.designation,
-        department: editData.department,
-        product: editData.product,
-        purchaseDate: editData.purchaseDate,
-        additonal: editData.additonal,
-        description: editData.description
-      })
+      console.log(onEdit)
+      //  setFormdata({
+      //   Employee:"",
+      // designation:"",
+      // department:"",
+      // product:"",
+      // purchaseDate:"",
+      // additonal:"",
+      // description:""
+      //  })
     }
   }, [editData])
+
+  const [viewPop, setViewPop] = useState(false)
 
 
   const submitHandler = async (e) => {
@@ -78,6 +86,7 @@ const Assets = ({ pop, setPop, setAlert }) => {
         await updateAssets({ ...formdata });
         toast.success("update successfully");
         setRefreshFlag(!refreshFlag);
+        getData();
       }
       else {
         await createAssets({ ...formdata });
@@ -94,7 +103,7 @@ const Assets = ({ pop, setPop, setAlert }) => {
   useEffect(() => {
     getData()
     fetchEmployee();
-  }, [refreshFlag]);
+  }, []);
 
 
   const getData = async () => {
@@ -112,59 +121,47 @@ const Assets = ({ pop, setPop, setAlert }) => {
 
   }
 
-  const [department , setDepartment] = useState([]);
-  const [designation , setDesignation] = useState([]);
+  const [department, setDepartment] = useState([]);
+  const [designation, setDesignation] = useState([]);
 
-  const departmentCollect = async()=>{
-    const ans2 = await  getDepartments();
+  const departmentCollect = async () => {
+    const ans2 = await getDepartments();
     setDepartment(ans2?.data);
-    
+
   }
-  const designationCollect = async()=>{
+  const designationCollect = async () => {
     const ans3 = await getDesignations();
     setDesignation(ans3?.data);
 
   }
 
-  useEffect(()=>{
+  useEffect(() => {
     departmentCollect();
     designationCollect();
-  },[])
+  }, [])
 
 
-   const [showdots , setShowdots] = useState(null);
+  const [showdots, setShowdots] = useState(null);
 
-   useEffect(()=>{
-     if(assetSearch === ""){
-      setData([...allAsset])
-     }
-     else{
-      const filterData = allAsset.filter((asset)=> asset?.Employee?.toLowerCase()?.includes(assetSearch.toLowerCase()))
-      if(filterData){
-        setData(filterData);
-        console.log(filterData);
-      }
-     }
-   },[assetSearch])
 
   return (
     <>
       <div className="annDash relative h-full">
 
-      {
-          role=== "EMPLOYEE" ?
-          <EmployeeSidebar pop={pop} setPop={setPop} />
-           :
-        <AdminSidebar pop={pop} setPop={setPop} />
+        {
+          role === "EMPLOYEE" ?
+            <EmployeeSidebar pop={pop} setPop={setPop} />
+            :
+            <AdminSidebar pop={pop} setPop={setPop} />
         }
 
         <div className="tm">
-        {
+          {
             role === "EMPLOYEE" ?
-             <EmployeeNavbar user={user} setAlert={setAlert}  />:
+              <EmployeeNavbar user={user} setAlert={setAlert} /> :
 
-          <AdminNavbar user={user} setAlert={setAlert} />
-          } 
+              <AdminNavbar user={user} setAlert={setAlert} />
+          }
           <div className="em">
 
             <div className='anNav'>
@@ -179,7 +176,7 @@ const Assets = ({ pop, setPop, setAlert }) => {
               <div onClick={() => setOpenForm(true)} className='plusImg55'>
 
                 <img src={annPlus} alt="" />
-               <span>  Add New</span>
+                <span>  Add New</span>
 
               </div>
 
@@ -196,11 +193,11 @@ const Assets = ({ pop, setPop, setAlert }) => {
 
                 <div className="amtopsrch">
 
-                  <input value={assetSearch} onChange={(e)=> setAssetSearch(e.target.value)} type="text" placeholder='Search Employee' />
-                   <img src={bxSerch} alt="" />
+                  <input value={assetSearch} onChange={(e) => setAssetSearch(e.target.value)} type="text" placeholder='Search Employee' />
+                  <img src={bxSerch} alt="" />
 
                 </div>
-               
+
               </div>
 
 
@@ -227,14 +224,14 @@ const Assets = ({ pop, setPop, setAlert }) => {
                         SUPPORTED DATE
                       </th>
                       <th scope="col" class="px-4 py-3">
-                         ADDTIONAL PRODUCT
+                        ADDTIONAL PRODUCT
                       </th>
 
                       <th scope="col" class="px-4 py-3">
-                         DESCRIPTION
+                        DESCRIPTION
                       </th>
                       <th scope="col" class="px-4 py-3">
-                         STATUS
+                        STATUS
                       </th>
 
                       <th scope="col" class="px-4 py-3">
@@ -247,7 +244,7 @@ const Assets = ({ pop, setPop, setAlert }) => {
 
                     {
                       data?.length > 0 ?
-                        data.map((item, index) => (
+                        filterAssets?.map((item, index) => (
                           <tr key={index} class="bg-white asetr">
 
                             <td class="px-4 py-4">
@@ -271,51 +268,80 @@ const Assets = ({ pop, setPop, setAlert }) => {
                             </td>
 
                             <td class="px-4 py-4">
-                              {item?.description}
+                              {item?.description.length > 30 ?
+                                item?.description.substring(0, 39) :
+                                item?.description}
+                              <span className='text-blue-400 cursor-pointer' onClick={() => {
+                                setViewPop(true)
+                                setFormdata({
+                                  Employee: item?.Employee,
+                                  designation: item?.designation,
+                                  department: item.department,
+                                  product: item.product,
+                                  purchaseDate: item.purchaseDate,
+                                  additonal: item.additonal,
+                                  description: item.description,
+                                  id: item?._id,
+                                  status: item?.status
+                                })
+                                console.log(formdata)
+                              }}>{item?.description.length > 30 && ' more...'}</span>
+
                             </td>
                             <td class="px-4 py-4">
                               {item?.status}
                             </td>
 
 
-                                   
+
                             <td class="px-4 py-4 relative">
-                             
 
-                                <img onClick={()=>{
-                                  if(showdots === index) {
+
+                              <img onClick={() => {
+                                if (showdots === index) {
+                                  setShowdots(null);
+                                }
+                                else {
+
+                                  setShowdots(index);
+                                }
+                              }} src={thedots} alt="" />
+
+
+                              {
+                                showdots === index &&
+                                <div className="showdots">
+
+
+
+                                  <p onClick={() => {
+                                    setOnEdit(true);
+                                    setEditData(item);
+                                    setOpenForm(true);
                                     setShowdots(null);
-                                  }
-                                  else {
+                                    setFormdata({
+                                      Employee: item?.Employee,
+                                      designation: item?.designation,
+                                      department: item.department,
+                                      product: item.product,
+                                      purchaseDate: item.purchaseDate,
+                                      additonal: item.additonal,
+                                      description: item.description,
+                                      id: item?._id,
+                                      status: item?.status
+                                    })
+                                  }}><img src={editsss} alt="" /> <span className='editSpan cursor-pointer'>Edit</span></p>
 
-                                    setShowdots(index);
-                                  }
-                                }} src={thedots} alt="" />
+                                  <hr />
 
-
-                                 {
-                                  showdots === index && 
-                                  <div className="showdots">
-
-
-
-                                    <p onClick={()=>{
-                                         setOnEdit(true);
-                                         setEditData(item);
-                                         setOpenForm(true);
-                                         setShowdots(null);
-                                    }}><img src={editsss} alt="" /> <span className='editSpan cursor-pointer'>Edit</span></p>
-
-                                    <hr />
-
-                                    {/* <p onClick={()=>{
-                                  deleteProject(item?._id);
+                                  {/* <p onClick={()=>{
+                                  deleteProject(item?.id);
                                   setShowdots(null);
                                 }}><img src={delete22} alt="" /> <span className='delettspan cursor-pointer'>Delete</span></p> */}
 
-                                  </div>
-                                 }
-                                  
+                                </div>
+                              }
+
 
                             </td>
 
@@ -346,12 +372,22 @@ const Assets = ({ pop, setPop, setAlert }) => {
 
           </div>
         </div>
+        {viewPop && <DescriptionModal
+          title="Details"
+          data={Object.fromEntries(
+            Object.entries(formdata).filter(([key]) => key !== "id")
+          )}
+          onClose={() => {
+            setViewPop(false);
+            setFormdata({});
+          }}
+        />}
 
         {/* form  */}
         {
           openForm &&
           <div className='annFormwrap'>
-            
+
 
             <form onSubmit={() => {
               submitHandler();
@@ -360,19 +396,22 @@ const Assets = ({ pop, setPop, setAlert }) => {
 
               <nav>
                 {/* left  */}
-                <h2 className='creanewAsseet'>Create New Assets</h2>
+                <h2 className='creanewAsseet'>{onEdit ? 'Edit Assets' : 'Create New Assets'}    </h2>
                 <img onClick={() => {
                   setOpenForm(false);
                   setOnEdit(false);
                   setEditData({});
+                  // onEdit
                   setFormdata({
-                    Employee:"",
-                    designation:"",
-                    department:"",
-                    product:"",
-                    purchaseDate:"",
-                    additonal:"",
-                    description:""
+                    Employee: "",
+                    designation: "",
+                    department: "",
+                    product: "",
+                    purchaseDate: "",
+                    additonal: "",
+                    description: "",
+                    status: "",
+                    id: ""
                   })
                 }} className='cursor-pointer' src={ccc} alt="" />
               </nav>
@@ -380,61 +419,71 @@ const Assets = ({ pop, setPop, setAlert }) => {
               <hr />
 
               <div className="allInputFileds">
-
-                <label className='fullLabel' >
-                  <p>Employee</p>
-                  <select name="Employee" id="Employee" value={formdata.Employee} onChange={changeHandler}>
-                    <option>Select</option>
-                    {
-                      employee?.map((val, index) => {
-                        return <option key={index} value={val?.fullName}>{val?.fullName}</option>
-                      })
-                    }
-                  </select>
-                </label>
-
-
-            
-             <div className='labwrapp'>
-
-          
-                <label htmlFor="Name" className='halfLabel' >
-                  <p>Designation</p>
-                  <select name="designation" value={formdata.designation} onChange={changeHandler}>
-                    <option>Select</option>
-                    {
-                      designation?.map((val, index) => {
-                        return <option key={index} value={val?.name}>{val?.name}</option>
-                      })
-                    }
-                  </select>
-                </label>
-
-                <label className='halfLabel' >
-                  <p>Department</p>
-                  <select name="department" value={formdata.department} onChange={changeHandler}>
-                    <option>Select</option>
-                    {
-                      department?.map((val, index) => {
-                        return <option key={index} value={val?.name}>{val?.name}</option>
-                      })
-                    }
-                  </select>
-                </label>
+                <div className='labwrapp'>
+                  <label className='halfLabel' >
+                    <p>Employee</p>
+                    <select name="Employee" id="Employee" value={formdata.Employee} onChange={changeHandler}>
+                      <option>Select</option>
+                      {
+                        employee?.map((val, index) => {
+                          return <option key={index} value={val?.fullName}>{val?.fullName}</option>
+                        })
+                      }
+                    </select>
+                  </label>
+                  <label htmlFor="Name" className='halfLabel' >
+                    <p>Designation</p>
+                    <select name="designation" value={formdata.designation} onChange={changeHandler}>
+                      <option>Select</option>
+                      {
+                        designation?.map((val, index) => {
+                          return <option key={index} value={val?.name}>{val?.name}</option>
+                        })
+                      }
+                    </select>
+                  </label>
 
                 </div>
 
                 <div className='labwrapp'>
 
-                <label className='halfLabel' >
-                  <p>Product</p>
-                  <input value={formdata?.product} name='product' onChange={changeHandler} type="text" />
-                </label>
 
-                <label className='halfLabel' >
-                  <p>To Date</p>
-                  <input name='purchaseDate' value={formdata?.purchaseDate} onChange={changeHandler} type="date" />
-                </label>
+
+
+                  <label className='halfLabel' >
+                    <p>Department</p>
+                    <select name="department" value={formdata.department} onChange={changeHandler}>
+                      <option>Select</option>
+                      {
+                        department?.map((val, index) => {
+                          return <option key={index} value={val?.name}>{val?.name}</option>
+                        })
+                      }
+                    </select>
+                  </label>
+                  <label className='halfLabel' >
+                    <p>Status</p>
+                    <select name="status" value={formdata.status} onChange={changeHandler}>
+                      <option value="Assigned">Assigned</option>
+                      <option value="Pending">Pending</option>
+                      <option value="Rejected">Rejected</option>
+                      <option value="Returned">Returned</option>
+                      <option value="Damaged">Damaged</option>
+                    </select>
+                  </label>
+                </div>
+
+                <div className='labwrapp'>
+
+                  <label className='halfLabel' >
+                    <p>Product</p>
+                    <input value={formdata?.product} name='product' onChange={changeHandler} type="text" />
+                  </label>
+
+                  <label className='halfLabel' >
+                    <p>To Date</p>
+                    <input name='purchaseDate' value={formdata?.purchaseDate} onChange={changeHandler} type="date" />
+                  </label>
 
                 </div>
 
@@ -453,24 +502,24 @@ const Assets = ({ pop, setPop, setAlert }) => {
               <hr />
 
               <div className="createBtn">
-             
+
                 <button type='submit' className='creteBtn'>{onEdit ? "Update" : "Create"}</button>
                 <button type='button' onClick={() => {
                   setOpenForm(false);
                   setOnEdit(false);
                   setEditData({});
                   setFormdata({
-                    Employee:"",
-                    designation:"",
-                    department:"",
-                    product:"",
-                    purchaseDate:"",
-                    additonal:"",
-                    description:""
+                    Employee: "",
+                    designation: "",
+                    department: "",
+                    product: "",
+                    purchaseDate: "",
+                    additonal: "",
+                    description: ""
                   })
                 }} className='cancelBtn'>Cancel</button>
 
-                 {/* <button className='creteBtn22'>Send Mail</button> */}
+                {/* <button className='creteBtn22'>Send Mail</button> */}
               </div>
 
 

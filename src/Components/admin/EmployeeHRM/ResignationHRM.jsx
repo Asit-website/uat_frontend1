@@ -15,6 +15,7 @@ import toast from "react-hot-toast";
 import EmployeeNavbar from "../../Employee/Navbar/EmployeeNavbar";
 import EmployeeSidebar from "../../Employee/Sidebar/EmployeeSidebar";
 import { RxCross2 } from "react-icons/rx";
+import { DescriptionModal } from "../../Description";
 
 
 
@@ -28,6 +29,7 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
   const [onEdit, setOnEdit] = useState(false);
   const [editData, setEditData] = useState({});
   const [data, setData] = useState([]);
+  const [viewPop, setViewPop] = useState(false);
 
   const [formdata, setFormdata] = useState({
     Employee: "",
@@ -174,11 +176,11 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
   <div className="adminFirt">
     <h2 className="hrmShed">Manage Resignation</h2>
 
-    <div className="hrmDoHe">
+    {/* <div className="hrmDoHe">
       <p>Dashboard</p>
       <img src={chevron} alt="" />
       <span>Resignation</span>
-    </div>
+    </div> */}
   </div>
 
   <button
@@ -225,7 +227,18 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
                             {item?.resignationDate}
                           </td>
                           <td className="px-6 py-4 taskAns">{item?.noticeDate}</td>
-                          <td className="px-6 py-4 taskAns">{item?.description}</td>
+                          <td className="px-6 py-4 taskAns">{item?.description.length > 30 ?
+                                item?.description.substring(0, 29) :
+                                item?.description}
+                              <span className='text-blue-400 cursor-pointer' onClick={() => {
+                                setViewPop(true)
+                                setFormdata({
+                                  Employee: item?.Employee,
+                                  noticeDate:item?.noticeDate,
+                                  resignationDate: item?.resignationDate,
+                                  description: item?.description})
+                                console.log(formdata)
+                              }}>{item?.description.length > 30 && ' more...'}</span></td>
 
                           <div className="viewOnwWRAP">
                             <td
@@ -267,6 +280,17 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
             </div>
           </div>
         </div>
+         {viewPop && <DescriptionModal
+                  title="Details"
+                  data={Object.fromEntries(
+                    Object.entries(formdata).filter(([key]) => key !== "id")
+                  )}
+                  onClose={() => {
+                    setViewPop(false);
+                    setFormdata({});
+                  }}
+                />}
+        
 
         {popup1 && (
           <div className="allPopupWrap">
@@ -274,7 +298,7 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
 
               <div className="allform_header">
 
-              <h2>Create New Resignation</h2>
+              <h2>{onEdit ? 'Edit Resignation' :'Create New Resignation'}</h2>
  
                <RxCross2  onClick={() => {
                  setPopup1(false);

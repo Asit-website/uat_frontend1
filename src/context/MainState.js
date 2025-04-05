@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { deleteReq, get, post, postDocuments, put } from '../Api/api';
 import MainContext from './MainContext';
 
-// const baseUrl = "https://my-backend-blond.vercel.app";
+const baseUrl = "https://my-backend-blond.vercel.app";
 // 
 // const baseUrl = "https://hrms-backend-code.onrender.com"
 
@@ -13,7 +13,7 @@ import MainContext from './MainContext';
 // const baseUrl = "https://uat-backend-o1wm.onrender.com"
 
 // this is production baseurl 
-const baseUrl = "https://hmsbackend.kusheldigi.com";
+// const baseUrl = "https://hmsbackend.kusheldigi.com";
 
 // const baseUrl = "https://hrms-backend-g3wt.onrender.com";
 
@@ -887,7 +887,7 @@ const MainState = (props) => {
       product,
       purchaseDate,
       additonal,
-      description }) => {
+      description,status }) => {
       const data = await put(`${baseUrl}/admin/updateAsset/${id}`, {
          Employee,
          designation,
@@ -895,7 +895,7 @@ const MainState = (props) => {
          product,
          purchaseDate,
          additonal,
-         description
+         description,status
       }, true);
       return data;
    };

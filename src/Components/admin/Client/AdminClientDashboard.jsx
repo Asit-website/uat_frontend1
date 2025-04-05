@@ -14,7 +14,7 @@ const AdminClientDashboard = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const data = location?.state;
-    let hrms_user = JSON.parse(localStorage.getItem("hrms_user")); 
+    let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
     const role = hrms_user?.role;
 
     const [formdata, setFormdata] = useState({
@@ -37,7 +37,7 @@ const AdminClientDashboard = () => {
     const [allProjects, setAllProjects] = useState([]);
     const [storeProject, setStorePro] = useState([]);
     const [allEmp, setAllEmp] = useState([]);
-
+    const [loading, setLoading] = useState(false)
     const changeHandler = (e) => {
         const { name, value } = e.target;
         setFormdata((prev) => ({
@@ -52,44 +52,46 @@ const AdminClientDashboard = () => {
         const selectedEmp = allEmp?.find((emp) => emp?._id === selectedEmpId);
         if (!selectedEmp || proUser?.includes(selectedEmp?.fullName)) return;
         setProUser((prev) => {
-          const updatedProUser = [...prev, selectedEmp?.fullName];
-          const alreadyUsers = allEmp.filter((emp) => updatedProUser.includes(emp?.fullName));
-          setFormdata((prevData) => {
-            const prevMembers = Array.isArray(prevData?.Members) ? prevData?.Members : [];
-            // Update the Members array with selectedEmpId
-            const newMembers = [
-              ...prevMembers,
-              selectedEmpId,
-            ];
-    
-            return {
-              ...prevData,
-              Members: Array.from(new Set(newMembers)),
-            };
-          });
-    
-          return updatedProUser;
-        });
-      };
-    
-    
+            const updatedProUser = [...prev, selectedEmp?.fullName];
+            const alreadyUsers = allEmp.filter((emp) => updatedProUser.includes(emp?.fullName));
+            setFormdata((prevData) => {
+                const prevMembers = Array.isArray(prevData?.Members) ? prevData?.Members : [];
+                // Update the Members array with selectedEmpId
+                const newMembers = [
+                    ...prevMembers,
+                    selectedEmpId,
+                ];
 
-  const removeUser = (index) => {
-    const newProUser = proUser?.filter((_, i) => i !== index);
-    const newMembers = formdata?.Members?.filter((_, i) => i !== index);
-    console.log(newMembers)
-    setProUser(newProUser);
-    console.log(newProUser)
-    const alreadyUsers = allEmp.filter((emp) => newProUser.includes(emp?.fullName));
-    setFormdata({ ...formdata, Members: alreadyUsers.map((user) => user._id) });
-  };
+                return {
+                    ...prevData,
+                    Members: Array.from(new Set(newMembers)),
+                };
+            });
+
+            return updatedProUser;
+        });
+    };
+
+
+
+    const removeUser = (index) => {
+        const newProUser = proUser?.filter((_, i) => i !== index);
+        const newMembers = formdata?.Members?.filter((_, i) => i !== index);
+        console.log(newMembers)
+        setProUser(newProUser);
+        console.log(newProUser)
+        const alreadyUsers = allEmp.filter((emp) => newProUser.includes(emp?.fullName));
+        setFormdata({ ...formdata, Members: alreadyUsers.map((user) => user._id) });
+    };
 
     const getAllProject = async (clientId) => {
+        setLoading(true)
         const ans = await getAllProjectApi();
         if (ans?.status) {
             const res = ans?.projects.filter(e => e.client === clientId);
             setProjects(res);
         }
+        setLoading(false)
     };
 
     const fetchClientProjects = async (clientId) => {
@@ -106,7 +108,7 @@ const AdminClientDashboard = () => {
     const editHandler = async (e) => {
         e.preventDefault({ ...formdata, projectId: isEdit });
         const toastId = toast.loading("Loading...");
-        console.log("here is data" ,{ ...formdata, projectId: isEdit } )
+        console.log("here is data", { ...formdata, projectId: isEdit })
         try {
             const ans = await editProjectapi({ ...formdata, projectId: isEdit });
             if (ans?.status) {
@@ -131,6 +133,7 @@ const AdminClientDashboard = () => {
         }
 
         toast.dismiss(toastId);
+        return window.location.reload();
     };
 
     const submitHandler = async (e) => {
@@ -169,26 +172,27 @@ const AdminClientDashboard = () => {
         }
 
         toast.dismiss(toastId);
+        return window.location.reload();
     };
 
 
     const handleEditClick = (client) => {
         console.log(client)
         const membersNames = client.Members.map((memberId) => {
-          const member = allEmp.find((emp) => emp._id === memberId?._id);
-          return member ? member.fullName : "";
+            const member = allEmp.find((emp) => emp._id === memberId?._id);
+            return member ? member.fullName : "";
         });
 
         setIsEdit(client._id);
         setFormdata({
-          Name: client?.projectName,
-          DueDate: client.deadline,
-    
-          ...client,
+            Name: client?.projectName,
+            DueDate: client.deadline,
+
+            ...client,
         });
         setProUser(membersNames);
         setAddClientPop(true);
-      };
+    };
 
     const fetchemp = async () => {
         const ans = await allEmployee();
@@ -266,72 +270,86 @@ const AdminClientDashboard = () => {
                                     </thead>
 
                                     <tbody>
-                                        {projects?.map((project, index) => (
-                                            <tr key={index}>
-                                                <td>{index + 1}</td>
-                                                <td>
-                                                    <span>{project.projectName}</span>
-                                                    <div
-                                                        style={{
-                                                            display: "flex",
-                                                            gap: "10px",
-                                                            marginTop: "2px",
-                                                            fontSize: "0.875rem",
-                                                            color: "#2563eb",
-                                                        }}
-                                                    >
-                                                        <p style={{ margin: 0, cursor: "pointer" }}
-                                                            onClick={() =>  navigate(role==="EMPLOYEE"?"/employeeDash/HRM/projectOverview":"/adminDash/HRM/projectOverview", {
-                                                                state: project,
-                                                            })}
-                                                            className="underline text-blue-600"
-                                                        >
-                                                            View
-                                                        </p><span>|</span>
-                                                        <p
-                                                            onClick={() => {
-                                                                handleEditClick(project);
+                                        {loading ? (
+                                            <div className="flex justify-center items-center relative left-[400px] top-[100px] ">
+                                                <div className="w-16 h-16 border-t-4 border-black border-solid rounded-full animate-spin"></div>
+                                            </div>
+                                        ) : (
+                                            projects?.map((project, index) => (
+                                                <tr key={index}>
+                                                    <td>{index + 1}</td>
+                                                    <td>
+                                                        <span>{project.projectName}</span>
+                                                        <div
+                                                            style={{
+                                                                display: "flex",
+                                                                gap: "10px",
+                                                                marginTop: "2px",
+                                                                fontSize: "0.875rem",
+                                                                color: "#2563eb",
                                                             }}
-                                                            style={{ margin: 0, cursor: "pointer" }}
-                                                            className="underline text-blue-600"
                                                         >
-                                                            Edit
-                                                        </p>
-                                                        <span>|</span>
-                                                        <p
-                                                            onClick={() => deleteApi(project?._id)}
-                                                            style={{ margin: 0, cursor: "pointer" }}
-                                                            className="underline text-blue-600"
-                                                        >
-                                                            Delete
-                                                        </p>
-                                                    </div>
-                                                </td>
-                                                <td>{project.startDate}</td>
-                                                <td>{project.deadline}</td>
-                                                <td className="flex">
-                                                    {project?.Members?.map((member,index) => {
-                                                        return <>
-                                                        <img
-                                                        src={`${member?.profileImage
-                                                            ? member?.profileImage
-                                                            : "https://png.pngtree.com/png-vector/20231019/ourmid/pngtree-user-profile-avatar-png-image_10211467.png"
-                                                            }`}
-                                                        className="w-10 h-10 rounded-full cursor-pointer transition-colors duration-300 ease-in-out"
-                                                        alt="Member Avatar "
-                                                        key={index}
-                                                        onClick={() =>
-                                                          navigate("/adminDash/EmployeeDetails", {
-                                                            state: member?._id,
-                                                          })
-                                                        }
-                                                        
-                                                      /></>
-                                                    })}
-                                                </td>
-                                                <td>{project.Status}</td>
-                                            </tr>
-                                        ))}
+                                                            <p
+                                                                style={{ margin: 0, cursor: "pointer" }}
+                                                                onClick={() =>
+                                                                    navigate(
+                                                                        role === "EMPLOYEE" ? "/employeeDash/HRM/projectOverview" : "/adminDash/HRM/projectOverview",
+                                                                        {
+                                                                            state: project,
+                                                                        }
+                                                                    )
+                                                                }
+                                                                className="underline text-blue-600"
+                                                            >
+                                                                View
+                                                            </p>
+                                                            <span>|</span>
+                                                            <p
+                                                                onClick={() => {
+                                                                    handleEditClick(project);
+                                                                }}
+                                                                style={{ margin: 0, cursor: "pointer" }}
+                                                                className="underline text-blue-600"
+                                                            >
+                                                                Edit
+                                                            </p>
+                                                            <span>|</span>
+                                                            <p
+                                                                onClick={() => deleteApi(project?._id)}
+                                                                style={{ margin: 0, cursor: "pointer" }}
+                                                                className="underline text-blue-600"
+                                                            >
+                                                                Delete
+                                                            </p>
+                                                        </div>
+                                                    </td>
+                                                    <td>{project.startDate}</td>
+                                                    <td>{project.deadline}</td>
+                                                    <td className="flex">
+                                                        {project?.Members?.map((member, index) => (
+                                                            <img
+                                                                src={
+                                                                    member?.profileImage
+                                                                        ? member?.profileImage
+                                                                        : "https://png.pngtree.com/png-vector/20231019/ourmid/pngtree-user-profile-avatar-png-image_10211467.png"
+                                                                }
+                                                                className="w-10 h-10 rounded-full cursor-pointer transition-colors duration-300 ease-in-out"
+                                                                alt="Member Avatar"
+                                                                key={index}
+                                                                onClick={() =>
+                                                                    navigate("/adminDash/EmployeeDetails", {
+                                                                        state: member?._id,
+                                                                    })
+                                                                }
+                                                            />
+                                                        ))}
+                                                    </td>
+                                                    <td>{project.Status}</td>
+                                                </tr>
+                                            ))
+                                        )}
+
+
                                     </tbody>
                                 </table>
                             </div>
@@ -379,35 +397,35 @@ const AdminClientDashboard = () => {
                                 </label>
 
                                 <label>
-                  <p>Employee </p>
+                                    <p>Employee </p>
 
-                  <div className="allempid">
-                    {proUser.map((pro, index) => (
-                      <div key={index} className="sinproid">
-                        <p>{pro}</p>
-                        <img
-                          src={cut}
-                          alt="Remove"
-                          onClick={() => removeUser(index)}
-                        />
-                      </div>
-                    ))}
-                  </div>
+                                    <div className="allempid">
+                                        {proUser.map((pro, index) => (
+                                            <div key={index} className="sinproid">
+                                                <p>{pro}</p>
+                                                <img
+                                                    src={cut}
+                                                    alt="Remove"
+                                                    onClick={() => removeUser(index)}
+                                                />
+                                            </div>
+                                        ))}
+                                    </div>
 
-                  <select
-                    name="Members"
-                    value=''
-                    onChange={changeHandler2}
-                  >
-                    <option value="Select">Select Employee</option>
-                    {allEmp?.map((emp, index) => (
-                      <option value={emp?._id} key={index}
-                      disabled={proUser.includes(emp.fullName)}>
-                        {emp?.fullName} {formdata.Members.includes(emp._id) ? "(Selected)" : ""}
-                      </option>
-                    ))}
-                  </select>
-                </label>
+                                    <select
+                                        name="Members"
+                                        value=''
+                                        onChange={changeHandler2}
+                                    >
+                                        <option value="Select">Select Employee</option>
+                                        {allEmp?.map((emp, index) => (
+                                            <option value={emp?._id} key={index}
+                                                disabled={proUser.includes(emp.fullName)}>
+                                                {emp?.fullName} {formdata.Members.includes(emp._id) ? "(Selected)" : ""}
+                                            </option>
+                                        ))}
+                                    </select>
+                                </label>
 
                                 <label>
                                     <p>Status </p>
@@ -439,7 +457,7 @@ const AdminClientDashboard = () => {
                                         value={formdata.DueDate}
                                         onChange={changeHandler}
                                         type="date"
-                                        min = {formdata.startDate}
+                                        min={formdata.startDate}
                                     />
                                 </label>
 

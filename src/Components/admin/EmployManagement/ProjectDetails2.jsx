@@ -15,6 +15,7 @@ import cut from "../../images/cutt.png";
 import pluss from "../../images/pluss.png";
 import "./HRMsystem.css";
 import "./quote.css";
+import { FaFileAlt } from "react-icons/fa";
 import ViewTask from "./ViewTask";
 
 var tc3;
@@ -438,7 +439,7 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
   };
   const fetchAllFile = async () => {
     const resp = await allfilesproject(data?._id);
-    setAllFiles(resp?.files);
+    setAllFiles(resp?.files?.reverse());
   };
 
   const uploadFileProject = async () => {
@@ -480,7 +481,7 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
       if (!response.ok) {
         throw new Error(`Failed to fetch file: ${response.statusText}`);
       }
-  
+
       const blob = await response.blob();
       const link = document.createElement("a");
       link.href = window.URL.createObjectURL(blob);
@@ -506,25 +507,25 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
     fetchAllFile();
   }, []);
 
-  const deleteFile = async(id,uploadedBy)=>{
+  const deleteFile = async (id, uploadedBy) => {
     // const hrms_user = localStorage.getItem("hrms_user")
-    console.log(id,uploadedBy,hrms_user?._id)
+    console.log(id, uploadedBy, hrms_user?._id)
     console.log(uploadedBy === hrms_user?._id)
 
-    if(uploadedBy === hrms_user?.id ){
+    if (uploadedBy === hrms_user?.id) {
       console.log(uploadedBy === hrms_user?.id)
       alert("you can't delete it")
       return
- 
-  }
+
+    }
     const ans = await deleteProjectFile(id);
     await fetchAllFile()
-    if(ans.status){
+    if (ans.status) {
       toast.success("successfully deleted")
     }
     return ans
-    
-     
+
+
   }
 
   const statuschangehadler = async (taskId, status) => {
@@ -791,7 +792,7 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
 
                             {allTasks.length > 0 && (
                               <td className="px-6 py-4">
-                                {task.Members.some(item => item._id === hrms_user._id)?(<BsStopwatch
+                                {task.Members.some(item => item._id === hrms_user._id) ? (<BsStopwatch
                                   onClick={() => {
                                     if (active?._id === task._id) {
                                       clockIn(task);
@@ -801,9 +802,9 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
                                     }
                                   }}
                                   className={`cursor-pointer h-5 w-5 ${active?._id === task?._id ? 'text-red-500' : ''} ${localStorage.getItem("taskTimer") && active?._id !== task?._id ? 'opacity-50 cursor-not-allowed' : ''} `}
-                                />):(<BsStopwatch className={`cursor-pointer h-5 w-5 text-green-400 `}
+                                />) : (<BsStopwatch className={`cursor-pointer h-5 w-5 text-green-400 `}
                                 />)}
-                                
+
                               </td>)}
                           </tr>
                         ))}
@@ -859,7 +860,7 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
                   <div>
                     <h4 className="text-xl font-semibold text-gray-800 mb-4">{allfiles?.length > 0 ? "All Files" : "No Files"}</h4>
                     <div className="space-y-6">
-                      {allfiles?.reverse()?.map((file, index) => (
+                      {allfiles?.map((file, index) => (
                         <div key={index} className="p-4 bg-white rounded-lg shadow-md">
                           <div className="flex justify-between items-center">
                             <div>
@@ -870,9 +871,9 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
                                 <strong>Uploaded by:</strong> {file?.uploadedBy?.fullName || "Client"}
                               </p>
                               <p className="text-gray-600">
-                              <strong>Uploaded On:</strong> {new Date(file?.createdAt).toLocaleDateString()}
-                            </p>
-                              <button onClick={()=>deleteFile(file?._id, file?.uploadedBy?._id)} className="bg-red-500 text-white px-2 rounded py-1">Delete</button>
+                                <strong>Uploaded On:</strong> {new Date(file?.createdAt).toLocaleDateString()}
+                              </p>
+                              <button onClick={() => deleteFile(file?._id, file?.uploadedBy?._id)} className="bg-red-500 text-white px-2 rounded py-1">Delete</button>
 
                             </div>
 
@@ -892,14 +893,7 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
                                   />
                                 </a>
                               ) : (
-                                <a
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                  href={file?.filePath}
-                                  className="text-blue-500 hover:underline"
-                                >
-                                  <p className="text-gray-500 text-sm">{file?.fileName}</p>
-                                </a>
+                                <FaFileAlt onClick={() => handleDownload(file?.filePath, file?.fileName)} className="h-10 w-10" />
                               )}
                               <button onClick={() => handleDownload(file?.filePath, file?.fileName)} className="text-blue-500">Download</button>
                             </div>

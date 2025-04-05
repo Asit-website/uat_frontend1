@@ -1,116 +1,121 @@
-
-.annDash{
+.annDash {
     display: flex;
     background-color: #f0f6ff;
     position: relative;
     min-height: 100vh;
 }
 
-.notificaont{
+.notificaont {
     display: flex;
-flex-direction: column;
+    flex-direction: column;
     flex-wrap: wrap;
     gap: 20px;
 
 }
 
-.anNav{
+.anNav {
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
-.anNavLeft{
+
+.anNavLeft {
     display: flex;
     flex-direction: column;
     gap: 8px;
 }
-.anNavLeft h2{
-font-family: Inter;
-font-size: 24px;
-font-weight: 600;
-line-height: 32px;
-text-align: left;
-color: #101820;
+
+.anNavLeft h2 {
+    font-family: Inter;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 32px;
+    text-align: left;
+    color: #101820;
 }
 
 
 
 
-.plusImg{
-   display: flex;
-   align-items: center;
-   background-color: #0B56E4;
-   width: 65px;
-height: 40px;
-gap: 10px;
-border-radius: 10px;
- justify-content: center;
-}
-.plusImg6{
-   display: flex;
-   align-items: center;
-   background-color: #0B56E4;
-   width: 100px;
-height: 40px;
-gap: 10px;
-border-radius: 10px;
- justify-content: center;
-}
-.plusImg55{
-   display: flex;
-   align-items: center;
-   background-color: #0B56E4;
-   width: 120px;
-height: 40px;
-gap: 10px;
-border-radius: 10px;
- justify-content: center;
+.plusImg {
+    display: flex;
+    align-items: center;
+    background-color: #0B56E4;
+    width: 65px;
+    height: 40px;
+    gap: 10px;
+    border-radius: 10px;
+    justify-content: center;
 }
 
-.plusImg span{
+.plusImg6 {
+    display: flex;
+    align-items: center;
+    background-color: #0B56E4;
+    width: 100px;
+    height: 40px;
+    gap: 10px;
+    border-radius: 10px;
+    justify-content: center;
+}
+
+.plusImg55 {
+    display: flex;
+    align-items: center;
+    background-color: #0B56E4;
+    width: 120px;
+    height: 40px;
+    gap: 10px;
+    border-radius: 10px;
+    justify-content: center;
+}
+
+.plusImg span {
     font-family: Inter;
     font-size: 16px;
     font-weight: 500;
     line-height: 24px;
     letter-spacing: 0.005em;
-color: #FFFFFF;    
+    color: #FFFFFF;
 }
 
-.plusImg6 span{
+.plusImg6 span {
     font-family: Inter;
     font-size: 16px;
     font-weight: 500;
     line-height: 24px;
     letter-spacing: 0.005em;
-color: #FFFFFF;    
+    color: #FFFFFF;
 }
-.plusImg55 span{
+
+.plusImg55 span {
     font-family: Inter;
     font-size: 16px;
     font-weight: 500;
     line-height: 24px;
     letter-spacing: 0.005em;
-color: #FFFFFF;    
+    color: #FFFFFF;
+    cursor: pointer;
 }
 
-.anMain{
- background-color: white;
- display: flex;
- flex-direction: column;
- margin-top: 20px;
- padding: 10px 20px;
- border-radius: 20px;
- border-bottom: 1px solid #D8D8D8;
+.anMain {
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    padding: 10px 20px;
+    border-radius: 20px;
+    border-bottom: 1px solid #D8D8D8;
 }
 
-.anmainTop{
+.anmainTop {
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
 
-.anmainTop h3{
+.anmainTop h3 {
     font-family: Inter;
     color: #1B2533;
     font-size: 16px;
@@ -118,69 +123,71 @@ color: #FFFFFF;
     line-height: 24px;
     letter-spacing: 0.0015em;
     text-align: left;
-    
+
 }
 
-.anmainTop .amtopsrch{
-   display: flex;
-   align-items: center;
-   width: 247px;
-height: 44px;
-gap: 8px;
-border-radius: 10px;
-background: #FFFFFF;
-border: 1px solid #D0D4DC;
-padding: 10px;
-justify-content: space-between;
+.anmainTop .amtopsrch {
+    display: flex;
+    align-items: center;
+    width: 247px;
+    height: 44px;
+    gap: 8px;
+    border-radius: 10px;
+    background: #FFFFFF;
+    border: 1px solid #D0D4DC;
+    padding: 10px;
+    justify-content: space-between;
 }
 
-.assettable th{
+.assettable th {
     background-color: white !important;
-font-family: Inter;
-color: #2B2B2B;
-font-size: 14px;
-font-weight: 500;
-line-height: 20px;
-letter-spacing: 0.0025em;
-text-align: left;
+    font-family: Inter;
+    color: #2B2B2B;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+    letter-spacing: 0.0025em;
+    text-align: left;
 
 }
 
-.asetr td{
-font-family: Inter;
-color: #40444B;
-font-size: 12px;
-font-weight: 400;
-line-height: 16px;
-letter-spacing: 0.004em;
-text-align: left;
+.asetr td {
+    font-family: Inter;
+    color: #40444B;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 16px;
+    letter-spacing: 0.004em;
+    text-align: left;
 
 }
 
-.showdots{
+.showdots {
     position: absolute;
-    width: 161px;
-    height: 54px;
-    left: -130px;
-    padding: 8px 0px 8px 0px;
-    border-radius: 8px ;
+    width: 90px;
+    height: 40px;
+    left: -80px;
+    /* padding: 8px 0px 8px 0px; */
+    border-radius: 8px;
     background: #FFFFFF;
     z-index: 100;
     border: 1px solid #E3E3E3;
     box-shadow: 0px 4px 12px 0px #1A1A1A33;
     display: flex;
     flex-direction: column;
+    bottom: 40px;
 
-        
+
 }
 
-.showdots p{
+.showdots p {
     display: flex;
     align-items: center;
     gap: 10px;
     padding: 12px;
 }
-.showdots .delettspan{
+
+.showdots .delettspan {
     font-family: Inter;
     color: #DD3409;
     font-size: 14px;
@@ -188,9 +195,10 @@ text-align: left;
     line-height: 20px;
     letter-spacing: 0.0025em;
     text-align: left;
-    
+
 }
-.showdots .editSpan{
+
+.showdots .editSpan {
     font-family: Inter;
     color: #2B2B2B;
     font-size: 14px;
@@ -198,48 +206,50 @@ text-align: left;
     line-height: 20px;
     letter-spacing: 0.0025em;
     text-align: left;
-    
-    
-}
 
-.creanewAsseet{
-font-family: Inter;
-color: #1B2533;
-font-size: 16px;
-font-weight: 600;
-line-height: 24px;
-letter-spacing: 0.0015em;
-text-align: left;
 
 }
 
-.anmainTop .anMLef{
-   display: flex;
-   align-items: center;
-   gap: 10px;
+.creanewAsseet {
+    font-family: Inter;
+    color: #1B2533;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 24px;
+    letter-spacing: 0.0015em;
+    text-align: left;
+
 }
-.anmainTop .anMLef select{
+
+.anmainTop .anMLef {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.anmainTop .anMLef select {
     width: 80px;
     height: 34px;
     border-radius: 5px;
     border: 0.75px;
     border: 0.75px solid #CED4DA;
-    
+
 }
-.anmainTop .anMLef span{
+
+.anmainTop .anMLef span {
     font-family: inter !important;
     font-size: 14px;
     font-weight: 400;
     line-height: 17px;
     letter-spacing: 0em;
     text-align: left;
-color: #293240;    
-    
+    color: #293240;
+
 }
 
 
 
-.openform{
+.openform {
     display: flex;
     flex-direction: column;
     background-color: white;
@@ -250,12 +260,14 @@ color: #293240;
     border-radius: 20px;
     gap: 15px;
 }
-.openform nav{
-   display: flex;
-   align-items: center;
-   justify-content: space-between;
+
+.openform nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
-.openform nav h2{
+
+.openform nav h2 {
     font-family: Inter;
     color: #1B2533;
     font-size: 16px;
@@ -263,10 +275,10 @@ color: #293240;
     line-height: 24px;
     letter-spacing: 0.0015em;
     text-align: left;
-    
+
 }
 
-.openform4{
+.openform4 {
     display: flex;
     flex-direction: column;
     background-color: white;
@@ -278,12 +290,14 @@ color: #293240;
     border-radius: 20px;
     gap: 15px;
 }
-.openform4 nav{
-   display: flex;
-   align-items: center;
-   justify-content: space-between;
+
+.openform4 nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
-.openform4 nav h2{
+
+.openform4 nav h2 {
     font-family: Inter;
     color: #1B2533;
     font-size: 16px;
@@ -291,16 +305,17 @@ color: #293240;
     line-height: 24px;
     letter-spacing: 0.0015em;
     text-align: left;
-    
+
 }
 
 
-.fullLabel{
+.fullLabel {
     display: flex;
     flex-direction: column;
     gap: 4px;
 }
-.fullLabel p{
+
+.fullLabel p {
     font-family: Inter;
     color: #1B2533;
     font-size: 14px;
@@ -308,11 +323,12 @@ color: #293240;
     line-height: 20px;
     letter-spacing: 0.0025em;
     text-align: left;
-    
-    
+
+
 }
-.fullLabel input{
-  width: 100%;
+
+.fullLabel input {
+    width: 100%;
     height: 44px;
     padding: 8px 16px 8px 16px;
     gap: 8px;
@@ -321,10 +337,11 @@ color: #293240;
     border: 1px solid #E8E9EB;
     background: #FFFFFF;
     border: 1px solid #D0D4DC !important;
-    
+
 }
-.fullLabel select{
-  width: 100%;
+
+.fullLabel select {
+    width: 100%;
     height: 44px;
     padding: 8px 16px 8px 16px;
     gap: 8px;
@@ -334,32 +351,34 @@ color: #293240;
     background: #FFFFFF;
     border: 1px solid #D0D4DC !important;
     font-family: Inter !important;
-font-size: 14px;
-font-weight: 400;
-line-height: 20px;
-letter-spacing: 0.0025em;
-color: #1B2533;
-text-align: left;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    letter-spacing: 0.0025em;
+    color: #1B2533;
+    text-align: left;
 
-    
+
 }
 
 
 
 
-.allInputFileds{
+.allInputFileds {
     display: flex;
     flex-wrap: wrap;
-     gap: 20px 30px;
+    gap: 20px 30px;
 }
-.allInputFileds label{
-   width: 45%;
-   display: flex;
-   flex-direction: column;
-   gap: 0.5rem;
+
+.allInputFileds label {
+    width: 45%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
 
 }
-.allInputFileds label p{
+
+.allInputFileds label p {
     font-family: Inter;
     color: #1B2533;
     font-size: 14px;
@@ -367,15 +386,17 @@ text-align: left;
     line-height: 20px;
     letter-spacing: 0.0025em;
     text-align: left;
-    
+
 
 }
 
-.labwrapp{
-     display: flex;
-     gap: 130px;
+.labwrapp {
+    display: flex;
+    gap: 130px;
 }
-.allInputFileds label input , select{
+
+.allInputFileds label input,
+select {
     width: 354px;
     height: 44px;
     border-radius: 3px;
@@ -386,20 +407,22 @@ text-align: left;
 }
 
 
-.allInputFileds4{
+.allInputFileds4 {
 
     display: grid;
-    grid-template-columns: repeat(2 , 1fr);
-     gap: 20px 30px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px 30px;
 }
-.allInputFileds4 label{
-   width:100%;
-   display: flex;
-   flex-direction: column;
-   gap: 0.5rem;
+
+.allInputFileds4 label {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
 
 }
-.allInputFileds4 label p{
+
+.allInputFileds4 label p {
     font-family: Inter;
     color: #1B2533;
     font-size: 14px;
@@ -407,10 +430,12 @@ text-align: left;
     line-height: 20px;
     letter-spacing: 0.0025em;
     text-align: left;
-    
+
 
 }
-.allInputFileds4 label input , .allInputFileds4 label select{
+
+.allInputFileds4 label input,
+.allInputFileds4 label select {
     width: 100%;
     height: 44px;
     border-radius: 3px;
@@ -420,87 +445,91 @@ text-align: left;
     border: 1px solid #D0D4DC;
 }
 
-.anDesWrap{
+.anDesWrap {
     display: flex;
     flex-direction: column;
     gap: 10px;
     width: 100%;
-    
+
 }
-.anDesWrap p{
-  
+
+.anDesWrap p {
+
     font-family: Gilroy-Medium;
     font-size: 14px;
     font-weight: 400;
     line-height: 17px;
     letter-spacing: 0em;
     text-align: left;
-color: #060606;    
+    color: #060606;
 }
-.anDesWrap textarea{
-  width: 100%;
-  height: 230px;
-  resize: none;
-  border-radius: 3px;
+
+.anDesWrap textarea {
+    width: 100%;
+    height: 230px;
+    resize: none;
+    border-radius: 3px;
     border: 1px solid #293240;
     padding: 10px;
 
 }
 
-.createBtn{
+.createBtn {
     width: 100%;
     display: flex;
     gap: 30px;
     justify-content: flex-start;
 }
-.createBtn .cancelBtn{
-    width:86px;
+
+.createBtn .cancelBtn {
+    width: 86px;
     height: 37px;
     border-radius: 5px;
     display: flex;
     justify-content: center;
-    align-items: center;    
+    align-items: center;
     border: 1px solid #B8BBC0;
-        font-family: Gilroy-SemiBold;
+    font-family: Gilroy-SemiBold;
     font-size: 14px;
     font-weight: 400;
     line-height: 17px;
     letter-spacing: 0em;
     font-family: Inter;
-font-size: 16px;
-font-weight: 500;
-line-height: 24px;
-letter-spacing: 0.005em;
-color: #666D76;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    letter-spacing: 0.005em;
+    color: #666D76;
 }
-.createBtn .creteBtn{
+
+.createBtn .creteBtn {
     width: 76px;
     height: 37px;
     display: flex;
     justify-content: center;
     border-radius: 10px;
-    align-items: center;   
+    align-items: center;
     background-color: #0B56E4;
     font-family: Inter;
     font-size: 16px;
     font-weight: 500;
     line-height: 24px;
     letter-spacing: 0.005em;
-color: #FFFFFF;    
+    color: #FFFFFF;
 }
 
-.creteBtn22{
+.creteBtn22 {
     width: 100px;
     height: 37px;
     display: flex;
     justify-content: center;
     border-radius: 10px;
-    align-items: center;   
+    align-items: center;
     background-color: #0B56E4;
     font-family: Inter;
     font-size: 16px;
     font-weight: 500;
     line-height: 24px;
     letter-spacing: 0.005em;
-color: #FFFFFF;    
+    color: #FFFFFF;
 }

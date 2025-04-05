@@ -7,11 +7,13 @@ import { useMain } from "../../../hooks/useMain";
 import { RxCross2 } from "react-icons/rx";
 import "./award.css";
 import ReactStars from "react-rating-stars-component";
-import { confirmAlert } from "react-confirm-alert"; 
-import "react-confirm-alert/src/react-confirm-alert.css"; 
+import { confirmAlert } from "react-confirm-alert";
+import "react-confirm-alert/src/react-confirm-alert.css";
 import toast from "react-hot-toast";
 import EmployeeNavbar from "../../Employee/Navbar/EmployeeNavbar";
 import EmployeeSidebar from "../../Employee/Sidebar/EmployeeSidebar";
+import { DescriptionModal } from "../../Description";
+
 
 const sidebarItem = [
   {
@@ -95,6 +97,7 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
     rating: "",
   });
 
+  const [viewPop,setViewPop] = useState(false)
   const ratingChanged = (newRating) => {
     setFormdata((prev) => ({
       ...prev,
@@ -115,7 +118,7 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
 
   const fetchAward = async () => {
     const resp = await getAward();
-    setAllAward(resp?.data);
+    setAllAward(resp?.data?.reverse());
   };
 
   useEffect(() => {
@@ -133,24 +136,32 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
   }, [editData]);
 
   const submitHandler = async () => {
+    const toastId = toast.loading('Loading...');
+
     try {
       if (formdata.employee === "Select Employee") {
-        return toast.error("Please select correct employee");
+
+        return toast.error("Please select a valid employee");
       }
+
       if (onEdit) {
-        const ans = await updateAward({ ...formdata });
-        alert("update successfully");
-        setRefreshFlag(!refreshFlag);
+        await updateAward({ ...formdata });
+        toast.success("Successfully Updated");
       } else {
-        const ans = await postAward({ ...formdata });
-        alert("Successfuly Created");
-        setRefreshFlag(!refreshFlag);
+        await postAward({ ...formdata });
+        toast.success("Successfully Created");
       }
+
+      setRefreshFlag(!refreshFlag);
       setPopup1(false);
     } catch (error) {
-      console.log(error);
+      console.error(error);
+      toast.error("Something went wrong",);
+    } finally {
+      toast.dismiss(toastId)
     }
   };
+
 
   const deleteProject = async (id) => {
     confirmAlert({
@@ -208,134 +219,145 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
           <div className="em">
             <div className="flex-col">
               <div className="admin-main adminmain">
-               
-                <div className="plusSection">
-  <div className="adminFirt">
-    <h2 className="hrmShed">Manage Award</h2>
 
-    <div className="hrmDoHe">
+                <div className="plusSection">
+                  <div className="adminFirt">
+                    <h2 className="hrmShed">Manage Award</h2>
+
+                    {/* <div className="hrmDoHe">
       <p>Dashboard</p>
       <img src={chevron} alt="" />
       <span>Award</span>
-    </div>
-  </div>
+    </div> */}
+                  </div>
 
-  <button
-    onClick={() => {
-      setPopup1(true);
-    }}
-    className="adminsetupBtn"
-  >
-    Create Awards
-  </button>
-</div>
+                  <button
+                    onClick={() => {
+                      setPopup1(true);
+                    }}
+                    className="adminsetupBtn"
+                  >
+                    Create Awards
+                  </button>
+                </div>
 
 
                 <div className="relative   overflow-x-auto w-full">
-                  <table className="w-full table1 text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                    <thead className="text-xs uppercase textALLtITL ">
+                  <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700 text-sm text-left text-gray-700 dark:text-gray-300 shadow-md rounded-lg overflow-hidden">
+                    <thead className="bg-gray-100 dark:bg-gray-800 text-xs font-semibold uppercase text-gray-600 dark:text-gray-400">
                       <tr>
-                        <th scope="col" className="px-6 py-3 taskTitl ">
-                          EMPLOYEE
-                        </th>
-                        <th scope="col" className="px-6 py-3 taskTitl ">
-                          REASON
-                        </th>
-                        <th scope="col" className="px-6 py-3 taskTitl ">
-                          DATE
-                        </th>
-                        <th scope="col" className="px-6 py-3 taskTitl ">
-                          GIFT TYPE
-                        </th>
-                        <th scope="col" className="px-6 py-3 taskTitl ">
-                          RATING
-                        </th>
-                        <th scope="col" className="px-6 py-3 taskTitl ">
-                          DESCRIPTION
-                        </th>
-
-                        <th scope="col" className="px-6 py-3 taskTitl ">
-                          ACTION
-                        </th>
+                        <th className="px-6 py-4">Employee</th>
+                        <th className="px-6 py-4">Reason</th>
+                        <th className="px-6 py-4">Date</th>
+                        <th className="px-6 py-4">Gift Type</th>
+                        <th className="px-6 py-4">Rating</th>
+                        <th className="px-6 py-4">Description</th>
+                        <th className="px-6 py-4 text-center">Action</th>
                       </tr>
                     </thead>
-
-                    <tbody>
+                    <tbody className="bg-white dark:bg-gray-900 divide-y divide-gray-100 dark:divide-gray-800">
                       {allAward.map((item, index) => (
-                        <tr key={index} className="bg-white border-b fdf">
-                          <td className="px-6 py-4 taskAns">
-                            {item?.employee}
+                        <tr key={index} className="hover:bg-gray-50 dark:hover:bg-gray-800 transition duration-200">
+                          <td className="px-6 py-4 whitespace-nowrap">{item?.employee}</td>
+                          <td className="px-6 py-4 whitespace-nowrap">{item?.awardType}</td>
+                          <td className="px-6 py-4 whitespace-nowrap">{item?.date}</td>
+                          <td className="px-6 py-4 whitespace-nowrap">{item?.gift}</td>
+                          <td className="px-6 py-4 whitespace-nowrap">{item?.rating}</td>
+                          <td className="px-6 py-4 max-w-xs text-sm text-gray-700 dark:text-gray-300">
+                            {item?.description?.length > 30
+                              ? (
+                                <>
+                                  {item?.description.substring(0, 25)}...
+                                  <span
+                                    className="text-blue-500 text-xs font-medium ml-1 cursor-pointer hover:underline"
+                                    onClick={() => {
+                                      setViewPop(true)
+                                      setFormdata({
+                                        employee: item.employee,
+                                        awardType: item.awardType,
+                                        date: item.date,
+                                        gift: item.gift,
+                                        description: item.description,
+                                        rating: item.rating,
+                                                                               
+                                      })
+                                      console.log(formdata)
+                                    }}
+                                  >
+                                    more
+                                  </span>
+                                </>
+                              )
+                              : item?.description}
                           </td>
-                          <td className="px-6 py-4 taskAns">
-                            {item?.awardType}
+                          <td className="px-6 py-4 flex items-center justify-center gap-4">
+                            <svg
+                              onClick={() => {
+                                setOnEdit(true);
+                                setEditData(item);
+                                setPopup1(true);
+                              }}
+                              className="cursor-pointer hover:scale-110 transition-transform"
+                              width="16"
+                              height="16"
+                              viewBox="0 0 16 16"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M9.71569 5.51667L10.4824 6.28333L2.93236 13.8333H2.16569V13.0667L9.71569 5.51667ZM12.7157 0.5C12.5074 0.5 12.2907 0.583333 12.1324 0.741667L10.6074 2.26667L13.7324 5.39167L15.2574 3.86667C15.5824 3.54167 15.5824 3.01667 15.2574 2.69167L13.3074 0.741667C13.1407 0.575 12.9324 0.5 12.7157 0.5ZM9.71569 3.15833L0.499023 12.375V15.5H3.62402L12.8407 6.28333L9.71569 3.15833Z"
+                                fill="#4B5563"
+                              />
+                            </svg>
+                            <svg
+                              onClick={(e) => {
+                                e.preventDefault();
+                                deleteProject(item?._id);
+                              }}
+                              className="cursor-pointer hover:scale-110 transition-transform"
+                              width="12"
+                              height="16"
+                              viewBox="0 0 12 16"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M9.33317 5.5V13.8333H2.6665V5.5H9.33317ZM8.08317 0.5H3.9165L3.08317 1.33333H0.166504V3H11.8332V1.33333H8.9165L8.08317 0.5ZM10.9998 3.83333H0.999837V13.8333C0.999837 14.75 1.74984 15.5 2.6665 15.5H9.33317C10.2498 15.5 10.9998 14.75 10.9998 13.8333V3.83333Z"
+                                fill="#DE3730"
+                              />
+                            </svg>
                           </td>
-                          <td className="px-6 py-4 taskAns">{item?.date}</td>
-                          <td className="px-6 py-4 taskAns">{item?.gift}</td>
-
-                          <td className="px-6 py-4 taskAns">{item?.rating}</td>
-
-                          <td className="px-6 py-4 taskAns">
-                            {item?.description}
-                          </td>
-
-                          <div className="viewOnwWRAP">
-                            <td className="px-6 py-4 taskAns cursor-pointer">
-                              <div className="testok">
-                                <svg
-                                  className="cursor-pointer"
-                                  onClick={() => {
-                                    setOnEdit(true);
-                                    setEditData(item);
-                                    setPopup1(true);
-                                  }}
-                                  width="16"
-                                  height="16"
-                                  viewBox="0 0 16 16"
-                                  fill="none"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                >
-                                  <path
-                                    d="M9.71569 5.51667L10.4824 6.28333L2.93236 13.8333H2.16569V13.0667L9.71569 5.51667ZM12.7157 0.5C12.5074 0.5 12.2907 0.583333 12.1324 0.741667L10.6074 2.26667L13.7324 5.39167L15.2574 3.86667C15.5824 3.54167 15.5824 3.01667 15.2574 2.69167L13.3074 0.741667C13.1407 0.575 12.9324 0.5 12.7157 0.5ZM9.71569 3.15833L0.499023 12.375V15.5H3.62402L12.8407 6.28333L9.71569 3.15833Z"
-                                    fill="#383838"
-                                  />
-                                </svg>
-
-                                <svg
-                                  className="cursor-pointer"
-                                  onClick={(e) => {
-                                    e.preventDefault();
-                                    deleteProject(item?._id);
-                                  }}
-                                  width="12"
-                                  height="16"
-                                  viewBox="0 0 12 16"
-                                  fill="none"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                >
-                                  <path
-                                    d="M9.33317 5.5V13.8333H2.6665V5.5H9.33317ZM8.08317 0.5H3.9165L3.08317 1.33333H0.166504V3H11.8332V1.33333H8.9165L8.08317 0.5ZM10.9998 3.83333H0.999837V13.8333C0.999837 14.75 1.74984 15.5 2.6665 15.5H9.33317C10.2498 15.5 10.9998 14.75 10.9998 13.8333V3.83333Z"
-                                    fill="#DE3730"
-                                  />
-                                </svg>
-                              </div>
-                            </td>
-                          </div>
                         </tr>
                       ))}
                     </tbody>
                   </table>
+
+
                 </div>
               </div>
             </div>
           </div>
         </div>
 
+                      
+                           {viewPop && <DescriptionModal
+                     title="Details"
+                     data={Object.fromEntries(
+                       Object.entries(formdata).filter(([key]) => key !== "id")
+                     )}
+                     onClose={() => {
+                       setViewPop(false);
+                       setFormdata({});
+                     }}
+                   />}
+                      
+
         {popup1 && (
           <div className="allPopupWrap">
             <div className="awardpopupcont">
-              
+
               <div className="allform_header">
-                <h2>Create New Award</h2>
+                <h2>{onEdit ? 'Edit Award' : 'Create New Award'}</h2>
 
                 <RxCross2
                   onClick={() => {
@@ -440,7 +462,7 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
                     ,
                   </label>
                 </div>
-                
+
               </div>
 
               <div className="btnWrap Award-popup-btn">
@@ -470,7 +492,7 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
                     setPopup1(false);
                   }}
                 >
-                  <span>Create</span>
+                  <span>{onEdit ? 'Update' : 'Create'}</span>
                 </button>
               </div>
 

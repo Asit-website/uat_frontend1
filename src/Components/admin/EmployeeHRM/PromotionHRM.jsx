@@ -10,6 +10,8 @@ import toast from "react-hot-toast";
 import EmployeeNavbar from "../../Employee/Navbar/EmployeeNavbar";
 import EmployeeSidebar from "../../Employee/Sidebar/EmployeeSidebar";
 import { RxCross2 } from "react-icons/rx";
+import { confirmAlert } from 'react-confirm-alert';
+import { DescriptionModal } from "../../Description";
 
 
 const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
@@ -23,6 +25,7 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
   const [editData, setEditData] = useState({});
   const [data, setData] = useState([]);
   const [designation, setDesignation] = useState([]);
+  const [viewPop, setViewPop] =useState(false)
 
   const [formdata, setFormdata] = useState({
     Employee: "", Designation: "", title: "", promotionDate: "", description: ""
@@ -33,9 +36,37 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
     setEmployee(ans?.emp);
   }
 
+  const deleteProject = async (id) => {
+
+    confirmAlert({
+      title: 'Are you sure to delete this data?',
+      message: 'All related data to this will be deleted',
+      buttons: [
+        {
+          label: 'Yes, Go Ahead!',
+          style: {
+            background: "#FF5449"
+          },
+          onClick: async () => {
+            await deletePromotion(id);
+            toast.success("delete Successfully");
+            setRefreshFlag(!refreshFlag);
+            getData();
+          }
+        },
+        {
+          label: 'Cancel',
+
+          onClick: () => null
+        }
+      ]
+    });
+
+  };
+
   const getData = async () => {
     const ans = await getPromotion();
-    setData(ans?.data);
+    setData(ans?.data?.reverse());
   }
 
   const designationCollect = async () => {
@@ -80,6 +111,7 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
   }, [editData])
 
   const submitHandler = async (e) => {
+    const toastId = toast.loading('loading...')
     try {
       if (onEdit) {
         await updatePromotion({ ...formdata });
@@ -94,6 +126,7 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
         getData();
       }
       setPopup1(false);
+      toast.dismiss(toastId)
     } catch (error) {
       console.log(error);
     }
@@ -144,11 +177,11 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
   <div className="adminFirt">
     <h2 className="hrmShed">Manage Promotion</h2>
 
-    <div className="hrmDoHe">
+    {/* <div className="hrmDoHe">
       <p>Dashboard</p>
       <img src={chevron} alt="" />
       <span>Promotion</span>
-    </div>
+    </div> */}
   </div>
 
   <button
@@ -200,7 +233,21 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
                           </td>
                           <td className="px-6 py-4 taskAns">{item?.title}</td>
                           <td className="px-6 py-4 taskAns">{item?.promotionDate}</td>
-                          <td className="px-6 py-4 taskAns">{item?.description}</td>
+                          <td className="px-6 py-4 taskAns">{item?.description.length > 30 ?
+                                item?.description.substring(0, 29) :
+                                item?.description}
+                              <span className='text-blue-400 cursor-pointer' onClick={() => {
+                                setViewPop(true)
+                                setFormdata({
+                                  id: item?._id,
+                                  Employee: item?.Employee,
+                                  Designation: item?.Designation,
+                                  title: item?.title,
+                                  promotionDate: item?.promotionDate,
+                                  description: item?.description
+                                })
+                                console.log(formdata)
+                              }}>{item?.description.length > 30 && ' more...'}</span></td>
 
                           <div className="viewOnwWRAP">
                             <td
@@ -218,7 +265,7 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
                                 </svg>
 
                                 <svg className="cursor-pointer" onClick={() => {
-                    deletePromotion(item?._id)
+                    deleteProject(item?._id)
                   }}
                                   width="12" height="16" viewBox="0 0 12 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                   <path d="M9.33317 5.5V13.8333H2.6665V5.5H9.33317ZM8.08317 0.5H3.9165L3.08317 1.33333H0.166504V3H11.8332V1.33333H8.9165L8.08317 0.5ZM10.9998 3.83333H0.999837V13.8333C0.999837 14.75 1.74984 15.5 2.6665 15.5H9.33317C10.2498 15.5 10.9998 14.75 10.9998 13.8333V3.83333Z" fill="#DE3730" />
@@ -242,18 +289,30 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
           </div>
         </div>
 
+        {viewPop && <DescriptionModal
+                          title="Details"
+                          data={Object.fromEntries(
+                            Object.entries(formdata).filter(([key]) => key !== "id")
+                          )}
+                          onClose={() => {
+                            setViewPop(false);
+                            setFormdata({});
+                          }}
+                        />}
+
         {popup1 && (
           <div className="allPopupWrap">
             <div className="awardpopupcont">
 
               <div className="allform_header">
                 
-              <h2>Create New Promotion</h2>
+              <h2>{onEdit? 'Edit Promotion':'Create New Promotion'}</h2>
 
               <RxCross2 onClick={() => {
             setPopup1(false);
             setOnEdit(false);
             setEditData({});
+            setFormdata({})
             
           }} className="RxCross2_form" />
 
@@ -333,6 +392,8 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
             setPopup1(false);
             setOnEdit(false);
             setEditData({});
+            setFormdata({})
+
           
           }} className="cencel awd-cancel">
                   <span>Cancel</span>

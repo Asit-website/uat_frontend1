@@ -308,11 +308,11 @@ const LeaveRequest = ({
                       {data?.map((e, index) => {
                         return (
                           <tr
-                            onClick={() => setLeavePopup(e)}
+
                             key={index}
                             className="bg-white trtextalltr cursor-pointer gfg border-b"
                           >
-                            <td className="px-2 py-3"> {e?.user?.fullName}</td>
+                            <td className="px-2 py-3 underline text-blue-500" onClick={() => setLeavePopup(e)}> {e?.user?.fullName}</td>
                             <td className="px-2 py-3">{e?.leaveType}</td>
                             <td className="px-2 py-3">
                               {formatDate(e?.appliedOn)}
@@ -322,7 +322,7 @@ const LeaveRequest = ({
                             <td className="px-2 py-3"> {e?.days - 1 + 2} </td>
 
                             <td className="px-2 py-3">
-                              {e?.reason?.slice(0,34)}...
+                              {e?.reason?.slice(0, 34)}...
                             </td>
 
                             <td className="px-2 py-3">
@@ -334,14 +334,95 @@ const LeaveRequest = ({
                             <td className="px-2 py-3  flex items-center hiii_gap">
                               {(leaveReqestEditPermission ||
                                 role === "ADMIN") && (
-                                <div className="relative">
+                                  <div className="relative">
+                                    <button
+                                      onClick={() => {
+                                        if (showPlay === index) {
+                                          setShowPlay(-1);
+                                        } else {
+                                          setShowPlay(index);
+                                        }
+                                      }}
+                                      id="dropdownMenuIconButton2222"
+                                      data-dropdown-toggle="dropdownDots2222"
+                                      className="inline-flex items-center p-2 text-sm font-medium text-center text-gray-900 bg-white rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none dark:text-white focus:ring-gray-50 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+                                      type="button"
+                                    >
+                                      <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        stroke-width="1.5"
+                                        stroke="currentColor"
+                                        className="w-6 h-6"
+                                      >
+                                        <path
+                                          stroke-linecap="round"
+                                          stroke-linejoin="round"
+                                          d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.347a1.125 1.125 0 0 1 0 1.972l-11.54 6.347a1.125 1.125 0 0 1-1.667-.986V5.653Z"
+                                        />
+                                      </svg>
+                                    </button>
+
+                                    <div
+                                      style={{ gap: "5px" }}
+                                      className={`absolute ${showPlay === index
+                                        ? "showPlay"
+                                        : "hidenPlay"
+                                        }`}
+                                    >
+                                      <p
+                                        onClick={() => {
+                                          acceptHandler(e);
+                                        }}
+                                        style={{
+                                          backgroundColor: "green",
+                                          color: "white",
+                                          padding: "10px",
+                                          borderRadius: "10px",
+                                          cursor: "pointer",
+                                          transform: "translateX(-20px)",
+                                          zIndex: "100",
+                                        }}
+                                      >
+                                        Accept{" "}
+                                      </p>
+                                      <p
+                                        onClick={() => {
+                                          rejectHandler(e);
+                                          // toggleStatus(e?._id)
+                                        }}
+                                        style={{
+                                          backgroundColor: "red",
+                                          color: "white",
+                                          padding: "10px",
+                                          borderRadius: "10px",
+                                          cursor: "pointer",
+                                          transform: "translateX(-20px)",
+                                          zIndex: "100",
+                                        }}
+                                      >
+                                        Reject
+                                      </p>
+                                    </div>
+                                  </div>
+                                )}
+
+                              {(leaveReqestEditPermission ||
+                                role === "ADMIN") && (
                                   <button
                                     onClick={() => {
-                                      if (showPlay === index) {
-                                        setShowPlay(-1);
-                                      } else {
-                                        setShowPlay(index);
-                                      }
+                                      setFormdata((prev) => ({
+                                        ...prev,
+
+                                        reason: e.reason,
+                                        leaveType: e.leaveType,
+                                        employeeName: e?.user?.fullName,
+                                        start: e.from,
+                                        end: e.to,
+                                        id: e._id,
+                                      }));
+                                      setStar1((prev) => !prev);
                                     }}
                                     id="dropdownMenuIconButton2222"
                                     data-dropdown-toggle="dropdownDots2222"
@@ -359,93 +440,11 @@ const LeaveRequest = ({
                                       <path
                                         stroke-linecap="round"
                                         stroke-linejoin="round"
-                                        d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.347a1.125 1.125 0 0 1 0 1.972l-11.54 6.347a1.125 1.125 0 0 1-1.667-.986V5.653Z"
+                                        d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125"
                                       />
                                     </svg>
                                   </button>
-
-                                  <div
-                                    style={{ gap: "5px" }}
-                                    className={`absolute ${
-                                      showPlay === index
-                                        ? "showPlay"
-                                        : "hidenPlay"
-                                    }`}
-                                  >
-                                    <p
-                                      onClick={() => {
-                                        acceptHandler(e);
-                                      }}
-                                      style={{
-                                        backgroundColor: "green",
-                                        color: "white",
-                                        padding: "10px",
-                                        borderRadius: "10px",
-                                        cursor: "pointer",
-                                        transform: "translateX(-20px)",
-                                        zIndex: "100",
-                                      }}
-                                    >
-                                      Accept{" "}
-                                    </p>
-                                    <p
-                                      onClick={() => {
-                                        rejectHandler(e);
-                                        // toggleStatus(e?._id)
-                                      }}
-                                      style={{
-                                        backgroundColor: "red",
-                                        color: "white",
-                                        padding: "10px",
-                                        borderRadius: "10px",
-                                        cursor: "pointer",
-                                        transform: "translateX(-20px)",
-                                        zIndex: "100",
-                                      }}
-                                    >
-                                      Reject
-                                    </p>
-                                  </div>
-                                </div>
-                              )}
-
-                              {(leaveReqestEditPermission ||
-                                role === "ADMIN") && (
-                                <button
-                                  onClick={() => {
-                                    setFormdata((prev) => ({
-                                      ...prev,
-
-                                      reason: e.reason,
-                                      leaveType: e.leaveType,
-                                      employeeName: e?.user?.fullName,
-                                      start: e.from,
-                                      end: e.to,
-                                      id: e._id,
-                                    }));
-                                    setStar1((prev) => !prev);
-                                  }}
-                                  id="dropdownMenuIconButton2222"
-                                  data-dropdown-toggle="dropdownDots2222"
-                                  className="inline-flex items-center p-2 text-sm font-medium text-center text-gray-900 bg-white rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none dark:text-white focus:ring-gray-50 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
-                                  type="button"
-                                >
-                                  <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    stroke-width="1.5"
-                                    stroke="currentColor"
-                                    className="w-6 h-6"
-                                  >
-                                    <path
-                                      stroke-linecap="round"
-                                      stroke-linejoin="round"
-                                      d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125"
-                                    />
-                                  </svg>
-                                </button>
-                              )}
+                                )}
 
                               <div
                                 id="dropdownDots2222"
@@ -540,9 +539,9 @@ const LeaveRequest = ({
             id="authentication-modal"
             tabindex="-1"
             aria-hidden="true"
-            class="user_class tuser_class hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center mt-10 md:inset-0 h-[calc(100%-1rem)] max-h-full"
+            className="user_class tuser_class  max-h-full"
           >
-            <div class="relative p-4  editleaFrom max-h-full">
+            <div class="relative p-4 editleaFrom max-h-full">
               {/* <!-- Modal content --> */}
               <div class="relative bg-white rounded-lg shadow dark:bg-gray-700 swer">
                 {/* <!-- Modal header --> */}

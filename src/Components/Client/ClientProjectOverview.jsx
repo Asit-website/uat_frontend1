@@ -8,6 +8,7 @@ import ProjectOverview2 from "../admin/EmployManagement/ProjectOverview2";
 import { useMain } from "../../hooks/useMain";
 import toast from "react-hot-toast";
 import ProgressBar from "@ramonak/react-progress-bar";
+import { FaFileAlt } from "react-icons/fa";
 
 
 const ClientProjectOverview = () => {
@@ -22,54 +23,54 @@ const ClientProjectOverview = () => {
   const [openTask, setOpenTask] = useState(0);
   const [OpenTaskper, setOpenTaskper] = useState(0);
 
-  
+
   const [selectedFile, setSelectedFile] = useState(null);
-    const [allfiles, setAllFiles] = useState([]);
-    const fileInputRef = useRef(null);
-  
-  
-    const fetchAllFile = async () => {
-      const resp = await allfilesproject(data?._id);
-      setAllFiles(resp?.files?.reverse());
-    };
-  
-    const handleFileChange = (event) => {
-      const toastId = toast.loading("Loading...");
-      const files = event.target.files; // Get all selected files
-      setSelectedFile(files); // Store the files in state
-      toast.dismiss(toastId);
-    };
-  
-    const uploadFileProject = async () => {
-      if(selectedFile === null) return toast.error('Please Choose a file !!')
-      if (selectedFile && selectedFile.length > 0) {
-        const toastId = toast.loading("Uploading...");
-  
-        // Loop through the selected files and upload each one
-        for (let i = 0; i < selectedFile.length; i++) {
-          const file = selectedFile[i];
-          await UploadFileProjectapi(file, data?._id);
-        }
-        if (fileInputRef.current) {
-          fileInputRef.current.value = "";
-        }
-        toast.success("Successfully uploaded");
-        toast.dismiss(toastId);
-        fetchAllFile();
+  const [allfiles, setAllFiles] = useState([]);
+  const fileInputRef = useRef(null);
+
+
+  const fetchAllFile = async () => {
+    const resp = await allfilesproject(data?._id);
+    setAllFiles(resp?.files?.reverse());
+  };
+
+  const handleFileChange = (event) => {
+    const toastId = toast.loading("Loading...");
+    const files = event.target.files; // Get all selected files
+    setSelectedFile(files); // Store the files in state
+    toast.dismiss(toastId);
+  };
+
+  const uploadFileProject = async () => {
+    if (selectedFile === null) return toast.error('Please Choose a file !!')
+    if (selectedFile && selectedFile.length > 0) {
+      const toastId = toast.loading("Uploading...");
+
+      // Loop through the selected files and upload each one
+      for (let i = 0; i < selectedFile.length; i++) {
+        const file = selectedFile[i];
+        await UploadFileProjectapi(file, data?._id);
       }
-    };
+      if (fileInputRef.current) {
+        fileInputRef.current.value = "";
+      }
+      toast.success("Successfully uploaded");
+      toast.dismiss(toastId);
+      fetchAllFile();
+    }
+  };
 
 
-  const deleteFile = async(id,uploadedBy)=>{
+  const deleteFile = async (id, uploadedBy) => {
     const hrms_user = localStorage.getItem("hrms_user")
     console.log(id)
-    if(uploadedBy && uploadedBy !== hrms_user?.id ){
+    if (uploadedBy && uploadedBy !== hrms_user?.id) {
       alert("you can't delete it")
       return
     }
     const ans = await deleteProjectFile(id);
     await fetchAllFile()
-    return  ans;
+    return ans;
   }
   const handleDownload = async (url, filename) => {
     try {
@@ -77,7 +78,7 @@ const ClientProjectOverview = () => {
       if (!response.ok) {
         throw new Error(`Failed to fetch file: ${response.statusText}`);
       }
-  
+
       const blob = await response.blob();
       const link = document.createElement("a");
       link.href = window.URL.createObjectURL(blob);
@@ -116,13 +117,13 @@ const ClientProjectOverview = () => {
     // console.log(completedPercentage)
     if (isNaN(opentaskper)) {
       console.log("opentaskper is NaN");
-      
+
       setOpenTaskper(0);
     } else {
-    setOpenTaskper(opentaskper);
+      setOpenTaskper(opentaskper);
 
       console.log("opentaskper is not NaN");
-  }
+    }
 
     setPercentage(completedPercentage);
     // gettAllClients();
@@ -200,7 +201,7 @@ const ClientProjectOverview = () => {
                     <p>{data?.Description}</p>
                   </div>
 
-                  
+
                 </div>
 
                 <div className="secnoveview">
@@ -209,19 +210,19 @@ const ClientProjectOverview = () => {
                       <p>{openTask}/{allTasks?.length} Open TASKS</p>
                       <ProgressBar completed={OpenTaskper} />
                     </nav>
-                    <hr className="my-5"/>
-                  <div className="embers">
-                    <h3>MEMBERS</h3>
+                    <hr className="my-5" />
+                    <div className="embers">
+                      <h3>MEMBERS</h3>
 
-                    <div className="allMEmb">
-                      {data?.Members?.map((mem, index) => (
-                        <div key={index} className="snglme">
-                          <img src={mem?.profileImage ? mem?.profileImage :"https://png.pngtree.com/png-vector/20231019/ourmid/pngtree-user-profile-avatar-png-image_10211467.png"} alt="" />
-                          <p>{mem?.fullName}</p>
-                        </div>
-                      ))}
+                      <div className="allMEmb">
+                        {data?.Members?.map((mem, index) => (
+                          <div key={index} className="snglme">
+                            <img src={mem?.profileImage ? mem?.profileImage : "https://png.pngtree.com/png-vector/20231019/ourmid/pngtree-user-profile-avatar-png-image_10211467.png"} alt="" />
+                            <p>{mem?.fullName}</p>
+                          </div>
+                        ))}
+                      </div>
                     </div>
-                  </div>
                   </div>
                 </div>
               </div>
@@ -289,7 +290,7 @@ const ClientProjectOverview = () => {
                             <p className="text-gray-600">
                               <strong>Uploaded On:</strong> {new Date(file?.createdAt).toLocaleDateString()}
                             </p>
-                            <button onClick={()=>deleteFile(file?._id, file?.uploadedBy?._id)} className="bg-red-500 text-white px-2 rounded py-1">Delete</button>
+                            <button onClick={() => deleteFile(file?._id, file?.uploadedBy?._id)} className="bg-red-500 text-white px-2 rounded py-1">Delete</button>
                           </div>
 
                           {/* Image or file preview */}
@@ -308,18 +309,11 @@ const ClientProjectOverview = () => {
                                 />
                               </a>
                             ) : (
-                              <a
-                                target="_blank"
-                                href={`${file?.filePath}`}
-                                className="text-blue-500 hover:underline"
-                              >
-
-                                <p className="text-gray-500 text-sm">{file?.fileName}</p>
-                              </a>
-                              // Show File Name if not an image
+                              <FaFileAlt onClick={() => handleDownload(file?.filePath, file?.fileName)} className="h-10 w-10" />
                             )}
-                          
-                          </div>  <button onClick={() => handleDownload(file?.filePath, file?.fileName)} className="text-blue-500">Download</button>
+                            <button onClick={() => handleDownload(file?.filePath, file?.fileName)} className="text-blue-500">Download</button>
+                          </div>
+
                         </div>
                       </div>
                     ))}

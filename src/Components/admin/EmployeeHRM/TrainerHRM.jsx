@@ -466,11 +466,11 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
                   <div className="adminFirt">
                     <h2 className="hrmShed">Manage Trainer</h2>
 
-                    <div className="hrmDoHe">
+                    {/* <div className="hrmDoHe">
                       <p>Dashboard</p>
                       <img src={chevron} alt="" />
                       <span>Trainer</span>
-                    </div>
+                    </div> */}
                   </div>
 
                   <img
